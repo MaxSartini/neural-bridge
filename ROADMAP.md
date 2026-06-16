@@ -13,6 +13,7 @@ Completed:
 - Grouped-video spike F1 improves over AR for PCA modes.
 - Balanced event-vs-stable sampling confirms event-conditioned discrimination.
 - Temporal context v2 shows short causal windows can improve selected spike-ranking rows.
+- Alignment repair selected the final benchmark policy: keep current 0s alignment primary and report offset grids as diagnostics.
 - Small v2 evidence reports are tracked in this repo.
 
 This baseline should be treated as the current scientific foundation, not a hypothesis waiting for basic proof.
@@ -27,17 +28,18 @@ Goal: make the proven v2 baseline impossible to lose or confuse with old runs.
 - [ ] Add one verification command that rechecks the v2 evidence bundle without re-encoding videos.
 - [ ] Keep small summary reports in git; keep heavy caches and raw outputs external.
 
-## 2. Timing And Alignment
+## 2. Alignment Policy Preservation
 
-Goal: turn the v2 spike-ranking result into a cleaner timing story.
+Goal: preserve the resolved timing policy and prevent future work from silently replacing it with a test-derived lag correction.
 
+- [x] Audit spike rows that prefer non-zero offsets.
+- [x] Select 0s alignment as the primary non-leaky benchmark baseline.
+- [x] Keep offset grids as diagnostics rather than final-score corrections.
+- [x] Confirm no future-looking feature leakage in causal/delta/window features.
 - [ ] Resolve the video `83` prediction/manifest length mismatch policy.
-- [ ] Audit spike rows that prefer non-zero offsets.
-- [ ] Separate annotation lag, feature lag, smoothing lag, and real anticipatory signal.
-- [ ] Keep test-selected lag corrections out of headline metrics.
-- [ ] Promote only causal-context or train-selected-offset results that survive controls.
+- [ ] Carry the alignment policy into the training tensor contract and future dashboards.
 
-Done means the project can say not only that the signal exists, but when it appears relative to human arousal events.
+Done means future model work cannot accidentally claim a lag-corrected score as the benchmark headline.
 
 ## 3. v2 Training Tensor Contract
 
@@ -51,7 +53,7 @@ Goal: make new heads consume the proven v2 data without changing the benchmark u
 
 ## 4. Next Model Heads
 
-Goal: improve event/spike ranking from the v2 baseline without weakening controls.
+Goal: improve event/spike ranking from the v2 baseline without weakening controls or replacing the resolved alignment policy.
 
 - [ ] Start with simple, auditable heads over the frozen tensor contract.
 - [ ] Compare against the v2 PCA/ridge baseline, AR, shuffled, random, timestamp, and video/time controls.

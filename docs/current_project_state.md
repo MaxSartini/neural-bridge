@@ -49,6 +49,7 @@ Current v2 evidence reports now tracked in this repo:
 - Grouped-video validation improves aggregate spike F1 over AR for PCA modes.
 - Balanced event-vs-stable sampling confirms event-conditioned discrimination for the strongest spike rows.
 - Temporal context v2 shows short causal windows improve selected future arousal spike ranking over current-only evaluation.
+- Alignment policy is resolved: current 0s alignment remains the primary non-leaky benchmark, while offset-grid results are diagnostics.
 
 ## Benchmark Rules
 
@@ -64,10 +65,10 @@ Current v2 evidence reports now tracked in this repo:
 1. Freeze the current 124-video v2 baseline into a protected external snapshot.
 2. Resolve the video `83` prediction/manifest length mismatch policy.
 3. Formalize the v2 training tensor contract.
-4. Audit non-zero offset spike rows before stronger timing claims.
+4. Carry the resolved alignment policy into the tensor contract and benchmark dashboard.
 5. Extract and freeze subcortical VEATIC-124 only as a separate, ablated expansion.
 6. Delete or archive old pre-124 runs after preserving the useful evidence.
 
 ## Next Safe Move
 
-Freeze the current 124-video v2 evidence bundle, resolve timing/alignment, then build new model heads on a fixed tensor contract.
+Freeze the current 124-video v2 evidence bundle, settle video `83`, then build new model heads on a fixed tensor contract that preserves the 0s-primary alignment policy.

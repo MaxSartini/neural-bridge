@@ -13,6 +13,7 @@ The VEATIC-124 v2 evidence bundle validates these hypotheses:
 3. Balanced event-vs-stable evaluation exposes signal that full-frame continuous MAE hides.
 4. Short causal temporal context improves selected future spike-ranking rows over current-only evaluation.
 5. A single 0s feature snapshot can underfeed the bridge head for spike/event tasks.
+6. The alignment audit resolved the benchmark policy: keep current 0s alignment as the primary non-leaky benchmark and report offset grids as diagnostics, not as a test-derived correction.
 
 The current claim is intentionally precise: Neural Bridge has evidence for arousal event/spike ranking and temporal-context sufficiency, not exact continuous arousal-value prediction and not yet fully validated simulation injection.
 
@@ -26,6 +27,7 @@ The current claim is intentionally precise: Neural Bridge has evidence for arous
 - Grouped-video aggregate spike F1 improves over AR for PCA modes: `cortical_pca_64` `+0.0256`, `cortical_pca64_delta` `+0.0177`.
 - Balanced event-vs-stable spike row at threshold `0.05`: `cortical_pca64_delta` PR-AUC `0.3394`, `+0.0609` over AR, `+0.0631` over shuffled, `+0.0476` over random.
 - Temporal context v2: 4/4 focused feature-target rows improve over current-only by more than `0.005` PR-AUC; best focused windows are `causal_past_2s`.
+- Alignment repair: no safe global lag correction was selected; the final non-leaky policy is `keep_current_0s_as_primary_plus_report_offset_diagnostics`.
 
 Source summaries:
 
@@ -35,11 +37,12 @@ Source summaries:
 - [benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md](benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md)
 - [outputs/veatic_124_temporal_context_v2_20260616_1557/veatic_124_temporal_context_v2_report.md](outputs/veatic_124_temporal_context_v2_20260616_1557/veatic_124_temporal_context_v2_report.md)
 - [outputs/veatic_124_temporal_fairness_20260616_1509/veatic_124_temporal_fairness_report.md](outputs/veatic_124_temporal_fairness_20260616_1509/veatic_124_temporal_fairness_report.md)
+- [benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md](benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md)
 
 ## What Remains Unproven
 
 - Exact continuous future arousal-value forecasting. Continuous MAE remains diagnostic because zero-change baselines still win most continuous checks.
-- Strong universal early-warning claims. Some rows prefer non-zero offsets, so timing/alignment needs a dedicated follow-up.
+- Strong universal early-warning claims. The alignment pass supports 0s primary scoring plus transparent offset diagnostics, not a global lag correction.
 - End-to-end simulation improvement. Neural features still need the required simulation ablation suite before they become a validated agent-conditioning mechanism.
 - Subcortical VEATIC-124 gains. The current main 124-video cache is cortical; subcortical artifacts are smoke/test only unless separately extracted and frozen.
 
@@ -132,7 +135,7 @@ The local `.env` file is ignored by git. Full benchmark workflows require the ex
 The active post-v2 roadmap is in [ROADMAP.md](ROADMAP.md). The short version is:
 
 1. Freeze and package the v2 evidence bundle.
-2. Resolve timing/alignment and video `83` policy.
+2. Preserve the resolved alignment policy and settle the video `83` resampling policy.
 3. Build the v2 training tensor contract and model-head path.
 4. Extend to subcortical and OpenLAV only after the cortical v2 baseline remains reproducible.
 5. Validate neural simulation injection with ablations.
