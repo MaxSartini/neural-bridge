@@ -18,7 +18,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_HANDOFF_DIR = ROOT / "docs" / "handoffs"
 DEFAULT_MEMORY_PATH = ROOT / "docs" / "PROJECT_MEMORY.md"
-DEFAULT_STATE_PATH = ROOT / "docs" / "project_state_2026-06-12.md"
+DEFAULT_STATE_PATH = ROOT / "docs" / "current_project_state.md"
 VEATIC_CACHE = Path("/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache")
 
 
@@ -229,4 +229,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
