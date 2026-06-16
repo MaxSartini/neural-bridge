@@ -1,157 +1,190 @@
-<div align="center">
+# Neural Bridge
 
-<img src="./static/image/neural-bridge-banner.png" alt="Neural Bridge" width="100%"/>
+Local neural-response benchmarking and simulation infrastructure.
 
-# Neural Bridge: Future Predictor Edition
+Neural Bridge is a research workbench for testing whether predicted brain-response features can improve behavior and simulation forecasts. The current project direction is not a generic chatbot benchmark, a finance predictor, or an investor-grade forecasting product. It is a local-first system for building, caching, validating, and eventually injecting neuro-derived features into agent simulations under strict baseline and ablation tests.
 
-**Enterprise-Grade Quantitative AI Forward Predictor.**
+The project grew out of the old MiroFish checkout, but this repo is the cleaned Neural Bridge extraction. Heavy models, datasets, caches, and generated benchmark outputs live outside git on the external drive.
 
-*A multi-agent probability engine that ingests historical quantitative data (like stock OHLCV) to predict unwritten future trajectories through adversarial, temporally-anchored Agent debates.*
+## Current Direction
 
-[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue?style=flat-square)](./LICENSE)
+The core research question is:
 
-</div>
+> Can stimulus-derived neural response predictions add measurable, leakage-controlled signal beyond ordinary behavioral and temporal baselines?
 
-## What is this?
+The active pipeline is:
 
-Neural Bridge has been heavily re-architected. It is no longer just a "What-If" social media simulator. It is now a **Deterministic Probability Engine** designed to act like a tier-1 Quant Desk. 
+1. Stimuli are processed through TRIBE/V-JEPA style encoders.
+2. TRIBE predicts cortical response trajectories.
+3. Benchmark scripts turn those trajectories into validated feature sets.
+4. Features are tested against human-response datasets such as VEATIC.
+5. Only validated signals should later condition simulation agents through explicit ablations.
 
-By feeding it historical data (such as financial CSVs), the system mathematically calculates the "Absolute State of Reality" up to the final date provided. It then spawns specialized AI personas (e.g., Retail Traders, Institutional Quants) forced to operate within those strict mathematical boundaries to aggressively debate and predict exactly what will happen *next*. 
+The current verdict is deliberately conservative: the evidence is promising enough to keep scaling, but it is not final proof of a production-ready neural simulator.
 
-The system concludes by extracting a unified consensus prediction of the future.
+## What Works Now
 
-## The 3-Phase Prediction Pipeline
+- Fresh local git repo extracted from the older MiroFish clone.
+- Flask backend, Vue frontend, Neo4j-backed graph services, and local OpenAI-compatible LLM wiring.
+- Apple Silicon oriented TRIBE path using MLX/MPS where it preserves benchmark contracts.
+- Complete VEATIC 124-video cortical cache on the external drive.
+- Current VEATIC manifest with 10,357 1 Hz rows.
+- Benchmark scripts for cortical global features, delta features, PCA features, temporal fairness checks, event-conditioned diagnostics, and device-consistency audits.
+- External asset boundary documented in [docs/external_assets_manifest.md](docs/external_assets_manifest.md).
 
-### 1. The Quantitative Processor
-Instead of simply asking an LLM to guess the future from a massive CSV text dump (which natively causes severe VRAM bloat and hallucinations), the backend utilizes a hardened `pandas/numpy` processing layer.
-- Automatically calculates historical means, Z-Score deviations (anomalies), volatility regimes, and all-time support/resistance levels.
-- Produces a hyper-consolidated **Statistical Data Report** that binds the agents to factual data, effectively banning hallucination.
+## What Is Not Claimed
 
-### 2. The Probability Engine (Multi-Agent Simulation)
-The underlying OASIS framework natively spawns up to 15 unique Agents. 
-- During the simulation, agents do not rehash the past—they engage in a **Forward-Projection window**.
-- A strict **Temporal Anchor** is algorithmically injected per simulated round (e.g., "This is Day 5 of the prediction window"). Agents are forced to stake out and defend forward-looking probabilities against adversarial models.
+- Neural Bridge does not yet prove full end-to-end simulation accuracy.
+- TRIBE features are predictors, not labels.
+- Prompt injection from neural features is not considered validated until it beats shuffled, neutral, inverted, and oracle-style controls.
+- Financial forecasting, quant-desk language, and old "future predictor" claims are legacy copy and should not guide current work.
+- CUDA-only research repos are not part of the main Mac/MPS runtime unless adapted safely.
 
-### 3. The Oracle Consensus Extraction
-The simulation itself is merely the computational method to weigh the probabilities.
-- At the end of the simulation's lifecycle, the `extract_consensus.py` script automatically scans the immense SQLite database of debated posts.
-- It leverages local LLMs (via LM Studio) to distill hundreds of highly accurate, mathematically grounded debates into a pristine, actionable **16-point JSON Prediction Report**.
+## Architecture
 
-## Tech Stack
+```text
+frontend/
+  Vue/Vite interface for graph, simulation, and report workflows.
 
-A complete inventory of every runtime dependency the engine touches. All inference is local — nothing leaves the host.
+backend/app/
+  Flask API, graph services, simulation services, local LLM clients, storage, and utilities.
 
-### Backend — Python 3.11+
-| Layer | Module | Purpose |
-| --- | --- | --- |
-| Web framework | `flask` (>=3.0), `flask-cors` (>=6.0) | REST API on port 5001, CORS for the Vite dev server |
-| LLM clients | `openai` (>=1.0) | Unified OpenAI-compatible client routed at LM Studio / Ollama |
-| | `httpx` (>=0.27) | Service health pre-flight in [backend/run.py](backend/run.py) |
-| | `requests` (>=2.28) | Ollama embedding fallbacks and ad-hoc HTTP |
-| Graph database | `neo4j` (>=5.15) | Bolt driver for the memory graph |
-| Multi-agent sim | `camel-oasis` (==0.2.5) | OASIS social-platform simulator |
-| | `camel-ai` (==0.2.78) | Underlying CAMEL agent framework (`ModelFactory`, `ModelPlatformType`, `BaseMessage`) |
-| Quant / numerics | `numpy` (>=1.26) | Z-scores, volatility regimes, rolling stats in [market_data_consolidator.py](backend/app/services/market_data_consolidator.py) |
-| | `pandas` (>=2.1) | CSV / Excel ingestion + time-series math |
-| | `openpyxl` (>=3.1) | Pandas backend for `.xlsx` uploads |
-| File parsing | `PyMuPDF` (`fitz`, >=1.24) | PDF text extraction in [file_parser.py](backend/app/utils/file_parser.py) |
-| | `Pillow` (>=10.0) | Image decode for the screenshot vision pipeline |
-| | `charset-normalizer` (>=3.0), `chardet` (>=5.0) | Encoding detection for non-UTF-8 text |
-| Utilities | `python-dotenv` (>=1.0) | `.env` loading |
-| | `pydantic` (>=2.0) | Schema validation for ontologies + structured LLM output |
-| Dev (optional) | `pytest`, `pytest-asyncio`, `pipreqs` | Test suite + dependency auditing |
+backend/neuro_core/
+  Neural Bridge core data contracts and neuro feature utilities.
 
-**Stdlib hot-path:** `asyncio`, `multiprocessing`, `threading`, `queue`, `signal`, `atexit`, `subprocess`, `sqlite3` (OASIS event log), `dataclasses`, `enum`, `pathlib`, `logging` + `RotatingFileHandler`, `uuid`, `base64`, `tempfile`, `shutil`, `glob`.
+backend/scripts/
+  Benchmarking, cache extraction, audit, and simulation scripts.
 
-### Frontend — Node.js 18+
-| Module | Purpose |
-| --- | --- |
-| `vue` (^3.5) | Composition-API SPA |
-| `vue-router` (^4.6) | Client-side routing |
-| `axios` (^1.13) | API client in [src/api/index.js](frontend/src/api/index.js), 5-minute timeout for slow LLM calls |
-| `d3` (^7.9) | Graph visualisations in [GraphPanel.vue](frontend/src/components/GraphPanel.vue) and step views |
-| `vite` (^7.2), `@vitejs/plugin-vue` (^6.0) | Dev server (port 3000) + build, proxies `/api` → `:5001` |
-| `concurrently` (^9.1, root) | Runs backend + frontend together via `npm run dev` |
+external_models/
+  Lightweight source checkouts and adapters. Heavy weights stay outside git.
 
-### Infrastructure & local services
-- **Neo4j 5.15+ Community** with the APOC plugin — graph store on Bolt `:7687`, browser `:7474`.
-- **LM Studio** (preferred on Apple Silicon) or **Ollama** — OpenAI-compatible LLM host on `:1234` (LM Studio) or `:11434` (Ollama).
-- **Embedding model:** `nomic-embed-text-v1.5` (768-dim) served on `:1235` by LM Studio, or via Ollama's embeddings endpoint.
-- **LLM model:** local Gemma `gemma-4-26b-a4b-it` (default) — see `LLM_MODEL_NAME`. Qwen 2.5 / LLaMA 3 work as drop-ins.
-- **Container runtime:** Docker + docker-compose (`neural_bridge`, `neural_bridge-neo4j`, `neural_bridge-ollama` services).
-- **Python toolchain:** `uv` (>=0.9) for the locked install path; `pip` works against `requirements.txt`.
-
-### Architectural modules (project source)
-- **API blueprints** ([app/api/](backend/app/api/)): `graph.py`, `simulation.py`, `report.py`, `scrape.py` — registered under `/api/{graph,simulation,report,scrape}`.
-- **Services** ([app/services/](backend/app/services/)): `ontology_generator`, `graph_builder`, `text_processor`, `entity_reader`, `oasis_profile_generator`, `simulation_manager`, `simulation_config_generator`, `simulation_runner`, `simulation_ipc`, `graph_memory_updater`, `graph_tools`, `market_data_consolidator`, `screenshot_processor`, `report_agent`.
-- **Storage** ([app/storage/](backend/app/storage/)): `neo4j_storage`, `neo4j_schema`, `graph_storage`, `embedding_service`, `ner_extractor`, `search_service`.
-- **Utilities** ([app/utils/](backend/app/utils/)): `file_parser`, `llm_client`, `logger`.
-- **Models** ([app/models/](backend/app/models/)): `project`, `task`.
-- **Simulation scripts** ([backend/scripts/](backend/scripts/)): `run_parallel_simulation.py` (local Neural Bridge loop), plus legacy adapter scripts kept for compatibility.
-
-## Quick Start (Local Inference)
-
-### Prerequisites
-
-- macOS / Linux (optimised for Apple Silicon, e.g. M2 Max)
-- Python 3.11+, Node.js 18+, Neo4j 5.15+, Docker (optional but recommended)
-- Local LLM host (LM Studio or Ollama) running Gemma / Qwen / LLaMA 3
-- `uv` (optional, but used by `npm run setup:backend` and the Dockerfile)
-
-### Manual Setup
-**1. Start Neo4j**
-```bash
-docker run -d --name neo4j \
-  -p 7474:7474 -p 7687:7687 \
-  -e NEO4J_AUTH=neo4j/neural_bridge \
-  neo4j:5.15-community
+docs/ and reports/
+  Current project memory, benchmark contracts, readiness notes, handoffs, and audits.
 ```
 
-**2. Start the Backend**
+The active cortical extraction path is:
+
+```text
+backend/scripts/run_veatic_tribe_cache.py
+  -> app.services.tribe_adapter.TribeAdapter
+  -> backend tribe_mlx path
+  -> MLX/MPS TRIBE runtime
+  -> per-video tribe_raw_output.npz
+```
+
+The main runtime contract is cortical-first. Subcortical extraction exists as a research path, but the main 124-video VEATIC cache is cortical unless a separate frozen subcortical cache is explicitly produced.
+
+## External Assets
+
+Primary external root:
+
 ```bash
-# Ensure you are using your configured .env file
-cd backend
-python -m venv .venv
+/Volumes/onn. Drive/Neural Bridge
+```
+
+Large assets are intentionally not committed:
+
+- model weights
+- Hugging Face caches
+- raw and processed datasets
+- VEATIC/TRIBE benchmark caches
+- generated outputs
+- temporary extraction files
+
+Historical commands that still reference the old external name are supported by a compatibility symlink:
+
+```bash
+/Volumes/onn. Drive/MiroFish -> /Volumes/onn. Drive/Neural Bridge
+```
+
+## Current Benchmark Baseline
+
+The current benchmark work centers on VEATIC:
+
+- Complete 124-video manifest: `benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl`
+- Complete 124-video cortical cache: `/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache`
+- Required cache key: `predictions`
+- Main targets: `valence`, `arousal`
+- Important splits: official split, blocked temporal gap, leave-video/grouped holdout
+- Leakage controls: train-only transforms, blocked temporal gaps, within-video dynamics, train-prevalence thresholds, causal-window checks
+
+Candidate feature sets include:
+
+- `cortical_global`
+- `cortical_global_delta`
+- `cortical_pca_64`
+- `cortical_pca64_delta`
+- raw cortical trajectories for future loader work
+
+Open issues before new model training:
+
+- Freeze the current 124-video benchmark artifacts into an immutable baseline snapshot.
+- Formalize the production training tensor loader contract.
+- Decide and document the policy for video `83`, whose prediction length differs from its manifest rows and is currently resampled.
+- Keep CPU/MPS consistency checks separate from headline claims when thresholded metrics can drift.
+
+See [docs/current_project_state.md](docs/current_project_state.md), [docs/PROJECT_MEMORY.md](docs/PROJECT_MEMORY.md), and [reports/neuro_bridge_data_contract_inventory_20260616.md](reports/neuro_bridge_data_contract_inventory_20260616.md) for the current operating state.
+
+## Local Setup
+
+Prerequisites:
+
+- macOS with Apple Silicon is the main development target.
+- Python 3.11+.
+- Node.js 18+.
+- Neo4j 5.x for graph workflows.
+- LM Studio or another OpenAI-compatible local LLM server for simulation/report workflows.
+- External drive mounted at `/Volumes/onn. Drive/Neural Bridge` for full benchmark workflows.
+
+Backend:
+
+```bash
+cd "/Users/maxsartini/Neural Bridge/backend"
+python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt   # numpy/pandas/Pillow/httpx/openpyxl now included
-python run.py &
+pip install -r requirements.txt
+python run.py
 ```
 
-**3. Start the Frontend**
+Frontend:
+
 ```bash
-cd frontend
+cd "/Users/maxsartini/Neural Bridge/frontend"
 npm install
-npm run dev &
+npm run dev
 ```
 
-**One-shot alternative** (from the repo root, requires `uv`):
-```bash
-npm run setup:all   # installs root, frontend, and backend deps
-npm run dev         # concurrently boots backend (uv run) + frontend (vite)
-```
-
-Open `http://localhost:5173` (or `:3000` under `npm run dev`) to upload your data and trigger the Prediction Engine.
-
-## Configuration (.env)
-
-The pipeline talks directly to your local hardware via OpenAI-compatible API routes:
+Repo-root development helper:
 
 ```bash
-# LM Studio / Ollama Configuration
-LLM_API_KEY=lm-studio
-LLM_BASE_URL=http://localhost:1234/v1
-LLM_MODEL_NAME=local-model
-
-# Neo4j Memory Graph
-NEO4J_URI=bolt://localhost:7687
-NEO4J_USER=neo4j
-NEO4J_PASSWORD=neural_bridge
+cd "/Users/maxsartini/Neural Bridge"
+npm install
+npm run dev
 ```
 
-## Performance & Optimization
+The local `.env` file is ignored by git. Use `.env.example` and the docs above as the template for local paths and service URLs.
 
-- **Context Constraints:** Because the Quant Processor compresses years of daily data into absolute trajectory statistics (providing only the last 30 raw data rows for immediate momentum memory), token overhead per agent is reduced by ~80%. This prevents the "Lost in the Middle" LLM amnesia and makes the framework highly efficient for local M2/M3 Mac deployment.
-- **Topic Agnosticism:** The internal statistical system dynamically adapts to the provided dataset. While optimized for OHLCV financial data, the system relies on agnostic column values rather than hardcoded finance rules—meaning it can just as easily predict weather patterns or algorithmic traffic anomalies.
+## Benchmark Safety Rules
 
-## License & Attribution
-AGPL-3.0. Neural Bridge grew from a legacy local-first simulator and is powered by [OASIS](https://github.com/camel-ai/oasis) from the CAMEL-AI team, heavily modified for deterministic quantitative future prediction instead of generative interaction.
+- Reuse frozen cache outputs unless the benchmark policy changes.
+- Do not tune thresholds on filtered test subsets.
+- Keep full-frame results as the main baseline, with event-conditioned diagnostics reported separately.
+- Treat positive-only event or pre-event masks as recall/top-k diagnostics, not full discrimination tests.
+- Compare against shuffled, neutral, inverted, and oracle controls before claiming neuro-specific signal.
+- Keep recursive-model experiments out of the main runtime until baseline freezing and loader contracts are complete.
+
+## Roadmap
+
+The active roadmap is maintained in [ROADMAP.md](ROADMAP.md).
+
+Short version:
+
+1. Freeze the current benchmark baseline.
+2. Lock the training data contract.
+3. Harden the app and benchmark runner around the cleaned repo.
+4. Validate subcortical and recursive-model extensions only after the cortical baseline is reproducible.
+5. Add neural features to simulation only through ablated, measurable experiments.
+
+## License
+
+This repo is AGPL-3.0 licensed. Neural Bridge includes modified local-first simulation work and adapters around external research projects; check each upstream dependency or source checkout for its own license before redistribution.

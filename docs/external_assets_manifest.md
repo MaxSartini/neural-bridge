@@ -8,7 +8,7 @@ Neural Bridge keeps source code and lightweight metadata in this repo. Large mod
 
 ## Compatibility Symlink
 
-`/Volumes/onn. Drive/Neural Bridge` is a symlink to `/Volumes/onn. Drive/Neural Bridge`.
+`/Volumes/onn. Drive/MiroFish` is a symlink to `/Volumes/onn. Drive/Neural Bridge`.
 
 This keeps older commands and historical reports readable while active config defaults use the Neural Bridge path.
 
@@ -37,7 +37,7 @@ This keeps older commands and historical reports readable while active config de
 
 ## Current Size Snapshot
 
-- Repo: about `17M`
+- Repo: about `26M`
 - External assets: about `102G`
 
 ## Policy

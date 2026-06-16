@@ -1,86 +1,129 @@
 # Neural Bridge Roadmap
 
-## Current State (v0.2.0)
+This roadmap reflects the current Neural Bridge direction as of 2026-06-16. It intentionally drops the older MiroFish and finance-prediction language.
 
-Fully local fork running on Neo4j CE + Ollama. All Zep Cloud dependencies removed. Core pipeline works: upload text → build knowledge graph → entity extraction → simulation → report generation.
+## Current State
 
----
+Neural Bridge is now a cleaned local repo with heavyweight research assets kept on the external drive. The most important working path is cortical TRIBE feature extraction and VEATIC benchmarking.
 
-## Near Term
+Already in place:
 
-### v0.3.0 — Stability & Python Compatibility
-- [ ] Fix `camel-oasis` / `camel-ai` compatibility with Python 3.12+ (currently requires <3.12)
-- [ ] Add Docker Compose GPU auto-detection (fallback to CPU-only Ollama)
-- [ ] Connection resilience: auto-reconnect to Neo4j on transient failures
-- [ ] Add `/api/status` endpoint showing Neo4j connection state, Ollama model availability, and disk usage
-- [ ] Structured logging with JSON output option
+- Fresh git repo under `/Users/maxsartini/Neural Bridge`.
+- External asset root at `/Volumes/onn. Drive/Neural Bridge`.
+- Compatibility symlink from the old external MiroFish path.
+- Complete 124-video VEATIC cortical cache.
+- Current 124-video manifest with 10,357 1 Hz target rows.
+- Benchmark feature modes for global, delta, PCA, and PCA-delta cortical features.
+- Local app stack: Flask backend, Vue frontend, Neo4j graph services, and local LLM integration.
+- Recursive model source checkouts read and classified as research candidates, not main-runtime dependencies.
 
-### v0.4.0 — Search & Retrieval Improvements
-- [ ] Tune hybrid search weights (currently 0.7 vector / 0.3 BM25) — make configurable per graph
-- [ ] Add graph-aware reranking: boost results connected to the query entity
-- [ ] Support multiple embedding models (e.g., mxbai-embed-large, bge-m3 for multilingual)
-- [ ] Implement edge-weight decay for temporal relevance in simulations
+## Phase 1 - Baseline Freeze
 
----
+Goal: make the current evidence reproducible before more model work lands.
 
-## Mid Term
+- [ ] Copy the current VEATIC 124 manifest, cache metadata, benchmark outputs, and key reports into a protected baseline snapshot directory.
+- [ ] Add a baseline manifest that records source paths, file counts, feature modes, split policy, and checksum policy.
+- [ ] Decide the official handling of video `83`, which currently needs resampling because prediction rows and manifest rows differ.
+- [ ] Add a short command recipe for re-running only verification, not extraction.
+- [ ] Mark superseded first-50 and pre-124 outputs as archived, deleted, or retained with a reason.
 
-### v0.5.0 — Multi-Model Support
-- [ ] Model router: assign different Ollama models to different tasks (fast model for NER, large model for reports)
-- [ ] Support vLLM and llama.cpp as alternative backends alongside Ollama
-- [ ] Add model benchmarking tool: compare NER/RE quality across models on the same seed text
-- [ ] Quantization-aware config: auto-select context window based on available VRAM
+Done means a future thread can reproduce the current benchmark baseline without guessing which run folder is authoritative.
 
-### v0.6.0 — Enhanced Simulation
-- [ ] Real-time simulation dashboard with WebSocket updates
-- [ ] Agent memory persistence across simulation rounds (currently in-memory)
-- [ ] Custom agent archetypes: define personality templates beyond OASIS defaults
-- [ ] Multi-language simulation support (agents can interact in different languages)
-- [ ] Export simulation transcripts as structured JSON for external analysis
+## Phase 2 - Training Data Contract
 
-### v0.7.0 — Graph Intelligence
-- [ ] Community detection (Louvain/Leiden) to auto-identify entity clusters
-- [ ] Graph visualization improvements: force-directed layout, filtering by entity type
-- [ ] Temporal graph: track how entity relationships evolve across simulation rounds
-- [ ] Graph diff: compare two simulation runs side-by-side
+Goal: define exactly what model experiments are allowed to consume.
 
----
+- [ ] Write a production tensor loader contract for cortical features.
+- [ ] Define accepted inputs for raw cortical trajectories, `cortical_global`, `cortical_global_delta`, `cortical_pca_64`, and `cortical_pca64_delta`.
+- [ ] Record target columns, masking policy, group splits, temporal windows, and causal-window rules.
+- [ ] Add loader smoke tests that fail on leakage-prone transforms or missing train-only fit state.
+- [ ] Decide where immutable training tensors live on the external drive.
 
-## Long Term
+Done means model candidates can be compared against the same data without silently changing preprocessing.
 
-### v1.0.0 — Production Ready
-- [ ] Authentication & multi-user support
-- [ ] Graph versioning: snapshot and restore graph states
-- [ ] Plugin system for custom NER extractors, search strategies, and report templates
-- [ ] Comprehensive test suite (unit + integration + E2E)
-- [ ] Performance benchmarks: document throughput (texts/min) and latency per hardware tier
-- [ ] Helm chart for Kubernetes deployment
+## Phase 3 - Benchmark Hardening
 
-### Beyond v1.0
-- [ ] Federation: connect multiple Neural Bridge instances to share entity knowledge
-- [ ] Fine-tuned local models specifically trained for NER/RE on social simulation data
-- [ ] Voice-driven interaction: talk to simulation agents via local Whisper + TTS
-- [ ] Mobile companion app for monitoring running simulations
+Goal: make result claims harder to fool.
 
----
+- [ ] Keep full-frame VEATIC rows as the headline baseline.
+- [ ] Keep event-conditioned and pre-event diagnostics separate from headline discrimination claims.
+- [ ] Preserve train-only thresholding and train-only PCA.
+- [ ] Add a compact result report for official split, blocked temporal gap, and leave-video/grouped holdout.
+- [ ] Keep CPU/MPS drift audits attached to thresholded metrics.
+- [ ] Add a single command that emits the current "safe to compare" result bundle.
 
-## Hardware Tiers
+Done means a new feature or model cannot look better just because it used a weaker split, a tuned test threshold, or a changed device path.
 
-| Tier | RAM | GPU VRAM | Recommended Model | Expected Performance |
-|------|-----|----------|-------------------|---------------------|
-| Minimal | 8 GB | — (CPU only) | qwen2.5:3b | Slow, basic NER quality |
-| Light | 16 GB | 6-8 GB | qwen2.5:7b | Usable for small graphs |
-| Standard | 32 GB | 12-16 GB | qwen2.5:14b | Good for most use cases |
-| Power | 64 GB | 24+ GB | qwen2.5:32b | Full quality, fast |
+## Phase 4 - Subcortical Path
 
----
+Goal: evaluate subcortical features without contaminating the cortical baseline.
 
-## Contributing
+- [ ] Keep the cortical 124 baseline frozen first.
+- [ ] Produce a separate subcortical VEATIC cache only when storage, runtime, and mapping policy are explicit.
+- [ ] Preserve the Harvard-Oxford ROI mapping contract.
+- [ ] Treat subcortical ROI trajectories as predictors, not labels.
+- [ ] Compare cortical-only, subcortical-only, and cortical-plus-subcortical feature sets with the same splits and controls.
 
-This project is AGPL-3.0 licensed. Contributions welcome — especially around:
-- Python 3.12+ compatibility for CAMEL-AI / OASIS
-- Additional embedding model support
-- Simulation quality improvements
-- Documentation and tutorials in English
+Done means subcortical results are additive evidence, not a hidden change to the baseline.
 
-Current tasks live in the local docs and reports in this checkout.
+## Phase 5 - Simulation Injection Validation
+
+Goal: prove whether neural features help agent simulations before presenting them as a simulator upgrade.
+
+Required ablations:
+
+- `llm_only`
+- `true_neuro_current_mapping`
+- `shuffled_neuro_prior`
+- `neutral_neuro_prior`
+- `inverted_neuro_prior`
+- `oracle_behaviour_prior`
+- `true_neuro_no_prompt_injection`
+
+Additional checks:
+
+- [ ] Dose-response tests.
+- [ ] Leave-one-axis-out tests.
+- [ ] Seed replication.
+- [ ] Direct numeric state-modifier tests separate from prompt wording effects.
+- [ ] Report simulation outputs against real paired outcomes where possible.
+
+Done means neural conditioning improves a measured task for the right reason, not because prompts became more persuasive or more verbose.
+
+## Phase 6 - Recursive Model Research
+
+Goal: test TRM/HRM-style recursive heads only after the baseline and loader contract are stable.
+
+Current stance:
+
+- TinyRecursiveModels is a plausible small research candidate.
+- HRM is CUDA/FlashAttention oriented and not safe to import or train directly in the Mac/MPS environment as-is.
+- Do not install CUDA, Triton, or FlashAttention into the main Neural Bridge environment.
+
+Next steps:
+
+- [ ] Write a Mac-safe adapter plan before installing anything.
+- [ ] Start with CPU or MPS-safe synthetic forward tests.
+- [ ] Compare recursive heads to simple baselines on the frozen loader contract.
+- [ ] Promote only if they improve the benchmark without weakening controls.
+
+## Phase 7 - App and Developer Experience
+
+Goal: make the cleaned repo pleasant to run and hard to misconfigure.
+
+- [ ] Add a `/api/status` style check for Neo4j, LLM host, external drive, model paths, and benchmark cache availability.
+- [ ] Add a lightweight benchmark status page or CLI summary.
+- [ ] Improve error messages when external assets are missing.
+- [ ] Keep old MiroFish path references only where they are intentional compatibility shims.
+- [ ] Remove redundant generated outputs, stale run folders, and legacy docs once each has either been archived or superseded.
+- [ ] Add focused tests for config path resolution and benchmark loader contracts.
+
+## Explicitly De-Scoped
+
+These should not drive current work:
+
+- Finance/quant-desk predictor positioning.
+- Generic chatbot benchmarks as proof of Neural Bridge accuracy.
+- CUDA-only training stacks in the main local environment.
+- Copying large model weights, raw datasets, benchmark caches, or generated outputs into git.
+- Merging old run folders into the new repo without a specific reproducibility purpose.
