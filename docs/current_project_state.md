@@ -59,15 +59,15 @@ Current v2 evidence reports now tracked in this repo:
 - PCA and other transforms must be fit on train data only.
 - CPU/MPS device consistency should be checked before mixing thresholded results.
 
-## Known Open Issues
+## Remaining Work
 
-1. No protected immutable snapshot of the current 124-video v2 baseline exists yet.
-2. Video `83` has a prediction/manifest length mismatch and is currently resampled.
-3. The production training tensor loader contract is not formalized.
-4. The main 124-video cache is cortical; subcortical artifacts are smoke/test only unless separately extracted and frozen.
-5. Temporal alignment remains the main scientific follow-up before stronger timing claims.
-6. Old pre-124 runs and legacy docs should be deleted or archived only after the current baseline snapshot records what still matters.
+1. Freeze the current 124-video v2 baseline into a protected external snapshot.
+2. Resolve the video `83` prediction/manifest length mismatch policy.
+3. Formalize the v2 training tensor contract.
+4. Audit non-zero offset spike rows before stronger timing claims.
+5. Extract and freeze subcortical VEATIC-124 only as a separate, ablated expansion.
+6. Delete or archive old pre-124 runs after preserving the useful evidence.
 
 ## Next Safe Move
 
-Freeze the current 124-video v2 evidence bundle, then resolve temporal alignment and the formal tensor-loader contract before new model heads, recursive experiments, or subcortical expansion.
+Freeze the current 124-video v2 evidence bundle, resolve timing/alignment, then build new model heads on a fixed tensor contract.

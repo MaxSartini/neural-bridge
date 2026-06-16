@@ -1,91 +1,79 @@
 # Neural Bridge Roadmap
 
-This roadmap reflects the current Neural Bridge v2 direction as of 2026-06-16. It intentionally drops the older MiroFish and finance-prediction language.
+This is the post-v2 roadmap. It starts from what VEATIC-124 v2 has already proven and lists only the work that still moves the project forward.
 
-## Current State
+## Proven Baseline
 
-Neural Bridge is now a cleaned local repo with heavyweight research assets kept on the external drive. The most important proven path is VEATIC-124 cortical/TRIBE event and spike ranking, with temporal-context v2 showing that short causal context can improve selected future arousal spike rows.
+Completed:
 
-Already in place:
+- VEATIC-124 manifest and cortical/TRIBE cache are complete.
+- Arousal future-spike/event ranking has validated signal from cortical/TRIBE features.
+- PCA feature modes beat AR, shuffled, random, timestamp, and video/time controls on the strongest spike/event rows.
+- Official split spike rows pass controls across current feature families.
+- Grouped-video spike F1 improves over AR for PCA modes.
+- Balanced event-vs-stable sampling confirms event-conditioned discrimination.
+- Temporal context v2 shows short causal windows can improve selected spike-ranking rows.
+- Small v2 evidence reports are tracked in this repo.
 
-- Fresh git repo under `/Users/maxsartini/Neural Bridge`.
-- External asset root at `/Volumes/onn. Drive/Neural Bridge`.
-- Compatibility symlink from the old external MiroFish path.
-- Complete 124-video VEATIC cortical cache.
-- Current 124-video manifest with 10,357 1 Hz target rows.
-- Benchmark feature modes for global, delta, PCA, and PCA-delta cortical features.
-- Confirmatory v2 evidence that cortical/TRIBE PCA features improve arousal future-spike/event ranking over AR, shuffled, random, timestamp, and video/time controls.
-- Temporal context v2 evidence that 2s causal context improves selected spike-ranking rows over current-only evaluation.
-- Local app stack: Flask backend, Vue frontend, Neo4j graph services, and local LLM integration.
-- Recursive model source checkouts read and classified as research candidates, not main-runtime dependencies.
+This baseline should be treated as the current scientific foundation, not a hypothesis waiting for basic proof.
 
-## Phase 1 - Preserve The v2 Evidence Bundle
+## 1. Evidence Freezing And Reproducibility
 
-Goal: make the proven VEATIC-124 v2 evidence reproducible before more model work lands.
+Goal: make the proven v2 baseline impossible to lose or confuse with old runs.
 
-- [x] Bring the small v2 report artifacts into the cleaned repo.
-- [ ] Copy the current VEATIC 124 manifest, cache metadata, benchmark outputs, and key reports into a protected baseline snapshot directory on the external drive.
-- [ ] Add a baseline manifest that records source paths, file counts, feature modes, split policy, and checksum policy.
-- [ ] Decide the official handling of video `83`, which currently needs resampling because prediction rows and manifest rows differ.
-- [ ] Add a short command recipe for re-running only verification, not extraction.
-- [ ] Mark superseded first-50 and pre-124 outputs as archived, deleted, or retained with a reason.
+- [ ] Create a protected external snapshot for the VEATIC-124 v2 manifest, cache metadata, benchmark JSON/CSV outputs, and tracked reports.
+- [ ] Add checksums and a manifest that identifies the exact authoritative files.
+- [ ] Mark pre-124 and first-50 artifacts as deleted, archived, or retained with an explicit reason.
+- [ ] Add one verification command that rechecks the v2 evidence bundle without re-encoding videos.
+- [ ] Keep small summary reports in git; keep heavy caches and raw outputs external.
 
-Done means a future thread can reproduce the v2 evidence bundle without guessing which run folder is authoritative.
+## 2. Timing And Alignment
 
-## Phase 2 - Alignment And Timing Hardening
+Goal: turn the v2 spike-ranking result into a cleaner timing story.
 
-Goal: turn the strongest v2 result into a cleaner timing claim.
+- [ ] Resolve the video `83` prediction/manifest length mismatch policy.
+- [ ] Audit spike rows that prefer non-zero offsets.
+- [ ] Separate annotation lag, feature lag, smoothing lag, and real anticipatory signal.
+- [ ] Keep test-selected lag corrections out of headline metrics.
+- [ ] Promote only causal-context or train-selected-offset results that survive controls.
 
-- [ ] Run a dedicated annotation/feature alignment pass for spike rows that prefer non-zero offsets.
-- [ ] Keep test-selected lag corrections out of final headline metrics.
-- [ ] Distinguish causal context gains from label/timing-structure gains with controls.
-- [ ] Keep temporal-context v2's defensible claim: short causal context can improve selected future arousal spike ranking.
-- [ ] Reject universal early-warning, global lag, and exact continuous arousal-value claims unless new evidence supports them.
+Done means the project can say not only that the signal exists, but when it appears relative to human arousal events.
 
-Done means timing interpretation is stable enough for the next model head.
+## 3. v2 Training Tensor Contract
 
-## Phase 3 - Training Data Contract
+Goal: make new heads consume the proven v2 data without changing the benchmark under them.
 
-Goal: define exactly what model experiments are allowed to consume.
+- [ ] Define immutable tensor contracts for `cortical_pca_64`, `cortical_pca64_delta`, `cortical_global`, and raw cortical trajectories.
+- [ ] Record target definitions, masks, split fields, temporal windows, and train-only transform state.
+- [ ] Add loader tests that fail on leakage-prone transforms.
+- [ ] Store immutable training tensors on the external drive with manifest and checksum metadata.
+- [ ] Build a minimal baseline head before adding recursive or larger architectures.
 
-- [ ] Write a production tensor loader contract for cortical features.
-- [ ] Define accepted inputs for raw cortical trajectories, `cortical_global`, `cortical_global_delta`, `cortical_pca_64`, and `cortical_pca64_delta`.
-- [ ] Record target columns, masking policy, group splits, temporal windows, and causal-window rules.
-- [ ] Add loader smoke tests that fail on leakage-prone transforms or missing train-only fit state.
-- [ ] Decide where immutable training tensors live on the external drive.
+## 4. Next Model Heads
 
-Done means model candidates can be compared against the same data without silently changing preprocessing.
+Goal: improve event/spike ranking from the v2 baseline without weakening controls.
 
-## Phase 4 - Benchmark Hardening
+- [ ] Start with simple, auditable heads over the frozen tensor contract.
+- [ ] Compare against the v2 PCA/ridge baseline, AR, shuffled, random, timestamp, and video/time controls.
+- [ ] Keep grouped-video and blocked validation as required gates.
+- [ ] Only promote recursive heads after simple heads define the floor.
+- [ ] Keep CUDA-only HRM-style dependencies out of the main Mac/MPS environment unless isolated.
 
-Goal: make result claims harder to fool.
+## 5. Subcortical And Multimodal Expansion
 
-- [ ] Keep full-frame VEATIC rows as the headline baseline.
-- [ ] Keep event-conditioned and pre-event diagnostics separate unless they use balanced event-vs-stable discrimination.
-- [ ] Preserve train-only thresholding and train-only PCA.
-- [x] Add compact v2 reports for official split, blocked validation, grouped-video validation, event-conditioned retests, and temporal context.
-- [ ] Keep CPU/MPS drift audits attached to thresholded metrics.
-- [ ] Add a single command that emits the current "safe to compare" result bundle.
+Goal: test whether new neuro inputs add signal beyond the proven cortical baseline.
 
-Done means a new feature or model cannot look better just because it used a weaker split, a tuned test threshold, or a changed device path.
+- [ ] Extract and freeze a separate VEATIC-124 subcortical cache before scoring it.
+- [ ] Preserve the Harvard-Oxford ROI mapping and provenance contract.
+- [ ] Compare cortical-only, subcortical-only, and cortical-plus-subcortical feature sets.
+- [ ] Extend the same event/spike-ranking gates to OpenLAV or other human-response datasets.
+- [ ] Do not mix new modalities into the baseline without an explicit ablation.
 
-## Phase 5 - Subcortical Path
+## 6. Simulation Injection
 
-Goal: evaluate subcortical features without contaminating the cortical baseline.
+Goal: turn validated neural features into agent conditioning only if they improve measured simulation outcomes.
 
-- [ ] Keep the cortical 124 baseline frozen first.
-- [ ] Produce a separate subcortical VEATIC cache only when storage, runtime, and mapping policy are explicit.
-- [ ] Preserve the Harvard-Oxford ROI mapping contract.
-- [ ] Treat subcortical ROI trajectories as predictors, not labels.
-- [ ] Compare cortical-only, subcortical-only, and cortical-plus-subcortical feature sets with the same splits and controls.
-
-Done means subcortical results are additive evidence, not a hidden change to the baseline.
-
-## Phase 6 - Simulation Injection Validation
-
-Goal: prove whether neural features help agent simulations before presenting them as a simulator upgrade.
-
-Required ablations:
+Required conditions:
 
 - `llm_only`
 - `true_neuro_current_mapping`
@@ -95,50 +83,28 @@ Required ablations:
 - `oracle_behaviour_prior`
 - `true_neuro_no_prompt_injection`
 
-Additional checks:
+Additional gates:
 
 - [ ] Dose-response tests.
 - [ ] Leave-one-axis-out tests.
 - [ ] Seed replication.
-- [ ] Direct numeric state-modifier tests separate from prompt wording effects.
-- [ ] Report simulation outputs against real paired outcomes where possible.
+- [ ] Direct numeric state modifiers separate from prompt wording.
+- [ ] Paired real-outcome evaluation where possible.
 
-Done means neural conditioning improves a measured task for the right reason, not because prompts became more persuasive or more verbose.
+## 7. Product And Repo Cleanup
 
-## Phase 7 - Recursive Model Research
+Goal: make the new Neural Bridge repo match the current project, not its history.
 
-Goal: test TRM/HRM-style recursive heads only after the baseline and loader contract are stable.
+- [ ] Add a status check for external drive, TRIBE cache, Neo4j, local LLM host, and benchmark artifacts.
+- [ ] Add a compact benchmark dashboard or CLI summary for the v2 baseline.
+- [ ] Remove stale legacy docs and run folders once their useful evidence is preserved.
+- [ ] Keep only intentional compatibility references to the old MiroFish path.
+- [ ] Keep generated heavy outputs out of git.
 
-Current stance:
+## De-Scoped
 
-- TinyRecursiveModels is a plausible small research candidate.
-- HRM is CUDA/FlashAttention oriented and not safe to import or train directly in the Mac/MPS environment as-is.
-- Do not install CUDA, Triton, or FlashAttention into the main Neural Bridge environment.
-
-Next steps:
-
-- [ ] Write a Mac-safe adapter plan before installing anything.
-- [ ] Start with CPU or MPS-safe synthetic forward tests.
-- [ ] Compare recursive heads to simple baselines on the frozen loader contract.
-- [ ] Promote only if they improve the benchmark without weakening controls.
-
-## Phase 8 - App and Developer Experience
-
-Goal: make the cleaned repo pleasant to run and hard to misconfigure.
-
-- [ ] Add a `/api/status` style check for Neo4j, LLM host, external drive, model paths, and benchmark cache availability.
-- [ ] Add a lightweight benchmark status page or CLI summary.
-- [ ] Improve error messages when external assets are missing.
-- [ ] Keep old MiroFish path references only where they are intentional compatibility shims.
-- [ ] Remove redundant generated outputs, stale run folders, and legacy docs once each has either been archived or superseded.
-- [ ] Add focused tests for config path resolution and benchmark loader contracts.
-
-## Explicitly De-Scoped
-
-These should not drive current work:
-
-- Finance/quant-desk predictor positioning.
-- Generic chatbot benchmarks as proof of Neural Bridge accuracy.
+- Finance or quant-desk prediction.
+- Generic chatbot benchmarks as proof of Neural Bridge.
+- Exact continuous arousal-value forecasting as the current headline.
+- Test-selected lag correction as a headline result.
 - CUDA-only training stacks in the main local environment.
-- Copying large model weights, raw datasets, benchmark caches, or generated outputs into git.
-- Merging old run folders into the new repo without a specific reproducibility purpose.
