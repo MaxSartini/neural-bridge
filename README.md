@@ -13,7 +13,7 @@ The VEATIC-124 v2 evidence bundle validates these hypotheses:
 5. A single 0s feature snapshot can underfeed the bridge head for spike/event tasks.
 6. The alignment audit resolved the benchmark policy: keep current 0s alignment as the primary non-leaky benchmark and report offset grids as diagnostics, not as a test-derived correction.
 
-The current claim is intentionally precise: Neural Bridge has evidence for arousal event/spike ranking and temporal-context sufficiency, not exact continuous arousal-value prediction and not yet fully validated simulation injection.
+The current claim is intentionally precise: Neural Bridge has evidence for arousal event/spike ranking and temporal-context sufficiency, not exact continuous arousal-value prediction or a finished downstream product model.
 
 ## Key VEATIC-124 v2 Results
 
@@ -41,8 +41,8 @@ Source summaries:
 
 - Exact continuous future arousal-value forecasting. Continuous MAE remains diagnostic because zero-change baselines still win most continuous checks.
 - Strong universal early-warning claims. The alignment pass supports 0s primary scoring plus transparent offset diagnostics, not a global lag correction.
-- End-to-end simulation improvement. Neural features still need the required simulation ablation suite before they become a validated agent-conditioning mechanism.
-- Subcortical VEATIC-124 gains. The current main 124-video cache is cortical; subcortical artifacts are smoke/test only unless separately extracted and frozen.
+- New model heads still need to improve over the v2 baseline without weakening the controls.
+- Simulation/LLM-agent integration is not the current research priority.
 
 ## System Shape
 
@@ -129,10 +129,10 @@ The local `.env` file is ignored by git. Full benchmark workflows require the co
 The active post-v2 roadmap is in [ROADMAP.md](ROADMAP.md). The short version is:
 
 1. Freeze and package the v2 evidence bundle.
-2. Preserve the resolved alignment policy and settle the video `83` resampling policy.
-3. Build the v2 training tensor contract and model-head path.
-4. Extend to subcortical and OpenLAV only after the cortical v2 baseline remains reproducible.
-5. Validate neural simulation injection with ablations.
+2. Encode the resolved benchmark contract.
+3. Build the v2 training tensor contract.
+4. Build next model heads on the proven cortical/TRIBE signal.
+5. Productize the evidence verifier and dashboard workflow.
 
 ## License
 

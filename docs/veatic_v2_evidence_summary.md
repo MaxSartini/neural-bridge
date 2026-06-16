@@ -6,7 +6,7 @@ Generated from the current v2 reports imported into the cleaned Neural Bridge re
 
 VEATIC-124 v2 proves specific Neural Bridge hypotheses for arousal event/spike ranking. It shows that cortical/TRIBE PCA feature modes can improve future arousal spike/event ranking over autoregressive, shuffled, random, timestamp, and video/time controls under blocked and grouped-video validation.
 
-The claim remains bounded: this is event/spike ranking and temporal-context evidence, not exact continuous arousal-value prediction and not yet full simulation-injection proof.
+The claim remains bounded: this is event/spike ranking and temporal-context evidence, not exact continuous arousal-value prediction or a finished downstream product model.
 
 ## Proven Or Supported Hypotheses
 
@@ -32,8 +32,8 @@ The claim remains bounded: this is event/spike ranking and temporal-context evid
 - Continuous future-change MAE remains diagnostic only.
 - Zero-change baselines still beat real cortical features in most continuous checks.
 - Offset diagnostics should not be promoted into final scores unless a future train-only policy survives controls and grouped validation.
-- Video `83` remains included through the documented linear-resample policy.
-- Simulation conditioning remains unproven until the required ablation suite is run.
+- OpenLAV and subcortical expansion are not active validation requirements for the v2 claim.
+- Simulation/LLM-agent integration is outside the current v2 evidence roadmap.
 
 ## Source Reports
 

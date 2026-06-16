@@ -11,9 +11,9 @@ The repo should stay lightweight. Heavy research assets belong on the external d
 
 ## Active Scientific Direction
 
-Neural Bridge is testing where predicted neural response trajectories improve human-response and simulation forecasts under controlled baselines.
+Neural Bridge is testing where predicted neural response trajectories improve human-response forecasts under controlled baselines.
 
-Current evidence is strongest for VEATIC-124 cortical/TRIBE arousal event and spike ranking. v2 has validated specific hypotheses around event/spike ranking and causal temporal context. It still should not claim exact continuous arousal-value forecasting or full end-to-end simulation accuracy.
+Current evidence is strongest for VEATIC-124 cortical/TRIBE arousal event and spike ranking. v2 has validated specific hypotheses around event/spike ranking and causal temporal context. It still should not claim exact continuous arousal-value forecasting.
 
 ## Current Benchmark Assets
 
@@ -61,12 +61,12 @@ Current v2 evidence reports now tracked in this repo:
 ## Remaining Work
 
 1. Freeze the current 124-video v2 baseline into a protected external snapshot.
-2. Resolve the video `83` prediction/manifest length mismatch policy.
+2. Formalize the v2 benchmark contract in scripts and documentation.
 3. Formalize the v2 training tensor contract.
 4. Carry the resolved alignment policy into the tensor contract and benchmark dashboard.
-5. Extract and freeze subcortical VEATIC-124 only as a separate, ablated expansion.
+5. Build next model heads against the frozen v2 baseline.
 6. Delete or archive old pre-124 runs after preserving the useful evidence.
 
 ## Next Safe Move
 
-Freeze the current 124-video v2 evidence bundle, settle video `83`, then build new model heads on a fixed tensor contract that preserves the 0s-primary alignment policy.
+Freeze the current 124-video v2 evidence bundle, encode the benchmark and tensor contracts, then build new model heads on the fixed 0s-primary alignment policy.
