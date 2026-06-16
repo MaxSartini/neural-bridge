@@ -1,23 +1,33 @@
 .git
 .github
 .gitignore
-.cursor
+.dockerignore
 .DS_Store
 .env
+.env.*
 
 node_modules
 frontend/node_modules
-backend/.venv
-.venv
-.python-version
+frontend/dist
+frontend/.vite
 
+.venv
+backend/.venv
+backend/venv*
 __pycache__
 *.pyc
 .pytest_cache
 .mypy_cache
 .ruff_cache
 
-frontend/dist
-frontend/.vite
-
 backend/uploads
+backend/logs
+logs
+log
+data
+models
+cache
+benchmarks/cache
+benchmarks/results
+outputs
+openlav_cache

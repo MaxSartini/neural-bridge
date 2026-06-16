@@ -29,11 +29,32 @@ camel-ai==0.2.78
 # CSV/XLSX ingestion.
 numpy>=1.26.0
 pandas>=2.1.0
+scipy>=1.11.0
 # Supervised neuro-to-behaviour calibration and grouped holdout evaluation
 catboost>=1.2.8
 scikit-learn>=1.5.0
 # openpyxl — pandas backend for .xlsx uploads
 openpyxl>=3.1.0
+
+# ============= Neuro / ML Runtime =============
+# Core Torch/Transformers runtime for TRIBE adapters, V-JEPA2, and optional
+# encoder paths. On Apple Silicon, install a PyTorch build with MPS support.
+torch>=2.3.0
+transformers>=4.44.0
+safetensors>=0.4.0
+huggingface-hub>=0.24.0
+tqdm>=4.66.0
+nibabel>=5.2.0
+nilearn>=0.10.0
+
+# Apple Silicon / MLX acceleration paths.
+mlx>=0.20.0
+mlx-lm>=0.19.0
+
+# Research runtime packages imported by optional encoder adapters.
+momentfm>=0.1.0
+neuralset>=0.1.0
+exca>=0.5.0
 
 # ============= File Parsing =============
 # PDF text extraction

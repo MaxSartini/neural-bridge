@@ -28,9 +28,24 @@ dependencies = [
     # Quantitative / data processing
     "numpy>=1.26.0",
     "pandas>=2.1.0",
+    "scipy>=1.11.0",
     "openpyxl>=3.1.0",
     "catboost>=1.2.8",
     "scikit-learn>=1.5.0",
+
+    # Neuro / ML runtime
+    "torch>=2.3.0",
+    "transformers>=4.44.0",
+    "safetensors>=0.4.0",
+    "huggingface-hub>=0.24.0",
+    "tqdm>=4.66.0",
+    "nibabel>=5.2.0",
+    "nilearn>=0.10.0",
+    "mlx>=0.20.0",
+    "mlx-lm>=0.19.0",
+    "momentfm>=0.1.0",
+    "neuralset>=0.1.0",
+    "exca>=0.5.0",
 
     # File parsing
     "PyMuPDF>=1.24.0",

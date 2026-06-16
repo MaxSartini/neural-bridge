@@ -1,79 +1,77 @@
-# OS
+# Neural Bridge ignore rules
+
+# Local secrets and machine-specific config
+.env
+.env.*
+!.env.example
+
+# OS and editor noise
 .DS_Store
 Thumbs.db
-
-# 环境变量（保护敏感信息）
-.env
-.env.local
-.env.*.local
-.env.development
-.env.test
-.env.production
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-.cache/
-.venv/
-venv/
-ENV/
-.eggs/
-*.egg-info/
-dist/
-build/
-
-# Node.js
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# 测试
+# Python environments, caches, and build output
+.venv/
+venv/
+ENV/
+backend/.venv/
+backend/venv*/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
 .coverage
 htmlcov/
+*.egg-info/
+build/
+dist/
 
-# Cursor
-.cursor/
-.claude/
+# Node/Vite dependencies and build output
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Local scratch docs and test programs
-mydoc/
-mytest/
-
-# 日志文件
-backend/logs/
+# Logs and local runtime output
 *.log
+logs/
+log/
+backend/logs/
+backend/log/
+backend/uploads/
 
-# Heavy local artifacts
+# Heavy model and cache artifacts
 models/*
 !models/behavior_component_registry.json
 !models/neuro_atlases/
 !models/neuro_atlases/**
-benchmarks/results/
-benchmarks/cache/
+cache/
 openlav_cache/
-backend/.venv/
-frontend/node_modules/
-frontend/dist/
+benchmarks/cache/
+benchmarks/results/
+
+# Generated benchmark output. Curated lightweight evidence reports may be
+# force-added when they are part of the documented v2 evidence bundle.
 outputs/
-logs/
-log/
 reports/*.csv
+reports/*.jsonl
+reports/*.parquet
 
-# Upload/runtime files
-backend/uploads/
-
-# Docker 数据
-data/backend/venv311/
-backend/venv311/
+# Local Docker/runtime volumes
 data/
+
+# Local scratch folders
+tmp/
+scratch/
+mydoc/
+mytest/
