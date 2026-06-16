@@ -2,8 +2,6 @@
 
 Neural Bridge is a local neuroscience-to-behavior research system. Its current proven core is VEATIC-124 v2: TRIBE-predicted cortical response features improve arousal event/spike ranking under leakage-controlled evaluation.
 
-This repo is the cleaned Neural Bridge extraction from the older MiroFish checkout. The old finance/future-predictor direction is not part of the current project.
-
 ## Current Status
 
 The VEATIC-124 v2 evidence bundle validates these hypotheses:
