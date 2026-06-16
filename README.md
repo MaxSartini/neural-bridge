@@ -51,7 +51,7 @@ backend/app/
   Flask API, graph services, simulation services, local LLM clients, storage, and utilities.
 
 backend/scripts/
-  VEATIC/TRIBE extraction, benchmark, alignment, event, temporal-context, and audit scripts.
+  VEATIC/TRIBE extraction plus the consolidated strict VEATIC benchmark suite.
 
 backend/neuro_core/
   Shared Neural Bridge contracts and import shims.
@@ -114,6 +114,16 @@ npm run dev
 ```
 
 The local `.env` file is ignored by git. Full benchmark workflows require the configured external assets root to be mounted or otherwise available.
+
+## Strict Benchmark
+
+Use the unified VEATIC-124 suite as the default benchmark entrypoint:
+
+```bash
+python3 backend/scripts/run_veatic_strict_benchmark.py --primary-only
+```
+
+It consolidates the formerly separate event/spike, event-conditioned, alignment, and temporal-context checks into one coordinated run. The suite includes AR, shuffled cortical rows, split-local shuffles, Gaussian feature controls, label shuffles, feature shuffles, timestamp-only, video/time-only, majority, fixed-split holdouts, grouped-video holdouts, zero-change diagnostics, and a single-backend policy.
 
 ## Guardrails
 

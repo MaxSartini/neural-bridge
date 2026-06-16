@@ -7,6 +7,10 @@ Current-facing documentation:
 - `external_assets_manifest.md` - source-versus-external asset boundary.
 - `PROJECT_MEMORY.md` - current memory pointer and handoff policy.
 
+Current benchmark entrypoint:
+
+- `backend/scripts/run_veatic_strict_benchmark.py` - consolidated VEATIC-124 strict suite and contract dry-run.
+
 Detailed evidence artifacts live outside this folder:
 
 - `benchmarks/veatic/veatic_124_*`

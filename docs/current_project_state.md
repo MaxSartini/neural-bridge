@@ -39,6 +39,14 @@ Current v2 evidence reports now tracked in this repo:
 - `outputs/veatic_124_temporal_context_v2_20260616_1557/veatic_124_temporal_context_v2_report.md`
 - `outputs/veatic_124_temporal_fairness_20260616_1509/veatic_124_temporal_fairness_report.md`
 
+Current default benchmark entrypoint:
+
+```bash
+python3 backend/scripts/run_veatic_strict_benchmark.py --primary-only
+```
+
+Use `--dry-run` to print the strict contract and control ledger without loading the external cache.
+
 ## Validated v2 Findings
 
 - Cortical/TRIBE features improve arousal future-spike/event ranking under blocked validation.
@@ -56,12 +64,13 @@ Current v2 evidence reports now tracked in this repo:
 - Positive-only pre-event and event masks should report recall/top-k style diagnostics, not PR-AUC as the main claim.
 - Thresholds must be fit on train data only.
 - PCA and other transforms must be fit on train data only.
+- Controls include AR, shuffled cortical rows, split-local shuffles, Gaussian features, label shuffles, feature shuffles, timestamp-only, video/time-only, majority, fixed-split holdouts, grouped-video holdouts, zero-change diagnostics, and one backend policy per final run.
 - CPU/MPS device consistency should be checked before mixing thresholded results.
 
 ## Remaining Work
 
 1. Freeze the current 124-video v2 baseline into a protected external snapshot.
-2. Surface the already-strict v2 benchmark rules as a named contract and verifier.
+2. Run and freeze the consolidated strict suite outputs as the canonical v2 artifact set.
 3. Freeze the v2 training tensor contract for future model heads.
 4. Carry the resolved alignment policy into the tensor contract and benchmark dashboard.
 5. Build next model heads against the frozen v2 baseline.

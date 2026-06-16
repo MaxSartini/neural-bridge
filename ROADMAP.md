@@ -38,8 +38,9 @@ Goal: surface and preserve the exact rules already enforced by the v2 benchmark 
 - [x] Confirm no future-looking feature leakage in causal/delta/window features.
 - [x] Enforce train-only thresholds, train-only PCA/transforms, grouped-video folds, blocked validation, and shuffled/random/time controls in the benchmark scripts.
 - [x] Enforce balanced event-vs-stable scoring for event-conditioned PR-AUC claims.
-- [ ] Consolidate the already-implemented rules into a named v2 contract manifest so fresh sessions can discover them without reading every script.
-- [ ] Add a compact status command that verifies the current artifact set was produced under the v2 contract.
+- [x] Consolidate the already-implemented rules into `backend/scripts/run_veatic_strict_benchmark.py` with a named v2 contract manifest.
+- [x] Add a dry-run/status mode that prints the strict benchmark contract without loading cache files.
+- [ ] Run and freeze the consolidated strict suite outputs as the new canonical v2 artifact set.
 
 ## 3. v2 Training Tensor Contract
 
