@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "external_asset_root_env": "NEURAL_BRIDGE_EXTERNAL_ASSET_ROOT",
+  "external_asset_root_default": "/Volumes/onn. Drive/Neural Bridge",
+  "components": [
+    {
+      "id": "tribev2_mlx",
+      "role": "stimulus_to_population_cortical_trajectory",
+      "path": "models/tribe-mlx/zimengxiong-tribev2-mlx/tribev2_mlx_float32.npz",
+      "location": "external",
+      "minimum_bytes": 708000000,
+      "live_policy": "enabled"
+    },
+    {
+      "id": "moment_1_small",
+      "role": "tribe_trajectory_representation_candidate",
+      "path": "models/MOMENT-1-small/model.safetensors",
+      "location": "external",
+      "minimum_bytes": 151000000,
+      "live_policy": "benchmark_only_until_validated",
+      "selection_profile": "efficiency_baseline"
+    },
+    {
+      "id": "brainlm_111m",
+      "role": "brain_trajectory_representation_candidate",
+      "path": "models/BrainLM-111M/vitmae_111M/pytorch_model.bin",
+      "location": "external",
+      "minimum_bytes": 450000000,
+      "live_policy": "benchmark_only_until_validated",
+      "selection_profile": "neuroscience_candidate"
+    },
+    {
+      "id": "brain_dit_conditional",
+      "role": "multi_state_fmri_representation_accuracy_candidate",
+      "path": "models/Brain-DiT/BrainDit.pt",
+      "location": "external",
+      "minimum_bytes": 3680000000,
+      "live_policy": "benchmark_only_until_validated",
+      "selection_profile": "research_max_candidate"
+    },
+    {
+      "id": "brain_jepa",
+      "role": "roi_spatiotemporal_fmri_representation_candidate",
+      "path": "models/Brain-JEPA/brainjepa.safetensors",
+      "location": "external",
+      "minimum_bytes": 742000000,
+      "live_policy": "benchmark_only_until_validated",
+      "selection_profile": "efficient_neuroscience_candidate"
+    },
+    {
+      "id": "moment_1_large",
+      "role": "generic_trajectory_representation_accuracy_candidate",
+      "path": "models/MOMENT-1-large/model.safetensors",
+      "location": "external",
+      "minimum_bytes": 1385000000,
+      "live_policy": "benchmark_only_until_validated",
+      "selection_profile": "generic_accuracy_ceiling"
+    },
+    {
+      "id": "neurostorm_pretrain",
+      "role": "volumetric_fmri_representation_candidate",
+      "path": "models/NeuroSTORM-pretrain/pretraining/pt_neurostorm_mae_5ds.ckpt",
+      "location": "external",
+      "minimum_bytes": 93000000,
+      "live_policy": "benchmark_only_until_surface_to_volume_adapter_exists",
+      "selection_profile": "volumetric_research_candidate"
+    },
+    {
+      "id": "tribev2_subcortical",
+      "role": "stimulus_to_subcortical_voxel_trajectory",
+      "path": "models/TRIBE-v2-subcortical/best.safetensors",
+      "location": "external",
+      "minimum_bytes": 1200000000,
+      "live_policy": "benchmark_only_until_subcortical_atlas_translation_exists",
+      "selection_profile": "subcortical_translation_source"
+    },
+    {
+      "id": "minitaur_8b_mlx_4bit",
+      "role": "human_choice_policy_candidate",
+      "path": "models/Llama-3.1-Minitaur-8B-mlx-4Bit/model.safetensors",
+      "location": "external",
+      "minimum_bytes": 4510000000,
+      "live_policy": "benchmark_only_until_validated",
+      "selection_profile": "human_choice_candidate"
+    },
+    {
+      "id": "psych_101",
+      "role": "human_choice_policy_benchmark",
+      "path": "datasets/Psych-101",
+      "location": "external",
+      "minimum_bytes": 850000000,
+      "live_policy": "benchmark_asset"
+    }
+  ]
+}

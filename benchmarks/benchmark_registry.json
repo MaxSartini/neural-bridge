@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "benchmarks": [
+    {
+      "id": "financial_news_stock_reaction",
+      "domain": "financial_markets",
+      "primary_datasets": ["FNSPID", "StockNet ACL18", "BigData22", "CIKM18"],
+      "prediction_target": "post-stimulus stock return direction or magnitude over a fixed horizon",
+      "observed_axes": ["sentiment", "virality", "risk_aversion", "attention"],
+      "baseline_conditions": ["llm_only", "naive_sentiment", "price_momentum", "shuffled_neuro_prior", "neutral_neuro_prior", "inverted_neuro_prior", "oracle_behaviour_prior"],
+      "neuro_condition": "neuro_conditioned",
+      "recommended_metrics": ["directional_accuracy", "mae", "rmse", "calibration_error"],
+      "notes": "Use only information available before the prediction horizon. Split chronologically."
+    },
+    {
+      "id": "event_social_sentiment_timeseries",
+      "domain": "public_discourse",
+      "primary_datasets": ["SURGE", "GDELT tone/time series", "EventRegistry sentiment exports"],
+      "prediction_target": "future sentiment, attention, and reply-density trajectories after public events",
+      "observed_axes": ["sentiment", "virality", "polarisation", "attention"],
+      "baseline_conditions": ["persistence", "llm_only", "text_sentiment_model", "shuffled_neuro_prior", "neutral_neuro_prior", "inverted_neuro_prior", "oracle_behaviour_prior"],
+      "neuro_condition": "neuro_conditioned",
+      "recommended_metrics": ["mae", "rmse", "directional_accuracy", "lagged_correlation"],
+      "notes": "Naive persistence is hard to beat in sentiment time series; treat it as a required baseline."
+    },
+    {
+      "id": "geopolitical_event_reaction",
+      "domain": "geopolitics",
+      "primary_datasets": ["GDELT Events", "ICEWS", "ICBe crisis events"],
+      "prediction_target": "event-count, escalation, or reaction-type changes over future windows",
+      "observed_axes": ["risk_aversion", "attention", "polarisation", "trust"],
+      "baseline_conditions": ["event_count_persistence", "llm_only", "historical_rate", "shuffled_neuro_prior", "neutral_neuro_prior", "inverted_neuro_prior", "oracle_behaviour_prior"],
+      "neuro_condition": "neuro_conditioned",
+      "recommended_metrics": ["mae", "rmse", "brier_score", "directional_accuracy"],
+      "notes": "Aggregate events into fixed actor-region-time panels before comparing."
+    },
+    {
+      "id": "human_behavior_simulation",
+      "domain": "agent_fidelity",
+      "primary_datasets": ["SimBench", "HugAgent", "OmniBehavior"],
+      "prediction_target": "whether synthetic agent decisions match observed human traces or survey outcomes",
+      "observed_axes": ["sentiment", "trust", "risk_aversion", "attention"],
+      "baseline_conditions": ["llm_only", "persona_only", "shuffled_neuro_prior", "neutral_neuro_prior", "inverted_neuro_prior", "oracle_behaviour_prior"],
+      "neuro_condition": "neuro_conditioned",
+      "recommended_metrics": ["accuracy", "mae", "distribution_distance", "calibration_error"],
+      "notes": "Use this to test simulator fidelity, not TRIBE's neuroscience validity directly."
+    }
+  ]
+}
