@@ -4,13 +4,11 @@ Neural Bridge keeps source code and lightweight metadata in this repo. Large mod
 
 ## Primary External Root
 
-`/Volumes/onn. Drive/Neural Bridge`
+Configured per workstation:
 
-## Compatibility Symlink
-
-`/Volumes/onn. Drive/MiroFish` is a symlink to `/Volumes/onn. Drive/Neural Bridge`.
-
-This keeps older commands and historical reports readable while active config defaults use the Neural Bridge path.
+```bash
+NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
+```
 
 ## Repo-Tracked Assets
 
@@ -27,13 +25,13 @@ This keeps older commands and historical reports readable while active config de
 
 ## External Heavy Assets
 
-- `/Volumes/onn. Drive/Neural Bridge/models/`
-- `/Volumes/onn. Drive/Neural Bridge/cache/`
-- `/Volumes/onn. Drive/Neural Bridge/benchmarks/`
-- `/Volumes/onn. Drive/Neural Bridge/datasets/`
-- `/Volumes/onn. Drive/Neural Bridge/sources/`
-- `/Volumes/onn. Drive/Neural Bridge/runtimes/`
-- `/Volumes/onn. Drive/Neural Bridge/tmp/`
+- `<external-assets-root>/models/`
+- `<external-assets-root>/cache/`
+- `<external-assets-root>/benchmarks/`
+- `<external-assets-root>/datasets/`
+- `<external-assets-root>/sources/`
+- `<external-assets-root>/runtimes/`
+- `<external-assets-root>/tmp/`
 
 ## Current Size Snapshot
 

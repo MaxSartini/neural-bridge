@@ -18,7 +18,7 @@ The current claim is intentionally precise: Neural Bridge has evidence for arous
 ## Key VEATIC-124 v2 Results
 
 - Manifest: 124 videos, 10,357 1 Hz target rows.
-- Cache: complete cortical/TRIBE cache at `/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache`.
+- Cache: complete cortical/TRIBE cache under the configured external assets root, at `benchmarks/veatic/tribe_cache`.
 - Strongest blocked spike row: `cortical_pca64_delta`, `arousal__future_spike_1_3s`, threshold `0.05`.
 - PR-AUC for that row: real `0.2536`, AR `0.1969`, shuffled `0.1840`, random `0.1944`.
 - Official split spike rows pass controls across current feature families.
@@ -75,17 +75,13 @@ backend/scripts/run_veatic_tribe_cache.py
 
 ## External Assets
 
-Heavy assets stay outside git:
+Heavy assets stay outside git. Configure the external assets root in `.env` for each workstation:
 
 ```bash
-/Volumes/onn. Drive/Neural Bridge
+NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 ```
 
-This external root contains model weights, Hugging Face caches, raw/processed datasets, TRIBE caches, benchmark caches, and large generated outputs. Historical commands that reference the old name are supported by:
-
-```bash
-/Volumes/onn. Drive/MiroFish -> /Volumes/onn. Drive/Neural Bridge
-```
+This external root contains model weights, Hugging Face caches, raw/processed datasets, TRIBE caches, benchmark caches, and large generated outputs.
 
 See [docs/external_assets_manifest.md](docs/external_assets_manifest.md).
 
@@ -94,7 +90,7 @@ See [docs/external_assets_manifest.md](docs/external_assets_manifest.md).
 Backend:
 
 ```bash
-cd "/Users/maxsartini/Neural Bridge/backend"
+cd <repo-root>/backend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -104,7 +100,7 @@ python run.py
 Frontend:
 
 ```bash
-cd "/Users/maxsartini/Neural Bridge/frontend"
+cd <repo-root>/frontend
 npm install
 npm run dev
 ```
@@ -112,12 +108,12 @@ npm run dev
 Repo-root helper:
 
 ```bash
-cd "/Users/maxsartini/Neural Bridge"
+cd <repo-root>
 npm install
 npm run dev
 ```
 
-The local `.env` file is ignored by git. Full benchmark workflows require the external drive to be mounted.
+The local `.env` file is ignored by git. Full benchmark workflows require the configured external assets root to be mounted or otherwise available.
 
 ## Guardrails
 

@@ -4,17 +4,17 @@ This document is the current requirements audit for the cleaned Neural Bridge re
 
 ## System Requirements
 
-- macOS on Apple Silicon is the primary development target.
+- Apple Silicon macOS is the primary development target for local MLX/MPS acceleration. Linux CPU/GPU environments may work for non-MLX paths but are not the reference setup.
 - Python 3.11 or newer.
 - Node.js 18 or newer.
 - Git.
-- External drive mounted at:
+- External assets root configured through `.env`, for example:
 
 ```bash
-/Volumes/onn. Drive/Neural Bridge
+NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 ```
 
-Full benchmark work assumes that external root contains the model weights, Hugging Face caches, datasets, VEATIC/TRIBE caches, generated benchmark outputs, and temporary extraction files described in `docs/external_assets_manifest.md`.
+Full benchmark work assumes that external root contains model weights, Hugging Face caches, datasets, VEATIC/TRIBE caches, generated benchmark outputs, and temporary extraction files described in `docs/external_assets_manifest.md`.
 
 ## Local Services
 
@@ -26,7 +26,7 @@ Required for app/simulation workflows:
 
 Required for full neural workflows:
 
-- TRIBE/MLX assets under the external Neural Bridge root.
+- TRIBE/MLX assets under the configured external assets root.
 - V-JEPA2/encoder assets under the configured external model paths.
 - Apple Metal/MPS-capable PyTorch for Torch-based encoder code.
 
@@ -59,7 +59,7 @@ Main dependency groups:
 Install path:
 
 ```bash
-cd "/Users/maxsartini/Neural Bridge/backend"
+cd <repo-root>/backend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -68,7 +68,7 @@ pip install -r requirements.txt
 Root helper path, if `uv` is installed:
 
 ```bash
-cd "/Users/maxsartini/Neural Bridge"
+cd <repo-root>
 npm run setup:backend
 ```
 
@@ -96,7 +96,7 @@ Frontend:
 Install path:
 
 ```bash
-cd "/Users/maxsartini/Neural Bridge"
+cd <repo-root>
 npm install
 cd frontend
 npm install

@@ -100,7 +100,7 @@ Goal: make the new Neural Bridge repo match the current project, not its history
 - [ ] Add a status check for external drive, TRIBE cache, Neo4j, local LLM host, and benchmark artifacts.
 - [ ] Add a compact benchmark dashboard or CLI summary for the v2 baseline.
 - [ ] Remove stale legacy docs and run folders once their useful evidence is preserved.
-- [ ] Keep only intentional compatibility references to the old MiroFish path.
+- [ ] Keep local compatibility paths out of company-facing docs; document machine-specific paths only in local `.env` files.
 - [ ] Keep generated heavy outputs out of git.
 
 ## De-Scoped

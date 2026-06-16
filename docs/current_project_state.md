@@ -4,10 +4,8 @@ This is the short operating snapshot for the cleaned Neural Bridge repo after th
 
 ## Repo
 
-- Active repo: `/Users/maxsartini/Neural Bridge`
-- Archived source checkout: `/Users/maxsartini/MiroFish-Offline-main`
-- External asset root: `/Volumes/onn. Drive/Neural Bridge`
-- Compatibility symlink: `/Volumes/onn. Drive/MiroFish -> /Volumes/onn. Drive/Neural Bridge`
+- Active repo: this Git checkout.
+- External asset root: configured locally through `.env` as `NEURAL_BRIDGE_EXTERNAL_ROOT`.
 
 The repo should stay lightweight. Heavy research assets belong on the external drive, not in git.
 
@@ -21,7 +19,7 @@ Current evidence is strongest for VEATIC-124 cortical/TRIBE arousal event and sp
 
 - Complete VEATIC manifest: `benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl`
 - Manifest rows: 10,357 at 1 Hz
-- Complete cortical cache: `/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache`
+- Complete cortical cache: `<external-assets-root>/benchmarks/veatic/tribe_cache`
 - Cache shape contract: per-video `tribe_raw_output.npz` with required key `predictions`
 - Main targets: `valence`, `arousal`
 
