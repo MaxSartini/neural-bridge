@@ -1,6 +1,6 @@
 # Neural Bridge Roadmap
 
-This is the post-VEATIC-124 v2 roadmap. VEATIC proved the core cortical/TRIBE hypothesis for arousal event/spike ranking. The roadmap now focuses on preserving that evidence, turning it into a stable training contract, and building better heads on top of the proven signal.
+This is the post-VEATIC-124 v2 roadmap. VEATIC proved the core cortical/TRIBE hypothesis for arousal event/spike ranking. The roadmap now focuses on preserving the strict benchmark suite that produced that evidence, freezing the future training data interface, and building better heads on top of the proven signal.
 
 ## Proven Baseline
 
@@ -30,21 +30,23 @@ Goal: make the proven v2 baseline impossible to lose or confuse with old runs.
 
 ## 2. Benchmark Contract
 
-Goal: preserve the exact rules that made the v2 result credible.
+Goal: surface and preserve the exact rules already enforced by the v2 benchmark suite.
 
 - [x] Audit spike rows that prefer non-zero offsets.
 - [x] Select 0s alignment as the primary non-leaky benchmark baseline.
 - [x] Keep offset grids as diagnostics rather than final-score corrections.
 - [x] Confirm no future-looking feature leakage in causal/delta/window features.
-- [ ] Encode the alignment, split, threshold, transform, and reporting rules into a reusable benchmark contract.
-- [ ] Add a compact status command that verifies the benchmark contract against the current artifact set.
+- [x] Enforce train-only thresholds, train-only PCA/transforms, grouped-video folds, blocked validation, and shuffled/random/time controls in the benchmark scripts.
+- [x] Enforce balanced event-vs-stable scoring for event-conditioned PR-AUC claims.
+- [ ] Consolidate the already-implemented rules into a named v2 contract manifest so fresh sessions can discover them without reading every script.
+- [ ] Add a compact status command that verifies the current artifact set was produced under the v2 contract.
 
 ## 3. v2 Training Tensor Contract
 
-Goal: make new heads consume the proven v2 data without changing the benchmark under them.
+Goal: freeze the exact model-input interface that future heads consume, separate from the already-strict scoring suite.
 
-- [ ] Define immutable tensor contracts for `cortical_pca_64`, `cortical_pca64_delta`, `cortical_global`, and raw cortical trajectories.
-- [ ] Record target definitions, masks, split fields, temporal windows, and train-only transform state.
+- [ ] Define immutable tensor files/contracts for `cortical_pca_64`, `cortical_pca64_delta`, `cortical_global`, and raw cortical trajectories.
+- [ ] Record target definitions, masks, split fields, temporal windows, and transform metadata already used by the benchmark suite.
 - [ ] Add loader tests that fail on leakage-prone transforms.
 - [ ] Store immutable training tensors externally with manifest and checksum metadata.
 - [ ] Build a minimal baseline head before adding recursive or larger architectures.

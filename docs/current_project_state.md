@@ -61,12 +61,12 @@ Current v2 evidence reports now tracked in this repo:
 ## Remaining Work
 
 1. Freeze the current 124-video v2 baseline into a protected external snapshot.
-2. Formalize the v2 benchmark contract in scripts and documentation.
-3. Formalize the v2 training tensor contract.
+2. Surface the already-strict v2 benchmark rules as a named contract and verifier.
+3. Freeze the v2 training tensor contract for future model heads.
 4. Carry the resolved alignment policy into the tensor contract and benchmark dashboard.
 5. Build next model heads against the frozen v2 baseline.
 6. Delete or archive old pre-124 runs after preserving the useful evidence.
 
 ## Next Safe Move
 
-Freeze the current 124-video v2 evidence bundle, encode the benchmark and tensor contracts, then build new model heads on the fixed 0s-primary alignment policy.
+Freeze the current 124-video v2 evidence bundle, expose the benchmark contract that the suite already enforces, then freeze the tensor interface for new heads.

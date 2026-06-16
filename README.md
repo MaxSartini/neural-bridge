@@ -129,8 +129,8 @@ The local `.env` file is ignored by git. Full benchmark workflows require the co
 The active post-v2 roadmap is in [ROADMAP.md](ROADMAP.md). The short version is:
 
 1. Freeze and package the v2 evidence bundle.
-2. Encode the resolved benchmark contract.
-3. Build the v2 training tensor contract.
+2. Surface the already-strict v2 benchmark rules as a named contract and verifier.
+3. Freeze the v2 training tensor contract for future model heads.
 4. Build next model heads on the proven cortical/TRIBE signal.
 5. Productize the evidence verifier and dashboard workflow.
 
