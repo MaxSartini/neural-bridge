@@ -24,9 +24,9 @@ neo4j>=5.15.0
 camel-oasis==0.2.5
 camel-ai==0.2.78
 
-# ============= Quantitative / Data Processing =============
-# Required by market_data_consolidator (Z-scores, volatility regimes,
-# rolling means) and file_parser (CSV/XLSX ingestion).
+# ============= Data Processing =============
+# Required by benchmark scripts, calibration utilities, and file_parser
+# CSV/XLSX ingestion.
 numpy>=1.26.0
 pandas>=2.1.0
 # Supervised neuro-to-behaviour calibration and grouped holdout evaluation

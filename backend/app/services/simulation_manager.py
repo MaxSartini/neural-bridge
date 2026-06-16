@@ -21,7 +21,6 @@ from ..utils.logger import get_logger
 from .entity_reader import EntityReader, FilteredEntities, EntityNode
 from .oasis_profile_generator import OasisProfileGenerator, OasisAgentProfile
 from .simulation_config_generator import SimulationConfigGenerator, SimulationParameters
-from .market_data_consolidator import MarketDataConsolidator
 from .neuro_prior_mapper import NeuroPriorMapper
 from .neuro_prior_service import NeuroPriorService
 

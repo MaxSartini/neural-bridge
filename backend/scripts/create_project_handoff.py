@@ -128,7 +128,7 @@ def build_handoff(args: argparse.Namespace) -> tuple[Path, str]:
         [
             "bash",
             "-lc",
-            "ps -axo pid,etime,pcpu,pmem,command | rg 'run_veatic_tribe_cache|run_veatic_gated_pipeline|veatic_50_monitor' | rg -v 'rg|node_repl' || true",
+            "ps -axo pid,etime,pcpu,pmem,command | rg 'run_veatic_tribe_cache' | rg -v 'rg|node_repl' || true",
         ]
     )
     state_excerpt = read_text(Path(args.state_file), max_chars=args.state_chars)

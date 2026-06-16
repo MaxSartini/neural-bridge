@@ -24,7 +24,7 @@ Goal: make the proven v2 baseline impossible to lose or confuse with old runs.
 
 - [ ] Create a protected external snapshot for the VEATIC-124 v2 manifest, cache metadata, benchmark JSON/CSV outputs, and tracked reports.
 - [ ] Add checksums and a manifest that identifies the exact authoritative files.
-- [ ] Mark pre-124 and first-50 artifacts as deleted, archived, or retained with an explicit reason.
+- [ ] Mark superseded pre-v2 artifacts as deleted, archived, or retained with an explicit reason.
 - [ ] Add one verification command that rechecks the v2 evidence bundle without re-encoding videos.
 - [ ] Keep small summary reports in git; keep heavy caches and raw outputs external.
 
