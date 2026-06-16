@@ -1,0 +1,67 @@
+{
+  "schema_version": "veatic_124_temporal_fairness_v1",
+  "output_dir": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509",
+  "manifest": "/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
+  "cache_dir": "/Volumes/onn. Drive/MiroFish/benchmarks/veatic/tribe_cache",
+  "offset_convention": "feature_time = label_anchor_time + offset_seconds",
+  "pca_backend": "mps_gram",
+  "ridge_backend": "cpu_pinv",
+  "folds": 5,
+  "bootstrap_samples": 500,
+  "include_secondary": false,
+  "full_grid": false,
+  "full_context": false,
+  "offset_grid": [
+    -8.0,
+    -6.0,
+    -4.0,
+    -3.0,
+    -2.5,
+    -2.0,
+    -1.5,
+    -1.0,
+    -0.5,
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    4.0,
+    6.0,
+    8.0
+  ],
+  "causal_windows": [
+    "current_only_0s",
+    "causal_past_3s",
+    "causal_past_5s"
+  ],
+  "diagnostic_windows": [
+    "future_3s"
+  ],
+  "elapsed_seconds": 1722.3557236669585,
+  "executive_verdict": "This temporal fairness benchmark evaluates whether the current 0s single-timestep TRIBE interface is fair under grouped-video validation. Taxonomy counts: fair at 0s=0, context-starved=2, earlier-feature advantage=0, later-feature advantage=0, control-driven=0, unstable/video-specific=6. Causal windows and train-selected offsets are valid predictive diagnostics; future-inclusive windows are diagnostic only.",
+  "best_defensible_claim": "Best defensible claim: TRIBE/cortical features should be judged with input-timing fairness checks. If causal windows or train-selected offsets outperform 0s while controls do not, the single-timestep 0s interface likely underestimates the representation. Do not promote any test-selected or per-video lag correction to a final benchmark score.",
+  "taxonomy_counts": {
+    "Unstable/video-specific": 6,
+    "Context-starved": 2
+  },
+  "outputs": [
+    "zero_offset_results.csv",
+    "causal_context_window_results.csv",
+    "offset_sweep_results.csv",
+    "train_selected_offset_results.csv",
+    "diagnostic_future_context_results.csv",
+    "real_vs_control_context_specificity.csv",
+    "real_vs_control_offset_specificity.csv",
+    "balanced_event_stable_results.csv",
+    "bootstrap_ci.csv",
+    "timing_fairness_taxonomy.csv",
+    "selected_offsets_by_fold.csv",
+    "ar_behavior_audit.csv",
+    "leakage_audit.csv",
+    "veatic_124_temporal_fairness_report.md",
+    "veatic_124_temporal_fairness_summary.json"
+  ]
+}

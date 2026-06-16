@@ -1,0 +1,135 @@
+{
+  "schema_version": "veatic_124_temporal_context_v2",
+  "output_dir": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_context_v2_20260616_1557",
+  "prior_dir": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509",
+  "elapsed_seconds": 847.136096125003,
+  "pca_backend": "mps_gram",
+  "ridge_backend": "cpu_pinv",
+  "bootstrap_samples": 500,
+  "features": [
+    "cortical_pca_64",
+    "cortical_pca64_delta"
+  ],
+  "targets": [
+    {
+      "target": "arousal__future_spike_1_3s",
+      "threshold": 0.05
+    },
+    {
+      "target": "arousal__future_spike_1_3s",
+      "threshold": 0.075
+    }
+  ],
+  "windows": [
+    "current_only_0s",
+    "causal_past_1s",
+    "causal_past_2s",
+    "causal_past_3s",
+    "causal_past_4s",
+    "causal_past_5s"
+  ],
+  "representations": [
+    "last",
+    "mean",
+    "slope",
+    "mean_last",
+    "mean_slope",
+    "last_slope",
+    "mean_std_last_slope"
+  ],
+  "symmetric_diagnostic_included": true,
+  "reused_summary_rows": 60,
+  "score_recomputations_for_reused_rows": 60,
+  "newly_computed_rows": 680,
+  "executive_verdict": "V2 narrowed to future spike ranking and found best causal windows {'causal_past_2s': 4} with best representations {'last': 2, 'mean': 2}. 4/4 feature-target rows improved over current-only by more than 0.005 PR-AUC, and 0/4 had positive context-specific gain versus AR above 0.003. This supports temporal context sufficiency checks where gains are real-feature-specific, but does not justify universal early-warning or label-shift claims.",
+  "best_defensible_claim": "Best defensible claim: short causal context can modestly improve future arousal spike ranking for selected TRIBE/cortical PCA modes, so single-timestep 0s evaluation may underfeed the bridge head. The effect must be reported with controls because some context changes can track label/timing structure rather than TRIBE-specific information.",
+  "best_window_counts": {
+    "causal_past_2s": 4
+  },
+  "best_representation_counts": {
+    "last": 2,
+    "mean": 2
+  },
+  "reused_artifacts": [
+    {
+      "path": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/causal_context_window_results.csv",
+      "exists": true,
+      "bytes": 294521,
+      "mtime": 1781617089.1695518,
+      "sha256": "beadeffce2cca57bda2a7496a745e0c781c900c4ce53093c9bb4cec94e5784c3",
+      "contains": "prior 0s, 3s, 5s causal context summary rows",
+      "reuse_reason": "directly comparable grouped-video v1 rows reused for matching cells",
+      "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
+    },
+    {
+      "path": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/offset_sweep_results.csv",
+      "exists": true,
+      "bytes": 1842463,
+      "mtime": 1781617089.2232354,
+      "sha256": "de08ff9031f0603e236c4a75b4c2cc96d07b47add6799bc8da4afd08a4133465",
+      "contains": "prior focused offset sweep",
+      "reuse_reason": "v2 compares against prior best offset without rerunning offsets",
+      "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
+    },
+    {
+      "path": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/train_selected_offset_results.csv",
+      "exists": true,
+      "bytes": 395755,
+      "mtime": 1781617089.234698,
+      "sha256": "7ed0b6602a2bd025ca35fa341366521b4978a2a724bdc85a72bff540f1bbab2f",
+      "contains": "prior train-only selected offset results",
+      "reuse_reason": "v2 compares against prior selected-offset outcomes without rerunning offsets",
+      "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
+    },
+    {
+      "path": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/leakage_audit.csv",
+      "exists": true,
+      "bytes": 672,
+      "mtime": 1781617090.386392,
+      "sha256": "e237c6456ee430a7af7a75934f58b7db79b4794f09ccf987be3765e32a681775",
+      "contains": "prior leakage checks",
+      "reuse_reason": "v2 extends same leakage policy",
+      "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
+    },
+    {
+      "path": "/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
+      "exists": true,
+      "bytes": 7227147,
+      "mtime": 1781607675.8660512,
+      "sha256": "9b33000cf297344e6c3470d52fe1960fa66ff469429dd3f6507e1704e7fddad7",
+      "contains": "VEATIC-124 manifest rows and split metadata",
+      "reuse_reason": "same labels/video ids as prior run",
+      "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
+    },
+    {
+      "path": "/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_manifest_124_complete_20260616.report.json",
+      "exists": true,
+      "bytes": 86592,
+      "mtime": 1781607676.4494693,
+      "sha256": "f87fc39a3693b369c141cc88bcb09cead4e58c7faa955f8efef281468b0982b8",
+      "contains": "VEATIC-124 manifest report and complete video ids",
+      "reuse_reason": "same 124-video accepted set",
+      "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
+    },
+    {
+      "path": "/Volumes/onn. Drive/MiroFish/benchmarks/veatic/tribe_cache",
+      "exists": true,
+      "bytes": null,
+      "mtime": 1781604875.0,
+      "sha256": null,
+      "contains": "cached TRIBE/cortical raw outputs; tribe_raw_output.npz count=124",
+      "reuse_reason": "source for cache-only PCA/context matrices; no video re-encoding",
+      "leakage_safe_reason": "PCA is refit inside each train fold before transforming held-out rows"
+    },
+    {
+      "path": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/causal_context_window_results.csv",
+      "exists": true,
+      "bytes": null,
+      "mtime": null,
+      "sha256": null,
+      "contains": "60 directly reused summary rows",
+      "reuse_reason": "avoid recomputing matching v1 context summary cells",
+      "leakage_safe_reason": "same folds, features, target definitions, and train-only threshold policy"
+    }
+  ]
+}

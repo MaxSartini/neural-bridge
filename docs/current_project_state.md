@@ -1,6 +1,6 @@
 # Current Project State - 2026-06-16
 
-This is the short operating snapshot for the cleaned Neural Bridge repo.
+This is the short operating snapshot for the cleaned Neural Bridge repo after the VEATIC-124 v2 evidence pass.
 
 ## Repo
 
@@ -13,9 +13,9 @@ The repo should stay lightweight. Heavy research assets belong on the external d
 
 ## Active Scientific Direction
 
-Neural Bridge is testing whether predicted neural response trajectories can improve human-response and simulation forecasts under controlled baselines.
+Neural Bridge is testing where predicted neural response trajectories improve human-response and simulation forecasts under controlled baselines.
 
-Current evidence is strongest for VEATIC cortical feature experiments. The project should continue to describe this as a promising scale candidate, not a finished proof of end-to-end simulation accuracy.
+Current evidence is strongest for VEATIC-124 cortical/TRIBE arousal event and spike ranking. v2 has validated specific hypotheses around event/spike ranking and causal temporal context. It still should not claim exact continuous arousal-value forecasting or full end-to-end simulation accuracy.
 
 ## Current Benchmark Assets
 
@@ -33,6 +33,23 @@ Current feature families:
 - `cortical_pca64_delta`
 - raw cortical trajectories for future loader work
 
+Current v2 evidence reports now tracked in this repo:
+
+- `benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md`
+- `benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.md`
+- `benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md`
+- `outputs/veatic_124_temporal_context_v2_20260616_1557/veatic_124_temporal_context_v2_report.md`
+- `outputs/veatic_124_temporal_fairness_20260616_1509/veatic_124_temporal_fairness_report.md`
+
+## Validated v2 Findings
+
+- Cortical/TRIBE features improve arousal future-spike/event ranking under blocked validation.
+- `cortical_pca64_delta` is the strongest blocked full-frame spike row at threshold `0.05`: PR-AUC `0.2536` versus AR `0.1969`, shuffled `0.1840`, and random `0.1944`.
+- Official split event/spike rows pass controls across the current feature families.
+- Grouped-video validation improves aggregate spike F1 over AR for PCA modes.
+- Balanced event-vs-stable sampling confirms event-conditioned discrimination for the strongest spike rows.
+- Temporal context v2 shows short causal windows improve selected future arousal spike ranking over current-only evaluation.
+
 ## Benchmark Rules
 
 - Full-frame VEATIC rows remain the main baseline.
@@ -44,12 +61,13 @@ Current feature families:
 
 ## Known Open Issues
 
-1. No protected immutable snapshot of the current 124-video baseline exists yet.
+1. No protected immutable snapshot of the current 124-video v2 baseline exists yet.
 2. Video `83` has a prediction/manifest length mismatch and is currently resampled.
 3. The production training tensor loader contract is not formalized.
 4. The main 124-video cache is cortical; subcortical artifacts are smoke/test only unless separately extracted and frozen.
-5. Old pre-124 runs and legacy docs should be deleted or archived only after the current baseline snapshot records what still matters.
+5. Temporal alignment remains the main scientific follow-up before stronger timing claims.
+6. Old pre-124 runs and legacy docs should be deleted or archived only after the current baseline snapshot records what still matters.
 
 ## Next Safe Move
 
-Freeze the current 124-video benchmark baseline before new model work, recursive-head experiments, or subcortical expansion.
+Freeze the current 124-video v2 evidence bundle, then resolve temporal alignment and the formal tensor-loader contract before new model heads, recursive experiments, or subcortical expansion.
