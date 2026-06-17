@@ -86,7 +86,7 @@ Goal: keep fresh sessions focused on the current Neural Bridge system.
 - [x] Remove redundant local/static assets and unused atlas copies.
 - [x] Replace behavioural ROI-calibration scaffolding with a plain cortical atlas mapper for the viewer.
 - [x] Clean root `.env.example`, `.gitignore`, package scripts, and dependency locks.
-- [ ] Add a lightweight repo-audit command that checks for stale legacy terms and accidentally staged heavy artifacts.
+- [x] Add a lightweight repo-audit command that checks for stale legacy terms and accidentally staged heavy artifacts.
 
 ## De-Scoped
 

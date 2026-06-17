@@ -31,6 +31,7 @@ The current claim is intentionally precise: Neural Bridge has evidence for arous
 
 Source summaries:
 
+- [AGENTS.md](AGENTS.md)
 - [docs/veatic_v2_evidence_summary.md](docs/veatic_v2_evidence_summary.md)
 - [benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md](benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md)
 - [benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.md](benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.md)
@@ -116,6 +117,7 @@ Repo-root helpers:
 ```bash
 cd <repo-root>
 npm install
+npm run audit:repo
 npm run backend   # terminal 1
 npm run frontend  # terminal 2
 ```
@@ -165,6 +167,7 @@ The active post-v2 roadmap is in [ROADMAP.md](ROADMAP.md). The short version is:
 
 - `.env.example` is the tracked configuration template.
 - `.env` is local-only and ignored by git.
+- `AGENTS.md` is the current Codex/fresh-session operating contract.
 - `package.json` only provides root helper commands; frontend dependencies and their lockfile live under `frontend/`.
 
 ## License

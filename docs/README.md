@@ -6,10 +6,12 @@ Current-facing documentation:
 - `veatic_v2_evidence_summary.md` - current VEATIC-124 v2 scientific evidence.
 - `external_assets_manifest.md` - source-versus-external asset boundary.
 - `PROJECT_MEMORY.md` - current memory pointer and handoff policy.
+- `../AGENTS.md` - Codex/fresh-session operating contract.
 
 Current benchmark entrypoint:
 
 - `backend/scripts/run_veatic_strict_benchmark.py` - consolidated VEATIC-124 strict suite and contract dry-run.
+- `backend/scripts/audit_repo_readiness.py` - stale-term, heavyweight-artifact, and orientation-file audit.
 
 Detailed evidence artifacts live outside this folder:
 

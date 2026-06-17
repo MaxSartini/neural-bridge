@@ -46,6 +46,8 @@ Current default benchmark entrypoint:
 python3 backend/scripts/run_veatic_strict_benchmark.py --primary-only
 ```
 
+Fresh Codex sessions should read `AGENTS.md` and run `npm run audit:repo` before changing repo state.
+
 Use `--dry-run` to print the strict contract and control ledger without loading the external cache.
 Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 

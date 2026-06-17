@@ -6,7 +6,7 @@ This document is the current requirements audit for the cleaned Neural Bridge re
 
 - Apple Silicon macOS is the primary development target for local MLX/MPS acceleration. Linux CPU/GPU environments may work for non-MLX paths but are not the reference setup.
 - Python 3.12 or newer.
-- Node.js 18 or newer.
+- Node.js 20.19.0 or newer on the Node 20 line, or Node.js 22.12.0 or newer.
 - Git.
 - External assets root configured through `.env`, for example:
 
