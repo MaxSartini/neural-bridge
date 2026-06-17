@@ -15,6 +15,8 @@ Completed:
 - Temporal context v2 shows short causal windows can improve selected spike-ranking rows.
 - Alignment repair selected the final benchmark policy: keep current 0s alignment primary and report offset grids as diagnostics.
 - Small v2 evidence reports are tracked in this repo.
+- Legacy app-era code, redundant atlas data, and stale frontend scaffolding have been removed from the active repo.
+- Root config/package files now describe only the current VEATIC/TRIBE workspace.
 
 This is the current scientific foundation, not a hypothesis waiting for another dataset to validate it.
 
@@ -72,6 +74,16 @@ Goal: make a fresh session or teammate able to inspect, verify, and extend the p
 - [ ] Remove or archive stale run folders once their useful evidence is preserved.
 - [ ] Keep machine-specific paths only in local `.env` files.
 - [ ] Keep generated heavy outputs out of git.
+
+## 6. Repository Hygiene
+
+Goal: keep fresh sessions focused on the current Neural Bridge system.
+
+- [x] Remove old app-era backend and frontend workflow code.
+- [x] Remove redundant local/static assets and unused atlas copies.
+- [x] Replace behavioural ROI-calibration scaffolding with a plain cortical atlas mapper for the viewer.
+- [x] Clean root `.env.example`, `.gitignore`, package scripts, and dependency locks.
+- [ ] Add a lightweight repo-audit command that checks for stale legacy terms and accidentally staged heavy artifacts.
 
 ## De-Scoped
 

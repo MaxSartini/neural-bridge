@@ -66,14 +66,12 @@ npm run setup:backend
 
 ## JavaScript Dependencies
 
-Canonical frontend manifests:
+JavaScript manifests:
 
-- `package.json`
-- `frontend/package.json`
+- `package.json` for root helper scripts only.
+- `frontend/package.json` and `frontend/package-lock.json` for the Vue/Vite app.
 
-Root dev tooling:
-
-- `concurrently`
+The root `package.json` has no runtime dependencies. It only provides helper scripts for setup, backend launch, frontend launch, build, tests, and verification.
 
 Frontend:
 
@@ -89,8 +87,7 @@ Install path:
 ```bash
 cd <repo-root>
 npm install
-cd frontend
-npm install
+npm run setup:frontend
 ```
 
 ## Environment Configuration
@@ -138,13 +135,19 @@ python3 -m compileall -q backend/app backend/scripts tests
 Current real test suite:
 
 ```bash
-python3 -m pytest -q tests/test_grouped_video_split.py
+python3 -m pytest -q tests/test_veatic_strict_benchmark_contract.py tests/test_grouped_video_split.py
 ```
 
 Frontend build:
 
 ```bash
 npm run build
+```
+
+Full local verification:
+
+```bash
+npm run verify
 ```
 
 ## Current Evidence Entry Points

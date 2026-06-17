@@ -1,18 +1,18 @@
 {
   "name": "neural-bridge",
   "version": "0.2.0",
-  "description": "Neural Bridge - local VEATIC/TRIBE research workspace",
+  "private": true,
+  "description": "Neural Bridge VEATIC/TRIBE research workspace",
   "scripts": {
-    "setup": "npm install && cd frontend && npm install",
+    "setup": "npm --prefix frontend install",
     "setup:backend": "cd backend && uv sync",
+    "setup:frontend": "npm --prefix frontend install",
     "setup:all": "npm run setup && npm run setup:backend",
-    "dev": "concurrently --kill-others -n \"backend,frontend\" -c \"green,cyan\" \"npm run backend\" \"npm run frontend\"",
     "backend": "cd backend && uv run python run.py",
-    "frontend": "cd frontend && npm run dev",
-    "build": "cd frontend && npm run build"
-  },
-  "devDependencies": {
-    "concurrently": "^9.1.2"
+    "frontend": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "test": "python3 -m pytest -q tests/test_veatic_strict_benchmark_contract.py tests/test_grouped_video_split.py",
+    "verify": "python3 -m compileall -q backend/app backend/scripts external_models/tribev2-apple-silicon/tribev2 tests && npm test && python3 backend/scripts/run_veatic_strict_benchmark.py --dry-run --primary-only >/dev/null && npm run build"
   },
   "engines": {
     "node": ">=18.0.0"

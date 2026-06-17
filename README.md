@@ -83,6 +83,14 @@ See [docs/external_assets_manifest.md](docs/external_assets_manifest.md).
 
 ## Local Setup
 
+Create local configuration:
+
+```bash
+cp .env.example .env
+```
+
+Keep machine-specific paths in `.env`; it is ignored by git. The template is the tracked contract for fresh machines and Codex sessions.
+
 Backend:
 
 ```bash
@@ -101,15 +109,16 @@ npm install
 npm run dev
 ```
 
-Repo-root helper:
+Repo-root helpers:
 
 ```bash
 cd <repo-root>
 npm install
-npm run dev
+npm run backend   # terminal 1
+npm run frontend  # terminal 2
 ```
 
-The local `.env` file is ignored by git. Full benchmark workflows require the configured external assets root to be mounted or otherwise available.
+Full benchmark workflows require the configured external assets root to be mounted or otherwise available.
 
 ## Strict Benchmark
 
@@ -139,6 +148,12 @@ The active post-v2 roadmap is in [ROADMAP.md](ROADMAP.md). The short version is:
 3. Freeze the v2 training tensor contract for future model heads.
 4. Build next model heads on the proven cortical/TRIBE signal.
 5. Productize the evidence verifier and dashboard workflow.
+
+## Root Files
+
+- `.env.example` is the tracked configuration template.
+- `.env` is local-only and ignored by git.
+- `package.json` only provides root helper commands; frontend dependencies and their lockfile live under `frontend/`.
 
 ## License
 

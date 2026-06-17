@@ -4,6 +4,7 @@
 .env
 .env.*
 !.env.example
+*.local
 
 # OS and editor noise
 .DS_Store
@@ -19,6 +20,7 @@ venv/
 ENV/
 backend/.venv/
 backend/venv*/
+.python-version
 __pycache__/
 *.py[cod]
 *.pyo
@@ -35,6 +37,7 @@ dist/
 
 # Node/Vite dependencies and build output
 node_modules/
+/package-lock.json
 frontend/node_modules/
 frontend/dist/
 frontend/.vite/
@@ -49,6 +52,7 @@ log/
 backend/logs/
 backend/log/
 backend/uploads/
+backend/tmp/
 
 # Heavy model and cache artifacts
 models/*
@@ -58,6 +62,19 @@ cache/
 external_assets/
 benchmarks/cache/
 benchmarks/results/
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+*.npz
+*.npy
+*.parquet
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.wav
+*.mp3
 
 # Generated benchmark output. Curated lightweight evidence reports may be
 # force-added when they are part of the documented v2 evidence bundle.
@@ -65,6 +82,7 @@ outputs/
 reports/*.csv
 reports/*.jsonl
 reports/*.parquet
+reports/*.npz
 
 # Local runtime volumes
 data/
