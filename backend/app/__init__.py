@@ -42,24 +42,6 @@ def create_app(config_class=None):
     # Enable CORS
     CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-    # --- Initialize Neo4jStorage singleton (DI via app.extensions) ---
-    from .storage import Neo4jStorage
-    try:
-        neo4j_storage = Neo4jStorage()
-        app.extensions['neo4j_storage'] = neo4j_storage
-        if should_log_startup:
-            logger.info("Neo4jStorage initialized (connected to %s)", Config.NEO4J_URI)
-    except Exception as e:
-        logger.error("Neo4jStorage initialization failed: %s", e)
-        # Store None so endpoints can return 503 gracefully
-        app.extensions['neo4j_storage'] = None
-
-    # Register simulation process cleanup function (ensure all simulation processes terminate on server shutdown)
-    from .services.simulation_runner import SimulationRunner
-    SimulationRunner.register_cleanup()
-    if should_log_startup:
-        logger.info("Simulation process cleanup function registered")
-
     # Request logging middleware
     @app.before_request
     def log_request():
@@ -75,13 +57,8 @@ def create_app(config_class=None):
         return response
 
     # Register blueprints
-    from .api import graph_bp, simulation_bp, report_bp, neuro_viewer_bp
-    from .api.scrape import scrape_bp
-    app.register_blueprint(graph_bp, url_prefix='/api/graph')
-    app.register_blueprint(simulation_bp, url_prefix='/api/simulation')
-    app.register_blueprint(report_bp, url_prefix='/api/report')
+    from .api import neuro_viewer_bp
     app.register_blueprint(neuro_viewer_bp, url_prefix='/api/neuro-viewer')
-    app.register_blueprint(scrape_bp, url_prefix='/api/scrape')
 
     # Health check
     @app.route('/health')

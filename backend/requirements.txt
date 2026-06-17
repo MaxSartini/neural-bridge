@@ -9,31 +9,17 @@
 flask>=3.0.0
 flask-cors>=6.0.0
 
-# ============= LLM / Inference Clients =============
-# OpenAI SDK — unified OpenAI-compatible client (LM Studio + Ollama)
-openai>=1.0.0
-# httpx — service health pre-flight (run.py) and async HTTP fallback
-httpx>=0.27.0
-# requests — HTTP client used by Ollama embedding paths and ad-hoc calls
+# ============= HTTP Utilities =============
+# requests is imported by the vendored TRIBE runtime package.
 requests>=2.28.0
 
-# ============= Graph Database =============
-neo4j>=5.15.0
-
-# ============= Multi-Agent Simulation (OASIS / CAMEL-AI) =============
-camel-oasis==0.2.5
-camel-ai==0.2.78
-
 # ============= Data Processing =============
-# Required by benchmark scripts, calibration utilities, and file_parser
-# CSV/XLSX ingestion.
+# Required by benchmark scripts and calibration utilities.
 numpy>=1.26.0
 pandas>=2.1.0
 scipy>=1.11.0
 # Grouped holdout evaluation and benchmark helpers
 scikit-learn>=1.5.0
-# openpyxl — pandas backend for .xlsx uploads
-openpyxl>=3.1.0
 
 # ============= Neuro / ML Runtime =============
 # Core Torch/Transformers runtime for TRIBE adapters, V-JEPA2, and optional
@@ -52,19 +38,16 @@ mlx-lm>=0.19.0
 
 # TRIBE extractor support imported by the active Apple Silicon/MLX path.
 neuralset>=0.1.0
+neuraltrain>=0.1.0
 exca>=0.5.0
-
-# ============= File Parsing =============
-# PDF text extraction
-PyMuPDF>=1.24.0
-# Image handling for screenshot_processor (vision pipeline)
-Pillow>=10.0.0
-# Encoding detection for non-UTF-8 text files
-charset-normalizer>=3.0.0
-chardet>=5.0.0
+einops>=0.8.0
+lightning>=2.3.0
+mne>=1.8.0
+torchmetrics>=1.4.0
+PyYAML>=6.0.0
 
 # ============= Utilities =============
 # .env loading
 python-dotenv>=1.0.0
-# Data validation (used in models, ontology generation)
+# Data validation used by TRIBE/neuralset adapters
 pydantic>=2.0.0

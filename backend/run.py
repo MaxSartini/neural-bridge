@@ -22,32 +22,6 @@ from app import create_app
 from app.config import Config
 
 
-def _check_services():
-    """Verify LM Studio (LLM + embeddings) and Neo4j are reachable."""
-    import httpx
-
-    llm_url = Config.LLM_BASE_URL.rstrip('/') + '/models'
-    embed_url = Config.EMBEDDING_BASE_URL.rstrip('/') + '/models'
-    # Neo4j HTTP browser on 7474 (Bolt on 7687 is TCP-only)
-    neo4j_http = Config.NEO4J_URI.replace('bolt://', 'http://').rsplit(':', 1)[0] + ':7474'
-
-    services = [
-        ("LM Studio LLM", llm_url),
-        ("LM Studio Embeddings", embed_url),
-        ("Neo4j", neo4j_http),
-    ]
-    failed = False
-    for name, url in services:
-        try:
-            httpx.get(url, timeout=5).raise_for_status()
-            print(f"  OK:   {name} ({url})")
-        except Exception as e:
-            print(f"  FAIL: {name} not reachable at {url} — {e}")
-            failed = True
-    if failed:
-        sys.exit(1)
-
-
 def main():
     """Main function"""
     # Validate configuration
@@ -58,9 +32,6 @@ def main():
             print(f"  - {err}")
         print("\nPlease check configuration in .env file")
         sys.exit(1)
-
-    print("Checking services...")
-    _check_services()
 
     # Create application
     app = create_app()
@@ -76,4 +47,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

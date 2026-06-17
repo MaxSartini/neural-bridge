@@ -1,6 +1,6 @@
 """NeuralSet text extractor backed by MLX LLaMA hidden states.
 
-This is an Apple Silicon bridge for LM Studio / mlx-community LLaMA folders.
+This is an Apple Silicon bridge for mlx-community LLaMA folders.
 It preserves NeuralSet's HuggingFaceText aggregation semantics while replacing
 the backend model execution with MLX.
 """

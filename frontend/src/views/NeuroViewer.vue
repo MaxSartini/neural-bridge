@@ -2,7 +2,7 @@
   <div class="neuro-page">
     <header class="neuro-header">
       <div>
-        <button class="back-button" @click="router.push('/')">NEURAL BRIDGE</button>
+        <div class="brand-mark">NEURAL BRIDGE</div>
         <p class="eyebrow">TRIBE v2 predicted BOLD proxy viewer</p>
         <h1>Neural Response Monitor</h1>
       </div>
@@ -73,7 +73,7 @@
             class="brain-svg"
             viewBox="0 0 100 100"
             role="img"
-            aria-label="Animated cortical and subcortical activation map"
+            aria-label="Animated cortical activation map"
           >
             <defs>
               <radialGradient id="hemiGlow" cx="50%" cy="50%" r="65%">
@@ -95,8 +95,6 @@
             <path class="fold" d="M18 53 C29 48 38 52 45 61" />
             <path class="fold" d="M76 31 C67 26 61 31 55 37" />
             <path class="fold" d="M82 53 C71 48 62 52 55 61" />
-            <ellipse class="sub-core" cx="50" cy="54" rx="13" ry="25" />
-
             <circle
               v-for="region in visibleCorticalRegions"
               :key="region.id"
@@ -110,18 +108,6 @@
               <title>{{ region.label }} · {{ activationLabel(region) }}</title>
             </circle>
 
-            <circle
-              v-for="region in subcorticalRegions"
-              :key="region.id"
-              class="region-dot sub-dot"
-              :cx="region.position.x"
-              :cy="region.position.y"
-              :r="dotRadius(region) + 0.4"
-              :fill="regionColor(region)"
-              :opacity="region.interpretation_eligible ? dotOpacity(region) : 0.2"
-            >
-              <title>{{ region.label }} · {{ activationLabel(region) }}</title>
-            </circle>
           </svg>
 
           <div class="trace-strip">
@@ -179,7 +165,6 @@
 
 <script setup>
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
 import * as THREE from 'three'
 import {
   getNeuroViewerProgress,
@@ -189,7 +174,6 @@ import {
   neuroViewerMediaUrl
 } from '../api/neuroViewer'
 
-const router = useRouter()
 const progress = ref({ complete: 0, total_seen: 0, videos: [] })
 const videos = ref([])
 const selectedVideoId = ref(null)
@@ -213,7 +197,6 @@ let dragState = null
 
 const timepoints = computed(() => timeline.value?.timepoints || 0)
 const corticalRegions = computed(() => timeline.value?.regions?.cortical || [])
-const subcorticalRegions = computed(() => timeline.value?.regions?.subcortical || [])
 const visibleCorticalRegions = computed(() => corticalRegions.value.slice(0, 36))
 const globalTrace = computed(() => timeline.value?.global_traces?.mean_abs || [])
 const mediaUrl = computed(() => selectedVideoId.value ? neuroViewerMediaUrl(selectedVideoId.value) : '')
@@ -234,7 +217,7 @@ const globalMetrics = computed(() => {
 })
 
 const topLiveRegions = computed(() => {
-  return [...corticalRegions.value, ...subcorticalRegions.value]
+  return corticalRegions.value
     .map(region => ({ ...region, live: regionMagnitude(region) }))
     .sort((a, b) => b.live - a.live)
     .slice(0, 10)
@@ -280,7 +263,7 @@ const regionColor = (region) => {
 }
 
 const dotRadius = (region) => {
-  return 1.1 + regionMagnitude(region) * (region.kind === 'subcortical' ? 4.8 : 4.0)
+  return 1.1 + regionMagnitude(region) * 4.0
 }
 
 const dotOpacity = (region) => {
@@ -604,7 +587,7 @@ window.addEventListener('resize', resizeSurface)
   margin-bottom: 24px;
 }
 
-.back-button,
+.brand-mark,
 .controls button,
 .controls select,
 .panel-title button {
@@ -615,6 +598,11 @@ window.addEventListener('resize', resizeSurface)
   text-transform: uppercase;
   letter-spacing: 0.08em;
   cursor: pointer;
+}
+
+.brand-mark {
+  cursor: default;
+  font-weight: 800;
 }
 
 .eyebrow {
@@ -866,20 +854,10 @@ h1 {
   stroke-width: 0.5;
 }
 
-.sub-core {
-  fill: rgba(255, 120, 10, 0.12);
-  stroke: rgba(255, 199, 92, 0.3);
-}
-
 .region-dot {
   filter: url(#softGlow);
   transition: r 160ms linear, opacity 160ms linear, fill 160ms linear;
   mix-blend-mode: screen;
-}
-
-.sub-dot {
-  stroke: rgba(255, 255, 255, 0.28);
-  stroke-width: 0.25;
 }
 
 .trace-strip {

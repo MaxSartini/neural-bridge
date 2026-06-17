@@ -78,7 +78,7 @@ Goal: make a fresh session or teammate able to inspect, verify, and extend the p
 - Additional legacy validation branches as roadmap items. VEATIC-124 v2 is the current evidence base for the core hypothesis.
 - Retired secondary model expansion as a roadmap item. The current priority is the proven cortical/TRIBE signal.
 - Video `83` as an active roadmap concern. Its resampling policy is documented and does not block the v2 claim.
-- Simulation/LLM-agent integration as a primary roadmap focus.
+- Legacy app-era workflows as roadmap items.
 - Finance or quant-desk prediction.
 - Generic chatbot benchmarks as proof of Neural Bridge.
 - Exact continuous arousal-value forecasting as the current headline.

@@ -17,7 +17,6 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 - `external_models/tribev2-apple-silicon/`
 - `models/neuro_atlases/`
 - `frontend/src/`
-- `static/`
 - selected docs and reports
 
 ## External Heavy Assets

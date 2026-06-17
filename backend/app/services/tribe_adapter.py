@@ -13,7 +13,6 @@ import numpy as np
 
 from ..config import Config
 from ..utils.logger import get_logger
-from .neuro_roi_calibrator import NeuroRoiCalibrator
 
 logger = get_logger('neural_bridge.tribe_adapter')
 
@@ -596,12 +595,18 @@ class TribeAdapter:
     ) -> Dict[str, Any]:
         arr = np.asarray(preds, dtype=float)
         arr = np.nan_to_num(arr)
-        calibration = NeuroRoiCalibrator().calibrate_predictions(arr)
-        global_metrics = calibration.get("roi_summary", {}).get("global_metrics", {})
-        mean_activation = float(np.clip(global_metrics.get("mean_abs", np.mean(np.abs(arr))), 0.0, 1.0))
-        temporal_variance = float(np.clip(global_metrics.get("temporal_variance", np.var(arr)), 0.0, 1.0))
-        peak_response = float(np.clip(global_metrics.get("peak_abs", np.max(np.abs(arr)) if arr.size else 0.0), 0.0, 1.0))
-        volatility = float(np.clip(global_metrics.get("std", np.std(arr)), 0.0, 1.0))
+        abs_arr = np.abs(arr)
+        global_metrics = {
+            "mean_abs": float(np.mean(abs_arr)) if abs_arr.size else 0.0,
+            "temporal_variance": float(np.var(arr)) if arr.size else 0.0,
+            "peak_abs": float(np.max(abs_arr)) if abs_arr.size else 0.0,
+            "std": float(np.std(arr)) if arr.size else 0.0,
+            "p95_abs": float(np.percentile(abs_arr, 95)) if abs_arr.size else 0.0,
+        }
+        mean_activation = float(np.clip(global_metrics["mean_abs"], 0.0, 1.0))
+        temporal_variance = float(np.clip(global_metrics["temporal_variance"], 0.0, 1.0))
+        peak_response = float(np.clip(global_metrics["peak_abs"], 0.0, 1.0))
+        volatility = float(np.clip(global_metrics["std"], 0.0, 1.0))
 
         raw_output_path = ""
         if output_dir and Config.NEURO_PRIOR_SAVE_RAW_OUTPUT:
@@ -638,9 +643,7 @@ class TribeAdapter:
                     "temporal_variance_proxy": temporal_variance,
                     "peak_response_proxy": peak_response,
                     "response_volatility_proxy": volatility,
-                    "roi_summary": calibration.get("roi_summary", {}),
-                    "behavioural_axes": calibration.get("behavioural_axes", {}),
-                    "calibration_trace": calibration.get("calibration_trace", {}),
+                    "global_metrics": global_metrics,
                     "event_quality": event_quality,
                     "segment_quality": segment_quality,
                     "backend": backend,
@@ -649,6 +652,10 @@ class TribeAdapter:
         profile = {
             "raw_backend": backend,
             "raw_output_path": raw_output_path,
+            "global_metrics": global_metrics,
+            "mean_activation_proxy": mean_activation,
+            "temporal_variance_proxy": temporal_variance,
+            "peak_response_proxy": peak_response,
+            "response_volatility_proxy": volatility,
         }
-        profile.update(calibration)
         return profile

@@ -33,7 +33,7 @@ The claim remains bounded: this is event/spike ranking and temporal-context evid
 - Zero-change baselines still beat real cortical features in most continuous checks.
 - Offset diagnostics should not be promoted into final scores unless a future train-only policy survives controls and grouped validation.
 - Legacy validation branches and retired secondary model expansion are not active validation requirements for the v2 claim.
-- Simulation/LLM-agent integration is outside the current v2 evidence roadmap.
+- Downstream product-model work is outside the current v2 evidence bundle.
 
 ## Source Reports
 

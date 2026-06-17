@@ -38,7 +38,6 @@ from torch.utils.data import DataLoader
 
 from .eventstransforms import *  # register custom events transforms in neuralset
 from .model import *  # register custom models in neuraltrain
-from .studies import *  # register studies
 from .utils import (
     MultiStudyLoader,
     set_study_in_average_subject_mode,

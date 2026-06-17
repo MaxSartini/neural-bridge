@@ -40,31 +40,17 @@ cd ..
 echo "=== 4. Install ML/neuro dependencies ==="
 source backend/.venv/bin/activate
 pip install --upgrade \
-  torch torchvision torchaudio transformers accelerate safetensors sentencepiece \
-  huggingface_hub "huggingface_hub[hf_xet]" hf-transfer numpy scipy pandas librosa \
-  soundfile ffmpeg-python whisperx ctranslate2 mlx-whisper einops tqdm matplotlib nilearn nibabel \
-  mlx mlx-lm || true
-
-pip install \
-  neuralset==0.0.2 neuraltrain==0.0.2 x_transformers==1.27.20 exca==0.5.20 \
-  "moviepy>=2.2.1" gtts langdetect spacy soundfile Levenshtein julius nilearn nibabel || true
-
-# Keep the app's pinned OASIS stack stable after WhisperX/pyannote dependency resolution.
-pip install numpy==2.2.6 pandas==2.2.2 || true
+  torch torchvision torchaudio transformers safetensors sentencepiece \
+  huggingface_hub "huggingface_hub[hf_xet]" hf-transfer numpy scipy pandas \
+  mlx mlx-lm mlx-whisper || true
 
 EXTERNAL_ROOT="${NEURAL_BRIDGE_EXTERNAL_ROOT:-$(pwd)/external_assets}"
 
-echo "=== 5. Clone TRIBE v2 Apple Silicon branch ==="
-mkdir -p external_models
-if [ ! -d "external_models/tribev2-apple-silicon" ]; then
-  git clone https://github.com/alangnt/tribev2.git external_models/tribev2-apple-silicon
+echo "=== 5. Verify vendored TRIBE v2 Apple Silicon runtime ==="
+if [ ! -d "external_models/tribev2-apple-silicon/tribev2" ]; then
+  echo "Missing external_models/tribev2-apple-silicon/tribev2."
+  exit 1
 fi
-cd external_models/tribev2-apple-silicon
-git fetch origin || true
-git checkout feature/apple-silicon-support || true
-git pull origin feature/apple-silicon-support || true
-pip install --no-deps -e . || true
-cd ../..
 
 echo "=== 6. Prepare external model directories ==="
 mkdir -p "${EXTERNAL_ROOT}/models/tribe" \
@@ -107,8 +93,7 @@ cd ..
 echo "============================================================"
 echo "Setup complete."
 echo "============================================================"
-echo "LM Studio must be available at http://localhost:1234/v1 with Qwen loaded."
 echo "TRIBE failures are non-fatal unless NEURO_PRIOR_STRICT=true."
 echo "Apple Silicon defaults: MLX handles transcription/TRIBE head; supported upstream extractors use bounded MPS."
 echo "Use exact chunked attention and selective hidden-state capture for the official 64-frame V-JEPA2 contract."
-echo "Text TRIBE feature extraction requires Hugging Face access to meta-llama/Llama-3.2-3B unless using proxy fallback."
+echo "Text TRIBE feature extraction requires Hugging Face access to meta-llama/Llama-3.2-3B unless using cached text events."

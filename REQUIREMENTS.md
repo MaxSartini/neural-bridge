@@ -18,11 +18,7 @@ Full benchmark work assumes that external root contains model weights, Hugging F
 
 ## Local Services
 
-Required for app/simulation workflows:
-
-- Neo4j 5.x reachable through Bolt, default `bolt://localhost:7687`.
-- LM Studio or another OpenAI-compatible local LLM server, default `http://localhost:1234/v1`.
-- Ollama is optional for older embedding/LLM-compatible paths.
+The active repo only needs the Flask API, Vue viewer, local Python/Node tooling, and the configured external TRIBE assets.
 
 Required for full neural workflows:
 
@@ -46,14 +42,11 @@ The dependency audit was run from active imports under:
 Main dependency groups:
 
 - Web/API: `flask`, `flask-cors`.
-- Local LLM and HTTP clients: `openai`, `httpx`, `requests`.
-- Graph storage: `neo4j`.
-- OASIS/CAMEL simulation: `camel-oasis`, `camel-ai`.
-- Data/benchmarking: `numpy`, `pandas`, `scipy`, `scikit-learn`, `openpyxl`.
-- File parsing/media: `PyMuPDF`, `Pillow`, `charset-normalizer`, `chardet`.
+- HTTP utilities: `requests`.
+- Data/benchmarking: `numpy`, `pandas`, `scipy`, `scikit-learn`.
 - Neuro/ML runtime: `torch`, `transformers`, `safetensors`, `huggingface-hub`, `nibabel`, `nilearn`, `tqdm`.
 - Apple Silicon acceleration: `mlx`, `mlx-lm`.
-- TRIBE extractor support imported by current code: `neuralset`, `exca`.
+- TRIBE extractor support imported by current code: `neuralset`, `neuraltrain`, `exca`, `einops`, `lightning`, `mne`, `torchmetrics`, `PyYAML`.
 
 Install path:
 
@@ -87,7 +80,6 @@ Frontend:
 - `vue`
 - `vue-router`
 - `axios`
-- `d3`
 - `three`
 - `vite`
 - `@vitejs/plugin-vue`
@@ -107,16 +99,11 @@ Use `.env.example` as the template and create a local `.env`. The `.env` file is
 
 Important values for current work:
 
-- `LLM_BASE_URL`
-- `LLM_API_KEY`
-- `LLM_MODEL_NAME`
-- `NEO4J_URI`
-- `NEO4J_USER`
-- `NEO4J_PASSWORD`
+- `NEURAL_BRIDGE_EXTERNAL_ROOT`
+- `TRIBE_CACHE_DIR`
 - `TRIBE_MLX_DIR`
 - `TRIBE_VIDEO_ENCODER_MLX_DIR`
-- `TRIBE_CACHE_DIR`
-- `TRIBE_VIDEO_WINDOW_CACHE_DIR`
+- `TRIBE_APPLE_SILICON_SOURCE_DIR`
 - `HF_HOME`
 - `TMPDIR`
 

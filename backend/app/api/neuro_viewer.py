@@ -17,7 +17,7 @@ import numpy as np
 from flask import jsonify, request, send_file
 
 from . import neuro_viewer_bp
-from ..services.neuro_roi_calibrator import NeuroRoiCalibrator, TRIBE_CORTICAL_VERTICES
+from ..services.cortical_roi_mapper import CorticalRoiMapper, TRIBE_CORTICAL_VERTICES
 from ..utils.logger import get_logger
 
 logger = get_logger("neural_bridge.api.neuro_viewer")
@@ -167,7 +167,7 @@ def _vertex_activity(cortical: np.ndarray) -> np.ndarray:
 def _cortical_regions(cortical: np.ndarray, max_regions: int) -> list[dict[str, Any]]:
     if cortical.ndim != 2 or cortical.shape[1] != TRIBE_CORTICAL_VERTICES:
         return []
-    atlas = NeuroRoiCalibrator()._load_destrieux_atlas()
+    atlas = CorticalRoiMapper().load_destrieux_atlas()
     if atlas is None:
         return []
     rows: list[dict[str, Any]] = []

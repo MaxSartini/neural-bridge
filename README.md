@@ -42,19 +42,18 @@ Source summaries:
 - Exact continuous future arousal-value forecasting. Continuous MAE remains diagnostic because zero-change baselines still win most continuous checks.
 - Strong universal early-warning claims. The alignment pass supports 0s primary scoring plus transparent offset diagnostics, not a global lag correction.
 - New model heads still need to improve over the v2 baseline without weakening the controls.
-- Simulation/LLM-agent integration is not the current research priority.
 
 ## System Shape
 
 ```text
 backend/app/
-  Flask API, graph services, simulation services, local LLM clients, storage, and utilities.
+  Flask neuro-viewer API plus TRIBE/MLX service adapters.
 
 backend/scripts/
   VEATIC/TRIBE extraction plus the consolidated strict VEATIC benchmark suite.
 
 frontend/
-  Vue/Vite interface for graph, simulation, and report workflows.
+  Vue/Vite cortical cache and stimulus viewer.
 
 docs/, reports/, benchmarks/, outputs/
   Current evidence summaries, benchmark reports, and small tracked result artifacts.
