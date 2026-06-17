@@ -1,0 +1,10 @@
+check,final_claim_safe,status
+causal context windows use only t-window:t,True,pass
+diagnostic future-inclusive windows separated from final predictive claims,False,pass
+feature_time convention is feature_time = label_anchor_time + offset_seconds,True,pass
+shifted features remain within video tables and are edge-trimmed,True,pass
+grouped video folds use video_id as held-out unit,True,pass
+PCA fit once on outer training rows per feature_mode and fold,True,pass
+held-out videos do not influence train-only selected offsets,True,pass
+no per-video held-out lag correction used as final score,True,pass
+thresholds selected from training predictions only,True,pass

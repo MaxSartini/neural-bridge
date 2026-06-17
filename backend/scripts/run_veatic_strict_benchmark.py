@@ -188,10 +188,24 @@ CONTROL_LEDGER: tuple[dict[str, str], ...] = (
 
 
 def default_cache_dir() -> Path:
-    root = os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT")
+    root = os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT") or local_env_value("NEURAL_BRIDGE_EXTERNAL_ROOT")
     if root:
         return Path(root).expanduser() / "benchmarks" / "veatic" / "tribe_cache"
     return ROOT / "external_assets" / "benchmarks" / "veatic" / "tribe_cache"
+
+
+def local_env_value(name: str) -> str | None:
+    env_path = ROOT / ".env"
+    if not env_path.exists():
+        return None
+    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        if key.strip() == name:
+            return value.strip().strip("\"'")
+    return None
 
 
 def contract_manifest(args: argparse.Namespace) -> dict[str, Any]:

@@ -206,9 +206,9 @@ For follow-up or replication:
 
 ## Output Files
 
-- JSON: `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.json`
-- Diagnostics CSV: `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.diagnostics.csv`
-- Shift audit CSV: `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.shift_audit.csv`
-- Per-video CSV: `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.per_video.csv`
-- Onset-only CSV: `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.onset_only.csv`
-- Local targets CSV: `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.local_targets.csv`
+- JSON: `benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.json`
+- Diagnostics CSV: `benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.diagnostics.csv`
+- Shift audit CSV: `benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.shift_audit.csv`
+- Per-video CSV: `benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.per_video.csv`
+- Onset-only CSV: `benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.onset_only.csv`
+- Local targets CSV: `benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.local_targets.csv`

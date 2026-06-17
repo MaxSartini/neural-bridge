@@ -12,7 +12,7 @@ The continuous future-change rows remain diagnostic only: zero-change MAE beats 
 
 - No new architectures were added.
 - No feature extraction was changed and no videos were re-encoded.
-- Cached TRIBE cortical outputs were reused from `/Volumes/onn. Drive/MiroFish/benchmarks/veatic/tribe_cache`.
+- Cached TRIBE cortical outputs were reused from `<external-assets-root>/benchmarks/veatic/tribe_cache`.
 - PCA backend: `mps_gram` with exact MPS Gram products and CPU top-eigenpair solve.
 - Ridge/scoring backend: `cpu_pinv`.
 - PCA is fit once per `feature_mode + split/fold`, then reused across all targets, thresholds, masks, and metrics for that split/fold.

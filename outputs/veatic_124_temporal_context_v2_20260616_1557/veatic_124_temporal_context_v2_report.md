@@ -8,14 +8,14 @@ V2 narrowed to future spike ranking and found best causal windows {'causal_past_
 
 ## Reuse
 
-- `/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/causal_context_window_results.csv`: prior 0s, 3s, 5s causal context summary rows; directly comparable grouped-video v1 rows reused for matching cells.
-- `/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/offset_sweep_results.csv`: prior focused offset sweep; v2 compares against prior best offset without rerunning offsets.
-- `/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/train_selected_offset_results.csv`: prior train-only selected offset results; v2 compares against prior selected-offset outcomes without rerunning offsets.
-- `/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/leakage_audit.csv`: prior leakage checks; v2 extends same leakage policy.
-- `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl`: VEATIC-124 manifest rows and split metadata; same labels/video ids as prior run.
-- `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_manifest_124_complete_20260616.report.json`: VEATIC-124 manifest report and complete video ids; same 124-video accepted set.
-- `/Volumes/onn. Drive/MiroFish/benchmarks/veatic/tribe_cache`: cached TRIBE/cortical raw outputs; tribe_raw_output.npz count=124; source for cache-only PCA/context matrices; no video re-encoding.
-- `/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/causal_context_window_results.csv`: 60 directly reused summary rows; avoid recomputing matching v1 context summary cells.
+- `outputs/veatic_124_temporal_fairness_20260616_1509/causal_context_window_results.csv`: prior 0s, 3s, 5s causal context summary rows; directly comparable grouped-video v1 rows reused for matching cells.
+- `outputs/veatic_124_temporal_fairness_20260616_1509/offset_sweep_results.csv`: prior focused offset sweep; v2 compares against prior best offset without rerunning offsets.
+- `outputs/veatic_124_temporal_fairness_20260616_1509/train_selected_offset_results.csv`: prior train-only selected offset results; v2 compares against prior selected-offset outcomes without rerunning offsets.
+- `outputs/veatic_124_temporal_fairness_20260616_1509/leakage_audit.csv`: prior leakage checks; v2 extends same leakage policy.
+- `benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl`: VEATIC-124 manifest rows and split metadata; same labels/video ids as prior run.
+- `benchmarks/veatic/veatic_manifest_124_complete_20260616.report.json`: VEATIC-124 manifest report and complete video ids; same 124-video accepted set.
+- `<external-assets-root>/benchmarks/veatic/tribe_cache`: cached TRIBE/cortical raw outputs; tribe_raw_output.npz count=124; source for cache-only PCA/context matrices; no video re-encoding.
+- `outputs/veatic_124_temporal_fairness_20260616_1509/causal_context_window_results.csv`: 60 directly reused summary rows; avoid recomputing matching v1 context summary cells.
 
 ## Best Windows
 

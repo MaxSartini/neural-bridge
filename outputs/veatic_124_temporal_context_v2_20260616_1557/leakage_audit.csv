@@ -1,0 +1,9 @@
+check,final_claim_safe,status
+causal windows use only past/current feature rows,True,pass
+feature windows are trimmed at video boundaries,True,pass
+held-out unit is video_id grouped fold,True,pass
+PCA fit on training rows only for each feature_mode/fold,True,pass
+scalers/ridge standardization fit on train matrices only,True,pass
+thresholds selected on train predictions only,True,pass
+no offset sweep recomputation or test-selected lag used as v2 headline,True,pass
+symmetric_2s window marked non-causal diagnostic,False,pass

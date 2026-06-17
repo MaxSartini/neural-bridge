@@ -1,8 +1,8 @@
 {
   "schema_version": "veatic_124_temporal_fairness_v1",
-  "output_dir": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509",
-  "manifest": "/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
-  "cache_dir": "/Volumes/onn. Drive/MiroFish/benchmarks/veatic/tribe_cache",
+  "output_dir": "outputs/veatic_124_temporal_fairness_20260616_1509",
+  "manifest": "benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
+  "cache_dir": "<external-assets-root>/benchmarks/veatic/tribe_cache",
   "offset_convention": "feature_time = label_anchor_time + offset_seconds",
   "pca_backend": "mps_gram",
   "ridge_backend": "cpu_pinv",

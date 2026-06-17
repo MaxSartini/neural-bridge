@@ -1,7 +1,7 @@
 {
   "schema_version": "veatic_124_temporal_context_v2",
-  "output_dir": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_context_v2_20260616_1557",
-  "prior_dir": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509",
+  "output_dir": "outputs/veatic_124_temporal_context_v2_20260616_1557",
+  "prior_dir": "outputs/veatic_124_temporal_fairness_20260616_1509",
   "elapsed_seconds": 847.136096125003,
   "pca_backend": "mps_gram",
   "ridge_backend": "cpu_pinv",
@@ -52,7 +52,7 @@
   },
   "reused_artifacts": [
     {
-      "path": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/causal_context_window_results.csv",
+      "path": "outputs/veatic_124_temporal_fairness_20260616_1509/causal_context_window_results.csv",
       "exists": true,
       "bytes": 294521,
       "mtime": 1781617089.1695518,
@@ -62,7 +62,7 @@
       "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
     },
     {
-      "path": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/offset_sweep_results.csv",
+      "path": "outputs/veatic_124_temporal_fairness_20260616_1509/offset_sweep_results.csv",
       "exists": true,
       "bytes": 1842463,
       "mtime": 1781617089.2232354,
@@ -72,7 +72,7 @@
       "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
     },
     {
-      "path": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/train_selected_offset_results.csv",
+      "path": "outputs/veatic_124_temporal_fairness_20260616_1509/train_selected_offset_results.csv",
       "exists": true,
       "bytes": 395755,
       "mtime": 1781617089.234698,
@@ -82,7 +82,7 @@
       "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
     },
     {
-      "path": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/leakage_audit.csv",
+      "path": "outputs/veatic_124_temporal_fairness_20260616_1509/leakage_audit.csv",
       "exists": true,
       "bytes": 672,
       "mtime": 1781617090.386392,
@@ -92,7 +92,7 @@
       "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
     },
     {
-      "path": "/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
+      "path": "benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
       "exists": true,
       "bytes": 7227147,
       "mtime": 1781607675.8660512,
@@ -102,7 +102,7 @@
       "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
     },
     {
-      "path": "/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_manifest_124_complete_20260616.report.json",
+      "path": "benchmarks/veatic/veatic_manifest_124_complete_20260616.report.json",
       "exists": true,
       "bytes": 86592,
       "mtime": 1781607676.4494693,
@@ -112,7 +112,7 @@
       "leakage_safe_reason": "summary reuse only or same grouped-video/train-only construction"
     },
     {
-      "path": "/Volumes/onn. Drive/MiroFish/benchmarks/veatic/tribe_cache",
+      "path": "<external-assets-root>/benchmarks/veatic/tribe_cache",
       "exists": true,
       "bytes": null,
       "mtime": 1781604875.0,
@@ -122,7 +122,7 @@
       "leakage_safe_reason": "PCA is refit inside each train fold before transforming held-out rows"
     },
     {
-      "path": "/Users/maxsartini/MiroFish-Offline-main/outputs/veatic_124_temporal_fairness_20260616_1509/causal_context_window_results.csv",
+      "path": "outputs/veatic_124_temporal_fairness_20260616_1509/causal_context_window_results.csv",
       "exists": true,
       "bytes": null,
       "mtime": null,

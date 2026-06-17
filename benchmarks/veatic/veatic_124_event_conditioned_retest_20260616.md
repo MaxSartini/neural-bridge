@@ -678,7 +678,7 @@ Claim to carry forward only if replicated on 124: frame-wide continuous MAE unde
 
 ## Output Files
 
-- JSON: `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.json`
-- Event masks CSV: `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.event_masks.csv`
-- Balanced sampling CSV: `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.balanced_sampling.csv`
-- Per-video CSV: `/Users/maxsartini/MiroFish-Offline-main/benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.per_video.csv`
+- JSON: `benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.json`
+- Event masks CSV: `benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.event_masks.csv`
+- Balanced sampling CSV: `benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.balanced_sampling.csv`
+- Per-video CSV: `benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.per_video.csv`
