@@ -172,6 +172,12 @@ Full local verification:
 npm run verify
 ```
 
+Frozen v2 evidence verification, no video re-encoding:
+
+```bash
+npm run evidence:verify
+```
+
 ## Current Evidence Entry Points
 
 Fresh sessions should read these first:
@@ -180,6 +186,7 @@ Fresh sessions should read these first:
 - `ROADMAP.md`
 - `docs/current_project_state.md`
 - `docs/veatic_v2_evidence_summary.md`
+- `docs/veatic_v2_evidence_freeze.md`
 - `benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md`
 - `benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md`
 

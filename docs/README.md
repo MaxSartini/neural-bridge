@@ -5,12 +5,15 @@ Current-facing documentation:
 - `current_project_state.md` - short operating snapshot for the cleaned repo.
 - `veatic_v2_evidence_summary.md` - current VEATIC-124 v2 scientific evidence.
 - `external_assets_manifest.md` - source-versus-external asset boundary.
+- `veatic_v2_evidence_freeze.md` - frozen v2 evidence bundle, checksums, and no-reencode verifier.
+- `superseded_artifacts.md` - deleted, retained, and non-authoritative artifact policy.
 - `PROJECT_MEMORY.md` - current memory pointer and handoff policy.
 - `../AGENTS.md` - Codex/fresh-session operating contract.
 
 Current benchmark entrypoint:
 
 - `backend/scripts/run_veatic_strict_benchmark.py` - consolidated VEATIC-124 strict suite and contract dry-run.
+- `backend/scripts/freeze_veatic_v2_evidence.py` - protected external snapshot and checksum verifier.
 - `backend/scripts/audit_repo_readiness.py` - stale-term, heavyweight-artifact, and orientation-file audit.
 
 Detailed evidence artifacts live outside this folder:

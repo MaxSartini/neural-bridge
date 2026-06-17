@@ -39,6 +39,8 @@ Current v2 evidence reports now tracked in this repo:
 - `benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md`
 - `outputs/veatic_124_temporal_context_v2_20260616_1557/veatic_124_temporal_context_v2_report.md`
 - `outputs/veatic_124_temporal_fairness_20260616_1509/veatic_124_temporal_fairness_report.md`
+- Frozen evidence manifest: `benchmarks/veatic/veatic_v2_evidence_manifest.json`
+- External protected snapshot: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/evidence_snapshots/veatic_124_v2_20260616`
 
 Current default benchmark entrypoint:
 
@@ -47,6 +49,7 @@ python3 backend/scripts/run_veatic_strict_benchmark.py --primary-only
 ```
 
 Fresh Codex sessions should read `AGENTS.md` and run `npm run audit:repo` before changing repo state.
+Run `npm run evidence:verify` before using the v2 baseline as a reference.
 
 Use `--dry-run` to print the strict contract and control ledger without loading the external cache.
 Use `--modality-audit-only` to report cache-level text/audio/video coverage.
@@ -74,11 +77,10 @@ Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 
 ## Remaining Work
 
-1. Freeze the current 124-video v2 baseline into a protected external snapshot.
-2. Run and freeze the consolidated strict suite outputs as the canonical v2 artifact set.
-3. Finish the guarded `83,84` multimodal pilot after populating or authorizing the gated `meta-llama/Llama-3.2-3B` text encoder.
-4. Freeze the v2 training tensor contract for future model heads.
-5. Carry the resolved alignment policy and modality coverage into the tensor contract and benchmark dashboard.
+1. Finish the guarded `83,84` multimodal pilot after populating or authorizing the gated `meta-llama/Llama-3.2-3B` text encoder.
+2. Freeze the v2 training tensor contract for future model heads.
+3. Carry the resolved alignment policy and modality coverage into the tensor contract and benchmark dashboard.
+4. Build next model heads against the frozen v2 baseline.
 
 Current multimodal pilot status:
 
@@ -86,9 +88,7 @@ Current multimodal pilot status:
 - The pilot reaches audio extraction, word extraction, Text/Sentence creation, and text feature preparation.
 - It is blocked by gated/missing `meta-llama/Llama-3.2-3B` text encoder assets.
 - A full VEATIC-124 multimodal re-encode is not warranted because only videos `83` and `84` contain audio streams.
-6. Build next model heads against the frozen v2 baseline.
-7. Delete or archive old pre-124 runs after preserving the useful evidence.
 
 ## Next Safe Move
 
-Freeze the current 124-video v2 evidence bundle, expose the benchmark contract that the suite already enforces, then freeze the tensor interface for new heads.
+Use the frozen v2 evidence bundle as the baseline, finish the small multimodal pilot, then freeze the tensor interface for new heads.

@@ -37,6 +37,7 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 ## Current External Asset Families
 
 - `<external-assets-root>/benchmarks/veatic/` - VEATIC cache roots and small logs.
+- `<external-assets-root>/evidence_snapshots/veatic_124_v2_20260616/` - protected frozen v2 evidence snapshot.
 - `<external-assets-root>/datasets/veatic/` - raw VEATIC videos and 1 Hz target traces.
 - `<external-assets-root>/cache/tribev2/` - TRIBE/neuralset feature cache.
 - `<external-assets-root>/cache/huggingface/` - active Hugging Face cache for TRIBE/V-JEPA/Llama/Wav2Vec/Whisper assets.
@@ -50,4 +51,4 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 
 ## Policy
 
-Do not copy heavyweight model weights, raw videos, generated benchmark outputs, or cache directories into the repo. Add a manifest entry and config default instead.
+Do not copy heavyweight model weights, raw videos, generated scratch outputs, or cache directories into the repo. Keep curated lightweight v2 reports in git, keep heavy raw/cache artifacts external, and add a manifest entry plus verifier coverage instead.

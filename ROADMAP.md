@@ -15,6 +15,7 @@ Completed:
 - Temporal context v2 shows short causal windows can improve selected spike-ranking rows.
 - Alignment repair selected the final benchmark policy: keep current 0s alignment primary and report offset grids as diagnostics.
 - Small v2 evidence reports are tracked in this repo.
+- The protected v2 evidence snapshot and checksum verifier are in place.
 - Legacy app-era code, redundant atlas data, and stale frontend scaffolding have been removed from the active repo.
 - Root config/package files now describe only the current VEATIC/TRIBE workspace.
 - The strict suite now audits modality coverage so video-only and full multimodal caches cannot be confused.
@@ -25,11 +26,11 @@ This is the current scientific foundation, not a hypothesis waiting for another 
 
 Goal: make the proven v2 baseline impossible to lose or confuse with old runs.
 
-- [ ] Create a protected external snapshot for the VEATIC-124 v2 manifest, cache metadata, benchmark JSON/CSV outputs, and tracked reports.
-- [ ] Add checksums and a manifest that identifies the authoritative files.
-- [ ] Mark superseded pre-v2 artifacts as deleted, archived, or retained with an explicit reason.
-- [ ] Add one verification command that rechecks the v2 evidence bundle without re-encoding videos.
-- [ ] Keep small summary reports in git; keep heavy caches and raw outputs external.
+- [x] Create a protected external snapshot for the VEATIC-124 v2 manifest, cache metadata, benchmark JSON/CSV outputs, and tracked reports.
+- [x] Add checksums and a manifest that identifies the authoritative files.
+- [x] Mark superseded pre-v2 artifacts as deleted, archived, or retained with an explicit reason.
+- [x] Add one verification command that rechecks the v2 evidence bundle without re-encoding videos.
+- [x] Keep small summary reports in git; keep heavy caches and raw outputs external.
 
 ## 2. Benchmark Contract
 
@@ -44,7 +45,7 @@ Goal: surface and preserve the exact rules already enforced by the v2 benchmark 
 - [x] Consolidate the already-implemented rules into `backend/scripts/run_veatic_strict_benchmark.py` with a named v2 contract manifest.
 - [x] Add a dry-run/status mode that prints the strict benchmark contract without loading cache files.
 - [x] Add modality coverage reporting for text/audio/video cache provenance.
-- [ ] Run and freeze the consolidated strict suite outputs as the new canonical v2 artifact set.
+- [x] Run and freeze the consolidated strict suite outputs as the new canonical v2 artifact set.
 - [ ] Promote full text+audio+video TRIBE only after the guarded `83,84` pilot has gated/local `meta-llama/Llama-3.2-3B` text encoder access and beats or complements the current video-dominant baseline.
 
 ## 3. v2 Training Tensor Contract
@@ -71,9 +72,9 @@ Goal: improve event/spike ranking from the v2 baseline without weakening control
 
 Goal: make a fresh session or teammate able to inspect, verify, and extend the proven result without archaeology.
 
-- [ ] Add a status check for external assets, VEATIC cache, model paths, and tracked evidence artifacts.
+- [x] Add a status check for external assets, VEATIC cache, model paths, and tracked evidence artifacts.
 - [ ] Add a compact benchmark dashboard or CLI summary for the v2 baseline.
-- [ ] Add a one-command evidence verifier for the tracked reports and external artifact snapshot.
+- [x] Add a one-command evidence verifier for the tracked reports and external artifact snapshot.
 - [ ] Remove or archive stale run folders once their useful evidence is preserved.
 - [ ] Keep machine-specific paths only in local `.env` files.
 - [ ] Keep generated heavy outputs out of git.

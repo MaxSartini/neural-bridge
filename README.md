@@ -33,6 +33,7 @@ Source summaries:
 
 - [AGENTS.md](AGENTS.md)
 - [docs/veatic_v2_evidence_summary.md](docs/veatic_v2_evidence_summary.md)
+- [docs/veatic_v2_evidence_freeze.md](docs/veatic_v2_evidence_freeze.md)
 - [benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md](benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md)
 - [benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.md](benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.md)
 - [benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md](benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md)
@@ -140,6 +141,12 @@ Check cache modality coverage before describing a run as multimodal:
 python3 backend/scripts/run_veatic_strict_benchmark.py --modality-audit-only
 ```
 
+Verify the frozen v2 evidence bundle without re-encoding videos:
+
+```bash
+npm run evidence:verify
+```
+
 Do not re-encode all 124 VEATIC videos for multimodal coverage. Only videos `83` and `84` contain audio streams, so the current actionable path is to finish the gated/local text encoder dependency for the two-video pilot, then compare that pilot against the video-dominant cache.
 
 The current v2 evidence should be described as visual/video cortical TRIBE unless a new cache passes full text+audio+video coverage checks.
@@ -168,6 +175,7 @@ The active post-v2 roadmap is in [ROADMAP.md](ROADMAP.md). The short version is:
 - `.env.example` is the tracked configuration template.
 - `.env` is local-only and ignored by git.
 - `AGENTS.md` is the current Codex/fresh-session operating contract.
+- `benchmarks/veatic/veatic_v2_evidence_manifest.json` is the checksum manifest for the frozen v2 evidence bundle.
 - `package.json` only provides root helper commands; frontend dependencies and their lockfile live under `frontend/`.
 
 ## License

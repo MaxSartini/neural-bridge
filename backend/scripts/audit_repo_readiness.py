@@ -20,7 +20,10 @@ REQUIRED_FILES = [
     "docs/README.md",
     "docs/current_project_state.md",
     "docs/veatic_v2_evidence_summary.md",
+    "docs/veatic_v2_evidence_freeze.md",
+    "docs/superseded_artifacts.md",
     "docs/external_assets_manifest.md",
+    "benchmarks/veatic/veatic_v2_evidence_manifest.json",
 ]
 
 FORBIDDEN_PATTERNS = {
@@ -122,10 +125,11 @@ def audit_stale_terms(files: list[Path], errors: list[str], warnings: list[str])
 
 def audit_orientation_content(errors: list[str]) -> None:
     checks = {
-        "README.md": ["video-dominant", "modality", "Llama-3.2-3B"],
-        "AGENTS.md": ["video-dominant", "modality", "Llama-3.2-3B", "npm run audit:repo"],
+        "README.md": ["video-dominant", "modality", "Llama-3.2-3B", "evidence:verify"],
+        "AGENTS.md": ["video-dominant", "modality", "Llama-3.2-3B", "npm run audit:repo", "evidence:verify"],
         "REQUIREMENTS.md": ["video-dominant", "TRIBE_TEXT_ENCODER_LOCAL_DIR", "Llama-3.2-3B"],
-        "ROADMAP.md": ["VEATIC-124 v2", "audit"],
+        "ROADMAP.md": ["VEATIC-124 v2", "audit", "protected external snapshot"],
+        "docs/veatic_v2_evidence_freeze.md": ["evidence:verify", "does not re-encode videos"],
     }
     for rel, needles in checks.items():
         text = (ROOT / rel).read_text(encoding="utf-8")
@@ -137,7 +141,7 @@ def audit_orientation_content(errors: list[str]) -> None:
 def audit_package_scripts(errors: list[str]) -> None:
     package = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
     scripts = package.get("scripts", {})
-    for name in ["audit:repo", "verify", "test"]:
+    for name in ["audit:repo", "evidence:freeze", "evidence:verify", "verify", "test"]:
         if name not in scripts:
             errors.append(f"package.json missing script: {name}")
     if "audit:repo" not in scripts.get("verify", ""):

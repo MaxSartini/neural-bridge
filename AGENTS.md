@@ -22,11 +22,14 @@ Read these files before making claims about project state:
 4. `REQUIREMENTS.md`
 5. `ROADMAP.md`
 6. `docs/external_assets_manifest.md`
+7. `docs/veatic_v2_evidence_freeze.md`
+8. `docs/superseded_artifacts.md`
 
 ## Default Commands
 
 ```bash
 npm run audit:repo
+npm run evidence:verify
 python3 backend/scripts/run_veatic_strict_benchmark.py --modality-audit-only
 python3 backend/scripts/run_veatic_strict_benchmark.py --dry-run --primary-only
 python3 -m pytest -q tests/test_veatic_strict_benchmark_contract.py tests/test_grouped_video_split.py
@@ -43,6 +46,7 @@ Use `npm run verify` before pushing when dependencies are available.
 - Do not commit heavyweight data, model weights, raw media, local caches, or machine-specific paths.
 - Keep machine-specific paths in local `.env`; `.env.example` must stay portable.
 - Treat `benchmarks/`, `outputs/`, and `reports/` as retained evidence artifacts. Do not use older generated metadata inside them to override the current docs.
+- Treat `benchmarks/veatic/veatic_v2_evidence_manifest.json` and `evidence_snapshots/veatic_124_v2_20260616` under the external root as the frozen v2 evidence contract.
 
 ## External Assets
 
@@ -51,6 +55,7 @@ Heavy assets live outside git under `NEURAL_BRIDGE_EXTERNAL_ROOT`.
 Expected current families:
 
 - `benchmarks/veatic/tribe_cache`
+- `evidence_snapshots/veatic_124_v2_20260616`
 - `datasets/veatic`
 - `models/tribe-mlx`
 - `models/upstream-encoders/facebook-w2v-bert-2.0`
