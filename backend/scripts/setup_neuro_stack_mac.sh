@@ -55,6 +55,7 @@ fi
 echo "=== 6. Prepare external model directories ==="
 mkdir -p "${EXTERNAL_ROOT}/models/tribe" \
   "${EXTERNAL_ROOT}/models/tribe-mlx" \
+  "${EXTERNAL_ROOT}/models/upstream-encoders" \
   "${EXTERNAL_ROOT}/models/cortical-upstream" \
   "${EXTERNAL_ROOT}/models/upstream-encoders-mlx" \
   "${EXTERNAL_ROOT}/cache" \

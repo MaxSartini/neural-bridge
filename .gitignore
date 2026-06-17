@@ -92,3 +92,7 @@ tmp/
 scratch/
 mydoc/
 mytest/
+
+# Local agent/tooling caches
+.tools/
+.codebase-memory/

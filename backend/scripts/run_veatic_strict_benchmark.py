@@ -17,7 +17,7 @@ import math
 import os
 import sys
 import time
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -186,6 +186,8 @@ CONTROL_LEDGER: tuple[dict[str, str], ...] = (
     },
 )
 
+MODALITY_ORDER: tuple[str, str, str] = ("text", "audio", "video")
+
 
 def default_cache_dir() -> Path:
     root = os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT") or local_env_value("NEURAL_BRIDGE_EXTERNAL_ROOT")
@@ -215,6 +217,19 @@ def contract_manifest(args: argparse.Namespace) -> dict[str, Any]:
         "manifest": str(Path(args.manifest).expanduser()),
         "report": str(Path(args.report).expanduser()),
         "cache_dir": str(Path(args.cache_dir).expanduser()),
+        "modality_contract": {
+            "current_v2_cache_scope": "video_dominant_visual_cortical_cache",
+            "modalities_tracked": list(MODALITY_ORDER),
+            "required_for_current_v2_claim": ["video"],
+            "multimodal_status": (
+                "not_assumed; run without --dry-run or use --modality-audit-only "
+                "to report cache-level text/audio/video coverage"
+            ),
+            "promotion_rule": (
+                "Do not call a cache multimodal unless modality_missing_flags or "
+                "tribe_summary.event_quality show text, audio, and video present."
+            ),
+        },
         "feature_modes": [item[0] for item in selected_features(args)],
         "targets": [
             {"target": target, "horizon_seconds": horizon, "threshold": threshold, "tier": tier}
@@ -264,6 +279,99 @@ def contract_manifest(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def read_modality_flags(raw_path: Path) -> tuple[bool, bool, bool] | None:
+    if not raw_path.exists():
+        return None
+    try:
+        with np.load(raw_path) as bundle:
+            if "feature_modality_present_flags" in bundle.files:
+                present_flags = bundle["feature_modality_present_flags"].astype(bool).tolist()
+                if len(present_flags) == len(MODALITY_ORDER):
+                    return tuple(not bool(item) for item in present_flags)  # type: ignore[return-value]
+            if "modality_missing_flags" not in bundle.files:
+                return None
+            flags = bundle["modality_missing_flags"].astype(bool).tolist()
+            if len(flags) != len(MODALITY_ORDER):
+                return None
+            return tuple(bool(item) for item in flags)  # type: ignore[return-value]
+    except (OSError, ValueError):
+        return None
+
+
+def read_event_quality(summary_path: Path) -> dict[str, Any]:
+    if not summary_path.exists():
+        return {}
+    try:
+        data = json.loads(summary_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return dict(data.get("event_quality") or {})
+
+
+def summarize_modality_coverage(cache_dir: Path) -> dict[str, Any]:
+    cache_dir = cache_dir.expanduser().resolve()
+    raw_paths = sorted(
+        cache_dir.glob("*/tribe_raw_output.npz"),
+        key=lambda path: (0, int(path.parent.name)) if path.parent.name.isdigit() else (1, path.parent.name),
+    )
+    combo_counts: Counter[tuple[bool, bool, bool]] = Counter()
+    event_type_counts: Counter[str] = Counter()
+    examples: dict[tuple[bool, bool, bool], str] = {}
+    missing_flags_available = 0
+    summary_available = 0
+    for raw_path in raw_paths:
+        flags = read_modality_flags(raw_path)
+        quality = read_event_quality(raw_path.parent / "tribe_summary.json")
+        if quality:
+            summary_available += 1
+            event_type_counts.update({str(k): int(v) for k, v in (quality.get("type_counts") or {}).items()})
+        if flags is None and quality:
+            flags = (
+                bool(quality.get("missing_text", True)),
+                bool(quality.get("missing_audio", True)),
+                bool(quality.get("missing_video", True)),
+            )
+        if flags is None:
+            continue
+        missing_flags_available += 1
+        combo_counts[flags] += 1
+        examples.setdefault(flags, raw_path.parent.name)
+
+    coverage_rows = []
+    for flags, count in sorted(combo_counts.items(), key=lambda item: (-item[1], item[0])):
+        present = [name for name, missing in zip(MODALITY_ORDER, flags) if not missing]
+        missing = [name for name, is_missing in zip(MODALITY_ORDER, flags) if is_missing]
+        coverage_rows.append(
+            {
+                "present_modalities": "+".join(present) if present else "none",
+                "missing_modalities": "+".join(missing) if missing else "none",
+                "count": count,
+                "example_video_id": examples[flags],
+            }
+        )
+
+    total = len(raw_paths)
+    multimodal_count = combo_counts.get((False, False, False), 0)
+    video_only_count = combo_counts.get((True, True, False), 0)
+    return {
+        "cache_dir": str(cache_dir),
+        "raw_output_count": total,
+        "modality_records_count": missing_flags_available,
+        "summary_records_count": summary_available,
+        "video_only_count": video_only_count,
+        "multimodal_text_audio_video_count": multimodal_count,
+        "video_only_fraction": (video_only_count / total) if total else None,
+        "multimodal_fraction": (multimodal_count / total) if total else None,
+        "coverage_rows": coverage_rows,
+        "event_type_counts": dict(sorted(event_type_counts.items())),
+        "scope_warning": (
+            "Current cache is video-dominant / visual-only for the v2 claim."
+            if total and video_only_count > multimodal_count
+            else "Cache has majority multimodal coverage."
+        ),
+    }
+
+
 def selected_features(args: argparse.Namespace) -> tuple[tuple[str, str, str], ...]:
     if args.primary_only:
         return tuple(item for item in FEATURE_MODES if item[2] == "primary")
@@ -286,6 +394,11 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
+
+
+def write_json(path: Path, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(bench.json_safe(payload), indent=2), encoding="utf-8")
 
 
 def finite(value: Any) -> float | None:
@@ -619,6 +732,7 @@ def write_report(
     balanced_rows: list[dict[str, Any]],
     timing_summary: list[dict[str, Any]],
     control_coverage: list[dict[str, Any]],
+    modality_coverage: dict[str, Any],
     outputs: dict[str, Path],
 ) -> None:
     blocked_focus = [
@@ -651,12 +765,32 @@ def write_report(
         "- Thresholds, PCA, and transforms are train-only.",
         "- Grouped-video folds keep videos disjoint.",
         "- Balanced event-vs-stable rows carry event-conditioned PR-AUC claims.",
+        "- Current v2 cache modality scope is audited separately from benchmark scoring.",
         "",
-        "## Controls",
+        "## Modality Coverage",
         "",
-        "| Control | Event masks | Balanced | Continuous | Timing | Split | Purpose |",
-        "|---|---|---|---|---|---|---|",
+        f"- Raw cache outputs audited: {modality_coverage.get('raw_output_count', 0)}.",
+        f"- Video-only cache entries: {modality_coverage.get('video_only_count', 0)}.",
+        f"- Full text+audio+video entries: {modality_coverage.get('multimodal_text_audio_video_count', 0)}.",
+        f"- Scope warning: {modality_coverage.get('scope_warning', 'NA')}",
+        "",
+        "| Present modalities | Missing modalities | Count | Example video |",
+        "|---|---|---:|---:|",
     ]
+    for row in modality_coverage.get("coverage_rows", []):
+        lines.append(
+            f"| {row['present_modalities']} | {row['missing_modalities']} | "
+            f"{row['count']} | {row['example_video_id']} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Controls",
+            "",
+            "| Control | Event masks | Balanced | Continuous | Timing | Split | Purpose |",
+            "|---|---|---|---|---|---|---|",
+        ]
+    )
     for row in control_coverage:
         lines.append(
             f"| `{row['control']}` | {row['present_event_masks']} | "
@@ -794,6 +928,7 @@ def run_suite(args: argparse.Namespace) -> dict[str, Any]:
     timing_summary = summarize_timing(timing_rows)
     split_labels = [item[0] for item in splits]
     control_coverage = summarize_control_coverage(event_rows, balanced_rows, timing_rows, continuous_rows, split_labels)
+    modality_coverage = summarize_modality_coverage(Path(args.cache_dir))
     summary = {
         "schema_version": "veatic_strict_benchmark_v1",
         "elapsed_seconds": time.monotonic() - start,
@@ -808,6 +943,7 @@ def run_suite(args: argparse.Namespace) -> dict[str, Any]:
         "timing_rows": len(timing_rows),
         "score_rows": len(score_rows),
         "control_coverage": control_coverage,
+        "modality_coverage": modality_coverage,
         "executive_summary": (
             "Unified strict run completed with fixed splits, grouped-video folds, train-only "
             "thresholding/PCA, explicit real-vs-control comparisons, anti-leakage shuffles, "
@@ -828,13 +964,15 @@ def run_suite(args: argparse.Namespace) -> dict[str, Any]:
         "timing_grid_csv": out_dir / "timing_context_offset_grid.csv",
         "timing_summary_csv": out_dir / "timing_summary.csv",
         "control_coverage_csv": out_dir / "control_coverage.csv",
+        "modality_coverage_json": out_dir / "modality_coverage.json",
         "split_metadata_json": out_dir / "split_transform_metadata.json",
         "score_records_csv": out_dir / "score_records_primary_current_0s.csv",
         "report_md": out_dir / "veatic_strict_benchmark_report.md",
     }
-    outputs["summary_json"].write_text(json.dumps(bench.json_safe(summary), indent=2), encoding="utf-8")
-    outputs["contract_json"].write_text(json.dumps(bench.json_safe(summary["contract"]), indent=2), encoding="utf-8")
-    outputs["split_metadata_json"].write_text(json.dumps(bench.json_safe(split_metadata), indent=2), encoding="utf-8")
+    write_json(outputs["summary_json"], summary)
+    write_json(outputs["contract_json"], summary["contract"])
+    write_json(outputs["modality_coverage_json"], modality_coverage)
+    write_json(outputs["split_metadata_json"], split_metadata)
     write_csv(outputs["event_masks_csv"], event_rows)
     write_csv(outputs["event_deltas_csv"], event_delta_rows)
     write_csv(outputs["balanced_sampling_csv"], balanced_rows)
@@ -844,7 +982,7 @@ def run_suite(args: argparse.Namespace) -> dict[str, Any]:
     write_csv(outputs["timing_summary_csv"], timing_summary)
     write_csv(outputs["control_coverage_csv"], control_coverage)
     write_csv(outputs["score_records_csv"], score_rows)
-    write_report(outputs["report_md"], summary, event_delta_rows, balanced_rows, timing_summary, control_coverage, outputs)
+    write_report(outputs["report_md"], summary, event_delta_rows, balanced_rows, timing_summary, control_coverage, modality_coverage, outputs)
     print(json.dumps({key: str(value) for key, value in outputs.items()}, indent=2))
     return summary
 
@@ -870,6 +1008,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Include future/symmetric diagnostic windows. These are never final-score rows.",
     )
     parser.add_argument("--dry-run", action="store_true", help="Print the strict contract without loading cache files.")
+    parser.add_argument(
+        "--modality-audit-only",
+        action="store_true",
+        help="Report text/audio/video coverage for the configured cache without running benchmark scoring.",
+    )
     return parser
 
 
@@ -878,6 +1021,9 @@ def main() -> None:
     args = parser.parse_args()
     if args.dry_run:
         print(json.dumps(contract_manifest(args), indent=2))
+        return
+    if args.modality_audit_only:
+        print(json.dumps(bench.json_safe(summarize_modality_coverage(Path(args.cache_dir))), indent=2))
         return
     run_suite(args)
 

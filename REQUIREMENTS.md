@@ -16,6 +16,12 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 
 Full benchmark work assumes that external root contains model weights, Hugging Face caches, datasets, VEATIC/TRIBE caches, generated benchmark outputs, and temporary extraction files described in `docs/external_assets_manifest.md`.
 
+The current VEATIC-124 v2 evidence cache is video-dominant, not a full text+audio+video multimodal cache. Verify modality coverage before reporting cache scope:
+
+```bash
+python3 backend/scripts/run_veatic_strict_benchmark.py --modality-audit-only
+```
+
 ## Local Services
 
 The active repo only needs the Flask API, Vue viewer, local Python/Node tooling, and the configured external TRIBE assets.
@@ -47,6 +53,8 @@ Main dependency groups:
 - Neuro/ML runtime: `torch`, `transformers`, `safetensors`, `huggingface-hub`, `nibabel`, `nilearn`, `tqdm`.
 - Apple Silicon acceleration: `mlx`, `mlx-lm`.
 - TRIBE extractor support imported by current code: `neuralset`, `neuraltrain`, `exca`, `einops`, `lightning`, `mne`, `torchmetrics`, `PyYAML`.
+- The TRIBE/neuralset/exca trio is pinned in `backend/requirements.txt` because the released TRIBE config is schema-sensitive.
+- Uncached multimodal pilots also need `moviepy`, `soundfile`, `mlx-whisper`, and `x-transformers`.
 
 Install path:
 
@@ -105,6 +113,20 @@ Important values for current work:
 - `TMPDIR`
 
 For VEATIC/TRIBE benchmark work, prefer external-drive paths so the repo stays lightweight.
+
+Full multimodal pilots additionally need:
+
+- `TRIBE_AUDIO_ENCODER_LOCAL_DIR` present or resolvable from Hugging Face.
+- `TRIBE_TEXT_ENCODER_LOCAL_DIR` populated with the gated `meta-llama/Llama-3.2-3B` assets, or Hugging Face credentials with access to that gated model.
+- Working transcription backend dependencies.
+- A separate pilot cache root passed to `backend/scripts/run_veatic_tribe_cache.py --require-multimodal`.
+
+Current pilot status:
+
+- `facebook/w2v-bert-2.0` is present under the external SSD upstream encoder path.
+- The guarded VEATIC `83,84` pilot reaches audio extraction, word extraction, Text/Sentence creation, and text feature preparation.
+- It is currently blocked at text encoder loading because `meta-llama/Llama-3.2-3B` is gated and the local SSD directory is only a placeholder.
+- Do not re-encode all 124 VEATIC videos for multimodal coverage: only videos `83` and `84` contain audio streams.
 
 ## Tracked Versus External Assets
 

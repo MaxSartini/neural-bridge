@@ -1,5 +1,6 @@
 """MLX V-JEPA2 ViT-G video extractor for TRIBE cortical features."""
 
+import hashlib
 import json
 import logging
 import math
@@ -20,10 +21,35 @@ from neuralset.events import etypes as evts
 from neuralset.extractors.video import (
     HuggingFaceVideo,
     _VideoImage,
-    _video_window_checkpoint,
 )
 
 logger = logging.getLogger(__name__)
+
+
+def _video_window_checkpoint(
+    event: evts.Video,
+    cache_name: str,
+    num_frames: int,
+    frequency: float,
+    clip_duration: float,
+) -> tuple[Path, Path]:
+    """Return stable local cache paths for resumable MLX video-window encoding."""
+    cache_root = Path(
+        os.environ.get("TRIBE_VIDEO_WINDOW_CACHE_DIR", ".cache/tribev2/video_windows")
+    ).expanduser()
+    event_path = getattr(event, "filepath", "") or event.study_relative_path()
+    payload = {
+        "event": str(event_path),
+        "offset": float(getattr(event, "offset", 0.0)),
+        "duration": float(event.duration),
+        "cache_name": cache_name,
+        "num_frames": int(num_frames),
+        "frequency": float(frequency),
+        "clip_duration": float(clip_duration),
+    }
+    digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode("utf-8")).hexdigest()[:24]
+    cache_root.mkdir(parents=True, exist_ok=True)
+    return cache_root / f"{digest}.npy", cache_root / f"{digest}.progress.json"
 
 
 @dataclass(frozen=True)

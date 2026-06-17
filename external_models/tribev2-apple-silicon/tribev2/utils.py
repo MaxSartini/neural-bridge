@@ -4,6 +4,7 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
+import logging
 import typing as tp
 from collections import Counter, OrderedDict, defaultdict
 from functools import lru_cache
@@ -14,11 +15,43 @@ import mne
 import neuralset as ns
 import numpy as np
 import pandas as pd
-from neuralset.events.study import Chain, Study
-from neuralset.events.transforms import EventsBuilder, EventsTransform
+try:
+    from neuralset.events.study import Chain, Study
+except ImportError:
+    from neuralset.events.study import Study
+try:
+    from neuralset.events.transforms import EventsBuilder, EventsTransform
+except ImportError:
+    from neuralset.events.transforms import EventsTransform
+
+    class EventsBuilder(ns.base.Step):
+        """Compatibility base for neuralset releases without EventsBuilder export."""
+
+        _DEFAULT_CACHE_TYPE: tp.ClassVar[str | None] = "ValidatedParquet"
 from neuralset.extractors.neuro import FSAVERAGE_SIZES
 
 from tribev2.eventstransforms import RemoveDuplicates
+
+logger = logging.getLogger(__name__)
+
+if "Chain" not in globals():
+
+    class Chain:
+        """Compatibility wrapper for neuralset releases without Chain export."""
+
+        def __init__(self, steps: dict[str, tp.Any]):
+            self.steps = steps
+
+        def run(self) -> pd.DataFrame:
+            events: pd.DataFrame | None = None
+            for step in self.steps.values():
+                if events is None:
+                    events = step.run()
+                else:
+                    events = step(events)
+            if events is None:
+                raise ValueError("Chain has no steps")
+            return events
 
 FMRI_SPACES = {
     "Algonauts2025Bold": "MNI152NLIN2009C_ASYM_RES_01",
@@ -80,7 +113,12 @@ class MultiStudyLoader(EventsBuilder):
             for name in self.studies_to_include:
                 if name not in self.names:
                     raise ValueError(f"Study {name} not found in {self.names}")
-        self.get_studies()  # run this so that studies are registered (in case _run is cached)
+        try:
+            self.get_studies()  # run this so that studies are registered (in case _run is cached)
+        except ImportError as exc:
+            logger.warning(
+                "Skipping eager training-study registration for inference: %s", exc
+            )
 
     @infra_timelines.apply(item_uid=str)
     def dummy(self, items: tp.Iterable[str]) -> tp.Iterator[None]:

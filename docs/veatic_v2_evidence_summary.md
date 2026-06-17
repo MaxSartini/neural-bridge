@@ -4,13 +4,13 @@ Generated from the current v2 reports imported into the cleaned Neural Bridge re
 
 ## Headline
 
-VEATIC-124 v2 proves specific Neural Bridge hypotheses for arousal event/spike ranking. It shows that cortical/TRIBE PCA feature modes can improve future arousal spike/event ranking over autoregressive, shuffled, random, timestamp, and video/time controls under blocked and grouped-video validation.
+VEATIC-124 v2 proves specific Neural Bridge hypotheses for arousal event/spike ranking using a video-dominant cortical/TRIBE cache. It shows that visual/video-driven cortical/TRIBE PCA feature modes can improve future arousal spike/event ranking over autoregressive, shuffled, random, timestamp, and video/time controls under blocked and grouped-video validation.
 
-The claim remains bounded: this is event/spike ranking and temporal-context evidence, not exact continuous arousal-value prediction or a finished downstream product model.
+The claim remains bounded: this is event/spike ranking and temporal-context evidence from a mostly visual/video cache, not exact continuous arousal-value prediction, a finished downstream product model, or proof that full text+audio+video TRIBE has been evaluated.
 
 ## Proven Or Supported Hypotheses
 
-1. Real cortical/TRIBE features carry stimulus-specific signal for future arousal spike ranking.
+1. Real video-dominant cortical/TRIBE features carry stimulus-specific signal for future arousal spike ranking.
 2. PCA feature modes are materially stronger than the 6-feature global baseline for spike/event ranking.
 3. Balanced event-vs-stable evaluation exposes signal that full-frame continuous MAE can hide.
 4. Short causal temporal context can improve selected spike-ranking rows over current-only evaluation.
@@ -26,6 +26,7 @@ The claim remains bounded: this is event/spike ranking and temporal-context evid
 - Balanced event-vs-stable `arousal__future_spike_1_3s@0.05`: `cortical_pca64_delta` PR-AUC `0.3394`, `+0.0609` over AR, `+0.0631` over shuffled, `+0.0476` over random.
 - Temporal context v2: 4/4 focused feature-target rows improved over current-only by more than `0.005` PR-AUC; best focused windows were `causal_past_2s`.
 - Alignment repair: best offsets vary by target/mode, so no global lag correction was selected; final policy is `keep_current_0s_as_primary_plus_report_offset_diagnostics`.
+- Modality audit: `122/124` current cache entries are video-only and `2/124` contain text+audio+video, so the v2 result should not be described as a full multimodal TRIBE result.
 
 ## Boundaries
 
@@ -34,6 +35,8 @@ The claim remains bounded: this is event/spike ranking and temporal-context evid
 - Offset diagnostics should not be promoted into final scores unless a future train-only policy survives controls and grouped validation.
 - Legacy validation branches and retired secondary model expansion are not active validation requirements for the v2 claim.
 - Downstream product-model work is outside the current v2 evidence bundle.
+- Full multimodal TRIBE remains a high-priority pilot, not part of the frozen v2 claim yet. The guarded `83,84` pilot reaches audio/text event preparation but is blocked until the gated `meta-llama/Llama-3.2-3B` text encoder is locally available or authorized.
+- Do not use a full VEATIC-124 re-encode as the next multimodal step: only videos `83` and `84` contain audio streams.
 
 ## Source Reports
 

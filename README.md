@@ -1,6 +1,6 @@
 # Neural Bridge
 
-Neural Bridge is a local neuroscience-to-behavior research system. Its current proven core is VEATIC-124 v2: TRIBE-predicted cortical response features improve arousal event/spike ranking under leakage-controlled evaluation.
+Neural Bridge is a local neuroscience-to-behavior research system. Its current proven core is VEATIC-124 v2: video-dominant TRIBE-predicted cortical response features improve arousal event/spike ranking under leakage-controlled evaluation.
 
 ## Current Status
 
@@ -13,12 +13,14 @@ The VEATIC-124 v2 evidence bundle validates these hypotheses:
 5. A single 0s feature snapshot can underfeed the bridge head for spike/event tasks.
 6. The alignment audit resolved the benchmark policy: keep current 0s alignment as the primary non-leaky benchmark and report offset grids as diagnostics, not as a test-derived correction.
 
-The current claim is intentionally precise: Neural Bridge has evidence for arousal event/spike ranking and temporal-context sufficiency, not exact continuous arousal-value prediction or a finished downstream product model.
+The current claim is intentionally precise: Neural Bridge has evidence for arousal event/spike ranking and temporal-context sufficiency from a mostly visual/video TRIBE cache, not exact continuous arousal-value prediction, a finished downstream product model, or a proven full text+audio+video multimodal cache.
 
 ## Key VEATIC-124 v2 Results
 
 - Manifest: 124 videos, 10,357 1 Hz target rows.
 - Cache: complete cortical/TRIBE cache under the configured external assets root, at `benchmarks/veatic/tribe_cache`.
+- Modality coverage: the current v2 cache is video-dominant. The strict audit reports `122/124` entries with video present and text/audio missing, and `2/124` entries with text+audio+video present.
+- Multimodal follow-up: a guarded uncached pilot on videos `83` and `84` now reaches audio extraction, word extraction, Text/Sentence creation, and text feature preparation. It is blocked at the gated `meta-llama/Llama-3.2-3B` text encoder because the local SSD directory is only a placeholder.
 - Strongest blocked spike row: `cortical_pca64_delta`, `arousal__future_spike_1_3s`, threshold `0.05`.
 - PR-AUC for that row: real `0.2536`, AR `0.1969`, shuffled `0.1840`, random `0.1944`.
 - Official split spike rows pass controls across current feature families.
@@ -129,6 +131,16 @@ python3 backend/scripts/run_veatic_strict_benchmark.py --primary-only
 ```
 
 It consolidates the formerly separate event/spike, event-conditioned, alignment, and temporal-context checks into one coordinated run. The suite includes AR, shuffled cortical rows, split-local shuffles, Gaussian feature controls, label shuffles, feature shuffles, timestamp-only, video/time-only, majority, fixed-split holdouts, grouped-video holdouts, zero-change diagnostics, and a single-backend policy.
+
+Check cache modality coverage before describing a run as multimodal:
+
+```bash
+python3 backend/scripts/run_veatic_strict_benchmark.py --modality-audit-only
+```
+
+Do not re-encode all 124 VEATIC videos for multimodal coverage. Only videos `83` and `84` contain audio streams, so the current actionable path is to finish the gated/local text encoder dependency for the two-video pilot, then compare that pilot against the video-dominant cache.
+
+The current v2 evidence should be described as visual/video cortical TRIBE unless a new cache passes full text+audio+video coverage checks.
 
 ## Guardrails
 

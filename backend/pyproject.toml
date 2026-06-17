@@ -32,14 +32,19 @@ dependencies = [
     "nilearn>=0.10.0",
     "mlx>=0.20.0",
     "mlx-lm>=0.19.0",
-    "neuralset>=0.1.0",
-    "neuraltrain>=0.1.0",
-    "exca>=0.5.0",
+    # The released TRIBE config is sensitive to neuralset/exca schema drift.
+    "neuralset==0.0.3",
+    "neuraltrain==0.0.3",
+    "exca==0.5.20",
     "einops>=0.8.0",
+    "x-transformers>=2.21.0",
     "lightning>=2.3.0",
     "mne>=1.8.0",
     "torchmetrics>=1.4.0",
     "PyYAML>=6.0.0",
+    "moviepy>=2.2.0",
+    "soundfile>=0.14.0",
+    "mlx-whisper>=0.4.0",
 
     # Utilities
     "python-dotenv>=1.0.0",

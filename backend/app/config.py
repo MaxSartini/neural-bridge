@@ -50,21 +50,21 @@ class Config:
     TRIBE_TEXT_ENCODER_ID = os.environ.get('TRIBE_TEXT_ENCODER_ID', 'meta-llama/Llama-3.2-3B')
     TRIBE_TEXT_ENCODER_LOCAL_DIR = os.environ.get(
         'TRIBE_TEXT_ENCODER_LOCAL_DIR',
-        './models/upstream-encoders/meta-llama-Llama-3.2-3B'
+        os.path.join(_EXTERNAL_ROOT, 'models/upstream-encoders/meta-llama-Llama-3.2-3B')
     )
     TRIBE_TEXT_ENCODER_MLX_DIR = os.environ.get(
         'TRIBE_TEXT_ENCODER_MLX_DIR',
-        os.path.expanduser('~/.lmstudio/models/mlx-community/Llama-3.2-3B-Instruct-4bit')
+        os.path.join(_EXTERNAL_ROOT, 'models/upstream-encoders-mlx/meta-llama-Llama-3.2-3B')
     )
     TRIBE_AUDIO_ENCODER_ID = os.environ.get('TRIBE_AUDIO_ENCODER_ID', 'facebook/w2v-bert-2.0')
     TRIBE_AUDIO_ENCODER_LOCAL_DIR = os.environ.get(
         'TRIBE_AUDIO_ENCODER_LOCAL_DIR',
-        './models/upstream-encoders/facebook-w2v-bert-2.0'
+        os.path.join(_EXTERNAL_ROOT, 'models/upstream-encoders/facebook-w2v-bert-2.0')
     )
     TRIBE_VIDEO_ENCODER_ID = os.environ.get('TRIBE_VIDEO_ENCODER_ID', 'facebook/vjepa2-vitg-fpc64-256')
     TRIBE_VIDEO_ENCODER_LOCAL_DIR = os.environ.get(
         'TRIBE_VIDEO_ENCODER_LOCAL_DIR',
-        './models/upstream-encoders/facebook-vjepa2-vitg-fpc64-256'
+        os.path.join(_EXTERNAL_ROOT, 'models/cortical-upstream/facebook-vjepa2-vitg-fpc64-256')
     )
     TRIBE_VIDEO_ENCODER_BACKEND = os.environ.get('TRIBE_VIDEO_ENCODER_BACKEND', 'mlx')
     TRIBE_VIDEO_ENCODER_MLX_DIR = os.environ.get(

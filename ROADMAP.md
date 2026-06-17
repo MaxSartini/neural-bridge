@@ -1,13 +1,13 @@
 # Neural Bridge Roadmap
 
-This is the post-VEATIC-124 v2 roadmap. VEATIC proved the core cortical/TRIBE hypothesis for arousal event/spike ranking. The roadmap now focuses on preserving the strict benchmark suite that produced that evidence, freezing the future training data interface, and building better heads on top of the proven signal.
+This is the post-VEATIC-124 v2 roadmap. VEATIC proved the core video-dominant cortical/TRIBE hypothesis for arousal event/spike ranking. The roadmap now focuses on preserving the strict benchmark suite that produced that evidence, auditing modality coverage, freezing the future training data interface, and building better heads on top of the proven signal.
 
 ## Proven Baseline
 
 Completed:
 
-- VEATIC-124 manifest and cortical/TRIBE cache are complete.
-- Arousal future-spike/event ranking has validated signal from cortical/TRIBE features.
+- VEATIC-124 manifest and video-dominant cortical/TRIBE cache are complete.
+- Arousal future-spike/event ranking has validated signal from mostly visual/video cortical/TRIBE features.
 - PCA feature modes beat AR, shuffled, random, timestamp, and video/time controls on the strongest spike/event rows.
 - Official split spike rows pass controls across current feature families.
 - Grouped-video spike F1 improves over AR for PCA modes.
@@ -17,6 +17,7 @@ Completed:
 - Small v2 evidence reports are tracked in this repo.
 - Legacy app-era code, redundant atlas data, and stale frontend scaffolding have been removed from the active repo.
 - Root config/package files now describe only the current VEATIC/TRIBE workspace.
+- The strict suite now audits modality coverage so video-only and full multimodal caches cannot be confused.
 
 This is the current scientific foundation, not a hypothesis waiting for another dataset to validate it.
 
@@ -42,7 +43,9 @@ Goal: surface and preserve the exact rules already enforced by the v2 benchmark 
 - [x] Enforce balanced event-vs-stable scoring for event-conditioned PR-AUC claims.
 - [x] Consolidate the already-implemented rules into `backend/scripts/run_veatic_strict_benchmark.py` with a named v2 contract manifest.
 - [x] Add a dry-run/status mode that prints the strict benchmark contract without loading cache files.
+- [x] Add modality coverage reporting for text/audio/video cache provenance.
 - [ ] Run and freeze the consolidated strict suite outputs as the new canonical v2 artifact set.
+- [ ] Promote full text+audio+video TRIBE only after the guarded `83,84` pilot has gated/local `meta-llama/Llama-3.2-3B` text encoder access and beats or complements the current video-dominant baseline.
 
 ## 3. v2 Training Tensor Contract
 

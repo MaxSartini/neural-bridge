@@ -20,6 +20,7 @@ from app.config import Config  # noqa: E402
 from app.services.tribe_adapter import TribeAdapter  # noqa: E402
 
 RUN_MODES = ("cortical_fast_default",)
+MODALITY_ORDER = ("text", "audio", "video")
 
 
 def external_root() -> Path:
@@ -37,6 +38,14 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def resolve_media_path(raw_path: str) -> Path:
+    path_text = raw_path.replace("<external-assets-root>", str(external_root()))
+    path = Path(path_text).expanduser()
+    if not path.is_absolute():
+        path = (BACKEND_ROOT.parent / path).resolve()
+    return path.resolve()
 
 
 def load_videos(report_path: Path, limit: int, video_ids: set[str] | None) -> list[dict[str, Any]]:
@@ -65,8 +74,9 @@ def configure_runtime(args: argparse.Namespace) -> dict[str, Any]:
     os.environ["TOKENIZERS_PARALLELISM"] = "false"
     os.environ["HF_HOME"] = str(root / "cache" / "huggingface")
     os.environ["TMPDIR"] = str(root / "tmp")
-    os.environ["TRIBE_CACHE_DIR"] = str(root / "cache" / "tribev2")
-    os.environ["TRIBE_VIDEO_WINDOW_CACHE_DIR"] = str(root / "cache" / "tribev2" / "video_windows")
+    feature_cache_dir = Path(args.feature_cache_dir).expanduser().resolve() if args.feature_cache_dir else root / "cache" / "tribev2"
+    os.environ["TRIBE_CACHE_DIR"] = str(feature_cache_dir)
+    os.environ["TRIBE_VIDEO_WINDOW_CACHE_DIR"] = str(feature_cache_dir / "video_windows")
     os.environ["TRIBE_MPS_CHUNKED_ATTENTION"] = "true"
     os.environ["TRIBE_MPS_ATTENTION_QUERY_CHUNK_SIZE"] = str(args.attention_query_chunk_size)
     os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = str(args.mps_high_watermark)
@@ -95,6 +105,8 @@ def configure_runtime(args: argparse.Namespace) -> dict[str, Any]:
         "video_num_frames": Config.TRIBE_VIDEO_NUM_FRAMES,
         "video_encoder_backend": Config.TRIBE_VIDEO_ENCODER_BACKEND,
         "video_encoder_mlx_dir": Config.TRIBE_VIDEO_ENCODER_MLX_DIR,
+        "feature_cache_dir": Config.TRIBE_CACHE_DIR,
+        "required_modalities": list(args.required_modalities),
         "mps_memory_fraction": Config.TRIBE_MPS_MEMORY_FRACTION,
         "mps_high_watermark": os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"],
         "mps_low_watermark": os.environ["PYTORCH_MPS_LOW_WATERMARK_RATIO"],
@@ -104,6 +116,46 @@ def configure_runtime(args: argparse.Namespace) -> dict[str, Any]:
         ),
         "attention_query_chunk_size": os.environ["TRIBE_MPS_ATTENTION_QUERY_CHUNK_SIZE"],
     }
+
+
+def modality_status(raw_path: Path) -> dict[str, Any]:
+    if not raw_path.exists():
+        return {
+            "present_modalities": [],
+            "missing_modalities": list(MODALITY_ORDER),
+            "modality_missing_flags": None,
+        }
+    with np.load(raw_path) as bundle:
+        if "feature_modality_present_flags" in bundle.files:
+            present_flags = [bool(item) for item in bundle["feature_modality_present_flags"].tolist()]
+            present = [name for name, is_present in zip(MODALITY_ORDER, present_flags) if is_present]
+            missing = [name for name, is_present in zip(MODALITY_ORDER, present_flags) if not is_present]
+            return {
+                "present_modalities": present,
+                "missing_modalities": missing,
+                "modality_missing_flags": [int(not item) for item in present_flags],
+                "feature_modality_present_flags": [int(item) for item in present_flags],
+            }
+        if "modality_missing_flags" not in bundle.files:
+            return {
+                "present_modalities": ["unknown"],
+                "missing_modalities": ["unknown"],
+                "modality_missing_flags": None,
+            }
+        flags = [bool(item) for item in bundle["modality_missing_flags"].tolist()]
+    present = [name for name, missing in zip(MODALITY_ORDER, flags) if not missing]
+    missing = [name for name, missing in zip(MODALITY_ORDER, flags) if missing]
+    return {
+        "present_modalities": present,
+        "missing_modalities": missing,
+        "modality_missing_flags": [int(item) for item in flags],
+    }
+
+
+def missing_required_modalities(raw_path: Path, required: tuple[str, ...]) -> list[str]:
+    status = modality_status(raw_path)
+    missing = set(status["missing_modalities"])
+    return [item for item in required if item in missing]
 
 
 def main() -> None:
@@ -143,9 +195,29 @@ def main() -> None:
     parser.add_argument("--tribe-mlx-dir", default=external_path("models", "tribe-mlx", "zimengxiong-tribev2-mlx"))
     parser.add_argument("--cortical-video-encoder-dir", default=external_path("models", "cortical-upstream", "facebook-vjepa2-vitg-fpc64-256"))
     parser.add_argument("--cortical-video-encoder-mlx-dir", default=external_path("models", "upstream-encoders-mlx", "facebook-vjepa2-vitg-fpc64-256"))
+    parser.add_argument(
+        "--feature-cache-dir",
+        default="",
+        help="Feature-extractor cache root. Use a fresh directory for uncached pilot runs.",
+    )
+    parser.add_argument(
+        "--required-modalities",
+        nargs="+",
+        choices=MODALITY_ORDER,
+        default=["video"],
+        help="Fail a completed cache item if these modalities are absent from modality_missing_flags.",
+    )
+    parser.add_argument(
+        "--require-multimodal",
+        action="store_true",
+        help="Shortcut for --required-modalities text audio video.",
+    )
     args = parser.parse_args()
     if args.cortical_only:
         args.run_mode = "cortical_fast_default"
+    if args.require_multimodal:
+        args.required_modalities = list(MODALITY_ORDER)
+    args.required_modalities = tuple(args.required_modalities)
     if not args.cache_dir:
         args.cache_dir = (
             external_path("benchmarks", "veatic", "tribe_cache_mlx")
@@ -163,7 +235,7 @@ def main() -> None:
     statuses = []
     for index, video in enumerate(videos, start=1):
         video_id = str(video["video_id"])
-        media_path = Path(video["media_path"]).expanduser().resolve()
+        media_path = resolve_media_path(str(video["media_path"]))
         output = cache_root / video_id
         status_path = output / "cache_status.json"
         raw_path = output / "tribe_raw_output.npz"
@@ -208,9 +280,13 @@ def main() -> None:
             status["error"] = result.get("error", "TRIBE inference failed")
         elif not has_required_raw(raw_path):
             status["error"] = "Raw output missing required cortical predictions."
+        elif missing := missing_required_modalities(raw_path, args.required_modalities):
+            status["modality_status"] = modality_status(raw_path)
+            status["error"] = f"Missing required modalities: {', '.join(missing)}"
         else:
             with np.load(raw_path) as bundle:
                 status["raw_shapes"] = {key: list(bundle[key].shape) for key in bundle.files}
+            status["modality_status"] = modality_status(raw_path)
             status["complete"] = True
         status_path.write_text(json.dumps(status, indent=2), encoding="utf-8")
     summary = {

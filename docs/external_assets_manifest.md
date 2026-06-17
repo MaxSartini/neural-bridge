@@ -31,8 +31,22 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 
 ## Current Size Snapshot
 
-- Repo: about `26M`
-- External assets: about `102G`
+- Repo: lightweight source and small evidence artifacts only.
+- External assets after cleanup plus Wav2Vec-BERT download: about `25G` on the local reference SSD.
+
+## Current External Asset Families
+
+- `<external-assets-root>/benchmarks/veatic/` - VEATIC cache roots and small logs.
+- `<external-assets-root>/datasets/veatic/` - raw VEATIC videos and 1 Hz target traces.
+- `<external-assets-root>/cache/tribev2/` - TRIBE/neuralset feature cache.
+- `<external-assets-root>/cache/huggingface/` - active Hugging Face cache for TRIBE/V-JEPA/Llama/Wav2Vec/Whisper assets.
+- `<external-assets-root>/models/tribe/` - official TRIBE checkpoint.
+- `<external-assets-root>/models/tribe-mlx/` - TRIBE-MLX head.
+- `<external-assets-root>/models/cortical-upstream/` - V-JEPA2 video encoder weights.
+- `<external-assets-root>/models/upstream-encoders/facebook-w2v-bert-2.0/` - downloaded audio encoder for multimodal pilots.
+- `<external-assets-root>/models/upstream-encoders/meta-llama-Llama-3.2-3B/` - expected gated text encoder path; currently a placeholder unless populated with authorized Llama assets.
+- `<external-assets-root>/models/upstream-encoders-mlx/` - MLX upstream encoder weights.
+- `<external-assets-root>/models/transcription/` - MLX Whisper transcription weights.
 
 ## Policy
 

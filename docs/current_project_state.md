@@ -13,7 +13,7 @@ The repo should stay lightweight. Heavy research assets belong on the external d
 
 Neural Bridge is testing where predicted neural response trajectories improve human-response forecasts under controlled baselines.
 
-Current evidence is strongest for VEATIC-124 cortical/TRIBE arousal event and spike ranking. v2 has validated specific hypotheses around event/spike ranking and causal temporal context. It still should not claim exact continuous arousal-value forecasting.
+Current evidence is strongest for VEATIC-124 video-dominant cortical/TRIBE arousal event and spike ranking. v2 has validated specific hypotheses around event/spike ranking and causal temporal context. It still should not claim exact continuous arousal-value forecasting or full text+audio+video multimodal TRIBE evidence.
 
 ## Current Benchmark Assets
 
@@ -21,6 +21,7 @@ Current evidence is strongest for VEATIC-124 cortical/TRIBE arousal event and sp
 - Manifest rows: 10,357 at 1 Hz
 - Complete cortical cache: `<external-assets-root>/benchmarks/veatic/tribe_cache`
 - Cache shape contract: per-video `tribe_raw_output.npz` with required key `predictions`
+- Modality coverage: current audit shows `122/124` cache entries are video-only (`text` and `audio` missing) and `2/124` contain text+audio+video.
 - Main targets: `valence`, `arousal`
 
 Current feature families:
@@ -46,10 +47,11 @@ python3 backend/scripts/run_veatic_strict_benchmark.py --primary-only
 ```
 
 Use `--dry-run` to print the strict contract and control ledger without loading the external cache.
+Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 
 ## Validated v2 Findings
 
-- Cortical/TRIBE features improve arousal future-spike/event ranking under blocked validation.
+- Video-dominant cortical/TRIBE features improve arousal future-spike/event ranking under blocked validation.
 - `cortical_pca64_delta` is the strongest blocked full-frame spike row at threshold `0.05`: PR-AUC `0.2536` versus AR `0.1969`, shuffled `0.1840`, and random `0.1944`.
 - Official split event/spike rows pass controls across the current feature families.
 - Grouped-video validation improves aggregate spike F1 over AR for PCA modes.
@@ -66,15 +68,24 @@ Use `--dry-run` to print the strict contract and control ledger without loading 
 - PCA and other transforms must be fit on train data only.
 - Controls include AR, shuffled cortical rows, split-local shuffles, Gaussian features, label shuffles, feature shuffles, timestamp-only, video/time-only, majority, fixed-split holdouts, grouped-video holdouts, zero-change diagnostics, and one backend policy per final run.
 - CPU/MPS device consistency should be checked before mixing thresholded results.
+- Do not describe a cache as multimodal unless `modality_missing_flags` or `tribe_summary.event_quality` show text, audio, and video present.
 
 ## Remaining Work
 
 1. Freeze the current 124-video v2 baseline into a protected external snapshot.
 2. Run and freeze the consolidated strict suite outputs as the canonical v2 artifact set.
-3. Freeze the v2 training tensor contract for future model heads.
-4. Carry the resolved alignment policy into the tensor contract and benchmark dashboard.
-5. Build next model heads against the frozen v2 baseline.
-6. Delete or archive old pre-124 runs after preserving the useful evidence.
+3. Finish the guarded `83,84` multimodal pilot after populating or authorizing the gated `meta-llama/Llama-3.2-3B` text encoder.
+4. Freeze the v2 training tensor contract for future model heads.
+5. Carry the resolved alignment policy and modality coverage into the tensor contract and benchmark dashboard.
+
+Current multimodal pilot status:
+
+- `facebook/w2v-bert-2.0` is present on the external SSD.
+- The pilot reaches audio extraction, word extraction, Text/Sentence creation, and text feature preparation.
+- It is blocked by gated/missing `meta-llama/Llama-3.2-3B` text encoder assets.
+- A full VEATIC-124 multimodal re-encode is not warranted because only videos `83` and `84` contain audio streams.
+6. Build next model heads against the frozen v2 baseline.
+7. Delete or archive old pre-124 runs after preserving the useful evidence.
 
 ## Next Safe Move
 

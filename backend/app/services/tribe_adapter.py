@@ -159,6 +159,7 @@ class TribeAdapter:
             all_segments = []
             total_expanded_segments = 0
             kept_expanded_segments = 0
+            feature_modalities_seen: set[str] = set()
             for batch in loader:
                 expanded_segments = []
                 for segment in batch.segments:
@@ -172,6 +173,7 @@ class TribeAdapter:
                     for key in ("text", "audio", "video")
                     if key in batch.data
                 }
+                feature_modalities_seen.update(features)
                 batch_preds = encoder.predict(features)
                 batch_preds = np.transpose(batch_preds, (0, 2, 1)).reshape(-1, batch_preds.shape[1])
                 predictions.append(batch_preds[keep])
@@ -187,6 +189,7 @@ class TribeAdapter:
                     if total_expanded_segments
                     else 0.0
                 ),
+                "feature_modalities_seen": sorted(feature_modalities_seen),
             }
             return np.concatenate(predictions), all_segments, events
         finally:
@@ -630,6 +633,15 @@ class TribeAdapter:
                     float(segment_quality.get("dropped_segments", 0.0)),
                     float(event_quality.get("word_duration_repairs", 0.0)),
                     float(event_quality.get("null_word_durations_after_repair", 0.0)),
+                ],
+                dtype=np.float32,
+            )
+            feature_modalities_seen = set(segment_quality.get("feature_modalities_seen", []))
+            raw_arrays["feature_modality_present_flags"] = np.asarray(
+                [
+                    float("text" in feature_modalities_seen),
+                    float("audio" in feature_modalities_seen),
+                    float("video" in feature_modalities_seen),
                 ],
                 dtype=np.float32,
             )

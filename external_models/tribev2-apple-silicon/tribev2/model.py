@@ -9,7 +9,10 @@ import typing as tp
 
 import torch
 from einops import rearrange
-from neuralset.dataloader import SegmentData
+try:
+    from neuralset.dataloader import SegmentData
+except ImportError:
+    SegmentData = tp.Any
 from neuraltrain.models.base import BaseModelConfig
 from neuraltrain.models.common import Mlp, SubjectLayers, SubjectLayersModel
 from neuraltrain.models.transformer import TransformerEncoder

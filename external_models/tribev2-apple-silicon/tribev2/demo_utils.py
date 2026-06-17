@@ -10,6 +10,7 @@ import logging
 import os
 import re
 import typing as tp
+from collections import OrderedDict
 from pathlib import Path
 
 import numpy as np
@@ -31,12 +32,79 @@ if not logger.handlers:
 from neuralset.events.transforms import (
     AddContextToWords,
     AddSentenceToWords,
-    AddText,
     ChunkEvents,
+    EventsTransform,
     ExtractAudioFromVideo,
     RemoveMissing,
 )
 from neuralset.events.utils import standardize_events
+
+try:
+    from neuralset.events.transforms import AddText  # type: ignore[attr-defined]
+except ImportError:
+    from neuralset.events.transforms import EnsureTexts
+
+    class AddText(EnsureTexts):  # type: ignore[no-redef]
+        """Compatibility shim for neuralset versions that renamed AddText."""
+
+        punctuation: None = None
+
+
+class PlainAddSentenceToWords(EventsTransform):
+    """Create simple Sentence rows and word sentence offsets without spaCy."""
+
+    max_unmatched_ratio: float = 0.0
+    override_sentences: bool = False
+
+    def _run(self, events: pd.DataFrame) -> pd.DataFrame:
+        if "Sentence" in set(events["type"]):
+            if not self.override_sentences:
+                return events
+            events = events[events["type"] != "Sentence"].copy()
+        if "Word" not in set(events["type"]):
+            return events
+        out = events.copy()
+        out.loc[:, "sentence"] = out.get("sentence", "")
+        out.loc[:, "sentence_char"] = out.get("sentence_char", np.nan)
+        sentence_rows: list[dict[str, tp.Any]] = []
+        for timeline, words in out[out["type"] == "Word"].sort_values(
+            ["timeline", "start"]
+        ).groupby("timeline", sort=False):
+            words = words.copy()
+            text_rows = out[(out["type"] == "Text") & (out["timeline"] == timeline)]
+            if not text_rows.empty and isinstance(text_rows.iloc[0].get("text"), str):
+                sentence = str(text_rows.iloc[0]["text"])
+            else:
+                sentence = " ".join(str(value) for value in words["text"].fillna(""))
+            char = 0
+            for index, word in words.iterrows():
+                token = str(word.get("text", ""))
+                position = sentence.find(token, char)
+                if position < 0:
+                    position = char
+                out.loc[index, "sentence"] = sentence
+                out.loc[index, "sentence_char"] = float(position)
+                char = position + len(token) + 1
+            start = float(words["start"].min())
+            stop = float((words["start"] + words["duration"]).max())
+            language = (
+                str(words["language"].iloc[0])
+                if "language" in words.columns and len(words)
+                else "english"
+            )
+            sentence_rows.append(
+                {
+                    "type": "Sentence",
+                    "start": start,
+                    "duration": stop - start,
+                    "timeline": timeline,
+                    "text": sentence,
+                    "language": language,
+                }
+            )
+        if sentence_rows:
+            out = pd.concat([out, pd.DataFrame(sentence_rows)], ignore_index=True)
+        return out
 
 from tribev2.eventstransforms import ExtractWordsFromAudio
 from tribev2.main import TribeExperiment
@@ -46,6 +114,48 @@ VALID_SUFFIXES: dict[str, set[str]] = {
     "audio_path": {".wav", ".mp3", ".flac", ".ogg"},
     "video_path": {".mp4", ".avi", ".mkv", ".mov", ".webm"},
 }
+
+
+def _pop_config_key(config: ConfDict, key: str) -> None:
+    try:
+        config.pop(key)
+    except KeyError:
+        pass
+
+
+def _normalize_config_for_current_neuralset(config: ConfDict) -> None:
+    """Adapt the released TRIBE config to current neuralset validation rules."""
+    transforms = config.get("data.study.transforms")
+    if transforms is not None and not isinstance(transforms, (list, OrderedDict)):
+        config["data.study.transforms"] = OrderedDict(transforms.items())
+
+    transforms = config.get("data.study.transforms")
+    if isinstance(transforms, OrderedDict):
+        for transform in transforms.values():
+            if isinstance(transform, dict):
+                infra = transform.get("infra")
+                if isinstance(infra, dict):
+                    infra.pop("cache_type", None)
+
+    for key in [
+        "data.neuro.input_space",
+        "data.text_feature.cache_all_layers",
+        "data.audio_feature.cache_all_layers",
+        "data.image_feature.cache_all_layers",
+        "data.image_feature.image.cache_all_layers",
+        "data.video_feature.cache_all_layers",
+        "data.video_feature.image.cache_all_layers",
+    ]:
+        _pop_config_key(config, key)
+
+    for key in [
+        "data.text_feature.device",
+        "data.audio_feature.device",
+        "data.image_feature.image.device",
+        "data.video_feature.image.device",
+    ]:
+        if str(config.get(key, "")).lower() == "mps":
+            config[key] = "auto"
 
 
 def download_file(url: str, path: str | Path) -> Path:
@@ -87,7 +197,7 @@ def get_audio_and_text_events(
                 # Whisper punctuation/tokenization can leave one word unmatched in
                 # short clips. Preserve the aligned transcript unless mismatch is
                 # large enough to indicate a genuinely broken transcription.
-                AddSentenceToWords(max_unmatched_ratio=0.10),
+                PlainAddSentenceToWords(max_unmatched_ratio=0.10),
                 AddContextToWords(
                     sentence_only=False, max_context_len=1024, split_field=""
                 ),
@@ -268,6 +378,7 @@ class TribeModel(TribeExperiment):
             config["data.video_feature.image.device"] = "cpu"
         if config_update is not None:
             config.update(config_update)
+        _normalize_config_for_current_neuralset(config)
         xp = cls(**config)
 
         logger.info(f"Loading model from {ckpt_path}")
