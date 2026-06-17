@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -12,7 +13,9 @@ from typing import Any
 import numpy as np
 
 
-DEFAULT_ROOT = "/Volumes/onn. Drive/Neural Bridge/datasets/veatic"
+ROOT = Path(__file__).resolve().parents[2]
+EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(ROOT / "external_assets"))).expanduser()
+DEFAULT_ROOT = str(EXTERNAL_ROOT / "datasets" / "veatic")
 VIDEO_EXTENSIONS = (".mp4", ".mov", ".mkv", ".webm", ".avi")
 
 

@@ -15,11 +15,11 @@ from typing import Any
 import numpy as np
 
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
+ROOT = BACKEND_ROOT.parent
+EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(ROOT / "external_assets"))).expanduser()
 sys.path.insert(0, str(BACKEND_ROOT))
 
-from app.services.subcortical_roi_adapter import SubcorticalRoiAdapter  # noqa: E402
-
-RUN_MODES = ("cortical_fast_default", "full_research", "subcortical_ablation")
+RUN_MODES = ("cortical_fast_default",)
 FEATURE_MODES = (
     "cortical_global",
     "cortical_global_delta",
@@ -58,8 +58,6 @@ DERIVED_TARGETS = (
 EVENT_THRESHOLD = 0.05
 FEATURE_SETS_BY_RUN_MODE = {
     "cortical_fast_default": ("cortical_global",),
-    "full_research": ("cortical_global", "subcortical_roi", "combined"),
-    "subcortical_ablation": ("cortical_global", "subcortical_roi", "combined"),
 }
 AR_FEATURE_NAMES = (
     "ar_current_or_previous",
@@ -100,11 +98,7 @@ DIAGNOSTIC_TARGETS = (
 )
 DIAGNOSTIC_CONDITIONS = (
     "autoregressive_plus_cortical_global",
-    "autoregressive_plus_subcortical_roi",
-    "autoregressive_plus_combined",
     "residualized_autoregressive_plus_cortical_global",
-    "residualized_autoregressive_plus_subcortical_roi",
-    "residualized_autoregressive_plus_combined",
 )
 
 
@@ -126,19 +120,12 @@ def load_cached_video_features(
     cache_dir: Path,
     video_id: str,
     expected_rows: int,
-    *,
-    include_subcortical: bool,
 ) -> tuple[dict[str, np.ndarray], dict[str, Any]]:
     raw_path = cache_dir / video_id / "tribe_raw_output.npz"
     if not raw_path.exists():
         raise FileNotFoundError(raw_path)
     with np.load(raw_path) as bundle:
         cortical = np.asarray(bundle["predictions"], dtype=np.float32)
-        subcortical = (
-            np.asarray(bundle["subcortical_predictions"], dtype=np.float32)
-            if include_subcortical and "subcortical_predictions" in bundle.files
-            else None
-        )
     if cortical.shape[0] != expected_rows:
         cortical = resample_rows(cortical, expected_rows)
         cortical_alignment = "linear_resampled"
@@ -149,24 +136,11 @@ def load_cached_video_features(
         "cortical_global": cortical_global_features(cortical),
         "cortical_raw": cortical,
     }
-    if subcortical is not None:
-        if subcortical.shape[0] != expected_rows:
-            subcortical = resample_rows(subcortical, expected_rows)
-            subcortical_alignment = "linear_resampled"
-        else:
-            subcortical_alignment = "exact"
-        features["subcortical_roi"] = subcortical_roi_features(subcortical)
-        features["combined"] = np.concatenate([features["cortical_global"], features["subcortical_roi"]], axis=1)
-    else:
-        subcortical_alignment = "disabled_by_run_mode" if not include_subcortical else "missing"
-        features["subcortical_roi"] = np.zeros((expected_rows, 0), dtype=np.float32)
-        features["combined"] = features["cortical_global"]
     metadata = {
         "video_id": video_id,
         "raw_path": str(raw_path),
         "expected_rows": expected_rows,
         "cortical_alignment": cortical_alignment,
-        "subcortical_alignment": subcortical_alignment,
         "feature_counts": {key: int(value.shape[1]) for key, value in features.items()},
     }
     return features, metadata
@@ -451,22 +425,6 @@ def pca_fit_transform_mps_gram(
     }
 
 
-def subcortical_roi_features(subcortical: np.ndarray) -> np.ndarray:
-    projection = SubcorticalRoiAdapter().project(subcortical)
-    trajectories = np.asarray(projection["region_trajectories"], dtype=np.float32)
-    abs_trajectories = np.abs(trajectories)
-    global_features = np.stack(
-        [
-            trajectories.mean(axis=1),
-            abs_trajectories.mean(axis=1),
-            trajectories.std(axis=1),
-            abs_trajectories.max(axis=1),
-        ],
-        axis=1,
-    )
-    return np.concatenate([trajectories, abs_trajectories, global_features], axis=1).astype(np.float32)
-
-
 def feature_names(feature_set: str, width: int) -> list[str]:
     if feature_set == "cortical_global":
         return list(CORTICAL_FEATURE_NAMES[:width])
@@ -488,16 +446,6 @@ def feature_names(feature_set: str, width: int) -> list[str]:
         return names[:width]
     if feature_set == "cortical_raw_ridge":
         return [f"raw_vertex_{index}" for index in range(width)]
-    if feature_set == "subcortical_roi":
-        roi_width = max(0, (width - 4) // 2)
-        names = [f"subcortical_roi_{index}" for index in range(roi_width)]
-        names.extend(f"subcortical_roi_{index}_abs" for index in range(roi_width))
-        names.extend(["subcortical_mean", "subcortical_mean_abs", "subcortical_std", "subcortical_peak_abs"])
-        return names[:width]
-    if feature_set == "combined":
-        cortical = list(CORTICAL_FEATURE_NAMES)
-        subcortical = feature_names("subcortical_roi", max(0, width - len(cortical)))
-        return (cortical + subcortical)[:width]
     return [f"{feature_set}_{index}" for index in range(width)]
 
 
@@ -1095,14 +1043,6 @@ def eval_split(
                     rng.normal(size=test_feature_matrix.shape),
                 )
                 predictions[f"residualized_autoregressive_plus_random_gaussian_{name}"] = ar_test_pred + residual_pred_random
-            if "combined" in split_feature_sets:
-                shuffled_y = rng.permutation(train_y)
-                combined_train, combined_test = split_feature_sets["combined"]
-                predictions["shuffled_labels_autoregressive_plus_combined"] = ridge(
-                    np.concatenate([train_ar, combined_train[target_train_pos]], axis=1),
-                    shuffled_y,
-                    np.concatenate([test_ar, combined_test[target_test_pos]], axis=1),
-                )
             is_event_target = derived.startswith("event_")
             if is_event_target:
                 metric_fn = lambda truth, pred: binary_metrics(truth, pred, float(np.mean(train_y)))
@@ -1440,14 +1380,10 @@ def write_markdown_summary(report: dict[str, Any], output: Path) -> None:
         f"- Feature sets: {report['feature_sets']}",
         f"- Run mode: {report['run_mode']}",
         f"- Feature mode: {report.get('feature_mode', 'cortical_global')}",
-        f"- Subcortical enabled: {report['subcortical_enabled']}",
         "",
         "## Scientific Contract",
         f"- TRIBE extraction contract unchanged.",
-        f"- Default subcortical policy: {report['subcortical_policy']}",
-        "- Subcortical remains available for explicit `full_research` and `subcortical_ablation` runs.",
-        "- Subcortical is disabled in the default run because current OpenLAV/VEATIC evidence does not show stable additive lift over compact cortical features, while it adds inference time, memory pressure, crash risk, and benchmark complexity.",
-        "- Expected benefit: lower runtime and memory pressure by skipping the separate subcortical model branch and ROI projection; exact speedup depends on video length and cache state.",
+        "- Current benchmark contract is cortical/TRIBE v2 only; retired secondary branches are not part of the active pipeline.",
         f"- Event threshold: {report['target_contract']['event_threshold']}",
         "- Autoregressive features use only current/past labels relative to the prediction horizon.",
         "- Residualization is fit inside each split/fold only.",
@@ -1486,12 +1422,10 @@ def write_markdown_summary(report: dict[str, Any], output: Path) -> None:
             for condition in (
                 "autoregressive",
                 "autoregressive_plus_cortical_global",
-                "autoregressive_plus_subcortical_roi",
-                "autoregressive_plus_combined",
-                "autoregressive_plus_shuffled_combined",
-                "autoregressive_plus_random_gaussian_combined",
-                "residualized_autoregressive_plus_combined",
-                "residualized_autoregressive_plus_shuffled_combined",
+                "autoregressive_plus_shuffled_cortical_global",
+                "autoregressive_plus_random_gaussian_cortical_global",
+                "residualized_autoregressive_plus_cortical_global",
+                "residualized_autoregressive_plus_shuffled_cortical_global",
             ):
                 if condition in table and isinstance(table[condition], dict):
                     values = table[condition]
@@ -1552,9 +1486,7 @@ def write_markdown_summary(report: dict[str, Any], output: Path) -> None:
             lines.append(f"#### {target_name}")
             for condition in (
                 "autoregressive_plus_cortical_global",
-                "autoregressive_plus_subcortical_roi",
-                "autoregressive_plus_combined",
-                "residualized_autoregressive_plus_combined",
+                "residualized_autoregressive_plus_cortical_global",
             ):
                 values = target_importance.get(condition)
                 if not isinstance(values, dict):
@@ -1639,7 +1571,7 @@ def grouped_video_folds(rows: list[dict[str, Any]], fold_count: int) -> list[tup
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", default="benchmarks/veatic/veatic_manifest_1hz.jsonl")
-    parser.add_argument("--cache-dir", default="/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache")
+    parser.add_argument("--cache-dir", default=str(EXTERNAL_ROOT / "benchmarks" / "veatic" / "tribe_cache"))
     parser.add_argument("--output", default="benchmarks/veatic/veatic_neuro_benchmark_small.json")
     parser.add_argument("--seed", type=int, default=17)
     parser.add_argument(
@@ -1648,8 +1580,7 @@ def main() -> None:
         default="cortical_fast_default",
         help=(
             "cortical_fast_default evaluates compact cortical features only. "
-            "full_research includes cortical+subcortical. "
-            "subcortical_ablation preserves cortical/subcortical comparisons."
+            "Legacy secondary and combined modes have been removed."
         ),
     )
     parser.add_argument(
@@ -1704,7 +1635,6 @@ def main() -> None:
     feature_metadata = []
     rejected = []
     selected_feature_sets = cache_feature_keys_for(args.feature_mode, args.run_mode)
-    include_subcortical = args.run_mode in {"full_research", "subcortical_ablation"}
     for status_path in complete_statuses:
         status = json.loads(status_path.read_text(encoding="utf-8"))
         video_id = str(status.get("video_id") or status_path.parent.name)
@@ -1720,7 +1650,6 @@ def main() -> None:
                 cache_dir,
                 video_id,
                 len(video_rows),
-                include_subcortical=include_subcortical,
             )
         except Exception as exc:
             rejected.append({"video_id": video_id, "reason": str(exc)})
@@ -1790,33 +1719,7 @@ def main() -> None:
         "schema_version": "veatic_neuro_temporal_dynamics_benchmark_v2",
         "run_mode": args.run_mode,
         "feature_mode": args.feature_mode,
-        "subcortical_enabled": include_subcortical,
-        "subcortical_policy": (
-            "Subcortical disabled for cortical_fast_default. It remains available as explicit "
-            "full_research/subcortical_ablation, but current OpenLAV/VEATIC evidence does not "
-            "justify it as default compute."
-            if not include_subcortical
-            else "Subcortical explicitly enabled for research/ablation mode."
-        ),
-        "default_mode_rationale": {
-            "why_disabled": (
-                "Compact cortical features have been the most consistent useful signal so far; "
-                "subcortical has not shown stable additive lift over cortical-only."
-            ),
-            "expected_speedup_runtime_reduction": (
-                "Avoids the separate subcortical checkpoint pass and ROI projection. "
-                "This should materially reduce wall time on uncached runs; cached benchmark-only reruns "
-                "mainly save subcortical ROI projection time."
-            ),
-            "memory_benefit": (
-                "Keeps only the cortical branch active during extraction, reducing MPS memory pressure "
-                "and crash risk on Apple Silicon."
-            ),
-            "stability_expectation": (
-                "Cortical-only default should improve run stability by removing the highest-risk second "
-                "model stage from the default path."
-            ),
-        },
+        "pipeline_scope": "cortical TRIBE v2 only; legacy secondary and combined branches removed.",
         "manifest": str(Path(args.manifest).expanduser().resolve()),
         "cache_dir": str(cache_dir),
         "backend_policy": {

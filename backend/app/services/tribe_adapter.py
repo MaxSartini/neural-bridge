@@ -3,7 +3,6 @@
 import json
 import os
 import platform
-import subprocess
 import sys
 import tempfile
 import gc
@@ -15,7 +14,6 @@ import numpy as np
 from ..config import Config
 from ..utils.logger import get_logger
 from .neuro_roi_calibrator import NeuroRoiCalibrator
-from .subcortical_roi_adapter import SubcorticalRoiAdapter
 
 logger = get_logger('neural_bridge.tribe_adapter')
 
@@ -25,10 +23,7 @@ class TribeAdapter:
     _last_segment_quality: Dict[str, Any] = {}
 
     def is_available(self) -> bool:
-        for path in (Config.TRIBE_APPLE_SILICON_SOURCE_DIR, Config.TRIBE_OFFICIAL_SOURCE_DIR):
-            if os.path.isdir(path):
-                return True
-        return False
+        return os.path.isdir(self._resolve_path(Config.TRIBE_APPLE_SILICON_SOURCE_DIR))
 
     def predict(
         self,
@@ -42,8 +37,6 @@ class TribeAdapter:
         backend = backend or Config.NEURO_PRIOR_MODE
         if backend == "apple_silicon_tribe":
             return self._predict_with_apple_silicon_branch(stimulus_text, stimulus_type, media_path, output_dir)
-        if backend == "official_tribe":
-            return self._predict_with_official_tribe(stimulus_text, stimulus_type, media_path, output_dir)
         if backend == "tribe_mlx":
             return self._predict_with_mlx(stimulus_text, stimulus_type, media_path, output_dir)
         return {"success": False, "backend": backend, "error": f"Unsupported TRIBE backend: {backend}"}
@@ -76,22 +69,6 @@ class TribeAdapter:
             output_dir,
         )
 
-    def _predict_with_official_tribe(
-        self,
-        stimulus_text: str,
-        stimulus_type: str,
-        media_path: Optional[str],
-        output_dir: Optional[str],
-    ) -> Dict[str, Any]:
-        return self._predict_with_source_dir(
-            Config.TRIBE_OFFICIAL_SOURCE_DIR,
-            "official_tribe",
-            stimulus_text,
-            stimulus_type,
-            media_path,
-            output_dir,
-        )
-
     def _predict_with_mlx(
         self,
         stimulus_text: str,
@@ -114,11 +91,6 @@ class TribeAdapter:
                         for key in ("text", "audio", "video")
                         if key in bundle.files
                     }
-                    subcortical_features = {
-                        key: np.asarray(bundle[f"subcortical_{key}"])
-                        for key in ("text", "audio", "video")
-                        if f"subcortical_{key}" in bundle.files
-                    }
                 if not features:
                     return {
                         "success": False,
@@ -129,25 +101,18 @@ class TribeAdapter:
                 preds = np.transpose(raw_preds, (0, 2, 1)).reshape(-1, raw_preds.shape[1])
                 del encoder
                 gc.collect()
-                subcortical_preds = self._predict_subcortical_from_feature_archive(
-                    feature_path, subcortical_features
-                )
                 segments: Any = {}
             else:
-                preds, segments, events = self._extract_features_and_predict_mlx(
+                preds, segments, _events = self._extract_features_and_predict_mlx(
                     encoder, stimulus_text, stimulus_type, media_path
                 )
-                # Run the distinct exact-provenance subcortical branch only
-                # after cortical MLX inference has completed.
                 del encoder
                 gc.collect()
-                subcortical_preds = self._predict_subcortical_events_isolated(events)
             summary = self._summarise_bold_output_to_neuro_prior(
                 preds,
                 segments,
                 output_dir,
                 "tribe_mlx",
-                subcortical_preds=subcortical_preds,
             )
             summary.update({"success": True, "backend": "tribe_mlx"})
             return summary
@@ -284,13 +249,11 @@ class TribeAdapter:
             preds, segments = model.predict(events=events)
             del model
             gc.collect()
-            subcortical_preds = self._predict_subcortical_events(events)
             summary = self._summarise_bold_output_to_neuro_prior(
                 preds,
                 segments,
                 output_dir,
                 backend,
-                subcortical_preds=subcortical_preds,
             )
             summary["success"] = True
             summary["backend"] = backend
@@ -630,7 +593,6 @@ class TribeAdapter:
         segments: Any,
         output_dir: Optional[str],
         backend: str,
-        subcortical_preds: Any = None,
     ) -> Dict[str, Any]:
         arr = np.asarray(preds, dtype=float)
         arr = np.nan_to_num(arr)
@@ -640,32 +602,12 @@ class TribeAdapter:
         temporal_variance = float(np.clip(global_metrics.get("temporal_variance", np.var(arr)), 0.0, 1.0))
         peak_response = float(np.clip(global_metrics.get("peak_abs", np.max(np.abs(arr)) if arr.size else 0.0), 0.0, 1.0))
         volatility = float(np.clip(global_metrics.get("std", np.std(arr)), 0.0, 1.0))
-        subcortical_summary: Dict[str, Any] = {}
-        subcortical_arr = None
-        if subcortical_preds is not None:
-            uncertainty = None
-            if isinstance(subcortical_preds, dict):
-                uncertainty = subcortical_preds.get("subject_disagreement")
-                subcortical_preds = subcortical_preds.get("predictions")
-            subcortical_arr = np.nan_to_num(np.asarray(subcortical_preds, dtype=np.float32))
-            subcortical_summary = SubcorticalRoiAdapter().project(subcortical_arr)
-            subcortical_summary.pop("region_trajectories", None)
-            if uncertainty is not None:
-                uncertainty_arr = np.nan_to_num(np.asarray(uncertainty, dtype=np.float32))
-                subcortical_summary["subject_disagreement"] = {
-                    "mean": float(np.mean(uncertainty_arr)),
-                    "p95": float(np.percentile(uncertainty_arr, 95)),
-                    "peak": float(np.max(uncertainty_arr)),
-                    "interpretation": "Dispersion across the ten measured Lahner participant heads.",
-                }
 
         raw_output_path = ""
         if output_dir and Config.NEURO_PRIOR_SAVE_RAW_OUTPUT:
             os.makedirs(output_dir, exist_ok=True)
             raw_npz = os.path.join(output_dir, "tribe_raw_output.npz")
             raw_arrays = {"predictions": arr}
-            if subcortical_arr is not None:
-                raw_arrays["subcortical_predictions"] = subcortical_arr
             event_quality = dict(getattr(self, "_last_event_quality", {}) or {})
             segment_quality = dict(getattr(self, "_last_segment_quality", {}) or {})
             raw_arrays["modality_missing_flags"] = np.asarray(
@@ -699,7 +641,6 @@ class TribeAdapter:
                     "roi_summary": calibration.get("roi_summary", {}),
                     "behavioural_axes": calibration.get("behavioural_axes", {}),
                     "calibration_trace": calibration.get("calibration_trace", {}),
-                    "subcortical_summary": subcortical_summary,
                     "event_quality": event_quality,
                     "segment_quality": segment_quality,
                     "backend": backend,
@@ -708,148 +649,6 @@ class TribeAdapter:
         profile = {
             "raw_backend": backend,
             "raw_output_path": raw_output_path,
-            "subcortical_summary": subcortical_summary,
         }
         profile.update(calibration)
         return profile
-
-    def _predict_subcortical_from_feature_archive(
-        self, feature_path: str, features: Dict[str, np.ndarray]
-    ) -> Any:
-        """Run subcortical inference only for explicitly compatible features."""
-        if not Config.TRIBE_ENABLE_SUBCORTICAL:
-            return None
-        metadata_path = os.path.splitext(feature_path)[0] + ".json"
-        if not os.path.exists(metadata_path):
-            logger.warning(
-                "Skipping subcortical inference: feature archive lacks provenance metadata %s",
-                metadata_path,
-            )
-            return None
-        metadata = json.loads(open(metadata_path, "r", encoding="utf-8").read())
-        expected = {
-            "text": "Qwen/Qwen3-0.6B",
-            "audio": "facebook/w2v-bert-2.0",
-            "video": "facebook/vjepa2-vitl-fpc64-256",
-        }
-        actual = metadata.get("subcortical_feature_models") or {}
-        available = [key for key in ("text", "audio", "video") if key in features]
-        mismatches = [
-            key for key in available if actual.get(key) != expected[key]
-        ]
-        if not available or mismatches:
-            logger.warning(
-                "Skipping subcortical inference: incompatible or missing feature provenance; "
-                "available=%s mismatches=%s",
-                available,
-                mismatches,
-            )
-            return None
-        from .mlx_subcortical_tribe_encoder import MlxSubcorticalTribeEncoder
-
-        predictions, disagreement = MlxSubcorticalTribeEncoder(
-            self._resolve_path(Config.TRIBE_SUBCORTICAL_LOCAL_DIR)
-        ).predict_with_uncertainty(features)
-        return {
-            "predictions": np.transpose(predictions, (0, 2, 1)).reshape(-1, predictions.shape[1]),
-            "subject_disagreement": np.transpose(disagreement, (0, 2, 1)).reshape(
-                -1, disagreement.shape[1]
-            ),
-        }
-
-    def _predict_subcortical_events(self, events: Any) -> Any:
-        """Run the exact subcortical model after releasing the cortical model."""
-        if not Config.TRIBE_ENABLE_SUBCORTICAL:
-            return None
-        model_dir = self._resolve_path(Config.TRIBE_SUBCORTICAL_LOCAL_DIR)
-        checkpoint = os.path.join(model_dir, "best.ckpt")
-        if not os.path.exists(checkpoint):
-            logger.warning(
-                "Skipping subcortical inference: converted Tribe checkpoint is absent at %s",
-                checkpoint,
-            )
-            return None
-        try:
-            from tribev2 import TribeModel  # type: ignore
-
-            self._enable_local_huggingface_model_paths()
-            model = TribeModel.from_pretrained(
-                model_dir,
-                checkpoint_name="best.ckpt",
-                cache_folder=self._resolve_path(Config.TRIBE_CACHE_DIR),
-                device=self._resolve_device(),
-                config_update=self._subcortical_config_update(),
-            )
-            predictions, _ = model.predict(events=events)
-            return predictions
-        except Exception as exc:
-            logger.warning(f"Subcortical TRIBE prediction failed: {exc}")
-            if Config.NEURO_PRIOR_STRICT:
-                raise
-            return None
-        finally:
-            if "model" in locals():
-                del model
-            gc.collect()
-
-    def _predict_subcortical_events_isolated(self, events: Any) -> Any:
-        """Run subcortical inference in a fresh process so MPS memory is reusable."""
-        if not Config.TRIBE_ENABLE_SUBCORTICAL:
-            return None
-        script = Path(__file__).resolve().parents[2] / "scripts" / "run_subcortical_events.py"
-        with tempfile.TemporaryDirectory(prefix="neural_bridge-subcortical-") as tmp:
-            root = Path(tmp)
-            events_path = root / "events.pkl"
-            output_path = root / "predictions.npz"
-            events.to_pickle(events_path)
-            env = os.environ.copy()
-            env["TRIBE_VIDEO_WINDOW_BATCH_SIZE"] = str(
-                max(1, int(Config.TRIBE_SUBCORTICAL_VIDEO_WINDOW_BATCH_SIZE))
-            )
-            env["TRIBE_SUBCORTICAL_TEXT_BATCH_SIZE"] = "1"
-            env["TRIBE_SUBCORTICAL_TEXT_DEVICE"] = "cpu"
-            env["NEURO_PRIOR_STRICT"] = "true"
-            completed = subprocess.run(
-                [
-                    sys.executable,
-                    str(script),
-                    "--events",
-                    str(events_path),
-                    "--output",
-                    str(output_path),
-                ],
-                check=False,
-                env=env,
-            )
-            if completed.returncode != 0 or not output_path.exists():
-                logger.warning(
-                    "Isolated subcortical TRIBE prediction failed with return code %s",
-                    completed.returncode,
-                )
-                if Config.NEURO_PRIOR_STRICT:
-                    raise RuntimeError("Isolated subcortical TRIBE prediction failed")
-                return None
-            with np.load(output_path, allow_pickle=False) as bundle:
-                return bundle["predictions"]
-
-    def _subcortical_config_update(self) -> Dict[str, Any]:
-        update: Dict[str, Any] = {
-            "data.num_workers": 0,
-            "data.batch_size": 1,
-            "data.text_feature.batch_size": Config.TRIBE_SUBCORTICAL_TEXT_BATCH_SIZE,
-            "data.text_feature.model_name": self._resolve_path(
-                Config.TRIBE_SUBCORTICAL_TEXT_ENCODER_LOCAL_DIR
-            ),
-            "data.text_feature.device": Config.TRIBE_SUBCORTICAL_TEXT_DEVICE,
-            "data.audio_feature.model_name": self._resolve_path(
-                Config.TRIBE_SUBCORTICAL_AUDIO_ENCODER_LOCAL_DIR
-            ),
-            "data.audio_feature.device": self._resolve_device(),
-            "data.video_feature.image.model_name": self._resolve_path(
-                Config.TRIBE_SUBCORTICAL_VIDEO_ENCODER_LOCAL_DIR
-            ),
-            "data.video_feature.image.device": self._resolve_device(),
-            "data.video_feature.image.batch_size": 1,
-            "data.video_feature.num_frames": Config.TRIBE_VIDEO_NUM_FRAMES,
-        }
-        return update

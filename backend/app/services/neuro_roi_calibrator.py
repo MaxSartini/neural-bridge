@@ -129,7 +129,7 @@ class NeuroRoiCalibrator:
             },
             "limitations": [
                 "ROI-to-behaviour mapping is heuristic and requires empirical validation.",
-                "Destrieux cortical parcels do not directly measure subcortical affective nuclei.",
+                "Destrieux cortical parcels are coarse population-level BOLD proxies.",
                 "TRIBE predicts population-average BOLD proxies, not emotion, intent, or individual behaviour.",
             ],
         })

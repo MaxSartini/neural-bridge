@@ -1,9 +1,8 @@
 # Current Artifact Port Audit - 2026-06-17
 
 This note records the current VEATIC v2 artifacts ported from the old local
-MiroFish checkout into the Neural Bridge repo. The goal was to restore the files
-active scripts and future Codex sessions need, without dragging forward old
-MiroFish-era clutter.
+checkout into the Neural Bridge repo. The goal was to restore the files active
+scripts and future Codex sessions need, without dragging forward legacy clutter.
 
 ## Ported
 
@@ -23,7 +22,7 @@ MiroFish-era clutter.
 ## Intentionally Not Ported
 
 - Older VEATIC-89 device-audit outputs.
-- OpenLAV-era, subcortical, and old transition artifacts.
+- Old transition artifacts from inactive validation branches.
 - The large temporal fairness `balanced_event_stable_results.csv` file, because
   it is not needed by the active v2 context scripts and would add unnecessary
   repository weight.
@@ -43,7 +42,7 @@ Expected external cache:
 <external-assets-root>/benchmarks/veatic/tribe_cache
 ```
 
-The former external MiroFish asset path is a compatibility symlink on this
+Former external asset paths may exist as compatibility symlinks on a local
 machine, but new docs and reports should refer to the Neural Bridge external
 asset root or the placeholder above.
 

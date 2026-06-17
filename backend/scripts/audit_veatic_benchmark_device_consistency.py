@@ -13,6 +13,7 @@ import hashlib
 import importlib.util
 import json
 import math
+import os
 import random
 from collections import defaultdict
 from pathlib import Path
@@ -22,6 +23,7 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[2]
+EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(ROOT / "external_assets"))).expanduser()
 COND_SCRIPT = ROOT / "backend" / "scripts" / "run_veatic_event_conditioned_retest.py"
 spec = importlib.util.spec_from_file_location("event_conditioned", COND_SCRIPT)
 cond = importlib.util.module_from_spec(spec)
@@ -770,7 +772,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", default="benchmarks/veatic/veatic_manifest_89_complete_20260615.jsonl")
     parser.add_argument("--report", default="benchmarks/veatic/veatic_manifest_89_complete_20260615.report.json")
-    parser.add_argument("--cache-dir", default="/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache")
+    parser.add_argument("--cache-dir", default=str(EXTERNAL_ROOT / "benchmarks" / "veatic" / "tribe_cache"))
     parser.add_argument("--old-prefix", default="benchmarks/veatic/veatic_89_event_conditioned_retest_20260616")
     parser.add_argument("--output-prefix", default="benchmarks/veatic/veatic_89_benchmark_device_consistency_20260616")
     parser.add_argument("--seed", type=int, default=31)

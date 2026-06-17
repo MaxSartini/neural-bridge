@@ -3,7 +3,7 @@
   "run_mode": "cortical_fast_default",
   "feature_mode": "cortical_pca_64",
   "subcortical_enabled": false,
-  "subcortical_policy": "Subcortical disabled for cortical_fast_default. It remains available as explicit full_research/subcortical_ablation, but current OpenLAV/VEATIC evidence does not justify it as default compute.",
+  "subcortical_policy": "Subcortical disabled for cortical_fast_default. It remains available as explicit full_research/subcortical_ablation, but current VEATIC evidence does not justify it as default compute.",
   "default_mode_rationale": {
     "why_disabled": "Compact cortical features have been the most consistent useful signal so far; subcortical has not shown stable additive lift over cortical-only.",
     "expected_speedup_runtime_reduction": "Avoids the separate subcortical checkpoint pass and ROI projection. This should materially reduce wall time on uncached runs; cached benchmark-only reruns mainly save subcortical ROI projection time.",

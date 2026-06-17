@@ -75,8 +75,8 @@ Goal: make a fresh session or teammate able to inspect, verify, and extend the p
 
 ## De-Scoped
 
-- Additional OpenLAV validation as a roadmap item. OpenLAV was useful as an early signal, but VEATIC-124 v2 proved the core hypothesis.
-- Subcortical expansion as a roadmap item. The current priority is the proven cortical/TRIBE signal.
+- Additional legacy validation branches as roadmap items. VEATIC-124 v2 is the current evidence base for the core hypothesis.
+- Retired secondary model expansion as a roadmap item. The current priority is the proven cortical/TRIBE signal.
 - Video `83` as an active roadmap concern. Its resampling policy is documented and does not block the v2 claim.
 - Simulation/LLM-agent integration as a primary roadmap focus.
 - Finance or quant-desk prediction.

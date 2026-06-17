@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 from datetime import datetime
 from pathlib import Path
@@ -19,7 +20,8 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_HANDOFF_DIR = ROOT / "docs" / "handoffs"
 DEFAULT_MEMORY_PATH = ROOT / "docs" / "PROJECT_MEMORY.md"
 DEFAULT_STATE_PATH = ROOT / "docs" / "current_project_state.md"
-VEATIC_CACHE = Path("/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache")
+EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(ROOT / "external_assets"))).expanduser()
+VEATIC_CACHE = EXTERNAL_ROOT / "benchmarks" / "veatic" / "tribe_cache"
 
 
 def read_text(path: Path, max_chars: int = 12000) -> str:
@@ -100,7 +102,7 @@ def veatic_cache_status() -> dict[str, Any]:
 
 
 def latest_benchmark_files() -> list[str]:
-    roots = [ROOT / "benchmarks" / "veatic", ROOT / "benchmarks" / "openlav"]
+    roots = [ROOT / "benchmarks" / "veatic"]
     files: list[Path] = []
     for root in roots:
         if root.exists():
@@ -176,7 +178,7 @@ def build_handoff(args: argparse.Namespace) -> tuple[Path, str]:
         "## Required Next-Step Discipline",
         "",
         "- Do not claim neuro-additive value unless real cortical beats autoregressive-only and shuffled/random controls.",
-        "- Keep subcortical disabled by default; use explicit ablation/research mode only.",
+        "- Keep the active pipeline focused on the cortical/TRIBE v2 contract.",
         "- Do not score incomplete or failed cache entries.",
         "- Run benchmark gates before scaling beyond the current target.",
         "- Keep handoffs cumulative and file-backed.",

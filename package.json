@@ -1,7 +1,7 @@
 {
   "name": "neural-bridge",
   "version": "0.2.0",
-  "description": "Neural Bridge - local-first swarm intelligence engine (Neo4j + Ollama)",
+  "description": "Neural Bridge - local VEATIC/TRIBE research workspace",
   "scripts": {
     "setup": "npm install && cd frontend && npm install",
     "setup:backend": "cd backend && uv sync",

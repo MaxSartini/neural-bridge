@@ -32,7 +32,18 @@ def test_strict_contract_full_plan_keeps_secondary_rows_but_not_descoped_modalit
     args = parser.parse_args(["--dry-run"])
     contract = strict.contract_manifest(args)
 
-    assert "cortical_global_delta" in contract["feature_modes"]
-    assert "cortical_fast_default" in contract["feature_modes"]
-    assert all("subcortical" not in feature for feature in contract["feature_modes"])
-    assert all("OpenLAV" not in str(target) for target in contract["targets"])
+    feature_modes = set(contract["feature_modes"])
+    assert {"cortical_global_delta", "cortical_fast_default"}.issubset(feature_modes)
+    assert feature_modes <= {
+        "cortical_pca64_delta",
+        "cortical_pca_64",
+        "cortical_global_delta",
+        "cortical_global",
+        "cortical_fast_default",
+    }
+    target_names = {target["target"] for target in contract["targets"]}
+    assert target_names <= {
+        "arousal__future_spike_1_3s",
+        "arousal__future_change_p2s_movement",
+        "arousal__future_change_p3s_movement",
+    }

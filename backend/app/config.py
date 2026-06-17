@@ -58,40 +58,22 @@ class Config:
     ).lower() == 'true'
     NEURO_PRIOR_BACKEND_PRIORITY = os.environ.get(
         'NEURO_PRIOR_BACKEND_PRIORITY',
-        'apple_silicon_tribe,official_tribe,tribe_mlx,proxy,disabled'
+        'apple_silicon_tribe,tribe_mlx,proxy,disabled'
     )
     TRIBE_MODEL_ID = os.environ.get('TRIBE_MODEL_ID', 'facebook/tribev2')
-    TRIBE_CACHE_DIR = os.environ.get('TRIBE_CACHE_DIR', './models/cache/tribev2')
+    _PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
+    NEURAL_BRIDGE_EXTERNAL_ROOT = os.environ.get('NEURAL_BRIDGE_EXTERNAL_ROOT', '')
+    _EXTERNAL_ROOT = NEURAL_BRIDGE_EXTERNAL_ROOT or os.path.join(_PROJECT_ROOT, 'external_assets')
+    TRIBE_CACHE_DIR = os.environ.get('TRIBE_CACHE_DIR', os.path.join(_EXTERNAL_ROOT, 'cache/tribev2'))
     TRIBE_DEVICE = os.environ.get('TRIBE_DEVICE', 'auto')
-    TRIBE_ENABLE_SUBCORTICAL = os.environ.get('TRIBE_ENABLE_SUBCORTICAL', 'true').lower() == 'true'
-    TRIBE_SUBCORTICAL_MODEL_ID = os.environ.get('TRIBE_SUBCORTICAL_MODEL_ID', 'loganf26/tribev2-subcortical')
-    TRIBE_SUBCORTICAL_LOCAL_DIR = os.environ.get(
-        'TRIBE_SUBCORTICAL_LOCAL_DIR',
-        '/Volumes/onn. Drive/Neural Bridge/models/tribe/loganf26-tribev2-subcortical'
-    )
-    TRIBE_SUBCORTICAL_TEXT_ENCODER_LOCAL_DIR = os.environ.get(
-        'TRIBE_SUBCORTICAL_TEXT_ENCODER_LOCAL_DIR',
-        '/Volumes/onn. Drive/Neural Bridge/models/subcortical-upstream/Qwen-Qwen3-0.6B'
-    )
-    TRIBE_SUBCORTICAL_AUDIO_ENCODER_LOCAL_DIR = os.environ.get(
-        'TRIBE_SUBCORTICAL_AUDIO_ENCODER_LOCAL_DIR',
-        '/Volumes/onn. Drive/Neural Bridge/models/subcortical-upstream/facebook-w2v-bert-2.0'
-    )
-    TRIBE_SUBCORTICAL_VIDEO_ENCODER_LOCAL_DIR = os.environ.get(
-        'TRIBE_SUBCORTICAL_VIDEO_ENCODER_LOCAL_DIR',
-        '/Volumes/onn. Drive/Neural Bridge/models/subcortical-upstream/facebook-vjepa2-vitl-fpc64-256'
-    )
-    TRIBE_SUBCORTICAL_TEXT_BATCH_SIZE = int(os.environ.get('TRIBE_SUBCORTICAL_TEXT_BATCH_SIZE', '1'))
-    TRIBE_SUBCORTICAL_TEXT_DEVICE = os.environ.get('TRIBE_SUBCORTICAL_TEXT_DEVICE', 'cpu')
     TRIBE_APPLE_SILICON_SOURCE_DIR = os.environ.get(
         'TRIBE_APPLE_SILICON_SOURCE_DIR',
         './external_models/tribev2-apple-silicon'
     )
-    TRIBE_OFFICIAL_SOURCE_DIR = os.environ.get('TRIBE_OFFICIAL_SOURCE_DIR', './external_models/tribev2-official')
     TRIBE_MLX_MODEL_ID = os.environ.get('TRIBE_MLX_MODEL_ID', 'zimengxiong/tribev2-mlx')
     TRIBE_MLX_DIR = os.environ.get(
         'TRIBE_MLX_DIR',
-        '/Volumes/onn. Drive/Neural Bridge/models/tribe-mlx/zimengxiong-tribev2-mlx'
+        os.path.join(_EXTERNAL_ROOT, 'models/tribe-mlx/zimengxiong-tribev2-mlx')
     )
     TRIBE_MLX_ENABLED = os.environ.get('TRIBE_MLX_ENABLED', 'false').lower() == 'true'
     TRIBE_TEXT_ENCODER_ID = os.environ.get('TRIBE_TEXT_ENCODER_ID', 'meta-llama/Llama-3.2-3B')
@@ -116,7 +98,7 @@ class Config:
     TRIBE_VIDEO_ENCODER_BACKEND = os.environ.get('TRIBE_VIDEO_ENCODER_BACKEND', 'mlx')
     TRIBE_VIDEO_ENCODER_MLX_DIR = os.environ.get(
         'TRIBE_VIDEO_ENCODER_MLX_DIR',
-        '/Volumes/onn. Drive/Neural Bridge/models/upstream-encoders-mlx/facebook-vjepa2-vitg-fpc64-256'
+        os.path.join(_EXTERNAL_ROOT, 'models/upstream-encoders-mlx/facebook-vjepa2-vitg-fpc64-256')
     )
     TRIBE_VIDEO_DEVICE = os.environ.get('TRIBE_VIDEO_DEVICE', 'auto')
     TRIBE_ALLOW_UNSAFE_VITG_MPS = os.environ.get(
@@ -124,7 +106,6 @@ class Config:
     ).lower() == 'true'
     TRIBE_MPS_MEMORY_FRACTION = float(os.environ.get('TRIBE_MPS_MEMORY_FRACTION', '0.45'))
     TRIBE_TEXT_BATCH_SIZE = int(os.environ.get('TRIBE_TEXT_BATCH_SIZE', '4'))
-    TRIBE_SUBCORTICAL_VIDEO_WINDOW_BATCH_SIZE = int(os.environ.get('TRIBE_SUBCORTICAL_VIDEO_WINDOW_BATCH_SIZE', '4'))
     TRIBE_VIDEO_DTYPE = os.environ.get('TRIBE_VIDEO_DTYPE', 'float16')
     TRIBE_VIDEO_NUM_FRAMES = int(os.environ.get('TRIBE_VIDEO_NUM_FRAMES', '64'))
 
@@ -132,7 +113,7 @@ class Config:
     NEO4J_URI = os.environ.get('NEO4J_URI', 'bolt://localhost:7687')
     NEO4J_USER = os.environ.get('NEO4J_USER', 'neo4j')
     NEO4J_PASSWORD = os.environ.get('NEO4J_PASSWORD', 'neural_bridge')
-    NEO4J_LEGACY_PASSWORD = os.environ.get('NEO4J_LEGACY_PASSWORD', 'mirofish')
+    NEO4J_LEGACY_PASSWORD = os.environ.get('NEO4J_LEGACY_PASSWORD', 'neural_bridge')
 
     # Embedding configuration
     EMBEDDING_MODEL = os.environ.get(

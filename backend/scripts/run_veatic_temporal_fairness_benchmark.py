@@ -24,6 +24,7 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[2]
+EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(ROOT / "external_assets"))).expanduser()
 ALIGN_SCRIPT = ROOT / "backend" / "scripts" / "run_veatic_alignment_lag_repair.py"
 spec = importlib.util.spec_from_file_location("alignment_lag_repair", ALIGN_SCRIPT)
 align = importlib.util.module_from_spec(spec)
@@ -869,7 +870,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", default="benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl")
     parser.add_argument("--report", default="benchmarks/veatic/veatic_manifest_124_complete_20260616.report.json")
-    parser.add_argument("--cache-dir", default="/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache")
+    parser.add_argument("--cache-dir", default=str(EXTERNAL_ROOT / "benchmarks" / "veatic" / "tribe_cache"))
     parser.add_argument("--output-root", default="outputs")
     parser.add_argument("--folds", type=int, default=5)
     parser.add_argument("--seed", type=int, default=43)

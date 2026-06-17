@@ -53,9 +53,6 @@ backend/app/
 backend/scripts/
   VEATIC/TRIBE extraction plus the consolidated strict VEATIC benchmark suite.
 
-backend/neuro_core/
-  Shared Neural Bridge contracts and import shims.
-
 frontend/
   Vue/Vite interface for graph, simulation, and report workflows.
 

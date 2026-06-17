@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import os
 import subprocess
 import urllib.parse
 import urllib.request
@@ -42,6 +43,12 @@ EXPECTED_CORTICAL = {
     "hidden_size": 1408,
     "depth": 40,
 }
+
+ROOT = Path(__file__).resolve().parents[2]
+EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(ROOT / "external_assets"))).expanduser()
+DEFAULT_CORTICAL_HF_MODEL_DIR = str(
+    EXTERNAL_ROOT / "models" / "cortical-upstream" / "facebook-vjepa2-vitg-fpc64-256"
+)
 
 
 @dataclass
@@ -306,7 +313,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--local-hf-model-dir",
-        default="/Volumes/onn. Drive/Neural Bridge/models/cortical-upstream/facebook-vjepa2-vitg-fpc64-256",
+        default=DEFAULT_CORTICAL_HF_MODEL_DIR,
         help="Local HF cortical V-JEPA2 model directory to inspect without loading all weights.",
     )
     parser.add_argument(

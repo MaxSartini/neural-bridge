@@ -14,10 +14,7 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 
 - `backend/app/`
 - `backend/scripts/`
-- `backend/neuro_core/`
 - `external_models/tribev2-apple-silicon/`
-- `external_models/tribev2-official/`
-- `models/behavior_component_registry.json`
 - `models/neuro_atlases/`
 - `frontend/src/`
 - `static/`

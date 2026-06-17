@@ -64,7 +64,7 @@ class NeuroPriorService:
         return neutral_profile("neutral", stimulus_type, "No neuro-prior backend succeeded. " + "; ".join(errors))
 
     def _backend_order(self, mode: str) -> list:
-        if mode in {"apple_silicon_tribe", "official_tribe", "tribe_mlx", "proxy", "disabled"}:
+        if mode in {"apple_silicon_tribe", "tribe_mlx", "proxy", "disabled"}:
             ordered = [mode]
             for item in Config.NEURO_PRIOR_BACKEND_PRIORITY.split(","):
                 item = item.strip()

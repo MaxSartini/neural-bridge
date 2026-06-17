@@ -30,8 +30,7 @@ camel-ai==0.2.78
 numpy>=1.26.0
 pandas>=2.1.0
 scipy>=1.11.0
-# Supervised neuro-to-behaviour calibration and grouped holdout evaluation
-catboost>=1.2.8
+# Grouped holdout evaluation and benchmark helpers
 scikit-learn>=1.5.0
 # openpyxl — pandas backend for .xlsx uploads
 openpyxl>=3.1.0
@@ -51,8 +50,7 @@ nilearn>=0.10.0
 mlx>=0.20.0
 mlx-lm>=0.19.0
 
-# Research runtime packages imported by optional encoder adapters.
-momentfm>=0.1.0
+# TRIBE extractor support imported by the active Apple Silicon/MLX path.
 neuralset>=0.1.0
 exca>=0.5.0
 

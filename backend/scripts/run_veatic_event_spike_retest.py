@@ -13,6 +13,7 @@ import csv
 import importlib.util
 import json
 import math
+import os
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
@@ -21,6 +22,7 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[2]
+EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(ROOT / "external_assets"))).expanduser()
 BENCHMARK_SCRIPT = ROOT / "backend" / "scripts" / "run_veatic_neuro_benchmark.py"
 spec = importlib.util.spec_from_file_location("veatic_benchmark", BENCHMARK_SCRIPT)
 bench = importlib.util.module_from_spec(spec)
@@ -264,7 +266,6 @@ class RetestContext:
                 cache_dir,
                 video_id,
                 len(video_rows),
-                include_subcortical=False,
             )
             self.features_by_video[video_id] = feature_sets
             self.accepted_rows.extend(video_rows)
@@ -967,7 +968,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", default="benchmarks/veatic/veatic_manifest_89_complete_20260615.jsonl")
     parser.add_argument("--report", default="benchmarks/veatic/veatic_manifest_89_complete_20260615.report.json")
-    parser.add_argument("--cache-dir", default="/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache")
+    parser.add_argument("--cache-dir", default=str(EXTERNAL_ROOT / "benchmarks" / "veatic" / "tribe_cache"))
     parser.add_argument("--output-prefix", default="benchmarks/veatic/veatic_89_retest_event_spike_core_20260616")
     parser.add_argument("--seed", type=int, default=23)
     parser.add_argument("--pca-backend", default="mps_gram", choices=("auto", "mps_power", "mps_gram", "cpu_svd"))

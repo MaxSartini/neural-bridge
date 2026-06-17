@@ -15,9 +15,9 @@ Raw state prediction is expected to be dominated by temporal persistence. The st
 
 ## Scientific Contract
 - TRIBE extraction contract unchanged.
-- Default subcortical policy: Subcortical disabled for cortical_fast_default. It remains available as explicit full_research/subcortical_ablation, but current OpenLAV/VEATIC evidence does not justify it as default compute.
+- Default subcortical policy: Subcortical disabled for cortical_fast_default. It remains available as explicit full_research/subcortical_ablation, but current VEATIC evidence does not justify it as default compute.
 - Subcortical remains available for explicit `full_research` and `subcortical_ablation` runs.
-- Subcortical is disabled in the default run because current OpenLAV/VEATIC evidence does not show stable additive lift over compact cortical features, while it adds inference time, memory pressure, crash risk, and benchmark complexity.
+- Subcortical is disabled in the default run because current VEATIC evidence does not show stable additive lift over compact cortical features, while it adds inference time, memory pressure, crash risk, and benchmark complexity.
 - Expected benefit: lower runtime and memory pressure by skipping the separate subcortical model branch and ROI projection; exact speedup depends on video length and cache state.
 - Event threshold: 0.05
 - Autoregressive features use only current/past labels relative to the prediction horizon.

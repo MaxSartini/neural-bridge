@@ -388,7 +388,7 @@ class SimulationRunner:
         
         # "neural_bridge" is the product-level single-channel simulation path.
         # Internally it currently uses OASIS' Reddit-shaped JSON adapter.
-        if platform in {"neural_bridge", "mirofish"}:
+        if platform == "neural_bridge":
             platform = "reddit"
 
         # Determine which script to run (scripts located in backend/scripts/ directory)

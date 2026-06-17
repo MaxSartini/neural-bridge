@@ -33,7 +33,6 @@ class NeuroPriorProfile:
     behavioural_prior_summary: str = ""
     roi_summary: Dict[str, Any] = field(default_factory=dict)
     behavioural_axes: Dict[str, Any] = field(default_factory=dict)
-    subcortical_summary: Dict[str, Any] = field(default_factory=dict)
     calibration_trace: Dict[str, Any] = field(default_factory=dict)
     limitations: List[str] = field(default_factory=list)
     raw_backend: str = ""

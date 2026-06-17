@@ -52,6 +52,8 @@ pip install \
 # Keep the app's pinned OASIS stack stable after WhisperX/pyannote dependency resolution.
 pip install numpy==2.2.6 pandas==2.2.2 || true
 
+EXTERNAL_ROOT="${NEURAL_BRIDGE_EXTERNAL_ROOT:-$(pwd)/external_assets}"
+
 echo "=== 5. Clone TRIBE v2 Apple Silicon branch ==="
 mkdir -p external_models
 if [ ! -d "external_models/tribev2-apple-silicon" ]; then
@@ -64,44 +66,37 @@ git pull origin feature/apple-silicon-support || true
 pip install --no-deps -e . || true
 cd ../..
 
-echo "=== 6. Clone official TRIBE v2 main as fallback/reference ==="
-if [ ! -d "external_models/tribev2-official" ]; then
-  git clone https://github.com/facebookresearch/tribev2.git external_models/tribev2-official
-fi
-cd external_models/tribev2-official
-git pull || true
-pip install --no-deps -e . || true
-cd ../..
-
-echo "=== 7. Prepare model directories ==="
-mkdir -p models/tribe models/tribe-mlx models/upstream-encoders models/cache
+echo "=== 6. Prepare external model directories ==="
+mkdir -p "${EXTERNAL_ROOT}/models/tribe" \
+  "${EXTERNAL_ROOT}/models/tribe-mlx" \
+  "${EXTERNAL_ROOT}/models/cortical-upstream" \
+  "${EXTERNAL_ROOT}/models/upstream-encoders-mlx" \
+  "${EXTERNAL_ROOT}/cache" \
+  "${EXTERNAL_ROOT}/tmp"
 export HF_HUB_ENABLE_HF_TRANSFER=1
 export HF_XET_HIGH_PERFORMANCE=1
 export TRIBE_TEXT_EVENTS_DIRECT="${TRIBE_TEXT_EVENTS_DIRECT:-true}"
 export TRIBE_WHISPERX_MODEL="${TRIBE_WHISPERX_MODEL:-small}"
 export TRIBE_WHISPERX_BATCH_SIZE="${TRIBE_WHISPERX_BATCH_SIZE:-4}"
 
-echo "=== 8. Hugging Face login check ==="
+echo "=== 7. Hugging Face login check ==="
 echo "If this fails or you lack access to gated models, run: huggingface-cli login"
 huggingface-cli whoami || true
 
-echo "=== 9. Download official TRIBE v2 assets ==="
-huggingface-cli download facebook/tribev2 --local-dir models/tribe/facebook-tribev2 --local-dir-use-symlinks False || true
+echo "=== 8. Download official TRIBE v2 checkpoint assets to external root ==="
+huggingface-cli download facebook/tribev2 --local-dir "${EXTERNAL_ROOT}/models/tribe/facebook-tribev2" --local-dir-use-symlinks False || true
 
 if [ "${DOWNLOAD_TRIBE_OPTIONAL:-false}" = "true" ]; then
-  echo "=== 10. Download TRIBE-MLX assets ==="
-  huggingface-cli download zimengxiong/tribev2-mlx --local-dir models/tribe-mlx/zimengxiong-tribev2-mlx --local-dir-use-symlinks False || true
+  echo "=== 9. Download TRIBE-MLX assets ==="
+  huggingface-cli download zimengxiong/tribev2-mlx --local-dir "${EXTERNAL_ROOT}/models/tribe-mlx/zimengxiong-tribev2-mlx" --local-dir-use-symlinks False || true
 
-  echo "=== 11. Download optional subcortical assets ==="
-  huggingface-cli download loganf26/tribev2-subcortical --local-dir models/tribe/loganf26-tribev2-subcortical --local-dir-use-symlinks False || true
-
-  echo "=== 12. Download upstream feature extractors if access permits ==="
-  huggingface-cli download meta-llama/Llama-3.2-3B --local-dir models/upstream-encoders/meta-llama-Llama-3.2-3B --local-dir-use-symlinks False || true
-  huggingface-cli download facebook/w2v-bert-2.0 --local-dir models/upstream-encoders/facebook-w2v-bert-2.0 --local-dir-use-symlinks False || true
-  huggingface-cli download facebook/vjepa2-vitg-fpc64-256 --local-dir models/upstream-encoders/facebook-vjepa2-vitg-fpc64-256 --local-dir-use-symlinks False || true
+  echo "=== 10. Download upstream feature extractors if access permits ==="
+  huggingface-cli download meta-llama/Llama-3.2-3B --local-dir "${EXTERNAL_ROOT}/models/upstream-encoders/meta-llama-Llama-3.2-3B" --local-dir-use-symlinks False || true
+  huggingface-cli download facebook/w2v-bert-2.0 --local-dir "${EXTERNAL_ROOT}/models/upstream-encoders/facebook-w2v-bert-2.0" --local-dir-use-symlinks False || true
+  huggingface-cli download facebook/vjepa2-vitg-fpc64-256 --local-dir "${EXTERNAL_ROOT}/models/cortical-upstream/facebook-vjepa2-vitg-fpc64-256" --local-dir-use-symlinks False || true
 else
-  echo "=== 10. Optional TRIBE downloads skipped ==="
-  echo "Set DOWNLOAD_TRIBE_OPTIONAL=true to fetch TRIBE-MLX, subcortical, and upstream encoder assets."
+  echo "=== 9. Optional TRIBE downloads skipped ==="
+  echo "Set DOWNLOAD_TRIBE_OPTIONAL=true to fetch TRIBE-MLX and upstream encoder assets."
 fi
 
 echo "=== 11. Frontend dependencies ==="

@@ -13,6 +13,7 @@ import hashlib
 import importlib.util
 import json
 import math
+import os
 import time
 from collections import Counter, defaultdict
 from datetime import datetime
@@ -23,6 +24,7 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[2]
+EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(ROOT / "external_assets"))).expanduser()
 V1_SCRIPT = ROOT / "backend" / "scripts" / "run_veatic_temporal_fairness_benchmark.py"
 spec = importlib.util.spec_from_file_location("temporal_fairness_v1", V1_SCRIPT)
 v1 = importlib.util.module_from_spec(spec)
@@ -663,7 +665,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", default="benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl")
     parser.add_argument("--report", default="benchmarks/veatic/veatic_manifest_124_complete_20260616.report.json")
-    parser.add_argument("--cache-dir", default="/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache")
+    parser.add_argument("--cache-dir", default=str(EXTERNAL_ROOT / "benchmarks" / "veatic" / "tribe_cache"))
     parser.add_argument("--prior-dir", default="outputs/veatic_124_temporal_fairness_20260616_1509")
     parser.add_argument("--output-root", default="outputs")
     parser.add_argument("--folds", type=int, default=5)

@@ -5,7 +5,7 @@ This document is the current requirements audit for the cleaned Neural Bridge re
 ## System Requirements
 
 - Apple Silicon macOS is the primary development target for local MLX/MPS acceleration. Linux CPU/GPU environments may work for non-MLX paths but are not the reference setup.
-- Python 3.11 or newer.
+- Python 3.12 or newer.
 - Node.js 18 or newer.
 - Git.
 - External assets root configured through `.env`, for example:
@@ -41,7 +41,6 @@ The dependency audit was run from active imports under:
 
 - `backend/app`
 - `backend/scripts`
-- `backend/neuro_core`
 - `tests`
 
 Main dependency groups:
@@ -50,11 +49,11 @@ Main dependency groups:
 - Local LLM and HTTP clients: `openai`, `httpx`, `requests`.
 - Graph storage: `neo4j`.
 - OASIS/CAMEL simulation: `camel-oasis`, `camel-ai`.
-- Data/benchmarking: `numpy`, `pandas`, `scipy`, `scikit-learn`, `catboost`, `openpyxl`.
+- Data/benchmarking: `numpy`, `pandas`, `scipy`, `scikit-learn`, `openpyxl`.
 - File parsing/media: `PyMuPDF`, `Pillow`, `charset-normalizer`, `chardet`.
 - Neuro/ML runtime: `torch`, `transformers`, `safetensors`, `huggingface-hub`, `nibabel`, `nilearn`, `tqdm`.
 - Apple Silicon acceleration: `mlx`, `mlx-lm`.
-- Optional research adapters imported by current code: `momentfm`, `neuralset`, `exca`.
+- TRIBE extractor support imported by current code: `neuralset`, `exca`.
 
 Install path:
 
@@ -129,7 +128,6 @@ Tracked:
 
 - Source code under `backend/`, `frontend/`, `tests/`.
 - Lightweight docs and evidence summaries.
-- Lightweight model metadata such as `models/behavior_component_registry.json`.
 - Neuro atlas files under `models/neuro_atlases/`.
 - Source snapshots under `external_models/`.
 
@@ -147,7 +145,7 @@ External only:
 Syntax/import smoke:
 
 ```bash
-python3 -m compileall -q backend/app backend/scripts backend/neuro_core tests
+python3 -m compileall -q backend/app backend/scripts tests
 ```
 
 Current real test suite:

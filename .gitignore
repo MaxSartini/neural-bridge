@@ -52,11 +52,10 @@ backend/uploads/
 
 # Heavy model and cache artifacts
 models/*
-!models/behavior_component_registry.json
 !models/neuro_atlases/
 !models/neuro_atlases/**
 cache/
-openlav_cache/
+external_assets/
 benchmarks/cache/
 benchmarks/results/
 
@@ -67,7 +66,7 @@ reports/*.csv
 reports/*.jsonl
 reports/*.parquet
 
-# Local Docker/runtime volumes
+# Local runtime volumes
 data/
 
 # Local scratch folders

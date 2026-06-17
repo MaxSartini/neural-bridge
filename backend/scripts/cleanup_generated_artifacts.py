@@ -7,6 +7,7 @@ The script deliberately protects video/TRIBE cache and benchmark data paths.
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 from pathlib import Path
 
@@ -29,9 +30,9 @@ PROTECTED_ANYWHERE_PARTS = {
     "video_windows",
 }
 
-PROTECTED_PREFIXES = (
-    Path("/Volumes/onn. Drive/Neural Bridge"),
-)
+EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(ROOT / "external_assets"))).expanduser()
+
+PROTECTED_PREFIXES = (EXTERNAL_ROOT,)
 
 
 def is_relative_to(path: Path, parent: Path) -> bool:

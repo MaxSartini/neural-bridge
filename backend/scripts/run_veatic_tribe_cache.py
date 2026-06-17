@@ -19,9 +19,16 @@ sys.path.insert(0, str(BACKEND_ROOT))
 from app.config import Config  # noqa: E402
 from app.services.tribe_adapter import TribeAdapter  # noqa: E402
 
-RUN_MODES = ("cortical_fast_default", "full_research", "subcortical_ablation")
-DEFAULT_TORCH_CACHE_DIR = "/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache"
-DEFAULT_MLX_CACHE_DIR = "/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache_mlx"
+RUN_MODES = ("cortical_fast_default",)
+
+
+def external_root() -> Path:
+    fallback = BACKEND_ROOT.parent / "external_assets"
+    return Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(fallback))).expanduser()
+
+
+def external_path(*parts: str) -> str:
+    return str(external_root().joinpath(*parts))
 
 
 def sha256(path: Path) -> str:
@@ -41,14 +48,12 @@ def load_videos(report_path: Path, limit: int, video_ids: set[str] | None) -> li
     return videos[:limit] if limit else videos
 
 
-def has_required_raw(raw_path: Path, require_subcortical: bool) -> bool:
+def has_required_raw(raw_path: Path) -> bool:
     if not raw_path.exists():
         return False
     try:
         with np.load(raw_path) as bundle:
             if "predictions" not in bundle.files:
-                return False
-            if require_subcortical and "subcortical_predictions" not in bundle.files:
                 return False
         return True
     except (OSError, ValueError):
@@ -56,11 +61,12 @@ def has_required_raw(raw_path: Path, require_subcortical: bool) -> bool:
 
 
 def configure_runtime(args: argparse.Namespace) -> dict[str, Any]:
+    root = external_root()
     os.environ["TOKENIZERS_PARALLELISM"] = "false"
-    os.environ["HF_HOME"] = "/Volumes/onn. Drive/Neural Bridge/cache/huggingface"
-    os.environ["TMPDIR"] = "/Volumes/onn. Drive/Neural Bridge/tmp"
-    os.environ["TRIBE_CACHE_DIR"] = "/Volumes/onn. Drive/Neural Bridge/cache/tribev2"
-    os.environ["TRIBE_VIDEO_WINDOW_CACHE_DIR"] = "/Volumes/onn. Drive/Neural Bridge/cache/tribev2/video_windows"
+    os.environ["HF_HOME"] = str(root / "cache" / "huggingface")
+    os.environ["TMPDIR"] = str(root / "tmp")
+    os.environ["TRIBE_CACHE_DIR"] = str(root / "cache" / "tribev2")
+    os.environ["TRIBE_VIDEO_WINDOW_CACHE_DIR"] = str(root / "cache" / "tribev2" / "video_windows")
     os.environ["TRIBE_MPS_CHUNKED_ATTENTION"] = "true"
     os.environ["TRIBE_MPS_ATTENTION_QUERY_CHUNK_SIZE"] = str(args.attention_query_chunk_size)
     os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = str(args.mps_high_watermark)
@@ -68,7 +74,6 @@ def configure_runtime(args: argparse.Namespace) -> dict[str, Any]:
 
     Config.NEURO_PRIOR_MODE = "tribe_mlx"
     Config.TRIBE_MLX_ENABLED = True
-    Config.TRIBE_ENABLE_SUBCORTICAL = args.run_mode in {"full_research", "subcortical_ablation"}
     Config.NEURO_PRIOR_STRICT = True
     Config.TRIBE_DEVICE = "mps"
     Config.TRIBE_VIDEO_DEVICE = "mps"
@@ -77,26 +82,14 @@ def configure_runtime(args: argparse.Namespace) -> dict[str, Any]:
     Config.TRIBE_VIDEO_ENCODER_BACKEND = args.video_encoder_backend
     Config.TRIBE_VIDEO_ENCODER_MLX_DIR = args.cortical_video_encoder_mlx_dir
     Config.TRIBE_MPS_MEMORY_FRACTION = args.mps_memory_fraction
-    Config.TRIBE_SUBCORTICAL_VIDEO_WINDOW_BATCH_SIZE = args.subcortical_video_window_batch_size
-    Config.TRIBE_SUBCORTICAL_TEXT_BATCH_SIZE = 1
-    Config.TRIBE_SUBCORTICAL_TEXT_DEVICE = "cpu"
     Config.TRIBE_CACHE_DIR = os.environ["TRIBE_CACHE_DIR"]
     Config.TRIBE_APPLE_SILICON_SOURCE_DIR = args.apple_silicon_source_dir
     Config.TRIBE_MLX_DIR = args.tribe_mlx_dir
     Config.TRIBE_VIDEO_ENCODER_LOCAL_DIR = args.cortical_video_encoder_dir
-    Config.TRIBE_SUBCORTICAL_VIDEO_ENCODER_LOCAL_DIR = args.subcortical_video_encoder_dir
-    Config.TRIBE_SUBCORTICAL_TEXT_ENCODER_LOCAL_DIR = args.subcortical_text_encoder_dir
-    Config.TRIBE_SUBCORTICAL_AUDIO_ENCODER_LOCAL_DIR = args.subcortical_audio_encoder_dir
 
     return {
         "run_mode": args.run_mode,
         "backend": "tribe_mlx",
-        "subcortical_enabled": Config.TRIBE_ENABLE_SUBCORTICAL,
-        "subcortical_policy": (
-            "disabled_default_cortical_fast_path"
-            if not Config.TRIBE_ENABLE_SUBCORTICAL
-            else "explicit_experimental_research_mode"
-        ),
         "device": "mps",
         "video_dtype": Config.TRIBE_VIDEO_DTYPE,
         "video_num_frames": Config.TRIBE_VIDEO_NUM_FRAMES,
@@ -105,7 +98,6 @@ def configure_runtime(args: argparse.Namespace) -> dict[str, Any]:
         "mps_memory_fraction": Config.TRIBE_MPS_MEMORY_FRACTION,
         "mps_high_watermark": os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"],
         "mps_low_watermark": os.environ["PYTORCH_MPS_LOW_WATERMARK_RATIO"],
-        "subcortical_video_window_batch_size": Config.TRIBE_SUBCORTICAL_VIDEO_WINDOW_BATCH_SIZE,
         "attention": (
             "mlx_vjepa2_sdpa" if Config.TRIBE_VIDEO_ENCODER_BACKEND == "mlx"
             else "exact_mps_query_chunked_sdpa"
@@ -133,10 +125,7 @@ def main() -> None:
         "--run-mode",
         choices=RUN_MODES,
         default="cortical_fast_default",
-        help=(
-            "cortical_fast_default disables subcortical inference. "
-            "full_research and subcortical_ablation explicitly enable it."
-        ),
+        help="Current cortical-only VEATIC/TRIBE cache contract.",
     )
     parser.add_argument(
         "--cortical-only",
@@ -150,22 +139,18 @@ def main() -> None:
     parser.add_argument("--mps-high-watermark", type=float, default=0.45)
     parser.add_argument("--mps-low-watermark", type=float, default=0.25)
     parser.add_argument("--attention-query-chunk-size", type=int, default=128)
-    parser.add_argument("--subcortical-video-window-batch-size", type=int, default=1)
-    parser.add_argument("--apple-silicon-source-dir", default="/Users/maxsartini/Neural Bridge/external_models/tribev2-apple-silicon")
-    parser.add_argument("--tribe-mlx-dir", default="/Volumes/onn. Drive/Neural Bridge/models/tribe-mlx/zimengxiong-tribev2-mlx")
-    parser.add_argument("--cortical-video-encoder-dir", default="/Volumes/onn. Drive/Neural Bridge/models/cortical-upstream/facebook-vjepa2-vitg-fpc64-256")
-    parser.add_argument("--cortical-video-encoder-mlx-dir", default="/Volumes/onn. Drive/Neural Bridge/models/upstream-encoders-mlx/facebook-vjepa2-vitg-fpc64-256")
-    parser.add_argument("--subcortical-video-encoder-dir", default="/Volumes/onn. Drive/Neural Bridge/models/subcortical-upstream/facebook-vjepa2-vitl-fpc64-256")
-    parser.add_argument("--subcortical-text-encoder-dir", default="/Volumes/onn. Drive/Neural Bridge/models/subcortical-upstream/Qwen-Qwen3-0.6B")
-    parser.add_argument("--subcortical-audio-encoder-dir", default="/Volumes/onn. Drive/Neural Bridge/models/subcortical-upstream/facebook-w2v-bert-2.0")
+    parser.add_argument("--apple-silicon-source-dir", default=str(BACKEND_ROOT.parent / "external_models" / "tribev2-apple-silicon"))
+    parser.add_argument("--tribe-mlx-dir", default=external_path("models", "tribe-mlx", "zimengxiong-tribev2-mlx"))
+    parser.add_argument("--cortical-video-encoder-dir", default=external_path("models", "cortical-upstream", "facebook-vjepa2-vitg-fpc64-256"))
+    parser.add_argument("--cortical-video-encoder-mlx-dir", default=external_path("models", "upstream-encoders-mlx", "facebook-vjepa2-vitg-fpc64-256"))
     args = parser.parse_args()
     if args.cortical_only:
         args.run_mode = "cortical_fast_default"
     if not args.cache_dir:
         args.cache_dir = (
-            DEFAULT_MLX_CACHE_DIR
+            external_path("benchmarks", "veatic", "tribe_cache_mlx")
             if args.video_encoder_backend == "mlx"
-            else DEFAULT_TORCH_CACHE_DIR
+            else external_path("benchmarks", "veatic", "tribe_cache")
         )
 
     report_path = Path(args.report).expanduser().resolve()
@@ -195,7 +180,7 @@ def main() -> None:
         if (
             not args.force
             and status_path.exists()
-            and has_required_raw(raw_path, require_subcortical=contract["subcortical_enabled"])
+            and has_required_raw(raw_path)
         ):
             previous = json.loads(status_path.read_text(encoding="utf-8"))
             if previous.get("stimulus_sha256") == stimulus_hash and previous.get("contract") == contract:
@@ -221,8 +206,8 @@ def main() -> None:
         status["raw_output_path"] = result.get("raw_output_path", "")
         if not result.get("success"):
             status["error"] = result.get("error", "TRIBE inference failed")
-        elif not has_required_raw(raw_path, require_subcortical=contract["subcortical_enabled"]):
-            status["error"] = "Raw output missing required cortical/subcortical arrays."
+        elif not has_required_raw(raw_path):
+            status["error"] = "Raw output missing required cortical predictions."
         else:
             with np.load(raw_path) as bundle:
                 status["raw_shapes"] = {key: list(bundle[key].shape) for key in bundle.files}

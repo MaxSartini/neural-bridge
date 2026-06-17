@@ -1,8 +1,8 @@
 """Local TRIBE activation viewer API.
 
 This is a visualization surface only. It exposes downsampled cortical parcel
-and subcortical ROI trajectories from cached TRIBE outputs without loading the
-models or running inference.
+trajectories from cached TRIBE outputs without loading the models or running
+inference.
 """
 
 from __future__ import annotations
@@ -18,15 +18,18 @@ from flask import jsonify, request, send_file
 
 from . import neuro_viewer_bp
 from ..services.neuro_roi_calibrator import NeuroRoiCalibrator, TRIBE_CORTICAL_VERTICES
-from ..services.subcortical_roi_adapter import SubcorticalRoiAdapter
 from ..utils.logger import get_logger
 
 logger = get_logger("neural_bridge.api.neuro_viewer")
 
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+EXTERNAL_ROOT = Path(
+    os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(PROJECT_ROOT / "external_assets"))
+).expanduser()
 DEFAULT_CACHE_ROOT = Path(
     os.environ.get(
         "TRIBE_VIEWER_CACHE_ROOT",
-        "/Volumes/onn. Drive/Neural Bridge/benchmarks/veatic/tribe_cache",
+        str(EXTERNAL_ROOT / "benchmarks" / "veatic" / "tribe_cache"),
     )
 )
 DEFAULT_MANIFEST_REPORT = Path(
@@ -113,28 +116,6 @@ def _region_xy(label: str, index: int, count: int) -> dict[str, float]:
     row_offset = ((index // 5) % 3 - 1) * 5
     x = base_x + (-offset if hemi == "L" else offset)
     return {"x": float(max(10, min(90, x))), "y": float(max(15, min(85, y + row_offset)))}
-
-
-def _subcortical_xy(label: str, index: int) -> dict[str, float]:
-    left = label.lower().startswith("left")
-    x = 43 if left else 57
-    y_map = {
-        "thalamus": 43,
-        "caudate": 36,
-        "putamen": 51,
-        "pallidum": 57,
-        "hippocampus": 66,
-        "amygdala": 72,
-        "accumbens": 62,
-        "ventricle": 30,
-    }
-    y = 48
-    lower = label.lower()
-    for key, value in y_map.items():
-        if key in lower:
-            y = value
-            break
-    return {"x": float(x + ((index % 2) * 2 - 1)), "y": float(y)}
 
 
 def _surface_mesh() -> dict[str, Any]:
@@ -228,32 +209,6 @@ def _cortical_regions(cortical: np.ndarray, max_regions: int) -> list[dict[str, 
     ]
 
 
-def _subcortical_regions(subcortical: np.ndarray | None) -> list[dict[str, Any]]:
-    if subcortical is None:
-        return []
-    projection = SubcorticalRoiAdapter().project(subcortical)
-    trajectories = np.asarray(projection["region_trajectories"], dtype=np.float32)
-    regions = []
-    for index, row in enumerate(projection["region_metrics"]):
-        trace = trajectories[:, index]
-        regions.append(
-            {
-                "id": f"subcortical-{index}",
-                "label": row["label"],
-                "kind": "subcortical",
-                "interpretation_eligible": bool(row["interpretation_eligible"]),
-                "voxel_count": int(row["voxel_count"]),
-                "mean_abs": float(row["mean_abs"]),
-                "peak_abs": float(row["peak_abs"]),
-                "position": _subcortical_xy(row["label"], index),
-                "trace": _signed_intensity(trace).round(4).tolist(),
-                "magnitude": _normalize(np.abs(trace)).round(4).tolist(),
-            }
-        )
-    regions.sort(key=lambda row: row["mean_abs"], reverse=True)
-    return regions
-
-
 @neuro_viewer_bp.route("/progress", methods=["GET"])
 def progress():
     cache_root = _cache_root()
@@ -339,11 +294,6 @@ def video_timeline(video_id: str):
     summary = _json_file(video_dir / "tribe_summary.json")
     with np.load(raw_path) as bundle:
         cortical = np.asarray(bundle["predictions"], dtype=np.float32)
-        subcortical = (
-            np.asarray(bundle["subcortical_predictions"], dtype=np.float32)
-            if "subcortical_predictions" in bundle.files
-            else None
-        )
     abs_cortical = np.abs(cortical)
     global_traces = {
         "mean": _signed_intensity(cortical.mean(axis=1)).round(4).tolist(),
@@ -371,7 +321,6 @@ def video_timeline(video_id: str):
                 "global_traces": global_traces,
                 "regions": {
                     "cortical": _cortical_regions(cortical, max_regions),
-                    "subcortical": _subcortical_regions(subcortical),
                 },
             },
         }

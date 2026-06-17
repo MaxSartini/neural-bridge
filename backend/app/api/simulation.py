@@ -1523,7 +1523,7 @@ def start_simulation():
             }), 400
 
         platform = data.get('platform', 'neural_bridge')
-        if platform in {'neural_bridge', 'mirofish'}:
+        if platform == 'neural_bridge':
             platform = 'reddit'
         max_rounds = data.get('max_rounds')  # Optional: Maximum simulation rounds
         enable_graph_memory_update = data.get('enable_graph_memory_update', False)  # Optional：IsFalseEnable knowledge graph memory update

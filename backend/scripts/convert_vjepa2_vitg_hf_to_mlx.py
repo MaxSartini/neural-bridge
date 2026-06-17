@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 from typing import Any
 
@@ -25,10 +26,9 @@ from safetensors import safe_open
 from safetensors.numpy import save_file
 
 
-DEFAULT_MODEL_DIR = (
-    "/Volumes/onn. Drive/Neural Bridge/models/cortical-upstream/"
-    "facebook-vjepa2-vitg-fpc64-256"
-)
+ROOT = Path(__file__).resolve().parents[2]
+EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(ROOT / "external_assets"))).expanduser()
+DEFAULT_MODEL_DIR = str(EXTERNAL_ROOT / "models" / "cortical-upstream" / "facebook-vjepa2-vitg-fpc64-256")
 DEFAULT_OUT_DIR = "models/upstream-encoders-mlx/facebook-vjepa2-vitg-fpc64-256"
 
 EXPECTED = {
