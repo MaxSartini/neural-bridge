@@ -16,6 +16,14 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 
 Full benchmark work assumes that external root contains model weights, Hugging Face caches, datasets, VEATIC/TRIBE caches, generated benchmark outputs, and temporary extraction files described in `docs/external_assets_manifest.md`.
 
+The frozen raw-representation tensor export also expects this external root. Model-ready tensors are external-only under:
+
+```text
+${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/
+```
+
+Tracked summaries and row-metadata samples live under `outputs/veatic_124_raw_representation_tensor_export_v1/`.
+
 The current VEATIC-124 v2 evidence cache is video-dominant, not a full text+audio+video multimodal cache. Verify modality coverage before reporting cache scope:
 
 ```bash
@@ -55,6 +63,7 @@ Main dependency groups:
 - TRIBE extractor support imported by current code: `neuralset`, `neuraltrain`, `exca`, `einops`, `lightning`, `mne`, `torchmetrics`, `PyYAML`.
 - The TRIBE/neuralset/exca trio is pinned in `backend/requirements.txt` because the released TRIBE config is schema-sensitive.
 - Uncached multimodal pilots also need `moviepy`, `soundfile`, `mlx-whisper`, and `x-transformers`.
+- Raw representation audit/tensor export helpers additionally rely on `nibabel`, `nilearn`, `scipy`, and `scikit-learn` for ROI atlas loading, PCA metadata, and leakage-safe representation checks.
 
 Install path:
 
@@ -157,7 +166,7 @@ python3 -m compileall -q backend/app backend/scripts tests
 Current real test suite:
 
 ```bash
-python3 -m pytest -q tests/test_veatic_strict_benchmark_contract.py tests/test_grouped_video_split.py
+python3 -m pytest -q tests/test_veatic_raw_representation_contract.py tests/test_veatic_strict_benchmark_contract.py tests/test_grouped_video_split.py
 ```
 
 Frontend build:
@@ -178,6 +187,20 @@ Frozen v2 evidence verification, no video re-encoding:
 npm run evidence:verify
 ```
 
+Tensor export verification is recorded in:
+
+```bash
+outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_verification.json
+```
+
+Regenerate tensors only when intentionally refreshing the external tensor contract:
+
+```bash
+python3 tools/export_veatic_raw_representation_tensors.py
+```
+
+That command reads existing TRIBE raw cortical cache and PCA fit-cache payloads; it does not re-encode videos or rerun the full representation audit.
+
 ## Current Evidence Entry Points
 
 Fresh sessions should read these first:
@@ -189,5 +212,7 @@ Fresh sessions should read these first:
 - `docs/veatic_v2_evidence_freeze.md`
 - `benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md`
 - `benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md`
+- `docs/veatic_raw_representation_audit.md`
+- `outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md`
 
 Do not use removed historical docs or deleted benchmark scaffolding as active requirements.

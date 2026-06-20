@@ -19,6 +19,8 @@ Completed:
 - Legacy app-era code, redundant atlas data, and stale frontend scaffolding have been removed from the active repo.
 - Root config/package files now describe only the current VEATIC/TRIBE workspace.
 - The strict suite now audits modality coverage so video-only and full multimodal caches cannot be confused.
+- The raw cortical representation audit is complete and keeps `cortical_pca64_delta` as the frozen baseline while promoting `pca_sequence_128_causal_past_2s_mean` as the next learned-head input.
+- The v1 model-ready tensor contract is frozen externally with lightweight tracked summaries and verification.
 
 This is the current scientific foundation, not a hypothesis waiting for another dataset to validate it.
 
@@ -52,19 +54,23 @@ Goal: surface and preserve the exact rules already enforced by the v2 benchmark 
 
 Goal: freeze the exact model-input interface that future heads consume, separate from the already-strict scoring suite.
 
-- [ ] Define immutable tensor files/contracts for `cortical_pca_64`, `cortical_pca64_delta`, `cortical_global`, and raw cortical trajectories.
-- [ ] Record target definitions, masks, split fields, temporal windows, and transform metadata already used by the benchmark suite.
-- [ ] Add loader tests that fail on leakage-prone transforms.
-- [ ] Store immutable training tensors externally with manifest and checksum metadata.
-- [ ] Build a minimal baseline head before adding recursive or larger architectures.
+- [x] Audit raw cortical representation families without re-encoding videos.
+- [x] Retain `cortical_pca64_delta` as the frozen v2 baseline comparator.
+- [x] Freeze model-ready tensors for `pca_sequence_128_causal_past_2s_mean`, `roi_parcel_features`, `topk_vertices_512`, and `cortical_pca64_delta_frozen_baseline`.
+- [x] Record target definitions, masks, split fields, temporal windows, selected vertices, ROI mapping metadata, leakage contracts, and checksums.
+- [x] Store immutable training tensors externally under `${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1`.
+- [x] Track lightweight tensor summaries under `outputs/veatic_124_raw_representation_tensor_export_v1`.
+- [x] Add representation contract tests that fail on leakage-prone transforms.
+- [ ] Build a minimal learned head on `pca_sequence_128_causal_past_2s_mean` before adding recursive or larger architectures.
 
 ## 4. Next Model Heads
 
 Goal: improve event/spike ranking from the v2 baseline without weakening controls.
 
-- [ ] Start with simple, auditable heads over the frozen tensor contract.
+- [ ] Start with simple, auditable heads over `pca_sequence_128_causal_past_2s_mean`.
 - [ ] Compare against the v2 PCA/ridge baseline, AR, shuffled, random, timestamp, and video/time controls.
 - [ ] Keep grouped-video and blocked validation as required gates.
+- [ ] Keep `roi_parcel_features` as an unsupervised side candidate and `topk_vertices_512` as a supervised/cautionary comparison.
 - [ ] Only promote recursive heads after simple heads define the floor.
 - [ ] Keep CUDA-only HRM-style dependencies out of the main Mac/MPS environment unless isolated.
 
@@ -75,6 +81,7 @@ Goal: make a fresh session or teammate able to inspect, verify, and extend the p
 - [x] Add a status check for external assets, VEATIC cache, model paths, and tracked evidence artifacts.
 - [ ] Add a compact benchmark dashboard or CLI summary for the v2 baseline.
 - [x] Add a one-command evidence verifier for the tracked reports and external artifact snapshot.
+- [x] Add a verified lightweight tensor-export summary for the external v1 tensor contract.
 - [ ] Remove or archive stale run folders once their useful evidence is preserved.
 - [ ] Keep machine-specific paths only in local `.env` files.
 - [ ] Keep generated heavy outputs out of git.

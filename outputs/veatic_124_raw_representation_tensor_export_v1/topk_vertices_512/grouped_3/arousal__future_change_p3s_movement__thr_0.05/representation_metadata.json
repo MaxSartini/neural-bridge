@@ -1,0 +1,34 @@
+{
+  "compression_type": "train_only_topk_vertices",
+  "dropped_rows": {
+    "reason_counts": {},
+    "test": 0,
+    "train": 0
+  },
+  "feature_width": 512,
+  "fit_scope": "train_rows_only",
+  "notes": "Tensor export only; no model scoring or video re-encoding performed.",
+  "pca": null,
+  "recomputed_from_raw_cache": true,
+  "representation_family": "supervised_feature_selection",
+  "representation_name": "topk_vertices_512",
+  "roi_mapping": null,
+  "schema_version": "veatic_representation_metadata_v1",
+  "source_raw_key": "predictions",
+  "source_raw_width": 20484,
+  "supervised_selection": {
+    "k": 512,
+    "label_shuffle_warning": true,
+    "method": "train_only_topk_vertices",
+    "selected_vertices_path": "selected_vertices.json",
+    "selection_scope": "train_rows_only",
+    "target_used_for_selection": "arousal__future_change_p3s_movement",
+    "threshold_used_for_selection": 0.05
+  },
+  "transform_scope": "train_fit_applied_to_test",
+  "used_existing_fit_cache": false,
+  "uses_future_features": false,
+  "uses_labels_for_fit": true,
+  "video_83_included": true,
+  "window": null
+}

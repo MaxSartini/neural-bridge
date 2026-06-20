@@ -8,6 +8,8 @@ VEATIC-124 v2 proves specific Neural Bridge hypotheses for arousal event/spike r
 
 The claim remains bounded: this is event/spike ranking and temporal-context evidence from a mostly visual/video cache, not exact continuous arousal-value prediction, a finished downstream product model, or proof that full text+audio+video TRIBE has been evaluated.
 
+After the v2 evidence freeze, a raw cortical representation audit and tensor export were completed without re-encoding videos. These do not replace the v2 claim; they define the next model-head input contract on top of it.
+
 ## Proven Or Supported Hypotheses
 
 1. Real video-dominant cortical/TRIBE features carry stimulus-specific signal for future arousal spike ranking.
@@ -27,6 +29,21 @@ The claim remains bounded: this is event/spike ranking and temporal-context evid
 - Temporal context v2: 4/4 focused feature-target rows improved over current-only by more than `0.005` PR-AUC; best focused windows were `causal_past_2s`.
 - Alignment repair: best offsets vary by target/mode, so no global lag correction was selected; final policy is `keep_current_0s_as_primary_plus_report_offset_diagnostics`.
 - Modality audit: `122/124` current cache entries are video-only and `2/124` contain text+audio+video, so the v2 result should not be described as a full multimodal TRIBE result.
+
+## Post-v2 Raw Representation And Tensor Export
+
+- Frozen baseline retained: `cortical_pca64_delta`.
+- Best next learned-head input: `pca_sequence_128_causal_past_2s_mean`.
+- Important side candidate: `roi_parcel_features`.
+- Supervised/cautionary candidate: `topk_vertices_512`.
+- Raw uncompressed ridge: valid, but not the best next build target.
+- Raw representation audit output: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411`.
+- Tensor export root: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1`.
+- Tracked tensor summary: `outputs/veatic_124_raw_representation_tensor_export_v1`.
+- Exported tensor contracts: `84` representation/split/target folders and `420` external `.npy` tensor files.
+- Verification status: `pass`.
+- PCA cache reuse: `14` reused, `0` rebuilt.
+- Video `83` was included in all-video tensor contracts; exclude-video-83 tensor sensitivity was skipped.
 
 ## Boundaries
 
@@ -48,3 +65,5 @@ The claim remains bounded: this is event/spike ranking and temporal-context evid
 - `benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md`
 - `benchmarks/veatic/veatic_124_alignment_candidate_fixes.md`
 - `benchmarks/veatic/veatic_124_alignment_causal_window_audit.md`
+- `docs/veatic_raw_representation_audit.md`
+- `outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md`

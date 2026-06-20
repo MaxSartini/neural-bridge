@@ -49,8 +49,13 @@ mne>=1.8.0
 torchmetrics>=1.4.0
 PyYAML>=6.0.0
 moviepy>=2.2.0
+# MoviePy allows older Pillow releases, but Pillow 10.3 fails to build on
+# Python 3.13 in the local uv environment. Keep this inside MoviePy's <12 cap.
+pillow>=11.1.0,<12.0
 soundfile>=0.14.0
 mlx-whisper>=0.4.0
+gTTS>=2.5.0
+langdetect>=1.0.9
 
 # ============= Utilities =============
 # .env loading

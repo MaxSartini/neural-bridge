@@ -1,0 +1,16 @@
+{
+  "definition": "positive if absolute arousal change from t to t+3 is >= threshold",
+  "future_label_used_as_feature": false,
+  "future_label_used_as_target": true,
+  "horizon_seconds": 3,
+  "label_source": "VEATIC arousal annotations",
+  "notes": "",
+  "schema_version": "veatic_target_metadata_v1",
+  "target_name": "arousal__future_change_p3s_movement",
+  "task_type": "binary",
+  "test_event_count": 524,
+  "test_positive_rate": 0.2861824035644531,
+  "threshold": 0.05,
+  "train_event_count": 1932,
+  "train_positive_rate": 0.24437136948108673
+}

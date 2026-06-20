@@ -1,0 +1,16 @@
+{
+  "definition": "positive if max arousal in t+1 to t+3 minus current arousal is >= threshold",
+  "future_label_used_as_feature": false,
+  "future_label_used_as_target": true,
+  "horizon_seconds": null,
+  "label_source": "VEATIC arousal annotations",
+  "notes": "",
+  "schema_version": "veatic_target_metadata_v1",
+  "target_name": "arousal__future_spike_1_3s",
+  "task_type": "binary",
+  "test_event_count": 228,
+  "test_positive_rate": 0.0771312564611435,
+  "threshold": 0.075,
+  "train_event_count": 665,
+  "train_positive_rate": 0.10662177205085754
+}

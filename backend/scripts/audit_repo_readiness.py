@@ -21,9 +21,13 @@ REQUIRED_FILES = [
     "docs/current_project_state.md",
     "docs/veatic_v2_evidence_summary.md",
     "docs/veatic_v2_evidence_freeze.md",
+    "docs/veatic_raw_representation_audit.md",
     "docs/superseded_artifacts.md",
     "docs/external_assets_manifest.md",
     "benchmarks/veatic/veatic_v2_evidence_manifest.json",
+    "outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md",
+    "outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_summary.json",
+    "outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_verification.json",
 ]
 
 FORBIDDEN_PATTERNS = {
@@ -125,11 +129,13 @@ def audit_stale_terms(files: list[Path], errors: list[str], warnings: list[str])
 
 def audit_orientation_content(errors: list[str]) -> None:
     checks = {
-        "README.md": ["video-dominant", "modality", "Llama-3.2-3B", "evidence:verify"],
-        "AGENTS.md": ["video-dominant", "modality", "Llama-3.2-3B", "npm run audit:repo", "evidence:verify"],
+        "README.md": ["video-dominant", "modality", "Llama-3.2-3B", "evidence:verify", "pca_sequence_128_causal_past_2s_mean"],
+        "AGENTS.md": ["video-dominant", "modality", "Llama-3.2-3B", "npm run audit:repo", "evidence:verify", "pca_sequence_128_causal_past_2s_mean"],
         "REQUIREMENTS.md": ["video-dominant", "TRIBE_TEXT_ENCODER_LOCAL_DIR", "Llama-3.2-3B"],
-        "ROADMAP.md": ["VEATIC-124 v2", "audit", "protected external snapshot"],
-        "docs/veatic_v2_evidence_freeze.md": ["evidence:verify", "does not re-encode videos"],
+        "ROADMAP.md": ["VEATIC-124 v2", "audit", "protected external snapshot", "tensor contract"],
+        "docs/veatic_v2_evidence_freeze.md": ["evidence:verify", "does not re-encode videos", "Post-freeze Tensor Contract"],
+        "docs/veatic_raw_representation_audit.md": ["pca_sequence_128_causal_past_2s_mean", "roi_parcel_features", "topk_vertices_512"],
+        "outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md": ["84 tensor contracts", "420", "No videos were re-encoded"],
     }
     for rel, needles in checks.items():
         text = (ROOT / rel).read_text(encoding="utf-8")

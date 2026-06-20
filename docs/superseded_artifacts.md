@@ -7,6 +7,7 @@ This repo keeps the current Neural Bridge baseline easy to find. Older artifacts
 - Pre-v2 VEATIC transition handoffs and old acceleration audits were removed from `docs/`.
 - Old smoke-test and transition scripts not needed for the consolidated strict suite were removed.
 - Stale generated caches, logs, and Python bytecode are cleaned with `backend/scripts/cleanup_generated_artifacts.py`.
+- `reports/current_artifact_port_audit_20260617.md` was removed after its useful asset-boundary notes were absorbed into `docs/external_assets_manifest.md` and this policy.
 
 Reason: these files contradicted or distracted from the VEATIC-124 v2 baseline.
 
@@ -20,6 +21,15 @@ Reason: these files contradicted or distracted from the VEATIC-124 v2 baseline.
 - current evidence docs listed in `docs/veatic_v2_evidence_freeze.md`
 
 Reason: these files document or reproduce the current v2 claim.
+
+## Retained As Current Post-v2 Tensor Contract
+
+- External: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1`
+- Tracked: `outputs/veatic_124_raw_representation_tensor_export_v1/*`
+- Code: `tools/export_veatic_raw_representation_tensors.py`
+- Report: `docs/veatic_raw_representation_audit.md`
+
+Reason: these files freeze the next model-head input contract without replacing the v2 evidence baseline. The heavy `.npy` tensors remain external; lightweight summaries, manifests, and samples are safe to retain in git.
 
 ## Retained As Non-Authoritative External Context
 

@@ -55,6 +55,7 @@ TRACKED_BENCHMARK_PREFIXES = (
 )
 
 CACHE_METADATA_NAMES = ("cache_status.json", "tribe_summary.json", "tribe_segments.json")
+FREEZE_TIME_CONTEXT_ROLES = {"current_orientation_report", "repo_audit_report"}
 
 SUPERSEDED_ARTIFACTS = [
     {
@@ -439,6 +440,8 @@ def verify_snapshot(args: argparse.Namespace) -> int:
     errors: list[str] = []
 
     for record in manifest["authoritative_tracked_files"]:
+        if record.get("role") in FREEZE_TIME_CONTEXT_ROLES:
+            continue
         verify_file_record(record, ROOT, errors, "tracked file")
     verify_snapshot_copy(manifest, snapshot, errors)
     live_summary = verify_live_cache(manifest, root, args.include_raw_cache_checksums, errors)

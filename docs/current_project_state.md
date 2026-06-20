@@ -1,6 +1,6 @@
-# Current Project State - 2026-06-16
+# Current Project State - 2026-06-20
 
-This is the short operating snapshot for the cleaned Neural Bridge repo after the VEATIC-124 v2 evidence pass.
+This is the short operating snapshot for the cleaned Neural Bridge repo after the VEATIC-124 v2 evidence pass, raw representation audit, and v1 model-ready tensor export.
 
 ## Repo
 
@@ -14,6 +14,8 @@ The repo should stay lightweight. Heavy research assets belong on the external d
 Neural Bridge is testing where predicted neural response trajectories improve human-response forecasts under controlled baselines.
 
 Current evidence is strongest for VEATIC-124 video-dominant cortical/TRIBE arousal event and spike ranking. v2 has validated specific hypotheses around event/spike ranking and causal temporal context. It still should not claim exact continuous arousal-value forecasting or full text+audio+video multimodal TRIBE evidence.
+
+The next model-head input is now frozen as tensors rather than only described in reports. Keep `cortical_pca64_delta` as the frozen v2 baseline; build new learned heads first on `pca_sequence_128_causal_past_2s_mean`; include `roi_parcel_features` as an important side candidate; and treat `topk_vertices_512` as supervised/cautionary.
 
 ## Current Benchmark Assets
 
@@ -30,7 +32,17 @@ Current feature families:
 - `cortical_global_delta`
 - `cortical_pca_64`
 - `cortical_pca64_delta`
-- raw cortical trajectories for future loader work
+- raw cortical trajectories used for the raw-representation audit and available for future loader work
+
+Raw-representation/tensor-export assets now available:
+
+- Raw representation audit output: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411`
+- Tracked lightweight audit copy: `outputs/veatic_124_raw_representation_audit_primary_20260620_152411`
+- Frozen tensor root: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1`
+- Tracked tensor summary: `outputs/veatic_124_raw_representation_tensor_export_v1`
+- Tensor export coverage: `84` contracts, `420` external `.npy` files, verification `pass`
+- PCA cache reuse: `14` cache entries reused, `0` rebuilt
+- Video `83`: included in the all-video tensor export; exclude-video-83 tensor sensitivity was intentionally skipped
 
 Current v2 evidence reports now tracked in this repo:
 
@@ -63,6 +75,8 @@ Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 - Balanced event-vs-stable sampling confirms event-conditioned discrimination for the strongest spike rows.
 - Temporal context v2 shows short causal windows improve selected future arousal spike ranking over current-only evaluation.
 - Alignment policy is resolved: current 0s alignment remains the primary non-leaky benchmark, while offset-grid results are diagnostics.
+- Raw representation audit promotes `pca_sequence_128_causal_past_2s_mean` as the best learned-head input for event/spike ranking; `roi_parcel_features` is the best compact side candidate; `topk_vertices_512` is useful but supervised/cautionary; raw uncompressed ridge is valid but not the best next build target.
+- Tensor export v1 materialized model-ready train/test tensors for `pca_sequence_128_causal_past_2s_mean`, `roi_parcel_features`, `topk_vertices_512`, and `cortical_pca64_delta_frozen_baseline` across `blocked`, `official`, and `grouped_0..4` splits for the three primary targets.
 
 ## Benchmark Rules
 
@@ -77,10 +91,10 @@ Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 
 ## Remaining Work
 
-1. Finish the guarded `83,84` multimodal pilot after populating or authorizing the gated `meta-llama/Llama-3.2-3B` text encoder.
-2. Freeze the v2 training tensor contract for future model heads.
-3. Carry the resolved alignment policy and modality coverage into the tensor contract and benchmark dashboard.
-4. Build next model heads against the frozen v2 baseline.
+1. Build the next learned heads against the frozen tensor contract, starting with `pca_sequence_128_causal_past_2s_mean` and comparing against `cortical_pca64_delta_frozen_baseline`.
+2. Keep grouped-video validation, blocked validation, and controls as promotion gates for any learned head.
+3. Finish the guarded `83,84` multimodal pilot after populating or authorizing the gated `meta-llama/Llama-3.2-3B` text encoder.
+4. Productize the tensor/evidence summaries into the benchmark dashboard.
 
 Current multimodal pilot status:
 
@@ -91,4 +105,4 @@ Current multimodal pilot status:
 
 ## Next Safe Move
 
-Use the frozen v2 evidence bundle as the baseline, finish the small multimodal pilot, then freeze the tensor interface for new heads.
+Use the frozen v2 evidence bundle and frozen raw-representation tensor contract as the baseline, then train the first learned heads on `pca_sequence_128_causal_past_2s_mean` before considering larger or recursive architectures.
