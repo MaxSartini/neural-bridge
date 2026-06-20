@@ -1,0 +1,45 @@
+{
+  "compression_type": "pca_then_causal_window",
+  "dropped_rows": {
+    "reason_counts": {
+      "missing_full_causal_history": 248
+    },
+    "test": 0,
+    "train": 248
+  },
+  "feature_width": 128,
+  "fit_scope": "train_rows_only",
+  "notes": "Tensor export only; no model scoring or video re-encoding performed.",
+  "pca": {
+    "cache_rebuilt": false,
+    "cache_reused": true,
+    "explained_variance_ratio_sum": 0.997253899997304,
+    "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/20164fe42b8e1b80dd90107390662eb7.npz",
+    "pca_backend": "mps_gram_cpu_eigh",
+    "pca_fit_scope": "train_rows_only",
+    "pca_width": 128,
+    "train_rows_used": 7277
+  },
+  "recomputed_from_raw_cache": false,
+  "representation_family": "causal_sequence_compression",
+  "representation_name": "pca_sequence_128_causal_past_2s_mean",
+  "roi_mapping": null,
+  "schema_version": "veatic_representation_metadata_v1",
+  "source_raw_key": "predictions",
+  "source_raw_width": 20484,
+  "supervised_selection": null,
+  "transform_scope": "train_fit_applied_to_test",
+  "used_existing_fit_cache": true,
+  "uses_future_features": false,
+  "uses_labels_for_fit": false,
+  "video_83_included": true,
+  "window": {
+    "aggregation": "mean",
+    "cross_video_boundary_allowed": false,
+    "future_rows_allowed": false,
+    "matched_row_policy": "dropped_rows_recorded",
+    "window_end_seconds": 0.0,
+    "window_name": "causal_past_2s",
+    "window_start_seconds": -2.0
+  }
+}

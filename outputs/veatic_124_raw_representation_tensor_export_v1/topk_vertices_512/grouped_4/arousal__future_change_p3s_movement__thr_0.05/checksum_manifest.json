@@ -1,0 +1,129 @@
+{
+  "created_at": "2026-06-20T16:13:16.358884+00:00",
+  "files": [
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        1980,
+        512
+      ],
+      "filename": "X_test.npy",
+      "relative_path": "X_test.npy",
+      "sha256": "011f5bb333bf46108cf71358973526b57df75107316356fe97f9441710b905ba",
+      "size_bytes": 4055168
+    },
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        8005,
+        512
+      ],
+      "filename": "X_train.npy",
+      "relative_path": "X_train.npy",
+      "sha256": "661efd7d6b2f57a5afe68dd6e970c744e85daf47c53890a061dfd55ad49ddc27",
+      "size_bytes": 16394368
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "feature_manifest.json",
+      "relative_path": "feature_manifest.json",
+      "sha256": "ae24ffc84b0870966ab20fea7a79e9559684a70384e9d9067b68bb1b956105b1",
+      "size_bytes": 21756
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "feature_selection_metadata.json",
+      "relative_path": "feature_selection_metadata.json",
+      "sha256": "04902005e3f51128cad9a1931b8474b4117ad08b5a563fc438406086d90e89f5",
+      "size_bytes": 542
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "leakage_contract.json",
+      "relative_path": "leakage_contract.json",
+      "sha256": "2922e8e46f020af619ae71dd60e61b57fea17d62d6b9731c835a9f6d7779246c",
+      "size_bytes": 812
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "representation_metadata.json",
+      "relative_path": "representation_metadata.json",
+      "sha256": "097f3ebbd5aa5479e914f35a6766dcf1e56a2411b267a48d61706ef446177dce",
+      "size_bytes": 1106
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "row_metadata_test.jsonl",
+      "relative_path": "row_metadata_test.jsonl",
+      "sha256": "cd5e8d52b64cdd670af4f7227323539e1a74e7739bac1beeb462efd4f49f9739",
+      "size_bytes": 1287098
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "row_metadata_train.jsonl",
+      "relative_path": "row_metadata_train.jsonl",
+      "sha256": "3f62b0acfba355c715ec73c153459c0e56a24cb50922db25a6088001a84c0de8",
+      "size_bytes": 5217632
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "selected_vertices.json",
+      "relative_path": "selected_vertices.json",
+      "sha256": "f3c4e65bf84840632c390cbddd3ff5d19dc0011ea350d9880f911fab0c43039e",
+      "size_bytes": 18603
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "split_metadata.json",
+      "relative_path": "split_metadata.json",
+      "sha256": "147646775dabae5b282ee4ad9bd4517e0bb7cea629127becabcf99193b3f7ea6",
+      "size_bytes": 1983
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "target_metadata.json",
+      "relative_path": "target_metadata.json",
+      "sha256": "9af81bcbfdd2745e24ae492f05758bdbc547a49a2be87b8753c73d86313f9650",
+      "size_bytes": 551
+    },
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        1980
+      ],
+      "filename": "y_test.npy",
+      "relative_path": "y_test.npy",
+      "sha256": "f04dd01eaaa9e0d42008722ebf71c2a2af829d63d0015832bb66f2d382eff939",
+      "size_bytes": 8048
+    },
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        8005
+      ],
+      "filename": "y_train.npy",
+      "relative_path": "y_train.npy",
+      "sha256": "dbe60497f470af862eb068d946bb010f163d3891b5acf0dbb6492e56fa7278ff",
+      "size_bytes": 32148
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "checksum_manifest.json",
+      "relative_path": "checksum_manifest.json",
+      "sha256": null,
+      "size_bytes": null
+    }
+  ],
+  "notes": "Self-checksum is null because checksum_manifest.json cannot contain a stable hash of itself.",
+  "schema_version": "veatic_tensor_checksum_manifest_v1"
+}

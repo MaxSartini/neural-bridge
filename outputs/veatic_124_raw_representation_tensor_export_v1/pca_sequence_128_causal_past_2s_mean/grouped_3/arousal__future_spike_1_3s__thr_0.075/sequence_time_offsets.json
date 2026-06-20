@@ -1,0 +1,26 @@
+{
+  "artifact_type": "sequence_metadata",
+  "mask_shape_test": [
+    2141,
+    3
+  ],
+  "mask_shape_train": [
+    7844,
+    3
+  ],
+  "sequence_shape_test": [
+    2141,
+    3,
+    128
+  ],
+  "sequence_shape_train": [
+    7844,
+    3,
+    128
+  ],
+  "sequence_time_offsets": [
+    -2.0,
+    -1.0,
+    0.0
+  ]
+}
