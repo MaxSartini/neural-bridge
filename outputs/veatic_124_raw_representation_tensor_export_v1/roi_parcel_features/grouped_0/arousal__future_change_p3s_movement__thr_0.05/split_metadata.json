@@ -30,7 +30,7 @@
   ],
   "notes": "",
   "schema_version": "veatic_split_metadata_v1",
-  "source_manifest_path": "/Users/maxsartini/Neural Bridge/benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
+  "source_manifest_path": "<repo-root>/benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
   "split_name": "grouped_0",
   "split_type": "grouped_video_fold",
   "test_row_count": 1913,

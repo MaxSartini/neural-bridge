@@ -12,7 +12,7 @@
     "cache_rebuilt": false,
     "cache_reused": true,
     "explained_variance_ratio_sum": 0.9933388144272612,
-    "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5f16b17ddb034ef37c16229b750277c7.npz",
+    "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5f16b17ddb034ef37c16229b750277c7.npz",
     "pca_backend": "mps_gram_cpu_eigh",
     "pca_fit_scope": "train_rows_only",
     "pca_width": 64,

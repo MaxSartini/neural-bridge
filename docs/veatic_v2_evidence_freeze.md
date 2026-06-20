@@ -6,6 +6,8 @@ This is the reproducibility contract for the current Neural Bridge baseline.
 
 The frozen bundle covers VEATIC-124 v2 video-dominant cortical/TRIBE evidence for arousal event and spike ranking. It does not claim exact continuous arousal forecasting, a finished downstream product model, or a proven full text+audio+video multimodal cache.
 
+The later raw-representation tensor export builds on this evidence freeze. It does not mutate the frozen v2 evidence snapshot or replace the `cortical_pca64_delta` baseline.
+
 ## Authoritative Bundle
 
 Tracked manifest:
@@ -44,6 +46,8 @@ npm run evidence:verify
 
 That command checks tracked evidence checksums, protected snapshot copies, cache metadata checksums, raw output presence, raw output byte counts, cache status counts, and modality coverage. It does not re-encode videos.
 
+Mutable orientation docs captured in the protected snapshot are freeze-time context. Current live guidance is checked by `npm run audit:repo`, while immutable benchmark outputs, cache metadata, and snapshot copies remain checksum-verified by `npm run evidence:verify`.
+
 Raw `tribe_raw_output.npz` checksums are optional because the default v2 snapshot records raw output presence and byte counts but does not hash the large arrays. For a future slower raw-array integrity bundle that still does not re-encode, create that new snapshot with:
 
 ```bash
@@ -68,6 +72,7 @@ Keep in git:
 - benchmark JSON/CSV result tables already curated as v2 evidence;
 - evidence docs and manifest files;
 - scripts needed to verify or reproduce the bundle from existing caches.
+- lightweight raw-representation and tensor-export summaries, manifests, and row-metadata samples.
 
 Keep external:
 
@@ -76,7 +81,24 @@ Keep external:
 - TRIBE raw output arrays;
 - feature caches;
 - large generated scratch outputs.
+- model-ready tensor payloads under `${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1`.
 
 ## Modality Boundary
 
 The frozen v2 cache is video-dominant. Current verification expects 124 raw cache outputs, with modality coverage matching the strict audit: most entries are video-only and only the audio-bearing VEATIC items contain text+audio+video-derived metadata. Do not describe this frozen bundle as a full multimodal result.
+
+## Post-freeze Tensor Contract
+
+The current model-ready tensor contract is:
+
+```bash
+${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1
+```
+
+Tracked summaries live at:
+
+```bash
+outputs/veatic_124_raw_representation_tensor_export_v1
+```
+
+It exports `pca_sequence_128_causal_past_2s_mean`, `roi_parcel_features`, `topk_vertices_512`, and `cortical_pca64_delta_frozen_baseline` across `blocked`, `official`, and `grouped_0..4` splits for the three primary targets. Verification passed with `84` tensor contracts, `420` `.npy` tensor files, `14` PCA cache entries reused, and `0` PCA cache rebuilds.

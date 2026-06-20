@@ -39,10 +39,18 @@ from backend.scripts import run_veatic_raw_representation_audit as audit  # noqa
 from backend.scripts import veatic_representation_builders as reps  # noqa: E402
 
 
+SOURCE_AUDIT_NAME = "veatic_124_raw_representation_audit_primary_20260620_152411"
+EXTERNAL_ROOT_VALUE = os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT")
+EXTERNAL_ROOT = Path(EXTERNAL_ROOT_VALUE).expanduser() if EXTERNAL_ROOT_VALUE else ROOT / ".missing_external_root"
 SOURCE_AUDIT_DIR = Path(
-    "/Volumes/onn. Drive/Neural Bridge/outputs/"
-    "veatic_124_raw_representation_audit_primary_20260620_152411"
-)
+    os.environ.get(
+        "VEATIC_RAW_REPRESENTATION_AUDIT_DIR",
+        str(EXTERNAL_ROOT / "outputs" / SOURCE_AUDIT_NAME),
+    )
+).expanduser()
+LOCAL_EXTERNAL_ROOT = SOURCE_AUDIT_DIR.parents[1]
+EXTERNAL_ROOT_TOKEN = "${NEURAL_BRIDGE_EXTERNAL_ROOT}"
+REPO_ROOT_TOKEN = "<repo-root>"
 STATE_PATH = SOURCE_AUDIT_DIR / "_checkpoint" / "state.json"
 FIT_CACHE_ROOT = SOURCE_AUDIT_DIR / "_checkpoint" / "fit_cache"
 TOPK_RECOVERY_PATH = (
@@ -151,6 +159,35 @@ def json_safe(value: Any) -> Any:
     return audit.bench.json_safe(value)
 
 
+def portable_path(value: str | Path) -> str:
+    text = str(value)
+    for root, token in ((ROOT, REPO_ROOT_TOKEN), (LOCAL_EXTERNAL_ROOT, EXTERNAL_ROOT_TOKEN)):
+        root_text = str(root)
+        if text == root_text:
+            return token
+        if text.startswith(root_text + os.sep):
+            return token + "/" + Path(text).relative_to(root).as_posix()
+    return text
+
+
+def sanitize_text(text: str) -> str:
+    return text.replace(str(ROOT), REPO_ROOT_TOKEN).replace(str(LOCAL_EXTERNAL_ROOT), EXTERNAL_ROOT_TOKEN)
+
+
+def sanitize_metadata(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {key: sanitize_metadata(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [sanitize_metadata(item) for item in value]
+    if isinstance(value, tuple):
+        return [sanitize_metadata(item) for item in value]
+    if isinstance(value, Path):
+        return portable_path(value)
+    if isinstance(value, str):
+        return sanitize_text(value)
+    return value
+
+
 def shape_string(array: np.ndarray | None) -> str | None:
     if array is None:
         return None
@@ -195,7 +232,7 @@ def write_csv(path: Path, rows: list[dict[str, Any]], fieldnames: list[str] | No
     if fieldnames is None:
         fieldnames = sorted({key for row in rows for key in row})
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         for row in rows:
             writer.writerow({key: row.get(key) for key in fieldnames})
@@ -283,6 +320,8 @@ class ExportTracker:
         reason: str,
         heavy: bool,
     ) -> None:
+        if not heavy:
+            payload = sanitize_metadata(payload)
         write_json(path, payload)
         self.record(
             path,
@@ -308,6 +347,8 @@ class ExportTracker:
         reason: str,
         heavy: bool,
     ) -> None:
+        if not heavy:
+            rows = sanitize_metadata(rows)
         write_jsonl(path, rows)
         self.record(
             path,
@@ -334,6 +375,8 @@ class ExportTracker:
         reason: str,
         heavy: bool,
     ) -> None:
+        if not heavy:
+            rows = sanitize_metadata(rows)
         write_csv(path, rows, fieldnames)
         self.record(
             path,
@@ -359,6 +402,8 @@ class ExportTracker:
         reason: str,
         heavy: bool,
     ) -> None:
+        if not heavy:
+            text = sanitize_text(text)
         write_text(path, text)
         self.record(
             path,
@@ -1269,6 +1314,7 @@ Verification status: **{summary['verification_status']}**.
 
 ## Export Scope
 Exported {summary['total_contracts_exported']} tensor contracts across four representations, seven splits, and three primary targets.
+External tensor payloads: {summary['total_npy_files_exported']} `.npy` files.
 
 ## Source Cache and No-Reencode Confirmation
 The export read existing TRIBE raw cortical predictions and existing audit fit caches. No videos were re-encoded and no model scoring was run.
@@ -1320,6 +1366,10 @@ Train learned heads first on `pca_sequence_128_causal_past_2s_mean`, compare aga
 
 
 def main() -> int:
+    if not EXTERNAL_ROOT_VALUE and "VEATIC_RAW_REPRESENTATION_AUDIT_DIR" not in os.environ:
+        raise RuntimeError(
+            "Set NEURAL_BRIDGE_EXTERNAL_ROOT or VEATIC_RAW_REPRESENTATION_AUDIT_DIR before exporting tensors."
+        )
     start = time.monotonic()
     created_at = now_iso()
     state = load_state()
@@ -1877,7 +1927,7 @@ def main() -> int:
     for root_path, heavy in ((external_tensor_root, True), (TRACKED_SUMMARY_ROOT, False)):
         write_json(
             root_path / "tensor_export_file_inventory.json",
-            file_inventory_payload,
+            file_inventory_payload if heavy else sanitize_metadata(file_inventory_payload),
         )
 
     zip_review(TRACKED_SUMMARY_ROOT, REVIEW_ZIP_PATH)

@@ -5,12 +5,12 @@ Date: 2026-06-20
 Run:
 
 ```bash
-cd /Users/maxsartini/Neural\ Bridge/backend
+cd <repo-root>/backend
 uv run python scripts/run_veatic_raw_representation_audit.py \
   --primary-audit \
   --skip-sensitivity \
-  --output-dir "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411" \
-  --tracked-output-dir "/Users/maxsartini/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411"
+  --output-dir "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411" \
+  --tracked-output-dir "<repo-root>/outputs/veatic_124_raw_representation_audit_primary_20260620_152411"
 ```
 
 This audit used existing cached TRIBE v2 raw cortical predictions only. No video re-encoding was performed and the frozen VEATIC v2 evidence bundle was not replaced.
@@ -31,13 +31,13 @@ This audit used existing cached TRIBE v2 raw cortical predictions only. No video
 External output directory:
 
 ```text
-/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411
+${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411
 ```
 
 Lightweight repo copy:
 
 ```text
-/Users/maxsartini/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411
+<repo-root>/outputs/veatic_124_raw_representation_audit_primary_20260620_152411
 ```
 
 ## Resumability and Reuse
@@ -45,19 +45,19 @@ Lightweight repo copy:
 The run is resumable from:
 
 ```text
-/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/state.json
+${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/state.json
 ```
 
 Resume command:
 
 ```bash
-cd /Users/maxsartini/Neural\ Bridge/backend
+cd <repo-root>/backend
 uv run python scripts/run_veatic_raw_representation_audit.py \
   --primary-audit \
   --skip-sensitivity \
   --resume \
-  --output-dir "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411" \
-  --tracked-output-dir "/Users/maxsartini/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411"
+  --output-dir "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411" \
+  --tracked-output-dir "<repo-root>/outputs/veatic_124_raw_representation_audit_primary_20260620_152411"
 ```
 
 The audit also avoids repeated work within a run:
@@ -115,9 +115,9 @@ Not in a simple current-row PCA sense. `cortical_pca_64` remained stronger than 
 
 Yes on grouped event targets. `pca_sequence_128_causal_past_2s_mean` beat `cortical_pca64_delta` by +0.0393 PR-AUC at threshold 0.05 and +0.0408 at threshold 0.075. Matched-row context gains over current-only features were small and mixed, so the result supports the representation as a next input contract, not a large standalone temporal-context claim.
 
-7. Which representation should become the next frozen tensor contract?
+7. Which representation should become the next tensor contract?
 
-Do not replace the frozen tensor contract yet. Retain `cortical_pca64_delta` as the frozen baseline until a locked confirmation run. The best candidate contract to test next is `pca_sequence_128_causal_past_2s_mean` for event/spike ranking, plus `roi_parcel_features` as a compact future-change branch.
+Retain `cortical_pca64_delta` as the frozen v2 baseline comparator. The post-audit v1 tensor export materializes `pca_sequence_128_causal_past_2s_mean` as the next learned-head input, plus `roi_parcel_features` as a compact future-change branch and `topk_vertices_512` as supervised/cautionary.
 
 8. Should the next learned head build on raw current, PCA128 sequence, PCA256 sequence, PLS, top-k, or PCA64-delta?
 
@@ -143,8 +143,8 @@ The promoted event sequence and ROI results beat timestamp and video-time contro
 
 ## Key Artifacts
 
-- Full report: `/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/representation_audit_report.md`
-- Leaderboard: `/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/raw_vs_compressed_leaderboard.csv`
-- Promotion summary: `/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/candidate_promotion_summary.json`
-- Leakage audit: `/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/leakage_audit.json`
-- Run manifest: `/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/run_manifest.json`
+- Full report: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/representation_audit_report.md`
+- Leaderboard: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/raw_vs_compressed_leaderboard.csv`
+- Promotion summary: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/candidate_promotion_summary.json`
+- Leakage audit: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/leakage_audit.json`
+- Run manifest: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/run_manifest.json`

@@ -4,7 +4,7 @@
   "held_out_video_ids": [],
   "notes": "Fixed splits may contain the same videos across train/test; grouped folds must not.",
   "schema_version": "veatic_split_metadata_v1",
-  "source_manifest_path": "/Users/maxsartini/Neural Bridge/benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
+  "source_manifest_path": "<repo-root>/benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
   "split_name": "blocked",
   "split_type": "blocked_temporal_gap",
   "test_row_count": 2956,

@@ -7,6 +7,7 @@ Verification status: **pass**.
 
 ## Export Scope
 Exported 84 tensor contracts across four representations, seven splits, and three primary targets.
+External tensor payloads: 420 `.npy` files.
 
 ## Source Cache and No-Reencode Confirmation
 The export read existing TRIBE raw cortical predictions and existing audit fit caches. No videos were re-encoded and no model scoring was run.
@@ -59,10 +60,10 @@ Leakage contracts are written per tensor folder. Grouped folds were verified dis
 - No large .npy tensors are included in the review zip.
 
 ## Heavy External Outputs
-Heavy `.npy` tensors and full row metadata live under `/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1`.
+Heavy `.npy` tensors and full row metadata live under `${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1`.
 
 ## Lightweight Tracked Outputs
-Commit-safe summaries and metadata live under `/Users/maxsartini/Neural Bridge/outputs/veatic_124_raw_representation_tensor_export_v1`. The review zip excludes `.npy` tensor payloads.
+Commit-safe summaries and metadata live under `<repo-root>/outputs/veatic_124_raw_representation_tensor_export_v1`. The review zip excludes `.npy` tensor payloads.
 
 ## Recommended Next Benchmark
 Train learned heads first on `pca_sequence_128_causal_past_2s_mean`, compare against `cortical_pca64_delta_frozen_baseline`, and keep `roi_parcel_features` as a side candidate plus `topk_vertices_512` as a supervised cautionary comparison.

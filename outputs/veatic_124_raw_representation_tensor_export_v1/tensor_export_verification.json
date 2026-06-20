@@ -3,7 +3,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "blocked",
@@ -225,7 +225,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9974222184428072,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/a4614ddf1c3f67efc6c03c149f617d38.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/a4614ddf1c3f67efc6c03c149f617d38.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -274,9 +274,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "blocked",
@@ -310,7 +310,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "blocked",
@@ -572,9 +572,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "blocked",
@@ -608,7 +608,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "blocked",
@@ -878,9 +878,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "blocked",
@@ -914,7 +914,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "blocked",
@@ -1136,7 +1136,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9935297369811451,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/2e85885610abf1ea8f3c161eb3dbdd34.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/2e85885610abf1ea8f3c161eb3dbdd34.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -1185,9 +1185,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "blocked",
@@ -1221,7 +1221,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "blocked",
@@ -1443,7 +1443,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9974222184428072,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/a4614ddf1c3f67efc6c03c149f617d38.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/a4614ddf1c3f67efc6c03c149f617d38.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -1492,9 +1492,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "blocked",
@@ -1528,7 +1528,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "blocked",
@@ -1790,9 +1790,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "blocked",
@@ -1826,7 +1826,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "blocked",
@@ -2096,9 +2096,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "blocked",
@@ -2132,7 +2132,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "blocked",
@@ -2354,7 +2354,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9935297369811451,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/2e85885610abf1ea8f3c161eb3dbdd34.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/2e85885610abf1ea8f3c161eb3dbdd34.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -2403,9 +2403,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "blocked",
@@ -2439,7 +2439,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "blocked",
@@ -2660,7 +2660,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9974222184428072,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/a4614ddf1c3f67efc6c03c149f617d38.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/a4614ddf1c3f67efc6c03c149f617d38.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -2709,9 +2709,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "blocked",
@@ -2745,7 +2745,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "blocked",
@@ -3006,9 +3006,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/blocked/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "blocked",
@@ -3042,7 +3042,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "blocked",
@@ -3311,9 +3311,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/blocked/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "blocked",
@@ -3347,7 +3347,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "blocked",
@@ -3568,7 +3568,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9935297369811451,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/2e85885610abf1ea8f3c161eb3dbdd34.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/2e85885610abf1ea8f3c161eb3dbdd34.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -3617,9 +3617,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/blocked/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "blocked",
@@ -3653,7 +3653,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "official",
@@ -3875,7 +3875,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.997253899997304,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/20164fe42b8e1b80dd90107390662eb7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/20164fe42b8e1b80dd90107390662eb7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -3924,9 +3924,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "official",
@@ -3960,7 +3960,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "official",
@@ -4222,9 +4222,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "official",
@@ -4258,7 +4258,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "official",
@@ -4528,9 +4528,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "official",
@@ -4564,7 +4564,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "official",
@@ -4786,7 +4786,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933895709837088,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/d7d4a92015dab2cb1c0edc62f10b47b4.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/d7d4a92015dab2cb1c0edc62f10b47b4.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -4835,9 +4835,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "official",
@@ -4871,7 +4871,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "official",
@@ -5093,7 +5093,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.997253899997304,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/20164fe42b8e1b80dd90107390662eb7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/20164fe42b8e1b80dd90107390662eb7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -5142,9 +5142,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "official",
@@ -5178,7 +5178,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "official",
@@ -5440,9 +5440,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "official",
@@ -5476,7 +5476,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "official",
@@ -5746,9 +5746,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "official",
@@ -5782,7 +5782,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "official",
@@ -6004,7 +6004,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933895709837088,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/d7d4a92015dab2cb1c0edc62f10b47b4.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/d7d4a92015dab2cb1c0edc62f10b47b4.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -6053,9 +6053,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "official",
@@ -6089,7 +6089,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "official",
@@ -6310,7 +6310,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.997253899997304,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/20164fe42b8e1b80dd90107390662eb7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/20164fe42b8e1b80dd90107390662eb7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -6359,9 +6359,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/official/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "official",
@@ -6395,7 +6395,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "official",
@@ -6656,9 +6656,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/official/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "official",
@@ -6692,7 +6692,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "official",
@@ -6961,9 +6961,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/official/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "official",
@@ -6997,7 +6997,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "official",
@@ -7218,7 +7218,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933895709837088,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/d7d4a92015dab2cb1c0edc62f10b47b4.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/d7d4a92015dab2cb1c0edc62f10b47b4.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -7267,9 +7267,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/official/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "official",
@@ -7303,7 +7303,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_0",
@@ -7400,7 +7400,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.997049725800025,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/436e44d5fec6727e85b5880ed7b26228.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/436e44d5fec6727e85b5880ed7b26228.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -7449,9 +7449,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_0",
@@ -7485,7 +7485,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_0",
@@ -7622,9 +7622,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_0",
@@ -7658,7 +7658,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_0",
@@ -7803,9 +7803,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_0",
@@ -7839,7 +7839,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_0",
@@ -7936,7 +7936,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9932351558964001,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/391501e1e195c90604e7d0e3f3fb6a1a.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/391501e1e195c90604e7d0e3f3fb6a1a.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -7985,9 +7985,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_0",
@@ -8021,7 +8021,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_0",
@@ -8118,7 +8118,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.997049725800025,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/436e44d5fec6727e85b5880ed7b26228.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/436e44d5fec6727e85b5880ed7b26228.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -8167,9 +8167,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_0",
@@ -8203,7 +8203,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_0",
@@ -8340,9 +8340,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_0",
@@ -8376,7 +8376,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_0",
@@ -8521,9 +8521,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_0",
@@ -8557,7 +8557,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_0",
@@ -8654,7 +8654,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9932351558964001,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/391501e1e195c90604e7d0e3f3fb6a1a.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/391501e1e195c90604e7d0e3f3fb6a1a.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -8703,9 +8703,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_0",
@@ -8739,7 +8739,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_0",
@@ -8836,7 +8836,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.997049725800025,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/436e44d5fec6727e85b5880ed7b26228.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/436e44d5fec6727e85b5880ed7b26228.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -8885,9 +8885,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_0",
@@ -8921,7 +8921,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_0",
@@ -9058,9 +9058,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_0",
@@ -9094,7 +9094,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_0",
@@ -9239,9 +9239,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_0",
@@ -9275,7 +9275,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_0",
@@ -9372,7 +9372,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9932351558964001,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/391501e1e195c90604e7d0e3f3fb6a1a.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/391501e1e195c90604e7d0e3f3fb6a1a.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -9421,9 +9421,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_0",
@@ -9457,7 +9457,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_1",
@@ -9554,7 +9554,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9970550919206289,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/b48609a50d0706c3f37c7121c93d5053.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/b48609a50d0706c3f37c7121c93d5053.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -9603,9 +9603,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_1",
@@ -9639,7 +9639,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_1",
@@ -9776,9 +9776,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_1",
@@ -9812,7 +9812,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_1",
@@ -9957,9 +9957,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_1",
@@ -9993,7 +9993,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_1",
@@ -10090,7 +10090,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9932276072358945,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/d626832a0bfe73b68b93d6bbe01dc7c7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/d626832a0bfe73b68b93d6bbe01dc7c7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -10139,9 +10139,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_1",
@@ -10175,7 +10175,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_1",
@@ -10272,7 +10272,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9970550919206289,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/b48609a50d0706c3f37c7121c93d5053.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/b48609a50d0706c3f37c7121c93d5053.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -10321,9 +10321,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_1",
@@ -10357,7 +10357,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_1",
@@ -10494,9 +10494,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_1",
@@ -10530,7 +10530,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_1",
@@ -10675,9 +10675,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_1",
@@ -10711,7 +10711,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_1",
@@ -10808,7 +10808,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9932276072358945,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/d626832a0bfe73b68b93d6bbe01dc7c7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/d626832a0bfe73b68b93d6bbe01dc7c7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -10857,9 +10857,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_1",
@@ -10893,7 +10893,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_1",
@@ -10990,7 +10990,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9970550919206289,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/b48609a50d0706c3f37c7121c93d5053.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/b48609a50d0706c3f37c7121c93d5053.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -11039,9 +11039,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_1",
@@ -11075,7 +11075,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_1",
@@ -11212,9 +11212,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_1",
@@ -11248,7 +11248,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_1",
@@ -11393,9 +11393,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_1",
@@ -11429,7 +11429,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_1",
@@ -11526,7 +11526,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9932276072358945,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/d626832a0bfe73b68b93d6bbe01dc7c7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/d626832a0bfe73b68b93d6bbe01dc7c7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -11575,9 +11575,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_1",
@@ -11611,7 +11611,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_2",
@@ -11708,7 +11708,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9970718339063751,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/4c18b04285f46de6a43abb54ead055dd.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/4c18b04285f46de6a43abb54ead055dd.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -11757,9 +11757,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_2",
@@ -11793,7 +11793,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_2",
@@ -11930,9 +11930,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_2",
@@ -11966,7 +11966,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_2",
@@ -12111,9 +12111,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_2",
@@ -12147,7 +12147,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_2",
@@ -12244,7 +12244,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933072359272046,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/ab50bbd14f814f71c93c48998f5417a7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/ab50bbd14f814f71c93c48998f5417a7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -12293,9 +12293,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_2",
@@ -12329,7 +12329,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_2",
@@ -12426,7 +12426,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9970718339063751,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/4c18b04285f46de6a43abb54ead055dd.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/4c18b04285f46de6a43abb54ead055dd.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -12475,9 +12475,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_2",
@@ -12511,7 +12511,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_2",
@@ -12648,9 +12648,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_2",
@@ -12684,7 +12684,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_2",
@@ -12829,9 +12829,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_2",
@@ -12865,7 +12865,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_2",
@@ -12962,7 +12962,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933072359272046,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/ab50bbd14f814f71c93c48998f5417a7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/ab50bbd14f814f71c93c48998f5417a7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -13011,9 +13011,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_2",
@@ -13047,7 +13047,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_2",
@@ -13144,7 +13144,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9970718339063751,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/4c18b04285f46de6a43abb54ead055dd.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/4c18b04285f46de6a43abb54ead055dd.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -13193,9 +13193,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_2",
@@ -13229,7 +13229,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_2",
@@ -13366,9 +13366,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_2",
@@ -13402,7 +13402,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_2",
@@ -13547,9 +13547,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_2",
@@ -13583,7 +13583,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_2",
@@ -13680,7 +13680,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933072359272046,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/ab50bbd14f814f71c93c48998f5417a7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/ab50bbd14f814f71c93c48998f5417a7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -13729,9 +13729,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_2",
@@ -13765,7 +13765,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_3",
@@ -13862,7 +13862,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9971094825268665,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/c008a7dade2a848dbc25407e1ecbfa55.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/c008a7dade2a848dbc25407e1ecbfa55.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -13911,9 +13911,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_3",
@@ -13947,7 +13947,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_3",
@@ -14084,9 +14084,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_3",
@@ -14120,7 +14120,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_3",
@@ -14265,9 +14265,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_3",
@@ -14301,7 +14301,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_3",
@@ -14398,7 +14398,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933632705360651,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/4020cf07c1d0175964eb46d501af593e.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/4020cf07c1d0175964eb46d501af593e.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -14447,9 +14447,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_3",
@@ -14483,7 +14483,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_3",
@@ -14580,7 +14580,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9971094825268665,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/c008a7dade2a848dbc25407e1ecbfa55.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/c008a7dade2a848dbc25407e1ecbfa55.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -14629,9 +14629,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_3",
@@ -14665,7 +14665,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_3",
@@ -14802,9 +14802,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_3",
@@ -14838,7 +14838,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_3",
@@ -14983,9 +14983,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_3",
@@ -15019,7 +15019,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_3",
@@ -15116,7 +15116,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933632705360651,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/4020cf07c1d0175964eb46d501af593e.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/4020cf07c1d0175964eb46d501af593e.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -15165,9 +15165,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_3",
@@ -15201,7 +15201,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_3",
@@ -15298,7 +15298,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9971094825268665,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/c008a7dade2a848dbc25407e1ecbfa55.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/c008a7dade2a848dbc25407e1ecbfa55.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -15347,9 +15347,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_3",
@@ -15383,7 +15383,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_3",
@@ -15520,9 +15520,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_3",
@@ -15556,7 +15556,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_3",
@@ -15701,9 +15701,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_3",
@@ -15737,7 +15737,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_3",
@@ -15834,7 +15834,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933632705360651,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/4020cf07c1d0175964eb46d501af593e.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/4020cf07c1d0175964eb46d501af593e.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -15883,9 +15883,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_3",
@@ -15919,7 +15919,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_4",
@@ -16016,7 +16016,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9970872600715666,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5549656e49062362f66f147694fb6ed1.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5549656e49062362f66f147694fb6ed1.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -16065,9 +16065,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_4",
@@ -16101,7 +16101,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_4",
@@ -16238,9 +16238,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_4",
@@ -16274,7 +16274,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_4",
@@ -16419,9 +16419,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_4",
@@ -16455,7 +16455,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_4",
@@ -16552,7 +16552,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933388144272612,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5f16b17ddb034ef37c16229b750277c7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5f16b17ddb034ef37c16229b750277c7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -16601,9 +16601,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_4",
@@ -16637,7 +16637,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_4",
@@ -16734,7 +16734,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9970872600715666,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5549656e49062362f66f147694fb6ed1.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5549656e49062362f66f147694fb6ed1.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -16783,9 +16783,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_4",
@@ -16819,7 +16819,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_4",
@@ -16956,9 +16956,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_4",
@@ -16992,7 +16992,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_4",
@@ -17137,9 +17137,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_4",
@@ -17173,7 +17173,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.075"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.075"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_4",
@@ -17270,7 +17270,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933388144272612,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5f16b17ddb034ef37c16229b750277c7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5f16b17ddb034ef37c16229b750277c7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -17319,9 +17319,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.075",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_4",
@@ -17355,7 +17355,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_4",
@@ -17452,7 +17452,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9970872600715666,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5549656e49062362f66f147694fb6ed1.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5549656e49062362f66f147694fb6ed1.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 128,
@@ -17501,9 +17501,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "pca_sequence_128_causal_past_2s_mean",
       "split_name": "grouped_4",
@@ -17537,7 +17537,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_4",
@@ -17674,9 +17674,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/roi_parcel_features/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "roi_parcel_features",
       "split_name": "grouped_4",
@@ -17710,7 +17710,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_4",
@@ -17855,9 +17855,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/topk_vertices_512/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "topk_vertices_512",
       "split_name": "grouped_4",
@@ -17891,7 +17891,7 @@
     {
       "check_name": "required_folder_exists",
       "details": {
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_change_p3s_movement__thr_0.05"
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_change_p3s_movement__thr_0.05"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_4",
@@ -17988,7 +17988,7 @@
           "cache_rebuilt": false,
           "cache_reused": true,
           "explained_variance_ratio_sum": 0.9933388144272612,
-          "fit_cache_path": "/Volumes/onn. Drive/Neural Bridge/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5f16b17ddb034ef37c16229b750277c7.npz",
+          "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5f16b17ddb034ef37c16229b750277c7.npz",
           "pca_backend": "mps_gram_cpu_eigh",
           "pca_fit_scope": "train_rows_only",
           "pca_width": 64,
@@ -18037,9 +18037,9 @@
     {
       "check_name": "heavy_outputs_not_inside_git_repo",
       "details": {
-        "external_root": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1",
-        "folder": "/Volumes/onn. Drive/Neural Bridge/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
-        "repo_root": "/Users/maxsartini/Neural Bridge"
+        "external_root": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1",
+        "folder": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+        "repo_root": "<repo-root>"
       },
       "representation_name": "cortical_pca64_delta_frozen_baseline",
       "split_name": "grouped_4",

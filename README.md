@@ -13,6 +13,8 @@ The VEATIC-124 v2 evidence bundle validates these hypotheses:
 5. A single 0s feature snapshot can underfeed the bridge head for spike/event tasks.
 6. The alignment audit resolved the benchmark policy: keep current 0s alignment as the primary non-leaky benchmark and report offset grids as diagnostics, not as a test-derived correction.
 
+Post-v2 raw-representation work has now frozen model-ready tensors for the next head-training step without re-encoding videos. The frozen baseline remains `cortical_pca64_delta`; the best next learned-head input is `pca_sequence_128_causal_past_2s_mean`; `roi_parcel_features` is an important unsupervised side candidate; and `topk_vertices_512` is exported as a supervised/cautionary comparison.
+
 The current claim is intentionally precise: Neural Bridge has evidence for arousal event/spike ranking and temporal-context sufficiency from a mostly visual/video TRIBE cache, not exact continuous arousal-value prediction, a finished downstream product model, or a proven full text+audio+video multimodal cache.
 
 ## Key VEATIC-124 v2 Results
@@ -28,6 +30,8 @@ The current claim is intentionally precise: Neural Bridge has evidence for arous
 - Balanced event-vs-stable spike row at threshold `0.05`: `cortical_pca64_delta` PR-AUC `0.3394`, `+0.0609` over AR, `+0.0631` over shuffled, `+0.0476` over random.
 - Temporal context v2: 4/4 focused feature-target rows improve over current-only by more than `0.005` PR-AUC; best focused windows are `causal_past_2s`.
 - Alignment repair: no safe global lag correction was selected; the final non-leaky policy is `keep_current_0s_as_primary_plus_report_offset_diagnostics`.
+- Raw representation audit: `pca_sequence_128_causal_past_2s_mean` beat same-run grouped `cortical_pca64_delta` on primary spike targets by about `+0.039` to `+0.041` PR-AUC, while raw uncompressed ridge was valid but not the best next build target.
+- Tensor export v1: `84` representation/split/target contracts and `420` `.npy` tensors were written under the external tensor root with verification `pass`; PCA fit-cache payloads were reused and none were rebuilt.
 
 Source summaries:
 
@@ -40,12 +44,15 @@ Source summaries:
 - [outputs/veatic_124_temporal_context_v2_20260616_1557/veatic_124_temporal_context_v2_report.md](outputs/veatic_124_temporal_context_v2_20260616_1557/veatic_124_temporal_context_v2_report.md)
 - [outputs/veatic_124_temporal_fairness_20260616_1509/veatic_124_temporal_fairness_report.md](outputs/veatic_124_temporal_fairness_20260616_1509/veatic_124_temporal_fairness_report.md)
 - [benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md](benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md)
+- [docs/veatic_raw_representation_audit.md](docs/veatic_raw_representation_audit.md)
+- [outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md](outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md)
 
 ## What Remains Unproven
 
 - Exact continuous future arousal-value forecasting. Continuous MAE remains diagnostic because zero-change baselines still win most continuous checks.
 - Strong universal early-warning claims. The alignment pass supports 0s primary scoring plus transparent offset diagnostics, not a global lag correction.
 - New model heads still need to improve over the v2 baseline without weakening the controls.
+- The exported `topk_vertices_512` tensors are supervised feature-selection artifacts and should remain cautionary unless confirmed in a locked rerun.
 
 ## System Shape
 
@@ -59,7 +66,7 @@ backend/scripts/
 frontend/
   Vue/Vite cortical cache and stimulus viewer.
 
-docs/, reports/, benchmarks/, outputs/
+docs/, benchmarks/, outputs/
   Current evidence summaries, benchmark reports, and small tracked result artifacts.
 ```
 
@@ -82,6 +89,14 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 ```
 
 This external root contains model weights, Hugging Face caches, raw/processed datasets, TRIBE caches, benchmark caches, and large generated outputs.
+
+The frozen raw-representation tensor payloads live outside git at:
+
+```text
+${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1/
+```
+
+Tracked lightweight summaries for that export live at `outputs/veatic_124_raw_representation_tensor_export_v1/`.
 
 See [docs/external_assets_manifest.md](docs/external_assets_manifest.md).
 
@@ -166,8 +181,8 @@ The active post-v2 roadmap is in [ROADMAP.md](ROADMAP.md). The short version is:
 
 1. Freeze and package the v2 evidence bundle.
 2. Surface the already-strict v2 benchmark rules as a named contract and verifier.
-3. Freeze the v2 training tensor contract for future model heads.
-4. Build next model heads on the proven cortical/TRIBE signal.
+3. Use the frozen raw-representation tensor contract for future model heads.
+4. Build next model heads on `pca_sequence_128_causal_past_2s_mean`, with `cortical_pca64_delta` retained as the baseline comparator.
 5. Productize the evidence verifier and dashboard workflow.
 
 ## Root Files

@@ -11,6 +11,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -34,10 +35,15 @@ from backend.app.services.cortical_roi_mapper import (  # noqa: E402
 from backend.scripts import run_veatic_raw_representation_audit as audit  # noqa: E402
 
 
+SOURCE_AUDIT_NAME = "veatic_124_raw_representation_audit_primary_20260620_152411"
+EXTERNAL_ROOT_VALUE = os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT")
+EXTERNAL_ROOT = Path(EXTERNAL_ROOT_VALUE).expanduser() if EXTERNAL_ROOT_VALUE else ROOT / ".missing_external_root"
 SOURCE_AUDIT_DIR = Path(
-    "/Volumes/onn. Drive/Neural Bridge/outputs/"
-    "veatic_124_raw_representation_audit_primary_20260620_152411"
-)
+    os.environ.get(
+        "VEATIC_RAW_REPRESENTATION_AUDIT_DIR",
+        str(EXTERNAL_ROOT / "outputs" / SOURCE_AUDIT_NAME),
+    )
+).expanduser()
 TRACKED_AUDIT_DIR = ROOT / "outputs" / SOURCE_AUDIT_DIR.name
 BUNDLE_NAME = "veatic_raw_representation_review_bundle_20260620_v2"
 BUNDLE_DIR = ROOT / BUNDLE_NAME
@@ -110,7 +116,7 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
         if not fieldnames:
             handle.write("\n")
             return
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         for row in rows:
             writer.writerow(row)
@@ -576,6 +582,10 @@ def validate_zip(zip_path: Path) -> bool:
 
 def main() -> int:
     start = time.monotonic()
+    if not EXTERNAL_ROOT_VALUE and "VEATIC_RAW_REPRESENTATION_AUDIT_DIR" not in os.environ:
+        raise RuntimeError(
+            "Set NEURAL_BRIDGE_EXTERNAL_ROOT or VEATIC_RAW_REPRESENTATION_AUDIT_DIR before exporting the metadata bundle."
+        )
     if not SOURCE_AUDIT_DIR.exists():
         raise FileNotFoundError(SOURCE_AUDIT_DIR)
     if not CHECKPOINT_STATE.exists():
