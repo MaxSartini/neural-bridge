@@ -8,7 +8,7 @@ VEATIC-124 v2 proves specific Neural Bridge hypotheses for arousal event/spike r
 
 The claim remains bounded: this is event/spike ranking and temporal-context evidence from a mostly visual/video cache, not exact continuous arousal-value prediction, a finished downstream product model, or proof that full text+audio+video TRIBE has been evaluated.
 
-After the v2 evidence freeze, a raw cortical representation audit and tensor export were completed without re-encoding videos. These do not replace the v2 claim; they define the next model-head input contract on top of it.
+After the v2 evidence freeze, a raw cortical representation audit, tensor export, and MPS trained-head benchmark were completed without re-encoding videos. These do not replace the v2 claim; they define and test the post-v2 model-head layer on top of it.
 
 ## Proven Or Supported Hypotheses
 
@@ -33,7 +33,7 @@ After the v2 evidence freeze, a raw cortical representation audit and tensor exp
 ## Post-v2 Raw Representation And Tensor Export
 
 - Frozen baseline retained: `cortical_pca64_delta`.
-- Best next learned-head input: `pca_sequence_128_causal_past_2s_mean`.
+- Primary trained-head input: `pca_sequence_128_causal_past_2s_mean`.
 - Important side candidate: `roi_parcel_features`.
 - Supervised/cautionary candidate: `topk_vertices_512`.
 - Raw uncompressed ridge: valid, but not the best next build target.
@@ -45,6 +45,15 @@ After the v2 evidence freeze, a raw cortical representation audit and tensor exp
 - PCA cache reuse: `14` reused, `0` rebuilt.
 - Video `83` was included in all-video tensor contracts; exclude-video-83 tensor sensitivity was skipped.
 
+## Post-v2 Trained Heads
+
+- Implemented runner: `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py`.
+- Core implementation: `backend/scripts/veatic_frozen_tensor_adapter.py` and `backend/scripts/veatic_frozen_tensor_trained_heads.py`.
+- Backend policy: MPS required; CPU sklearn fallback is refused.
+- Freshness policy: same-row AR and controls are recomputed in-run; prior benchmark result rows are not reused.
+- Completed run handle: `outputs/veatic_124_frozen_tensor_trained_heads_mps_20260620_full_lightweight.zip`.
+- Result framing: `AR_plus_PCA128` and `residualized_AR_plus_PCA128` passed grouped spike incremental gates against AR, controls, and PCA64-delta incremental lanes; `PCA128_only` did not stably beat AR.
+
 ## Boundaries
 
 - Continuous future-change MAE remains diagnostic only.
@@ -54,6 +63,7 @@ After the v2 evidence freeze, a raw cortical representation audit and tensor exp
 - Downstream product-model work is outside the current v2 evidence bundle.
 - Full multimodal TRIBE remains a high-priority pilot, not part of the frozen v2 claim yet. The guarded `83,84` pilot reaches audio/text event preparation but is blocked until the gated `meta-llama/Llama-3.2-3B` text encoder is locally available or authorized.
 - Do not use a full VEATIC-124 re-encode as the next multimodal step: only videos `83` and `84` contain audio streams.
+- AGAIN sparse-teacher work is implemented but not part of the VEATIC v2 claim. The current 50-video pilot failed hybrid sparse PCA128 promotion gates and should not be presented as full-AGAIN validation.
 
 ## Source Reports
 
@@ -67,3 +77,5 @@ After the v2 evidence freeze, a raw cortical representation audit and tensor exp
 - `benchmarks/veatic/veatic_124_alignment_causal_window_audit.md`
 - `docs/veatic_raw_representation_audit.md`
 - `outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md`
+- `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py`
+- `reports/again_sparse_tribe_teacher_500_results_20260622_005732.md`

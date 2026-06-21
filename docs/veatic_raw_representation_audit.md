@@ -15,6 +15,8 @@ uv run python scripts/run_veatic_raw_representation_audit.py \
 
 This audit used existing cached TRIBE v2 raw cortical predictions only. No video re-encoding was performed and the frozen VEATIC v2 evidence bundle was not replaced.
 
+Post-audit status: the tensor export and first MPS trained-head benchmark have both been implemented. Do not treat this document as saying learned heads still need to be created from scratch; use `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py` for post-v2 trained-head work.
+
 ## Run Status
 
 - Mode: `primary-audit`
@@ -117,11 +119,11 @@ Yes on grouped event targets. `pca_sequence_128_causal_past_2s_mean` beat `corti
 
 7. Which representation should become the next tensor contract?
 
-Retain `cortical_pca64_delta` as the frozen v2 baseline comparator. The post-audit v1 tensor export materializes `pca_sequence_128_causal_past_2s_mean` as the next learned-head input, plus `roi_parcel_features` as a compact future-change branch and `topk_vertices_512` as supervised/cautionary.
+Retain `cortical_pca64_delta` as the frozen v2 baseline comparator. The post-audit v1 tensor export materializes `pca_sequence_128_causal_past_2s_mean` as the primary trained-head input, plus `roi_parcel_features` as a compact future-change branch and `topk_vertices_512` as supervised/cautionary.
 
 8. Should the next learned head build on raw current, PCA128 sequence, PCA256 sequence, PLS, top-k, or PCA64-delta?
 
-Use `pca_sequence_128_causal_past_2s_mean` as the primary learned-head input. Keep `cortical_pca64_delta` as the baseline comparator. Include `roi_parcel_features` for future-change tasks. Keep `topk_vertices_512` as exploratory. Do not prioritize raw current, PCA256 sequence, or PLS from this run.
+Use `pca_sequence_128_causal_past_2s_mean` as the primary learned-head input. Keep `cortical_pca64_delta` as the baseline comparator. Include `roi_parcel_features` for future-change tasks. Keep `topk_vertices_512` as exploratory. Do not prioritize raw current, PCA256 sequence, or PLS from this run. The first MPS trained-head benchmark for this tensor contract is already implemented; extend that runner rather than creating a parallel benchmark path.
 
 9. Does excluding video 83 change the conclusion?
 
@@ -140,6 +142,7 @@ The promoted event sequence and ROI results beat timestamp and video-time contro
 - Raw uncompressed useful: no, not as the next primary path
 - Current benchmark underfed signal: yes for event ranking, but through causal 128 sequence/ROI structure rather than raw width
 - Re-encoding needed yet: no
+- Trained-head runner implemented: yes, under `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py`
 
 ## Key Artifacts
 

@@ -47,6 +47,10 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 - `<external-assets-root>/models/tribe/` - official TRIBE checkpoint.
 - `<external-assets-root>/models/tribe-mlx/` - TRIBE-MLX head.
 - `<external-assets-root>/models/cortical-upstream/` - V-JEPA2 video encoder weights.
+- `<external-assets-root>/models/vjepa21_mlx/vitg/` - converted V-JEPA 2.1 ViT-g MLX weights used by the implemented TRIBE adapter path.
+- `<external-assets-root>/models/vjepa21_mlx/scout/` and `<external-assets-root>/models/vjepa21-pytorch/` - V-JEPA 2.1 scout/checkpoint inputs used by AGAIN scout tooling when present.
+- `<external-assets-root>/datasets/again/` or `<external-assets-root>/data/external/AGAIN/cleaned/` - cleaned AGAIN source videos and annotations for scaling pilots, depending on local layout.
+- `<external-assets-root>/benchmarks/again/` - AGAIN scout, native-grid, and sparse-teacher external caches.
 - `<external-assets-root>/models/upstream-encoders/facebook-w2v-bert-2.0/` - downloaded audio encoder for multimodal pilots.
 - `<external-assets-root>/models/upstream-encoders/meta-llama-Llama-3.2-3B/` - expected gated text encoder path; currently a placeholder unless populated with authorized Llama assets.
 - `<external-assets-root>/models/upstream-encoders-mlx/` - MLX upstream encoder weights.
@@ -54,4 +58,4 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 
 ## Policy
 
-Do not copy heavyweight model weights, raw videos, generated scratch outputs, tensor payloads, or cache directories into the repo. Keep curated lightweight v2 reports and tensor-export summaries in git, keep heavy raw/cache/tensor artifacts external, and add a manifest entry plus verifier coverage instead.
+Do not copy heavyweight model weights, raw videos, generated scratch outputs, tensor payloads, or cache directories into the repo. Keep curated lightweight v2 reports, tensor-export summaries, trained-head reports, and bounded AGAIN pilot reports in git; keep heavy raw/cache/tensor artifacts external and add manifest/verifier coverage instead.

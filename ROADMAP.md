@@ -1,6 +1,6 @@
 # Neural Bridge Roadmap
 
-This is the post-VEATIC-124 v2 roadmap. VEATIC proved the core video-dominant cortical/TRIBE hypothesis for arousal event/spike ranking. The roadmap now focuses on preserving the strict benchmark suite that produced that evidence, auditing modality coverage, freezing the future training data interface, and building better heads on top of the proven signal.
+This is the post-VEATIC-124 v2 roadmap. VEATIC proved the core video-dominant cortical/TRIBE hypothesis for arousal event/spike ranking. The roadmap now focuses on preserving the strict benchmark suite that produced that evidence, maintaining the frozen tensor and trained-head benchmark layers, and using V-JEPA 2.1 / AGAIN sparse-teacher work as bounded scaling evidence rather than as a replacement baseline.
 
 ## Proven Baseline
 
@@ -19,8 +19,11 @@ Completed:
 - Legacy app-era code, redundant atlas data, and stale frontend scaffolding have been removed from the active repo.
 - Root config/package files now describe only the current VEATIC/TRIBE workspace.
 - The strict suite now audits modality coverage so video-only and full multimodal caches cannot be confused.
-- The raw cortical representation audit is complete and keeps `cortical_pca64_delta` as the frozen baseline while promoting `pca_sequence_128_causal_past_2s_mean` as the next learned-head input.
+- The raw cortical representation audit is complete and keeps `cortical_pca64_delta` as the frozen baseline while promoting `pca_sequence_128_causal_past_2s_mean` as the primary trained-head input.
 - The v1 model-ready tensor contract is frozen externally with lightweight tracked summaries and verification.
+- The frozen-tensor trained-head benchmark is implemented in `backend/scripts/veatic_frozen_tensor_trained_heads.py` with `run_veatic_frozen_tensor_trained_heads_benchmark.py`; it uses MPS, fresh same-row AR, fresh controls, grouped gates, and no prior result-row reuse.
+- V-JEPA 2.1 MLX support is implemented in `backend/app/services/mlx_vjepa21_cortical.py` and integrated through `TribeAdapter` when converted weights declare `tensor_layout=vjepa2_1_mlx_port`.
+- AGAIN boundary, scout, full-AR-context, and 500-window sparse-teacher tooling is implemented. The current tracked AGAIN sparse teacher result is a bounded 50-video pilot that failed hybrid sparse PCA128 promotion gates.
 
 This is the current scientific foundation, not a hypothesis waiting for another dataset to validate it.
 
@@ -52,7 +55,7 @@ Goal: surface and preserve the exact rules already enforced by the v2 benchmark 
 
 ## 3. v2 Training Tensor Contract
 
-Goal: freeze the exact model-input interface that future heads consume, separate from the already-strict scoring suite.
+Goal: freeze the exact model-input interface that heads consume, separate from the already-strict scoring suite.
 
 - [x] Audit raw cortical representation families without re-encoding videos.
 - [x] Retain `cortical_pca64_delta` as the frozen v2 baseline comparator.
@@ -61,32 +64,44 @@ Goal: freeze the exact model-input interface that future heads consume, separate
 - [x] Store immutable training tensors externally under `${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1`.
 - [x] Track lightweight tensor summaries under `outputs/veatic_124_raw_representation_tensor_export_v1`.
 - [x] Add representation contract tests that fail on leakage-prone transforms.
-- [ ] Build a minimal learned head on `pca_sequence_128_causal_past_2s_mean` before adding recursive or larger architectures.
+- [x] Build simple trained-head runners on `pca_sequence_128_causal_past_2s_mean` before adding recursive or larger architectures.
 
-## 4. Next Model Heads
+## 4. Frozen-Tensor Model Heads
 
-Goal: improve event/spike ranking from the v2 baseline without weakening controls.
+Goal: maintain and extend the implemented model-head layer without weakening controls.
 
-- [ ] Start with simple, auditable heads over `pca_sequence_128_causal_past_2s_mean`.
-- [ ] Compare against the v2 PCA/ridge baseline, AR, shuffled, random, timestamp, and video/time controls.
-- [ ] Keep grouped-video and blocked validation as required gates.
-- [ ] Keep `roi_parcel_features` as an unsupervised side candidate and `topk_vertices_512` as a supervised/cautionary comparison.
+- [x] Start with simple, auditable heads over `pca_sequence_128_causal_past_2s_mean`.
+- [x] Compare against the v2 PCA/ridge baseline, fresh same-row AR, shuffled/random controls, and PCA64-delta incremental lanes.
+- [x] Keep grouped-video and blocked validation as required gates.
+- [x] Keep `roi_parcel_features` as an unsupervised side candidate and `topk_vertices_512` as a supervised/cautionary comparison.
 - [ ] Only promote recursive heads after simple heads define the floor.
 - [ ] Keep CUDA-only HRM-style dependencies out of the main Mac/MPS environment unless isolated.
+- [ ] If the PCA128 sparse-sample concern is being tested, add a cache-only smaller-width PCA lane (`8/16/32/64`, selected by train/inner validation only) rather than rerunning ViT-G forwards.
 
-## 5. Productized Evidence Workflow
+## 5. V-JEPA 2.1 And AGAIN Scaling
+
+Goal: keep the scaling path reusable while preventing it from being mistaken for proven AGAIN generalization.
+
+- [x] Add V-JEPA 2.1 ViT-g MLX model loading, preprocessing, RoPE attention, and TRIBE-compatible selected hidden-state output.
+- [x] Add ffmpeg/VideoToolbox frame sampling, per-window checkpointing, worker claims, resume guards, and protected VEATIC-cache write refusal.
+- [x] Add AGAIN cleaned-dataset audits, boundary-aligned 1Hz manifests, scout selector validation, full-AGAIN AR-only context baseline, and sparse teacher queue/runtime/result reports.
+- [x] Run the bounded 50-video / 480-window sparse teacher pilot and record that hybrid sparse PCA128 failed its promotion gates.
+- [ ] Do not scale to 1000/2000 sparse teacher windows unless a cache-only follow-up beats AR plus telemetry/scout baselines and coverage-matched random.
+
+## 6. Productized Evidence Workflow
 
 Goal: make a fresh session or teammate able to inspect, verify, and extend the proven result without archaeology.
 
 - [x] Add a status check for external assets, VEATIC cache, model paths, and tracked evidence artifacts.
-- [ ] Add a compact benchmark dashboard or CLI summary for the v2 baseline.
+- [x] Add compact CLI/report summaries for frozen tensor trained-head and AGAIN sparse-teacher runs.
+- [ ] Add a compact dashboard for the v2 baseline and post-v2 head summaries.
 - [x] Add a one-command evidence verifier for the tracked reports and external artifact snapshot.
 - [x] Add a verified lightweight tensor-export summary for the external v1 tensor contract.
 - [ ] Remove or archive stale run folders once their useful evidence is preserved.
 - [ ] Keep machine-specific paths only in local `.env` files.
 - [ ] Keep generated heavy outputs out of git.
 
-## 6. Repository Hygiene
+## 7. Repository Hygiene
 
 Goal: keep fresh sessions focused on the current Neural Bridge system.
 

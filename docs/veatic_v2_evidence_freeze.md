@@ -6,7 +6,7 @@ This is the reproducibility contract for the current Neural Bridge baseline.
 
 The frozen bundle covers VEATIC-124 v2 video-dominant cortical/TRIBE evidence for arousal event and spike ranking. It does not claim exact continuous arousal forecasting, a finished downstream product model, or a proven full text+audio+video multimodal cache.
 
-The later raw-representation tensor export builds on this evidence freeze. It does not mutate the frozen v2 evidence snapshot or replace the `cortical_pca64_delta` baseline.
+The later raw-representation tensor export and trained-head benchmark build on this evidence freeze. They do not mutate the frozen v2 evidence snapshot or replace the `cortical_pca64_delta` baseline.
 
 ## Authoritative Bundle
 
@@ -73,6 +73,7 @@ Keep in git:
 - evidence docs and manifest files;
 - scripts needed to verify or reproduce the bundle from existing caches.
 - lightweight raw-representation and tensor-export summaries, manifests, and row-metadata samples.
+- lightweight post-v2 trained-head and sparse-teacher reports when they document current bounded follow-up results.
 
 Keep external:
 
@@ -102,3 +103,13 @@ outputs/veatic_124_raw_representation_tensor_export_v1
 ```
 
 It exports `pca_sequence_128_causal_past_2s_mean`, `roi_parcel_features`, `topk_vertices_512`, and `cortical_pca64_delta_frozen_baseline` across `blocked`, `official`, and `grouped_0..4` splits for the three primary targets. Verification passed with `84` tensor contracts, `420` `.npy` tensor files, `14` PCA cache entries reused, and `0` PCA cache rebuilds.
+
+## Post-freeze Trained-Head Layer
+
+The trained-head layer is implemented separately from the frozen v2 evidence bundle:
+
+```bash
+python3 backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py
+```
+
+It reuses the frozen tensor contract, recomputes same-row AR and controls fresh, requires MPS, and writes lightweight result summaries while keeping external tensor payloads out of git. Treat it as post-v2 follow-up evidence, not as a new frozen VEATIC v2 snapshot.

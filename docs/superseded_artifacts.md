@@ -31,6 +31,18 @@ Reason: these files document or reproduce the current v2 claim.
 
 Reason: these files freeze the next model-head input contract without replacing the v2 evidence baseline. The heavy `.npy` tensors remain external; lightweight summaries, manifests, and samples are safe to retain in git.
 
+## Retained As Current Post-v2 Implementations
+
+- Code: `backend/scripts/veatic_frozen_tensor_adapter.py`
+- Code: `backend/scripts/veatic_frozen_tensor_trained_heads.py`
+- Code: `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py`
+- Code: `backend/app/services/mlx_vjepa21_cortical.py`
+- Code: `backend/scripts/again_*`
+- Code: `tools/run_again_*`, `tools/probe_*vjepa21*`, and `tools/audit_again_*`
+- Reports: `reports/again_*20260622_005732.md` and `reports/again_full_ar_context_20260622_005713.md`
+
+Reason: these are current source and lightweight summaries for the implemented trained-head and AGAIN/V-JEPA 2.1 scaling paths. They are not stale transition artifacts.
+
 ## Retained As Non-Authoritative External Context
 
 These may exist under the external assets root, but they are not the frozen v2 baseline:
@@ -38,6 +50,7 @@ These may exist under the external assets root, but they are not the frozen v2 b
 - `benchmarks/veatic/tribe_cache_mlx`: MLX hotswap/parity archaeology.
 - `benchmarks/veatic/tribe_cache_multimodal_pilot`: guarded `83,84` multimodal pilot context.
 - `benchmarks/veatic/tribe_smoke`: local smoke-test residue if present.
+- older timestamped AGAIN pilot reports not tracked in git after the `20260622_005732` summaries were retained.
 
 Reason: they may help debug future work, but they must not be used as headline evidence.
 

@@ -38,6 +38,7 @@ Required for full neural workflows:
 
 - TRIBE/MLX assets under the configured external assets root.
 - V-JEPA2/encoder assets under the configured external model paths.
+- Converted V-JEPA 2.1 MLX assets under the configured external root when using the `MlxVjepa21Video` TRIBE path.
 - Apple Metal/MPS-capable PyTorch for Torch-based encoder code.
 
 ## Python Dependencies
@@ -64,6 +65,8 @@ Main dependency groups:
 - The TRIBE/neuralset/exca trio is pinned in `backend/requirements.txt` because the released TRIBE config is schema-sensitive.
 - Uncached multimodal pilots also need `moviepy`, `soundfile`, `mlx-whisper`, and `x-transformers`.
 - Raw representation audit/tensor export helpers additionally rely on `nibabel`, `nilearn`, `scipy`, and `scikit-learn` for ROI atlas loading, PCA metadata, and leakage-safe representation checks.
+- Frozen tensor trained-head helpers require `torch` with MPS available and refuse CPU fallback.
+- AGAIN sparse-teacher utilities use `ffmpeg`/`ffprobe` and OpenCV (`cv2`) for dataset and boundary audits.
 
 Install path:
 
@@ -117,6 +120,11 @@ Important values for current work:
 - `TRIBE_CACHE_DIR`
 - `TRIBE_MLX_DIR`
 - `TRIBE_VIDEO_ENCODER_MLX_DIR`
+- `TRIBE_VJEPA21_IMAGE_SIZE`
+- `TRIBE_VIDEO_FRAME_SAMPLER`
+- `TRIBE_VIDEO_WINDOW_BATCH_SIZE`
+- `TRIBE_MLX_CLEAR_CACHE_EACH_WINDOW`
+- `TRIBE_MLX_CLEAR_CACHE_EACH_VIDEO`
 - `TRIBE_APPLE_SILICON_SOURCE_DIR`
 - `HF_HOME`
 - `TMPDIR`
@@ -136,6 +144,12 @@ Current pilot status:
 - The guarded VEATIC `83,84` pilot reaches audio extraction, word extraction, Text/Sentence creation, and text feature preparation.
 - It is currently blocked at text encoder loading because `meta-llama/Llama-3.2-3B` is gated and the local SSD directory is only a placeholder.
 - Do not re-encode all 124 VEATIC videos for multimodal coverage: only videos `83` and `84` contain audio streams.
+
+V-JEPA 2.1 and AGAIN status:
+
+- `MlxVjepa21Video` is implemented and selected when `TRIBE_VIDEO_ENCODER_MLX_DIR/config.json` declares `tensor_layout=vjepa2_1_mlx_port`.
+- `backend/scripts/run_veatic_tribe_cache.py` includes worker claims, resume status, per-window checkpoints, ffmpeg frame sampling, and protected-cache write refusal for MLX/V-JEPA outputs.
+- AGAIN boundary, scout, AR-context, and sparse teacher tooling is implemented. The current 50-video sparse teacher pilot failed its hybrid sparse PCA128 promotion gates; do not treat it as full-AGAIN proof.
 
 ## Tracked Versus External Assets
 
@@ -167,6 +181,12 @@ Current real test suite:
 
 ```bash
 python3 -m pytest -q tests/test_veatic_raw_representation_contract.py tests/test_veatic_strict_benchmark_contract.py tests/test_grouped_video_split.py
+```
+
+Focused implemented-path tests:
+
+```bash
+python3 -m pytest -q tests/test_mlx_vjepa21_cortical.py tests/test_veatic_tribe_cache_runtime.py tests/test_veatic_frozen_tensor_adapter.py tests/test_veatic_frozen_tensor_trained_heads.py tests/test_again_boundary_manifest.py tests/test_again_full_ar_context.py tests/test_again_native_temporal_alignment.py tests/test_again_real_scout_selector_validation.py tests/test_again_scout_sparse_pipeline.py tests/test_again_sparse_tribe_teacher_500.py
 ```
 
 Frontend build:
@@ -201,6 +221,18 @@ python3 tools/export_veatic_raw_representation_tensors.py
 
 That command reads existing TRIBE raw cortical cache and PCA fit-cache payloads; it does not re-encode videos or rerun the full representation audit.
 
+Run trained heads only when intentionally refreshing the post-v2 trained-head benchmark:
+
+```bash
+python3 backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py
+```
+
+Run AGAIN sparse-teacher work only as a bounded scaling experiment:
+
+```bash
+python3 tools/run_again_sparse_tribe_teacher_500.py
+```
+
 ## Current Evidence Entry Points
 
 Fresh sessions should read these first:
@@ -214,5 +246,7 @@ Fresh sessions should read these first:
 - `benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md`
 - `docs/veatic_raw_representation_audit.md`
 - `outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md`
+- `reports/again_sparse_tribe_teacher_500_results_20260622_005732.md`
+- `reports/again_full_ar_context_20260622_005713.md`
 
 Do not use removed historical docs or deleted benchmark scaffolding as active requirements.

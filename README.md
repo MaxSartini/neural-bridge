@@ -13,7 +13,11 @@ The VEATIC-124 v2 evidence bundle validates these hypotheses:
 5. A single 0s feature snapshot can underfeed the bridge head for spike/event tasks.
 6. The alignment audit resolved the benchmark policy: keep current 0s alignment as the primary non-leaky benchmark and report offset grids as diagnostics, not as a test-derived correction.
 
-Post-v2 raw-representation work has now frozen model-ready tensors for the next head-training step without re-encoding videos. The frozen baseline remains `cortical_pca64_delta`; the best next learned-head input is `pca_sequence_128_causal_past_2s_mean`; `roi_parcel_features` is an important unsupervised side candidate; and `topk_vertices_512` is exported as a supervised/cautionary comparison.
+Post-v2 raw-representation work has frozen model-ready tensors without re-encoding videos. The frozen baseline remains `cortical_pca64_delta`; the primary learned-head input is `pca_sequence_128_causal_past_2s_mean`; `roi_parcel_features` is an important unsupervised side candidate; and `topk_vertices_512` is exported as a supervised/cautionary comparison.
+
+The first frozen-tensor trained-head runner is implemented and MPS-backed. It recomputes same-row AR and controls fresh, compares PCA128 lanes against the frozen PCA64-delta baseline, and records gate checks for `AR_plus_PCA128`, `residualized_AR_plus_PCA128`, and controls. This is a post-v2 model-head benchmark layer; it does not replace the frozen VEATIC-124 v2 evidence bundle.
+
+V-JEPA 2.1 MLX support and AGAIN sparse-teacher tooling are also implemented. The current AGAIN 50-video sparse teacher pilot is bounded and negative for the hybrid sparse PCA128 lane: it is useful scaling evidence, not final AGAIN proof.
 
 The current claim is intentionally precise: Neural Bridge has evidence for arousal event/spike ranking and temporal-context sufficiency from a mostly visual/video TRIBE cache, not exact continuous arousal-value prediction, a finished downstream product model, or a proven full text+audio+video multimodal cache.
 
@@ -32,6 +36,8 @@ The current claim is intentionally precise: Neural Bridge has evidence for arous
 - Alignment repair: no safe global lag correction was selected; the final non-leaky policy is `keep_current_0s_as_primary_plus_report_offset_diagnostics`.
 - Raw representation audit: `pca_sequence_128_causal_past_2s_mean` beat same-run grouped `cortical_pca64_delta` on primary spike targets by about `+0.039` to `+0.041` PR-AUC, while raw uncompressed ridge was valid but not the best next build target.
 - Tensor export v1: `84` representation/split/target contracts and `420` `.npy` tensors were written under the external tensor root with verification `pass`; PCA fit-cache payloads were reused and none were rebuilt.
+- Frozen-tensor trained heads: `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py` runs simple MPS-backed heads over the frozen tensor contract. The delivered full run used fresh same-row AR and controls; `AR_plus_PCA128` and `residualized_AR_plus_PCA128` beat `AR_only` and canonical shuffled/random controls across grouped spike gates, while `PCA128_only` did not stably beat AR.
+- V-JEPA 2.1 / AGAIN scaling: `backend/app/services/mlx_vjepa21_cortical.py` and the AGAIN sparse-teacher scripts are implemented. The 50-video sparse teacher report records 480 completed windows and failed promotion gates for the hybrid sparse PCA128 lane.
 
 Source summaries:
 
@@ -51,17 +57,18 @@ Source summaries:
 
 - Exact continuous future arousal-value forecasting. Continuous MAE remains diagnostic because zero-change baselines still win most continuous checks.
 - Strong universal early-warning claims. The alignment pass supports 0s primary scoring plus transparent offset diagnostics, not a global lag correction.
-- New model heads still need to improve over the v2 baseline without weakening the controls.
+- The first trained-head layer exists and shows incremental VEATIC spike-ranking signal for AR-plus-PCA128 lanes, but this is still a benchmark layer, not a finished product model or recursive architecture.
+- AGAIN generalization remains unproven. The current sparse teacher pilot is a bounded 50-video result and failed its hybrid sparse PCA128 promotion gates.
 - The exported `topk_vertices_512` tensors are supervised feature-selection artifacts and should remain cautionary unless confirmed in a locked rerun.
 
 ## System Shape
 
 ```text
 backend/app/
-  Flask neuro-viewer API plus TRIBE/MLX service adapters.
+  Flask neuro-viewer API plus TRIBE/MLX service adapters, including V-JEPA 2.1 MLX video support.
 
 backend/scripts/
-  VEATIC/TRIBE extraction plus the consolidated strict VEATIC benchmark suite.
+  VEATIC/TRIBE extraction, frozen-tensor trained-head benchmarks, AGAIN sparse-teacher tooling, and the consolidated strict VEATIC benchmark suite.
 
 frontend/
   Vue/Vite cortical cache and stimulus viewer.
@@ -166,6 +173,18 @@ Do not re-encode all 124 VEATIC videos for multimodal coverage. Only videos `83`
 
 The current v2 evidence should be described as visual/video cortical TRIBE unless a new cache passes full text+audio+video coverage checks.
 
+## Post-v2 Benchmarks
+
+Run the frozen tensor trained-head benchmark only when intentionally refreshing post-v2 head results:
+
+```bash
+python3 backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py
+```
+
+This runner requires MPS, reuses frozen external tensors, recomputes same-row AR and controls, and refuses CPU sklearn fallback. It is the implemented learned-head benchmark layer for `pca_sequence_128_causal_past_2s_mean`; do not rebuild it from old report CSVs.
+
+AGAIN sparse-teacher tooling is implemented under `backend/scripts/again_*` and `tools/run_again_*`. The tracked reports in `reports/again_*20260622_005732.md` are the current lightweight summaries. Treat them as a bounded 50-video pilot that failed promotion gates, not as full-AGAIN proof.
+
 ## Guardrails
 
 - Keep train-only thresholding, train-only PCA, grouped-video validation, and blocked validation intact.
@@ -181,9 +200,9 @@ The active post-v2 roadmap is in [ROADMAP.md](ROADMAP.md). The short version is:
 
 1. Freeze and package the v2 evidence bundle.
 2. Surface the already-strict v2 benchmark rules as a named contract and verifier.
-3. Use the frozen raw-representation tensor contract for future model heads.
-4. Build next model heads on `pca_sequence_128_causal_past_2s_mean`, with `cortical_pca64_delta` retained as the baseline comparator.
-5. Productize the evidence verifier and dashboard workflow.
+3. Use the frozen raw-representation tensor contract for model heads.
+4. Maintain and extend the implemented MPS trained-head benchmark on `pca_sequence_128_causal_past_2s_mean`, with `cortical_pca64_delta` retained as the baseline comparator.
+5. Productize the evidence verifier, trained-head summaries, and dashboard workflow.
 
 ## Root Files
 
