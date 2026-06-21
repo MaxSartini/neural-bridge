@@ -94,5 +94,6 @@ mydoc/
 mytest/
 
 # Local agent/tooling caches
+.cache/
 .tools/
 .codebase-memory/

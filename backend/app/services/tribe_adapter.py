@@ -118,6 +118,9 @@ class TribeAdapter:
         except Exception as exc:
             logger.exception(f"TRIBE-MLX prediction failed: {exc}")
             return {"success": False, "backend": "tribe_mlx", "error": str(exc)}
+        finally:
+            if Config.TRIBE_MLX_CLEAR_CACHE_EACH_VIDEO:
+                self._clear_mlx_runtime_cache("after TRIBE-MLX video prediction")
 
     def _extract_features_and_predict_mlx(
         self,
@@ -150,6 +153,8 @@ class TribeAdapter:
                 events = model.get_events_dataframe(**{
                     "video_path" if stimulus_type == "video" else "audio_path": media_path
                 })
+                if stimulus_type == "video" and Config.TRIBE_COALESCE_DIRECT_VIDEO_CHUNKS:
+                    events = self._coalesce_direct_video_chunks(events, media_path)
             else:
                 raise ValueError(f"No media_path supplied for {stimulus_type} stimulus.")
             events = self._repair_text_context(events)
@@ -245,6 +250,8 @@ class TribeAdapter:
                 return {"success": False, "backend": backend, "error": f"No media_path supplied for {stimulus_type} stimulus."}
 
             events = model.get_events_dataframe(**event_kwargs)
+            if stimulus_type == "video" and media_path and Config.TRIBE_COALESCE_DIRECT_VIDEO_CHUNKS:
+                events = self._coalesce_direct_video_chunks(events, media_path)
             events = self._repair_text_context(events)
             self._last_event_quality = events.attrs.get("neural_bridge_quality", {})
             self._last_segment_quality = {}
@@ -286,6 +293,63 @@ class TribeAdapter:
         return "cpu"
 
     @staticmethod
+    def _coalesce_direct_video_chunks(events: Any, media_path: str) -> Any:
+        """Undo TRIBE's generic direct-video chunking for one local video.
+
+        The released TRIBE config chunks long videos into roughly minute-long
+        Video events. That is useful for generic training data, but for our
+        direct single-video inference path it causes the expensive V-JEPA
+        extractor to run once per chunk. Coalescing keeps one Video event whose
+        duration covers the original clip; the downstream 1Hz TRIBE segment
+        expansion still creates the same temporal rows.
+        """
+        try:
+            if len(events) <= 1 or "type" not in events:
+                return events
+            video_mask = events["type"].astype(str) == "Video"
+            if int(video_mask.sum()) != len(events):
+                return events
+            paths = {str(value) for value in events.get("filepath", [])}
+            if len(paths) > 1:
+                return events
+            if paths and str(media_path) not in paths:
+                return events
+            starts = events["start"].astype(float).to_numpy()
+            stops = events["stop"].astype(float).to_numpy() if "stop" in events else starts + events["duration"].astype(float).to_numpy()
+            order = np.argsort(starts)
+            starts = starts[order]
+            stops = stops[order]
+            if abs(float(starts[0])) > 1e-6:
+                return events
+            if np.any(np.diff(starts) < -1e-6):
+                return events
+            if len(starts) > 1 and np.any(np.abs(starts[1:] - stops[:-1]) > 0.25):
+                return events
+            row = events.iloc[int(order[0])].copy()
+            row["start"] = 0.0
+            row["offset"] = 0.0
+            row["duration"] = float(np.max(stops))
+            row["stop"] = float(np.max(stops))
+            coalesced = events.iloc[[int(order[0])]].copy()
+            coalesced.loc[coalesced.index[0], :] = row
+            coalesced.attrs.update(getattr(events, "attrs", {}))
+            coalesced.attrs["neural_bridge_video_chunks_coalesced"] = {
+                "original_video_event_count": int(len(events)),
+                "coalesced_video_event_count": 1,
+                "media_path": str(media_path),
+                "duration_seconds": float(np.max(stops)),
+            }
+            logger.info(
+                "Coalesced %d direct Video chunks into one event for %s",
+                len(events),
+                media_path,
+            )
+            return coalesced
+        except Exception as exc:  # noqa: BLE001 - fallback must preserve inference
+            logger.warning("Unable to coalesce direct video chunks; keeping original events: %s", exc)
+            return events
+
+    @staticmethod
     def _enable_local_huggingface_model_paths() -> None:
         """Allow neuralset extractors to use verified local offline model dirs."""
         from neuralset.extractors.base import HuggingFaceMixin
@@ -317,7 +381,7 @@ class TribeAdapter:
         video_encoder = self._encoder_source(Config.TRIBE_VIDEO_ENCODER_LOCAL_DIR, Config.TRIBE_VIDEO_ENCODER_ID)
         video_encoder_backend = self._resolve_video_encoder_backend()
 
-        update["data.num_workers"] = 0
+        update["data.num_workers"] = Config.TRIBE_DATA_NUM_WORKERS
         update["data.batch_size"] = 1
         update["data.text_feature.batch_size"] = Config.TRIBE_TEXT_BATCH_SIZE
         if self._looks_like_transformers_model_dir(local_text_encoder):
@@ -334,17 +398,34 @@ class TribeAdapter:
         update["data.video_feature.image.model_name"] = video_encoder
         update["data.image_feature.image.model_name"] = video_encoder
         if video_encoder_backend == "mlx":
-            from .mlx_vjepa2_cortical import MlxVjepa2Video  # noqa: F401
+            mlx_weights_dir = self._resolve_path(Config.TRIBE_VIDEO_ENCODER_MLX_DIR)
+            tensor_layout = self._mlx_video_tensor_layout(mlx_weights_dir)
+            if tensor_layout == "vjepa2_1_mlx_port":
+                from .mlx_vjepa21_cortical import MlxVjepa21Video  # noqa: F401
 
-            update["data.video_feature.name"] = "MlxVjepa2Video"
-            update["data.video_feature.mlx_weights_dir"] = self._resolve_path(
-                Config.TRIBE_VIDEO_ENCODER_MLX_DIR
-            )
-            update["data.video_feature.processor_model_name"] = video_encoder
-            update["data.video_feature.cache_model_name"] = (
-                "mlx-vjepa2-vitg-fpc64-256-selected-hidden-states-v1"
-            )
+                update["data.video_feature.name"] = "MlxVjepa21Video"
+                update["data.video_feature.mlx_weights_dir"] = mlx_weights_dir
+                update["data.video_feature.image_size"] = Config.TRIBE_VJEPA21_IMAGE_SIZE
+                update["data.video_feature.compile_encoder"] = Config.TRIBE_VJEPA21_COMPILE_ENCODER
+                update["data.video_feature.cache_model_name"] = (
+                    f"mlx-vjepa21-vitg-384-image{Config.TRIBE_VJEPA21_IMAGE_SIZE}"
+                    "-selected-hidden-states-v1"
+                )
+            else:
+                from .mlx_vjepa2_cortical import MlxVjepa2Video  # noqa: F401
+
+                update["data.video_feature.name"] = "MlxVjepa2Video"
+                update["data.video_feature.mlx_weights_dir"] = mlx_weights_dir
+                update["data.video_feature.processor_model_name"] = video_encoder
+                update["data.video_feature.cache_model_name"] = (
+                    "mlx-vjepa2-vitg-fpc64-256-selected-hidden-states-v1"
+                )
         update["data.video_feature.num_frames"] = Config.TRIBE_VIDEO_NUM_FRAMES
+        update["data.video_feature.frame_sampler"] = Config.TRIBE_VIDEO_FRAME_SAMPLER
+        update["data.video_feature.clear_cache_each_window"] = Config.TRIBE_MLX_CLEAR_CACHE_EACH_WINDOW
+        update["data.video_feature.clear_cache_each_video"] = Config.TRIBE_MLX_CLEAR_CACHE_EACH_VIDEO
+        if Config.TRIBE_FEATURE_FREQUENCY_HZ is not None:
+            update["data.frequency"] = Config.TRIBE_FEATURE_FREQUENCY_HZ
         video_device = (Config.TRIBE_VIDEO_DEVICE or "auto").lower()
         if video_device == "auto":
             try:
@@ -367,6 +448,27 @@ class TribeAdapter:
         update["data.video_feature.image.device"] = video_device
         update["data.image_feature.image.device"] = video_device
         return update
+
+    @staticmethod
+    def _clear_mlx_runtime_cache(reason: str = "") -> None:
+        try:
+            import mlx.core as mx
+
+            mx.clear_cache()
+        except Exception as exc:  # noqa: BLE001 - cleanup must never mask inference errors
+            logger.debug("Unable to clear MLX runtime cache%s: %s", f" ({reason})" if reason else "", exc)
+        gc.collect()
+
+    def _mlx_video_tensor_layout(self, mlx_dir: str) -> str:
+        config_path = os.path.join(mlx_dir, "config.json")
+        if not os.path.exists(config_path):
+            return ""
+        try:
+            with open(config_path, "r", encoding="utf-8") as handle:
+                config = json.load(handle)
+            return str(config.get("tensor_layout", ""))
+        except (OSError, json.JSONDecodeError):
+            return ""
 
     def _resolve_video_encoder_backend(self) -> str:
         configured = (getattr(Config, "TRIBE_VIDEO_ENCODER_BACKEND", "auto") or "auto").lower()

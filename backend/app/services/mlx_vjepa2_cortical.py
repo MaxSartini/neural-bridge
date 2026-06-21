@@ -1,10 +1,12 @@
 """MLX V-JEPA2 ViT-G video extractor for TRIBE cortical features."""
 
 import hashlib
+import gc
 import json
 import logging
 import math
 import os
+import subprocess
 import typing as tp
 from dataclasses import dataclass
 from pathlib import Path
@@ -32,6 +34,7 @@ def _video_window_checkpoint(
     num_frames: int,
     frequency: float,
     clip_duration: float,
+    frame_sampler: str,
 ) -> tuple[Path, Path]:
     """Return stable local cache paths for resumable MLX video-window encoding."""
     cache_root = Path(
@@ -46,10 +49,84 @@ def _video_window_checkpoint(
         "num_frames": int(num_frames),
         "frequency": float(frequency),
         "clip_duration": float(clip_duration),
+        "frame_sampler": str(frame_sampler),
     }
     digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode("utf-8")).hexdigest()[:24]
     cache_root.mkdir(parents=True, exist_ok=True)
     return cache_root / f"{digest}.npy", cache_root / f"{digest}.progress.json"
+
+
+def _event_video_path(event: evts.Video) -> Path | None:
+    raw_path = getattr(event, "filepath", "") or getattr(event, "path", "")
+    if not raw_path:
+        try:
+            raw_path = event.study_relative_path()
+        except Exception:
+            raw_path = ""
+    if not raw_path:
+        return None
+    path = Path(str(raw_path)).expanduser()
+    return path if path.exists() else None
+
+
+def _ffmpeg_square_filter(image_size: int) -> str:
+    short_side = int(256.0 / 224.0 * image_size)
+    scale = (
+        f"scale='if(gt(iw,ih),-2,{short_side})':"
+        f"'if(gt(iw,ih),{short_side},-2)'"
+    )
+    return f"{scale},crop={image_size}:{image_size}"
+
+
+def _decode_video_grid_ffmpeg(
+    video_path: Path,
+    *,
+    fps: float,
+    image_size: int,
+) -> np.ndarray:
+    if fps <= 0:
+        raise ValueError(f"ffmpeg frame sampler requires positive fps, got {fps}")
+    vf = f"fps={fps:.8f},{_ffmpeg_square_filter(image_size)}"
+    cmd = [
+        "ffmpeg",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-nostdin",
+        "-hwaccel",
+        "videotoolbox",
+        "-i",
+        str(video_path),
+        "-an",
+        "-vf",
+        vf,
+        "-pix_fmt",
+        "rgb24",
+        "-f",
+        "rawvideo",
+        "pipe:1",
+    ]
+    proc = subprocess.run(cmd, check=False, capture_output=True)
+    if proc.returncode != 0:
+        stderr = proc.stderr.decode("utf-8", errors="replace")
+        raise RuntimeError(f"ffmpeg frame decode failed for {video_path}: {stderr.strip()}")
+    frame_bytes = image_size * image_size * 3
+    if len(proc.stdout) < frame_bytes:
+        raise RuntimeError(f"ffmpeg returned no complete frames for {video_path}")
+    if len(proc.stdout) % frame_bytes:
+        raise RuntimeError(
+            f"ffmpeg raw frame byte count is not divisible by frame size for {video_path}"
+        )
+    frame_count = len(proc.stdout) // frame_bytes
+    return np.frombuffer(proc.stdout, dtype=np.uint8).reshape(frame_count, image_size, image_size, 3).copy()
+
+
+def _sample_decoded_grid(frames: np.ndarray, *, fps: float, times: list[float]) -> np.ndarray:
+    if not len(frames):
+        raise ValueError("Cannot sample an empty decoded frame grid")
+    indices = np.rint(np.asarray(times, dtype=np.float64) * float(fps)).astype(np.int64)
+    indices = np.clip(indices, 0, len(frames) - 1)
+    return frames[indices]
 
 
 @dataclass(frozen=True)
@@ -284,6 +361,9 @@ class MlxVjepa2Video(HuggingFaceVideo):
     mlx_weights_dir: str = "models/upstream-encoders-mlx/facebook-vjepa2-vitg-fpc64-256"
     processor_model_name: str | None = None
     cache_model_name: str | None = None
+    frame_sampler: str = "moviepy"
+    clear_cache_each_window: bool = True
+    clear_cache_each_video: bool = True
     _model: MlxVjepa2FeatureModel | None = pydantic.PrivateAttr(default=None)
 
     @property
@@ -314,17 +394,43 @@ class MlxVjepa2Video(HuggingFaceVideo):
         subtimes = [index / model.num_frames * clip_duration for index in reversed(range(model.num_frames))]
         cache_name = self.cache_model_name or f"mlx:{Path(self.mlx_weights_dir).expanduser().resolve()}"
 
+        frame_sampler = (self.frame_sampler or "moviepy").lower()
         for event in events:
-            video = event.read()
+            video = None
+            video_duration = float(getattr(event, "duration", 0.0))
+            event_offset = float(getattr(event, "offset", getattr(event, "start", 0.0)) or 0.0)
+            decoded_grid: np.ndarray | None = None
+            decoded_grid_fps = float(model.num_frames / clip_duration)
+            using_ffmpeg_grid = False
+            if frame_sampler == "ffmpeg":
+                video_path = _event_video_path(event)
+                square_size = int(getattr(self, "image_size", 0) or 0)
+                if video_path is not None and square_size > 0:
+                    try:
+                        decoded_grid = _decode_video_grid_ffmpeg(
+                            video_path,
+                            fps=decoded_grid_fps,
+                            image_size=square_size,
+                        )
+                        using_ffmpeg_grid = True
+                    except Exception as exc:  # noqa: BLE001 - fallback path preserves extraction
+                        logger.warning("Falling back to MoviePy video frame sampling: %s", exc)
+                        decoded_grid = None
+                else:
+                    logger.warning("Falling back to MoviePy video frame sampling: no video path or image size")
+            if decoded_grid is None:
+                video = event.read()
+                video_duration = float(video.duration)
             freq = self.frequency if self.frequency != "native" else event.frequency
             expect_frames = nsbase.Frequency(freq).to_ind(event.duration)
-            times = np.linspace(0, video.duration, expect_frames + 1)[1:]
+            times = np.linspace(0, video_duration, expect_frames + 1)[1:]
             data_path, progress_path = _video_window_checkpoint(
                 event,
                 cache_name,
                 model.num_frames,
                 float(freq),
                 float(clip_duration),
+                frame_sampler if using_ffmpeg_grid else "moviepy",
             )
             output: np.ndarray = np.array([])
             next_index = 0
@@ -341,17 +447,29 @@ class MlxVjepa2Video(HuggingFaceVideo):
                     next_index = 0
 
             window_batch_size = max(1, int(os.environ.get("TRIBE_VIDEO_WINDOW_BATCH_SIZE", "1")))
-            progress_bar = tqdm(total=len(times), desc="Encoding video with MLX V-JEPA2")
+            progress_label = (
+                "Encoding video with MLX V-JEPA 2.1"
+                if self.__class__.__name__ == "MlxVjepa21Video"
+                else "Encoding video with MLX V-JEPA2"
+            )
+            progress_bar = tqdm(total=len(times), desc=progress_label)
             progress_bar.update(next_index)
             for start_index in range(next_index, len(times), window_batch_size):
                 batch_indices = list(range(start_index, min(start_index + window_batch_size, len(times))))
                 batch_items = []
                 for item_index in batch_indices:
                     timepoint = times[item_index]
-                    frames = [
-                        _VideoImage(video=video, time=max(0, timepoint - delta)).read()
-                        for delta in subtimes
-                    ]
+                    frame_times = [max(0, timepoint - delta) for delta in subtimes]
+                    if decoded_grid is not None:
+                        source_frame_times = [event_offset + frame_time for frame_time in frame_times]
+                        frames = _sample_decoded_grid(
+                            decoded_grid,
+                            fps=decoded_grid_fps,
+                            times=source_frame_times,
+                        )
+                        batch_items.append((item_index, frames))
+                        continue
+                    frames = [_VideoImage(video=video, time=frame_time).read() for frame_time in frame_times]
                     if frames and self.max_imsize is not None:
                         factor = max(frames[0].size) / self.max_imsize
                         if factor > 1:
@@ -387,9 +505,14 @@ class MlxVjepa2Video(HuggingFaceVideo):
                     encoding="utf-8",
                 )
                 progress_bar.update(len(batch_items))
-                mx.clear_cache()
+                if self.clear_cache_each_window:
+                    mx.clear_cache()
             progress_bar.close()
-            video.close()
+            if video is not None:
+                video.close()
+            if self.clear_cache_each_video:
+                mx.clear_cache()
+                gc.collect()
             output = output.transpose(list(range(1, output.ndim)) + [0])
             yield nsbase.TimedArray(
                 data=output.astype(np.float32),

@@ -77,8 +77,31 @@ class Config:
     ).lower() == 'true'
     TRIBE_MPS_MEMORY_FRACTION = float(os.environ.get('TRIBE_MPS_MEMORY_FRACTION', '0.45'))
     TRIBE_TEXT_BATCH_SIZE = int(os.environ.get('TRIBE_TEXT_BATCH_SIZE', '4'))
+    TRIBE_DATA_NUM_WORKERS = int(os.environ.get('TRIBE_DATA_NUM_WORKERS', '0'))
     TRIBE_VIDEO_DTYPE = os.environ.get('TRIBE_VIDEO_DTYPE', 'float16')
     TRIBE_VIDEO_NUM_FRAMES = int(os.environ.get('TRIBE_VIDEO_NUM_FRAMES', '64'))
+    TRIBE_VIDEO_FRAME_SAMPLER = os.environ.get('TRIBE_VIDEO_FRAME_SAMPLER', 'ffmpeg')
+    TRIBE_VIDEO_WINDOW_BATCH_SIZE = int(os.environ.get('TRIBE_VIDEO_WINDOW_BATCH_SIZE', '1'))
+    TRIBE_VJEPA21_IMAGE_SIZE = int(os.environ.get('TRIBE_VJEPA21_IMAGE_SIZE', '256'))
+    TRIBE_VJEPA21_COMPILE_ENCODER = os.environ.get(
+        'TRIBE_VJEPA21_COMPILE_ENCODER', 'true'
+    ).lower() == 'true'
+    TRIBE_MLX_CLEAR_CACHE_EACH_WINDOW = os.environ.get(
+        'TRIBE_MLX_CLEAR_CACHE_EACH_WINDOW', 'false'
+    ).lower() == 'true'
+    TRIBE_MLX_CLEAR_CACHE_EACH_VIDEO = os.environ.get(
+        'TRIBE_MLX_CLEAR_CACHE_EACH_VIDEO', 'true'
+    ).lower() == 'true'
+    TRIBE_COALESCE_DIRECT_VIDEO_CHUNKS = os.environ.get(
+        'TRIBE_COALESCE_DIRECT_VIDEO_CHUNKS', 'true'
+    ).lower() == 'true'
+    TRIBE_ENCODER_RESTART_EVERY_N_VIDEOS = int(os.environ.get(
+        'TRIBE_ENCODER_RESTART_EVERY_N_VIDEOS', '25'
+    ))
+    _TRIBE_FEATURE_FREQUENCY_HZ = os.environ.get('TRIBE_FEATURE_FREQUENCY_HZ', '').strip()
+    TRIBE_FEATURE_FREQUENCY_HZ = (
+        float(_TRIBE_FEATURE_FREQUENCY_HZ) if _TRIBE_FEATURE_FREQUENCY_HZ else None
+    )
 
     @classmethod
     def validate(cls):
