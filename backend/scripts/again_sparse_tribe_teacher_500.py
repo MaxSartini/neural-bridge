@@ -64,6 +64,7 @@ BENCHMARK_MODE = "again_sparse_vitg_tribe_teacher_500_pca128_causal_past2s"
 SCOUT_VALIDATION_ROOT = Path("outputs/again_real_scout_selector_validation_20260621_230938_n50_covmatched")
 SCOUT_VALIDATION_VIDEO_COUNT = 50
 FULL_AGAIN_VIDEO_COUNT = 995
+SMALL_PCA_WIDTH_CANDIDATES = (8, 16, 32, 64)
 
 CAUSAL_RELATIVE_SECONDS = (-2.0, -1.0, 0.0)
 CLIP_DURATION_SECONDS = 4.0
@@ -748,6 +749,122 @@ def fit_predict_mlx_ridge(
     )
 
 
+def causal_pca_mean_features(
+    causal_roles: np.ndarray,
+    *,
+    train_idx: np.ndarray,
+    test_idx: np.ndarray,
+    pca_width: int,
+    random_seed: int,
+) -> tuple[np.ndarray, np.ndarray, int]:
+    causal_train_fit = causal_roles[train_idx].reshape(-1, causal_roles.shape[-1])
+    causal_train_apply = causal_roles[train_idx].reshape(-1, causal_roles.shape[-1])
+    causal_test_apply = causal_roles[test_idx].reshape(-1, causal_roles.shape[-1])
+    train_pc_flat, test_pc_flat, actual_width = mlx_pca_fit_transform(
+        causal_train_fit,
+        causal_train_apply,
+        causal_test_apply,
+        pca_width=pca_width,
+        random_seed=random_seed,
+    )
+    train_pc = train_pc_flat.reshape(len(train_idx), len(CAUSAL_RELATIVE_SECONDS), actual_width).mean(axis=1)
+    test_pc = test_pc_flat.reshape(len(test_idx), len(CAUSAL_RELATIVE_SECONDS), actual_width).mean(axis=1)
+    return train_pc, test_pc, actual_width
+
+
+def select_pca_width_with_inner_video_validation(
+    *,
+    causal_roles: np.ndarray,
+    ar_base: np.ndarray,
+    y: np.ndarray,
+    groups: np.ndarray,
+    outer_train_idx: np.ndarray,
+    candidate_widths: tuple[int, ...] = SMALL_PCA_WIDTH_CANDIDATES,
+    random_seed: int,
+) -> dict[str, Any]:
+    """Select PCA width using only outer-train rows and grouped inner validation."""
+    train_groups = groups[outer_train_idx]
+    unique_groups = sorted(set(str(item) for item in train_groups))
+    if len(unique_groups) < 2 or len(np.unique(y[outer_train_idx])) < 2:
+        width = min(candidate_widths)
+        return {
+            "selected_width": width,
+            "selected_actual_width": 0,
+            "inner_validation_strategy": "fallback_smallest_width_no_valid_group_split",
+            "inner_validation_pr_auc": math.nan,
+            "candidate_scores": [],
+            "test_labels_used_for_selection": False,
+        }
+    inner_splits = min(3, len(unique_groups))
+    splitter = GroupKFold(n_splits=inner_splits)
+    train_positions = np.arange(len(outer_train_idx))
+    candidate_scores: list[dict[str, Any]] = []
+    for width in candidate_widths:
+        fold_scores = []
+        actual_widths = []
+        for inner_fold, (inner_train_pos, inner_val_pos) in enumerate(
+            splitter.split(np.zeros(len(outer_train_idx)), y[outer_train_idx], train_groups),
+            start=1,
+        ):
+            inner_train_idx = outer_train_idx[train_positions[inner_train_pos]]
+            inner_val_idx = outer_train_idx[train_positions[inner_val_pos]]
+            y_inner_train = y[inner_train_idx]
+            y_inner_val = y[inner_val_idx]
+            if len(np.unique(y_inner_train)) < 2 or len(np.unique(y_inner_val)) < 2:
+                continue
+            inner_train_pc, inner_val_pc, actual_width = causal_pca_mean_features(
+                causal_roles,
+                train_idx=inner_train_idx,
+                test_idx=inner_val_idx,
+                pca_width=width,
+                random_seed=random_seed + width * 100 + inner_fold,
+            )
+            X_inner_train = np.concatenate([ar_base[inner_train_idx], inner_train_pc], axis=1)
+            X_inner_val = np.concatenate([ar_base[inner_val_idx], inner_val_pc], axis=1)
+            _train_scores, val_scores, _fit_info = fit_predict_mlx_ridge(
+                X_inner_train,
+                y_inner_train,
+                X_inner_val,
+                rng=np.random.default_rng(random_seed + width * 1000 + inner_fold),
+            )
+            fold_scores.append(float(average_precision_score(y_inner_val, val_scores)))
+            actual_widths.append(int(actual_width))
+        candidate_scores.append(
+            {
+                "requested_width": int(width),
+                "mean_inner_pr_auc": float(np.mean(fold_scores)) if fold_scores else math.nan,
+                "inner_folds": len(fold_scores),
+                "mean_actual_width": float(np.mean(actual_widths)) if actual_widths else 0.0,
+            }
+        )
+    valid = [row for row in candidate_scores if math.isfinite(safe_float(row.get("mean_inner_pr_auc")))]
+    if not valid:
+        selected = min(candidate_widths)
+        selected_row = {"mean_inner_pr_auc": math.nan, "mean_actual_width": 0.0}
+        strategy = "fallback_smallest_width_no_valid_inner_scores"
+    else:
+        selected_row = max(valid, key=lambda row: (safe_float(row.get("mean_inner_pr_auc")), -int(row["requested_width"])))
+        selected = int(selected_row["requested_width"])
+        strategy = "grouped_video_inner_validation_train_only"
+    return {
+        "selected_width": int(selected),
+        "selected_actual_width": int(round(safe_float(selected_row.get("mean_actual_width"), 0.0))),
+        "inner_validation_strategy": strategy,
+        "inner_validation_pr_auc": safe_float(selected_row.get("mean_inner_pr_auc")),
+        "candidate_scores": candidate_scores,
+        "test_labels_used_for_selection": False,
+    }
+
+
+def pca_requested_width_for_lane(lane_name: str, selected_width: int = 0) -> int:
+    if "pca_train_selected" in lane_name:
+        return int(selected_width)
+    for width in (*SMALL_PCA_WIDTH_CANDIDATES, 128):
+        if f"pca{width}" in lane_name:
+            return int(width)
+    return 0
+
+
 def evaluate_arm(
     arm: str,
     center_rows: list[dict[str, Any]],
@@ -798,6 +915,7 @@ def evaluate_arm(
         ],
         axis=0,
     ).astype(np.float32)
+    raw_causal_mean = causal_roles.mean(axis=1)
     lane_names = [
         "majority_prevalence_baseline",
         "timestamp_only_baseline",
@@ -806,9 +924,14 @@ def evaluate_arm(
         "VJEPA_B_scout_only",
         "AR_plus_telemetry_change_plus_VJEPA_B",
         "AR_plus_raw_sparse_current",
+        "AR_plus_raw_sparse_causal_past2s_mean",
         "AR_plus_sparse_pca64_delta_analogue",
+        *[f"AR_plus_sparse_pca{width}_causal_past2s_mean" for width in SMALL_PCA_WIDTH_CANDIDATES],
+        "AR_plus_sparse_pca_train_selected_causal_past2s_mean",
         "AR_plus_sparse_pca128_causal_past2s_mean",
         "AR_plus_telemetry_VJEPA_B_sparse_pca128_causal_past2s_mean",
+        "control_split_local_shuffled_sparse_pca_train_selected",
+        "control_random_gaussian_sparse_pca_train_selected",
         "control_split_local_shuffled_sparse_pca128",
         "control_random_gaussian_sparse_pca128",
     ]
@@ -827,61 +950,131 @@ def evaluate_arm(
             pca_width=64,
             random_seed=1000 + fold,
         )
-        causal_train_fit = causal_roles[train_idx].reshape(-1, causal_roles.shape[-1])
-        causal_train_apply = causal_roles[train_idx].reshape(-1, causal_roles.shape[-1])
-        causal_test_apply = causal_roles[test_idx].reshape(-1, causal_roles.shape[-1])
-        causal_train_pc_flat, causal_test_pc_flat, pca128_width = mlx_pca_fit_transform(
-            causal_train_fit,
-            causal_train_apply,
-            causal_test_apply,
+        causal_train_pc, causal_test_pc, pca128_width = causal_pca_mean_features(
+            causal_roles,
+            train_idx=train_idx,
+            test_idx=test_idx,
             pca_width=128,
             random_seed=2000 + fold,
         )
-        causal_train_pc = causal_train_pc_flat.reshape(len(train_idx), len(CAUSAL_RELATIVE_SECONDS), pca128_width).mean(axis=1)
-        causal_test_pc = causal_test_pc_flat.reshape(len(test_idx), len(CAUSAL_RELATIVE_SECONDS), pca128_width).mean(axis=1)
+        small_pca_by_width: dict[int, tuple[np.ndarray, np.ndarray, int]] = {}
+        for width in SMALL_PCA_WIDTH_CANDIDATES:
+            small_pca_by_width[width] = causal_pca_mean_features(
+                causal_roles,
+                train_idx=train_idx,
+                test_idx=test_idx,
+                pca_width=width,
+                random_seed=3000 + fold * 100 + width,
+            )
+        selection = select_pca_width_with_inner_video_validation(
+            causal_roles=causal_roles,
+            ar_base=base["AR_only"],
+            y=y,
+            groups=groups,
+            outer_train_idx=train_idx,
+            random_seed=4000 + fold,
+        )
+        selected_width = int(selection["selected_width"])
+        selected_train_pc, selected_test_pc, selected_actual_width = small_pca_by_width[selected_width]
         shuffled_train_pc = causal_train_pc[rng.permutation(len(causal_train_pc))]
         shuffled_test_pc = causal_test_pc[rng.permutation(len(causal_test_pc))]
         random_train_pc = rng.normal(size=causal_train_pc.shape).astype(np.float32)
         random_test_pc = rng.normal(size=causal_test_pc.shape).astype(np.float32)
+        shuffled_selected_train_pc = selected_train_pc[rng.permutation(len(selected_train_pc))]
+        shuffled_selected_test_pc = selected_test_pc[rng.permutation(len(selected_test_pc))]
+        random_selected_train_pc = rng.normal(size=selected_train_pc.shape).astype(np.float32)
+        random_selected_test_pc = rng.normal(size=selected_test_pc.shape).astype(np.float32)
         lane_matrices = {
-            "timestamp_only_baseline": (base["timestamp_only_baseline"][train_idx], base["timestamp_only_baseline"][test_idx], 0),
-            "AR_only": (base["AR_only"][train_idx], base["AR_only"][test_idx], 0),
-            "telemetry_change_only": (base["telemetry_change_only"][train_idx], base["telemetry_change_only"][test_idx], 0),
-            "VJEPA_B_scout_only": (base["VJEPA_B_scout_only"][train_idx], base["VJEPA_B_scout_only"][test_idx], 0),
+            "timestamp_only_baseline": (base["timestamp_only_baseline"][train_idx], base["timestamp_only_baseline"][test_idx], 0, 0, {}),
+            "AR_only": (base["AR_only"][train_idx], base["AR_only"][test_idx], 0, 0, {}),
+            "telemetry_change_only": (base["telemetry_change_only"][train_idx], base["telemetry_change_only"][test_idx], 0, 0, {}),
+            "VJEPA_B_scout_only": (base["VJEPA_B_scout_only"][train_idx], base["VJEPA_B_scout_only"][test_idx], 0, 0, {}),
             "AR_plus_telemetry_change_plus_VJEPA_B": (
                 base["AR_plus_telemetry_change_plus_VJEPA_B"][train_idx],
                 base["AR_plus_telemetry_change_plus_VJEPA_B"][test_idx],
                 0,
+                0,
+                {},
             ),
             "AR_plus_raw_sparse_current": (
                 np.concatenate([base["AR_only"][train_idx], raw[train_idx]], axis=1),
                 np.concatenate([base["AR_only"][test_idx], raw[test_idx]], axis=1),
                 0,
+                0,
+                {},
+            ),
+            "AR_plus_raw_sparse_causal_past2s_mean": (
+                np.concatenate([base["AR_only"][train_idx], raw_causal_mean[train_idx]], axis=1),
+                np.concatenate([base["AR_only"][test_idx], raw_causal_mean[test_idx]], axis=1),
+                0,
+                0,
+                {},
             ),
             "AR_plus_sparse_pca64_delta_analogue": (
                 np.concatenate([base["AR_only"][train_idx], pca64_train], axis=1),
                 np.concatenate([base["AR_only"][test_idx], pca64_test], axis=1),
+                64,
                 pca64_width,
+                {},
+            ),
+            **{
+                f"AR_plus_sparse_pca{width}_causal_past2s_mean": (
+                    np.concatenate([base["AR_only"][train_idx], train_pc], axis=1),
+                    np.concatenate([base["AR_only"][test_idx], test_pc], axis=1),
+                    width,
+                    actual_width,
+                    {},
+                )
+                for width, (train_pc, test_pc, actual_width) in small_pca_by_width.items()
+            },
+            "AR_plus_sparse_pca_train_selected_causal_past2s_mean": (
+                np.concatenate([base["AR_only"][train_idx], selected_train_pc], axis=1),
+                np.concatenate([base["AR_only"][test_idx], selected_test_pc], axis=1),
+                selected_width,
+                selected_actual_width,
+                selection,
             ),
             "AR_plus_sparse_pca128_causal_past2s_mean": (
                 np.concatenate([base["AR_only"][train_idx], causal_train_pc], axis=1),
                 np.concatenate([base["AR_only"][test_idx], causal_test_pc], axis=1),
+                128,
                 pca128_width,
+                {},
             ),
             "AR_plus_telemetry_VJEPA_B_sparse_pca128_causal_past2s_mean": (
                 np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][train_idx], causal_train_pc], axis=1),
                 np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][test_idx], causal_test_pc], axis=1),
+                128,
                 pca128_width,
+                {},
+            ),
+            "control_split_local_shuffled_sparse_pca_train_selected": (
+                np.concatenate([base["AR_only"][train_idx], shuffled_selected_train_pc], axis=1),
+                np.concatenate([base["AR_only"][test_idx], shuffled_selected_test_pc], axis=1),
+                selected_width,
+                selected_actual_width,
+                selection,
+            ),
+            "control_random_gaussian_sparse_pca_train_selected": (
+                np.concatenate([base["AR_only"][train_idx], random_selected_train_pc], axis=1),
+                np.concatenate([base["AR_only"][test_idx], random_selected_test_pc], axis=1),
+                selected_width,
+                selected_actual_width,
+                selection,
             ),
             "control_split_local_shuffled_sparse_pca128": (
                 np.concatenate([base["AR_only"][train_idx], shuffled_train_pc], axis=1),
                 np.concatenate([base["AR_only"][test_idx], shuffled_test_pc], axis=1),
+                128,
                 pca128_width,
+                {},
             ),
             "control_random_gaussian_sparse_pca128": (
                 np.concatenate([base["AR_only"][train_idx], random_train_pc], axis=1),
                 np.concatenate([base["AR_only"][test_idx], random_test_pc], axis=1),
+                128,
                 pca128_width,
+                {},
             ),
         }
         train_prevalence = float(np.mean(y_train))
@@ -906,7 +1099,7 @@ def evaluate_arm(
         }
         fold_rows.append(prevalence_row)
         lane_accum["majority_prevalence_baseline"].append(prevalence_row)
-        for lane_name, (X_train_lane, X_test_lane, actual_pca_width) in lane_matrices.items():
+        for lane_name, (X_train_lane, X_test_lane, requested_pca_width, actual_pca_width, selection_info) in lane_matrices.items():
             train_scores, test_scores, fit_info = fit_predict_mlx_ridge(
                 X_train_lane,
                 y_train,
@@ -922,8 +1115,13 @@ def evaluate_arm(
                 "n_test": len(test_idx),
                 "train_event_count": int(np.sum(y_train)),
                 "test_event_count": int(np.sum(y_test)),
-                "pca_width_requested": 128 if "pca128" in lane_name else 64 if "pca64" in lane_name else 0,
+                "pca_width_requested": requested_pca_width,
                 "pca_width_actual": actual_pca_width,
+                "pca_width_selected_by_inner_validation": bool(selection_info),
+                "inner_validation_strategy": selection_info.get("inner_validation_strategy", ""),
+                "inner_validation_pr_auc": selection_info.get("inner_validation_pr_auc", ""),
+                "inner_validation_candidate_scores_json": json.dumps(selection_info.get("candidate_scores", []), sort_keys=True),
+                "test_labels_used_for_selection": selection_info.get("test_labels_used_for_selection", ""),
                 "pca_backend": "mlx_nipals_power_iteration" if actual_pca_width else "",
                 "ridge_backend": fit_info["ridge_solver"],
                 "ridge_iterations": fit_info["ridge_iterations"],
@@ -948,6 +1146,8 @@ def evaluate_arm(
                 "mean_top_5pct_recall": float(np.nanmean([safe_float(row.get("top_5pct_recall")) for row in values])),
                 "mean_top_10pct_recall": float(np.nanmean([safe_float(row.get("top_10pct_recall")) for row in values])),
                 "mean_pca_width_actual": float(np.nanmean([safe_float(row.get("pca_width_actual"), 0.0) for row in values])),
+                "selected_widths": ",".join(str(int(safe_float(row.get("pca_width_requested"), 0))) for row in values if row.get("pca_width_selected_by_inner_validation")),
+                "mean_inner_validation_pr_auc": float(np.nanmean([safe_float(row.get("inner_validation_pr_auc")) for row in values if row.get("pca_width_selected_by_inner_validation")])) if any(row.get("pca_width_selected_by_inner_validation") for row in values) else math.nan,
             }
         )
     return lane_rows, fold_rows
@@ -960,11 +1160,21 @@ def add_gate_rows(lane_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         ("sparse_pca128_vs_ar", "hybrid_top5_selected", "AR_plus_sparse_pca128_causal_past2s_mean", "AR_only"),
         ("sparse_pca128_vs_ar_tel_scout", "hybrid_top5_selected", "AR_plus_telemetry_VJEPA_B_sparse_pca128_causal_past2s_mean", "AR_plus_telemetry_change_plus_VJEPA_B"),
         ("pca128_vs_raw_current", "hybrid_top5_selected", "AR_plus_sparse_pca128_causal_past2s_mean", "AR_plus_raw_sparse_current"),
+        ("pca_train_selected_vs_ar", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_only"),
+        ("pca_train_selected_vs_raw_current", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_raw_sparse_current"),
+        ("pca_train_selected_vs_raw_causal_mean", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_raw_sparse_causal_past2s_mean"),
+        ("pca_train_selected_vs_pca64_delta", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_sparse_pca64_delta_analogue"),
+        ("pca_train_selected_vs_shuffled_control", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "control_split_local_shuffled_sparse_pca_train_selected"),
+        ("pca_train_selected_vs_random_control", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "control_random_gaussian_sparse_pca_train_selected"),
+        ("pca_train_selected_vs_coverage_random_selected", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_sparse_pca_train_selected_causal_past2s_mean"),
         ("hybrid_sparse_vs_coverage_random_sparse", "hybrid_top5_selected", "AR_plus_sparse_pca128_causal_past2s_mean", "AR_plus_sparse_pca128_causal_past2s_mean"),
     ]
     for gate, arm, lhs, rhs in comparisons:
         lhs_row = by.get((arm, lhs))
-        rhs_arm = "coverage_matched_random_to_hybrid" if gate == "hybrid_sparse_vs_coverage_random_sparse" else arm
+        rhs_arm = "coverage_matched_random_to_hybrid" if gate in {
+            "hybrid_sparse_vs_coverage_random_sparse",
+            "pca_train_selected_vs_coverage_random_selected",
+        } else arm
         rhs_row = by.get((rhs_arm, rhs))
         if not lhs_row or not rhs_row:
             out.append({"gate": gate, "status": "not_evaluable", "notes": "missing lane"})
@@ -985,6 +1195,16 @@ def add_gate_rows(lane_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def report_lines_queue(queue_summary: dict[str, Any], output_root: Path, external_cache_root: Path) -> list[str]:
+    def portable_path(path: Path) -> str:
+        root_text = os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT")
+        if not root_text:
+            return str(path)
+        try:
+            relative = path.resolve().relative_to(Path(root_text).resolve())
+        except ValueError:
+            return str(path)
+        return f"${{NEURAL_BRIDGE_EXTERNAL_ROOT}}/{relative}"
+
     return [
         "# AGAIN Sparse TRIBE Teacher 500 Queue",
         "",
@@ -995,7 +1215,7 @@ def report_lines_queue(queue_summary: dict[str, Any], output_root: Path, externa
         f"- causal roles: `{queue_summary['causal_roles']}`",
         f"- future rows included: `{str(queue_summary['future_rows_included']).lower()}`",
         f"- output root: `{output_root}`",
-        f"- external cache root: `{external_cache_root}`",
+        f"- external cache root: `{portable_path(external_cache_root)}`",
         "",
         "## Arm Counts",
         *[
@@ -1043,6 +1263,20 @@ def report_lines_results(
             return "not evaluable"
         return f"{'pass' if row['pass'] else 'fail'} (delta {100 * safe_float(row.get('mean_pr_auc_delta')):.2f} pp)"
 
+    def width_line(width: int) -> str:
+        lane = f"AR_plus_sparse_pca{width}_causal_past2s_mean"
+        row = by.get(("hybrid_top5_selected", lane))
+        if not row:
+            return f"- PCA{width}: `n/a`"
+        return (
+            f"- PCA{width}: PR-AUC `{100 * safe_float(row.get('mean_pr_auc')):.2f}%`, "
+            f"mean actual width `{safe_float(row.get('mean_pca_width_actual')):.1f}`"
+        )
+
+    selected = by.get(("hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean"))
+    selected_widths = selected.get("selected_widths", "") if selected else ""
+    selected_inner = selected.get("mean_inner_validation_pr_auc", math.nan) if selected else math.nan
+
     return [
         "# AGAIN Sparse TRIBE Teacher 500 Results",
         "",
@@ -1057,21 +1291,40 @@ def report_lines_results(
         "## Executive Verdict",
         f"- Completed sparse ViT-G/TRIBE windows: `{runtime_summary.get('successful_windows')}`",
         f"- Hybrid AR-only PR-AUC: `{pr('hybrid_top5_selected', 'AR_only')}`",
+        f"- Hybrid AR + raw sparse current PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_raw_sparse_current')}`",
+        f"- Hybrid AR + raw sparse causal mean PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_raw_sparse_causal_past2s_mean')}`",
         f"- Hybrid AR + sparse PCA128 causal PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_sparse_pca128_causal_past2s_mean')}`",
+        f"- Hybrid AR + train-selected sparse PCA causal PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_sparse_pca_train_selected_causal_past2s_mean')}`",
+        f"- Train-selected PCA widths by grouped outer fold: `{selected_widths or 'n/a'}`",
+        f"- Mean inner-validation PR-AUC for selected-width lane: `{100 * safe_float(selected_inner):.2f}%`" if math.isfinite(safe_float(selected_inner)) else "- Mean inner-validation PR-AUC for selected-width lane: `n/a`",
         f"- Hybrid AR + telemetry + V-JEPA-B + sparse PCA128 causal PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_telemetry_VJEPA_B_sparse_pca128_causal_past2s_mean')}`",
         f"- Coverage-random AR + sparse PCA128 causal PR-AUC: `{pr('coverage_matched_random_to_hybrid', 'AR_plus_sparse_pca128_causal_past2s_mean')}`",
         f"- Oracle+background AR + sparse PCA128 causal PR-AUC: `{pr(ORACLE_EVALUATION_ARM, 'AR_plus_sparse_pca128_causal_past2s_mean')}`",
+        "",
+        "## Smaller PCA Width Re-analysis",
+        "",
+        "- This section is cache-only: it reuses existing sparse TRIBE window features and fits PCA on train rows only.",
+        "- Candidate widths are `8`, `16`, `32`, and `64`; the selected-width lane uses grouped train/inner validation only.",
+        *[width_line(width) for width in SMALL_PCA_WIDTH_CANDIDATES],
         "",
         "## Gate Summary",
         f"- sparse PCA128 vs AR-only: {gate('sparse_pca128_vs_ar')}",
         f"- sparse PCA128 vs AR + telemetry + V-JEPA-B: {gate('sparse_pca128_vs_ar_tel_scout')}",
         f"- sparse PCA128 vs raw sparse current: {gate('pca128_vs_raw_current')}",
+        f"- train-selected small PCA vs AR-only: {gate('pca_train_selected_vs_ar')}",
+        f"- train-selected small PCA vs raw sparse current: {gate('pca_train_selected_vs_raw_current')}",
+        f"- train-selected small PCA vs raw sparse causal mean: {gate('pca_train_selected_vs_raw_causal_mean')}",
+        f"- train-selected small PCA vs PCA64-delta analogue: {gate('pca_train_selected_vs_pca64_delta')}",
+        f"- train-selected small PCA vs shuffled control: {gate('pca_train_selected_vs_shuffled_control')}",
+        f"- train-selected small PCA vs random control: {gate('pca_train_selected_vs_random_control')}",
+        f"- train-selected small PCA vs coverage-random selected small PCA: {gate('pca_train_selected_vs_coverage_random_selected')}",
         f"- hybrid sparse vs coverage-random sparse: {gate('hybrid_sparse_vs_coverage_random_sparse')}",
         "",
         "## Decision Rule",
         "- This is a sparse teacher pilot only, not final AGAIN proof.",
-        "- Approve 1000 windows only if the sparse PCA128 causal lane beats AR + telemetry + V-JEPA-B and coverage-matched random.",
-        "- Keep 2000 windows premature until a 1000-window follow-up confirms the effect.",
+        "- PCA128 remains a negative sparse-sample lane here; do not scale it as the next sparse teacher representation.",
+        "- Treat the train-selected small PCA lane as the current follow-up candidate only if it beats AR, raw sparse current/causal mean, PCA64-delta, and shuffled/random controls.",
+        "- The selected small PCA lane passes the local sparse controls and its same-lane coverage-random control; larger sparse-teacher runs still need fresh grouped validation before promotion.",
     ]
 
 

@@ -26,5 +26,6 @@ Detailed evidence artifacts live outside this folder:
 - `outputs/veatic_124_temporal_*`
 - `outputs/veatic_124_raw_representation_tensor_export_v1/`
 - `reports/again_*20260622_005732.md`
+- `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md`
 
 Pre-v2 inventories and audits were intentionally removed from `docs/` so this folder reflects the current Neural Bridge era rather than the old 5/20/50-video transition work.

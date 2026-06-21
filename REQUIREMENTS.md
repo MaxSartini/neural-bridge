@@ -149,7 +149,7 @@ V-JEPA 2.1 and AGAIN status:
 
 - `MlxVjepa21Video` is implemented and selected when `TRIBE_VIDEO_ENCODER_MLX_DIR/config.json` declares `tensor_layout=vjepa2_1_mlx_port`.
 - `backend/scripts/run_veatic_tribe_cache.py` includes worker claims, resume status, per-window checkpoints, ffmpeg frame sampling, and protected-cache write refusal for MLX/V-JEPA outputs.
-- AGAIN boundary, scout, AR-context, and sparse teacher tooling is implemented. The current 50-video sparse teacher pilot failed its hybrid sparse PCA128 promotion gates; do not treat it as full-AGAIN proof.
+- AGAIN boundary, scout, AR-context, and sparse teacher tooling is implemented. The current 50-video sparse teacher work failed hybrid sparse PCA128 promotion gates. A fresh cache-only smaller-width follow-up recomputed PCA/ridge/gates from cached raw cortical windows; the train-selected small PCA lane beat AR, raw sparse current/causal mean, PCA64-delta, shuffled/random controls, and its same-lane coverage-random control. Do not treat it as full-AGAIN proof until a larger fresh grouped run confirms it.
 
 ## Tracked Versus External Assets
 
@@ -227,7 +227,7 @@ Run trained heads only when intentionally refreshing the post-v2 trained-head be
 python3 backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py
 ```
 
-Run AGAIN sparse-teacher work only as a bounded scaling experiment:
+Run AGAIN sparse-teacher work only as a bounded scaling experiment. Reuse raw cortical window caches when appropriate, but recompute PCA, ridge fits, gates, and reports into a fresh output root:
 
 ```bash
 python3 tools/run_again_sparse_tribe_teacher_500.py
@@ -247,6 +247,7 @@ Fresh sessions should read these first:
 - `docs/veatic_raw_representation_audit.md`
 - `outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md`
 - `reports/again_sparse_tribe_teacher_500_results_20260622_005732.md`
+- `reports/again_sparse_tribe_teacher_500_results_20260622_pca_width_reanalysis_v2.md`
 - `reports/again_full_ar_context_20260622_005713.md`
 
 Do not use removed historical docs or deleted benchmark scaffolding as active requirements.

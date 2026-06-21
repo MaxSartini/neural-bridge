@@ -23,6 +23,7 @@ Current post-v2 implementation state is maintained in:
 - `backend/app/services/mlx_vjepa21_cortical.py`
 - `backend/scripts/again_sparse_tribe_teacher_500.py`
 - `reports/again_sparse_tribe_teacher_500_results_20260622_005732.md`
+- `reports/again_sparse_tribe_teacher_500_results_20260622_pca_width_reanalysis_v2.md`
 
 Older pre-v2 VEATIC 5/20/50-video handoff notes, implementation inventories, and acceleration audits were removed from `docs/` because they contradicted the VEATIC-124 v2 baseline. Use git history if that old context is needed for archaeology.
 

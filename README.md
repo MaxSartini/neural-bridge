@@ -17,7 +17,7 @@ Post-v2 raw-representation work has frozen model-ready tensors without re-encodi
 
 The first frozen-tensor trained-head runner is implemented and MPS-backed. It recomputes same-row AR and controls fresh, compares PCA128 lanes against the frozen PCA64-delta baseline, and records gate checks for `AR_plus_PCA128`, `residualized_AR_plus_PCA128`, and controls. This is a post-v2 model-head benchmark layer; it does not replace the frozen VEATIC-124 v2 evidence bundle.
 
-V-JEPA 2.1 MLX support and AGAIN sparse-teacher tooling are also implemented. The current AGAIN 50-video sparse teacher pilot is bounded and negative for the hybrid sparse PCA128 lane: it is useful scaling evidence, not final AGAIN proof.
+V-JEPA 2.1 MLX support and AGAIN sparse-teacher tooling are also implemented. The current AGAIN 50-video sparse teacher work is bounded scaling evidence, not final AGAIN proof. Hybrid sparse PCA128 was negative; a fresh cache-only smaller-width follow-up found that the train-selected small PCA lane beat AR, raw sparse current/causal mean, PCA64-delta, shuffled/random controls, and its same-lane coverage-random control.
 
 The current claim is intentionally precise: Neural Bridge has evidence for arousal event/spike ranking and temporal-context sufficiency from a mostly visual/video TRIBE cache, not exact continuous arousal-value prediction, a finished downstream product model, or a proven full text+audio+video multimodal cache.
 
@@ -37,7 +37,7 @@ The current claim is intentionally precise: Neural Bridge has evidence for arous
 - Raw representation audit: `pca_sequence_128_causal_past_2s_mean` beat same-run grouped `cortical_pca64_delta` on primary spike targets by about `+0.039` to `+0.041` PR-AUC, while raw uncompressed ridge was valid but not the best next build target.
 - Tensor export v1: `84` representation/split/target contracts and `420` `.npy` tensors were written under the external tensor root with verification `pass`; PCA fit-cache payloads were reused and none were rebuilt.
 - Frozen-tensor trained heads: `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py` runs simple MPS-backed heads over the frozen tensor contract. The delivered full run used fresh same-row AR and controls; `AR_plus_PCA128` and `residualized_AR_plus_PCA128` beat `AR_only` and canonical shuffled/random controls across grouped spike gates, while `PCA128_only` did not stably beat AR.
-- V-JEPA 2.1 / AGAIN scaling: `backend/app/services/mlx_vjepa21_cortical.py` and the AGAIN sparse-teacher scripts are implemented. The 50-video sparse teacher report records 480 completed windows and failed promotion gates for the hybrid sparse PCA128 lane.
+- V-JEPA 2.1 / AGAIN scaling: `backend/app/services/mlx_vjepa21_cortical.py` and the AGAIN sparse-teacher scripts are implemented. The 50-video sparse teacher reports record 480 completed windows, failed promotion gates for hybrid sparse PCA128, and a cache-only smaller-width reanalysis where the train-selected small PCA lane beat AR/raw/local controls and its same-lane coverage-random control.
 
 Source summaries:
 
@@ -58,7 +58,7 @@ Source summaries:
 - Exact continuous future arousal-value forecasting. Continuous MAE remains diagnostic because zero-change baselines still win most continuous checks.
 - Strong universal early-warning claims. The alignment pass supports 0s primary scoring plus transparent offset diagnostics, not a global lag correction.
 - The first trained-head layer exists and shows incremental VEATIC spike-ranking signal for AR-plus-PCA128 lanes, but this is still a benchmark layer, not a finished product model or recursive architecture.
-- AGAIN generalization remains unproven. The current sparse teacher pilot is a bounded 50-video result and failed its hybrid sparse PCA128 promotion gates.
+- AGAIN generalization remains unproven. The current sparse teacher work is bounded to 50 selected videos; PCA128 failed, and the train-selected small PCA follow-up is promising but still needs a larger fresh grouped run before promotion.
 - The exported `topk_vertices_512` tensors are supervised feature-selection artifacts and should remain cautionary unless confirmed in a locked rerun.
 
 ## System Shape
@@ -183,7 +183,7 @@ python3 backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py
 
 This runner requires MPS, reuses frozen external tensors, recomputes same-row AR and controls, and refuses CPU sklearn fallback. It is the implemented learned-head benchmark layer for `pca_sequence_128_causal_past_2s_mean`; do not rebuild it from old report CSVs.
 
-AGAIN sparse-teacher tooling is implemented under `backend/scripts/again_*` and `tools/run_again_*`. The tracked reports in `reports/again_*20260622_005732.md` are the current lightweight summaries. Treat them as a bounded 50-video pilot that failed promotion gates, not as full-AGAIN proof.
+AGAIN sparse-teacher tooling is implemented under `backend/scripts/again_*` and `tools/run_again_*`. The tracked reports in `reports/again_*20260622_005732.md` summarize the original bounded PCA128 pilot; `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md` is the fresh cache-only smaller-width follow-up. Treat both as bounded 50-video evidence, not as full-AGAIN proof.
 
 ## Guardrails
 

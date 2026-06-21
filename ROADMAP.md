@@ -23,7 +23,7 @@ Completed:
 - The v1 model-ready tensor contract is frozen externally with lightweight tracked summaries and verification.
 - The frozen-tensor trained-head benchmark is implemented in `backend/scripts/veatic_frozen_tensor_trained_heads.py` with `run_veatic_frozen_tensor_trained_heads_benchmark.py`; it uses MPS, fresh same-row AR, fresh controls, grouped gates, and no prior result-row reuse.
 - V-JEPA 2.1 MLX support is implemented in `backend/app/services/mlx_vjepa21_cortical.py` and integrated through `TribeAdapter` when converted weights declare `tensor_layout=vjepa2_1_mlx_port`.
-- AGAIN boundary, scout, full-AR-context, and 500-window sparse-teacher tooling is implemented. The current tracked AGAIN sparse teacher result is a bounded 50-video pilot that failed hybrid sparse PCA128 promotion gates.
+- AGAIN boundary, scout, full-AR-context, and 500-window sparse-teacher tooling is implemented. The current tracked AGAIN sparse teacher result is bounded 50-video evidence: hybrid sparse PCA128 failed promotion gates, while the cache-only train-selected small PCA follow-up beat AR/raw/local controls and its same-lane coverage-random control.
 
 This is the current scientific foundation, not a hypothesis waiting for another dataset to validate it.
 
@@ -76,7 +76,7 @@ Goal: maintain and extend the implemented model-head layer without weakening con
 - [x] Keep `roi_parcel_features` as an unsupervised side candidate and `topk_vertices_512` as a supervised/cautionary comparison.
 - [ ] Only promote recursive heads after simple heads define the floor.
 - [ ] Keep CUDA-only HRM-style dependencies out of the main Mac/MPS environment unless isolated.
-- [ ] If the PCA128 sparse-sample concern is being tested, add a cache-only smaller-width PCA lane (`8/16/32/64`, selected by train/inner validation only) rather than rerunning ViT-G forwards.
+- [x] Test the PCA128 sparse-sample concern with cache-only smaller-width PCA lanes (`8/16/32/64`, selected by train/inner validation only) rather than rerunning ViT-G forwards.
 
 ## 5. V-JEPA 2.1 And AGAIN Scaling
 
@@ -86,7 +86,8 @@ Goal: keep the scaling path reusable while preventing it from being mistaken for
 - [x] Add ffmpeg/VideoToolbox frame sampling, per-window checkpointing, worker claims, resume guards, and protected VEATIC-cache write refusal.
 - [x] Add AGAIN cleaned-dataset audits, boundary-aligned 1Hz manifests, scout selector validation, full-AGAIN AR-only context baseline, and sparse teacher queue/runtime/result reports.
 - [x] Run the bounded 50-video / 480-window sparse teacher pilot and record that hybrid sparse PCA128 failed its promotion gates.
-- [ ] Do not scale to 1000/2000 sparse teacher windows unless a cache-only follow-up beats AR plus telemetry/scout baselines and coverage-matched random.
+- [x] Run a fresh cache-only smaller-width PCA follow-up from cached raw cortical windows; record that the train-selected small PCA lane beat AR, raw sparse current/causal mean, PCA64-delta, and shuffled/random controls.
+- [ ] Do not promote 1000/2000 sparse teacher windows until a larger fresh grouped run confirms the selected small PCA result.
 
 ## 6. Productized Evidence Workflow
 
