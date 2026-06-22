@@ -53,7 +53,7 @@ Post-v2 trained-head and scaling assets now available:
 - Trained-head result handle from the completed run: `outputs/veatic_124_frozen_tensor_trained_heads_mps_20260620_full_lightweight.zip`
 - V-JEPA 2.1 MLX adapter: `backend/app/services/mlx_vjepa21_cortical.py`
 - V-JEPA 2.1 selection trigger: converted MLX weights with `tensor_layout=vjepa2_1_mlx_port`
-- AGAIN current tracked reports: `reports/again_real_scout_selector_validation_20260621_230940_n50.md`, `reports/again_full_ar_context_20260622_005713.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_005732.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md`, and `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory.md`
+- AGAIN current tracked reports: `reports/again_real_scout_selector_validation_20260621_230940_n50.md`, `reports/again_full_ar_context_20260622_005713.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_005732.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md`, and corrected `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory_v2.md`
 
 Current v2 evidence reports now tracked in this repo:
 

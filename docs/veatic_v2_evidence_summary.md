@@ -80,4 +80,4 @@ After the v2 evidence freeze, a raw cortical representation audit, tensor export
 - `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py`
 - `reports/again_sparse_tribe_teacher_500_results_20260622_005732.md`
 - `reports/again_sparse_tribe_teacher_500_results_20260622_pca_width_reanalysis_v2.md`
-- `reports/again_sparse_tribe_teacher_2000_small_pca_results_20260622_2000_small_pca_confirmatory.md`
+- `reports/again_sparse_tribe_teacher_2000_small_pca_results_20260622_2000_small_pca_confirmatory_v2.md`

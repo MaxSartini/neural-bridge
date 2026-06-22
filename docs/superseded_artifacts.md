@@ -51,6 +51,7 @@ These may exist under the external assets root, but they are not the frozen v2 b
 - `benchmarks/veatic/tribe_cache_multimodal_pilot`: guarded `83,84` multimodal pilot context.
 - `benchmarks/veatic/tribe_smoke`: local smoke-test residue if present.
 - older timestamped AGAIN pilot reports not tracked in git after the `20260622_005732` and `20260622_pca_width_reanalysis_v2` summaries were retained.
+- `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory.md`: retained as superseded context only; the corrected `*_confirmatory_v2.md` reports restore telemetry/VJEPA-B scout fields in queue rows and are authoritative for the 2000-budget readout.
 
 Reason: they may help debug future work, but they must not be used as headline evidence.
 
