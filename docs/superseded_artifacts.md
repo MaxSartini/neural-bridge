@@ -39,7 +39,7 @@ Reason: these files freeze the next model-head input contract without replacing 
 - Code: `backend/app/services/mlx_vjepa21_cortical.py`
 - Code: `backend/scripts/again_*`
 - Code: `tools/run_again_*`, `tools/probe_*vjepa21*`, and `tools/audit_again_*`
-- Reports: `reports/again_*20260622_005732.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md`, and `reports/again_full_ar_context_20260622_005713.md`
+- Reports: `reports/again_*20260622_005732.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md`, `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory_v2.md`, `reports/again_sparse_tribe_teacher_2000_true_fixed_random_same_budget_*_20260622_2000_true_fixed_random_same_budget_v2.md`, and `reports/again_full_ar_context_20260622_005713.md`
 
 Reason: these are current source and lightweight summaries for the implemented trained-head and AGAIN/V-JEPA 2.1 scaling paths. They are not stale transition artifacts.
 
@@ -52,6 +52,7 @@ These may exist under the external assets root, but they are not the frozen v2 b
 - `benchmarks/veatic/tribe_smoke`: local smoke-test residue if present.
 - older timestamped AGAIN pilot reports not tracked in git after the `20260622_005732` and `20260622_pca_width_reanalysis_v2` summaries were retained.
 - `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory.md`: retained as superseded context only; the corrected `*_confirmatory_v2.md` reports restore telemetry/VJEPA-B scout fields in queue rows and are authoritative for the 2000-budget readout.
+- Interrupted true same-budget outputs without the `_v2` suffix, if present locally, are context only; the `*_true_fixed_random_same_budget_v2.md` reports are the completed true same-budget control.
 
 Reason: they may help debug future work, but they must not be used as headline evidence.
 

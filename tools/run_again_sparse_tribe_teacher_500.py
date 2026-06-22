@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -27,6 +28,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-root", type=Path, default=None)
     parser.add_argument("--external-cache-root", type=Path, default=None)
     parser.add_argument("--run-label", default=None)
+    parser.add_argument(
+        "--arm-window-budgets-json",
+        default=None,
+        help="Optional JSON object overriding selector arm window budgets, e.g. '{\"hybrid_top5_selected\":900}'.",
+    )
     return parser.parse_args()
 
 
@@ -45,6 +51,13 @@ def main() -> int:
     }
     if args.selector_validation_root is not None:
         config_kwargs["selector_validation_root"] = args.selector_validation_root
+    if args.arm_window_budgets_json is not None:
+        budgets = json.loads(args.arm_window_budgets_json)
+        if not isinstance(budgets, dict) or not all(isinstance(key, str) and isinstance(value, int) for key, value in budgets.items()):
+            raise ValueError("--arm-window-budgets-json must be a JSON object of string arm names to integer budgets")
+        if sum(budgets.values()) > args.max_actual_windows:
+            raise ValueError("custom arm budgets must sum to <= --max-actual-windows")
+        config_kwargs["arm_window_budgets"] = budgets
     result = run_sparse_teacher_500(
         output_root=output_root,
         external_cache_root=cache_root,

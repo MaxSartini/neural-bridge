@@ -17,7 +17,7 @@ Post-v2 raw-representation work has frozen model-ready tensors without re-encodi
 
 The first frozen-tensor trained-head runner is implemented and MPS-backed. It recomputes same-row AR and controls fresh, compares PCA128 lanes against the frozen PCA64-delta baseline, and records gate checks for `AR_plus_PCA128`, `residualized_AR_plus_PCA128`, and controls. This is a post-v2 model-head benchmark layer; it does not replace the frozen VEATIC-124 v2 evidence bundle.
 
-V-JEPA 2.1 MLX support and AGAIN sparse-teacher tooling are also implemented. The current AGAIN 50-video sparse teacher work is bounded scaling evidence, not final AGAIN proof. Hybrid sparse PCA128 was negative in the first pilot; a 500-window small-PCA follow-up looked promising, but the later 2000-budget confirmatory run completed 1,948 windows and did not confirm promotion against raw sparse, nuisance, and matched-random controls.
+V-JEPA 2.1 MLX support and AGAIN sparse-teacher tooling are also implemented. The current AGAIN 50-video sparse teacher work is bounded scaling evidence, not final AGAIN proof. Hybrid sparse PCA128 was negative in the first pilot; a 500-window small-PCA follow-up looked promising, but the later 2000-budget confirmatory work did not confirm promotion against raw sparse, nuisance, and coverage-matched random controls. The tested compressed lanes are AR + sparse PCA, not PCA-only; a true same-budget fixed-random rerun closed the old undersized-control caveat but did not change the no-scale decision.
 
 The current claim is intentionally precise: Neural Bridge has evidence for arousal event/spike ranking and temporal-context sufficiency from a mostly visual/video TRIBE cache, not exact continuous arousal-value prediction, a finished downstream product model, or a proven full text+audio+video multimodal cache.
 
@@ -37,7 +37,7 @@ The current claim is intentionally precise: Neural Bridge has evidence for arous
 - Raw representation audit: `pca_sequence_128_causal_past_2s_mean` beat same-run grouped `cortical_pca64_delta` on primary spike targets by about `+0.039` to `+0.041` PR-AUC, while raw uncompressed ridge was valid but not the best next build target.
 - Tensor export v1: `84` representation/split/target contracts and `420` `.npy` tensors were written under the external tensor root with verification `pass`; PCA fit-cache payloads were reused and none were rebuilt.
 - Frozen-tensor trained heads: `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py` runs simple MPS-backed heads over the frozen tensor contract. The delivered full run used fresh same-row AR and controls; `AR_plus_PCA128` and `residualized_AR_plus_PCA128` beat `AR_only` and canonical shuffled/random controls across grouped spike gates, while `PCA128_only` did not stably beat AR.
-- V-JEPA 2.1 / AGAIN scaling: `backend/app/services/mlx_vjepa21_cortical.py` and the AGAIN sparse-teacher scripts are implemented. The 50-video sparse teacher reports record the negative PCA128 pilot, the promising 500-window small-PCA reanalysis, and the 2000-budget confirmatory run where small-PCA lanes failed matched-random/nuisance promotion gates.
+- V-JEPA 2.1 / AGAIN scaling: `backend/app/services/mlx_vjepa21_cortical.py` and the AGAIN sparse-teacher scripts are implemented. The 50-video sparse teacher reports record the negative PCA128 pilot, the promising 500-window small-PCA reanalysis, and the 2000-budget confirmatory work where AR + small-PCA lanes failed raw sparse, coverage-matched random, and nuisance promotion gates.
 
 Source summaries:
 

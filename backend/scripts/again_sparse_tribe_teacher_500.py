@@ -115,6 +115,7 @@ class SparseTeacherConfig:
     report_date: str = datetime.now().strftime("%Y%m%d_%H%M%S")
     run_label: str = "again_sparse_tribe_teacher_500"
     run_title: str = "AGAIN Sparse TRIBE Teacher 500"
+    arm_window_budgets: dict[str, int] | None = None
 
 
 def now_stamp() -> str:
@@ -495,6 +496,56 @@ def write_cached_window(path: Path, cortical: np.ndarray, grouped: np.ndarray, p
     )
 
 
+def expensive_window_identity_from_payload(payload: dict[str, Any]) -> str:
+    identity = {
+        "dataset": payload.get("dataset"),
+        "video_id": payload.get("video_id"),
+        "video_path": payload.get("video_path"),
+        "actual_clip_timestamp": round(float(payload.get("actual_clip_timestamp", 0.0)), 6),
+        "clip_duration_seconds": payload.get("clip_duration_seconds", CLIP_DURATION_SECONDS),
+        "frame_count": payload.get("frame_count", FRAMES_PER_CLIP),
+        "resolution": payload.get("resolution", IMAGE_SIZE),
+        "vjepa_model_name": payload.get("vjepa_model_name"),
+        "hidden_layer_selection": payload.get("hidden_layer_selection"),
+        "layer_grouping_policy": payload.get("layer_grouping_policy"),
+        "preprocessing_version": payload.get("preprocessing_version"),
+        "dtype": payload.get("dtype"),
+        "tribe_head_version": payload.get("tribe_head_version"),
+        "tribe_head_pool_policy": payload.get("tribe_head_pool_policy"),
+    }
+    return json.dumps(identity, sort_keys=True, separators=(",", ":"))
+
+
+def expensive_window_identity_for_row(row: dict[str, Any], *, video_path: Path) -> str:
+    payload = fingerprint_payload(
+        video_id=str(row["video_id"]),
+        video_path=str(video_path),
+        actual_clip_timestamp=float(row["actual_clip_timestamp"]),
+        vjepa21_sha256="ignored_for_expensive_window_identity",
+        tribe_sha256="ignored_for_expensive_window_identity",
+        strict_selector_fingerprint=False,
+    )
+    return expensive_window_identity_from_payload(payload)
+
+
+def build_expensive_window_cache_index(external_cache_root: Path) -> dict[str, Path]:
+    index: dict[str, Path] = {}
+    cache_dir = external_cache_root / "encoded_windows"
+    if not cache_dir.exists():
+        return index
+    for path in cache_dir.glob("*/*.npz"):
+        try:
+            with np.load(path) as bundle:
+                raw_payload = bundle.get("fingerprint_payload")
+                if raw_payload is None:
+                    continue
+                payload = json.loads(str(raw_payload.item() if hasattr(raw_payload, "item") else raw_payload))
+        except Exception:  # noqa: BLE001 - malformed old cache entries are ignored
+            continue
+        index.setdefault(expensive_window_identity_from_payload(payload), path)
+    return index
+
+
 def encode_sparse_windows(
     queue: list[dict[str, Any]],
     *,
@@ -506,13 +557,15 @@ def encode_sparse_windows(
     for row in queue:
         unique_by_fp.setdefault(str(row["cache_fingerprint"]), row)
     selected_indices = selected_vitg_hidden_indices()
-    model = MlxVjepa21FeatureModel(str(vjepa_weights_dir), IMAGE_SIZE, compile_encoder=True)
-    tribe = MlxTribeEncoder(str(tribe_model_dir))
+    cache_identity_index = build_expensive_window_cache_index(external_cache_root)
+    model: MlxVjepa21FeatureModel | None = None
+    tribe: MlxTribeEncoder | None = None
     features_by_fp: dict[str, np.ndarray] = {}
     runtime_rows: list[dict[str, Any]] = []
     start_all = time.perf_counter()
     cache_hits = 0
     legacy_cache_hits = 0
+    physical_cache_hits = 0
     failures = 0
 
     by_video: dict[str, list[dict[str, Any]]] = {}
@@ -535,9 +588,15 @@ def encode_sparse_windows(
                 cached = load_cached_window(legacy_path)
                 if cached is not None:
                     cache_hit_mode = "legacy_backfilled_to_strict"
+            if cached is None:
+                physical_path = cache_identity_index.get(expensive_window_identity_for_row(row, video_path=video_path))
+                if physical_path is not None and physical_path != path:
+                    cached = load_cached_window(physical_path)
+                    if cached is not None:
+                        cache_hit_mode = "physical_window_backfilled_to_strict"
             if cached is not None:
                 cortical, grouped = cached
-                if cache_hit_mode == "legacy_backfilled_to_strict":
+                if cache_hit_mode in {"legacy_backfilled_to_strict", "physical_window_backfilled_to_strict"}:
                     write_cached_window(
                         path,
                         cortical,
@@ -553,7 +612,11 @@ def encode_sparse_windows(
                             strict_selector_fingerprint=True,
                         ),
                     )
+                    cache_identity_index.setdefault(expensive_window_identity_for_row(row, video_path=video_path), path)
+                if cache_hit_mode == "legacy_backfilled_to_strict":
                     legacy_cache_hits += 1
+                if cache_hit_mode == "physical_window_backfilled_to_strict":
+                    physical_cache_hits += 1
                 features_by_fp[fp] = cortical
                 cache_hits += 1
                 runtime_rows.append(
@@ -571,6 +634,10 @@ def encode_sparse_windows(
                 )
                 continue
             try:
+                if model is None:
+                    model = MlxVjepa21FeatureModel(str(vjepa_weights_dir), IMAGE_SIZE, compile_encoder=True)
+                if tribe is None:
+                    tribe = MlxTribeEncoder(str(tribe_model_dir))
                 actual = float(row["actual_clip_timestamp"])
                 subtimes = [index / FRAMES_PER_CLIP * CLIP_DURATION_SECONDS for index in reversed(range(FRAMES_PER_CLIP))]
                 frame_times = [max(0.0, actual - delta) for delta in subtimes]
@@ -598,6 +665,7 @@ def encode_sparse_windows(
                         strict_selector_fingerprint=True,
                     ),
                 )
+                cache_identity_index.setdefault(expensive_window_identity_for_row(row, video_path=video_path), path)
                 features_by_fp[fp] = cortical
                 runtime_rows.append(
                     {
@@ -637,6 +705,7 @@ def encode_sparse_windows(
                     "encoded_or_cached": len(features_by_fp),
                     "cache_hits": cache_hits,
                     "legacy_cache_hits": legacy_cache_hits,
+                    "physical_cache_hits": physical_cache_hits,
                     "failures": failures,
                 }
             ),
@@ -648,6 +717,7 @@ def encode_sparse_windows(
         "successful_windows": len(features_by_fp),
         "cache_hits": cache_hits,
         "legacy_cache_hits": legacy_cache_hits,
+        "physical_cache_hits": physical_cache_hits,
         "failed_windows": failures,
         "total_runtime_seconds": time.perf_counter() - start_all,
         "seconds_per_successful_window": (time.perf_counter() - start_all) / len(features_by_fp) if features_by_fp else math.nan,
@@ -1409,6 +1479,7 @@ def report_lines_runtime(runtime_summary: dict[str, Any], *, run_title: str) -> 
         f"- successful windows: `{runtime_summary.get('successful_windows')}`",
         f"- cache hits: `{runtime_summary.get('cache_hits')}`",
         f"- legacy cache hits backfilled to strict fingerprints: `{runtime_summary.get('legacy_cache_hits')}`",
+        f"- physical-window cache hits backfilled to strict fingerprints: `{runtime_summary.get('physical_cache_hits', 0)}`",
         f"- failed windows: `{runtime_summary.get('failed_windows')}`",
         f"- total runtime seconds: `{total_runtime:.3f}`",
         f"- seconds per successful window: `{sec_per:.3f}`",
@@ -1442,9 +1513,9 @@ def report_lines_results(
         lane = f"AR_plus_sparse_pca{width}_causal_past2s_mean"
         row = by.get(("hybrid_top5_selected", lane))
         if not row:
-            return f"- PCA{width}: `n/a`"
+            return f"- AR + sparse PCA{width}: `n/a`"
         return (
-            f"- PCA{width}: PR-AUC `{100 * safe_float(row.get('mean_pr_auc')):.2f}%`, "
+            f"- AR + sparse PCA{width}: PR-AUC `{100 * safe_float(row.get('mean_pr_auc')):.2f}%`, "
             f"mean actual width `{safe_float(row.get('mean_pca_width_actual')):.1f}`"
         )
 
@@ -1484,6 +1555,7 @@ def report_lines_results(
         "## Smaller PCA Width Re-analysis",
         "",
         "- This section is cache-only: it reuses existing sparse TRIBE window features and fits PCA on train rows only.",
+        "- Reported PCA-width rows are AR + sparse PCA lanes, not PCA-only lanes.",
         "- Candidate widths are `8`, `16`, `32`, and `64`; the selected-width lane uses grouped train/inner validation only.",
         *[width_line(width) for width in SMALL_PCA_WIDTH_CANDIDATES],
         "",
@@ -1496,18 +1568,18 @@ def report_lines_results(
         f"- locked PCA32 vs raw sparse causal mean: {gate('pca32_locked_vs_raw_causal_mean')}",
         f"- locked PCA32 vs AR + telemetry + V-JEPA-B: {gate('pca32_locked_vs_ar_tel_scout')}",
         f"- AR + telemetry + V-JEPA-B + locked PCA32 vs AR + telemetry + V-JEPA-B: {gate('pca32_fusion_vs_ar_tel_scout')}",
-        f"- train-selected small PCA vs AR-only: {gate('pca_train_selected_vs_ar')}",
-        f"- train-selected small PCA vs AR + telemetry + V-JEPA-B: {gate('pca_train_selected_vs_ar_tel_scout')}",
+        f"- AR + train-selected small PCA vs AR-only: {gate('pca_train_selected_vs_ar')}",
+        f"- AR + train-selected small PCA vs AR + telemetry + V-JEPA-B: {gate('pca_train_selected_vs_ar_tel_scout')}",
         f"- AR + telemetry + V-JEPA-B + train-selected small PCA vs AR + telemetry + V-JEPA-B: {gate('pca_train_selected_fusion_vs_ar_tel_scout')}",
-        f"- train-selected small PCA vs raw sparse current: {gate('pca_train_selected_vs_raw_current')}",
-        f"- train-selected small PCA vs raw sparse causal mean: {gate('pca_train_selected_vs_raw_causal_mean')}",
-        f"- train-selected small PCA vs PCA64-delta analogue: {gate('pca_train_selected_vs_pca64_delta')}",
-        f"- train-selected small PCA vs shuffled control: {gate('pca_train_selected_vs_shuffled_control')}",
-        f"- train-selected small PCA vs random control: {gate('pca_train_selected_vs_random_control')}",
-        f"- train-selected small PCA vs coverage-random selected small PCA: {gate('pca_train_selected_vs_coverage_random_selected')}",
-        f"- train-selected small PCA vs fixed-random same-budget selected small PCA: {gate('pca_train_selected_vs_fixed_random_selected')}",
+        f"- AR + train-selected small PCA vs AR + raw sparse current: {gate('pca_train_selected_vs_raw_current')}",
+        f"- AR + train-selected small PCA vs AR + raw sparse causal mean: {gate('pca_train_selected_vs_raw_causal_mean')}",
+        f"- AR + train-selected small PCA vs AR + PCA64-delta analogue: {gate('pca_train_selected_vs_pca64_delta')}",
+        f"- AR + train-selected small PCA vs AR + shuffled sparse control: {gate('pca_train_selected_vs_shuffled_control')}",
+        f"- AR + train-selected small PCA vs AR + random Gaussian sparse control: {gate('pca_train_selected_vs_random_control')}",
+        f"- AR + train-selected small PCA vs fixed coverage-random AR + selected small PCA: {gate('pca_train_selected_vs_coverage_random_selected')}",
+        f"- AR + train-selected small PCA vs true same-budget fixed-random AR + selected small PCA: {gate('pca_train_selected_vs_fixed_random_selected')}",
         f"- locked PCA32 vs coverage-random PCA32: {gate('pca32_locked_vs_coverage_random_pca32')}",
-        f"- locked PCA32 vs fixed-random same-budget PCA32: {gate('pca32_locked_vs_fixed_random_pca32')}",
+        f"- AR + locked PCA32 vs true same-budget fixed-random AR + PCA32: {gate('pca32_locked_vs_fixed_random_pca32')}",
         f"- hybrid sparse vs coverage-random sparse: {gate('hybrid_sparse_vs_coverage_random_sparse')}",
         "",
         "## Decision Rule",
@@ -1534,7 +1606,7 @@ def run_sparse_teacher_500(
     tribe_model_dir = root / "models" / "tribe-mlx" / "zimengxiong-tribev2-mlx"
     vjepa_sha = sha256_file(vjepa_weights_dir / "model.safetensors")
     tribe_sha = sha256_file(tribe_model_dir / "tribev2_mlx_float32.npz")
-    arm_window_budgets = arm_budgets_for_window_budget(config.max_actual_windows)
+    arm_window_budgets = dict(config.arm_window_budgets) if config.arm_window_budgets else arm_budgets_for_window_budget(config.max_actual_windows)
     selector_digest = selector_config_hash(arm_window_budgets, config.selector_validation_root)
 
     feature_path = config.selector_validation_root / "again_real_scout_feature_rows.csv"

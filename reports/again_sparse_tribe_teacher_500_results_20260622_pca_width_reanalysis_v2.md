@@ -24,27 +24,28 @@
 ## Smaller PCA Width Re-analysis
 
 - This section is cache-only: it reuses existing sparse TRIBE window features and fits PCA on train rows only.
+- Reported PCA-width rows are AR + sparse PCA lanes, not PCA-only lanes.
 - Candidate widths are `8`, `16`, `32`, and `64`; the selected-width lane uses grouped train/inner validation only.
-- PCA8: PR-AUC `46.42%`, mean actual width `8.0`
-- PCA16: PR-AUC `48.24%`, mean actual width `16.0`
-- PCA32: PR-AUC `52.48%`, mean actual width `32.0`
-- PCA64: PR-AUC `39.51%`, mean actual width `64.0`
+- AR + sparse PCA8: PR-AUC `46.42%`, mean actual width `8.0`
+- AR + sparse PCA16: PR-AUC `48.24%`, mean actual width `16.0`
+- AR + sparse PCA32: PR-AUC `52.48%`, mean actual width `32.0`
+- AR + sparse PCA64: PR-AUC `39.51%`, mean actual width `64.0`
 
 ## Gate Summary
 - sparse PCA128 vs AR-only: fail (delta -15.29 pp)
 - sparse PCA128 vs AR + telemetry + V-JEPA-B: fail (delta -15.29 pp)
 - sparse PCA128 vs raw sparse current: fail (delta -13.90 pp)
-- train-selected small PCA vs AR-only: pass (delta 3.65 pp)
-- train-selected small PCA vs raw sparse current: pass (delta 5.05 pp)
-- train-selected small PCA vs raw sparse causal mean: pass (delta 7.31 pp)
-- train-selected small PCA vs PCA64-delta analogue: pass (delta 7.62 pp)
-- train-selected small PCA vs shuffled control: pass (delta 9.20 pp)
-- train-selected small PCA vs random control: pass (delta 21.75 pp)
-- train-selected small PCA vs coverage-random selected small PCA: pass (delta 19.99 pp)
+- AR + train-selected small PCA vs AR-only: pass (delta 3.65 pp)
+- AR + train-selected small PCA vs AR + raw sparse current: pass (delta 5.05 pp)
+- AR + train-selected small PCA vs AR + raw sparse causal mean: pass (delta 7.31 pp)
+- AR + train-selected small PCA vs AR + PCA64-delta analogue: pass (delta 7.62 pp)
+- AR + train-selected small PCA vs AR + shuffled sparse control: pass (delta 9.20 pp)
+- AR + train-selected small PCA vs AR + random Gaussian sparse control: pass (delta 21.75 pp)
+- AR + train-selected small PCA vs coverage-random AR + selected small PCA: pass (delta 19.99 pp)
 - hybrid sparse vs coverage-random sparse: fail (delta -28.08 pp)
 
 ## Decision Rule
 - This is a sparse teacher pilot only, not final AGAIN proof.
 - PCA128 remains a negative sparse-sample lane here; do not scale it as the next sparse teacher representation.
-- Treat the train-selected small PCA lane as the current follow-up candidate only if it beats AR, raw sparse current/causal mean, PCA64-delta, and shuffled/random controls.
+- Treat the AR + train-selected small PCA lane as the current follow-up candidate only if it beats AR, AR + raw sparse current/causal mean, AR + PCA64-delta, and shuffled/random controls.
 - The selected small PCA lane passes the local sparse controls and its same-lane coverage-random control; larger sparse-teacher runs still need fresh grouped validation before promotion.

@@ -4,11 +4,16 @@ import numpy as np
 
 from backend.scripts.again_sparse_tribe_teacher_500 import (
     add_gate_rows,
+    build_expensive_window_cache_index,
     build_sparse_teacher_queue,
+    cache_fingerprint,
+    cache_path_for,
     fit_predict_mlx_ridge,
+    fingerprint_payload,
     mlx_pca_fit_transform,
     report_lines_results,
     select_pca_width_with_inner_video_validation,
+    write_cached_window,
 )
 
 
@@ -44,6 +49,74 @@ def test_sparse_teacher_queue_caps_unique_actual_windows():
     assert len({row["cache_fingerprint"] for row in queue}) == summary["unique_actual_windows"]
     assert all(row["temporal_role"] in {"T-2", "T-1", "T"} for row in queue)
     assert not summary["future_rows_included"]
+
+
+def test_sparse_teacher_queue_accepts_true_same_budget_fixed_random_control():
+    rows = []
+    for video in ("v1", "v2", "v3"):
+        for t in range(2, 80):
+            rows.append(_row(video, t, spike=t % 20 == 0))
+
+    queue, summary = build_sparse_teacher_queue(
+        rows,
+        max_actual_windows=60,
+        rng=random.Random(2),
+        vjepa21_sha256="vjepa",
+        tribe_sha256="tribe",
+        arm_window_budgets={
+            "hybrid_top5_selected": 30,
+            "fixed_random_same_budget": 30,
+        },
+    )
+
+    assert summary["unique_actual_windows"] <= 60
+    assert set(summary["arm_unique_window_counts"]) == {
+        "hybrid_top5_selected",
+        "fixed_random_same_budget",
+    }
+    assert summary["arm_unique_window_counts"]["fixed_random_same_budget"] <= summary["arm_window_budgets"]["fixed_random_same_budget"]
+    assert {row["selector_arm"] for row in queue} == {"hybrid_top5_selected", "fixed_random_same_budget"}
+
+
+def test_sparse_teacher_cache_index_ignores_selector_hash_for_expensive_window_identity(tmp_path):
+    payload_old_selector = fingerprint_payload(
+        video_id="v1",
+        video_path="/tmp/v1.webm",
+        actual_clip_timestamp=12.0,
+        vjepa21_sha256="vjepa",
+        tribe_sha256="tribe",
+        selector_arm="old_arm",
+        selector_config_hash="old_hash",
+        strict_selector_fingerprint=True,
+    )
+    old_fp = cache_fingerprint(payload_old_selector)
+    old_path = cache_path_for(tmp_path, old_fp)
+    write_cached_window(
+        old_path,
+        np.ones((2, 3), dtype=np.float32),
+        np.ones((3, 4), dtype=np.float32),
+        payload_old_selector,
+    )
+
+    payload_new_selector = fingerprint_payload(
+        video_id="v1",
+        video_path="/tmp/v1.webm",
+        actual_clip_timestamp=12.0,
+        vjepa21_sha256="vjepa",
+        tribe_sha256="tribe",
+        selector_arm="new_arm",
+        selector_config_hash="new_hash",
+        strict_selector_fingerprint=True,
+    )
+
+    index = build_expensive_window_cache_index(tmp_path)
+    key = next(iter(index))
+
+    assert index[key] == old_path
+    assert "old_hash" not in key
+    assert "new_hash" not in key
+    assert "selector_arm" not in key
+    assert cache_fingerprint(payload_new_selector) != old_fp
 
 
 def test_sparse_teacher_pca_is_real_mlx_train_only_and_reports_width():
@@ -162,5 +235,7 @@ def test_sparse_teacher_report_declares_50_of_995_scope():
     assert "5.0%` of the dataset" in report
     assert "must not be read as a 995-video comparison" in report
     assert "Smaller PCA Width Re-analysis" in report
+    assert "Reported PCA-width rows are AR + sparse PCA lanes, not PCA-only lanes." in report
     assert "Train-selected PCA widths by grouped outer fold: `16,32`" in report
     assert "Hybrid AR + raw sparse causal mean PR-AUC: `11.00%`" in report
+    assert "AR + sparse PCA16: PR-AUC `13.00%`" in report

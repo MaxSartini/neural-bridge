@@ -17,7 +17,7 @@ Current evidence is strongest for VEATIC-124 video-dominant cortical/TRIBE arous
 
 The model-head input is frozen as tensors rather than only described in reports. Keep `cortical_pca64_delta` as the frozen v2 baseline. The implemented trained-head layer uses `pca_sequence_128_causal_past_2s_mean` first, includes fresh same-row AR and controls, keeps `roi_parcel_features` as an important side candidate, and treats `topk_vertices_512` as supervised/cautionary.
 
-The AGAIN/V-JEPA 2.1 path is implemented as scaling infrastructure. It is not a new proven baseline. The current tracked sparse teacher work covers a 50-video selector subset. Hybrid sparse PCA128 failed the first promotion gates. A 500-window cache-only smaller-width reanalysis looked promising, but the 2000-budget confirmatory run completed 1,948 windows and did not confirm promotion: locked PCA32 beat AR but lost to raw sparse and matched-random controls; train-selected small PCA failed nuisance and matched-random controls.
+The AGAIN/V-JEPA 2.1 path is implemented as scaling infrastructure. It is not a new proven baseline. The current tracked sparse teacher work covers a 50-video selector subset. Hybrid sparse PCA128 failed the first promotion gates. A 500-window cache-only smaller-width reanalysis looked promising, but the 2000-budget confirmatory run did not confirm promotion: the tested compressed lanes are AR + sparse PCA, not PCA-only; AR + locked PCA32 beat AR but lost to AR + raw sparse and coverage-matched random controls; AR + train-selected small PCA failed nuisance and coverage-matched random controls. A follow-up true fixed-random same-budget rerun matched hybrid at 849 unique windows per arm and no longer beat hybrid, so the earlier undersized fixed-random caveat is closed without changing the no-scale decision.
 
 ## Current Benchmark Assets
 
@@ -53,7 +53,7 @@ Post-v2 trained-head and scaling assets now available:
 - Trained-head result handle from the completed run: `outputs/veatic_124_frozen_tensor_trained_heads_mps_20260620_full_lightweight.zip`
 - V-JEPA 2.1 MLX adapter: `backend/app/services/mlx_vjepa21_cortical.py`
 - V-JEPA 2.1 selection trigger: converted MLX weights with `tensor_layout=vjepa2_1_mlx_port`
-- AGAIN current tracked reports: `reports/again_real_scout_selector_validation_20260621_230940_n50.md`, `reports/again_full_ar_context_20260622_005713.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_005732.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md`, and corrected `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory_v2.md`
+- AGAIN current tracked reports: `reports/again_real_scout_selector_validation_20260621_230940_n50.md`, `reports/again_full_ar_context_20260622_005713.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_005732.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md`, corrected `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory_v2.md`, and true same-budget fixed-random `reports/again_sparse_tribe_teacher_2000_true_fixed_random_same_budget_*_20260622_2000_true_fixed_random_same_budget_v2.md`
 
 Current v2 evidence reports now tracked in this repo:
 

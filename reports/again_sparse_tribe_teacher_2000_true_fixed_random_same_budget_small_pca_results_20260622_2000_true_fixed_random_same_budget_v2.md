@@ -11,7 +11,7 @@
 - AR + sparse PCA128 cannot be tested against all 995 videos until matching sparse PCA rows exist for that full scope.
 
 ## Executive Verdict
-- Completed sparse ViT-G/TRIBE windows: `1948`
+- Completed sparse ViT-G/TRIBE windows: `1698`
 - Hybrid AR-only PR-AUC: `21.37%`
 - Hybrid AR + raw sparse current PR-AUC: `28.02%`
 - Hybrid AR + raw sparse causal mean PR-AUC: `27.95%`
@@ -23,8 +23,8 @@
 - Hybrid AR + telemetry + V-JEPA-B + locked sparse PCA32 causal PR-AUC: `26.29%`
 - Hybrid AR + telemetry + V-JEPA-B + train-selected sparse PCA causal PR-AUC: `21.18%`
 - Hybrid AR + telemetry + V-JEPA-B + sparse PCA128 causal PR-AUC: `27.31%`
-- Coverage-random AR + sparse PCA128 causal PR-AUC: `37.03%`
-- Oracle+background AR + sparse PCA128 causal PR-AUC: `67.28%`
+- Coverage-random AR + sparse PCA128 causal PR-AUC: `n/a`
+- Oracle+background AR + sparse PCA128 causal PR-AUC: `n/a`
 
 ## Smaller PCA Width Re-analysis
 
@@ -53,27 +53,24 @@
 - AR + train-selected small PCA vs AR + PCA64-delta analogue: fail (delta -1.92 pp)
 - AR + train-selected small PCA vs AR + shuffled sparse control: fail (delta -6.93 pp)
 - AR + train-selected small PCA vs AR + random Gaussian sparse control: fail (delta -5.41 pp)
-- AR + train-selected small PCA vs coverage-random AR + selected small PCA: fail (delta -15.59 pp)
-- AR + train-selected small PCA vs old undersized fixed-random AR + selected small PCA: fail (delta -28.98 pp)
-- locked PCA32 vs coverage-random PCA32: fail (delta -8.62 pp)
-- AR + locked PCA32 vs old undersized fixed-random AR + PCA32: fail (delta -25.56 pp)
-- hybrid sparse vs coverage-random sparse: fail (delta -9.73 pp)
+- AR + train-selected small PCA vs coverage-random AR + selected small PCA: not evaluable
+- AR + train-selected small PCA vs true same-budget fixed-random AR + selected small PCA: pass (delta 1.60 pp)
+- locked PCA32 vs coverage-random PCA32: not evaluable
+- AR + locked PCA32 vs true same-budget fixed-random AR + PCA32: pass (delta 4.53 pp)
+- hybrid sparse vs coverage-random sparse: not evaluable
 
-## Consistency
+## True Same-Budget Fixed-Random Readout
 
-- AR + locked PCA32 beat AR-only in `4/5` grouped-video folds, but failed against AR + raw sparse current, AR + raw sparse causal mean, coverage-matched random AR + PCA32, and the old undersized fixed-random AR + PCA32 arm.
-- Train-selected small PCA beat AR-only in only `2/5` grouped-video folds and beat split-local shuffled selected PCA in `0/5` folds.
-- The corrected cheap-fusion baseline (`AR + telemetry + V-JEPA-B`) scored `17.91%`, below AR-only at `21.37%`; adding locked PCA32 reached `26.29%`, still below raw sparse current and matched-random controls.
-- Hybrid arm coverage used `50` videos across `9` games, with `344` hybrid candidate centers and `72` hybrid spike events at the center row.
+- This rerun was focused on the fixed-random caveat only: hybrid and fixed-random each received `849` unique actual windows.
+- Hybrid AR + locked sparse PCA32 PR-AUC: `27.65%`.
+- True same-budget fixed-random AR + sparse PCA32 PR-AUC: `23.12%`.
+- Hybrid AR + train-selected sparse PCA PR-AUC: `21.95%`.
+- True same-budget fixed-random AR + train-selected sparse PCA PR-AUC: `20.35%`.
+- This closes the old undersized fixed-random caveat: the true same-budget fixed-random arm does not beat hybrid.
+- This does not promote the sparse teacher lane, because AR + sparse PCA still fails the raw sparse, coverage-matched random, and nuisance-control promotion gates from the corrected confirmatory readout.
 
 ## Decision Rule
 - This is a sparse teacher pilot only, not final AGAIN proof.
 - Promote nothing unless the sparse lane beats AR, raw sparse current/causal mean, cheap AR+telemetry+V-JEPA-B, shuffled/random nuisance controls, and matched-random sparse controls.
 - If a lane beats AR but loses to raw sparse, shuffled/random, or matched-random controls, treat it as non-confirmed sparse-sample signal.
 - Do not approve full AGAIN scaling from this sparse pilot alone.
-
-## Recommendation
-
-- Do not approve broader AGAIN scaling from this run.
-- Do not use train-selected small PCA as the next locked feature lane; it failed nuisance and matched-random controls.
-- PCA32 remains a useful diagnostic compressed bridge, but it did not confirm as a promotion lane because raw sparse and matched-random sparse controls were stronger.

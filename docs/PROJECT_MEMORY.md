@@ -25,6 +25,7 @@ Current post-v2 implementation state is maintained in:
 - `reports/again_sparse_tribe_teacher_500_results_20260622_005732.md`
 - `reports/again_sparse_tribe_teacher_500_results_20260622_pca_width_reanalysis_v2.md`
 - `reports/again_sparse_tribe_teacher_2000_small_pca_results_20260622_2000_small_pca_confirmatory_v2.md`
+- `reports/again_sparse_tribe_teacher_2000_true_fixed_random_same_budget_small_pca_results_20260622_2000_true_fixed_random_same_budget_v2.md`
 
 Older pre-v2 VEATIC 5/20/50-video handoff notes, implementation inventories, and acceleration audits were removed from `docs/` because they contradicted the VEATIC-124 v2 baseline. Use git history if that old context is needed for archaeology.
 
