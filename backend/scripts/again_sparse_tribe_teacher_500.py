@@ -1138,6 +1138,8 @@ def evaluate_arm(
         "AR_plus_telemetry_VJEPA_B_sparse_pca32_causal_past2s_mean",
         "AR_plus_telemetry_VJEPA_B_sparse_pca_train_selected_causal_past2s_mean",
         "AR_plus_telemetry_VJEPA_B_sparse_pca128_causal_past2s_mean",
+        "control_split_local_shuffled_sparse_pca32",
+        "control_random_gaussian_sparse_pca32",
         "control_split_local_shuffled_sparse_pca_train_selected",
         "control_random_gaussian_sparse_pca_train_selected",
         "control_split_local_shuffled_sparse_pca128",
@@ -1188,6 +1190,11 @@ def evaluate_arm(
         shuffled_test_pc = causal_test_pc[rng.permutation(len(causal_test_pc))]
         random_train_pc = rng.normal(size=causal_train_pc.shape).astype(np.float32)
         random_test_pc = rng.normal(size=causal_test_pc.shape).astype(np.float32)
+        pca32_train_pc, pca32_test_pc, pca32_actual_width = small_pca_by_width[LOCKED_CONFIRMATORY_PCA_WIDTH]
+        shuffled_pca32_train_pc = pca32_train_pc[rng.permutation(len(pca32_train_pc))]
+        shuffled_pca32_test_pc = pca32_test_pc[rng.permutation(len(pca32_test_pc))]
+        random_pca32_train_pc = rng.normal(size=pca32_train_pc.shape).astype(np.float32)
+        random_pca32_test_pc = rng.normal(size=pca32_test_pc.shape).astype(np.float32)
         shuffled_selected_train_pc = selected_train_pc[rng.permutation(len(selected_train_pc))]
         shuffled_selected_test_pc = selected_test_pc[rng.permutation(len(selected_test_pc))]
         random_selected_train_pc = rng.normal(size=selected_train_pc.shape).astype(np.float32)
@@ -1250,10 +1257,10 @@ def evaluate_arm(
                 {},
             ),
             "AR_plus_telemetry_VJEPA_B_sparse_pca32_causal_past2s_mean": (
-                np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][train_idx], small_pca_by_width[LOCKED_CONFIRMATORY_PCA_WIDTH][0]], axis=1),
-                np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][test_idx], small_pca_by_width[LOCKED_CONFIRMATORY_PCA_WIDTH][1]], axis=1),
+                np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][train_idx], pca32_train_pc], axis=1),
+                np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][test_idx], pca32_test_pc], axis=1),
                 LOCKED_CONFIRMATORY_PCA_WIDTH,
-                small_pca_by_width[LOCKED_CONFIRMATORY_PCA_WIDTH][2],
+                pca32_actual_width,
                 {},
             ),
             "AR_plus_telemetry_VJEPA_B_sparse_pca_train_selected_causal_past2s_mean": (
@@ -1268,6 +1275,20 @@ def evaluate_arm(
                 np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][test_idx], causal_test_pc], axis=1),
                 128,
                 pca128_width,
+                {},
+            ),
+            "control_split_local_shuffled_sparse_pca32": (
+                np.concatenate([base["AR_only"][train_idx], shuffled_pca32_train_pc], axis=1),
+                np.concatenate([base["AR_only"][test_idx], shuffled_pca32_test_pc], axis=1),
+                LOCKED_CONFIRMATORY_PCA_WIDTH,
+                pca32_actual_width,
+                {},
+            ),
+            "control_random_gaussian_sparse_pca32": (
+                np.concatenate([base["AR_only"][train_idx], random_pca32_train_pc], axis=1),
+                np.concatenate([base["AR_only"][test_idx], random_pca32_test_pc], axis=1),
+                LOCKED_CONFIRMATORY_PCA_WIDTH,
+                pca32_actual_width,
                 {},
             ),
             "control_split_local_shuffled_sparse_pca_train_selected": (
@@ -1387,6 +1408,8 @@ def add_gate_rows(lane_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         ("pca32_locked_vs_raw_causal_mean", "hybrid_top5_selected", "AR_plus_sparse_pca32_causal_past2s_mean", "AR_plus_raw_sparse_causal_past2s_mean"),
         ("pca32_locked_vs_ar_tel_scout", "hybrid_top5_selected", "AR_plus_sparse_pca32_causal_past2s_mean", "AR_plus_telemetry_change_plus_VJEPA_B"),
         ("pca32_fusion_vs_ar_tel_scout", "hybrid_top5_selected", "AR_plus_telemetry_VJEPA_B_sparse_pca32_causal_past2s_mean", "AR_plus_telemetry_change_plus_VJEPA_B"),
+        ("pca32_locked_vs_shuffled_control", "hybrid_top5_selected", "AR_plus_sparse_pca32_causal_past2s_mean", "control_split_local_shuffled_sparse_pca32"),
+        ("pca32_locked_vs_random_control", "hybrid_top5_selected", "AR_plus_sparse_pca32_causal_past2s_mean", "control_random_gaussian_sparse_pca32"),
         ("pca_train_selected_vs_ar", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_only"),
         ("pca_train_selected_vs_ar_tel_scout", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_telemetry_change_plus_VJEPA_B"),
         ("pca_train_selected_fusion_vs_ar_tel_scout", "hybrid_top5_selected", "AR_plus_telemetry_VJEPA_B_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_telemetry_change_plus_VJEPA_B"),
@@ -1425,6 +1448,56 @@ def add_gate_rows(lane_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "lhs_model_lane": lhs,
                 "rhs_selector_arm": rhs_arm,
                 "rhs_model_lane": rhs,
+                "mean_pr_auc_delta": delta,
+                "pass": bool(math.isfinite(delta) and delta > 0),
+            }
+        )
+    delta_over_ar_comparisons = [
+        (
+            "pca32_locked_delta_over_ar_vs_coverage_random_delta_over_ar",
+            "hybrid_top5_selected",
+            "coverage_matched_random_to_hybrid",
+            "AR_plus_sparse_pca32_causal_past2s_mean",
+        ),
+        (
+            "pca32_locked_delta_over_ar_vs_fixed_random_delta_over_ar",
+            "hybrid_top5_selected",
+            "fixed_random_same_budget",
+            "AR_plus_sparse_pca32_causal_past2s_mean",
+        ),
+        (
+            "pca_train_selected_delta_over_ar_vs_coverage_random_delta_over_ar",
+            "hybrid_top5_selected",
+            "coverage_matched_random_to_hybrid",
+            "AR_plus_sparse_pca_train_selected_causal_past2s_mean",
+        ),
+        (
+            "pca_train_selected_delta_over_ar_vs_fixed_random_delta_over_ar",
+            "hybrid_top5_selected",
+            "fixed_random_same_budget",
+            "AR_plus_sparse_pca_train_selected_causal_past2s_mean",
+        ),
+    ]
+    for gate, lhs_arm, rhs_arm, lane in delta_over_ar_comparisons:
+        lhs_row = by.get((lhs_arm, lane))
+        lhs_ar = by.get((lhs_arm, "AR_only"))
+        rhs_row = by.get((rhs_arm, lane))
+        rhs_ar = by.get((rhs_arm, "AR_only"))
+        if not lhs_row or not lhs_ar or not rhs_row or not rhs_ar:
+            out.append({"gate": gate, "status": "not_evaluable", "notes": "missing lane"})
+            continue
+        lhs_delta = safe_float(lhs_row.get("mean_pr_auc")) - safe_float(lhs_ar.get("mean_pr_auc"))
+        rhs_delta = safe_float(rhs_row.get("mean_pr_auc")) - safe_float(rhs_ar.get("mean_pr_auc"))
+        delta = lhs_delta - rhs_delta
+        out.append(
+            {
+                "gate": gate,
+                "lhs_selector_arm": lhs_arm,
+                "lhs_model_lane": lane,
+                "rhs_selector_arm": rhs_arm,
+                "rhs_model_lane": lane,
+                "lhs_delta_over_ar": lhs_delta,
+                "rhs_delta_over_ar": rhs_delta,
                 "mean_pr_auc_delta": delta,
                 "pass": bool(math.isfinite(delta) and delta > 0),
             }
@@ -1568,6 +1641,8 @@ def report_lines_results(
         f"- locked PCA32 vs raw sparse causal mean: {gate('pca32_locked_vs_raw_causal_mean')}",
         f"- locked PCA32 vs AR + telemetry + V-JEPA-B: {gate('pca32_locked_vs_ar_tel_scout')}",
         f"- AR + telemetry + V-JEPA-B + locked PCA32 vs AR + telemetry + V-JEPA-B: {gate('pca32_fusion_vs_ar_tel_scout')}",
+        f"- AR + locked PCA32 vs AR + shuffled sparse PCA32 control: {gate('pca32_locked_vs_shuffled_control')}",
+        f"- AR + locked PCA32 vs AR + random Gaussian PCA32 control: {gate('pca32_locked_vs_random_control')}",
         f"- AR + train-selected small PCA vs AR-only: {gate('pca_train_selected_vs_ar')}",
         f"- AR + train-selected small PCA vs AR + telemetry + V-JEPA-B: {gate('pca_train_selected_vs_ar_tel_scout')}",
         f"- AR + telemetry + V-JEPA-B + train-selected small PCA vs AR + telemetry + V-JEPA-B: {gate('pca_train_selected_fusion_vs_ar_tel_scout')}",
@@ -1581,6 +1656,14 @@ def report_lines_results(
         f"- locked PCA32 vs coverage-random PCA32: {gate('pca32_locked_vs_coverage_random_pca32')}",
         f"- AR + locked PCA32 vs true same-budget fixed-random AR + PCA32: {gate('pca32_locked_vs_fixed_random_pca32')}",
         f"- hybrid sparse vs coverage-random sparse: {gate('hybrid_sparse_vs_coverage_random_sparse')}",
+        "",
+        "## Delta-over-AR Matched-Arm Checks",
+        "",
+        "- These checks compare each arm's improvement over its own AR baseline, avoiding unfair absolute PR-AUC comparisons across selector distributions.",
+        f"- AR + locked PCA32 hybrid delta-over-AR vs coverage-random delta-over-AR: {gate('pca32_locked_delta_over_ar_vs_coverage_random_delta_over_ar')}",
+        f"- AR + locked PCA32 hybrid delta-over-AR vs true fixed-random delta-over-AR: {gate('pca32_locked_delta_over_ar_vs_fixed_random_delta_over_ar')}",
+        f"- AR + train-selected small PCA hybrid delta-over-AR vs coverage-random delta-over-AR: {gate('pca_train_selected_delta_over_ar_vs_coverage_random_delta_over_ar')}",
+        f"- AR + train-selected small PCA hybrid delta-over-AR vs true fixed-random delta-over-AR: {gate('pca_train_selected_delta_over_ar_vs_fixed_random_delta_over_ar')}",
         "",
         "## Decision Rule",
         "- This is a sparse teacher pilot only, not final AGAIN proof.",

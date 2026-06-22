@@ -204,6 +204,39 @@ def test_sparse_teacher_gates_selected_pca_against_coverage_random_selected_lane
     assert abs(gate["mean_pr_auc_delta"] - 0.2) < 1e-9
 
 
+def test_sparse_teacher_delta_over_ar_gate_compares_arm_local_lifts():
+    gates = add_gate_rows(
+        [
+            {
+                "selector_arm": "hybrid_top5_selected",
+                "model_lane": "AR_only",
+                "mean_pr_auc": 0.20,
+            },
+            {
+                "selector_arm": "hybrid_top5_selected",
+                "model_lane": "AR_plus_sparse_pca32_causal_past2s_mean",
+                "mean_pr_auc": 0.30,
+            },
+            {
+                "selector_arm": "coverage_matched_random_to_hybrid",
+                "model_lane": "AR_only",
+                "mean_pr_auc": 0.50,
+            },
+            {
+                "selector_arm": "coverage_matched_random_to_hybrid",
+                "model_lane": "AR_plus_sparse_pca32_causal_past2s_mean",
+                "mean_pr_auc": 0.55,
+            },
+        ]
+    )
+
+    gate = next(row for row in gates if row["gate"] == "pca32_locked_delta_over_ar_vs_coverage_random_delta_over_ar")
+    assert gate["pass"] is True
+    assert abs(gate["lhs_delta_over_ar"] - 0.10) < 1e-9
+    assert abs(gate["rhs_delta_over_ar"] - 0.05) < 1e-9
+    assert abs(gate["mean_pr_auc_delta"] - 0.05) < 1e-9
+
+
 def test_sparse_teacher_report_declares_50_of_995_scope():
     lines = report_lines_results(
         lane_rows=[

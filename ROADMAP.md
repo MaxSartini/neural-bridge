@@ -23,7 +23,7 @@ Completed:
 - The v1 model-ready tensor contract is frozen externally with lightweight tracked summaries and verification.
 - The frozen-tensor trained-head benchmark is implemented in `backend/scripts/veatic_frozen_tensor_trained_heads.py` with `run_veatic_frozen_tensor_trained_heads_benchmark.py`; it uses MPS, fresh same-row AR, fresh controls, grouped gates, and no prior result-row reuse.
 - V-JEPA 2.1 MLX support is implemented in `backend/app/services/mlx_vjepa21_cortical.py` and integrated through `TribeAdapter` when converted weights declare `tensor_layout=vjepa2_1_mlx_port`.
-- AGAIN boundary, scout, full-AR-context, and sparse-teacher tooling is implemented. The current tracked AGAIN sparse teacher result is bounded 50-video evidence: PCA128 failed the first pilot, the 500-window small-PCA follow-up looked promising, and the 2000-budget confirmatory work did not confirm promotion against raw sparse, nuisance, and coverage-matched random controls. The tested compressed lanes are AR + sparse PCA, not PCA-only; true same-budget fixed-random no longer beats hybrid but does not change the no-scale decision.
+- AGAIN boundary, scout, full-AR-context, and sparse-teacher tooling is implemented. The current tracked AGAIN sparse teacher result is bounded 50-video evidence: PCA128 failed the first pilot, the 500-window small-PCA follow-up looked promising, and the 2000-budget confirmatory work remains non-promotable. V-JEPA 2.1 is the encoding engine for TRIBE v2; the tested compressed lanes are AR + train-only PCA of frozen TRIBE v2 cortical predictions. AR + locked PCA32 beats matched random under delta-over-AR, but remains slightly below AR + raw sparse and fails same-width shuffled-PCA32 controls.
 
 This is the current scientific foundation, not a hypothesis waiting for another dataset to validate it.
 
@@ -87,7 +87,7 @@ Goal: keep the scaling path reusable while preventing it from being mistaken for
 - [x] Add AGAIN cleaned-dataset audits, boundary-aligned 1Hz manifests, scout selector validation, full-AGAIN AR-only context baseline, and sparse teacher queue/runtime/result reports.
 - [x] Run the bounded 50-video / 480-window sparse teacher pilot and record that hybrid sparse PCA128 failed its promotion gates.
 - [x] Run a fresh cache-only smaller-width PCA follow-up from cached raw cortical windows; record that the train-selected small PCA lane beat AR, raw sparse current/causal mean, PCA64-delta, and shuffled/random controls.
-- [x] Run the 2000-budget sparse teacher confirmatory pass plus true same-budget fixed-random rerun; record that AR + sparse PCA lanes did not justify broader sparse-teacher scaling.
+- [x] Run the 2000-budget sparse teacher confirmatory pass plus true same-budget fixed-random rerun; record that AR + locked PCA32 has arm-local signal but does not justify broader sparse-teacher scaling.
 - [ ] Do not promote more sparse teacher windows on the same 50-video selector subset.
 
 ## 6. Productized Evidence Workflow
