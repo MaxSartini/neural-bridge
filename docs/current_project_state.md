@@ -17,7 +17,7 @@ Current evidence is strongest for VEATIC-124 video-dominant cortical/TRIBE arous
 
 The model-head input is frozen as tensors rather than only described in reports. Keep `cortical_pca64_delta` as the frozen v2 baseline. The implemented trained-head layer uses `pca_sequence_128_causal_past_2s_mean` first, includes fresh same-row AR and controls, keeps `roi_parcel_features` as an important side candidate, and treats `topk_vertices_512` as supervised/cautionary.
 
-The AGAIN/V-JEPA 2.1 path is implemented as scaling infrastructure. It is not a new proven baseline. The current tracked sparse teacher work covers 50 selected AGAIN videos and 480 completed windows. Hybrid sparse PCA128 failed promotion gates. A fresh cache-only smaller-width reanalysis recomputed PCA/ridge results from cached raw cortical windows; the train-selected small PCA lane beat AR, raw sparse current/causal mean, PCA64-delta, shuffled/random controls, and its same-lane coverage-random control.
+The AGAIN/V-JEPA 2.1 path is implemented as scaling infrastructure. It is not a new proven baseline. The current tracked sparse teacher work covers a 50-video selector subset. Hybrid sparse PCA128 failed the first promotion gates. A 500-window cache-only smaller-width reanalysis looked promising, but the 2000-budget confirmatory run completed 1,948 windows and did not confirm promotion: locked PCA32 beat AR but lost to raw sparse and matched-random controls; train-selected small PCA failed nuisance and matched-random controls.
 
 ## Current Benchmark Assets
 
@@ -53,7 +53,7 @@ Post-v2 trained-head and scaling assets now available:
 - Trained-head result handle from the completed run: `outputs/veatic_124_frozen_tensor_trained_heads_mps_20260620_full_lightweight.zip`
 - V-JEPA 2.1 MLX adapter: `backend/app/services/mlx_vjepa21_cortical.py`
 - V-JEPA 2.1 selection trigger: converted MLX weights with `tensor_layout=vjepa2_1_mlx_port`
-- AGAIN current tracked reports: `reports/again_real_scout_selector_validation_20260621_230940_n50.md`, `reports/again_full_ar_context_20260622_005713.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_005732.md`, and `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md`
+- AGAIN current tracked reports: `reports/again_real_scout_selector_validation_20260621_230940_n50.md`, `reports/again_full_ar_context_20260622_005713.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_005732.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md`, and `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory.md`
 
 Current v2 evidence reports now tracked in this repo:
 
@@ -89,7 +89,7 @@ Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 - Raw representation audit promotes `pca_sequence_128_causal_past_2s_mean` as the best learned-head input for event/spike ranking; `roi_parcel_features` is the best compact side candidate; `topk_vertices_512` is useful but supervised/cautionary; raw uncompressed ridge is valid but not the best next build target.
 - Tensor export v1 materialized model-ready train/test tensors for `pca_sequence_128_causal_past_2s_mean`, `roi_parcel_features`, `topk_vertices_512`, and `cortical_pca64_delta_frozen_baseline` across `blocked`, `official`, and `grouped_0..4` splits for the three primary targets.
 - Frozen tensor trained heads are implemented. In the completed MPS run, `AR_plus_PCA128` and `residualized_AR_plus_PCA128` beat `AR_only`, canonical shuffled/random controls, and their PCA64-delta incremental counterparts across grouped spike gates; `PCA128_only` did not stably beat AR.
-- AGAIN sparse teacher is implemented but not promoted. The current 50-video pilot completed 480 sparse V-JEPA/TRIBE windows; hybrid sparse PCA128 failed, while the train-selected small PCA follow-up beat AR/raw/local controls and its same-lane coverage-random control.
+- AGAIN sparse teacher is implemented but not promoted. The 2000-budget confirmatory run completed 1,948 sparse V-JEPA/TRIBE windows on the same 50-video selector subset and failed promotion against nuisance and matched-random controls.
 
 ## Benchmark Rules
 
@@ -104,7 +104,7 @@ Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 
 ## Remaining Work
 
-1. If continuing the sparse-teacher question, do not reuse old result CSVs. Recompute PCA/ridge/gates from cached raw cortical windows and require a larger fresh grouped run before promoting beyond the 50-video result.
+1. Do not scale AGAIN sparse teacher from the current 50-video sparse runs. Any future attempt needs a new selector/subset design, not just more windows on this same subset.
 2. Keep grouped-video validation, blocked validation, and controls as promotion gates for any learned head or sparse-teacher follow-up.
 3. Finish the guarded `83,84` multimodal pilot after populating or authorizing the gated `meta-llama/Llama-3.2-3B` text encoder.
 4. Productize the tensor/evidence/trained-head summaries into the benchmark dashboard.
@@ -118,4 +118,4 @@ Current multimodal pilot status:
 
 ## Next Safe Move
 
-Use the frozen v2 evidence bundle and frozen raw-representation tensor contract as the baseline. The first trained-head layer already exists; do not rebuild it from stale report CSVs. For the sparse-sample concern, the cache-only smaller PCA-width follow-up has run; the next safe move is fresh-result coverage-random validation before considering larger sparse-teacher or recursive architectures.
+Use the frozen v2 evidence bundle and frozen raw-representation tensor contract as the baseline. The first trained-head layer already exists; do not rebuild it from stale report CSVs. The AGAIN sparse-sample concern has now failed the 2000-budget confirmatory gate; the next safe move is not more sparse windows on the same 50-video selector subset.

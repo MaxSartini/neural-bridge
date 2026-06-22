@@ -63,7 +63,7 @@ After the v2 evidence freeze, a raw cortical representation audit, tensor export
 - Downstream product-model work is outside the current v2 evidence bundle.
 - Full multimodal TRIBE remains a high-priority pilot, not part of the frozen v2 claim yet. The guarded `83,84` pilot reaches audio/text event preparation but is blocked until the gated `meta-llama/Llama-3.2-3B` text encoder is locally available or authorized.
 - Do not use a full VEATIC-124 re-encode as the next multimodal step: only videos `83` and `84` contain audio streams.
-- AGAIN sparse-teacher work is implemented but not part of the VEATIC v2 claim. The current 50-video pilot failed hybrid sparse PCA128 promotion gates. A fresh cache-only smaller-width reanalysis found the train-selected small PCA lane beat AR, raw sparse current/causal mean, PCA64-delta, shuffled/random controls, and its same-lane coverage-random control. It should not be presented as full-AGAIN validation until a larger fresh grouped run confirms it.
+- AGAIN sparse-teacher work is implemented but not part of the VEATIC v2 claim. The current 50-video sparse sequence failed hybrid sparse PCA128 promotion gates, produced a promising 500-window small-PCA reanalysis, then failed the 2000-budget confirmatory gate against nuisance and matched-random controls. It should not be presented as full-AGAIN validation.
 
 ## Source Reports
 
@@ -80,3 +80,4 @@ After the v2 evidence freeze, a raw cortical representation audit, tensor export
 - `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py`
 - `reports/again_sparse_tribe_teacher_500_results_20260622_005732.md`
 - `reports/again_sparse_tribe_teacher_500_results_20260622_pca_width_reanalysis_v2.md`
+- `reports/again_sparse_tribe_teacher_2000_small_pca_results_20260622_2000_small_pca_confirmatory.md`

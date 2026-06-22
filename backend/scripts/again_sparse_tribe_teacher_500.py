@@ -59,12 +59,13 @@ from backend.scripts.again_scout_sparse_pipeline import (
 )
 
 
-SCHEMA_VERSION = "again_sparse_tribe_teacher_500_v1"
-BENCHMARK_MODE = "again_sparse_vitg_tribe_teacher_500_pca128_causal_past2s"
+SCHEMA_VERSION = "again_sparse_tribe_teacher_v2"
+BENCHMARK_MODE = "again_sparse_vitg_tribe_teacher_small_pca_confirmatory"
 SCOUT_VALIDATION_ROOT = Path("outputs/again_real_scout_selector_validation_20260621_230938_n50_covmatched")
 SCOUT_VALIDATION_VIDEO_COUNT = 50
 FULL_AGAIN_VIDEO_COUNT = 995
 SMALL_PCA_WIDTH_CANDIDATES = (8, 16, 32, 64)
+LOCKED_CONFIRMATORY_PCA_WIDTH = 32
 
 CAUSAL_RELATIVE_SECONDS = (-2.0, -1.0, 0.0)
 CLIP_DURATION_SECONDS = 4.0
@@ -75,15 +76,32 @@ VITG_CACHE_N_LAYERS = 20
 VITG_GROUP_LAYERS = (0.5, 0.75, 1.0)
 TRIBE_HEAD_POOL_POLICY = "mean_over_100_output_timesteps"
 
-ARM_WINDOW_BUDGETS = {
+ARM_WINDOW_BUDGETS_500 = {
     "hybrid_top5_selected": 250,
     "coverage_matched_random_to_hybrid": 100,
     "oracle_upper_bound": 60,
     "low_salience_background": 60,
     "sparse_anchor_windows": 30,
 }
+ARM_WINDOW_BUDGETS_1000 = {
+    "hybrid_top5_selected": 450,
+    "coverage_matched_random_to_hybrid": 200,
+    "fixed_random_same_budget": 120,
+    "oracle_upper_bound": 100,
+    "low_salience_background": 80,
+    "sparse_anchor_windows": 50,
+}
+ARM_WINDOW_BUDGETS_2000 = {
+    "hybrid_top5_selected": 900,
+    "coverage_matched_random_to_hybrid": 400,
+    "fixed_random_same_budget": 240,
+    "oracle_upper_bound": 200,
+    "low_salience_background": 160,
+    "sparse_anchor_windows": 100,
+}
+ARM_WINDOW_BUDGETS = ARM_WINDOW_BUDGETS_500
 ORACLE_EVALUATION_ARM = "oracle_upper_bound_with_background_controls"
-EVALUATION_ARMS = tuple(ARM_WINDOW_BUDGETS) + (ORACLE_EVALUATION_ARM,)
+EVALUATION_ARMS = tuple(dict.fromkeys([*ARM_WINDOW_BUDGETS_2000, *ARM_WINDOW_BUDGETS_1000, *ARM_WINDOW_BUDGETS_500, ORACLE_EVALUATION_ARM]))
 
 
 @dataclass(frozen=True)
@@ -95,10 +113,20 @@ class SparseTeacherConfig:
     frames_per_clip: int = FRAMES_PER_CLIP
     clip_duration_seconds: float = CLIP_DURATION_SECONDS
     report_date: str = datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_label: str = "again_sparse_tribe_teacher_500"
+    run_title: str = "AGAIN Sparse TRIBE Teacher 500"
 
 
 def now_stamp() -> str:
     return datetime.now().strftime("%Y%m%d_%H%M%S")
+
+
+def arm_budgets_for_window_budget(max_actual_windows: int) -> dict[str, int]:
+    if max_actual_windows >= 2000:
+        return dict(ARM_WINDOW_BUDGETS_2000)
+    if max_actual_windows >= 1000:
+        return dict(ARM_WINDOW_BUDGETS_1000)
+    return dict(ARM_WINDOW_BUDGETS_500)
 
 
 def sha256_file(path: Path) -> str:
@@ -158,8 +186,13 @@ def fingerprint_payload(
     actual_clip_timestamp: float,
     vjepa21_sha256: str,
     tribe_sha256: str,
+    selector_arm: str = "",
+    selector_config_hash: str = "",
+    strict_selector_fingerprint: bool = True,
 ) -> dict[str, Any]:
-    return {
+    clip_end = max(0.0, float(actual_clip_timestamp))
+    clip_start = max(0.0, clip_end - CLIP_DURATION_SECONDS)
+    payload = {
         "dataset": AGAIN_DATASET_NAME,
         "video_id": video_id,
         "video_path": video_path,
@@ -178,6 +211,23 @@ def fingerprint_payload(
         "tribe_head_sha256": tribe_sha256,
         "tribe_head_pool_policy": TRIBE_HEAD_POOL_POLICY,
     }
+    if strict_selector_fingerprint:
+        payload["clip_start"] = round(float(clip_start), 6)
+        payload["clip_end"] = round(float(clip_end), 6)
+        payload["selector_arm"] = selector_arm
+        payload["selector_config_hash"] = selector_config_hash
+    return payload
+
+
+def selector_config_hash(arm_window_budgets: dict[str, int], selector_root: Path) -> str:
+    payload = {
+        "arm_window_budgets": arm_window_budgets,
+        "causal_relative_seconds": CAUSAL_RELATIVE_SECONDS,
+        "selector_bases": SELECTOR_BASES,
+        "selector_root_name": selector_root.name,
+        "top5_budget": BUDGETS["top5pct"],
+    }
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
 
 
 def cache_fingerprint(payload: dict[str, Any]) -> str:
@@ -197,6 +247,8 @@ def queue_row(
     candidate_region_id: str,
     oracle_used_for_selection: bool,
     fingerprint: str,
+    legacy_fingerprint: str,
+    selector_config_digest: str,
 ) -> dict[str, Any]:
     clip_end = max(0.0, float(actual_clip_timestamp))
     clip_start = max(0.0, clip_end - CLIP_DURATION_SECONDS)
@@ -204,16 +256,23 @@ def queue_row(
         "dataset_name": AGAIN_DATASET_NAME,
         "video_id": source_row["video_id"],
         "video_path": source_row["video_path"],
+        "participant_id": source_row.get("participant_id", ""),
+        "session_id": source_row.get("session_id", ""),
+        "game": source_row.get("game", ""),
+        "genre": source_row.get("genre", ""),
         "selector_arm": selector_arm,
         "selector_role": selector_role,
         "center_timestamp": float(center_timestamp),
         "actual_clip_timestamp": float(actual_clip_timestamp),
+        "relative_position_to_center": temporal_role,
         "clip_start": clip_start,
         "clip_end": clip_end,
         "temporal_role": temporal_role,
         "source_selector_score": float(source_selector_score),
         "candidate_region_id": candidate_region_id,
         "spike_label_eval_only": source_row.get("future_spike_1_3s_ge_0.05", ""),
+        "arousal_delta_eval_only": source_row.get("future_spike_1_3s_delta", ""),
+        "future_change_p3s_eval_only": source_row.get("future_change_p3s_value", ""),
         "pre_spike_2s_eval_only": source_row.get("pre_spike_2s", ""),
         "pre_spike_4s_eval_only": source_row.get("pre_spike_4s", ""),
         "pre_spike_6s_eval_only": source_row.get("pre_spike_6s", ""),
@@ -221,6 +280,8 @@ def queue_row(
         "oracle_used_for_selection": bool(oracle_used_for_selection),
         "deployable_control_or_oracle": selector_role,
         "cache_fingerprint": fingerprint,
+        "legacy_cache_fingerprint": legacy_fingerprint,
+        "selector_config_hash": selector_config_digest,
         "final_predictive_feature_row": temporal_role != "T+1",
         "future_row_diagnostic_only": temporal_role == "T+1",
     }
@@ -283,6 +344,10 @@ def selector_candidates(
                 if safe_float(row.get("time_start_seconds")) in selected_set
             ]
             candidates.sort(key=lambda item: (-safe_float(item.get("_selector_score")), safe_float(item.get("time_start_seconds"))))
+        elif arm == "fixed_random_same_budget":
+            shuffled = list(rows)
+            rng.shuffle(shuffled)
+            candidates = [{**row, "_selector_score": float(rng.random())} for row in shuffled]
         elif arm == "oracle_upper_bound":
             scores = score_rows(rows, "oracle", rng)
             candidates = [{**row, "_selector_score": float(score)} for row, score in zip(rows, scores)]
@@ -312,7 +377,11 @@ def build_sparse_teacher_queue(
     rng: random.Random,
     vjepa21_sha256: str,
     tribe_sha256: str,
+    arm_window_budgets: dict[str, int] | None = None,
+    selector_config_digest: str = "",
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    if arm_window_budgets is None:
+        arm_window_budgets = ARM_WINDOW_BUDGETS_500
     rows_by_video = group_rows_by_video(feature_rows)
     rows_lookup = {row_key(row): row for row in feature_rows}
     queue: list[dict[str, Any]] = []
@@ -322,7 +391,7 @@ def build_sparse_teacher_queue(
     final_centers: dict[str, int] = {}
     roles = {"-2.0": "T-2", "-1.0": "T-1", "0.0": "T"}
 
-    for arm, window_budget in ARM_WINDOW_BUDGETS.items():
+    for arm, window_budget in arm_window_budgets.items():
         candidates = selector_candidates(rows_by_video, arm=arm, center_limit=None, rng=rng)
         selector_role = "oracle" if arm == "oracle_upper_bound" else "control" if "random" in arm or "background" in arm or "anchor" in arm else "deployable"
         arm_fingerprints: set[str] = set()
@@ -340,8 +409,20 @@ def build_sparse_teacher_queue(
                     actual_clip_timestamp=actual_timestamp,
                     vjepa21_sha256=vjepa21_sha256,
                     tribe_sha256=tribe_sha256,
+                    selector_arm=arm,
+                    selector_config_hash=selector_config_digest,
+                    strict_selector_fingerprint=True,
+                )
+                legacy_payload = fingerprint_payload(
+                    video_id=str(center_row["video_id"]),
+                    video_path=str(center_row["video_path"]),
+                    actual_clip_timestamp=actual_timestamp,
+                    vjepa21_sha256=vjepa21_sha256,
+                    tribe_sha256=tribe_sha256,
+                    strict_selector_fingerprint=False,
                 )
                 fingerprint = cache_fingerprint(payload)
+                legacy_fingerprint = cache_fingerprint(legacy_payload)
                 burst_fingerprints.add(fingerprint)
                 burst_rows.append(
                     queue_row(
@@ -355,6 +436,8 @@ def build_sparse_teacher_queue(
                         candidate_region_id=f"{arm}_{center_index:04d}",
                         oracle_used_for_selection=arm == "oracle_upper_bound",
                         fingerprint=fingerprint,
+                        legacy_fingerprint=legacy_fingerprint,
+                        selector_config_digest=selector_config_digest,
                     )
                 )
             new_for_arm = burst_fingerprints - arm_fingerprints
@@ -377,6 +460,10 @@ def build_sparse_teacher_queue(
         "arm_unique_window_counts": arm_unique_counts,
         "arm_queue_row_counts": arm_queue_counts,
         "arm_center_counts": final_centers,
+        "arm_window_budgets": arm_window_budgets,
+        "selector_config_hash": selector_config_digest,
+        "video_count": len(rows_by_video),
+        "video_ids": sorted(rows_by_video),
         "future_rows_included": False,
         "causal_roles": list(CAUSAL_RELATIVE_SECONDS),
     }
@@ -392,6 +479,16 @@ def load_cached_window(path: Path) -> tuple[np.ndarray, np.ndarray] | None:
         return None
     with np.load(path) as bundle:
         return np.asarray(bundle["cortical_prediction"], dtype=np.float32), np.asarray(bundle["grouped_video_feature"], dtype=np.float32)
+
+
+def write_cached_window(path: Path, cortical: np.ndarray, grouped: np.ndarray, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(
+        path,
+        cortical_prediction=cortical.astype(np.float32),
+        grouped_video_feature=grouped.astype(np.float32),
+        fingerprint_payload=json.dumps(payload, sort_keys=True),
+    )
 
 
 def encode_sparse_windows(
@@ -411,6 +508,7 @@ def encode_sparse_windows(
     runtime_rows: list[dict[str, Any]] = []
     start_all = time.perf_counter()
     cache_hits = 0
+    legacy_cache_hits = 0
     failures = 0
 
     by_video: dict[str, list[dict[str, Any]]] = {}
@@ -427,8 +525,31 @@ def encode_sparse_windows(
             fp = str(row["cache_fingerprint"])
             path = cache_path_for(external_cache_root, fp)
             cached = load_cached_window(path)
+            cache_hit_mode = "strict"
+            if cached is None and row.get("legacy_cache_fingerprint"):
+                legacy_path = cache_path_for(external_cache_root, str(row["legacy_cache_fingerprint"]))
+                cached = load_cached_window(legacy_path)
+                if cached is not None:
+                    cache_hit_mode = "legacy_backfilled_to_strict"
             if cached is not None:
-                cortical, _grouped = cached
+                cortical, grouped = cached
+                if cache_hit_mode == "legacy_backfilled_to_strict":
+                    write_cached_window(
+                        path,
+                        cortical,
+                        grouped,
+                        fingerprint_payload(
+                            video_id=video_id,
+                            video_path=str(video_path),
+                            actual_clip_timestamp=float(row["actual_clip_timestamp"]),
+                            vjepa21_sha256="recorded_in_manifest",
+                            tribe_sha256="recorded_in_manifest",
+                            selector_arm=str(row["selector_arm"]),
+                            selector_config_hash=str(row.get("selector_config_hash", "")),
+                            strict_selector_fingerprint=True,
+                        ),
+                    )
+                    legacy_cache_hits += 1
                 features_by_fp[fp] = cortical
                 cache_hits += 1
                 runtime_rows.append(
@@ -436,6 +557,7 @@ def encode_sparse_windows(
                         "video_id": video_id,
                         "cache_fingerprint": fp,
                         "cache_hit": True,
+                        "cache_hit_mode": cache_hit_mode,
                         "success": True,
                         "decode_seconds_for_video": decode_seconds if local_index == 1 else 0.0,
                         "forward_seconds": 0.0,
@@ -457,18 +579,20 @@ def encode_sparse_windows(
                 pred = tribe.predict({"video": grouped[None, :, :, None]})
                 cortical = np.asarray(pred[0], dtype=np.float32).mean(axis=-1)
                 head_seconds = time.perf_counter() - head_started
-                path.parent.mkdir(parents=True, exist_ok=True)
-                np.savez_compressed(
+                write_cached_window(
                     path,
-                    cortical_prediction=cortical.astype(np.float32),
-                    grouped_video_feature=grouped.astype(np.float32),
-                    fingerprint_payload=json.dumps(fingerprint_payload(
+                    cortical,
+                    grouped,
+                    fingerprint_payload(
                         video_id=video_id,
                         video_path=str(video_path),
                         actual_clip_timestamp=actual,
                         vjepa21_sha256="recorded_in_manifest",
                         tribe_sha256="recorded_in_manifest",
-                    ), sort_keys=True),
+                        selector_arm=str(row["selector_arm"]),
+                        selector_config_hash=str(row.get("selector_config_hash", "")),
+                        strict_selector_fingerprint=True,
+                    ),
                 )
                 features_by_fp[fp] = cortical
                 runtime_rows.append(
@@ -476,6 +600,7 @@ def encode_sparse_windows(
                         "video_id": video_id,
                         "cache_fingerprint": fp,
                         "cache_hit": False,
+                        "cache_hit_mode": "miss_encoded",
                         "success": True,
                         "decode_seconds_for_video": decode_seconds if local_index == 1 else 0.0,
                         "forward_seconds": forward_seconds,
@@ -490,6 +615,7 @@ def encode_sparse_windows(
                         "video_id": video_id,
                         "cache_fingerprint": fp,
                         "cache_hit": False,
+                        "cache_hit_mode": "miss_failed",
                         "success": False,
                         "decode_seconds_for_video": decode_seconds if local_index == 1 else 0.0,
                         "forward_seconds": 0.0,
@@ -506,6 +632,7 @@ def encode_sparse_windows(
                     "windows_for_video": len(rows),
                     "encoded_or_cached": len(features_by_fp),
                     "cache_hits": cache_hits,
+                    "legacy_cache_hits": legacy_cache_hits,
                     "failures": failures,
                 }
             ),
@@ -516,6 +643,7 @@ def encode_sparse_windows(
         "unique_actual_windows": len(unique_by_fp),
         "successful_windows": len(features_by_fp),
         "cache_hits": cache_hits,
+        "legacy_cache_hits": legacy_cache_hits,
         "failed_windows": failures,
         "total_runtime_seconds": time.perf_counter() - start_all,
         "seconds_per_successful_window": (time.perf_counter() - start_all) / len(features_by_fp) if features_by_fp else math.nan,
@@ -552,6 +680,10 @@ def build_center_rows(queue: list[dict[str, Any]], features_by_fp: dict[str, np.
                 "selector_arm": arm,
                 "selector_role": row0["selector_role"],
                 "video_id": video_id,
+                "participant_id": row0.get("participant_id", ""),
+                "session_id": row0.get("session_id", ""),
+                "game": row0.get("game", ""),
+                "genre": row0.get("genre", ""),
                 "center_timestamp": center,
                 "spike_label": bool_label(row0.get("spike_label_eval_only")),
                 "pre_spike_2s": bool_label(row0.get("pre_spike_2s_eval_only")),
@@ -929,6 +1061,8 @@ def evaluate_arm(
         *[f"AR_plus_sparse_pca{width}_causal_past2s_mean" for width in SMALL_PCA_WIDTH_CANDIDATES],
         "AR_plus_sparse_pca_train_selected_causal_past2s_mean",
         "AR_plus_sparse_pca128_causal_past2s_mean",
+        "AR_plus_telemetry_VJEPA_B_sparse_pca32_causal_past2s_mean",
+        "AR_plus_telemetry_VJEPA_B_sparse_pca_train_selected_causal_past2s_mean",
         "AR_plus_telemetry_VJEPA_B_sparse_pca128_causal_past2s_mean",
         "control_split_local_shuffled_sparse_pca_train_selected",
         "control_random_gaussian_sparse_pca_train_selected",
@@ -1040,6 +1174,20 @@ def evaluate_arm(
                 128,
                 pca128_width,
                 {},
+            ),
+            "AR_plus_telemetry_VJEPA_B_sparse_pca32_causal_past2s_mean": (
+                np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][train_idx], small_pca_by_width[LOCKED_CONFIRMATORY_PCA_WIDTH][0]], axis=1),
+                np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][test_idx], small_pca_by_width[LOCKED_CONFIRMATORY_PCA_WIDTH][1]], axis=1),
+                LOCKED_CONFIRMATORY_PCA_WIDTH,
+                small_pca_by_width[LOCKED_CONFIRMATORY_PCA_WIDTH][2],
+                {},
+            ),
+            "AR_plus_telemetry_VJEPA_B_sparse_pca_train_selected_causal_past2s_mean": (
+                np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][train_idx], selected_train_pc], axis=1),
+                np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][test_idx], selected_test_pc], axis=1),
+                selected_width,
+                selected_actual_width,
+                selection,
             ),
             "AR_plus_telemetry_VJEPA_B_sparse_pca128_causal_past2s_mean": (
                 np.concatenate([base["AR_plus_telemetry_change_plus_VJEPA_B"][train_idx], causal_train_pc], axis=1),
@@ -1160,21 +1308,37 @@ def add_gate_rows(lane_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         ("sparse_pca128_vs_ar", "hybrid_top5_selected", "AR_plus_sparse_pca128_causal_past2s_mean", "AR_only"),
         ("sparse_pca128_vs_ar_tel_scout", "hybrid_top5_selected", "AR_plus_telemetry_VJEPA_B_sparse_pca128_causal_past2s_mean", "AR_plus_telemetry_change_plus_VJEPA_B"),
         ("pca128_vs_raw_current", "hybrid_top5_selected", "AR_plus_sparse_pca128_causal_past2s_mean", "AR_plus_raw_sparse_current"),
+        ("pca32_locked_vs_ar", "hybrid_top5_selected", "AR_plus_sparse_pca32_causal_past2s_mean", "AR_only"),
+        ("pca32_locked_vs_raw_current", "hybrid_top5_selected", "AR_plus_sparse_pca32_causal_past2s_mean", "AR_plus_raw_sparse_current"),
+        ("pca32_locked_vs_raw_causal_mean", "hybrid_top5_selected", "AR_plus_sparse_pca32_causal_past2s_mean", "AR_plus_raw_sparse_causal_past2s_mean"),
+        ("pca32_locked_vs_ar_tel_scout", "hybrid_top5_selected", "AR_plus_sparse_pca32_causal_past2s_mean", "AR_plus_telemetry_change_plus_VJEPA_B"),
+        ("pca32_fusion_vs_ar_tel_scout", "hybrid_top5_selected", "AR_plus_telemetry_VJEPA_B_sparse_pca32_causal_past2s_mean", "AR_plus_telemetry_change_plus_VJEPA_B"),
         ("pca_train_selected_vs_ar", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_only"),
+        ("pca_train_selected_vs_ar_tel_scout", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_telemetry_change_plus_VJEPA_B"),
+        ("pca_train_selected_fusion_vs_ar_tel_scout", "hybrid_top5_selected", "AR_plus_telemetry_VJEPA_B_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_telemetry_change_plus_VJEPA_B"),
         ("pca_train_selected_vs_raw_current", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_raw_sparse_current"),
         ("pca_train_selected_vs_raw_causal_mean", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_raw_sparse_causal_past2s_mean"),
         ("pca_train_selected_vs_pca64_delta", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_sparse_pca64_delta_analogue"),
         ("pca_train_selected_vs_shuffled_control", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "control_split_local_shuffled_sparse_pca_train_selected"),
         ("pca_train_selected_vs_random_control", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "control_random_gaussian_sparse_pca_train_selected"),
         ("pca_train_selected_vs_coverage_random_selected", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_sparse_pca_train_selected_causal_past2s_mean"),
+        ("pca_train_selected_vs_fixed_random_selected", "hybrid_top5_selected", "AR_plus_sparse_pca_train_selected_causal_past2s_mean", "AR_plus_sparse_pca_train_selected_causal_past2s_mean"),
+        ("pca32_locked_vs_coverage_random_pca32", "hybrid_top5_selected", "AR_plus_sparse_pca32_causal_past2s_mean", "AR_plus_sparse_pca32_causal_past2s_mean"),
+        ("pca32_locked_vs_fixed_random_pca32", "hybrid_top5_selected", "AR_plus_sparse_pca32_causal_past2s_mean", "AR_plus_sparse_pca32_causal_past2s_mean"),
         ("hybrid_sparse_vs_coverage_random_sparse", "hybrid_top5_selected", "AR_plus_sparse_pca128_causal_past2s_mean", "AR_plus_sparse_pca128_causal_past2s_mean"),
     ]
     for gate, arm, lhs, rhs in comparisons:
         lhs_row = by.get((arm, lhs))
-        rhs_arm = "coverage_matched_random_to_hybrid" if gate in {
+        if gate in {
             "hybrid_sparse_vs_coverage_random_sparse",
             "pca_train_selected_vs_coverage_random_selected",
-        } else arm
+            "pca32_locked_vs_coverage_random_pca32",
+        }:
+            rhs_arm = "coverage_matched_random_to_hybrid"
+        elif gate in {"pca_train_selected_vs_fixed_random_selected", "pca32_locked_vs_fixed_random_pca32"}:
+            rhs_arm = "fixed_random_same_budget"
+        else:
+            rhs_arm = arm
         rhs_row = by.get((rhs_arm, rhs))
         if not lhs_row or not rhs_row:
             out.append({"gate": gate, "status": "not_evaluable", "notes": "missing lane"})
@@ -1194,7 +1358,7 @@ def add_gate_rows(lane_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return out
 
 
-def report_lines_queue(queue_summary: dict[str, Any], output_root: Path, external_cache_root: Path) -> list[str]:
+def report_lines_queue(queue_summary: dict[str, Any], output_root: Path, external_cache_root: Path, *, run_title: str) -> list[str]:
     def portable_path(path: Path) -> str:
         root_text = os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT")
         if not root_text:
@@ -1206,13 +1370,16 @@ def report_lines_queue(queue_summary: dict[str, Any], output_root: Path, externa
         return f"${{NEURAL_BRIDGE_EXTERNAL_ROOT}}/{relative}"
 
     return [
-        "# AGAIN Sparse TRIBE Teacher 500 Queue",
+        f"# {run_title} Queue",
         "",
         f"- benchmark_mode: `{BENCHMARK_MODE}`",
         f"- max actual encoded windows: `{queue_summary['max_actual_windows']}`",
         f"- queued rows: `{queue_summary['queued_rows']}`",
         f"- unique actual windows: `{queue_summary['unique_actual_windows']}`",
+        f"- selector video count: `{queue_summary.get('video_count')}`",
+        "- subset decision: existing 100-video scout/selector cache was not available; reused the corrected 50-video selector subset and expanded sparse coverage within it.",
         f"- causal roles: `{queue_summary['causal_roles']}`",
+        f"- selector config hash: `{queue_summary.get('selector_config_hash')}`",
         f"- future rows included: `{str(queue_summary['future_rows_included']).lower()}`",
         f"- output root: `{output_root}`",
         f"- external cache root: `{portable_path(external_cache_root)}`",
@@ -1227,16 +1394,17 @@ def report_lines_queue(queue_summary: dict[str, Any], output_root: Path, externa
     ]
 
 
-def report_lines_runtime(runtime_summary: dict[str, Any]) -> list[str]:
+def report_lines_runtime(runtime_summary: dict[str, Any], *, run_title: str) -> list[str]:
     successful = safe_float(runtime_summary.get("successful_windows"), 0.0)
     total_runtime = safe_float(runtime_summary.get("total_runtime_seconds"), 0.0)
     sec_per = total_runtime / successful if successful else math.nan
     return [
-        "# AGAIN Sparse TRIBE Teacher 500 Runtime",
+        f"# {run_title} Runtime",
         "",
         f"- unique actual windows: `{runtime_summary.get('unique_actual_windows')}`",
         f"- successful windows: `{runtime_summary.get('successful_windows')}`",
         f"- cache hits: `{runtime_summary.get('cache_hits')}`",
+        f"- legacy cache hits backfilled to strict fingerprints: `{runtime_summary.get('legacy_cache_hits')}`",
         f"- failed windows: `{runtime_summary.get('failed_windows')}`",
         f"- total runtime seconds: `{total_runtime:.3f}`",
         f"- seconds per successful window: `{sec_per:.3f}`",
@@ -1250,6 +1418,9 @@ def report_lines_results(
     lane_rows: list[dict[str, Any]],
     gate_rows: list[dict[str, Any]],
     runtime_summary: dict[str, Any],
+    *,
+    run_title: str = "AGAIN Sparse TRIBE Teacher 500",
+    max_actual_windows: int = 500,
 ) -> list[str]:
     by = {(row["selector_arm"], row["model_lane"]): row for row in lane_rows}
 
@@ -1278,12 +1449,14 @@ def report_lines_results(
     selected_inner = selected.get("mean_inner_validation_pr_auc", math.nan) if selected else math.nan
 
     return [
-        "# AGAIN Sparse TRIBE Teacher 500 Results",
+        f"# {run_title} Small PCA Results",
         "",
         "## Scope",
         "",
         f"- This sparse teacher pilot uses `{SCOUT_VALIDATION_VIDEO_COUNT}` selected AGAIN videos out of `{FULL_AGAIN_VIDEO_COUNT}` total videos.",
         f"- That is `{100 * SCOUT_VALIDATION_VIDEO_COUNT / FULL_AGAIN_VIDEO_COUNT:.1f}%` of the dataset.",
+        f"- Actual expensive-window budget: `{max_actual_windows}`.",
+        "- Existing 100-video selector cache was not available, so this run expands sparse coverage on the corrected 50-video selector subset.",
         "- AR-only in this report is computed only on the same sparse pilot center rows as the sparse TRIBE/PCA rows.",
         "- It is not the full-AGAIN AR baseline and must not be read as a 995-video comparison.",
         "- AR + sparse PCA128 cannot be tested against all 995 videos until matching sparse PCA rows exist for that full scope.",
@@ -1294,9 +1467,12 @@ def report_lines_results(
         f"- Hybrid AR + raw sparse current PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_raw_sparse_current')}`",
         f"- Hybrid AR + raw sparse causal mean PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_raw_sparse_causal_past2s_mean')}`",
         f"- Hybrid AR + sparse PCA128 causal PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_sparse_pca128_causal_past2s_mean')}`",
+        f"- Hybrid AR + locked sparse PCA32 causal PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_sparse_pca32_causal_past2s_mean')}`",
         f"- Hybrid AR + train-selected sparse PCA causal PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_sparse_pca_train_selected_causal_past2s_mean')}`",
         f"- Train-selected PCA widths by grouped outer fold: `{selected_widths or 'n/a'}`",
         f"- Mean inner-validation PR-AUC for selected-width lane: `{100 * safe_float(selected_inner):.2f}%`" if math.isfinite(safe_float(selected_inner)) else "- Mean inner-validation PR-AUC for selected-width lane: `n/a`",
+        f"- Hybrid AR + telemetry + V-JEPA-B + locked sparse PCA32 causal PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_telemetry_VJEPA_B_sparse_pca32_causal_past2s_mean')}`",
+        f"- Hybrid AR + telemetry + V-JEPA-B + train-selected sparse PCA causal PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_telemetry_VJEPA_B_sparse_pca_train_selected_causal_past2s_mean')}`",
         f"- Hybrid AR + telemetry + V-JEPA-B + sparse PCA128 causal PR-AUC: `{pr('hybrid_top5_selected', 'AR_plus_telemetry_VJEPA_B_sparse_pca128_causal_past2s_mean')}`",
         f"- Coverage-random AR + sparse PCA128 causal PR-AUC: `{pr('coverage_matched_random_to_hybrid', 'AR_plus_sparse_pca128_causal_past2s_mean')}`",
         f"- Oracle+background AR + sparse PCA128 causal PR-AUC: `{pr(ORACLE_EVALUATION_ARM, 'AR_plus_sparse_pca128_causal_past2s_mean')}`",
@@ -1311,20 +1487,30 @@ def report_lines_results(
         f"- sparse PCA128 vs AR-only: {gate('sparse_pca128_vs_ar')}",
         f"- sparse PCA128 vs AR + telemetry + V-JEPA-B: {gate('sparse_pca128_vs_ar_tel_scout')}",
         f"- sparse PCA128 vs raw sparse current: {gate('pca128_vs_raw_current')}",
+        f"- locked PCA32 vs AR-only: {gate('pca32_locked_vs_ar')}",
+        f"- locked PCA32 vs raw sparse current: {gate('pca32_locked_vs_raw_current')}",
+        f"- locked PCA32 vs raw sparse causal mean: {gate('pca32_locked_vs_raw_causal_mean')}",
+        f"- locked PCA32 vs AR + telemetry + V-JEPA-B: {gate('pca32_locked_vs_ar_tel_scout')}",
+        f"- AR + telemetry + V-JEPA-B + locked PCA32 vs AR + telemetry + V-JEPA-B: {gate('pca32_fusion_vs_ar_tel_scout')}",
         f"- train-selected small PCA vs AR-only: {gate('pca_train_selected_vs_ar')}",
+        f"- train-selected small PCA vs AR + telemetry + V-JEPA-B: {gate('pca_train_selected_vs_ar_tel_scout')}",
+        f"- AR + telemetry + V-JEPA-B + train-selected small PCA vs AR + telemetry + V-JEPA-B: {gate('pca_train_selected_fusion_vs_ar_tel_scout')}",
         f"- train-selected small PCA vs raw sparse current: {gate('pca_train_selected_vs_raw_current')}",
         f"- train-selected small PCA vs raw sparse causal mean: {gate('pca_train_selected_vs_raw_causal_mean')}",
         f"- train-selected small PCA vs PCA64-delta analogue: {gate('pca_train_selected_vs_pca64_delta')}",
         f"- train-selected small PCA vs shuffled control: {gate('pca_train_selected_vs_shuffled_control')}",
         f"- train-selected small PCA vs random control: {gate('pca_train_selected_vs_random_control')}",
         f"- train-selected small PCA vs coverage-random selected small PCA: {gate('pca_train_selected_vs_coverage_random_selected')}",
+        f"- train-selected small PCA vs fixed-random same-budget selected small PCA: {gate('pca_train_selected_vs_fixed_random_selected')}",
+        f"- locked PCA32 vs coverage-random PCA32: {gate('pca32_locked_vs_coverage_random_pca32')}",
+        f"- locked PCA32 vs fixed-random same-budget PCA32: {gate('pca32_locked_vs_fixed_random_pca32')}",
         f"- hybrid sparse vs coverage-random sparse: {gate('hybrid_sparse_vs_coverage_random_sparse')}",
         "",
         "## Decision Rule",
         "- This is a sparse teacher pilot only, not final AGAIN proof.",
-        "- PCA128 remains a negative sparse-sample lane here; do not scale it as the next sparse teacher representation.",
-        "- Treat the train-selected small PCA lane as the current follow-up candidate only if it beats AR, raw sparse current/causal mean, PCA64-delta, and shuffled/random controls.",
-        "- The selected small PCA lane passes the local sparse controls and its same-lane coverage-random control; larger sparse-teacher runs still need fresh grouped validation before promotion.",
+        "- Promote nothing unless the sparse lane beats AR, raw sparse current/causal mean, cheap AR+telemetry+V-JEPA-B, shuffled/random nuisance controls, and matched-random sparse controls.",
+        "- If a lane beats AR but loses to raw sparse, shuffled/random, or matched-random controls, treat it as non-confirmed sparse-sample signal.",
+        "- Do not approve full AGAIN scaling from this sparse pilot alone.",
     ]
 
 
@@ -1344,6 +1530,8 @@ def run_sparse_teacher_500(
     tribe_model_dir = root / "models" / "tribe-mlx" / "zimengxiong-tribev2-mlx"
     vjepa_sha = sha256_file(vjepa_weights_dir / "model.safetensors")
     tribe_sha = sha256_file(tribe_model_dir / "tribev2_mlx_float32.npz")
+    arm_window_budgets = arm_budgets_for_window_budget(config.max_actual_windows)
+    selector_digest = selector_config_hash(arm_window_budgets, config.selector_validation_root)
 
     feature_path = config.selector_validation_root / "again_real_scout_feature_rows.csv"
     feature_rows = read_csv_rows(feature_path)
@@ -1369,12 +1557,14 @@ def run_sparse_teacher_500(
         rng=random.Random(config.random_seed),
         vjepa21_sha256=vjepa_sha,
         tribe_sha256=tribe_sha,
+        arm_window_budgets=arm_window_budgets,
+        selector_config_digest=selector_digest,
     )
-    write_csv(output_root / "again_sparse_tribe_teacher_500_queue.csv", queue)
-    write_json(output_root / "again_sparse_tribe_teacher_500_queue_summary.json", queue_summary)
-    queue_report = "\n".join(report_lines_queue(queue_summary, output_root, external_cache_root)) + "\n"
+    write_csv(output_root / f"{config.run_label}_queue.csv", queue)
+    write_json(output_root / f"{config.run_label}_queue_summary.json", queue_summary)
+    queue_report = "\n".join(report_lines_queue(queue_summary, output_root, external_cache_root, run_title=config.run_title)) + "\n"
     Path("reports").mkdir(exist_ok=True)
-    queue_report_path = Path("reports") / f"again_sparse_tribe_teacher_500_queue_{config.report_date}.md"
+    queue_report_path = Path("reports") / f"{config.run_label}_queue_{config.report_date}.md"
     queue_report_path.write_text(queue_report, encoding="utf-8")
 
     features_by_fp, runtime_rows, runtime_summary = encode_sparse_windows(
@@ -1383,14 +1573,14 @@ def run_sparse_teacher_500(
         vjepa_weights_dir=vjepa_weights_dir,
         tribe_model_dir=tribe_model_dir,
     )
-    write_csv(output_root / "again_sparse_tribe_teacher_500_runtime.csv", runtime_rows)
-    write_json(output_root / "again_sparse_tribe_teacher_500_runtime_summary.json", runtime_summary)
-    runtime_report_path = Path("reports") / f"again_sparse_tribe_teacher_500_runtime_{config.report_date}.md"
-    runtime_report_path.write_text("\n".join(report_lines_runtime(runtime_summary)) + "\n", encoding="utf-8")
+    write_csv(output_root / f"{config.run_label}_runtime.csv", runtime_rows)
+    write_json(output_root / f"{config.run_label}_runtime_summary.json", runtime_summary)
+    runtime_report_path = Path("reports") / f"{config.run_label}_runtime_{config.report_date}.md"
+    runtime_report_path.write_text("\n".join(report_lines_runtime(runtime_summary, run_title=config.run_title)) + "\n", encoding="utf-8")
 
     center_rows, sparse_features = build_center_rows(queue, features_by_fp)
     add_ar_features(center_rows, feature_rows)
-    write_csv(output_root / "again_sparse_tribe_teacher_500_center_rows.csv", center_rows)
+    write_csv(output_root / f"{config.run_label}_center_rows.csv", center_rows)
     eval_center_rows = list(center_rows)
     for row in center_rows:
         if row["selector_arm"] in {"oracle_upper_bound", "low_salience_background", "sparse_anchor_windows"}:
@@ -1405,12 +1595,24 @@ def run_sparse_teacher_500(
         lane_rows.extend(arm_lane_rows)
         fold_rows.extend(arm_fold_rows)
     gate_rows = add_gate_rows(lane_rows)
-    write_csv(output_root / "again_sparse_tribe_teacher_500_lane_results.csv", lane_rows)
-    write_csv(output_root / "again_sparse_tribe_teacher_500_fold_results.csv", fold_rows)
-    write_csv(output_root / "again_sparse_tribe_teacher_500_gate_checks.csv", gate_rows)
+    write_csv(output_root / f"{config.run_label}_lane_results.csv", lane_rows)
+    write_csv(output_root / f"{config.run_label}_fold_results.csv", fold_rows)
+    write_csv(output_root / f"{config.run_label}_gate_checks.csv", gate_rows)
 
-    results_report_path = Path("reports") / f"again_sparse_tribe_teacher_500_results_{config.report_date}.md"
-    results_report_path.write_text("\n".join(report_lines_results(lane_rows, gate_rows, runtime_summary)) + "\n", encoding="utf-8")
+    results_report_path = Path("reports") / f"{config.run_label}_small_pca_results_{config.report_date}.md"
+    results_report_path.write_text(
+        "\n".join(
+            report_lines_results(
+                lane_rows,
+                gate_rows,
+                runtime_summary,
+                run_title=config.run_title,
+                max_actual_windows=config.max_actual_windows,
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
 
     run_manifest = {
         "schema_version": SCHEMA_VERSION,
@@ -1421,6 +1623,8 @@ def run_sparse_teacher_500(
         "cuda_dependencies_installed": False,
         "dense_again_vitg_encoding_run": False,
         "actual_vitg_tribe_window_budget": config.max_actual_windows,
+        "arm_window_budgets": arm_window_budgets,
+        "selector_config_hash": selector_digest,
         "actual_unique_windows_queued": queue_summary["unique_actual_windows"],
         "actual_successful_windows": runtime_summary["successful_windows"],
         "models_trained": True,

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the AGAIN 500-window sparse ViT-G/TRIBE teacher pilot."""
+"""Run an AGAIN sparse ViT-G/TRIBE teacher pilot."""
 
 from __future__ import annotations
 
@@ -26,16 +26,22 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--selector-validation-root", type=Path, default=None)
     parser.add_argument("--output-root", type=Path, default=None)
     parser.add_argument("--external-cache-root", type=Path, default=None)
+    parser.add_argument("--run-label", default=None)
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    output_root = args.output_root or Path("outputs") / f"again_sparse_tribe_teacher_500_{args.timestamp}"
-    cache_root = args.external_cache_root or external_root() / "benchmarks" / "again" / f"sparse_tribe_teacher_500_{args.timestamp}"
+    default_run_label = f"again_sparse_tribe_teacher_{args.max_actual_windows}"
+    run_label = args.run_label or default_run_label
+    run_title = f"AGAIN Sparse TRIBE Teacher {args.max_actual_windows}"
+    output_root = args.output_root or Path("outputs") / f"{run_label}_{args.timestamp}"
+    cache_root = args.external_cache_root or external_root() / "benchmarks" / "again" / f"{run_label}_{args.timestamp}"
     config_kwargs = {
         "max_actual_windows": args.max_actual_windows,
         "report_date": args.timestamp,
+        "run_label": run_label,
+        "run_title": run_title,
     }
     if args.selector_validation_root is not None:
         config_kwargs["selector_validation_root"] = args.selector_validation_root

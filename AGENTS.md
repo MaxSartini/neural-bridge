@@ -17,7 +17,7 @@ This repo is Neural Bridge. Treat older cloned-project context as archaeology, n
 - `roi_parcel_features` is an important side candidate; `topk_vertices_512` is supervised/cautionary.
 - Model-ready tensors are frozen under `NEURAL_BRIDGE_EXTERNAL_ROOT/tensors/veatic_124_raw_representation_v1/` with lightweight summaries in `outputs/veatic_124_raw_representation_tensor_export_v1/`.
 - V-JEPA 2.1 MLX support is implemented and selected from converted weights with `tensor_layout=vjepa2_1_mlx_port`.
-- AGAIN boundary/scout/full-AR/sparse-teacher tooling is implemented. The 50-video / 480-window sparse teacher pilot failed hybrid sparse PCA128 promotion gates. A cache-only smaller-width follow-up recomputed PCA/ridge results from raw cached cortical windows; the train-selected small PCA lane beat AR, raw sparse current/causal mean, PCA64-delta, shuffled/random controls, and its same-lane coverage-random control. Do not treat it as full AGAIN validation until a larger fresh grouped run confirms it.
+- AGAIN boundary/scout/full-AR/sparse-teacher tooling is implemented. The 50-video / 480-window sparse teacher pilot failed hybrid sparse PCA128 promotion gates. A cache-only smaller-width follow-up looked promising at 500-window scale. The later 2000-budget confirmatory run completed 1,948 windows on the same 50-video selector subset and did not confirm promotion: locked PCA32 beat AR but lost to raw sparse and matched-random controls; train-selected small PCA failed nuisance and matched-random controls. Do not scale AGAIN sparse teacher from this result.
 
 ## Start Here
 
@@ -55,7 +55,7 @@ Use `npm run verify` before pushing when dependencies are available.
 - Do not commit external tensor payloads (`.npy`); only lightweight tensor summaries/manifests and row samples belong in git.
 - Do not rerun the raw representation audit or tensor export when existing verified outputs can be reused.
 - Do not rebuild the frozen-tensor trained-head runner from stale CSVs; use the implemented runner and frozen tensor contract.
-- Do not scale AGAIN sparse teacher beyond the bounded pilot unless a fresh-result follow-up beats AR, raw sparse current/causal mean, shuffled/random controls, and coverage-matched random controls.
+- Do not scale AGAIN sparse teacher beyond the bounded pilot from the current evidence; the 2000-budget confirmatory run failed matched-random and nuisance-control promotion gates.
 - Keep machine-specific paths in local `.env`; `.env.example` must stay portable.
 - Treat `benchmarks/` and `outputs/` as retained evidence artifacts. Do not use older generated metadata inside them to override the current docs.
 - Treat `benchmarks/veatic/veatic_v2_evidence_manifest.json` and `evidence_snapshots/veatic_124_v2_20260616` under the external root as the frozen v2 evidence contract.

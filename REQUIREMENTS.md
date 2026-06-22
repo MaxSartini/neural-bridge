@@ -149,7 +149,7 @@ V-JEPA 2.1 and AGAIN status:
 
 - `MlxVjepa21Video` is implemented and selected when `TRIBE_VIDEO_ENCODER_MLX_DIR/config.json` declares `tensor_layout=vjepa2_1_mlx_port`.
 - `backend/scripts/run_veatic_tribe_cache.py` includes worker claims, resume status, per-window checkpoints, ffmpeg frame sampling, and protected-cache write refusal for MLX/V-JEPA outputs.
-- AGAIN boundary, scout, AR-context, and sparse teacher tooling is implemented. The current 50-video sparse teacher work failed hybrid sparse PCA128 promotion gates. A fresh cache-only smaller-width follow-up recomputed PCA/ridge/gates from cached raw cortical windows; the train-selected small PCA lane beat AR, raw sparse current/causal mean, PCA64-delta, shuffled/random controls, and its same-lane coverage-random control. Do not treat it as full-AGAIN proof until a larger fresh grouped run confirms it.
+- AGAIN boundary, scout, AR-context, and sparse teacher tooling is implemented. The current 50-video sparse teacher work failed hybrid sparse PCA128 promotion gates, produced a promising 500-window small-PCA follow-up, then failed the 2000-budget confirmatory gate against nuisance and matched-random controls. Do not treat it as full-AGAIN proof or scale it further on the same selector subset.
 
 ## Tracked Versus External Assets
 
