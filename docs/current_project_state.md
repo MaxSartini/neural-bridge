@@ -23,7 +23,7 @@ Dense AGAIN cache status: the expensive data-generation run has now been complet
 
 The full 995-video dense V-JEPA/TRIBE output bundle is now the correct substrate for later local PCA, temporal diagnostics, AR + cortical bridge training, shuffled/random/time controls, quality-filtered checks, and full grouped-video benchmarks. Do not describe the H100 postpass itself as a positive benchmark result; it generated the cache needed to run those benchmarks.
 
-AGAIN multimodal status: TRIBE/V-JEPA infrastructure can support multimodal inputs, but the local cleaned AGAIN video mirrors currently available to this repo are video-only containers. A 2026-06-22 `ffprobe` sweep over the internal scratch and external SSD AGAIN roots checked `1,095` `.webm`/video containers and found `0` embedded audio streams with `0` probe errors. `facebook/w2v-bert-2.0` is present and recognized as an encoder, but it has no usable AGAIN audio stream in these cleaned files. The external `meta-llama-Llama-3.2-3B` path remains a placeholder; a real MLX text candidate exists at `/Users/maxsartini/.lmstudio/models/mlx-community/Llama-3.2-3B-Instruct-4bit` and passes the repo's MLX text-model directory check.
+AGAIN multimodal status: TRIBE/V-JEPA infrastructure can support multimodal inputs, but the local cleaned AGAIN video mirrors currently available to this repo are video-only containers. A 2026-06-22 `ffprobe` sweep over the internal scratch and external SSD AGAIN roots checked `1,095` `.webm`/video containers and found `0` embedded audio streams with `0` probe errors. `facebook/w2v-bert-2.0` is present and recognized as an encoder, but it has no usable AGAIN audio stream in these cleaned files. The external `meta-llama-Llama-3.2-3B` path remains a placeholder; a machine-local LM Studio MLX text candidate may satisfy the repo's MLX text-model directory check when configured locally.
 
 MLX memory knobs are verified. `iogpu.wired_limit_mb` exists on this macOS install and is referenced by the installed MLX stubs for raising the system wired limit. MLX itself does not parse `MLX_MAX_MAPPED_MEM_MB`; Neural Bridge implements that name as a compatibility shim that calls `mx.set_wired_limit(bytes)` in heavy scripts. Without changing sysctl, MLX reports `max_recommended_working_set_size` around `24.96 GiB` on this 32 GiB M2 Max. `MLX_MAX_MAPPED_MEM_MB=24576` applies; `26624` requires first raising the system limit with `sudo sysctl iogpu.wired_limit_mb=26624`.
 
@@ -122,7 +122,7 @@ Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 Current multimodal pilot status:
 
 - `facebook/w2v-bert-2.0` is present on the external SSD.
-- The local LM Studio directory `/Users/maxsartini/.lmstudio/models/mlx-community/Llama-3.2-3B-Instruct-4bit` is a real MLX Llama 3.2 3B Instruct 4-bit model directory and passes the repo's MLX text-model directory check.
+- A local LM Studio MLX Llama 3.2 3B Instruct 4-bit model directory can pass the repo's MLX text-model directory check when configured locally.
 - The pilot reaches audio extraction, word extraction, Text/Sentence creation, and text feature preparation.
 - It is blocked by gated/missing `meta-llama/Llama-3.2-3B` text encoder assets.
 - A full VEATIC-124 multimodal re-encode is not warranted because only videos `83` and `84` contain audio streams.

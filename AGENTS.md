@@ -74,7 +74,7 @@ Expected current families:
 - `models/tribe-mlx`
 - `models/upstream-encoders/facebook-w2v-bert-2.0`
 - `models/upstream-encoders/meta-llama-Llama-3.2-3B` when authorized and populated
-- Local reference workstation candidate: `/Users/maxsartini/.lmstudio/models/mlx-community/Llama-3.2-3B-Instruct-4bit` passes the repo MLX text-model directory check, but it is machine-local and not a portable external-root contract.
+- Local reference workstation candidate: an LM Studio MLX Llama 3.2 3B Instruct 4-bit directory can satisfy the repo MLX text-model directory check, but it is machine-local and not a portable external-root contract.
 - `models/upstream-encoders-mlx/facebook-vjepa2-vitg-fpc64-256`
 - `models/vjepa21_mlx/vitg`
 - `benchmarks/again`

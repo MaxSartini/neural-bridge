@@ -54,7 +54,7 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 - Google Drive `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz` - completed dense 995-video H100 TRIBE v2 postpass output bundle. Local download target on the reference workstation is `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`.
 - `<external-assets-root>/models/upstream-encoders/facebook-w2v-bert-2.0/` - downloaded audio encoder for multimodal pilots.
 - `<external-assets-root>/models/upstream-encoders/meta-llama-Llama-3.2-3B/` - expected gated text encoder path; currently a placeholder unless populated with authorized Llama assets.
-- `/Users/maxsartini/.lmstudio/models/mlx-community/Llama-3.2-3B-Instruct-4bit/` - local LM Studio MLX text-model candidate on the reference workstation; passes the repo's MLX text-model directory check but is machine-local and must not be hardcoded into portable configs.
+- Local LM Studio MLX text-model directory - optional workstation-local text-model candidate; may pass the repo's MLX text-model directory check but must not be hardcoded into portable configs.
 - `<external-assets-root>/models/upstream-encoders-mlx/` - MLX upstream encoder weights.
 - `<external-assets-root>/models/transcription/` - MLX Whisper transcription weights.
 

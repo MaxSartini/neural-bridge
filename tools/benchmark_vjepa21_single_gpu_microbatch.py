@@ -44,12 +44,6 @@ def local_external_root() -> Path:
     env_root = os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT")
     if env_root:
         return Path(env_root).expanduser().resolve()
-    for candidate in (
-        Path("/Users/maxsartini/neural_bridge_scratch/external_root"),
-        Path("/Volumes/onn. Drive/Neural Bridge"),
-    ):
-        if candidate.exists():
-            return candidate
     raise EnvironmentError("Set NEURAL_BRIDGE_EXTERNAL_ROOT to the Neural Bridge external assets root.")
 
 

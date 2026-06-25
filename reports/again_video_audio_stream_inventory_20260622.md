@@ -6,8 +6,8 @@ Check whether the local AGAIN video containers available to Neural Bridge contai
 
 ## Scope
 
-- Internal scratch AGAIN root: `/Users/maxsartini/neural_bridge_scratch/external_root/data/external/AGAIN`
-- External SSD AGAIN root: `/Volumes/onn. Drive/Neural Bridge/data/external/AGAIN`
+- Internal scratch AGAIN root: local workstation scratch external root.
+- External SSD AGAIN root: configured `NEURAL_BRIDGE_EXTERNAL_ROOT` external drive mirror.
 - File types checked: `.webm`, `.mp4`, `.mkv`, `.mov`
 - Probe tool: `ffprobe`
 
@@ -26,6 +26,6 @@ Do not add Wav2Vec-BERT features to AGAIN from these cleaned video mirrors. If a
 
 ## Related Asset Check
 
-- External Wav2Vec-BERT path exists and is recognized as an encoder: `/Volumes/onn. Drive/Neural Bridge/models/upstream-encoders/facebook-w2v-bert-2.0`
+- External Wav2Vec-BERT path exists under the configured external root and is recognized as an encoder: `models/upstream-encoders/facebook-w2v-bert-2.0`
 - External `meta-llama-Llama-3.2-3B` path is a placeholder only unless populated with authorized assets.
-- Local LM Studio MLX Llama candidate exists and passes the repo's MLX text-model directory check: `/Users/maxsartini/.lmstudio/models/mlx-community/Llama-3.2-3B-Instruct-4bit`
+- A local LM Studio MLX Llama candidate may pass the repo's MLX text-model directory check when configured on a workstation.
