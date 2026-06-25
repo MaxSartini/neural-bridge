@@ -39,8 +39,8 @@ Top-level files:
 - `tribe_v2_postpass_manifest.jsonl`
 - `failed_videos.jsonl`
 - `video_metadata.csv`
-- `row_index.csv`
 - `row_index.parquet`
+- `row_index.csv`
 - `splits_by_video.json`
 - `splits_duration_balanced.json`
 - `splits_quality_filtered.json`
@@ -95,13 +95,14 @@ The 2026-06-25 local audit found the internal-SSD copy complete and schema-valid
 - `243,575` row-index rows matching the global metadata and per-video row counts
 - `0` missing required per-video output files
 - `0` partial/temp transfer files
+- `0` remaining per-video `traceback.txt` files after stale success tracebacks were removed
 - sampled arrays match the expected `[rows,20484]`, `[rows,2,1408]`, and compact temporal-diagnostic shapes
 
-Timing nuance: `864` videos start at `0.0s`; `131` videos start at `0.5s`. Downstream code must use saved `time_seconds` and `row_index` values rather than assuming every video starts at zero.
+Timing nuance: `864` videos start at `0.0s`; `131` videos start at `0.5s`. The `0.5s` starts are not shape failures and should not be papered over by forcing synthetic zero rows. Downstream code must use saved `time_seconds` and the canonical `row_index.parquet` values rather than assuming every video starts at zero.
 
 Quality nuance: quality flags are present. The audit found `4,816` quality-excluded rows across `966` videos, driven by duplicate-frame flags, and `0` black-frame-flagged videos. Keep those flags for train/test-aware filtering or weighting.
 
-Retry residue: `113` successful video folders still contain stale `traceback.txt` files from an earlier first-timestamp validator that rejected `0.5s` starts. Final `status.json`, global manifests, and sampled array checks pass, so those tracebacks are not final failures.
+Cache repair: `113` stale `traceback.txt` files from successful per-video folders were removed after final `status.json`, global manifests, row counts, and sampled arrays passed. A local non-git repair manifest was written at `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_run/cache_repair_20260625_stale_success_tracebacks.json`.
 
 ## Current Guardrails
 

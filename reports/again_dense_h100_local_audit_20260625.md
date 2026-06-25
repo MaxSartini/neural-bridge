@@ -57,8 +57,8 @@ Top-level files present:
 - `tribe_v2_postpass_manifest.jsonl`
 - `failed_videos.jsonl`
 - `video_metadata.csv`
-- `row_index.csv`
 - `row_index.parquet`
+- `row_index.csv`
 - `splits_by_video.json`
 - `splits_duration_balanced.json`
 - `splits_quality_filtered.json`
@@ -109,13 +109,15 @@ The global `row_index.parquet` passed the row-level checks:
 - clip-start-after-clip-end violations: `0`
 - per-video row-count mismatches against `video_metadata.csv`: `0`
 - videos with non-0.5s row steps: `0`
+- `row_index.csv` rows: `243,575`
+- `row_index.csv` vs `row_index.parquet` row mismatch: `0`
 
 First timestamp distribution:
 
 - `864` videos start at `0.0s`
 - `131` videos start at `0.5s`
 
-The `0.5s` first-row case is a timing nuance, not an output-shape failure. Downstream label alignment must use the saved `time_seconds`/`row_index` values rather than assuming all videos start at `0.0s`.
+The `0.5s` first-row case is a timing nuance, not an output-shape failure. These rows should remain exactly as encoded. Downstream label alignment must use the saved `time_seconds` and canonical `row_index.parquet` values rather than assuming all videos start at `0.0s`.
 
 ## Quality Flags
 
@@ -129,15 +131,21 @@ Quality metadata is present and should be used in downstream controls/filtering:
 
 Do not silently drop these rows before splitting. Filtering or weighting should happen inside each train/test protocol so quality controls remain honest.
 
-## Stale Traceback Files
+## Cache Repair
 
-`113` successful per-video folders contain `traceback.txt` files. Sampled traces show an earlier validator failure:
+The initial local audit found `113` stale `traceback.txt` files in successful per-video folders. Sampled traces showed an earlier validator failure:
 
 ```text
 StageError: First timestamp is not approximately 0.0: 0.5
 ```
 
-The final `status.json` files for sampled folders are `success` with `error: null`, row alignment passed, NaN/inf checks passed, and outputs written. Treat these tracebacks as stale retry residue from the stricter first-timestamp check, not as final failed videos. Future cleanup can remove or quarantine them, but downstream code should trust `status.json` plus manifest/schema checks.
+The final `status.json` files for those folders were `success` with `error: null`, row alignment passed, NaN/inf checks passed, and outputs written. The stale traceback files were removed from per-video folders after validation. A local non-git repair manifest was written at:
+
+```text
+.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_run/cache_repair_20260625_stale_success_tracebacks.json
+```
+
+Post-repair checks found `0` remaining per-video `traceback.txt` files.
 
 ## Bottom Line
 
