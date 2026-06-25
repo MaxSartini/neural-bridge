@@ -1,0 +1,7 @@
+{
+  "pca_fit_count": 54,
+  "score_part_reuse_policy": "schema/split/width/family/ridge/seed exact metadata match",
+  "score_parts_computed": 10,
+  "score_parts_expected": 18,
+  "score_parts_reused": 8
+}
