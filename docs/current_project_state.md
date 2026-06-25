@@ -21,6 +21,8 @@ The current AGAIN benchmark manifest is a deliberately built boundary-aligned `1
 
 Dense AGAIN cache status: the expensive data-generation run has now been completed on H100 rather than locally. The run used official V-JEPA 2.1 ViT-G, full dense `995` videos, `2Hz` rows, `2Hz` sampling, `256px`, and float16 precision. It did not run PCA, bridge training, or benchmarking. The follow-up cache-only TRIBE v2 postpass consumed precomputed V-JEPA caches only, preserved the `[rows,20,1,1408] -> [rows,2,1408] -> [1,2,1408,rows]` adapter contract, and wrote row-level `cortical_prediction [rows,20484]` outputs. Final postpass status: `995` videos succeeded, `0` failed, `243,575` rows. The Drive folder is `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`; the local download target is `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`.
 
+The local internal-SSD copy has passed a lightweight completeness/schema audit, tracked at `reports/again_dense_h100_local_audit_20260625.md`. The audit found `995` final successes, `0` failed-video lines, `243,575` row-index rows, no missing required per-video files, no partial/temp transfer files, and matching sampled output shapes. Preserve the timing nuance that `131` videos start at `0.5s` rather than `0.0s`, and preserve quality flags for downstream train/test-aware filtering.
+
 The full 995-video dense V-JEPA/TRIBE output bundle is now the correct substrate for later local PCA, temporal diagnostics, AR + cortical bridge training, shuffled/random/time controls, quality-filtered checks, and full grouped-video benchmarks. Do not describe the H100 postpass itself as a positive benchmark result; it generated the cache needed to run those benchmarks.
 
 AGAIN multimodal status: TRIBE/V-JEPA infrastructure can support multimodal inputs, but the local cleaned AGAIN video mirrors currently available to this repo are video-only containers. A 2026-06-22 `ffprobe` sweep over the internal scratch and external SSD AGAIN roots checked `1,095` `.webm`/video containers and found `0` embedded audio streams with `0` probe errors. `facebook/w2v-bert-2.0` is present and recognized as an encoder, but it has no usable AGAIN audio stream in these cleaned files. The external `meta-llama-Llama-3.2-3B` path remains a placeholder; a machine-local LM Studio MLX text candidate may satisfy the repo's MLX text-model directory check when configured locally.
@@ -113,11 +115,11 @@ Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 
 ## Remaining Work
 
-1. Finish pulling the H100 dense TRIBE postpass bundle locally and run a quick local completeness audit against the global manifest before using it.
-2. Build the next AGAIN benchmark layer from the dense 995-video TRIBE bundle: AR-only, quality/motion/luma controls, timestamp/video-time controls, shuffled/random controls, PCA widths, train-only PCA transforms, grouped-video folds, and blocked temporal checks.
+1. Build the next AGAIN benchmark layer from the dense 995-video TRIBE bundle: AR-only, quality/motion/luma controls, timestamp/video-time controls, shuffled/random controls, PCA widths, train-only PCA transforms, grouped-video folds, and blocked temporal checks.
+2. Build a boundary-aligned 2Hz AGAIN label manifest before making true 2Hz supervised claims from the dense 2Hz cache.
 3. Keep grouped-video validation, blocked validation, and controls as promotion gates for any learned head or dense AGAIN follow-up.
 4. Finish the guarded `83,84` multimodal pilot after populating or authorizing the gated `meta-llama/Llama-3.2-3B` text encoder.
-5. Productize the tensor/evidence/trained-head summaries into the benchmark dashboard.
+5. Keep the benchmark dashboard aligned with the current VEATIC and AGAIN evidence layers.
 
 Current multimodal pilot status:
 
@@ -129,4 +131,4 @@ Current multimodal pilot status:
 
 ## Next Safe Move
 
-Use the frozen v2 evidence bundle and frozen raw-representation tensor contract as the VEATIC baseline. The first trained-head layer already exists. For AGAIN, finish the local copy of the dense H100 TRIBE bundle and run benchmark/control layers over that full 995-video artifact.
+Use the frozen v2 evidence bundle and frozen raw-representation tensor contract as the VEATIC baseline. The first trained-head layer already exists. For AGAIN, use the audited local dense H100 TRIBE bundle and run benchmark/control layers over that full 995-video artifact.

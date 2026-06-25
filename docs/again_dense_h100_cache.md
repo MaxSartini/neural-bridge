@@ -14,6 +14,7 @@ This is the current handoff for the dense AGAIN artifact generated on H100.
 - Result: `995/995` videos completed, `0` failed, `243,575` row-level cortical rows.
 - Drive folder: `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`.
 - Local pull target: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`.
+- Local audit: `reports/again_dense_h100_local_audit_20260625.md`.
 
 This artifact is a data-generation milestone. It is not a benchmark result and must not be described as proving AGAIN generalization until grouped/control evaluations are run.
 
@@ -83,6 +84,24 @@ The bundle is sufficient for local downstream work without re-running V-JEPA or 
 - quality/motion/luma baselines
 - black-screen and duplicate-frame filtering
 - lead/lag and future-delta experiments after labels are aligned correctly
+
+## Local Audit Notes
+
+The 2026-06-25 local audit found the internal-SSD copy complete and schema-valid:
+
+- `995` per-video output folders
+- `995` final `status.json` successes
+- `0` failed-video log lines
+- `243,575` row-index rows matching the global metadata and per-video row counts
+- `0` missing required per-video output files
+- `0` partial/temp transfer files
+- sampled arrays match the expected `[rows,20484]`, `[rows,2,1408]`, and compact temporal-diagnostic shapes
+
+Timing nuance: `864` videos start at `0.0s`; `131` videos start at `0.5s`. Downstream code must use saved `time_seconds` and `row_index` values rather than assuming every video starts at zero.
+
+Quality nuance: quality flags are present. The audit found `4,816` quality-excluded rows across `966` videos, driven by duplicate-frame flags, and `0` black-frame-flagged videos. Keep those flags for train/test-aware filtering or weighting.
+
+Retry residue: `113` successful video folders still contain stale `traceback.txt` files from an earlier first-timestamp validator that rejected `0.5s` starts. Final `status.json`, global manifests, and sampled array checks pass, so those tracebacks are not final failures.
 
 ## Current Guardrails
 

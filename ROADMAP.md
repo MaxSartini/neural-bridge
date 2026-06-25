@@ -85,7 +85,7 @@ Goal: use the full dense H100 artifact as the next benchmark substrate while pre
 - [x] Add AGAIN cleaned-dataset audits, boundary-aligned manifests, and full-AGAIN AR context support.
 - [x] Run dense full-995 H100 V-JEPA 2.1 ViT-G encoding at `2Hz` rows, `2Hz` sampling, `256px`, float16.
 - [x] Run cache-only TRIBE v2 postpass over the dense H100 V-JEPA caches, producing row-level cortical predictions, grouped adapter features, compact temporal diagnostics, quality signals, row alignment, and global manifests.
-- [ ] Finish local download of `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz` and run a local completeness/schema audit.
+- [x] Finish local download of `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz` and run a local completeness/schema audit.
 - [ ] Build dense 995-video AGAIN PCA/bridge benchmark scripts over the TRIBE output bundle, with train-only PCA, grouped-video folds, blocked temporal splits, AR-only, quality/motion/luma, timestamp/video-time, shuffled, and random controls.
 - [ ] Build a boundary-aligned 2Hz AGAIN label manifest before making true 2Hz supervised claims from the dense 2Hz cache.
 - [ ] If an original/audio-bearing AGAIN source is located, run a fresh embedded-audio inventory before adding Wav2Vec-BERT features.
