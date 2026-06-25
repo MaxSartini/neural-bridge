@@ -1,6 +1,6 @@
 # Neural Bridge Roadmap
 
-This is the post-VEATIC-124 v2 roadmap. VEATIC proved the core video-dominant cortical/TRIBE hypothesis for arousal event/spike ranking. The roadmap now focuses on preserving the strict benchmark suite that produced that evidence, maintaining the frozen tensor and trained-head benchmark layers, and using V-JEPA 2.1 / AGAIN sparse-teacher work as bounded scaling evidence rather than as a replacement baseline.
+This is the post-VEATIC-124 v2 roadmap. VEATIC proved the core video-dominant cortical/TRIBE hypothesis for arousal event/spike ranking. The roadmap now focuses on preserving the strict benchmark suite that produced that evidence, maintaining the frozen tensor and trained-head benchmark layers, and using the completed dense AGAIN V-JEPA 2.1/TRIBE cache as the next full-dataset substrate. The earlier sparse-teacher work remains bounded evidence, not the scaling path.
 
 ## Proven Baseline
 
@@ -25,7 +25,7 @@ Completed:
 - The frozen-tensor trained-head benchmark is implemented in `backend/scripts/veatic_frozen_tensor_trained_heads.py` with `run_veatic_frozen_tensor_trained_heads_benchmark.py`; it uses MPS, fresh same-row AR, fresh controls, grouped gates, and no prior result-row reuse.
 - V-JEPA 2.1 MLX support is implemented in `backend/app/services/mlx_vjepa21_cortical.py` and integrated through `TribeAdapter` when converted weights declare `tensor_layout=vjepa2_1_mlx_port`.
 - AGAIN boundary, scout, full-AR-context, and sparse-teacher tooling is implemented. The current tracked AGAIN sparse teacher result is bounded 50-video evidence: PCA128 failed the first pilot, the 500-window small-PCA follow-up looked promising, and the 2000-budget confirmatory work remains non-promotable. V-JEPA 2.1 is the encoding engine for TRIBE v2; the tested compressed lanes are AR + train-only PCA of frozen TRIBE v2 cortical predictions. AR + locked PCA32 beats matched random under delta-over-AR, but remains slightly below AR + raw sparse and fails same-width shuffled-PCA32 controls.
-- AGAIN ViT-L scout support is implemented and should be used for the next selector refresh before another expensive ViT-G/TRIBE pass. The active contract is canonical `scout_novelty_z` with `scout_model_name`; `vjepa_b_*` and `vjepa_l_*` are aliases only. Local runtime testing found `1Hz`, `16` frames, `256px`, batch `1`, internal scratch storage to be the practical ViT-L scout configuration. `384px` is about 3x slower. Because the current AGAIN benchmark manifest is a boundary-aligned 1Hz view, the next ViT-G/TRIBE selected-region run should also be 1Hz first; 2Hz requires a new aligned 2Hz manifest for supervised claims.
+- Dense AGAIN V-JEPA 2.1/TRIBE data generation is complete. A paid H100 run encoded all `995` AGAIN videos with official V-JEPA 2.1 ViT-G at `2Hz` rows / `2Hz` sampling / `256px` / float16, then ran cache-only TRIBE v2. The TRIBE postpass completed `995/995` videos with `0` failures and `243,575` row-level cortical predictions. This replaces the need for more sparse windows as the immediate data substrate, but it does not by itself prove AGAIN benchmark gains.
 
 This is the current scientific foundation, not a hypothesis waiting for another dataset to validate it.
 
@@ -82,7 +82,7 @@ Goal: maintain and extend the implemented model-head layer without weakening con
 
 ## 5. V-JEPA 2.1 And AGAIN Scaling
 
-Goal: keep the scaling path reusable while preventing it from being mistaken for proven AGAIN generalization.
+Goal: use the full dense H100 artifact as the next benchmark substrate while preventing raw cache generation from being mistaken for proven AGAIN generalization.
 
 - [x] Add V-JEPA 2.1 ViT-g MLX model loading, preprocessing, RoPE attention, and TRIBE-compatible selected hidden-state output.
 - [x] Add ffmpeg/VideoToolbox frame sampling, per-window checkpointing, worker claims, resume guards, and protected VEATIC-cache write refusal.
@@ -91,10 +91,12 @@ Goal: keep the scaling path reusable while preventing it from being mistaken for
 - [x] Run a fresh cache-only smaller-width PCA follow-up from cached raw cortical windows; record that the train-selected small PCA lane beat AR, raw sparse current/causal mean, PCA64-delta, and shuffled/random controls.
 - [x] Run the 2000-budget sparse teacher confirmatory pass plus true same-budget fixed-random rerun; record that AR + locked PCA32 has arm-local signal but does not justify broader sparse-teacher scaling.
 - [x] Add ViT-L scout support with model-stamped canonical scout fields and internal-scratch runtime controls.
-- [ ] Finish the 100-video ViT-L scout refresh and use it to define the next 1Hz ViT-G/TRIBE selected-region queue.
-- [ ] Build a boundary-aligned 2Hz AGAIN manifest only if a true 2Hz supervised follow-up is needed.
+- [x] Run dense full-995 H100 V-JEPA 2.1 ViT-G encoding at `2Hz` rows, `2Hz` sampling, `256px`, float16.
+- [x] Run cache-only TRIBE v2 postpass over the dense H100 V-JEPA caches, producing row-level cortical predictions, grouped adapter features, compact temporal diagnostics, quality signals, row alignment, and global manifests.
+- [ ] Finish local download of `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz` and run a local completeness/schema audit.
+- [ ] Build dense 995-video AGAIN PCA/bridge benchmark scripts over the TRIBE output bundle, with train-only PCA, grouped-video folds, blocked temporal splits, AR-only, quality/motion/luma, timestamp/video-time, shuffled, and random controls.
+- [ ] Build a boundary-aligned 2Hz AGAIN label manifest before making true 2Hz supervised claims from the dense 2Hz cache.
 - [ ] If an original/audio-bearing AGAIN source is located, run a fresh embedded-audio inventory before adding Wav2Vec-BERT features.
-- [ ] Run future ViT-G/TRIBE active encoding from internal scratch and mirror completed caches/artifacts back to the external SSD.
 - [ ] Do not promote more sparse teacher windows on the same 50-video selector subset.
 
 ## 6. Productized Evidence Workflow
@@ -131,3 +133,4 @@ Goal: keep fresh sessions focused on the current Neural Bridge system.
 - Exact continuous arousal-value forecasting as the current headline.
 - Test-selected lag correction as a headline result.
 - CUDA-only training stacks in the main local environment.
+- Treating H100 cache generation or TRIBE postpass completion as a benchmark win before the grouped/control AGAIN evaluation is run.
