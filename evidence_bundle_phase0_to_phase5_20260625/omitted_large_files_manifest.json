@@ -1,27 +1,43 @@
 {
-  "files": [
+  "compressed_large_files": [
     {
-      "bundle_path": "again_dense_root_metadata/row_index.csv",
-      "reason": "exceeds_70MB_cap_for_again_dense_root_lightweight_metadata",
-      "sha256": "87c0adc897759b7d327c669f6958836e074830c270b412213b6ff5f782f4f5ff",
-      "size_bytes": 101298214,
+      "bundle_path": "large_evidence_compressed/again_dense_root_metadata/row_index.csv.gz",
+      "compression": "gzip",
+      "original_bundle_path": "again_dense_root_metadata/row_index.csv",
+      "original_sha256": "87c0adc897759b7d327c669f6958836e074830c270b412213b6ff5f782f4f5ff",
+      "original_size_bytes": 101298214,
+      "oversize_approved": true,
+      "reason": "compressed_oversize_again_dense_root_lightweight_metadata",
+      "sha256": "f651568af8c2a6146677ff2a4e6719cc46edc7bcd412599c7affdf66376f3723",
+      "size_bytes": 10506708,
       "source_path": "$NEURAL_BRIDGE_REPO/.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/row_index.csv"
     },
     {
-      "bundle_path": "outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv",
-      "reason": "exceeds_70MB_cap_for_again_phase0_audit_handoff",
-      "sha256": "0eeaf1f8e9f7435b1fe3b3e90812477ccda9a0abf730944809fb7b785e58810f",
-      "size_bytes": 127602515,
+      "bundle_path": "large_evidence_compressed/outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv.gz",
+      "compression": "gzip",
+      "original_bundle_path": "outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv",
+      "original_sha256": "0eeaf1f8e9f7435b1fe3b3e90812477ccda9a0abf730944809fb7b785e58810f",
+      "original_size_bytes": 127602515,
+      "oversize_approved": true,
+      "reason": "compressed_oversize_again_phase0_audit_handoff",
+      "sha256": "4555b1a4d6fb6426c7c7d4870d53451072b5889c9eecb39006fac7822a7ac5a6",
+      "size_bytes": 3176121,
       "source_path": "$NEURAL_BRIDGE_REPO/outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv"
     },
     {
-      "bundle_path": "outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv",
-      "reason": "exceeds_70MB_cap_for_again_phase0_audit_handoff",
-      "sha256": "ea0a98d902f36f95d10e57786608986e5561e84f72e8ae2f16b35b1606f3de77",
-      "size_bytes": 286211504,
+      "bundle_path": "large_evidence_compressed/outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv.gz",
+      "compression": "gzip",
+      "original_bundle_path": "outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv",
+      "original_sha256": "ea0a98d902f36f95d10e57786608986e5561e84f72e8ae2f16b35b1606f3de77",
+      "original_size_bytes": 286211504,
+      "oversize_approved": true,
+      "reason": "compressed_oversize_again_phase0_audit_handoff",
+      "sha256": "1ec84213f9e0fcc2f2f64b2d1601f3fa137a92cc13f47ffd0457129abf9fe33f",
+      "size_bytes": 6909733,
       "source_path": "$NEURAL_BRIDGE_REPO/outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv"
     }
   ],
+  "files": [],
   "hard_excluded_examples": [],
   "hard_excluded_seen_count": 0
 }

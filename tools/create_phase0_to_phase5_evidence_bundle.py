@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import csv
 import fnmatch
+import gzip
 import hashlib
 import json
 import os
@@ -60,6 +61,7 @@ HARD_EXCLUDE_EXTS = {
 LIGHTWEIGHT_PATTERNS = ("*.md", "*.csv", "*.json", "*.jsonl", "*.parquet", "*.txt")
 APPROVED_OVERSIZE = {"again_dense_root_metadata/labels_aligned_2hz.parquet"}
 TEXT_EXTS_FOR_SANITIZE = {".csv", ".json", ".jsonl", ".md", ".txt"}
+COMPRESS_OVERSIZE_EXTS = {".csv"}
 SKIP_SOURCE_NAME_PATTERNS = (
     "veatic_neuro_benchmark_124video_cortical_*.json",
     "veatic_neuro_benchmark_124video_cortical_*.summary.md",
@@ -67,6 +69,7 @@ SKIP_SOURCE_NAME_PATTERNS = (
 
 
 included: list[dict[str, object]] = []
+compressed_large: list[dict[str, object]] = []
 omitted_large: list[dict[str, object]] = []
 omitted_hard: list[dict[str, object]] = []
 seen: set[Path] = set()
@@ -105,6 +108,14 @@ def sanitize_bundle_file(path: Path) -> None:
     # Rewriting also normalizes copied CSV/JSON/Markdown evidence to LF so
     # git's whitespace gate does not flag CRLF bytes from upstream exports.
     path.write_text(sanitize_text(text), encoding="utf-8")
+
+
+def gzip_sanitized_text(src: Path, dest: Path) -> None:
+    text = src.read_text(encoding="utf-8")
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    with dest.open("wb") as raw:
+        with gzip.GzipFile(filename="", mode="wb", fileobj=raw, compresslevel=6, mtime=0) as handle:
+            handle.write(sanitize_text(text).encode("utf-8"))
 
 
 def hard_excluded_dest(dest_rel: Path) -> str | None:
@@ -154,6 +165,25 @@ def add_file(src: Path, reason: str, *, dest_rel: Path | None = None, approve_ov
         )
         return
     if size > MAX_SIZE and not (approve_oversize or str(dest_rel) in APPROVED_OVERSIZE):
+        if src.suffix.lower() in COMPRESS_OVERSIZE_EXTS:
+            compressed_rel = Path("large_evidence_compressed") / Path(f"{dest_rel}.gz")
+            compressed_dest = BUNDLE / compressed_rel
+            gzip_sanitized_text(src, compressed_dest)
+            compressed_row = {
+                "source_path": sanitize_path(src),
+                "original_bundle_path": str(dest_rel),
+                "bundle_path": str(compressed_rel),
+                "original_size_bytes": size,
+                "original_sha256": digest,
+                "size_bytes": file_size(compressed_dest),
+                "sha256": sha256(compressed_dest),
+                "compression": "gzip",
+                "reason": f"compressed_oversize_{reason}",
+                "oversize_approved": True,
+            }
+            included.append(compressed_row)
+            compressed_large.append(compressed_row)
+            return
         omitted_large.append(
             {
                 "source_path": sanitize_path(src),
@@ -391,17 +421,33 @@ This lightweight bundle packages review evidence for Neural Bridge from VEATIC t
 - AGAIN Phase 3: `reports/again_dense_2hz_raw_cortical_vs_ar_20260625_094242.md` and `outputs/again_dense_2hz_raw_cortical_benchmark_20260625_093733/`.
 - AGAIN Phase 4: phase 4 reports plus `external_root/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/` lightweight metrics, promotion gates, diagnostics, and manifests.
 - AGAIN Phase 5: `outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/` and `outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/`, excluding checkpoints.
+- Compressed large evidence: `large_evidence_compressed/` contains gzip-compressed CSVs that were too large to keep as raw CSV in git.
 
 ## Headline Results
 
 - VEATIC best spike PR-AUC: `0.2536` vs AR `0.1969`.
 - AGAIN Phase 3 AR+raw PR-AUC: `0.17030` vs AR `0.14725`.
 - AGAIN Phase 4 best PR-AUC: `0.17165` vs AR `0.14725`.
-- AGAIN Phase 5 best PR-AUC: `0.21913` vs Phase 4 `0.17165` and AR `0.14725`.
+- AGAIN Phase 5 main learned-head PR-AUC: `0.21913` vs Phase 4 `0.17165` and AR `0.14725`.
+- AGAIN Phase 5 label-permutation follow-up best real grouped PR-AUC: `0.22458`; label permutation PR-AUC `0.10428`; blocked temporal real PR-AUC `0.20712`.
 
 ## Intentional Omissions
 
-Hard-excluded payloads include `per_video/`, `features/`, `pca_components/`, `score_parts/`, `cache/`, `checkpoints/`, broad `.cache/` payload paths, NumPy/model binaries, videos, and audio. Critical evidence files under 70MB are allowed. The approved explicit exception is `again_dense_root_metadata/labels_aligned_2hz.parquet`, which preserves Phase 1 labels for review. Larger files are otherwise omitted. See `omitted_large_files_manifest.json`.
+Hard-excluded payloads include `per_video/`, `features/`, `pca_components/`, `score_parts/`, `cache/`, `checkpoints/`, broad `.cache/` payload paths, NumPy/model binaries, videos, and audio. Critical evidence files under 70MB are allowed. The approved explicit exception is `again_dense_root_metadata/labels_aligned_2hz.parquet`, which preserves Phase 1 labels for review. Oversize CSV evidence is stored as deterministic gzip under `large_evidence_compressed/`. Larger non-CSV files are otherwise omitted. See `omitted_large_files_manifest.json`.
+
+## Compressed Large Evidence
+
+The following raw CSVs exceeded the normal evidence cap and are included as `.csv.gz` inside `large_evidence_compressed/`:
+
+- `again_dense_root_metadata/row_index.csv`
+- `outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv`
+- `outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv`
+
+To inspect one:
+
+```bash
+gzip -cd large_evidence_compressed/again_dense_root_metadata/row_index.csv.gz | head
+```
 
 ## Verify Checksums
 
@@ -456,11 +502,15 @@ def write_manifests() -> None:
             "again_phase3_ar_plus_raw_pr_auc": 0.17030,
             "again_phase3_ar_pr_auc": 0.14725,
             "again_phase4_best_pr_auc": 0.17165,
-            "again_phase5_best_pr_auc": 0.21913,
+            "again_phase5_main_best_pr_auc": 0.21913,
+            "again_phase5_followup_best_real_grouped_pr_auc": 0.22458,
+            "again_phase5_followup_label_permutation_pr_auc": 0.10428,
+            "again_phase5_followup_blocked_temporal_real_pr_auc": 0.20712,
         },
         "git": git_metadata(),
         "hard_exclude_parts": sorted(HARD_EXCLUDE_PARTS),
         "hard_exclude_extensions": sorted(HARD_EXCLUDE_EXTS),
+        "compressed_large_files": sorted(compressed_large, key=lambda row: str(row["bundle_path"])),
         "generated_manifest_files": generated_manifest_names,
         "files": files,
     }
@@ -470,6 +520,7 @@ def write_manifests() -> None:
         json.dumps(
             {
                 "files": sorted(omitted_large, key=lambda row: str(row["source_path"])),
+                "compressed_large_files": sorted(compressed_large, key=lambda row: str(row["bundle_path"])),
                 "hard_excluded_seen_count": len(omitted_hard),
                 "hard_excluded_examples": sorted(omitted_hard, key=lambda row: str(row["source_path"]))[:50],
             },
@@ -516,6 +567,7 @@ if __name__ == "__main__":
         json.dumps(
             {
                 "bundle": str(BUNDLE),
+                "compressed_large_files": len(compressed_large),
                 "included_files": len(included),
                 "total_size_mb": round(sum(int(row["size_bytes"]) for row in included) / 1024 / 1024, 2),
                 "large_omissions": len(omitted_large),

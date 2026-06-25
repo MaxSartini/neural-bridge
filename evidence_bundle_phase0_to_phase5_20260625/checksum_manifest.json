@@ -12,8 +12,8 @@
     },
     {
       "bundle_path": "BUNDLE_README.md",
-      "sha256": "617536c08080d6f4002321f2b2c64bd8f2cfd37a38687e7e016f225a11a6eb69",
-      "size_bytes": 3658
+      "sha256": "3589ff5226ff9038aefcddb729d9d0228009f3d9cd6cf714504097224c187898",
+      "size_bytes": 4565
     },
     {
       "bundle_path": "README.md",
@@ -447,13 +447,13 @@
     },
     {
       "bundle_path": "bundle_file_inventory.csv",
-      "sha256": "6da8b979e757fa297561580df0e6d1a30b197286603b61648a06931777f6f9b1",
-      "size_bytes": 423212
+      "sha256": "2c1cf5463332d0cd9b2ebff5b39a972430f1ee1422bc84cac83106a733c3baad",
+      "size_bytes": 428999
     },
     {
       "bundle_path": "bundle_manifest.json",
-      "sha256": "07ff0fe4a12bb8e35bb423fa679579d558450a4fa4f26d1fe6148ce57686e9cc",
-      "size_bytes": 594402
+      "sha256": "3103aadfb2e7af6055ee9f66319e7d6d0184828c7ce77ef8c5aeaa959c163849",
+      "size_bytes": 585376
     },
     {
       "bundle_path": "docs/PROJECT_MEMORY.md",
@@ -651,9 +651,24 @@
       "size_bytes": 10659
     },
     {
+      "bundle_path": "large_evidence_compressed/again_dense_root_metadata/row_index.csv.gz",
+      "sha256": "f651568af8c2a6146677ff2a4e6719cc46edc7bcd412599c7affdf66376f3723",
+      "size_bytes": 10506708
+    },
+    {
+      "bundle_path": "large_evidence_compressed/outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv.gz",
+      "sha256": "4555b1a4d6fb6426c7c7d4870d53451072b5889c9eecb39006fac7822a7ac5a6",
+      "size_bytes": 3176121
+    },
+    {
+      "bundle_path": "large_evidence_compressed/outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv.gz",
+      "sha256": "1ec84213f9e0fcc2f2f64b2d1601f3fa137a92cc13f47ffd0457129abf9fe33f",
+      "size_bytes": 6909733
+    },
+    {
       "bundle_path": "omitted_large_files_manifest.json",
-      "sha256": "822ef406236bcd977b6f8fef76d60f7a0158d92ea28b4f0d4061996af4e4a0f5",
-      "size_bytes": 1367
+      "sha256": "8f942485ee35bf25c39bb057b7bcc233098bf25688cd5cc5c1f3799d49d4c3d5",
+      "size_bytes": 2384
     },
     {
       "bundle_path": "outputs/again_alignment_offset_diagnosis_20260621_131041/again_aligned_manifest_preview.csv",

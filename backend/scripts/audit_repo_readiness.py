@@ -64,6 +64,7 @@ MAX_TRACKED_FILE_BYTES = 15 * 1024 * 1024
 EVIDENCE_BUNDLE_PREFIX = "evidence_bundle_phase0_to_phase5_20260625/"
 MAX_EVIDENCE_BUNDLE_FILE_BYTES = 70 * 1024 * 1024
 EVIDENCE_BUNDLE_ALLOWED_SUFFIXES = {".csv", ".json", ".jsonl", ".md", ".parquet", ".py", ".txt"}
+EVIDENCE_BUNDLE_ALLOWED_DOUBLE_SUFFIXES = {(".csv", ".gz")}
 
 
 def git_lines(*args: str) -> list[str]:
@@ -104,7 +105,11 @@ def audit_tracked_bulk(files: list[Path], errors: list[str]) -> None:
         rel = relative(path)
         if rel.startswith(EVIDENCE_BUNDLE_PREFIX):
             size = path.stat().st_size
-            if path.name != ".codexignore" and path.suffix not in EVIDENCE_BUNDLE_ALLOWED_SUFFIXES:
+            if (
+                path.name != ".codexignore"
+                and path.suffix not in EVIDENCE_BUNDLE_ALLOWED_SUFFIXES
+                and tuple(path.suffixes[-2:]) not in EVIDENCE_BUNDLE_ALLOWED_DOUBLE_SUFFIXES
+            ):
                 errors.append(f"tracked evidence-bundle file has unexpected suffix: {rel}")
             if size > MAX_EVIDENCE_BUNDLE_FILE_BYTES:
                 errors.append(

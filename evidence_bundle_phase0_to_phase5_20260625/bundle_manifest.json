@@ -3,8 +3,46 @@
     "again_dense_root_metadata/labels_aligned_2hz.parquet"
   ],
   "bundle_name": "evidence_bundle_phase0_to_phase5_20260625",
-  "created_at": "2026-06-25T20:28:44.293995+00:00",
-  "file_count": 1059,
+  "compressed_large_files": [
+    {
+      "bundle_path": "large_evidence_compressed/again_dense_root_metadata/row_index.csv.gz",
+      "compression": "gzip",
+      "original_bundle_path": "again_dense_root_metadata/row_index.csv",
+      "original_sha256": "87c0adc897759b7d327c669f6958836e074830c270b412213b6ff5f782f4f5ff",
+      "original_size_bytes": 101298214,
+      "oversize_approved": true,
+      "reason": "compressed_oversize_again_dense_root_lightweight_metadata",
+      "sha256": "f651568af8c2a6146677ff2a4e6719cc46edc7bcd412599c7affdf66376f3723",
+      "size_bytes": 10506708,
+      "source_path": "$NEURAL_BRIDGE_REPO/.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/row_index.csv"
+    },
+    {
+      "bundle_path": "large_evidence_compressed/outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv.gz",
+      "compression": "gzip",
+      "original_bundle_path": "outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv",
+      "original_sha256": "0eeaf1f8e9f7435b1fe3b3e90812477ccda9a0abf730944809fb7b785e58810f",
+      "original_size_bytes": 127602515,
+      "oversize_approved": true,
+      "reason": "compressed_oversize_again_phase0_audit_handoff",
+      "sha256": "4555b1a4d6fb6426c7c7d4870d53451072b5889c9eecb39006fac7822a7ac5a6",
+      "size_bytes": 3176121,
+      "source_path": "$NEURAL_BRIDGE_REPO/outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv"
+    },
+    {
+      "bundle_path": "large_evidence_compressed/outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv.gz",
+      "compression": "gzip",
+      "original_bundle_path": "outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv",
+      "original_sha256": "ea0a98d902f36f95d10e57786608986e5561e84f72e8ae2f16b35b1606f3de77",
+      "original_size_bytes": 286211504,
+      "oversize_approved": true,
+      "reason": "compressed_oversize_again_phase0_audit_handoff",
+      "sha256": "1ec84213f9e0fcc2f2f64b2d1601f3fa137a92cc13f47ffd0457129abf9fe33f",
+      "size_bytes": 6909733,
+      "source_path": "$NEURAL_BRIDGE_REPO/outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv"
+    }
+  ],
+  "created_at": "2026-06-25T20:36:27.460406+00:00",
+  "file_count": 1062,
   "files": [
     {
       "bundle_path": ".codexignore",
@@ -26,8 +64,8 @@
       "bundle_path": "BUNDLE_README.md",
       "oversize_approved": false,
       "reason": "generated_bundle_readme",
-      "sha256": "617536c08080d6f4002321f2b2c64bd8f2cfd37a38687e7e016f225a11a6eb69",
-      "size_bytes": 3658,
+      "sha256": "3589ff5226ff9038aefcddb729d9d0228009f3d9cd6cf714504097224c187898",
+      "size_bytes": 4565,
       "source_path": "<generated>"
     },
     {
@@ -1029,6 +1067,42 @@
       "sha256": "39dfdb815718c44eb05b464ad02c215e572961e2213a8312c87b3573e075377e",
       "size_bytes": 10659,
       "source_path": "$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/summary.json"
+    },
+    {
+      "bundle_path": "large_evidence_compressed/again_dense_root_metadata/row_index.csv.gz",
+      "compression": "gzip",
+      "original_bundle_path": "again_dense_root_metadata/row_index.csv",
+      "original_sha256": "87c0adc897759b7d327c669f6958836e074830c270b412213b6ff5f782f4f5ff",
+      "original_size_bytes": 101298214,
+      "oversize_approved": true,
+      "reason": "compressed_oversize_again_dense_root_lightweight_metadata",
+      "sha256": "f651568af8c2a6146677ff2a4e6719cc46edc7bcd412599c7affdf66376f3723",
+      "size_bytes": 10506708,
+      "source_path": "$NEURAL_BRIDGE_REPO/.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/row_index.csv"
+    },
+    {
+      "bundle_path": "large_evidence_compressed/outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv.gz",
+      "compression": "gzip",
+      "original_bundle_path": "outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv",
+      "original_sha256": "0eeaf1f8e9f7435b1fe3b3e90812477ccda9a0abf730944809fb7b785e58810f",
+      "original_size_bytes": 127602515,
+      "oversize_approved": true,
+      "reason": "compressed_oversize_again_phase0_audit_handoff",
+      "sha256": "4555b1a4d6fb6426c7c7d4870d53451072b5889c9eecb39006fac7822a7ac5a6",
+      "size_bytes": 3176121,
+      "source_path": "$NEURAL_BRIDGE_REPO/outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv"
+    },
+    {
+      "bundle_path": "large_evidence_compressed/outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv.gz",
+      "compression": "gzip",
+      "original_bundle_path": "outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv",
+      "original_sha256": "ea0a98d902f36f95d10e57786608986e5561e84f72e8ae2f16b35b1606f3de77",
+      "original_size_bytes": 286211504,
+      "oversize_approved": true,
+      "reason": "compressed_oversize_again_phase0_audit_handoff",
+      "sha256": "1ec84213f9e0fcc2f2f64b2d1601f3fa137a92cc13f47ffd0457129abf9fe33f",
+      "size_bytes": 6909733,
+      "source_path": "$NEURAL_BRIDGE_REPO/outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv"
     },
     {
       "bundle_path": "outputs/again_alignment_offset_diagnosis_20260621_131041/again_aligned_manifest_preview.csv",
@@ -8486,10 +8560,10 @@
     "checksum_manifest.json"
   ],
   "git": {
-    "git_commit": "90bc5b6c8aabcaf5a67ce3fc5f847fa920c8c2c9",
-    "git_commit_short": "90bc5b6",
+    "git_commit": "58d411e730220ad50f8a17ef16aab534255e5294",
+    "git_commit_short": "58d411e",
     "git_dirty": true,
-    "git_status_short": "A  evidence_bundle_phase0_to_phase5_20260625/.codexignore\nA  evidence_bundle_phase0_to_phase5_20260625/AGENTS.md\nAM evidence_bundle_phase0_to_phase5_20260625/BUNDLE_README.md\nA  evidence_bundle_phase0_to_phase5_20260625/README.md\nA  evidence_bundle_phase0_to_phase5_20260625/REQUIREMENTS.md\nA  evidence_bundle_phase0_to_phase5_20260625/ROADMAP.md\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/BASELINE_READINESS.md\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/README_OUTPUT_SCHEMA.md\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/_derived/raw_cortical_block_summary_b256.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/_derived/temporal_diagnostics_summary_features.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/_run/cache_repair_20260625_stale_success_tracebacks.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/_run/global_run_metadata.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/_run/output_schema.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/_run/summary_report.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/global_run_metadata.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/labels_aligned_2hz.README.md\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/labels_aligned_2hz_summary.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/output_schema.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/splits_by_video.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/splits_duration_balanced.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/splits_quality_filtered.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/summary_report.json\nA  evidence_bundle_phase0_to_phase5_20260625/again_dense_root_metadata/video_metadata.csv\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/again_dense_2hz_benchmark.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/again_dense_2hz_phase4_pca_bridge.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/build_again_dense_2hz_train_only_pca_features.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/build_again_labels_aligned_2hz.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/run_again_dense_2hz_ar_baseline.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/run_again_dense_2hz_pca_bridge_benchmark.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/run_again_dense_2hz_phase5_learned_heads.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/run_again_dense_2hz_raw_cortical_benchmark.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/run_veatic_event_conditioned_retest.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/run_veatic_event_spike_retest.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/run_veatic_frozen_tensor_incremental_benchmark.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/run_veatic_neuro_benchmark.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/run_veatic_raw_representation_audit.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/run_veatic_strict_benchmark.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/summarize_again_dense_2hz_phase4_pca_bridge.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/veatic_frozen_tensor_adapter.py\nA  evidence_bundle_phase0_to_phase5_20260625/backend/scripts/veatic_frozen_tensor_trained_heads.py\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_ar_behavior_audit.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_audit_manifest_rows.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_audit_resampled_videos.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_balanced_event_stable_rebuild.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_bootstrap_ci.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_candidate_fixes.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_candidate_fixes.md\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_causal_window_audit.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_causal_window_audit.md\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_confirmatory_rerun.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_controls_after_lag_fix.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_cross_correlation_lag.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_horizon_sweep.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_interpolation_policy_sweep.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_label_smoothing_sensitivity.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_lag_estimates_global.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_lag_estimates_per_video.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.json\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_offset_grid.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_offset_grid_summary.md\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_onset_definition_sweep.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_per_video_taxonomy.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_sensitivity_subsets.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_shift_convention.md\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_threshold_policy_sweep.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_alignment_top_offset_videos.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.balanced_sampling.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.event_masks.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.json\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.per_video.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_pre_event_zero_removed_window_summary_20260616.md\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.diagnostics.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.json\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.local_targets.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.md\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.onset_only.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.per_video.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.shift_audit.csv\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_124_zero_removed_continuous_mae_summary_20260616.md\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_manifest_124_complete_20260616.report.json\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_manifest_124_validation_20260616.md\nAD evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_neuro_benchmark_124video_cortical_global_delta_mpsgram_cpu.json\nAD evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_neuro_benchmark_124video_cortical_global_delta_mpsgram_cpu.summary.md\nAD evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_neuro_benchmark_124video_cortical_global_mpsgram_cpu.json\nAD evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_neuro_benchmark_124video_cortical_global_mpsgram_cpu.summary.md\nAD evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_neuro_benchmark_124video_cortical_pca64_delta_mpsgram_cpu.json\nAD evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_neuro_benchmark_124video_cortical_pca64_delta_mpsgram_cpu.summary.md\nAD evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_neuro_benchmark_124video_cortical_pca_64_mpsgram_cpu.json\nAD evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_neuro_benchmark_124video_cortical_pca_64_mpsgram_cpu.summary.md\nA  evidence_bundle_phase0_to_phase5_20260625/benchmarks/veatic/veatic_v2_evidence_manifest.json\nAD evidence_bundle_phase0_to_phase5_20260625/bundle_file_inventory.csv\nAD evidence_bundle_phase0_to_phase5_20260625/bundle_manifest.json\nAD evidence_bundle_phase0_to_phase5_20260625/checksum_manifest.json\nA  evidence_bundle_phase0_to_phase5_20260625/docs/PROJECT_MEMORY.md\nA  evidence_bundle_phase0_to_phase5_20260625/docs/README.md\nA  evidence_bundle_phase0_to_phase5_20260625/docs/again_dense_h100_cache.md\nA  evidence_bundle_phase0_to_phase5_20260625/docs/current_project_state.md\nA  evidence_bundle_phase0_to_phase5_20260625/docs/external_assets_manifest.md\nA  evidence_bundle_phase0_to_phase5_20260625/docs/veatic_raw_representation_audit.md\nA  evidence_bundle_phase0_to_phase5_20260625/docs/veatic_v2_evidence_freeze.md\nA  evidence_bundle_phase0_to_phase5_20260625/docs/veatic_v2_evidence_summary.md\nAD evidence_bundle_phase0_to_phase5_20260625/omitted_large_files_manifest.json\nA  evidence_bundle_phase0_to_phase5_20260625/reports/again_dense_2hz_ar_baseline_20260625_093722.md\nA  evidence_bundle_phase0_to_phase5_20260625/reports/again_dense_2hz_phase4_pca_bridge_benchmark_20260625_153419.md\nA  evidence_bundle_phase0_to_phase5_20260625/reports/again_dense_2hz_phase4_pca_feature_build_20260625_153419.md\nA  evidence_bundle_phase0_to_phase5_20260625/reports/again_dense_2hz_phase4_pca_promotion_summary_20260625_153419.md\nA  evidence_bundle_phase0_to_phase5_20260625/reports/again_dense_2hz_phase5_feature_inputs_182423.md\nA  evidence_bundle_phase0_to_phase5_20260625/reports/again_dense_2hz_phase5_learned_heads_benchmark_182423.md\nA  evidence_bundle_phase0_to_phase5_20260625/reports/again_dense_2hz_phase5_promotion_summary_182423.md\nA  evidence_bundle_phase0_to_phase5_20260625/reports/again_dense_2hz_raw_cortical_vs_ar_20260625_094242.md\nA  evidence_bundle_phase0_to_phase5_20260625/reports/again_dense_h100_local_audit_20260625.md\nA  evidence_bundle_phase0_to_phase5_20260625/reports/again_labels_aligned_2hz_20260625_091209.md\nA  evidence_bundle_phase0_to_phase5_20260625/reports/again_video_audio_stream_inventory_20260622.md\nA  evidence_bundle_phase0_to_phase5_20260625/tests/test_again_dense_2hz_benchmark.py\nA  evidence_bundle_phase0_to_phase5_20260625/tests/test_again_dense_2hz_phase4_pca_bridge.py\nA  evidence_bundle_phase0_to_phase5_20260625/tests/test_grouped_video_split.py\nA  evidence_bundle_phase0_to_phase5_20260625/tests/test_mlx_vjepa21_cortical.py\nA  evidence_bundle_phase0_to_phase5_20260625/tests/test_veatic_frozen_tensor_adapter.py\nA  evidence_bundle_phase0_to_phase5_20260625/tests/test_veatic_frozen_tensor_trained_heads.py\nA  evidence_bundle_phase0_to_phase5_20260625/tests/test_veatic_raw_representation_contract.py\nA  evidence_bundle_phase0_to_phase5_20260625/tests/test_veatic_strict_benchmark_contract.py\nA  evidence_bundle_phase0_to_phase5_20260625/tests/test_veatic_tribe_cache_runtime.py\nA  evidence_bundle_phase0_to_phase5_20260625/tools/export_veatic_raw_representation_metadata_bundle.py\nA  evidence_bundle_phase0_to_phase5_20260625/tools/export_veatic_raw_representation_tensors.py\nM  outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/diagnostics/feature_reuse_audit.json\nM  outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/feature_input_manifest.json\nM  outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/promotion/phase5_vs_phase4_winners.json\nM  outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/run_manifest.json\nM  outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/summary.json\nM  outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/diagnostics/feature_reuse_audit.json\nM  outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/feature_input_manifest.json\nM  outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/promotion/phase5_vs_phase4_winners.json\nM  outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/run_manifest.json\nM  outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/summary.json\nM  reports/again_dense_2hz_phase5_feature_inputs_182423.md\nAM tools/create_phase0_to_phase5_evidence_bundle.py"
+    "git_status_short": "M evidence_bundle_phase0_to_phase5_20260625/BUNDLE_README.md\n D evidence_bundle_phase0_to_phase5_20260625/bundle_file_inventory.csv\n D evidence_bundle_phase0_to_phase5_20260625/bundle_manifest.json\n D evidence_bundle_phase0_to_phase5_20260625/checksum_manifest.json\n D evidence_bundle_phase0_to_phase5_20260625/omitted_large_files_manifest.json\n M tools/create_phase0_to_phase5_evidence_bundle.py\n?? evidence_bundle_phase0_to_phase5_20260625/large_evidence_compressed/"
   },
   "hard_exclude_extensions": [
     ".avi",
@@ -8521,10 +8595,13 @@
     "again_phase3_ar_plus_raw_pr_auc": 0.1703,
     "again_phase3_ar_pr_auc": 0.14725,
     "again_phase4_best_pr_auc": 0.17165,
-    "again_phase5_best_pr_auc": 0.21913,
+    "again_phase5_followup_best_real_grouped_pr_auc": 0.22458,
+    "again_phase5_followup_blocked_temporal_real_pr_auc": 0.20712,
+    "again_phase5_followup_label_permutation_pr_auc": 0.10428,
+    "again_phase5_main_best_pr_auc": 0.21913,
     "veatic_ar_pr_auc": 0.1969,
     "veatic_best_spike_pr_auc": 0.2536
   },
   "max_individual_file_size_bytes": 73400320,
-  "total_size_bytes": 163615328
+  "total_size_bytes": 184208797
 }
