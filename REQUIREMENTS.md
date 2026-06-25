@@ -16,6 +16,18 @@ NEURAL_BRIDGE_EXTERNAL_ROOT=/path/to/neural-bridge-assets
 
 Full benchmark work assumes that external root contains model weights, Hugging Face caches, datasets, VEATIC/TRIBE caches, generated benchmark outputs, and temporary extraction files described in `docs/external_assets_manifest.md`.
 
+The dense AGAIN H100 TRIBE postpass bundle is external-only and currently staged through Google Drive, not the repo:
+
+```text
+NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz
+```
+
+The reference local pull target is:
+
+```text
+.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/
+```
+
 The frozen raw-representation tensor export also expects this external root. Model-ready tensors are external-only under:
 
 ```text
@@ -150,6 +162,7 @@ V-JEPA 2.1 and AGAIN status:
 - `MlxVjepa21Video` is implemented and selected when `TRIBE_VIDEO_ENCODER_MLX_DIR/config.json` declares `tensor_layout=vjepa2_1_mlx_port`.
 - `backend/scripts/run_veatic_tribe_cache.py` includes worker claims, resume status, per-window checkpoints, ffmpeg frame sampling, and protected-cache write refusal for MLX/V-JEPA outputs.
 - AGAIN boundary, scout, AR-context, and sparse teacher tooling is implemented. The current 50-video sparse teacher work failed hybrid sparse PCA128 promotion gates, produced a promising 500-window small-PCA follow-up, then failed the 2000-budget confirmatory gate against nuisance and matched-random controls. Do not treat it as full-AGAIN proof or scale it further on the same selector subset.
+- Dense full-AGAIN data generation is complete externally: H100 V-JEPA 2.1 ViT-G encoded `995` videos at `2Hz` rows / `2Hz` sampling / `256px` / float16, and cache-only TRIBE v2 completed `995/995` videos with `0` failures and `243,575` row-level cortical predictions. Use `tools/run_h100_tribe_postpass.py` only for cache-only postpass/retry work; it must not decode videos or rerun V-JEPA.
 
 ## Tracked Versus External Assets
 
@@ -227,11 +240,13 @@ Run trained heads only when intentionally refreshing the post-v2 trained-head be
 python3 backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py
 ```
 
-Run AGAIN sparse-teacher work only as a bounded scaling experiment. Reuse raw cortical window caches when appropriate, but recompute PCA, ridge fits, gates, and reports into a fresh output root:
+Run AGAIN sparse-teacher work only if intentionally reopening the old sparse-selector line. It is not the current full-dataset path:
 
 ```bash
 python3 tools/run_again_sparse_tribe_teacher_500.py
 ```
+
+Run dense AGAIN benchmarking only after the H100 TRIBE bundle is locally present and audited. The H100 postpass itself did not run PCA, bridge training, spike/delta benchmarking, or promotion gates.
 
 ## Current Evidence Entry Points
 
@@ -246,8 +261,6 @@ Fresh sessions should read these first:
 - `benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md`
 - `docs/veatic_raw_representation_audit.md`
 - `outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md`
-- `reports/again_sparse_tribe_teacher_500_results_20260622_005732.md`
-- `reports/again_sparse_tribe_teacher_500_results_20260622_pca_width_reanalysis_v2.md`
-- `reports/again_full_ar_context_20260622_005713.md`
+- `docs/again_dense_h100_cache.md`
 
 Do not use removed historical docs or deleted benchmark scaffolding as active requirements.

@@ -21,9 +21,9 @@ V-JEPA 2.1 MLX support and AGAIN sparse-teacher tooling are also implemented. Th
 
 The project has now moved beyond sparse AGAIN pilots for the main scaling artifact. A paid H100 run completed a dense 995-video AGAIN V-JEPA 2.1 ViT-G encode at `2Hz` rows, `2Hz` sampling, `256px`, and float16 precision, then ran a cache-only TRIBE v2 postpass over those V-JEPA caches. The postpass completed `995/995` videos with `0` failed videos and `243,575` row-level 2Hz cortical predictions. The Drive-hosted TRIBE output bundle is `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`; the local pull target is `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`. This is a data-generation milestone, not a benchmark result: no PCA, bridge training, delta/spike evaluation, or promotion claim was made during the H100 postpass.
 
-AGAIN scout iteration is now model-stamped. ViT-B and ViT-L scout outputs write canonical `scout_novelty_z` plus `scout_model_name`; old `vjepa_b_*` names are compatibility aliases, not the contract for new runs. ViT-L scout (`vjepa21_vitl_dgrauet_mlx_scout`) is available in MLX. On the local M2 Max, `1Hz`, `16` frames, `256px`, batch `1`, internal scratch storage is the practical ViT-L scout setting; `384px` is roughly 3x slower. Active ViT-L scout and future ViT-G/TRIBE encoding should use internal scratch caches and mirror completed artifacts back to the external SSD.
+AGAIN scout iteration is model-stamped. ViT-B and ViT-L scout outputs write canonical `scout_novelty_z` plus `scout_model_name`; old `vjepa_b_*` names are compatibility aliases, not the contract for new runs. ViT-L scout (`vjepa21_vitl_dgrauet_mlx_scout`) remains useful for future selector experiments, but it is no longer the immediate path to a first full AGAIN cortical cache because the dense H100 V-JEPA/TRIBE artifact now exists.
 
-The current AGAIN manifest is a boundary-aligned `1Hz` view built from native decimal-timestamp annotations. Therefore the next ViT-G/TRIBE stage should run selected causal windows at `1Hz` first. A `2Hz` G/TRIBE pass is only a feature-density ablation unless a new boundary-aligned 2Hz manifest and selector rows are generated.
+The current AGAIN supervised manifest is still a boundary-aligned `1Hz` view built from native decimal-timestamp annotations. The dense H100 cache is `2Hz`, so future 2Hz supervised claims require explicit label alignment or a boundary-aligned 2Hz label manifest. Until that exists, the 2Hz cache should be treated as a richer feature substrate, not automatically as twice as many supervised target rows.
 
 Current local AGAIN media is not multimodal even though TRIBE itself can accept video, audio, and text. A 2026-06-22 `ffprobe` sweep over the local internal and external AGAIN roots found `0/1,095` video containers with embedded audio streams and `0` probe errors. Treat AGAIN runs from these cleaned `.webm` mirrors as video plus annotations/telemetry unless a separate/original audio-bearing source is identified and audited.
 
@@ -81,7 +81,7 @@ backend/app/
   Flask neuro-viewer API plus TRIBE/MLX service adapters, including V-JEPA 2.1 MLX video support.
 
 backend/scripts/
-  VEATIC/TRIBE extraction, frozen-tensor trained-head benchmarks, AGAIN sparse-teacher tooling, and the consolidated strict VEATIC benchmark suite.
+  VEATIC/TRIBE extraction, frozen-tensor trained-head benchmarks, AGAIN sparse-teacher tooling, H100 cache-only TRIBE postpass tooling, and the consolidated strict VEATIC benchmark suite.
 
 frontend/
   Vue/Vite cortical cache and stimulus viewer.
@@ -198,7 +198,7 @@ python3 backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py
 
 This runner requires MPS, reuses frozen external tensors, recomputes same-row AR and controls, and refuses CPU sklearn fallback. It is the implemented learned-head benchmark layer for `pca_sequence_128_causal_past_2s_mean`; do not rebuild it from old report CSVs.
 
-AGAIN sparse-teacher tooling is implemented under `backend/scripts/again_*` and `tools/run_again_*`. The tracked reports in `reports/again_*20260622_005732.md` summarize the original bounded PCA128 pilot; `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md` is the fresh cache-only smaller-width follow-up. Treat both as bounded 50-video evidence, not as full-AGAIN proof.
+AGAIN sparse-teacher tooling remains in the codebase for archaeology and future bounded experiments, but the old sparse report files have been removed from git because they are no longer the active path. For current full-dataset AGAIN work, start from the dense H100 bundle described in `docs/again_dense_h100_cache.md`.
 
 ## Guardrails
 

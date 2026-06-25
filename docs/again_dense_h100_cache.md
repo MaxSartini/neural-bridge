@@ -1,0 +1,93 @@
+# AGAIN Dense H100 V-JEPA 2.1 / TRIBE v2 Cache
+
+This is the current handoff for the dense AGAIN artifact generated on H100.
+
+## Status
+
+- Dataset: AGAIN cleaned video set, `995` videos.
+- Encoder: official V-JEPA 2.1 ViT-G.
+- TRIBE stage: TRIBE v2 cache-only postpass over precomputed V-JEPA features.
+- Precision: float16.
+- Image size: `256px`.
+- Row rate: `2Hz`.
+- Frame sampling: `2Hz`.
+- Result: `995/995` videos completed, `0` failed, `243,575` row-level cortical rows.
+- Drive folder: `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`.
+- Local pull target: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`.
+
+This artifact is a data-generation milestone. It is not a benchmark result and must not be described as proving AGAIN generalization until grouped/control evaluations are run.
+
+## What Was Run
+
+The H100 job densely encoded the full 995-video AGAIN set. It did not use sparse teacher queues, scout-selected windows, oracle selectors, PCA, bridge training, spike labels, or benchmark targets during encoding.
+
+The TRIBE v2 postpass was cache-only:
+
+- It consumed V-JEPA 2.1 cache files.
+- It did not decode raw videos.
+- It did not load or run V-JEPA again.
+- It adapted cached video features from `[rows,20,1,1408]` to `[rows,2,1408]`, then to TRIBE input `[1,2,1408,rows]`.
+- It wrote row-level cortical predictions as `[rows,20484]`.
+
+## Expected Output Layout
+
+Top-level files:
+
+- `global_run_metadata.json`
+- `summary_report.json`
+- `tribe_v2_postpass_manifest.jsonl`
+- `failed_videos.jsonl`
+- `video_metadata.csv`
+- `row_index.csv`
+- `row_index.parquet`
+- `splits_by_video.json`
+- `splits_duration_balanced.json`
+- `splits_quality_filtered.json`
+- `output_schema.json`
+- `README_OUTPUT_SCHEMA.md`
+- `BASELINE_READINESS.md`
+- `labels_aligned_2hz.README.md`
+
+Per-video directory:
+
+```text
+per_video/<video_id>/
+  tribe_v2_cortical_predictions.npz
+  baseline_features_rowlevel.npz
+  vjepa_temporal_diagnostics.npz
+  rows_aligned.csv
+  input_mapping.json
+  diagnostics.json
+  manifest.json
+  status.json
+```
+
+Important per-video arrays:
+
+- `cortical_prediction [rows,20484]`
+- `time_seconds [rows]`
+- `tribe_grouped_video_feature [rows,2,1408]`
+- row-level quality signals: luma, motion, black-frame fraction, duplicate-frame fraction
+- compact temporal diagnostics
+- sample frame indices and sample time seconds
+
+## What It Enables
+
+The bundle is sufficient for local downstream work without re-running V-JEPA or TRIBE:
+
+- train-only PCA widths over TRIBE cortical predictions
+- AR + cortical bridge models
+- grouped-video and blocked temporal validation
+- timestamp/video-time controls
+- shuffled/random controls
+- quality/motion/luma baselines
+- black-screen and duplicate-frame filtering
+- lead/lag and future-delta experiments after labels are aligned correctly
+
+## Current Guardrails
+
+- Do not run benchmarks from stale sparse reports when testing the dense bundle.
+- Do not treat 2Hz features as 2Hz supervised evidence until labels/rows are aligned for the target experiment.
+- Do not drop rows silently because of black frames; preserve quality flags and decide filtering inside each train/test protocol.
+- Do not re-encode videos unless the local/Drive artifact fails a manifest/schema audit.
+- Do not copy the Drive bundle into git.

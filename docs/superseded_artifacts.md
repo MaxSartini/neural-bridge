@@ -8,6 +8,7 @@ This repo keeps the current Neural Bridge baseline easy to find. Older artifacts
 - Old smoke-test and transition scripts not needed for the consolidated strict suite were removed.
 - Stale generated caches, logs, and Python bytecode are cleaned with `backend/scripts/cleanup_generated_artifacts.py`.
 - `reports/current_artifact_port_audit_20260617.md` was removed after its useful asset-boundary notes were absorbed into `docs/external_assets_manifest.md` and this policy.
+- Superseded AGAIN sparse/scout/full-AR reports were removed from git after their useful conclusions were absorbed into the current docs, audio inventory, and dense H100 cache handoff.
 
 Reason: these files contradicted or distracted from the VEATIC-124 v2 baseline.
 
@@ -39,9 +40,18 @@ Reason: these files freeze the next model-head input contract without replacing 
 - Code: `backend/app/services/mlx_vjepa21_cortical.py`
 - Code: `backend/scripts/again_*`
 - Code: `tools/run_again_*`, `tools/probe_*vjepa21*`, and `tools/audit_again_*`
-- Reports: `reports/again_*20260622_005732.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md`, `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory_v3.md`, `reports/again_sparse_tribe_teacher_2000_true_fixed_random_same_budget_*_20260622_2000_true_fixed_random_same_budget_v3.md`, and `reports/again_full_ar_context_20260622_005713.md`
+- Reports: the old AGAIN sparse/scout/full-AR Markdown reports have been removed from git. Their current conclusion is retained only as a short guardrail in `AGENTS.md`, `README.md`, `docs/current_project_state.md`, and this policy.
 
 Reason: these are current source and lightweight summaries for the implemented trained-head and AGAIN/V-JEPA 2.1 scaling paths. They are not stale transition artifacts.
+
+## Retained As Current Dense AGAIN Data Substrate
+
+- Code: `tools/run_h100_tribe_postpass.py`
+- Handoff: `docs/again_dense_h100_cache.md`
+- External Drive folder: `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`
+- Local pull target: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`
+
+Reason: the H100 run generated the current full-dataset AGAIN V-JEPA 2.1 / TRIBE v2 working bundle. It is not a scored benchmark and must not override the VEATIC v2 claim, but it supersedes sparse-window expansion as the immediate AGAIN data substrate.
 
 ## Retained As Non-Authoritative External Context
 
@@ -50,10 +60,10 @@ These may exist under the external assets root, but they are not the frozen v2 b
 - `benchmarks/veatic/tribe_cache_mlx`: MLX hotswap/parity archaeology.
 - `benchmarks/veatic/tribe_cache_multimodal_pilot`: guarded `83,84` multimodal pilot context.
 - `benchmarks/veatic/tribe_smoke`: local smoke-test residue if present.
-- older timestamped AGAIN pilot reports not tracked in git after the `20260622_005732` and `20260622_pca_width_reanalysis_v2` summaries were retained.
-- `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory.md`: retained as superseded context only; the corrected `*_confirmatory_v2.md` reports restored telemetry/VJEPA-B scout fields in queue rows, but the `*_confirmatory_v3.md` reports are now authoritative.
-- Interrupted true same-budget outputs without the `_v2` suffix, if present locally, are context only; the `*_true_fixed_random_same_budget_v3.md` reports are the completed true same-budget control.
-- `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory_v2.md` and `reports/again_sparse_tribe_teacher_2000_true_fixed_random_same_budget_*_20260622_2000_true_fixed_random_same_budget_v2.md`: retained as superseded context only; the `*_v3.md` reports add same-width PCA32 nuisance controls and delta-over-AR matched-arm checks and are authoritative.
+- older timestamped AGAIN pilot reports and all sparse/scout/full-AR report variants are no longer tracked in git.
+- Interrupted or corrected sparse outputs, if present locally or externally, are context only. They must not drive current planning unless a future task explicitly reopens the sparse-selector line.
+- Any prompt, note, or report suggesting that the next main AGAIN path is more sparse windows on the same 50-video selector subset is superseded by the dense 995-video H100 cache. It remains useful only as context for why the sparse path was not promoted.
+- Any note saying the next ViT-G/TRIBE selected-region stage should be `1Hz` is superseded as an execution plan by the completed dense `2Hz` H100 artifact. It remains relevant only as a warning that supervised 2Hz claims require explicit 2Hz label alignment.
 
 Reason: they may help debug future work, but they must not be used as headline evidence.
 

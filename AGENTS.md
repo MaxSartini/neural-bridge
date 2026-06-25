@@ -58,6 +58,7 @@ Use `npm run verify` before pushing when dependencies are available.
 - Do not rerun the raw representation audit or tensor export when existing verified outputs can be reused.
 - Do not rebuild the frozen-tensor trained-head runner from stale CSVs; use the implemented runner and frozen tensor contract.
 - Do not scale AGAIN sparse teacher beyond the bounded pilot from the current evidence; the 2000-budget confirmatory work shows an AR + locked PCA32 delta-over-AR signal versus matched random, but it still fails raw sparse and same-width shuffled-PCA32 nuisance promotion gates.
+- For full AGAIN work, start from the dense H100 bundle and audit it before modelling. Do not go back to sparse-window generation unless the dense bundle is missing, corrupt, or a new sparse-specific hypothesis is explicitly requested.
 - Keep machine-specific paths in local `.env`; `.env.example` must stay portable.
 - Treat `benchmarks/` and `outputs/` as retained evidence artifacts. Do not use older generated metadata inside them to override the current docs.
 - Treat `benchmarks/veatic/veatic_v2_evidence_manifest.json` and `evidence_snapshots/veatic_124_v2_20260616` under the external root as the frozen v2 evidence contract.
