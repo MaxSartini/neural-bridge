@@ -8,7 +8,7 @@
 - feature families: `['current', 'delta', 'pca_then_temporal', 'temporal_then_pca']`
 - PCA policy: train-only inside target/protocol/fold row set; max width fit is sliced for narrower widths.
 - fold-specific PCA fits: `216`
-- feature artifact root: `/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features`
+- feature artifact root: `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features`
 
 ## Explained Variance
 

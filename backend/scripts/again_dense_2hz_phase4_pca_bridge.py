@@ -135,7 +135,10 @@ class PcaFitResult:
 
 
 def external_phase4_root() -> Path | None:
-    candidate = Path("/Volumes/onn. Drive/Neural Bridge/outputs")
+    external_root = os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT")
+    if not external_root:
+        return None
+    candidate = Path(external_root) / "outputs"
     if candidate.exists() and os.access(candidate, os.W_OK):
         return candidate
     return None
