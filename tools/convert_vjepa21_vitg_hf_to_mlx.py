@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+import mlx.core as mx
 from safetensors.numpy import save_file
 
 
@@ -231,7 +232,7 @@ def torch_tensor_to_numpy(key: str, tensor: Any, dtype: str) -> np.ndarray:
         array = array.transpose(0, 2, 3, 1)
     if dtype == "float16":
         array = array.astype(np.float16, copy=False)
-    elif dtype == "float32":
+    elif dtype == "float32" or dtype == "bfloat16":
         array = array.astype(np.float32, copy=False)
     else:
         raise ValueError(f"Unsupported dtype for numpy safetensors conversion: {dtype}")
@@ -280,7 +281,7 @@ def main() -> int:
     parser.add_argument("--out-dir", type=Path, default=None)
     parser.add_argument("--variant", choices=["vitg_giant", "vitG_gigantic"], default="vitg_giant")
     parser.add_argument("--checkpoint-key", default=None)
-    parser.add_argument("--dtype", choices=["float16", "float32"], default="float16")
+    parser.add_argument("--dtype", choices=["float16", "bfloat16", "float32"], default="float16")
     parser.add_argument("--allow-missing", action="store_true")
     parser.add_argument("--allow-unexpected", action="store_true")
     parser.add_argument("--apply", action="store_true", help="Actually write converted safetensors.")
@@ -345,7 +346,10 @@ def main() -> int:
             }
         )
         if args.apply:
-            converted[key] = converted_array
+            if args.dtype == "bfloat16":
+                converted[key] = mx.array(converted_array, dtype=mx.bfloat16)
+            else:
+                converted[key] = converted_array
 
     with (out_dir / "shape_audit.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(
@@ -368,17 +372,20 @@ def main() -> int:
         target = out_dir / "model.safetensors"
         if target.exists():
             raise FileExistsError(f"Refusing to overwrite existing converted weights: {target}")
-        save_file(
-            converted,
-            str(target),
-            metadata={
-                "format": "mlx",
-                "source": str(args.checkpoint_path),
-                "checkpoint_key": checkpoint_key,
-                "dtype": args.dtype,
-                "tensor_layout": "vjepa2_1_mlx_port",
-            },
-        )
+        if args.dtype == "bfloat16":
+            mx.save_safetensors(str(target), converted)
+        else:
+            save_file(
+                converted,
+                str(target),
+                metadata={
+                    "format": "mlx",
+                    "source": str(args.checkpoint_path),
+                    "checkpoint_key": checkpoint_key,
+                    "dtype": args.dtype,
+                    "tensor_layout": "vjepa2_1_mlx_port",
+                },
+            )
         run_manifest["converted_weights_written"] = True
         run_manifest["converted_weights_path"] = str(target)
         run_manifest["converted_weights_size_bytes"] = target.stat().st_size

@@ -31,13 +31,16 @@ def test_tribe_adapter_selects_vjepa21_mlx_video_for_vjepa21_layout(tmp_path, mo
     monkeypatch.setattr(Config, "TRIBE_VIDEO_ENCODER_LOCAL_DIR", str(model_dir))
     monkeypatch.setattr(Config, "TRIBE_VIDEO_ENCODER_ID", "vjepa2_1_vit_giant_384")
     monkeypatch.setattr(Config, "TRIBE_VJEPA21_IMAGE_SIZE", 64)
+    monkeypatch.setattr(Config, "TRIBE_VIDEO_DTYPE", "bfloat16")
 
     update = TribeAdapter()._config_update()
 
     assert update["data.video_feature.name"] == "MlxVjepa21Video"
     assert update["data.video_feature.mlx_weights_dir"] == str(model_dir)
     assert update["data.video_feature.image_size"] == 64
+    assert update["data.video_feature.input_dtype"] == "bfloat16"
     assert "vjepa21" in update["data.video_feature.cache_model_name"]
+    assert "bfloat16" in update["data.video_feature.cache_model_name"]
 
 
 def test_tribe_adapter_can_override_feature_frequency(tmp_path, monkeypatch):
@@ -104,10 +107,12 @@ def test_tribe_adapter_can_configure_vjepa21_compile_and_cache_policy(tmp_path, 
     monkeypatch.setattr(Config, "TRIBE_VJEPA21_COMPILE_ENCODER", True)
     monkeypatch.setattr(Config, "TRIBE_MLX_CLEAR_CACHE_EACH_WINDOW", False)
     monkeypatch.setattr(Config, "TRIBE_MLX_CLEAR_CACHE_EACH_VIDEO", True)
+    monkeypatch.setattr(Config, "TRIBE_VIDEO_DTYPE", "bfloat16")
 
     update = TribeAdapter()._config_update()
 
     assert update["data.video_feature.compile_encoder"] is True
+    assert update["data.video_feature.input_dtype"] == "bfloat16"
     assert update["data.video_feature.clear_cache_each_window"] is False
     assert update["data.video_feature.clear_cache_each_video"] is True
 

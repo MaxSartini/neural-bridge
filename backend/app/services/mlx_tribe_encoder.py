@@ -11,17 +11,55 @@ import mlx.core as mx
 import numpy as np
 
 
+def _array_with_dtype(array: np.ndarray, dtype_name: str) -> mx.array:
+    if dtype_name == "float16":
+        return mx.array(array.astype(np.float16, copy=False))
+    if dtype_name == "bfloat16":
+        return mx.array(array.astype(np.float32, copy=False), dtype=mx.bfloat16)
+    if dtype_name == "float32":
+        return mx.array(array.astype(np.float32, copy=False))
+    raise ValueError(f"Unsupported MLX dtype: {dtype_name}")
+
+
+def _mx_dtype_for_name(dtype_name: str) -> mx.Dtype:
+    if dtype_name == "float16":
+        return mx.float16
+    if dtype_name == "bfloat16":
+        return mx.bfloat16
+    if dtype_name == "float32":
+        return mx.float32
+    raise ValueError(f"Unsupported MLX dtype: {dtype_name}")
+
+
 class MlxTribeEncoder:
     """Run converted TRIBE v2 encoder weights on precomputed feature tensors."""
 
-    def __init__(self, model_dir: str) -> None:
+    def __init__(self, model_dir: str, *, dtype: str = "float16", allow_dtype_fallback: bool = False) -> None:
         root = Path(model_dir)
         self.config = json.loads((root / "config.json").read_text(encoding="utf-8"))
-        with np.load(root / "tribev2_mlx_float32.npz") as bundle:
-            self.weights = {key: mx.array(bundle[key]) for key in bundle.files}
+        self.dtype = dtype
+        self.weights_path = root / f"tribev2_mlx_{dtype}.npz"
+        if not self.weights_path.exists():
+            if not allow_dtype_fallback:
+                raise FileNotFoundError(self.weights_path)
+            for fallback_name in ("tribev2_mlx_float16.npz", "tribev2_mlx_float32.npz"):
+                fallback = root / fallback_name
+                if fallback.exists():
+                    self.weights_path = fallback
+                    self.dtype = "float16" if "float16" in fallback_name else "float32"
+                    break
+            else:
+                raise FileNotFoundError(self.weights_path)
+        if self.dtype == "bfloat16":
+            bundle = mx.load(str(self.weights_path))
+            self.weights = {key: value.astype(mx.bfloat16) for key, value in bundle.items()}
+        else:
+            with np.load(self.weights_path) as bundle:
+                self.weights = {key: _array_with_dtype(bundle[key], self.dtype) for key in bundle.files}
         self.hidden = int(self.config["hidden"])
         self.heads = int(self.config["heads"])
         self.head_dim = self.hidden // self.heads
+        self.mx_dtype = _mx_dtype_for_name(self.dtype)
 
     def predict(self, features: Dict[str, np.ndarray]) -> np.ndarray:
         x = self._aggregate_features(features)
@@ -49,9 +87,9 @@ class MlxTribeEncoder:
         projected = []
         for modality in ("text", "audio", "video"):
             if modality not in features:
-                projected.append(mx.zeros((batch, time, int(self.config["projector_out"]))))
+                projected.append(mx.zeros((batch, time, int(self.config["projector_out"])), dtype=self.mx_dtype))
                 continue
-            data = mx.array(features[modality].astype(np.float32, copy=False))
+            data = _array_with_dtype(features[modality], self.dtype)
             if data.ndim == 4:
                 data = mx.reshape(data, (batch, data.shape[1] * data.shape[2], time))
             data = mx.transpose(data, (0, 2, 1))

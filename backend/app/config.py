@@ -78,7 +78,7 @@ class Config:
     TRIBE_MPS_MEMORY_FRACTION = float(os.environ.get('TRIBE_MPS_MEMORY_FRACTION', '0.45'))
     TRIBE_TEXT_BATCH_SIZE = int(os.environ.get('TRIBE_TEXT_BATCH_SIZE', '4'))
     TRIBE_DATA_NUM_WORKERS = int(os.environ.get('TRIBE_DATA_NUM_WORKERS', '0'))
-    TRIBE_VIDEO_DTYPE = os.environ.get('TRIBE_VIDEO_DTYPE', 'float16')
+    TRIBE_VIDEO_DTYPE = os.environ.get('TRIBE_VIDEO_DTYPE', 'bfloat16')
     TRIBE_VIDEO_NUM_FRAMES = int(os.environ.get('TRIBE_VIDEO_NUM_FRAMES', '64'))
     TRIBE_VIDEO_FRAME_SAMPLER = os.environ.get('TRIBE_VIDEO_FRAME_SAMPLER', 'ffmpeg')
     TRIBE_VIDEO_WINDOW_BATCH_SIZE = int(os.environ.get('TRIBE_VIDEO_WINDOW_BATCH_SIZE', '1'))

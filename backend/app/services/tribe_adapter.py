@@ -407,8 +407,10 @@ class TribeAdapter:
                 update["data.video_feature.mlx_weights_dir"] = mlx_weights_dir
                 update["data.video_feature.image_size"] = Config.TRIBE_VJEPA21_IMAGE_SIZE
                 update["data.video_feature.compile_encoder"] = Config.TRIBE_VJEPA21_COMPILE_ENCODER
+                update["data.video_feature.input_dtype"] = Config.TRIBE_VIDEO_DTYPE
                 update["data.video_feature.cache_model_name"] = (
                     f"mlx-vjepa21-vitg-384-image{Config.TRIBE_VJEPA21_IMAGE_SIZE}"
+                    f"-{Config.TRIBE_VIDEO_DTYPE}"
                     "-selected-hidden-states-v1"
                 )
             else:

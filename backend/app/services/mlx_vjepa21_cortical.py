@@ -313,6 +313,10 @@ class MlxVjepa21Encoder(nn.Module):
             self.img_mod_embed = mx.zeros((1, 1, config.hidden_size))
             self.video_mod_embed = mx.zeros((1, 1, config.hidden_size))
 
+    @staticmethod
+    def _token_mean(x: mx.array) -> mx.array:
+        return mx.mean(x.astype(mx.float32), axis=1)
+
     def selected_token_mean_states(self, video_bcthw: mx.array, selected: list[int]) -> mx.array:
         selected_set = set(selected)
         captured: dict[int, mx.array] = {}
@@ -328,25 +332,43 @@ class MlxVjepa21Encoder(nn.Module):
         if self.config.modality_embedding:
             hidden = hidden + mx.broadcast_to(self.video_mod_embed, (batch, 1, self.config.hidden_size))
         if 0 in selected_set:
-            captured[0] = mx.mean(hidden, axis=1)
+            captured[0] = self._token_mean(hidden)
         for index, block in enumerate(self.blocks, start=1):
             hidden = block(hidden, temporal=temporal, h_patches=h_patches, w_patches=w_patches)
             if index in selected_set:
                 state = self.norms_block[-1](hidden) if index == len(self.blocks) else hidden
-                captured[index] = mx.mean(state, axis=1)
+                captured[index] = self._token_mean(state)
         missing = [index for index in selected if index not in captured]
         if missing:
             raise ValueError(f"selected hidden-state indices out of range or not captured: {missing}")
         return mx.stack([captured[index] for index in selected], axis=1)[:, :, None, :]
 
 
+def _mlx_array_with_dtype(array: np.ndarray, dtype_name: str) -> mx.array:
+    if dtype_name == "float16":
+        return mx.array(array.astype(np.float16, copy=False))
+    if dtype_name == "bfloat16":
+        return mx.array(array.astype(np.float32, copy=False), dtype=mx.bfloat16)
+    if dtype_name == "float32":
+        return mx.array(array.astype(np.float32, copy=False))
+    raise ValueError(f"Unsupported MLX input dtype: {dtype_name}")
+
+
 class MlxVjepa21FeatureModel:
-    def __init__(self, weights_dir: str, image_size: int | None = None, *, compile_encoder: bool = False) -> None:
+    def __init__(
+        self,
+        weights_dir: str,
+        image_size: int | None = None,
+        *,
+        compile_encoder: bool = False,
+        input_dtype: str = "float16",
+    ) -> None:
         root = Path(weights_dir).expanduser().resolve()
         self.weights_dir = root
         self.config = MlxVjepa21Config.from_json(root / "config.json")
         self.image_size = int(image_size or self.config.crop_size)
         self.compile_encoder = bool(compile_encoder)
+        self.input_dtype = input_dtype
         self._compiled_selected_state_fns: dict[tuple[int, ...], tp.Callable[[mx.array], mx.array]] = {}
         self.encoder = MlxVjepa21Encoder(self.config)
         weights = mx.load(str(root / "model.safetensors"))
@@ -356,7 +378,7 @@ class MlxVjepa21FeatureModel:
 
     def predict_hidden_states(self, images: np.ndarray, selected_indices: list[int]) -> np.ndarray:
         batch = _preprocess_video_batch(images, self.image_size)
-        video = mx.array(batch)
+        video = _mlx_array_with_dtype(batch, self.input_dtype)
         if self.compile_encoder:
             selected_key = tuple(int(index) for index in selected_indices)
             forward = self._compiled_selected_state_fns.get(selected_key)
@@ -370,7 +392,7 @@ class MlxVjepa21FeatureModel:
         else:
             states = self.encoder.selected_token_mean_states(video, selected_indices)
         mx.eval(states)
-        return np.asarray(states, dtype=np.float32)
+        return np.asarray(states.astype(mx.float32))
 
 
 class MlxVjepa21Video(MlxVjepa2Video):
@@ -379,6 +401,7 @@ class MlxVjepa21Video(MlxVjepa2Video):
     mlx_weights_dir: str = "models/vjepa21_mlx/vitg"
     image_size: int = 384
     compile_encoder: bool = False
+    input_dtype: str = "bfloat16"
     cache_model_name: str | None = "mlx-vjepa21-vitg-384-selected-hidden-states-v1"
     _model: MlxVjepa21FeatureModel | None = pydantic.PrivateAttr(default=None)
 
@@ -389,6 +412,7 @@ class MlxVjepa21Video(MlxVjepa2Video):
                 self.mlx_weights_dir,
                 self.image_size,
                 compile_encoder=self.compile_encoder,
+                input_dtype=self.input_dtype,
             )
         return self._model
 
