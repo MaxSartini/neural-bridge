@@ -19,6 +19,7 @@ dependencies = [
     # Quantitative / data processing
     "numpy>=1.26.0",
     "pandas>=2.1.0",
+    "pyarrow>=16.0.0",
     "scipy>=1.11.0",
     "scikit-learn>=1.5.0",
 

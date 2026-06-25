@@ -17,7 +17,8 @@ This repo is Neural Bridge.
 - `roi_parcel_features` is an important side candidate; `topk_vertices_512` is supervised/cautionary.
 - Model-ready tensors are frozen under `NEURAL_BRIDGE_EXTERNAL_ROOT/tensors/veatic_124_raw_representation_v1/` with lightweight summaries in `outputs/veatic_124_raw_representation_tensor_export_v1/`.
 - V-JEPA 2.1 MLX support is implemented and selected from converted weights with `tensor_layout=vjepa2_1_mlx_port`.
-- Dense AGAIN H100 data generation is complete: official V-JEPA 2.1 ViT-G encoded the full 995-video AGAIN set at `2Hz` rows, `2Hz` sampling, `256px`, float16, followed by a cache-only TRIBE v2 postpass. The postpass completed `995/995` videos, `0` failures, and `243,575` row-level cortical predictions. Treat this as a cache/data substrate for later local PCA, bridge training, and benchmark/control runs, not as an already-scored AGAIN win.
+- Dense AGAIN H100 data generation is complete: official V-JEPA 2.1 ViT-G encoded the full 995-video AGAIN set at `2Hz` rows, `2Hz` sampling, `256px`, float16, followed by a cache-only TRIBE v2 postpass. The postpass completed `995/995` videos, `0` failures, and `243,575` row-level cortical predictions.
+- Dense AGAIN true-2Hz label alignment and first baseline layer are implemented. Use `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/labels_aligned_2hz.parquet`, not the older 1Hz boundary manifest, for dense 2Hz claims. The latest Phase 3 raw/diagnostic benchmark uses MLX-backed train-only ridge alpha selection, grouped-video folds, blocked temporal validation, and controls. `AR + raw cortical` beats AR and shuffled/random controls for `arousal_spike_rows_2_6_train_q90` and `arousal_abs_delta_p4rows_train_q90`, but not for `arousal_delta_p2rows_train_q90`. Treat this as a raw baseline floor, not PCA bridge proof.
 - Current local AGAIN cleaned video mirrors are not audio-bearing: a 2026-06-22 embedded-stream audit checked 1,095 AGAIN video containers across internal scratch and external SSD roots and found 0 audio streams with 0 probe errors. Do not add Wav2Vec-BERT AGAIN claims unless a separate/original audio-bearing media source is found and audited.
 
 ## Start Here
@@ -55,7 +56,7 @@ Use `npm run verify` before pushing when dependencies are available.
 - Do not commit external tensor payloads (`.npy`); only lightweight tensor summaries/manifests and row samples belong in git.
 - Do not rerun the raw representation audit or tensor export when existing verified outputs can be reused.
 - Use the implemented frozen-tensor trained-head runner and frozen tensor contract.
-- For full AGAIN work, start from the dense H100 bundle and audit it before modelling.
+- For full AGAIN work, start from the audited dense H100 bundle and `labels_aligned_2hz.parquet`; do not use 1Hz or sparse AGAIN artifacts for dense 2Hz claims.
 - Keep machine-specific paths in local `.env`; `.env.example` must stay portable.
 - Treat `benchmarks/` and `outputs/` as retained evidence artifacts. Use current docs before generated metadata.
 - Treat `benchmarks/veatic/veatic_v2_evidence_manifest.json` and `evidence_snapshots/veatic_124_v2_20260616` under the external root as the frozen v2 evidence contract.

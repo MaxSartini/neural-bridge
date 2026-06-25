@@ -71,6 +71,7 @@ Main dependency groups:
 - Web/API: `flask`, `flask-cors`.
 - HTTP utilities: `requests`.
 - Data/benchmarking: `numpy`, `pandas`, `scipy`, `scikit-learn`.
+- Parquet support for dense AGAIN row indexes and label manifests: `pyarrow`.
 - Neuro/ML runtime: `torch`, `transformers`, `safetensors`, `huggingface-hub`, `nibabel`, `nilearn`, `tqdm`.
 - Apple Silicon acceleration: `mlx`, `mlx-lm`.
 - TRIBE extractor support imported by current code: `neuralset`, `neuraltrain`, `exca`, `einops`, `lightning`, `mne`, `torchmetrics`, `PyYAML`.
@@ -162,6 +163,7 @@ V-JEPA 2.1 and AGAIN status:
 - `MlxVjepa21Video` is implemented and selected when `TRIBE_VIDEO_ENCODER_MLX_DIR/config.json` declares `tensor_layout=vjepa2_1_mlx_port`.
 - `backend/scripts/run_veatic_tribe_cache.py` includes worker claims, resume status, per-window checkpoints, ffmpeg frame sampling, and protected-cache write refusal for MLX/V-JEPA outputs.
 - Dense full-AGAIN data generation is complete externally: H100 V-JEPA 2.1 ViT-G encoded `995` videos at `2Hz` rows / `2Hz` sampling / `256px` / float16, and cache-only TRIBE v2 completed `995/995` videos with `0` failures and `243,575` row-level cortical predictions. Use `tools/run_h100_tribe_postpass.py` only for cache-only postpass/retry work; it must not decode videos or rerun V-JEPA.
+- Dense AGAIN true-2Hz supervised alignment is implemented in `backend/scripts/again_dense_2hz_benchmark.py` and writes `labels_aligned_2hz.parquet` under the local H100 pull target. The first raw/diagnostic baseline layer has also run with MLX-backed ridge fits, train-only inner alpha selection, grouped-video folds, blocked temporal validation, and controls.
 
 ## Tracked Versus External Assets
 
@@ -239,7 +241,7 @@ Run trained heads only when intentionally refreshing the post-v2 trained-head be
 python3 backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py
 ```
 
-Run dense AGAIN benchmarking only after the H100 TRIBE bundle is locally present and audited. The H100 postpass itself did not run PCA, bridge training, spike/delta benchmarking, or promotion gates.
+Run dense AGAIN benchmarking from the audited H100 TRIBE bundle and `labels_aligned_2hz.parquet`. The H100 postpass itself did not run PCA, bridge training, spike/delta benchmarking, or promotion gates. The first raw/diagnostic baseline is complete; dense PCA/bridge promotion gates remain next.
 
 ## Current Evidence Entry Points
 

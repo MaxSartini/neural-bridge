@@ -17,13 +17,15 @@ Current evidence is strongest for VEATIC-124 video-dominant cortical/TRIBE arous
 
 The model-head input is frozen as tensors rather than only described in reports. Keep `cortical_pca64_delta` as the frozen v2 baseline. The implemented trained-head layer uses `pca_sequence_128_causal_past_2s_mean` first, includes fresh same-row AR and controls, keeps `roi_parcel_features` as an important side candidate, and treats `topk_vertices_512` as supervised/cautionary.
 
-The current AGAIN benchmark manifest is a deliberately built boundary-aligned `1Hz` view (`again_boundary_aligned_1hz_manifest.csv`) from native decimal-timestamp annotations. Therefore a `2Hz` ViT-G/TRIBE pass over the current manifest is only a denser feature-aggregation ablation around the same 1Hz labeled centers, not a source of additional supervised rows. True 2Hz supervised claims require a new boundary-aligned 2Hz manifest and fresh selector rows from the native annotations.
+The current dense AGAIN supervised manifest is now a true boundary-aligned `2Hz` view built from native decimal-timestamp annotations onto the H100 cache row index. Use `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/labels_aligned_2hz.parquet` for dense 2Hz claims. Do not use the older `again_boundary_aligned_1hz_manifest.csv` as a dense 2Hz fallback.
 
 Dense AGAIN cache status: the expensive data-generation run has now been completed on H100 rather than locally. The run used official V-JEPA 2.1 ViT-G, full dense `995` videos, `2Hz` rows, `2Hz` sampling, `256px`, and float16 precision. It did not run PCA, bridge training, or benchmarking. The follow-up cache-only TRIBE v2 postpass consumed precomputed V-JEPA caches only, preserved the `[rows,20,1,1408] -> [rows,2,1408] -> [1,2,1408,rows]` adapter contract, and wrote row-level `cortical_prediction [rows,20484]` outputs. Final postpass status: `995` videos succeeded, `0` failed, `243,575` rows. The Drive folder is `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`; the local download target is `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`.
 
 The local internal-SSD copy has passed a lightweight completeness/schema audit, tracked at `reports/again_dense_h100_local_audit_20260625.md`. The repaired cache has `995` final successes, `0` failed-video lines, `243,575` row-index rows, valid matching `row_index.parquet` and `row_index.csv` exports, no missing required per-video files, no partial/temp transfer files, `0` remaining per-video `traceback.txt` files, and matching sampled output shapes. Preserve the timing nuance that `131` videos start at `0.5s` rather than `0.0s`, and preserve quality flags for downstream train/test-aware filtering.
 
 The full 995-video dense V-JEPA/TRIBE output bundle is now the correct substrate for later local PCA, temporal diagnostics, AR + cortical bridge training, shuffled/random/time controls, quality-filtered checks, and full grouped-video benchmarks. Do not describe the H100 postpass itself as a positive benchmark result; it generated the cache needed to run those benchmarks.
+
+Dense AGAIN 2Hz Phase 1-3 status: implemented in `backend/scripts/again_dense_2hz_benchmark.py` with wrappers `build_again_labels_aligned_2hz.py`, `run_again_dense_2hz_ar_baseline.py`, and `run_again_dense_2hz_raw_cortical_benchmark.py`. The label manifest covers `243,441/243,575` dense rows across `995/995` videos, preserves between-second label movement, and creates row-horizon targets. Phase 2/3 runs use MLX-backed ridge fits with train-only inner alpha selection, grouped-video folds, blocked temporal validation, and controls. In the latest grouped-video Phase 3 run, `AR + raw cortical` improves over AR and shuffled/random controls for `arousal_spike_rows_2_6_train_q90` (`17.03%` vs AR `14.73%` PR-AUC) and `arousal_abs_delta_p4rows_train_q90` (`12.73%` vs AR `11.82%` PR-AUC), but not for `arousal_delta_p2rows_train_q90` (`20.19%` vs AR `20.84%`). This is a raw/diagnostic baseline floor, not PCA bridge proof.
 
 AGAIN multimodal status: TRIBE/V-JEPA infrastructure can support multimodal inputs, but the local cleaned AGAIN video mirrors currently available to this repo are video-only containers. A 2026-06-22 `ffprobe` sweep over the internal scratch and external SSD AGAIN roots checked `1,095` `.webm`/video containers and found `0` embedded audio streams with `0` probe errors. `facebook/w2v-bert-2.0` is present and recognized as an encoder, but it has no usable AGAIN audio stream in these cleaned files. The external `meta-llama-Llama-3.2-3B` path remains a placeholder; a machine-local LM Studio MLX text candidate may satisfy the repo's MLX text-model directory check when configured locally.
 
@@ -65,6 +67,7 @@ Post-v2 trained-head and scaling assets now available:
 - V-JEPA 2.1 selection trigger: converted MLX weights with `tensor_layout=vjepa2_1_mlx_port`
 - AGAIN audio inventory: `reports/again_video_audio_stream_inventory_20260622.md`, confirming `0/1,095` local AGAIN video containers with embedded audio streams.
 - H100 dense AGAIN V-JEPA/TRIBE asset: Google Drive folder `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`, local pull target `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`. Expected contents include global manifests, `row_index.parquet`, `row_index.csv`, `video_metadata.csv`, split manifests, `BASELINE_READINESS.md`, `README_OUTPUT_SCHEMA.md`, and `per_video/<video_id>/` folders with `tribe_v2_cortical_predictions.npz`, `baseline_features_rowlevel.npz`, `vjepa_temporal_diagnostics.npz`, `rows_aligned.csv`, `input_mapping.json`, `diagnostics.json`, `manifest.json`, and `status.json`.
+- Dense AGAIN 2Hz labels and baseline reports: `reports/again_labels_aligned_2hz_20260625_091209.md`, `reports/again_dense_2hz_ar_baseline_20260625_093722.md`, and `reports/again_dense_2hz_raw_cortical_vs_ar_20260625_094242.md`.
 
 Current v2 evidence reports now tracked in this repo:
 
@@ -100,7 +103,7 @@ Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 - Raw representation audit promotes `pca_sequence_128_causal_past_2s_mean` as the best learned-head input for event/spike ranking; `roi_parcel_features` is the best compact side candidate; `topk_vertices_512` is useful but supervised/cautionary; raw uncompressed ridge is valid but not the best next build target.
 - Tensor export v1 materialized model-ready train/test tensors for `pca_sequence_128_causal_past_2s_mean`, `roi_parcel_features`, `topk_vertices_512`, and `cortical_pca64_delta_frozen_baseline` across `blocked`, `official`, and `grouped_0..4` splits for the three primary targets.
 - Frozen tensor trained heads are implemented. In the completed MPS run, `AR_plus_PCA128` and `residualized_AR_plus_PCA128` beat `AR_only`, canonical shuffled/random controls, and their PCA64-delta incremental counterparts across grouped spike gates; `PCA128_only` did not stably beat AR.
-- Dense AGAIN data generation is complete but not yet benchmarked. The H100 run produced the full 995-video 2Hz V-JEPA 2.1/TRIBE v2 working bundle. This enables full-dataset downstream PCA and bridge experiments without re-encoding videos, but no scientific promotion gate has been run on the dense bundle yet.
+- Dense AGAIN data generation is complete and the first true-2Hz raw-cortical baseline layer has run. The result is mixed but useful: AR+raw cortical passes grouped/control gates for the spike rows 2-6 and +4-row absolute movement targets, while +2-row delta remains AR-dominant. PCA/bridge experiments are still not run.
 
 ## Benchmark Rules
 
@@ -115,9 +118,9 @@ Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 
 ## Remaining Work
 
-1. Build the next AGAIN benchmark layer from the dense 995-video TRIBE bundle: AR-only, quality/motion/luma controls, timestamp/video-time controls, shuffled/random controls, PCA widths, train-only PCA transforms, grouped-video folds, and blocked temporal checks.
-2. Build a boundary-aligned 2Hz AGAIN label manifest before making true 2Hz supervised claims from the dense 2Hz cache.
-3. Keep grouped-video validation, blocked validation, and controls as promotion gates for any learned head or dense AGAIN follow-up.
+1. Build the next AGAIN PCA/bridge layer from the dense 995-video TRIBE bundle with train-only PCA widths and learned bridge heads.
+2. Keep grouped-video validation, blocked validation, and controls as promotion gates for any learned head or dense AGAIN follow-up.
+3. Add the dense AGAIN Phase 1-3 summaries to the evidence dashboard when dashboard work resumes.
 4. Finish the guarded `83,84` multimodal pilot after populating or authorizing the gated `meta-llama/Llama-3.2-3B` text encoder.
 5. Keep the benchmark dashboard aligned with the current VEATIC and AGAIN evidence layers.
 
@@ -131,4 +134,4 @@ Current multimodal pilot status:
 
 ## Next Safe Move
 
-Use the frozen v2 evidence bundle and frozen raw-representation tensor contract as the VEATIC baseline. The first trained-head layer already exists. For AGAIN, use the audited local dense H100 TRIBE bundle and run benchmark/control layers over that full 995-video artifact.
+Use the frozen v2 evidence bundle and frozen raw-representation tensor contract as the VEATIC baseline. The first trained-head layer already exists. For AGAIN, use `labels_aligned_2hz.parquet` plus the audited local dense H100 TRIBE bundle. The next scientific step is train-only PCA/bridge work over the full 995-video artifact, not another 1Hz or sparse rerun.

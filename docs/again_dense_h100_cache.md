@@ -85,6 +85,29 @@ The bundle is sufficient for local downstream work without re-running V-JEPA or 
 - black-screen and duplicate-frame filtering
 - lead/lag and future-delta experiments after labels are aligned correctly
 
+## Dense 2Hz Label And Baseline Status
+
+The true 2Hz supervised manifest now exists locally at:
+
+```text
+.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/labels_aligned_2hz.parquet
+```
+
+It uses saved dense-cache `time_seconds` directly, preserves the `0.0s`/`0.5s` first-row timing nuance, and does not collapse labels to 1Hz. Coverage from the first build:
+
+- dense rows: `243,575`
+- labeled rows: `243,441`
+- unlabeled rows: `134`
+- videos with labels: `995/995`
+- +0.5s label movement histogram is tracked in `reports/again_labels_aligned_2hz_20260625_091209.md`
+
+The first dense 2Hz raw-cortical-vs-AR benchmark has also run. It used MLX-backed ridge fits with train-only inner alpha selection, grouped-video folds as the primary gate, blocked temporal validation as the secondary protocol, and nuisance controls. Latest tracked reports:
+
+- `reports/again_dense_2hz_ar_baseline_20260625_093722.md`
+- `reports/again_dense_2hz_raw_cortical_vs_ar_20260625_094242.md`
+
+Headline grouped-video result, still Phase 3 and not PCA/bridge proof: `AR + raw cortical` improves over AR and shuffled/random controls for `arousal_spike_rows_2_6_train_q90` and `arousal_abs_delta_p4rows_train_q90`, but not for `arousal_delta_p2rows_train_q90`.
+
 ## Local Audit Notes
 
 The 2026-06-25 local audit found the internal-SSD copy complete and schema-valid:
@@ -106,7 +129,7 @@ Cache repair: `113` stale `traceback.txt` files from successful per-video folder
 
 ## Current Guardrails
 
-- Do not treat 2Hz features as 2Hz supervised evidence until labels/rows are aligned for the target experiment.
+- Use `labels_aligned_2hz.parquet` for dense supervised 2Hz work. Do not fall back to the older 1Hz boundary manifest for dense 2Hz claims.
 - Do not drop rows silently because of black frames; preserve quality flags and decide filtering inside each train/test protocol.
 - Do not re-encode videos unless the local/Drive artifact fails a manifest/schema audit.
 - Do not copy the Drive bundle into git.

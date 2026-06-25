@@ -17,6 +17,7 @@ requests>=2.28.0
 # Required by benchmark scripts and calibration utilities.
 numpy>=1.26.0
 pandas>=2.1.0
+pyarrow>=16.0.0
 scipy>=1.11.0
 # Grouped holdout evaluation and benchmark helpers
 scikit-learn>=1.5.0

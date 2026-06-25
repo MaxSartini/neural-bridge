@@ -63,7 +63,7 @@ After the v2 evidence freeze, a raw cortical representation audit, tensor export
 - Downstream product-model work is outside the current v2 evidence bundle.
 - Full multimodal TRIBE remains a high-priority pilot, not part of the frozen v2 claim yet. The guarded `83,84` pilot reaches audio/text event preparation but is blocked until the gated `meta-llama/Llama-3.2-3B` text encoder is locally available or authorized.
 - Do not use a full VEATIC-124 re-encode as the next multimodal step: only videos `83` and `84` contain audio streams.
-- Dense AGAIN V-JEPA 2.1 / TRIBE v2 data generation has since completed on H100 for all `995` videos at `2Hz`, `256px`, float16. This is not part of the VEATIC v2 evidence claim and is not yet a scored AGAIN result. It is the current full-dataset substrate for future AGAIN PCA/bridge/control benchmarking.
+- Dense AGAIN V-JEPA 2.1 / TRIBE v2 data generation has since completed on H100 for all `995` videos at `2Hz`, `256px`, float16. True 2Hz labels and a first raw/diagnostic AR-vs-cortical baseline now exist, but this is still not part of the VEATIC v2 evidence claim and is not dense PCA/bridge proof.
 
 ## Source Reports
 
