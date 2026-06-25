@@ -1,0 +1,4 @@
+{
+  "policy": "train-only scaling, thresholds, inner validation",
+  "status": "pass"
+}

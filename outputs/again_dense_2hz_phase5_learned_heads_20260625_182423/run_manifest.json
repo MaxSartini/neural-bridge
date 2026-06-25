@@ -1,0 +1,43 @@
+{
+  "backend": "mlx",
+  "cpu_training_fallback": false,
+  "created_at": "2026-06-25T18:24:23.893148+00:00",
+  "cuda_barred": true,
+  "dense_root": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz",
+  "dry_run": false,
+  "feature_inputs": [
+    "temporal_mean_2s_then_pca256"
+  ],
+  "git_commit": "a4e4a5240ecb471017a5b4f706907eb3bd83c6f4",
+  "git_commit_short": "a4e4a52",
+  "git_dirty": true,
+  "git_status_short": "?? backend/scripts/run_again_dense_2hz_phase5_learned_heads.py\n?? reports/again_dense_2hz_phase5_feature_inputs_182107.md\n?? reports/again_dense_2hz_phase5_feature_inputs_182150.md\n?? reports/again_dense_2hz_phase5_feature_inputs_182216.md\n?? reports/again_dense_2hz_phase5_feature_inputs_182326.md\n?? reports/again_dense_2hz_phase5_learned_heads_benchmark_182107.md\n?? reports/again_dense_2hz_phase5_learned_heads_benchmark_182150.md\n?? reports/again_dense_2hz_phase5_learned_heads_benchmark_182216.md\n?? reports/again_dense_2hz_phase5_learned_heads_benchmark_182326.md\n?? reports/again_dense_2hz_phase5_promotion_summary_182107.md\n?? reports/again_dense_2hz_phase5_promotion_summary_182150.md\n?? reports/again_dense_2hz_phase5_promotion_summary_182216.md\n?? reports/again_dense_2hz_phase5_promotion_summary_182326.md",
+  "labels_path": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/labels_aligned_2hz.parquet",
+  "loss_functions": [
+    "regression",
+    "binary",
+    "regression_plus_binary"
+  ],
+  "model_classes": [
+    "linear",
+    "mlp_medium",
+    "gated_ar_pca_mlp"
+  ],
+  "no_global_pca": true,
+  "no_vjepa_tribe_reencoding": true,
+  "output_root": "outputs/again_dense_2hz_phase5_learned_heads_20260625_182423",
+  "phase4_root": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full",
+  "primary_continuous_source": "future_arousal_max_delta_rows_2_6",
+  "primary_target": "arousal_spike_rows_2_6_train_q90",
+  "schema_version": "again_dense_2hz_phase5_learned_heads_v1",
+  "seeds": [
+    20260625,
+    20260626,
+    20260627
+  ],
+  "split_count": 6,
+  "validation_protocols": [
+    "grouped_video",
+    "blocked_temporal_70_30"
+  ]
+}

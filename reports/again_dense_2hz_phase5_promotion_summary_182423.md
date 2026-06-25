@@ -1,0 +1,79 @@
+# AGAIN Dense 2Hz Phase 5 Promotion Summary
+
+- Weak pass: `True`
+- Good pass: `True`
+- Strong pass: `True`
+- Holy-shit pass: `True`
+- Blocked temporal support: `True`
+- Recommendation: `promote_to_phase6_candidate`
+- Best grouped-video PR-AUC: `0.21913`
+- Phase 4 best grouped-video PR-AUC reference: `0.17165`
+- Delta vs Phase 4 best: `+0.04748`
+- AR-only grouped-video PR-AUC reference: `0.14725`
+- Phase 3 AR+raw grouped-video PR-AUC reference: `0.17030`
+- Strongest grouped control in the main run: `ar_plus_shuffled_pca` at PR-AUC `0.19404`
+- Label-permutation sanity follow-up: PR-AUC `0.10428`, ROC-AUC `0.51303`
+
+## Best Real Grouped Lane
+
+```json
+{
+  "control_type": "real",
+  "feature_name": "temporal_mean_2s_then_pca256",
+  "folds": 5,
+  "loss_name": "regression_plus_binary",
+  "max_balanced_accuracy": 0.6186746297311781,
+  "max_continuous_mae": 0.07200106233358383,
+  "max_continuous_mse": 0.010410777293145657,
+  "max_continuous_pearson": 0.26032477197340353,
+  "max_f1": 0.2923246999368288,
+  "max_pr_auc": 0.22797457194205903,
+  "max_precision": 0.26661280549383964,
+  "max_recall": 0.37576126674786847,
+  "max_roc_auc": 0.717906969643338,
+  "max_top_10pct_recall": 0.2830409356725146,
+  "max_top_1pct_recall": 0.04584795321637427,
+  "max_top_5pct_recall": 0.17473684210526316,
+  "mean_balanced_accuracy": 0.6048283636222448,
+  "mean_continuous_mae": 0.06576188504695893,
+  "mean_continuous_mse": 0.00920582829664151,
+  "mean_continuous_pearson": 0.2189681826615338,
+  "mean_f1": 0.2755194676386312,
+  "mean_pr_auc": 0.21913274912241704,
+  "mean_precision": 0.24480006236929908,
+  "mean_recall": 0.32109887277917437,
+  "mean_roc_auc": 0.6988396481072425,
+  "mean_top_10pct_recall": 0.265240247528197,
+  "mean_top_1pct_recall": 0.04034277474555939,
+  "mean_top_5pct_recall": 0.15841852637433199,
+  "min_balanced_accuracy": 0.5816986720191093,
+  "min_continuous_mae": 0.061037808656692505,
+  "min_continuous_mse": 0.008205575868487358,
+  "min_continuous_pearson": 0.18774651129196007,
+  "min_f1": 0.25441622243127415,
+  "min_pr_auc": 0.21128153883752887,
+  "min_precision": 0.22817460317460317,
+  "min_recall": 0.2443284481027906,
+  "min_roc_auc": 0.6891562310773603,
+  "min_top_10pct_recall": 0.24713912868901827,
+  "min_top_1pct_recall": 0.03111824934752058,
+  "min_top_5pct_recall": 0.13993174061433447,
+  "model_head": "gated_ar_pca_mlp",
+  "rows_test_total": 699267,
+  "seeds": 3,
+  "std_balanced_accuracy": 0.010897678986702299,
+  "std_continuous_mae": 0.0031487024231140687,
+  "std_continuous_mse": 0.0006527005384170579,
+  "std_continuous_pearson": 0.0213766696153222,
+  "std_f1": 0.010668472839046478,
+  "std_pr_auc": 0.005235965747982055,
+  "std_precision": 0.013266271013959838,
+  "std_recall": 0.04153362649494637,
+  "std_roc_auc": 0.007899358090127689,
+  "std_top_10pct_recall": 0.012267187930888806,
+  "std_top_1pct_recall": 0.00468215870805427,
+  "std_top_5pct_recall": 0.010052738040130557,
+  "target_name": "arousal_spike_rows_2_6_train_q90",
+  "validation_protocol": "grouped_video"
+}
+```
