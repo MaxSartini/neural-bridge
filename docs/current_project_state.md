@@ -19,6 +19,14 @@ The model-head input is frozen as tensors rather than only described in reports.
 
 The AGAIN/V-JEPA 2.1 path is implemented as scaling infrastructure. It is not a new proven baseline. The current tracked sparse teacher work covers a 50-video selector subset. Hybrid sparse PCA128 failed the first promotion gates. A 500-window cache-only smaller-width reanalysis looked promising, but the 2000-budget confirmatory run remains non-promotable. V-JEPA 2.1 is the encoding engine for TRIBE v2; the tested compressed lanes are AR + train-only PCA of frozen TRIBE v2 cortical predictions, not PCA-only and not PCA of raw V-JEPA tokens. AR + locked PCA32 beat AR and matched random under delta-over-AR, but it remains slightly below AR + raw sparse current/causal mean and fails the same-width shuffled PCA32 nuisance control. A follow-up true fixed-random same-budget rerun matched hybrid at 849 unique windows per arm and no longer beat hybrid, so the earlier undersized fixed-random caveat is closed without changing the no-scale decision.
 
+Current AGAIN scout follow-up: ViT-L scout support is implemented through `vjepa21_vitl_dgrauet_mlx_scout`. New scout feature rows use canonical `scout_novelty_z` plus `scout_model_name`; legacy `vjepa_b_novelty_z`/`vjepa_l_novelty_z` aliases are compatibility fields only. The sparse ViT-G/TRIBE stage consumes the canonical scout field with B/L fallback, so old column names must not be read as forcing a weaker B scout. Practical scout runtime findings on the local M2 Max: ViT-L at `384px`, `16` frames, `1Hz` was about `100s/video`; ViT-L at `256px`, `16` frames, `1Hz` is about `35s/video`. Batch/concurrency probes did not help. Compiled MLX scout forward is enabled for future runs but has not materially changed full-video throughput. Active scout and future ViT-G/TRIBE encoding should run from internal scratch, then mirror completed caches and reports back to the external SSD.
+
+The current AGAIN benchmark manifest is a deliberately built boundary-aligned `1Hz` view (`again_boundary_aligned_1hz_manifest.csv`) from native decimal-timestamp annotations. Therefore a `2Hz` ViT-G/TRIBE pass over the current manifest is only a denser feature-aggregation ablation around the same 1Hz labeled centers, not a source of additional supervised rows. True 2Hz supervised claims require a new boundary-aligned 2Hz manifest and fresh selector rows from the native annotations.
+
+AGAIN multimodal status: TRIBE/V-JEPA infrastructure can support multimodal inputs, but the local cleaned AGAIN video mirrors currently available to this repo are video-only containers. A 2026-06-22 `ffprobe` sweep over the internal scratch and external SSD AGAIN roots checked `1,095` `.webm`/video containers and found `0` embedded audio streams with `0` probe errors. `facebook/w2v-bert-2.0` is present and recognized as an encoder, but it has no usable AGAIN audio stream in these cleaned files. The external `meta-llama-Llama-3.2-3B` path remains a placeholder; a real MLX text candidate exists at `/Users/maxsartini/.lmstudio/models/mlx-community/Llama-3.2-3B-Instruct-4bit` and passes the repo's MLX text-model directory check.
+
+MLX memory knobs are verified. `iogpu.wired_limit_mb` exists on this macOS install and is referenced by the installed MLX stubs for raising the system wired limit. MLX itself does not parse `MLX_MAX_MAPPED_MEM_MB`; Neural Bridge implements that name as a compatibility shim that calls `mx.set_wired_limit(bytes)` in heavy scripts. Without changing sysctl, MLX reports `max_recommended_working_set_size` around `24.96 GiB` on this 32 GiB M2 Max. `MLX_MAX_MAPPED_MEM_MB=24576` applies; `26624` requires first raising the system limit with `sudo sysctl iogpu.wired_limit_mb=26624`.
+
 ## Current Benchmark Assets
 
 - Complete VEATIC manifest: `benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl`
@@ -53,6 +61,8 @@ Post-v2 trained-head and scaling assets now available:
 - Trained-head result handle from the completed run: `outputs/veatic_124_frozen_tensor_trained_heads_mps_20260620_full_lightweight.zip`
 - V-JEPA 2.1 MLX adapter: `backend/app/services/mlx_vjepa21_cortical.py`
 - V-JEPA 2.1 selection trigger: converted MLX weights with `tensor_layout=vjepa2_1_mlx_port`
+- V-JEPA 2.1 ViT-L scout: `vjepa21_vitl_dgrauet_mlx_scout`, currently best used as `1Hz`, `16` frames, `256px`, batch `1`, internal scratch active storage.
+- AGAIN audio inventory: `reports/again_video_audio_stream_inventory_20260622.md`, confirming `0/1,095` local AGAIN video containers with embedded audio streams.
 - AGAIN current tracked reports: `reports/again_real_scout_selector_validation_20260621_230940_n50.md`, `reports/again_full_ar_context_20260622_005713.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_005732.md`, `reports/again_sparse_tribe_teacher_500_*_20260622_pca_width_reanalysis_v2.md`, corrected `reports/again_sparse_tribe_teacher_2000_*_20260622_2000_small_pca_confirmatory_v3.md`, and true same-budget fixed-random `reports/again_sparse_tribe_teacher_2000_true_fixed_random_same_budget_*_20260622_2000_true_fixed_random_same_budget_v3.md`
 
 Current v2 evidence reports now tracked in this repo:
@@ -112,6 +122,7 @@ Use `--modality-audit-only` to report cache-level text/audio/video coverage.
 Current multimodal pilot status:
 
 - `facebook/w2v-bert-2.0` is present on the external SSD.
+- The local LM Studio directory `/Users/maxsartini/.lmstudio/models/mlx-community/Llama-3.2-3B-Instruct-4bit` is a real MLX Llama 3.2 3B Instruct 4-bit model directory and passes the repo's MLX text-model directory check.
 - The pilot reaches audio extraction, word extraction, Text/Sentence creation, and text feature preparation.
 - It is blocked by gated/missing `meta-llama/Llama-3.2-3B` text encoder assets.
 - A full VEATIC-124 multimodal re-encode is not warranted because only videos `83` and `84` contain audio streams.

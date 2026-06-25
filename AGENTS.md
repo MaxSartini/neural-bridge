@@ -18,6 +18,7 @@ This repo is Neural Bridge. Treat older cloned-project context as archaeology, n
 - Model-ready tensors are frozen under `NEURAL_BRIDGE_EXTERNAL_ROOT/tensors/veatic_124_raw_representation_v1/` with lightweight summaries in `outputs/veatic_124_raw_representation_tensor_export_v1/`.
 - V-JEPA 2.1 MLX support is implemented and selected from converted weights with `tensor_layout=vjepa2_1_mlx_port`.
 - AGAIN boundary/scout/full-AR/sparse-teacher tooling is implemented. The 50-video / 480-window sparse teacher pilot failed hybrid sparse PCA128 promotion gates. A cache-only smaller-width follow-up looked promising at 500-window scale. The later 2000-budget confirmatory work on the same 50-video selector subset is nuanced: V-JEPA 2.1 is the encoding engine for TRIBE v2, and the tested compressed lanes are AR + train-only PCA of frozen TRIBE v2 cortical predictions, not PCA-only and not PCA of raw V-JEPA tokens. AR + locked PCA32 beats AR and beats matched random under delta-over-AR, but remains slightly below AR + raw sparse and fails the same-width shuffled PCA32 nuisance control. A true same-budget fixed-random rerun matched hybrid at 849 unique windows per arm and no longer beat hybrid, closing the old undersized fixed-random caveat without changing the no-scale decision. Do not scale AGAIN sparse teacher from this result.
+- Current local AGAIN cleaned video mirrors are not audio-bearing: a 2026-06-22 embedded-stream audit checked 1,095 AGAIN video containers across internal scratch and external SSD roots and found 0 audio streams with 0 probe errors. Do not add Wav2Vec-BERT AGAIN claims unless a separate/original audio-bearing media source is found and audited.
 
 ## Start Here
 
@@ -74,6 +75,7 @@ Expected current families:
 - `models/tribe-mlx`
 - `models/upstream-encoders/facebook-w2v-bert-2.0`
 - `models/upstream-encoders/meta-llama-Llama-3.2-3B` when authorized and populated
+- Local reference workstation candidate: `/Users/maxsartini/.lmstudio/models/mlx-community/Llama-3.2-3B-Instruct-4bit` passes the repo MLX text-model directory check, but it is machine-local and not a portable external-root contract.
 - `models/upstream-encoders-mlx/facebook-vjepa2-vitg-fpc64-256`
 - `models/vjepa21_mlx/vitg`
 - `benchmarks/again`

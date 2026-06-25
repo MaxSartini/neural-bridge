@@ -19,6 +19,14 @@ The first frozen-tensor trained-head runner is implemented and MPS-backed. It re
 
 V-JEPA 2.1 MLX support and AGAIN sparse-teacher tooling are also implemented. The current AGAIN 50-video sparse teacher work is bounded scaling evidence, not final AGAIN proof. Hybrid sparse PCA128 was negative in the first pilot; a 500-window small-PCA follow-up looked promising, but the later 2000-budget confirmatory work remains non-promotable. V-JEPA 2.1 is the encoding engine for TRIBE v2, and the tested compressed lanes are AR + train-only PCA of frozen TRIBE v2 cortical predictions. AR + locked PCA32 beats matched random under delta-over-AR, but it remains slightly below AR + raw sparse and fails a same-width shuffled PCA32 nuisance control.
 
+AGAIN scout iteration is now model-stamped. ViT-B and ViT-L scout outputs write canonical `scout_novelty_z` plus `scout_model_name`; old `vjepa_b_*` names are compatibility aliases, not the contract for new runs. ViT-L scout (`vjepa21_vitl_dgrauet_mlx_scout`) is available in MLX. On the local M2 Max, `1Hz`, `16` frames, `256px`, batch `1`, internal scratch storage is the practical ViT-L scout setting; `384px` is roughly 3x slower. Active ViT-L scout and future ViT-G/TRIBE encoding should use internal scratch caches and mirror completed artifacts back to the external SSD.
+
+The current AGAIN manifest is a boundary-aligned `1Hz` view built from native decimal-timestamp annotations. Therefore the next ViT-G/TRIBE stage should run selected causal windows at `1Hz` first. A `2Hz` G/TRIBE pass is only a feature-density ablation unless a new boundary-aligned 2Hz manifest and selector rows are generated.
+
+Current local AGAIN media is not multimodal even though TRIBE itself can accept video, audio, and text. A 2026-06-22 `ffprobe` sweep over the local internal and external AGAIN roots found `0/1,095` video containers with embedded audio streams and `0` probe errors. Treat AGAIN runs from these cleaned `.webm` mirrors as video plus annotations/telemetry unless a separate/original audio-bearing source is identified and audited.
+
+For MLX memory, use the implemented runtime shim rather than unverified environment variables. `MLX_MAX_MAPPED_MEM_MB=<MB>` is supported by Neural Bridge scripts and is translated to `mx.set_wired_limit(...)`; upstream MLX in this environment does not parse that variable directly. The local 32 GiB M2 Max reports about `24.96 GiB` recommended working set by default, so `MLX_MAX_MAPPED_MEM_MB=24576` applies without sysctl. Higher values such as `26624` require first raising macOS' system wired limit with `sudo sysctl iogpu.wired_limit_mb=26624`.
+
 The current claim is intentionally precise: Neural Bridge has evidence for arousal event/spike ranking and temporal-context sufficiency from a mostly visual/video TRIBE cache, not exact continuous arousal-value prediction, a finished downstream product model, or a proven full text+audio+video multimodal cache.
 
 ## Key VEATIC-124 v2 Results
@@ -38,6 +46,8 @@ The current claim is intentionally precise: Neural Bridge has evidence for arous
 - Tensor export v1: `84` representation/split/target contracts and `420` `.npy` tensors were written under the external tensor root with verification `pass`; PCA fit-cache payloads were reused and none were rebuilt.
 - Frozen-tensor trained heads: `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py` runs simple MPS-backed heads over the frozen tensor contract. The delivered full run used fresh same-row AR and controls; `AR_plus_PCA128` and `residualized_AR_plus_PCA128` beat `AR_only` and canonical shuffled/random controls across grouped spike gates, while `PCA128_only` did not stably beat AR.
 - V-JEPA 2.1 / AGAIN scaling: `backend/app/services/mlx_vjepa21_cortical.py` and the AGAIN sparse-teacher scripts are implemented. The 50-video sparse teacher reports record the negative PCA128 pilot, the promising 500-window small-PCA reanalysis, and the 2000-budget confirmatory work where AR + locked PCA32 shows matched-random delta-over-AR signal but still fails raw sparse and same-width shuffled-PCA32 promotion gates.
+- ViT-L scout scaling: `backend/scripts/again_real_scout_selector_validation.py` supports `vjepa21_vitl_dgrauet_mlx_scout`, canonical `scout_novelty_z`, internal video/cache overrides, compiled MLX forward, and the `MLX_MAX_MAPPED_MEM_MB` compatibility shim.
+- AGAIN audio audit: `reports/again_video_audio_stream_inventory_20260622.md` records the local embedded-stream sweep that found no audio streams in the cleaned AGAIN video mirrors.
 
 Source summaries:
 
@@ -172,6 +182,8 @@ npm run evidence:verify
 Do not re-encode all 124 VEATIC videos for multimodal coverage. Only videos `83` and `84` contain audio streams, so the current actionable path is to finish the gated/local text encoder dependency for the two-video pilot, then compare that pilot against the video-dominant cache.
 
 The current v2 evidence should be described as visual/video cortical TRIBE unless a new cache passes full text+audio+video coverage checks.
+
+For AGAIN specifically, do not assume the cleaned local `.webm` mirrors contain sound. The current audit found no embedded audio streams across the internal scratch and external SSD AGAIN video roots, so Wav2Vec-BERT cannot add signal to those exact files without a different audio-bearing source.
 
 ## Post-v2 Benchmarks
 

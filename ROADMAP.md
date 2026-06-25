@@ -19,11 +19,13 @@ Completed:
 - Legacy app-era code, redundant atlas data, and stale frontend scaffolding have been removed from the active repo.
 - Root config/package files now describe only the current VEATIC/TRIBE workspace.
 - The strict suite now audits modality coverage so video-only and full multimodal caches cannot be confused.
+- AGAIN local cleaned media has also been audited for embedded audio. The 2026-06-22 sweep found `0/1,095` local AGAIN video containers with audio streams, so current AGAIN work is video plus annotations/telemetry unless a separate audio-bearing source is found.
 - The raw cortical representation audit is complete and keeps `cortical_pca64_delta` as the frozen baseline while promoting `pca_sequence_128_causal_past_2s_mean` as the primary trained-head input.
 - The v1 model-ready tensor contract is frozen externally with lightweight tracked summaries and verification.
 - The frozen-tensor trained-head benchmark is implemented in `backend/scripts/veatic_frozen_tensor_trained_heads.py` with `run_veatic_frozen_tensor_trained_heads_benchmark.py`; it uses MPS, fresh same-row AR, fresh controls, grouped gates, and no prior result-row reuse.
 - V-JEPA 2.1 MLX support is implemented in `backend/app/services/mlx_vjepa21_cortical.py` and integrated through `TribeAdapter` when converted weights declare `tensor_layout=vjepa2_1_mlx_port`.
 - AGAIN boundary, scout, full-AR-context, and sparse-teacher tooling is implemented. The current tracked AGAIN sparse teacher result is bounded 50-video evidence: PCA128 failed the first pilot, the 500-window small-PCA follow-up looked promising, and the 2000-budget confirmatory work remains non-promotable. V-JEPA 2.1 is the encoding engine for TRIBE v2; the tested compressed lanes are AR + train-only PCA of frozen TRIBE v2 cortical predictions. AR + locked PCA32 beats matched random under delta-over-AR, but remains slightly below AR + raw sparse and fails same-width shuffled-PCA32 controls.
+- AGAIN ViT-L scout support is implemented and should be used for the next selector refresh before another expensive ViT-G/TRIBE pass. The active contract is canonical `scout_novelty_z` with `scout_model_name`; `vjepa_b_*` and `vjepa_l_*` are aliases only. Local runtime testing found `1Hz`, `16` frames, `256px`, batch `1`, internal scratch storage to be the practical ViT-L scout configuration. `384px` is about 3x slower. Because the current AGAIN benchmark manifest is a boundary-aligned 1Hz view, the next ViT-G/TRIBE selected-region run should also be 1Hz first; 2Hz requires a new aligned 2Hz manifest for supervised claims.
 
 This is the current scientific foundation, not a hypothesis waiting for another dataset to validate it.
 
@@ -88,6 +90,11 @@ Goal: keep the scaling path reusable while preventing it from being mistaken for
 - [x] Run the bounded 50-video / 480-window sparse teacher pilot and record that hybrid sparse PCA128 failed its promotion gates.
 - [x] Run a fresh cache-only smaller-width PCA follow-up from cached raw cortical windows; record that the train-selected small PCA lane beat AR, raw sparse current/causal mean, PCA64-delta, and shuffled/random controls.
 - [x] Run the 2000-budget sparse teacher confirmatory pass plus true same-budget fixed-random rerun; record that AR + locked PCA32 has arm-local signal but does not justify broader sparse-teacher scaling.
+- [x] Add ViT-L scout support with model-stamped canonical scout fields and internal-scratch runtime controls.
+- [ ] Finish the 100-video ViT-L scout refresh and use it to define the next 1Hz ViT-G/TRIBE selected-region queue.
+- [ ] Build a boundary-aligned 2Hz AGAIN manifest only if a true 2Hz supervised follow-up is needed.
+- [ ] If an original/audio-bearing AGAIN source is located, run a fresh embedded-audio inventory before adding Wav2Vec-BERT features.
+- [ ] Run future ViT-G/TRIBE active encoding from internal scratch and mirror completed caches/artifacts back to the external SSD.
 - [ ] Do not promote more sparse teacher windows on the same 50-video selector subset.
 
 ## 6. Productized Evidence Workflow
