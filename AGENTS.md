@@ -1,6 +1,6 @@
 # Neural Bridge Agent Guide
 
-This repo is Neural Bridge. Treat older cloned-project context as archaeology, not active project state.
+This repo is Neural Bridge.
 
 ## Current Truth
 
@@ -17,7 +17,6 @@ This repo is Neural Bridge. Treat older cloned-project context as archaeology, n
 - `roi_parcel_features` is an important side candidate; `topk_vertices_512` is supervised/cautionary.
 - Model-ready tensors are frozen under `NEURAL_BRIDGE_EXTERNAL_ROOT/tensors/veatic_124_raw_representation_v1/` with lightweight summaries in `outputs/veatic_124_raw_representation_tensor_export_v1/`.
 - V-JEPA 2.1 MLX support is implemented and selected from converted weights with `tensor_layout=vjepa2_1_mlx_port`.
-- AGAIN boundary/scout/full-AR/sparse-teacher tooling is implemented. The 50-video / 480-window sparse teacher pilot failed hybrid sparse PCA128 promotion gates. A cache-only smaller-width follow-up looked promising at 500-window scale. The later 2000-budget confirmatory work on the same 50-video selector subset is nuanced: V-JEPA 2.1 is the encoding engine for TRIBE v2, and the tested compressed lanes are AR + train-only PCA of frozen TRIBE v2 cortical predictions, not PCA-only and not PCA of raw V-JEPA tokens. AR + locked PCA32 beats AR and beats matched random under delta-over-AR, but remains slightly below AR + raw sparse and fails the same-width shuffled PCA32 nuisance control. A true same-budget fixed-random rerun matched hybrid at 849 unique windows per arm and no longer beat hybrid, closing the old undersized fixed-random caveat without changing the no-scale decision. Do not scale AGAIN sparse teacher from this result.
 - Dense AGAIN H100 data generation is complete: official V-JEPA 2.1 ViT-G encoded the full 995-video AGAIN set at `2Hz` rows, `2Hz` sampling, `256px`, float16, followed by a cache-only TRIBE v2 postpass. The postpass completed `995/995` videos, `0` failures, and `243,575` row-level cortical predictions. Treat this as a cache/data substrate for later local PCA, bridge training, and benchmark/control runs, not as an already-scored AGAIN win.
 - Current local AGAIN cleaned video mirrors are not audio-bearing: a 2026-06-22 embedded-stream audit checked 1,095 AGAIN video containers across internal scratch and external SSD roots and found 0 audio streams with 0 probe errors. Do not add Wav2Vec-BERT AGAIN claims unless a separate/original audio-bearing media source is found and audited.
 
@@ -32,7 +31,6 @@ Read these files before making claims about project state:
 5. `ROADMAP.md`
 6. `docs/external_assets_manifest.md`
 7. `docs/veatic_v2_evidence_freeze.md`
-8. `docs/superseded_artifacts.md`
 
 ## Default Commands
 
@@ -56,11 +54,10 @@ Use `npm run verify` before pushing when dependencies are available.
 - Do not commit heavyweight data, model weights, raw media, local caches, or machine-specific paths.
 - Do not commit external tensor payloads (`.npy`); only lightweight tensor summaries/manifests and row samples belong in git.
 - Do not rerun the raw representation audit or tensor export when existing verified outputs can be reused.
-- Do not rebuild the frozen-tensor trained-head runner from stale CSVs; use the implemented runner and frozen tensor contract.
-- Do not scale AGAIN sparse teacher beyond the bounded pilot from the current evidence; the 2000-budget confirmatory work shows an AR + locked PCA32 delta-over-AR signal versus matched random, but it still fails raw sparse and same-width shuffled-PCA32 nuisance promotion gates.
-- For full AGAIN work, start from the dense H100 bundle and audit it before modelling. Do not go back to sparse-window generation unless the dense bundle is missing, corrupt, or a new sparse-specific hypothesis is explicitly requested.
+- Use the implemented frozen-tensor trained-head runner and frozen tensor contract.
+- For full AGAIN work, start from the dense H100 bundle and audit it before modelling.
 - Keep machine-specific paths in local `.env`; `.env.example` must stay portable.
-- Treat `benchmarks/` and `outputs/` as retained evidence artifacts. Do not use older generated metadata inside them to override the current docs.
+- Treat `benchmarks/` and `outputs/` as retained evidence artifacts. Use current docs before generated metadata.
 - Treat `benchmarks/veatic/veatic_v2_evidence_manifest.json` and `evidence_snapshots/veatic_124_v2_20260616` under the external root as the frozen v2 evidence contract.
 
 ## External Assets
@@ -95,4 +92,4 @@ Prefer the codebase-memory MCP graph for code structure:
 4. `query_graph`
 5. `get_architecture`
 
-Use `rg` for literal strings, docs, configs, generated reports, and stale-name audits.
+Use `rg` for literal strings, docs, configs, and generated reports.

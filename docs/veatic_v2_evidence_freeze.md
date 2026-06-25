@@ -28,7 +28,7 @@ The snapshot contains:
 - cache metadata copies for all 124 cache entries;
 - a cache inventory with raw output presence and byte counts;
 - checksums for tracked evidence files and cache metadata;
-- a superseded-artifact ledger.
+- current external asset documentation.
 
 The snapshot intentionally does not duplicate the large `tribe_raw_output.npz` arrays by default. Those remain in the authoritative external cache:
 
@@ -73,7 +73,7 @@ Keep in git:
 - evidence docs and manifest files;
 - scripts needed to verify or reproduce the bundle from existing caches.
 - lightweight raw-representation and tensor-export summaries, manifests, and row-metadata samples.
-- lightweight post-v2 trained-head and sparse-teacher reports when they document current bounded follow-up results.
+- lightweight post-v2 trained-head reports when they document current bounded follow-up results.
 
 Keep external:
 

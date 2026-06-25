@@ -78,7 +78,7 @@ Main dependency groups:
 - Uncached multimodal pilots also need `moviepy`, `soundfile`, `mlx-whisper`, and `x-transformers`.
 - Raw representation audit/tensor export helpers additionally rely on `nibabel`, `nilearn`, `scipy`, and `scikit-learn` for ROI atlas loading, PCA metadata, and leakage-safe representation checks.
 - Frozen tensor trained-head helpers require `torch` with MPS available and refuse CPU fallback.
-- AGAIN sparse-teacher utilities use `ffmpeg`/`ffprobe` and OpenCV (`cv2`) for dataset and boundary audits.
+- AGAIN utilities use `ffmpeg`/`ffprobe` and OpenCV (`cv2`) for dataset and boundary audits.
 
 Install path:
 
@@ -161,7 +161,6 @@ V-JEPA 2.1 and AGAIN status:
 
 - `MlxVjepa21Video` is implemented and selected when `TRIBE_VIDEO_ENCODER_MLX_DIR/config.json` declares `tensor_layout=vjepa2_1_mlx_port`.
 - `backend/scripts/run_veatic_tribe_cache.py` includes worker claims, resume status, per-window checkpoints, ffmpeg frame sampling, and protected-cache write refusal for MLX/V-JEPA outputs.
-- AGAIN boundary, scout, AR-context, and sparse teacher tooling is implemented. The current 50-video sparse teacher work failed hybrid sparse PCA128 promotion gates, produced a promising 500-window small-PCA follow-up, then failed the 2000-budget confirmatory gate against nuisance and matched-random controls. Do not treat it as full-AGAIN proof or scale it further on the same selector subset.
 - Dense full-AGAIN data generation is complete externally: H100 V-JEPA 2.1 ViT-G encoded `995` videos at `2Hz` rows / `2Hz` sampling / `256px` / float16, and cache-only TRIBE v2 completed `995/995` videos with `0` failures and `243,575` row-level cortical predictions. Use `tools/run_h100_tribe_postpass.py` only for cache-only postpass/retry work; it must not decode videos or rerun V-JEPA.
 
 ## Tracked Versus External Assets
@@ -199,7 +198,7 @@ python3 -m pytest -q tests/test_veatic_raw_representation_contract.py tests/test
 Focused implemented-path tests:
 
 ```bash
-python3 -m pytest -q tests/test_mlx_vjepa21_cortical.py tests/test_veatic_tribe_cache_runtime.py tests/test_veatic_frozen_tensor_adapter.py tests/test_veatic_frozen_tensor_trained_heads.py tests/test_again_boundary_manifest.py tests/test_again_full_ar_context.py tests/test_again_native_temporal_alignment.py tests/test_again_real_scout_selector_validation.py tests/test_again_scout_sparse_pipeline.py tests/test_again_sparse_tribe_teacher_500.py
+python3 -m pytest -q tests/test_mlx_vjepa21_cortical.py tests/test_veatic_tribe_cache_runtime.py tests/test_veatic_frozen_tensor_adapter.py tests/test_veatic_frozen_tensor_trained_heads.py tests/test_again_boundary_manifest.py tests/test_again_full_ar_context.py tests/test_again_native_temporal_alignment.py
 ```
 
 Frontend build:
@@ -240,12 +239,6 @@ Run trained heads only when intentionally refreshing the post-v2 trained-head be
 python3 backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py
 ```
 
-Run AGAIN sparse-teacher work only if intentionally reopening the old sparse-selector line. It is not the current full-dataset path:
-
-```bash
-python3 tools/run_again_sparse_tribe_teacher_500.py
-```
-
 Run dense AGAIN benchmarking only after the H100 TRIBE bundle is locally present and audited. The H100 postpass itself did not run PCA, bridge training, spike/delta benchmarking, or promotion gates.
 
 ## Current Evidence Entry Points
@@ -263,4 +256,4 @@ Fresh sessions should read these first:
 - `outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md`
 - `docs/again_dense_h100_cache.md`
 
-Do not use removed historical docs or deleted benchmark scaffolding as active requirements.
+Use current docs and the dense H100 handoff for AGAIN work.

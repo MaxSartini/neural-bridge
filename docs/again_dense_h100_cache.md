@@ -19,7 +19,7 @@ This artifact is a data-generation milestone. It is not a benchmark result and m
 
 ## What Was Run
 
-The H100 job densely encoded the full 995-video AGAIN set. It did not use sparse teacher queues, scout-selected windows, oracle selectors, PCA, bridge training, spike labels, or benchmark targets during encoding.
+The H100 job densely encoded the full 995-video AGAIN set. It did not use PCA, bridge training, spike labels, or benchmark targets during encoding.
 
 The TRIBE v2 postpass was cache-only:
 
@@ -86,7 +86,6 @@ The bundle is sufficient for local downstream work without re-running V-JEPA or 
 
 ## Current Guardrails
 
-- Do not run benchmarks from stale sparse reports when testing the dense bundle.
 - Do not treat 2Hz features as 2Hz supervised evidence until labels/rows are aligned for the target experiment.
 - Do not drop rows silently because of black frames; preserve quality flags and decide filtering inside each train/test protocol.
 - Do not re-encode videos unless the local/Drive artifact fails a manifest/schema audit.

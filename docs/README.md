@@ -8,7 +8,6 @@ Current-facing documentation:
 - `veatic_v2_evidence_freeze.md` - frozen v2 evidence bundle, checksums, and no-reencode verifier.
 - `veatic_raw_representation_audit.md` - post-v2 raw representation audit and tensor-contract recommendation.
 - `again_dense_h100_cache.md` - dense 995-video AGAIN H100 V-JEPA 2.1 / TRIBE v2 cache handoff.
-- `superseded_artifacts.md` - deleted, retained, and non-authoritative artifact policy.
 - `PROJECT_MEMORY.md` - current memory pointer and handoff policy.
 - `../AGENTS.md` - Codex/fresh-session operating contract.
 
@@ -17,10 +16,9 @@ Current benchmark entrypoint:
 - `backend/scripts/run_veatic_strict_benchmark.py` - consolidated VEATIC-124 strict suite and contract dry-run.
 - `backend/scripts/freeze_veatic_v2_evidence.py` - protected external snapshot and checksum verifier.
 - `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py` - implemented MPS trained-head benchmark over frozen tensor contracts.
-- `backend/scripts/again_sparse_tribe_teacher_500.py` - retained bounded AGAIN sparse teacher runner; not the current full-dataset path.
 - `tools/run_h100_tribe_postpass.py` - cache-only TRIBE v2 postpass runner for dense H100 V-JEPA 2.1 caches.
 - `tools/export_veatic_raw_representation_tensors.py` - verified export for model-ready post-v2 tensor contracts.
-- `backend/scripts/audit_repo_readiness.py` - stale-term, heavyweight-artifact, and orientation-file audit.
+- `backend/scripts/audit_repo_readiness.py` - heavyweight-artifact and orientation-file audit.
 
 Detailed evidence artifacts live outside this folder:
 
@@ -29,4 +27,4 @@ Detailed evidence artifacts live outside this folder:
 - `outputs/veatic_124_raw_representation_tensor_export_v1/`
 - Google Drive `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`
 
-Pre-v2 inventories and audits were intentionally removed from `docs/` so this folder reflects the current Neural Bridge era rather than the old 5/20/50-video transition work.
+This folder is the current Neural Bridge handoff.

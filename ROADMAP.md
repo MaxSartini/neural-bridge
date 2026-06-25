@@ -1,6 +1,6 @@
 # Neural Bridge Roadmap
 
-This is the post-VEATIC-124 v2 roadmap. VEATIC proved the core video-dominant cortical/TRIBE hypothesis for arousal event/spike ranking. The roadmap now focuses on preserving the strict benchmark suite that produced that evidence, maintaining the frozen tensor and trained-head benchmark layers, and using the completed dense AGAIN V-JEPA 2.1/TRIBE cache as the next full-dataset substrate. The earlier sparse-teacher work remains bounded evidence, not the scaling path.
+This is the post-VEATIC-124 v2 roadmap. VEATIC proved the core video-dominant cortical/TRIBE hypothesis for arousal event/spike ranking. The roadmap now focuses on preserving the strict benchmark suite that produced that evidence, maintaining the frozen tensor and trained-head benchmark layers, and using the completed dense AGAIN V-JEPA 2.1/TRIBE cache as the next full-dataset substrate.
 
 ## Proven Baseline
 
@@ -16,26 +16,23 @@ Completed:
 - Alignment repair selected the final benchmark policy: keep current 0s alignment primary and report offset grids as diagnostics.
 - Small v2 evidence reports are tracked in this repo.
 - The protected v2 evidence snapshot and checksum verifier are in place.
-- Legacy app-era code, redundant atlas data, and stale frontend scaffolding have been removed from the active repo.
-- Root config/package files now describe only the current VEATIC/TRIBE workspace.
+- Root config/package files describe the current VEATIC/TRIBE workspace.
 - The strict suite now audits modality coverage so video-only and full multimodal caches cannot be confused.
 - AGAIN local cleaned media has also been audited for embedded audio. The 2026-06-22 sweep found `0/1,095` local AGAIN video containers with audio streams, so current AGAIN work is video plus annotations/telemetry unless a separate audio-bearing source is found.
 - The raw cortical representation audit is complete and keeps `cortical_pca64_delta` as the frozen baseline while promoting `pca_sequence_128_causal_past_2s_mean` as the primary trained-head input.
 - The v1 model-ready tensor contract is frozen externally with lightweight tracked summaries and verification.
 - The frozen-tensor trained-head benchmark is implemented in `backend/scripts/veatic_frozen_tensor_trained_heads.py` with `run_veatic_frozen_tensor_trained_heads_benchmark.py`; it uses MPS, fresh same-row AR, fresh controls, grouped gates, and no prior result-row reuse.
 - V-JEPA 2.1 MLX support is implemented in `backend/app/services/mlx_vjepa21_cortical.py` and integrated through `TribeAdapter` when converted weights declare `tensor_layout=vjepa2_1_mlx_port`.
-- AGAIN boundary, scout, full-AR-context, and sparse-teacher tooling is implemented. The current tracked AGAIN sparse teacher result is bounded 50-video evidence: PCA128 failed the first pilot, the 500-window small-PCA follow-up looked promising, and the 2000-budget confirmatory work remains non-promotable. V-JEPA 2.1 is the encoding engine for TRIBE v2; the tested compressed lanes are AR + train-only PCA of frozen TRIBE v2 cortical predictions. AR + locked PCA32 beats matched random under delta-over-AR, but remains slightly below AR + raw sparse and fails same-width shuffled-PCA32 controls.
-- Dense AGAIN V-JEPA 2.1/TRIBE data generation is complete. A paid H100 run encoded all `995` AGAIN videos with official V-JEPA 2.1 ViT-G at `2Hz` rows / `2Hz` sampling / `256px` / float16, then ran cache-only TRIBE v2. The TRIBE postpass completed `995/995` videos with `0` failures and `243,575` row-level cortical predictions. This replaces the need for more sparse windows as the immediate data substrate, but it does not by itself prove AGAIN benchmark gains.
+- Dense AGAIN V-JEPA 2.1/TRIBE data generation is complete. A paid H100 run encoded all `995` AGAIN videos with official V-JEPA 2.1 ViT-G at `2Hz` rows / `2Hz` sampling / `256px` / float16, then ran cache-only TRIBE v2. The TRIBE postpass completed `995/995` videos with `0` failures and `243,575` row-level cortical predictions. This does not by itself prove AGAIN benchmark gains.
 
 This is the current scientific foundation, not a hypothesis waiting for another dataset to validate it.
 
 ## 1. Evidence Freezing And Reproducibility
 
-Goal: make the proven v2 baseline impossible to lose or confuse with old runs.
+Goal: make the proven v2 baseline impossible to lose or confuse with generated run artifacts.
 
 - [x] Create a protected external snapshot for the VEATIC-124 v2 manifest, cache metadata, benchmark JSON/CSV outputs, and tracked reports.
 - [x] Add checksums and a manifest that identifies the authoritative files.
-- [x] Mark superseded pre-v2 artifacts as deleted, archived, or retained with an explicit reason.
 - [x] Add one verification command that rechecks the v2 evidence bundle without re-encoding videos.
 - [x] Keep small summary reports in git; keep heavy caches and raw outputs external.
 
@@ -78,7 +75,6 @@ Goal: maintain and extend the implemented model-head layer without weakening con
 - [x] Keep `roi_parcel_features` as an unsupervised side candidate and `topk_vertices_512` as a supervised/cautionary comparison.
 - [ ] Only promote recursive heads after simple heads define the floor.
 - [ ] Keep CUDA-only HRM-style dependencies out of the main Mac/MPS environment unless isolated.
-- [x] Test the PCA128 sparse-sample concern with cache-only smaller-width PCA lanes (`8/16/32/64`, selected by train/inner validation only) rather than rerunning ViT-G forwards.
 
 ## 5. V-JEPA 2.1 And AGAIN Scaling
 
@@ -86,29 +82,23 @@ Goal: use the full dense H100 artifact as the next benchmark substrate while pre
 
 - [x] Add V-JEPA 2.1 ViT-g MLX model loading, preprocessing, RoPE attention, and TRIBE-compatible selected hidden-state output.
 - [x] Add ffmpeg/VideoToolbox frame sampling, per-window checkpointing, worker claims, resume guards, and protected VEATIC-cache write refusal.
-- [x] Add AGAIN cleaned-dataset audits, boundary-aligned 1Hz manifests, scout selector validation, full-AGAIN AR-only context baseline, and sparse teacher queue/runtime/result reports.
-- [x] Run the bounded 50-video / 480-window sparse teacher pilot and record that hybrid sparse PCA128 failed its promotion gates.
-- [x] Run a fresh cache-only smaller-width PCA follow-up from cached raw cortical windows; record that the train-selected small PCA lane beat AR, raw sparse current/causal mean, PCA64-delta, and shuffled/random controls.
-- [x] Run the 2000-budget sparse teacher confirmatory pass plus true same-budget fixed-random rerun; record that AR + locked PCA32 has arm-local signal but does not justify broader sparse-teacher scaling.
-- [x] Add ViT-L scout support with model-stamped canonical scout fields and internal-scratch runtime controls.
+- [x] Add AGAIN cleaned-dataset audits, boundary-aligned manifests, and full-AGAIN AR context support.
 - [x] Run dense full-995 H100 V-JEPA 2.1 ViT-G encoding at `2Hz` rows, `2Hz` sampling, `256px`, float16.
 - [x] Run cache-only TRIBE v2 postpass over the dense H100 V-JEPA caches, producing row-level cortical predictions, grouped adapter features, compact temporal diagnostics, quality signals, row alignment, and global manifests.
 - [ ] Finish local download of `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz` and run a local completeness/schema audit.
 - [ ] Build dense 995-video AGAIN PCA/bridge benchmark scripts over the TRIBE output bundle, with train-only PCA, grouped-video folds, blocked temporal splits, AR-only, quality/motion/luma, timestamp/video-time, shuffled, and random controls.
 - [ ] Build a boundary-aligned 2Hz AGAIN label manifest before making true 2Hz supervised claims from the dense 2Hz cache.
 - [ ] If an original/audio-bearing AGAIN source is located, run a fresh embedded-audio inventory before adding Wav2Vec-BERT features.
-- [ ] Do not promote more sparse teacher windows on the same 50-video selector subset.
 
 ## 6. Productized Evidence Workflow
 
-Goal: make a fresh session or teammate able to inspect, verify, and extend the proven result without archaeology.
+Goal: make a fresh session or teammate able to inspect, verify, and extend the current result.
 
 - [x] Add a status check for external assets, VEATIC cache, model paths, and tracked evidence artifacts.
-- [x] Add compact CLI/report summaries for frozen tensor trained-head and AGAIN sparse-teacher runs.
+- [x] Add compact CLI/report summaries for frozen tensor trained-head runs.
 - [ ] Add a compact dashboard for the v2 baseline and post-v2 head summaries.
 - [x] Add a one-command evidence verifier for the tracked reports and external artifact snapshot.
 - [x] Add a verified lightweight tensor-export summary for the external v1 tensor contract.
-- [ ] Remove or archive stale run folders once their useful evidence is preserved.
 - [ ] Keep machine-specific paths only in local `.env` files.
 - [ ] Keep generated heavy outputs out of git.
 
@@ -116,15 +106,13 @@ Goal: make a fresh session or teammate able to inspect, verify, and extend the p
 
 Goal: keep fresh sessions focused on the current Neural Bridge system.
 
-- [x] Remove old app-era backend and frontend workflow code.
 - [x] Remove redundant local/static assets and unused atlas copies.
 - [x] Replace behavioural ROI-calibration scaffolding with a plain cortical atlas mapper for the viewer.
 - [x] Clean root `.env.example`, `.gitignore`, package scripts, and dependency locks.
-- [x] Add a lightweight repo-audit command that checks for stale legacy terms and accidentally staged heavy artifacts.
+- [x] Add a lightweight repo-audit command that checks for accidentally staged heavy artifacts.
 
 ## De-Scoped
 
-- Additional legacy validation branches as roadmap items. VEATIC-124 v2 is the current evidence base for the core hypothesis.
 - Retired secondary model expansion as a roadmap item. The current priority is the proven cortical/TRIBE signal.
 - Video `83` as an active roadmap concern. Its resampling policy is documented and does not block the v2 claim.
 - Legacy app-era workflows as roadmap items.
