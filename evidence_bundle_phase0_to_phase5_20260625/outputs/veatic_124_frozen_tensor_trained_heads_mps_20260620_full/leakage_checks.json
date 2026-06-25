@@ -1,0 +1,5928 @@
+[
+  {
+    "check_name": "tensor_root_exists",
+    "details": {
+      "path": "$NEURAL_BRIDGE_EXTERNAL_ROOT/tensors/veatic_124_raw_representation_v1"
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "summary_root_exists",
+    "details": {
+      "path": "outputs/veatic_124_raw_representation_tensor_export_v1"
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "verification_status_pass",
+    "details": {
+      "status": "pass"
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "verification_failures_empty",
+    "details": {
+      "failures": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "summary_video_83_included",
+    "details": {
+      "video_83_included": true
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "exclude_video_83_sensitivity_absent",
+    "details": {
+      "exclude_video_83_sensitivity_exported": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_representations_exported",
+    "details": {
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_representations_safe_for_primary_training",
+    "details": {
+      "unsafe": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "targets_available",
+    "details": {
+      "targets": [
+        {
+          "folder": "arousal__future_spike_1_3s__thr_0.05",
+          "target_name": "arousal__future_spike_1_3s",
+          "task_type": "binary",
+          "threshold": 0.05
+        },
+        {
+          "folder": "arousal__future_spike_1_3s__thr_0.075",
+          "target_name": "arousal__future_spike_1_3s",
+          "task_type": "binary",
+          "threshold": 0.075
+        },
+        {
+          "folder": "arousal__future_change_p3s_movement__thr_0.05",
+          "target_name": "arousal__future_change_p3s_movement",
+          "task_type": "binary",
+          "threshold": 0.05
+        }
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "full_split_set_available",
+    "details": {
+      "splits": [
+        "blocked",
+        "official",
+        "grouped_0",
+        "grouped_1",
+        "grouped_2",
+        "grouped_3",
+        "grouped_4"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9974222184428072,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/a4614ddf1c3f67efc6c03c149f617d38.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 6237
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 42,
+      "train_rows": 84,
+      "video_83_rows": 126
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9974222184428072,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/a4614ddf1c3f67efc6c03c149f617d38.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 6237
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 42,
+      "train_rows": 84,
+      "video_83_rows": 126
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9974222184428072,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/a4614ddf1c3f67efc6c03c149f617d38.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 6237
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 40,
+      "train_rows": 84,
+      "video_83_rows": 124
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.997253899997304,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/20164fe42b8e1b80dd90107390662eb7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 7277
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 42,
+      "train_rows": 98,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.997253899997304,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/20164fe42b8e1b80dd90107390662eb7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 7277
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 42,
+      "train_rows": 98,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.997253899997304,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/20164fe42b8e1b80dd90107390662eb7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 7277
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/official/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 40,
+      "train_rows": 98,
+      "video_83_rows": 138
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.997049725800025,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/436e44d5fec6727e85b5880ed7b26228.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8369
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.997049725800025,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/436e44d5fec6727e85b5880ed7b26228.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8369
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.997049725800025,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/436e44d5fec6727e85b5880ed7b26228.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8369
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 138,
+      "video_83_rows": 138
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9970550919206289,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/b48609a50d0706c3f37c7121c93d5053.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8212
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9970550919206289,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/b48609a50d0706c3f37c7121c93d5053.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8212
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9970550919206289,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/b48609a50d0706c3f37c7121c93d5053.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8212
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 138,
+      "video_83_rows": 138
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9970718339063751,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/4c18b04285f46de6a43abb54ead055dd.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8401
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9970718339063751,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/4c18b04285f46de6a43abb54ead055dd.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8401
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9970718339063751,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/4c18b04285f46de6a43abb54ead055dd.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8401
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 138,
+      "video_83_rows": 138
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9971094825268665,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/c008a7dade2a848dbc25407e1ecbfa55.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8141
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 140,
+      "train_rows": 0,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9971094825268665,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/c008a7dade2a848dbc25407e1ecbfa55.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8141
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 140,
+      "train_rows": 0,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9971094825268665,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/c008a7dade2a848dbc25407e1ecbfa55.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8141
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 138,
+      "train_rows": 0,
+      "video_83_rows": 138
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9970872600715666,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5549656e49062362f66f147694fb6ed1.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8305
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9970872600715666,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5549656e49062362f66f147694fb6ed1.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8305
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9970872600715666,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5549656e49062362f66f147694fb6ed1.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 128,
+        "train_rows_used": 8305
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "pca_sequence_128_causal_past_2s_mean/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 138,
+      "video_83_rows": 138
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9935297369811451,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/2e85885610abf1ea8f3c161eb3dbdd34.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 6237
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 42,
+      "train_rows": 86,
+      "video_83_rows": 128
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9935297369811451,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/2e85885610abf1ea8f3c161eb3dbdd34.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 6237
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 42,
+      "train_rows": 86,
+      "video_83_rows": 128
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9935297369811451,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__blocked/2e85885610abf1ea8f3c161eb3dbdd34.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 6237
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/blocked/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 40,
+      "train_rows": 86,
+      "video_83_rows": 126
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933895709837088,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/d7d4a92015dab2cb1c0edc62f10b47b4.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 7277
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 42,
+      "train_rows": 100,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933895709837088,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/d7d4a92015dab2cb1c0edc62f10b47b4.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 7277
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 42,
+      "train_rows": 100,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933895709837088,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__official/d7d4a92015dab2cb1c0edc62f10b47b4.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 7277
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/official/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 40,
+      "train_rows": 100,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9932351558964001,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/391501e1e195c90604e7d0e3f3fb6a1a.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8369
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 142,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9932351558964001,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/391501e1e195c90604e7d0e3f3fb6a1a.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8369
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 0,
+      "train_rows": 142,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9932351558964001,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_0/391501e1e195c90604e7d0e3f3fb6a1a.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8369
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_0/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9932276072358945,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/d626832a0bfe73b68b93d6bbe01dc7c7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8212
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 142,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9932276072358945,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/d626832a0bfe73b68b93d6bbe01dc7c7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8212
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 0,
+      "train_rows": 142,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9932276072358945,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/d626832a0bfe73b68b93d6bbe01dc7c7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8212
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_1/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933072359272046,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/ab50bbd14f814f71c93c48998f5417a7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8401
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 142,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933072359272046,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/ab50bbd14f814f71c93c48998f5417a7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8401
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 0,
+      "train_rows": 142,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933072359272046,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_2/ab50bbd14f814f71c93c48998f5417a7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8401
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_2/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933632705360651,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/4020cf07c1d0175964eb46d501af593e.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8141
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 142,
+      "train_rows": 0,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933632705360651,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/4020cf07c1d0175964eb46d501af593e.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8141
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 142,
+      "train_rows": 0,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933632705360651,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_3/4020cf07c1d0175964eb46d501af593e.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8141
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_3/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 140,
+      "train_rows": 0,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933388144272612,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5f16b17ddb034ef37c16229b750277c7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8305
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 142,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933388144272612,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5f16b17ddb034ef37c16229b750277c7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8305
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_spike_1_3s__thr_0.075",
+      "test_rows": 0,
+      "train_rows": 142,
+      "video_83_rows": 142
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_external_payloads_exist",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "tracked_metadata_exists",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "missing": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "no_future_feature_rows",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "uses_future_features": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "train_only_pca_scope",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "pca": {
+        "cache_rebuilt": false,
+        "cache_reused": true,
+        "explained_variance_ratio_sum": 0.9933388144272612,
+        "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_4/5f16b17ddb034ef37c16229b750277c7.npz",
+        "pca_backend": "mps_gram_cpu_eigh",
+        "pca_fit_scope": "train_rows_only",
+        "pca_width": 64,
+        "train_rows_used": 8305
+      }
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "grouped_video_disjoint",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "train_test_video_overlap": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_not_deliberately_excluded",
+    "details": {
+      "contract": "cortical_pca64_delta_frozen_baseline/grouped_4/arousal__future_change_p3s_movement__thr_0.05",
+      "test_rows": 0,
+      "train_rows": 140,
+      "video_83_rows": 140
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "torch_mps_available_for_trained_heads",
+    "details": {
+      "mps_available": true
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2956,
+      "train_rows": 5989
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 43
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2956,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        5989,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2956,
+      "train_rows": 5989
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 44
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2956,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        5989,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2708,
+      "train_rows": 5989
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 45
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2708,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        5989,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2956,
+      "train_rows": 7029
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 46
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2956,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7029,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2956,
+      "train_rows": 7029
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 47
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2956,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7029,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2708,
+      "train_rows": 7029
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 48
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2708,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7029,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1913,
+      "train_rows": 8072
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 49
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        1913,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        8072,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1913,
+      "train_rows": 8072
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 50
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        1913,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        8072,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1863,
+      "train_rows": 7874
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 51
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        1863,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7874,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2070,
+      "train_rows": 7915
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 52
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2070,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7915,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2070,
+      "train_rows": 7915
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 53
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2070,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7915,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2020,
+      "train_rows": 7717
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 54
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2020,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7717,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1881,
+      "train_rows": 8104
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 55
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        1881,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        8104,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1881,
+      "train_rows": 8104
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 56
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        1881,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        8104,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1831,
+      "train_rows": 7906
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 57
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        1831,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7906,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2141,
+      "train_rows": 7844
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 58
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2141,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7844,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2141,
+      "train_rows": 7844
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 59
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2141,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7844,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2091,
+      "train_rows": 7646
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 60
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        2091,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7646,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1980,
+      "train_rows": 8005
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 61
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        1980,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        8005,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1980,
+      "train_rows": 8005
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 62
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        1980,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        8005,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1932,
+      "train_rows": 7805
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 63
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "sequence_row_count_matched",
+    "details": {
+      "test_sequence_shape": [
+        1932,
+        3,
+        128
+      ],
+      "train_sequence_shape": [
+        7805,
+        3,
+        128
+      ]
+    },
+    "representation_name": "pca_sequence_128_causal_past_2s_mean",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2956,
+      "train_rows": 6237
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 64
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2956,
+      "train_rows": 6237
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 65
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2708,
+      "train_rows": 6237
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 66
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "blocked",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2956,
+      "train_rows": 7277
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 67
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2956,
+      "train_rows": 7277
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 68
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2708,
+      "train_rows": 7277
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 69
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "official",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1963,
+      "train_rows": 8270
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 70
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1963,
+      "train_rows": 8270
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 71
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1913,
+      "train_rows": 8072
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 72
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_0",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2120,
+      "train_rows": 8113
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 73
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2120,
+      "train_rows": 8113
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 74
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2070,
+      "train_rows": 7915
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 75
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_1",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1931,
+      "train_rows": 8302
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 76
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1931,
+      "train_rows": 8302
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 77
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1881,
+      "train_rows": 8104
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 78
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_2",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2191,
+      "train_rows": 8042
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 79
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2191,
+      "train_rows": 8042
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 80
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2141,
+      "train_rows": 7844
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 81
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_3",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2028,
+      "train_rows": 8205
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 82
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 2028,
+      "train_rows": 8205
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 83
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_spike_1_3s",
+    "threshold": 0.075
+  },
+  {
+    "check_name": "same_row_order_before_ar_scoring",
+    "details": {
+      "test_rows": 1980,
+      "train_rows": 8005
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_ar_fresh",
+    "details": {
+      "ar_feature_width": 15
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  },
+  {
+    "check_name": "computed_controls_fresh",
+    "details": {
+      "control_seed": 84
+    },
+    "representation_name": "cortical_pca64_delta_frozen_baseline",
+    "split": "grouped_4",
+    "status": "pass",
+    "target": "arousal__future_change_p3s_movement",
+    "threshold": 0.05
+  }
+]

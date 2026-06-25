@@ -1,0 +1,113 @@
+{
+  "created_at": "2026-06-20T16:13:16.358884+00:00",
+  "files": [
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        2120,
+        384
+      ],
+      "filename": "X_test.npy",
+      "relative_path": "X_test.npy",
+      "sha256": "0d66ebeac50969a8a969470732eaa1a960638a4f4fa48ff3535ec196cb41f027",
+      "size_bytes": 3256448
+    },
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        8113,
+        384
+      ],
+      "filename": "X_train.npy",
+      "relative_path": "X_train.npy",
+      "sha256": "dd9ed2cd295043607c92ec66e6f98c84fd9b899f0162162f5aaffd36b6195ddd",
+      "size_bytes": 12461696
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "feature_manifest.json",
+      "relative_path": "feature_manifest.json",
+      "sha256": "b4b134dfeccbeb5120ea50d498a092a6d14ddaa51471cb8bec838d22df2c4b5d",
+      "size_bytes": 13718
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "leakage_contract.json",
+      "relative_path": "leakage_contract.json",
+      "sha256": "59c72e9b56a04ee7da5487a717897b28ca1699971db796a07bc79183aab3cdee",
+      "size_bytes": 810
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "representation_metadata.json",
+      "relative_path": "representation_metadata.json",
+      "sha256": "1f454722015e0e6251ab429d0edf8a4f8d135e5220749c8170bd400a00bf06ce",
+      "size_bytes": 1261
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "row_metadata_test.jsonl",
+      "relative_path": "row_metadata_test.jsonl",
+      "sha256": "0fbfa69b388406c2600a8a6da322d67d0616c0a63cb6c6e97759651965c81ec8",
+      "size_bytes": 1361844
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "row_metadata_train.jsonl",
+      "relative_path": "row_metadata_train.jsonl",
+      "sha256": "a575a146ca68734e1d654633313a3f453760409c7ff23c05d92b0b5324f54a2e",
+      "size_bytes": 5222671
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "split_metadata.json",
+      "relative_path": "split_metadata.json",
+      "sha256": "a3705d3d55902e74ab85172fae5f409e5aeebdc8c0e69ef979312417ee348b7f",
+      "size_bytes": 1994
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "target_metadata.json",
+      "relative_path": "target_metadata.json",
+      "sha256": "deb7c083f3894cc40a5e2bc57d98be48c5ea36941d4ba00335ad7a5edbef67ab",
+      "size_bytes": 556
+    },
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        2120
+      ],
+      "filename": "y_test.npy",
+      "relative_path": "y_test.npy",
+      "sha256": "ace2a89db45fd74e4655e4830aa7380429192f8ec6d8c83b3e8491a369a3a92c",
+      "size_bytes": 8608
+    },
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        8113
+      ],
+      "filename": "y_train.npy",
+      "relative_path": "y_train.npy",
+      "sha256": "b70ef2767a9c05e2e27ff8c20e74d1cb303059e23f7205ce7cf00fd5c6f0699d",
+      "size_bytes": 32580
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "checksum_manifest.json",
+      "relative_path": "checksum_manifest.json",
+      "sha256": null,
+      "size_bytes": null
+    }
+  ],
+  "notes": "Self-checksum is null because checksum_manifest.json cannot contain a stable hash of itself.",
+  "schema_version": "veatic_tensor_checksum_manifest_v1"
+}

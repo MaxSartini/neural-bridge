@@ -1,0 +1,13 @@
+{
+  "cautionary_for_primary_training": true,
+  "label_shuffle_warning": true,
+  "notes": "Supervised feature-selection tensor; use as cautionary comparison unless confirmed.",
+  "representation_name": "topk_vertices_512",
+  "schema_version": "veatic_feature_selection_metadata_v1",
+  "score_method": "absolute_pearson_or_point_biserial",
+  "selected_vertices_digest": "38013d2aed9958d23e83790e",
+  "selection_scope": "train_rows_only",
+  "split_name": "grouped_1",
+  "target_name": "arousal__future_change_p3s_movement",
+  "threshold": 0.05
+}

@@ -1,0 +1,83 @@
+{
+  "baseline_features_rowlevel.npz": {
+    "quality_flags": [
+      "quality_black_frame_flag",
+      "quality_duplicate_frame_flag",
+      "quality_exclusion_flag",
+      "quality_weight_suggested"
+    ],
+    "quality_signals": [
+      "motion_absdiff_mean",
+      "luma_mean",
+      "luma_std",
+      "frame_luma_std_mean",
+      "black_frame_fraction",
+      "duplicate_frame_fraction"
+    ],
+    "sample_frame_indices": "[rows,64] int32",
+    "sample_time_seconds": "[rows,64] float32",
+    "temporal_std_by_state": "[rows,20] float16",
+    "temporal_std_by_state_token": "[rows,20,32] float16",
+    "temporal_std_global": "[rows] float32",
+    "time_seconds": "[rows] float32",
+    "tribe_grouped_video_feature": "[rows,2,1408] float16"
+  },
+  "global_files": {
+    "BASELINE_READINESS.md": "maps saved arrays to later baseline/control families",
+    "row_index.csv": "CSV fallback/mirror for row_index.parquet",
+    "row_index.parquet": "one row per 2Hz output row when pyarrow is available",
+    "splits_by_video.json": "deterministic train/val/test video split manifest; no model training",
+    "splits_duration_balanced.json": "duration-balanced deterministic split; no model training",
+    "splits_quality_filtered.json": "deterministic split after simple quality warning filter; no model training",
+    "video_metadata.csv": "one row per video with status, row counts, quality summaries, source/cache/output hashes"
+  },
+  "non_goals": [
+    "PCA",
+    "bridge training",
+    "benchmarking",
+    "delta/spike analysis",
+    "V-JEPA extraction",
+    "raw video decode"
+  ],
+  "per_video_required_files": [
+    "tribe_v2_cortical_predictions.npz",
+    "baseline_features_rowlevel.npz",
+    "vjepa_temporal_diagnostics.npz",
+    "manifest.json",
+    "status.json",
+    "input_mapping.json",
+    "diagnostics.json",
+    "rows_aligned.csv"
+  ],
+  "tribe_v2_cortical_predictions.npz": {
+    "cortical_prediction": "[rows,20484] float16, unpooled 2Hz TRIBE cortical predictions",
+    "quality_flags": [
+      "quality_black_frame_flag",
+      "quality_duplicate_frame_flag",
+      "quality_exclusion_flag",
+      "quality_weight_suggested"
+    ],
+    "quality_signals": [
+      "luma_mean",
+      "luma_std",
+      "frame_luma_std_mean",
+      "motion_absdiff_mean",
+      "black_frame_fraction",
+      "duplicate_frame_fraction"
+    ],
+    "sample_frame_indices": "[rows,64] int32",
+    "sample_time_seconds": "[rows,64] float32",
+    "temporal_std_by_state": "[rows,20] float16 compact temporal instability by selected state",
+    "temporal_std_by_state_token": "[rows,20,32] float16 compact temporal instability by state/token",
+    "temporal_std_global": "[rows] float32 compact temporal instability",
+    "time_seconds": "[rows] float32",
+    "tribe_grouped_video_feature": "[rows,2,1408] float16 adapted representation fed to TRIBE"
+  },
+  "vjepa_temporal_diagnostics.npz": {
+    "temporal_mean_by_state_feature": "[rows,20,1408] mean over token dimension",
+    "temporal_std_by_state": "[rows,20] mean over tokens/features",
+    "temporal_std_by_state_feature": "[rows,20,1408] mean over token dimension",
+    "temporal_std_by_state_token": "[rows,20,32] mean over features",
+    "temporal_std_global": "[rows] mean over states/tokens/features"
+  }
+}

@@ -1,0 +1,125 @@
+# Neural Bridge Codex context ignore rules
+#
+# Purpose: keep Codex away from huge generated payloads during broad discovery
+# while leaving source, docs, tests, reports, and codebase-memory indexes visible.
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python/Node dependencies and build products
+.venv/
+venv/
+ENV/
+backend/.venv/
+backend/venv*/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+*.egg-info/
+build/
+dist/
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local secrets and machine-specific config
+.env
+.env.*
+!.env.example
+*.local
+*.pem
+*.key
+*.token
+secrets/
+credentials/
+
+# Heavy generated/runtime roots
+outputs/
+benchmarks/
+.cache/
+cache/
+tmp/
+scratch/
+logs/
+log/
+backend/logs/
+backend/log/
+backend/uploads/
+backend/tmp/
+external_assets/
+
+# Heavy datasets/models/tensors/media
+data/
+datasets/
+models/
+external_models/
+tensors/
+evidence_snapshots/
+h100_bundle_work/
+h100_drive_downloads/
+*.npy
+*.npz
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.parquet
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.wav
+*.mp3
+*.zip
+*.tar
+*.tar.gz
+*.zst
+*.lz4
+
+# Known dense/H100 cache payload names
+again_tribe_v2_postpass*/
+again_dense_2hz_phase4_pca_bridge_*/
+vjepa21_hidden_states.npz
+video_pooled_features.npz
+tribe_v2_cortical_predictions.npz
+cortical_prediction_rows_fp16.npy
+
+# Keep codebase-memory assets/indexes available to Codex and MCP.
+!.codebase-memory/
+!.codebase-memory/**
+!.tools/
+!.tools/codebase-memory-mcp/
+!.tools/codebase-memory-mcp/**
+
+# Keep lightweight project knowledge visible.
+!AGENTS.md
+!README.md
+!REQUIREMENTS.md
+!ROADMAP.md
+!package.json
+!package-lock.json
+!docs/
+!docs/**
+!reports/
+!reports/**/*.md
+!backend/
+!backend/**/*.py
+!tools/
+!tools/**/*.py
+!tests/
+!tests/**/*.py
+!frontend/
+!frontend/src/
+!frontend/src/**

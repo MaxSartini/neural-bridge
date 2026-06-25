@@ -1,0 +1,5 @@
+{
+  "cpu_count": 12,
+  "mlx_available": true,
+  "mlx_default_device": "Device(gpu, 0)"
+}

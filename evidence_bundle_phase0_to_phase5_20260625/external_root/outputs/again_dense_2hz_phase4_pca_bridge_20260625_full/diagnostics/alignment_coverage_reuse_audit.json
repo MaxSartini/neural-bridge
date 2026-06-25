@@ -1,0 +1,4 @@
+{
+  "labels_path": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/labels_aligned_2hz.parquet",
+  "true_2hz": true
+}

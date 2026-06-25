@@ -1,0 +1,35 @@
+{
+  "compression_type": "existing_benchmark_feature",
+  "dropped_rows": {
+    "reason_counts": {},
+    "test": 0,
+    "train": 0
+  },
+  "feature_width": 384,
+  "fit_scope": "train_rows_only",
+  "notes": "Tensor export only; no model scoring or video re-encoding performed.",
+  "pca": {
+    "cache_rebuilt": false,
+    "cache_reused": true,
+    "explained_variance_ratio_sum": 0.9932276072358945,
+    "fit_cache_path": "${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411/_checkpoint/fit_cache/all_videos__grouped_1/d626832a0bfe73b68b93d6bbe01dc7c7.npz",
+    "pca_backend": "mps_gram_cpu_eigh",
+    "pca_fit_scope": "train_rows_only",
+    "pca_width": 64,
+    "train_rows_used": 8212
+  },
+  "recomputed_from_raw_cache": false,
+  "representation_family": "frozen_reference",
+  "representation_name": "cortical_pca64_delta_frozen_baseline",
+  "roi_mapping": null,
+  "schema_version": "veatic_representation_metadata_v1",
+  "source_raw_key": "predictions",
+  "source_raw_width": 20484,
+  "supervised_selection": null,
+  "transform_scope": "train_fit_applied_to_test",
+  "used_existing_fit_cache": true,
+  "uses_future_features": false,
+  "uses_labels_for_fit": false,
+  "video_83_included": true,
+  "window": null
+}

@@ -1,0 +1,53 @@
+[
+  {
+    "check_name": "benchmark_mode",
+    "details": {
+      "benchmark_mode": "existing_suite_with_frozen_tensor_adapter"
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "full_veatic_124",
+    "details": {
+      "splits": [
+        "blocked",
+        "official",
+        "grouped_0",
+        "grouped_1",
+        "grouped_2",
+        "grouped_3",
+        "grouped_4"
+      ]
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "exclude_video_83_run",
+    "details": {
+      "exclude_video_83_run": false
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "video_83_included",
+    "details": {
+      "video_83_contract_checks": 42
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "required_lanes_computed",
+    "details": {
+      "lane_count": 21,
+      "missing_lanes": []
+    },
+    "status": "pass"
+  },
+  {
+    "check_name": "promotion_json_not_written",
+    "details": {
+      "promotion_json": false
+    },
+    "status": "pass"
+  }
+]

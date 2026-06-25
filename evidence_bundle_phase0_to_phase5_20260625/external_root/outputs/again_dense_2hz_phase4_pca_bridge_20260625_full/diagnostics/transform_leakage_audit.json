@@ -1,0 +1,4 @@
+{
+  "global_pca_used": false,
+  "pca_fit_scope": "train_only_per_target_protocol_fold_mask"
+}

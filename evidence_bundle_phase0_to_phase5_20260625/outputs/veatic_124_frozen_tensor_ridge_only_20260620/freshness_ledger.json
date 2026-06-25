@@ -1,0 +1,33 @@
+{
+  "benchmark_contract_version": "veatic_frozen_tensor_incremental_v1",
+  "benchmark_mode": "existing_suite_with_frozen_tensor_adapter",
+  "code_git_sha": "97a8448a8474ab45e88d50846328d335f10252a8",
+  "computed_ar_fresh": true,
+  "computed_controls_fresh": true,
+  "computed_scores": true,
+  "created_at": "2026-06-20T19:05:16.797247+00:00",
+  "exclude_video_83_run": false,
+  "fit_models": true,
+  "fresh_run_id": "ridge_only_20260620_124",
+  "full_veatic_124": true,
+  "result_row_reuse_policy": {
+    "forbidden_inputs": [
+      "candidate_promotion_summary.json",
+      "control_results.csv",
+      "fixed_split_results.csv",
+      "grouped_video_results.csv",
+      "raw_vs_compressed_leaderboard.csv",
+      "representation_results_all.csv",
+      "representation_results_primary.csv"
+    ],
+    "prior_ar_rows_reused": false,
+    "prior_benchmark_rows_reused": false,
+    "prior_control_rows_reused": false,
+    "prior_ridge_rows_reused": false
+  },
+  "reused_benchmark_result_rows": false,
+  "tensor_export_inventory_sha256": "796463906ff1c80180c4a1f26614bbcde8fe0b1375bb7cc4488c9f4e5bb82cbf",
+  "tensor_export_summary_sha256": "1b555df8aaf509c446d49cc45d8844821de77becba57da5d495322da62c9493f",
+  "video_83_included": true,
+  "wrote_result_csvs": true
+}

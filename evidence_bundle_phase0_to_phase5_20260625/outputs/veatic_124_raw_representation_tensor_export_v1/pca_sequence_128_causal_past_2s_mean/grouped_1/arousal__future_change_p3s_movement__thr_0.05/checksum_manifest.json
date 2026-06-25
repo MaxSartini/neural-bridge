@@ -1,0 +1,167 @@
+{
+  "created_at": "2026-06-20T16:13:16.358884+00:00",
+  "files": [
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        2020,
+        3,
+        128
+      ],
+      "filename": "X_sequence_test.npy",
+      "relative_path": "X_sequence_test.npy",
+      "sha256": "5b4abbe65c9dc495c787cc2e28f58c74939a093a4f1c1d86b0cb654bc092b221",
+      "size_bytes": 3102848
+    },
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        7717,
+        3,
+        128
+      ],
+      "filename": "X_sequence_train.npy",
+      "relative_path": "X_sequence_train.npy",
+      "sha256": "7c0e28a406d7bf7717489ddc1e9de4d2303ca8aa63ffbd321145d2a5eee1644d",
+      "size_bytes": 11853440
+    },
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        2020,
+        128
+      ],
+      "filename": "X_test.npy",
+      "relative_path": "X_test.npy",
+      "sha256": "6d8f382749bc9e63b88ef891b919814fcb1c84c83c52e749d18e98299fb739fe",
+      "size_bytes": 1034368
+    },
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        7717,
+        128
+      ],
+      "filename": "X_train.npy",
+      "relative_path": "X_train.npy",
+      "sha256": "aab724139371f7429d19dd7dd76b4c9a9b78c7345701255bf8bc08fa6dfbcbf7",
+      "size_bytes": 3951232
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "feature_manifest.json",
+      "relative_path": "feature_manifest.json",
+      "sha256": "f37bfa6387e1d3b391bef93503772d855616ce1bda72b1c9a554a7747eb37ca0",
+      "size_bytes": 4762
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "leakage_contract.json",
+      "relative_path": "leakage_contract.json",
+      "sha256": "8a5e280021b98796b920cca0f3aabf04c12d247d01f4a26597762bd185c3fb30",
+      "size_bytes": 818
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "representation_metadata.json",
+      "relative_path": "representation_metadata.json",
+      "sha256": "caea845981c276d9030f21c832313c06e0be1dc4a9b7cf6bbd4a7380b8fff6c2",
+      "size_bytes": 1575
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "row_metadata_test.jsonl",
+      "relative_path": "row_metadata_test.jsonl",
+      "sha256": "efe14b5095ab3221e5a71656b263412a9f863278b4f3fc3bde6ada2faf039e3a",
+      "size_bytes": 1604749
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "row_metadata_train.jsonl",
+      "relative_path": "row_metadata_train.jsonl",
+      "sha256": "538a380c419f3f0c7e1194fcec475e35974a95ace153d3bed9ba91468fa01f6c",
+      "size_bytes": 6141011
+    },
+    {
+      "array_dtype": "uint8",
+      "array_shape": [
+        2020,
+        3
+      ],
+      "filename": "sequence_mask_test.npy",
+      "relative_path": "sequence_mask_test.npy",
+      "sha256": "88fdb6622f37ef49aea27dde551ac7284999537f936008a819bd6b1b8d011da0",
+      "size_bytes": 6188
+    },
+    {
+      "array_dtype": "uint8",
+      "array_shape": [
+        7717,
+        3
+      ],
+      "filename": "sequence_mask_train.npy",
+      "relative_path": "sequence_mask_train.npy",
+      "sha256": "d97975a54ea6e232a7a32c153747fc2b9808701a3a37baddc78684547f14c11c",
+      "size_bytes": 23279
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "sequence_time_offsets.json",
+      "relative_path": "sequence_time_offsets.json",
+      "sha256": "c50695b382397ae778b8eb8a19a6718d05c741d91c7c7ff63e707db2b57b9501",
+      "size_bytes": 308
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "split_metadata.json",
+      "relative_path": "split_metadata.json",
+      "sha256": "6407207b56509e82d261552806d9e2dd9db9fdd221a45baa46e79c9425a9e96d",
+      "size_bytes": 1994
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "target_metadata.json",
+      "relative_path": "target_metadata.json",
+      "sha256": "e7f6b7394ea069d5febd1d0dbbf7aa39012bc4efee163d4384fd5639ea9ab291",
+      "size_bytes": 551
+    },
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        2020
+      ],
+      "filename": "y_test.npy",
+      "relative_path": "y_test.npy",
+      "sha256": "1351e3b10d140bfd184a589a56f05b2bab3a240a17a4ae8fc818805ffa307460",
+      "size_bytes": 8208
+    },
+    {
+      "array_dtype": "float32",
+      "array_shape": [
+        7717
+      ],
+      "filename": "y_train.npy",
+      "relative_path": "y_train.npy",
+      "sha256": "ddb1bb40ef79413804fac9bbe550b0d6a09006c22885bef7ae118faec9284308",
+      "size_bytes": 30996
+    },
+    {
+      "array_dtype": null,
+      "array_shape": null,
+      "filename": "checksum_manifest.json",
+      "relative_path": "checksum_manifest.json",
+      "sha256": null,
+      "size_bytes": null
+    }
+  ],
+  "notes": "Self-checksum is null because checksum_manifest.json cannot contain a stable hash of itself.",
+  "schema_version": "veatic_tensor_checksum_manifest_v1"
+}

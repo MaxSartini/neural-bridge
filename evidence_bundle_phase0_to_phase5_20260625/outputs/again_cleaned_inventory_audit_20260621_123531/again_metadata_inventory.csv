@@ -1,0 +1,10 @@
+file_path,relative_path,file_kind,extension,exists,size_bytes,rows,schema_columns,video_id_mapping,participant_session_mapping,train_test_splits_provided,stimulus_categories_present,license_or_readme_notes,metadata_session_count,annotation_session_count,declared_output_columns
+$NEURAL_BRIDGE_EXTERNAL_ROOT/data/external/AGAIN/cleaned/annotations/clean_data.csv,annotations/clean_data.csv,annotation,.csv,True,262748207,487176,121,join [control]player_id + [control]game + [control]session_id to cleaned_session_video_metadata.csv,True,False,True,Public description says cleaned data are normalized on session level.,,,
+$NEURAL_BRIDGE_EXTERNAL_ROOT/data/external/AGAIN/cleaned/annotations/outliers.csv,annotations/outliers.csv,annotation,.csv,True,21555,121,5,,,,,,,,
+$NEURAL_BRIDGE_EXTERNAL_ROOT/data/external/AGAIN/cleaned/metadata/cleaned_session_video_metadata.csv,metadata/cleaned_session_video_metadata.csv,metadata,.csv,True,250220,995,12,"video_name, drive_file_id, player_id/game/session_id",True,,,,995,995,
+$NEURAL_BRIDGE_EXTERNAL_ROOT/data/external/AGAIN/cleaned/metadata/cleaned_column_schema.csv,metadata/cleaned_column_schema.csv,metadata,.csv,True,5871,121,5,,,,,,,,[output]arousal
+$NEURAL_BRIDGE_EXTERNAL_ROOT/data/external/AGAIN/cleaned/metadata/cleaned_metadata_summary.json,metadata/cleaned_metadata_summary.json,metadata,.json,True,2091,,,,,,,,,,
+$NEURAL_BRIDGE_EXTERNAL_ROOT/data/external/AGAIN/cleaned/metadata/README_cleaned_metadata.md,metadata/README_cleaned_metadata.md,metadata,.md,True,1035,,,,,,,,,,
+$NEURAL_BRIDGE_EXTERNAL_ROOT/data/external/AGAIN/cleaned/metadata/again_dataset_public_description.txt,metadata/again_dataset_public_description.txt,metadata,.txt,True,7952,,,,,,,,,,
+$NEURAL_BRIDGE_EXTERNAL_ROOT/data/external/AGAIN/cleaned/manifests/again_cleaned_download_queue.csv,manifests/again_cleaned_download_queue.csv,manifest,.csv,True,201820,,,,,,,,,,
+$NEURAL_BRIDGE_EXTERNAL_ROOT/data/external/AGAIN/cleaned/manifests/again_cleaned_video_download_log.csv,manifests/again_cleaned_video_download_log.csv,manifest,.csv,True,653210,,,,,,,,,,

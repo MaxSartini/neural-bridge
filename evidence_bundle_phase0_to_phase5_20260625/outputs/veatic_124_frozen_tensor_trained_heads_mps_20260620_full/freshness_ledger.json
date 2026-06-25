@@ -1,0 +1,29 @@
+{
+  "benchmark_contract_version": "veatic_frozen_tensor_incremental_v1",
+  "benchmark_mode": "existing_suite_with_frozen_tensor_adapter_trained_heads",
+  "code_git_sha": "97a8448a8474ab45e88d50846328d335f10252a8",
+  "computed_ar_fresh": true,
+  "computed_controls_fresh": true,
+  "computed_scores": true,
+  "created_at": "2026-06-20T20:17:20.247451+00:00",
+  "exclude_video_83_run": false,
+  "fit_models": true,
+  "fresh_run_id": "trained_heads_mps_20260620_full",
+  "full_veatic_124": true,
+  "mps_available": true,
+  "result_row_reuse_policy": {
+    "prior_ar_rows_reused": false,
+    "prior_benchmark_rows_reused": false,
+    "prior_control_rows_reused": false,
+    "prior_ridge_rows_reused": false
+  },
+  "reused_benchmark_result_rows": false,
+  "reused_canonical_controls": true,
+  "reused_existing_benchmark_structure": true,
+  "reused_frozen_tensors": true,
+  "tensor_export_inventory_sha256": "796463906ff1c80180c4a1f26614bbcde8fe0b1375bb7cc4488c9f4e5bb82cbf",
+  "tensor_export_summary_sha256": "1b555df8aaf509c446d49cc45d8844821de77becba57da5d495322da62c9493f",
+  "trained_head_backend": "torch_mps",
+  "video_83_included": true,
+  "wrote_result_csvs": true
+}

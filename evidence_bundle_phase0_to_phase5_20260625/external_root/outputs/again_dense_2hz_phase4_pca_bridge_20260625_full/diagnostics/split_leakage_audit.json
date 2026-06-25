@@ -1,0 +1,185 @@
+{
+  "grouped_video_no_overlap": true,
+  "splits": [
+    {
+      "fold": 1,
+      "protocol": "grouped_video",
+      "target_name": "arousal_spike_rows_2_6_train_q90",
+      "target_threshold_train_only": 0.15704058010258418,
+      "test_idx_digest": "7fb56539a8d85d64f0721544f033fca8",
+      "test_rows": 46622,
+      "train_idx_digest": "f7c9e249c4081071d715f9ab1446ecb6",
+      "train_rows": 186467
+    },
+    {
+      "fold": 2,
+      "protocol": "grouped_video",
+      "target_name": "arousal_spike_rows_2_6_train_q90",
+      "target_threshold_train_only": 0.15642857142856914,
+      "test_idx_digest": "419f60d0b45433eae940940a64cdc117",
+      "test_rows": 46619,
+      "train_idx_digest": "4a795fd59bec5839c141113ef0cf9bc8",
+      "train_rows": 186470
+    },
+    {
+      "fold": 3,
+      "protocol": "grouped_video",
+      "target_name": "arousal_spike_rows_2_6_train_q90",
+      "target_threshold_train_only": 0.15625,
+      "test_idx_digest": "7dc1c37c046d9642d68cbe116386d060",
+      "test_rows": 46609,
+      "train_idx_digest": "2101c0ca097fa51e4274a4c606b25914",
+      "train_rows": 186480
+    },
+    {
+      "fold": 4,
+      "protocol": "grouped_video",
+      "target_name": "arousal_spike_rows_2_6_train_q90",
+      "target_threshold_train_only": 0.16,
+      "test_idx_digest": "2b556c154bed3f7d7b3f59e8e109308d",
+      "test_rows": 46637,
+      "train_idx_digest": "7b23c7fe880a51a669b9f9cfd1a2e8a7",
+      "train_rows": 186452
+    },
+    {
+      "fold": 5,
+      "protocol": "grouped_video",
+      "target_name": "arousal_spike_rows_2_6_train_q90",
+      "target_threshold_train_only": 0.16000000000000003,
+      "test_idx_digest": "de05cc416f7a07313f4711335b4898e1",
+      "test_rows": 46602,
+      "train_idx_digest": "26b9f894bbaf480df45bc2cb1274e60d",
+      "train_rows": 186487
+    },
+    {
+      "fold": 1,
+      "protocol": "blocked_temporal_70_30",
+      "target_name": "arousal_spike_rows_2_6_train_q90",
+      "target_threshold_train_only": 0.153846154,
+      "test_idx_digest": "63372a59a0a53dd60a3973ea43e95135",
+      "test_rows": 70331,
+      "train_idx_digest": "03bee464cba9d29aac4ddffb6708399a",
+      "train_rows": 162758
+    },
+    {
+      "fold": 1,
+      "protocol": "grouped_video",
+      "target_name": "arousal_delta_p2rows_train_q90",
+      "target_threshold_train_only": 0.05885150026254019,
+      "test_idx_digest": "3780fb4e69dac78536486e2ce350f9c8",
+      "test_rows": 47438,
+      "train_idx_digest": "7df7b903d88fa195ec0dfb29eb060855",
+      "train_rows": 189793
+    },
+    {
+      "fold": 2,
+      "protocol": "grouped_video",
+      "target_name": "arousal_delta_p2rows_train_q90",
+      "target_threshold_train_only": 0.05833333309999999,
+      "test_idx_digest": "2716614c79f86b954daad1777cae4a7e",
+      "test_rows": 47431,
+      "train_idx_digest": "69d22fe9899c53080a522623eca08e59",
+      "train_rows": 189800
+    },
+    {
+      "fold": 3,
+      "protocol": "grouped_video",
+      "target_name": "arousal_delta_p2rows_train_q90",
+      "target_threshold_train_only": 0.058110430492643694,
+      "test_idx_digest": "6de4d0d401c901be9dc02473a0808792",
+      "test_rows": 47450,
+      "train_idx_digest": "a237d831ad04b175f04eeb1ddb3af371",
+      "train_rows": 189781
+    },
+    {
+      "fold": 4,
+      "protocol": "grouped_video",
+      "target_name": "arousal_delta_p2rows_train_q90",
+      "target_threshold_train_only": 0.058823529999999985,
+      "test_idx_digest": "a4e3842f92d3393eb2a78daf64847f7a",
+      "test_rows": 47447,
+      "train_idx_digest": "8fe7841d893e0f38d3796fea93289478",
+      "train_rows": 189784
+    },
+    {
+      "fold": 5,
+      "protocol": "grouped_video",
+      "target_name": "arousal_delta_p2rows_train_q90",
+      "target_threshold_train_only": 0.05739932386040705,
+      "test_idx_digest": "b48a7adb3b557e79085cb199d1956fb0",
+      "test_rows": 47465,
+      "train_idx_digest": "1cff4e1b456bb4759559d70507c134b0",
+      "train_rows": 189766
+    },
+    {
+      "fold": 1,
+      "protocol": "blocked_temporal_70_30",
+      "target_name": "arousal_delta_p2rows_train_q90",
+      "target_threshold_train_only": 0.05714285699999999,
+      "test_idx_digest": "bd9e21ae97d45c76005cc5ce44ad3d73",
+      "test_rows": 71448,
+      "train_idx_digest": "32953225b87f6f9036cbb12a26e5add7",
+      "train_rows": 165783
+    },
+    {
+      "fold": 1,
+      "protocol": "grouped_video",
+      "target_name": "arousal_abs_delta_p4rows_train_q90",
+      "target_threshold_train_only": 0.16666666600000002,
+      "test_idx_digest": "5d249d38dfa858c2834ac82056f008d3",
+      "test_rows": 47063,
+      "train_idx_digest": "33404f6b7e67845c39039b9af9dea173",
+      "train_rows": 188154
+    },
+    {
+      "fold": 2,
+      "protocol": "grouped_video",
+      "target_name": "arousal_abs_delta_p4rows_train_q90",
+      "target_threshold_train_only": 0.16666666600000002,
+      "test_idx_digest": "d7f7f57e5fc97ad7a136a32571b6b34a",
+      "test_rows": 47035,
+      "train_idx_digest": "a546fb022c3f3e9c62d6f5a256ea254e",
+      "train_rows": 188182
+    },
+    {
+      "fold": 3,
+      "protocol": "grouped_video",
+      "target_name": "arousal_abs_delta_p4rows_train_q90",
+      "target_threshold_train_only": 0.16666666600000002,
+      "test_idx_digest": "b93c178231912f673760e7a0d03b6de1",
+      "test_rows": 47028,
+      "train_idx_digest": "e099433d64d46766d0086a575697cbc1",
+      "train_rows": 188189
+    },
+    {
+      "fold": 4,
+      "protocol": "grouped_video",
+      "target_name": "arousal_abs_delta_p4rows_train_q90",
+      "target_threshold_train_only": 0.16666666600000002,
+      "test_idx_digest": "38d4556aff1429bda64c7559182200a9",
+      "test_rows": 47047,
+      "train_idx_digest": "e32fc8afd734ba34e70436b98734c2ad",
+      "train_rows": 188170
+    },
+    {
+      "fold": 5,
+      "protocol": "grouped_video",
+      "target_name": "arousal_abs_delta_p4rows_train_q90",
+      "target_threshold_train_only": 0.16666666600000002,
+      "test_idx_digest": "3d8f1254b350d8770ad885393bd92185",
+      "test_rows": 47044,
+      "train_idx_digest": "88982d1f8863e3d73527fee283a63cf3",
+      "train_rows": 188173
+    },
+    {
+      "fold": 1,
+      "protocol": "blocked_temporal_70_30",
+      "target_name": "arousal_abs_delta_p4rows_train_q90",
+      "target_threshold_train_only": 0.15858729496357507,
+      "test_idx_digest": "260e83d923b18b975ecb4e77a1b5f8d0",
+      "test_rows": 71105,
+      "train_idx_digest": "34e203ec5cf5510f5076c4034e96941f",
+      "train_rows": 164112
+    }
+  ]
+}

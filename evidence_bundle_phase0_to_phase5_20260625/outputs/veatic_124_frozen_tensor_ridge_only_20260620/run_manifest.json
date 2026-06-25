@@ -1,0 +1,64 @@
+{
+  "benchmark_contract_version": "veatic_frozen_tensor_incremental_v1",
+  "benchmark_mode": "existing_suite_with_frozen_tensor_adapter",
+  "computed_ar_fresh": true,
+  "computed_controls_fresh": true,
+  "computed_scores": true,
+  "control_count": 336,
+  "exclude_video_83_run": false,
+  "fold_count": 360,
+  "fresh_run_id": "ridge_only_20260620_124",
+  "full_veatic_124": true,
+  "lane_count": 504,
+  "learned_temporal_pooling": false,
+  "logistic_heads": false,
+  "mlp_heads": false,
+  "outputs": {
+    "control_results_csv": "outputs/veatic_124_frozen_tensor_ridge_only_20260620/control_results.csv",
+    "fold_results_csv": "outputs/veatic_124_frozen_tensor_ridge_only_20260620/fold_results.csv",
+    "freshness_ledger_json": "outputs/veatic_124_frozen_tensor_ridge_only_20260620/freshness_ledger.json",
+    "gate_checks_json": "outputs/veatic_124_frozen_tensor_ridge_only_20260620/gate_checks.json",
+    "lane_results_csv": "outputs/veatic_124_frozen_tensor_ridge_only_20260620/lane_results.csv",
+    "leakage_checks_json": "outputs/veatic_124_frozen_tensor_ridge_only_20260620/leakage_checks.json",
+    "ridge_only_report_md": "outputs/veatic_124_frozen_tensor_ridge_only_20260620/ridge_only_report.md",
+    "run_manifest_json": "outputs/veatic_124_frozen_tensor_ridge_only_20260620/run_manifest.json"
+  },
+  "representations": [
+    "pca_sequence_128_causal_past_2s_mean",
+    "cortical_pca64_delta_frozen_baseline"
+  ],
+  "reused_benchmark_result_rows": false,
+  "ridge_only": true,
+  "schema_version": "veatic_frozen_tensor_ridge_only_run_v1",
+  "seed": 43,
+  "splits": [
+    "blocked",
+    "official",
+    "grouped_0",
+    "grouped_1",
+    "grouped_2",
+    "grouped_3",
+    "grouped_4"
+  ],
+  "targets": [
+    {
+      "folder": "arousal__future_spike_1_3s__thr_0.05",
+      "target_name": "arousal__future_spike_1_3s",
+      "task_type": "binary",
+      "threshold": 0.05
+    },
+    {
+      "folder": "arousal__future_spike_1_3s__thr_0.075",
+      "target_name": "arousal__future_spike_1_3s",
+      "task_type": "binary",
+      "threshold": 0.075
+    },
+    {
+      "folder": "arousal__future_change_p3s_movement__thr_0.05",
+      "target_name": "arousal__future_change_p3s_movement",
+      "task_type": "binary",
+      "threshold": 0.05
+    }
+  ],
+  "video_83_included": true
+}

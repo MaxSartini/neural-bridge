@@ -1,0 +1,27 @@
+{
+  "files": [
+    {
+      "bundle_path": "again_dense_root_metadata/row_index.csv",
+      "reason": "exceeds_70MB_cap_for_again_dense_root_lightweight_metadata",
+      "sha256": "87c0adc897759b7d327c669f6958836e074830c270b412213b6ff5f782f4f5ff",
+      "size_bytes": 101298214,
+      "source_path": "$NEURAL_BRIDGE_REPO/.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/row_index.csv"
+    },
+    {
+      "bundle_path": "outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv",
+      "reason": "exceeds_70MB_cap_for_again_phase0_audit_handoff",
+      "sha256": "0eeaf1f8e9f7435b1fe3b3e90812477ccda9a0abf730944809fb7b785e58810f",
+      "size_bytes": 127602515,
+      "source_path": "$NEURAL_BRIDGE_REPO/outputs/again_boundary_aligned_1hz_manifest_20260621_205412/again_boundary_aligned_1hz_manifest.csv"
+    },
+    {
+      "bundle_path": "outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv",
+      "reason": "exceeds_70MB_cap_for_again_phase0_audit_handoff",
+      "sha256": "ea0a98d902f36f95d10e57786608986e5561e84f72e8ae2f16b35b1606f3de77",
+      "size_bytes": 286211504,
+      "source_path": "$NEURAL_BRIDGE_REPO/outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv"
+    }
+  ],
+  "hard_excluded_examples": [],
+  "hard_excluded_seen_count": 0
+}

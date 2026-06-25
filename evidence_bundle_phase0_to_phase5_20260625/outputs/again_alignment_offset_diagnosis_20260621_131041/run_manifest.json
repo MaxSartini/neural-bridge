@@ -1,0 +1,22 @@
+{
+  "again_root": "$NEURAL_BRIDGE_EXTERNAL_ROOT/data/external/AGAIN/cleaned",
+  "created_at": "2026-06-21T11:11:16.948574+00:00",
+  "files_written": [
+    "outputs/again_alignment_offset_diagnosis_20260621_131041/again_offset_mismatch_distribution.csv",
+    "outputs/again_alignment_offset_diagnosis_20260621_131041/again_selected_video_inspection.csv",
+    "outputs/again_alignment_offset_diagnosis_20260621_131041/again_alignment_policy_comparison.csv",
+    "outputs/again_alignment_offset_diagnosis_20260621_131041/again_aligned_manifest_preview.csv",
+    "outputs/again_alignment_offset_diagnosis_20260621_131041/again_offset_diagnosis_summary.json",
+    "outputs/again_alignment_offset_diagnosis_20260621_131041/again_offset_diagnosis_report.md",
+    "outputs/again_alignment_offset_diagnosis_20260621_131041/contact_sheets",
+    "outputs/again_alignment_offset_diagnosis_20260621_131041/run_manifest.json",
+    "outputs/again_alignment_offset_diagnosis_20260621_131041/again_frame_diagnostics.csv"
+  ],
+  "final_manifest_created": false,
+  "models_trained": false,
+  "output_root": "outputs/again_alignment_offset_diagnosis_20260621_131041",
+  "previous_audit_root": "outputs/again_cleaned_inventory_audit_20260621_123531",
+  "schema_version": "again_alignment_offset_diagnosis_run_v1",
+  "tribe_encoding_run": false,
+  "veatic_outputs_modified": false
+}
