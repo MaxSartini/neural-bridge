@@ -1,10 +1,16 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import EvidenceDashboard from '../views/EvidenceDashboard.vue'
 import NeuroViewer from '../views/NeuroViewer.vue'
 
 const routes = [
   {
     path: '/',
-    redirect: '/neuro-viewer'
+    redirect: '/evidence-dashboard'
+  },
+  {
+    path: '/evidence-dashboard',
+    name: 'EvidenceDashboard',
+    component: EvidenceDashboard
   },
   {
     path: '/neuro-viewer',

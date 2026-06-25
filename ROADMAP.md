@@ -96,7 +96,7 @@ Goal: make a fresh session or teammate able to inspect, verify, and extend the c
 
 - [x] Add a status check for external assets, VEATIC cache, model paths, and tracked evidence artifacts.
 - [x] Add compact CLI/report summaries for frozen tensor trained-head runs.
-- [ ] Add a compact dashboard for the v2 baseline and post-v2 head summaries.
+- [x] Add a compact dashboard for the v2 baseline and post-v2 head summaries, including the raw/global early losses, PCA64-delta v2 win, raw-audit compression result, and AR+PCA128 trained-head gate.
 - [x] Add a one-command evidence verifier for the tracked reports and external artifact snapshot.
 - [x] Add a verified lightweight tensor-export summary for the external v1 tensor contract.
 - [ ] Keep machine-specific paths only in local `.env` files.
