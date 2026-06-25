@@ -8,11 +8,13 @@ from backend.scripts.again_sparse_tribe_teacher_500 import (
     build_sparse_teacher_queue,
     cache_fingerprint,
     cache_path_for,
+    encode_sparse_windows,
     fit_predict_mlx_ridge,
     fingerprint_payload,
     mlx_pca_fit_transform,
     report_lines_results,
     select_pca_width_with_inner_video_validation,
+    validate_single_gpu_runtime,
     write_cached_window,
 )
 
@@ -27,7 +29,10 @@ def _row(video: str, time_s: int, *, spike: bool = False) -> dict:
         "arousal": 0.8 if spike else 0.2,
         "telemetry_change_z": 5.0 if spike else 0.0,
         "cheap_video_audio_z": 5.0 if spike else 0.0,
-        "vjepa_b_novelty_z": 5.0 if spike else 0.0,
+        "scout_model_name": "vjepa21_vitl_dgrauet_mlx_scout",
+        "scout_novelty_z": 5.0 if spike else 0.0,
+        "vjepa_l_novelty_z": 5.0 if spike else 0.0,
+        "vjepa_b_novelty_z": "",
     }
 
 
@@ -48,6 +53,8 @@ def test_sparse_teacher_queue_caps_unique_actual_windows():
     assert summary["unique_actual_windows"] <= 50
     assert len({row["cache_fingerprint"] for row in queue}) == summary["unique_actual_windows"]
     assert all(row["temporal_role"] in {"T-2", "T-1", "T"} for row in queue)
+    assert all(row["scout_model_name"] == "vjepa21_vitl_dgrauet_mlx_scout" for row in queue)
+    assert all("scout_novelty_z" in row for row in queue)
     assert not summary["future_rows_included"]
 
 
@@ -117,6 +124,113 @@ def test_sparse_teacher_cache_index_ignores_selector_hash_for_expensive_window_i
     assert "new_hash" not in key
     assert "selector_arm" not in key
     assert cache_fingerprint(payload_new_selector) != old_fp
+
+
+def test_sparse_teacher_queue_fingerprint_includes_teacher_dtype():
+    rows = [_row("v1", t, spike=t % 4 == 0) for t in range(2, 16)]
+    common = {
+        "max_actual_windows": 9,
+        "rng": random.Random(1),
+        "vjepa21_sha256": "vjepa",
+        "tribe_sha256": "tribe",
+        "arm_window_budgets": {"hybrid_top5_selected": 9},
+    }
+
+    queue_f16, summary_f16 = build_sparse_teacher_queue(rows, teacher_dtype="float16", **common)
+    queue_bf16, summary_bf16 = build_sparse_teacher_queue(rows, teacher_dtype="bfloat16", **common)
+
+    assert summary_f16["teacher_dtype"] == "float16"
+    assert summary_bf16["teacher_dtype"] == "bfloat16"
+    assert {row["cache_fingerprint"] for row in queue_f16}.isdisjoint(
+        {row["cache_fingerprint"] for row in queue_bf16}
+    )
+
+
+def test_sparse_teacher_rejects_multiple_gpu_workers():
+    try:
+        validate_single_gpu_runtime(
+            gpu_workers=2,
+            preprocess_workers=0,
+            ready_queue_max_size=4,
+            writer_queue_max_size=4,
+            microbatch_size=1,
+        )
+    except ValueError as exc:
+        assert "exactly one GPU owner" in str(exc)
+    else:
+        raise AssertionError("expected multiple GPU workers to be rejected")
+
+
+def test_sparse_teacher_microbatches_uncached_windows(monkeypatch, tmp_path):
+    rows = [_row("v1", t, spike=False) for t in (4, 5)]
+    queue = []
+    for row in rows:
+        payload = fingerprint_payload(
+            video_id=row["video_id"],
+            video_path=row["video_path"],
+            actual_clip_timestamp=row["time_start_seconds"],
+            vjepa21_sha256="vjepa",
+            tribe_sha256="tribe",
+            selector_arm="hybrid_top5_selected",
+            selector_config_hash="selector",
+        )
+        queue.append(
+            {
+                **row,
+                "selector_arm": "hybrid_top5_selected",
+                "actual_clip_timestamp": row["time_start_seconds"],
+                "cache_fingerprint": cache_fingerprint(payload),
+                "selector_config_hash": "selector",
+            }
+        )
+
+    calls = {"forward_batches": []}
+
+    def fake_decode(*_args, **_kwargs):
+        return np.zeros((128, 8, 8, 3), dtype=np.uint8)
+
+    def fake_sample(_grid, *, fps, times):
+        assert fps > 0
+        return np.zeros((len(times), 8, 8, 3), dtype=np.uint8)
+
+    class FakeModel:
+        def __init__(self, *_args, **_kwargs):
+            pass
+
+        def predict_hidden_states(self, images, selected_indices):
+            calls["forward_batches"].append(int(images.shape[0]))
+            return np.ones((images.shape[0], len(selected_indices), 1, 4), dtype=np.float32)
+
+    class FakeTribe:
+        def __init__(self, *_args, **_kwargs):
+            pass
+
+        def predict(self, features):
+            batch = features["video"].shape[0]
+            return np.ones((batch, 6, 3), dtype=np.float32)
+
+    monkeypatch.setattr("backend.scripts.again_sparse_tribe_teacher_500.IMAGE_SIZE", 8)
+    monkeypatch.setattr("backend.scripts.again_sparse_tribe_teacher_500._decode_video_grid_ffmpeg", fake_decode)
+    monkeypatch.setattr("backend.scripts.again_sparse_tribe_teacher_500._sample_decoded_grid", fake_sample)
+    monkeypatch.setattr("backend.scripts.again_sparse_tribe_teacher_500.MlxVjepa21FeatureModel", FakeModel)
+    monkeypatch.setattr("backend.scripts.again_sparse_tribe_teacher_500.MlxTribeEncoder", FakeTribe)
+
+    features, runtime_rows, summary = encode_sparse_windows(
+        queue,
+        external_cache_root=tmp_path,
+        vjepa_weights_dir=tmp_path / "vjepa",
+        tribe_model_dir=tmp_path / "tribe",
+        vjepa_sha256="vjepa",
+        tribe_sha256="tribe",
+        microbatch_size=2,
+        ready_queue_max_size=4,
+    )
+
+    assert calls["forward_batches"] == [2]
+    assert len(features) == 2
+    assert summary["microbatch_size"] == 2
+    assert {row["microbatch_size"] for row in runtime_rows} == {2}
+    assert all(float(row["forward_batch_seconds"]) >= float(row["forward_seconds"]) for row in runtime_rows)
 
 
 def test_sparse_teacher_pca_is_real_mlx_train_only_and_reports_width():

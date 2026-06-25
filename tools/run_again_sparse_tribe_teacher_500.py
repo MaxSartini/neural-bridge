@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
 
 from backend.scripts.again_sparse_tribe_teacher_500 import (  # noqa: E402
     SparseTeacherConfig,
+    causal_relative_seconds_for_actual_window_hz,
     external_root,
     now_stamp,
     run_sparse_teacher_500,
@@ -24,10 +25,62 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--timestamp", default=now_stamp())
     parser.add_argument("--max-actual-windows", type=int, default=500)
+    parser.add_argument(
+        "--actual-window-hz",
+        type=float,
+        default=1.0,
+        help="Sparse ViT-G/TRIBE actual-window cadence inside selected causal regions. Use 2.0 for 0.5s steps.",
+    )
     parser.add_argument("--selector-validation-root", type=Path, default=None)
     parser.add_argument("--output-root", type=Path, default=None)
     parser.add_argument("--external-cache-root", type=Path, default=None)
     parser.add_argument("--run-label", default=None)
+    parser.add_argument(
+        "--teacher-dtype",
+        choices=["float16", "bfloat16", "float32"],
+        default="bfloat16",
+        help="Dtype for V-JEPA 2.1 ViT-G inputs/weights and TRIBE MLX weights. bfloat16 is the safe default; cache fingerprints include this value.",
+    )
+    parser.add_argument(
+        "--allow-cache-backfill",
+        action="store_true",
+        help="Allow loose legacy/physical-window cache backfill. Keep off for dtype speed tests.",
+    )
+    parser.add_argument(
+        "--gpu-workers",
+        type=int,
+        default=1,
+        help="Must stay 1 for MLX/V-JEPA on Apple Silicon. Multiple GPU workers contend on the same GPU.",
+    )
+    parser.add_argument(
+        "--preprocess-workers",
+        type=int,
+        default=0,
+        help="CPU-side preprocessing worker count. The current sparse teacher keeps GPU forwards in the main owner only.",
+    )
+    parser.add_argument(
+        "--ready-queue-max-size",
+        type=int,
+        default=4,
+        help="Maximum prepared windows allowed before a GPU forward. Also caps the effective microbatch size.",
+    )
+    parser.add_argument(
+        "--writer-queue-max-size",
+        type=int,
+        default=4,
+        help="Reserved output queue bound recorded in manifests; writes remain synchronous in the safe sparse path.",
+    )
+    parser.add_argument(
+        "--microbatch-size",
+        type=int,
+        default=1,
+        help="Number of uncached windows stacked into one single-owner V-JEPA forward. Test 1, 2, then maybe 3.",
+    )
+    parser.add_argument(
+        "--no-compile-encoder",
+        action="store_true",
+        help="Disable mx.compile wrapping for the fixed-shape V-JEPA selected-state forward.",
+    )
     parser.add_argument(
         "--arm-window-budgets-json",
         default=None,
@@ -48,6 +101,15 @@ def main() -> int:
         "report_date": args.timestamp,
         "run_label": run_label,
         "run_title": run_title,
+        "causal_relative_seconds": causal_relative_seconds_for_actual_window_hz(args.actual_window_hz),
+        "teacher_dtype": args.teacher_dtype,
+        "allow_cache_backfill": args.allow_cache_backfill,
+        "gpu_workers": args.gpu_workers,
+        "preprocess_workers": args.preprocess_workers,
+        "ready_queue_max_size": args.ready_queue_max_size,
+        "writer_queue_max_size": args.writer_queue_max_size,
+        "microbatch_size": args.microbatch_size,
+        "compile_encoder": not args.no_compile_encoder,
     }
     if args.selector_validation_root is not None:
         config_kwargs["selector_validation_root"] = args.selector_validation_root
@@ -71,6 +133,11 @@ def main() -> int:
     print(f"actual_unique_windows_queued={manifest['actual_unique_windows_queued']}")
     print(f"actual_successful_windows={manifest['actual_successful_windows']}")
     print(f"cache_hits={runtime['cache_hits']}")
+    print(f"teacher_dtype={runtime.get('teacher_dtype')}")
+    print(f"allow_cache_backfill={str(runtime.get('allow_cache_backfill')).lower()}")
+    print(f"gpu_workers={runtime.get('gpu_workers')}")
+    print(f"microbatch_size={runtime.get('microbatch_size')}")
+    print(f"compile_encoder={str(runtime.get('compile_encoder')).lower()}")
     print(f"failed_windows={runtime['failed_windows']}")
     print(f"dense_again_vitg_encoding_run={str(manifest['dense_again_vitg_encoding_run']).lower()}")
     print(f"models_trained={str(manifest['models_trained']).lower()}")

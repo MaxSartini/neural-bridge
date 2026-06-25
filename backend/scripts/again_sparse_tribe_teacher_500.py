@@ -13,6 +13,7 @@ import hashlib
 import json
 import math
 import os
+import platform
 import random
 import resource
 import time
@@ -57,6 +58,7 @@ from backend.scripts.again_scout_sparse_pipeline import (
     write_csv_rows,
     write_json,
 )
+from backend.scripts.mlx_runtime_config import configure_mlx_memory_from_env
 
 
 SCHEMA_VERSION = "again_sparse_tribe_teacher_v2"
@@ -116,10 +118,121 @@ class SparseTeacherConfig:
     run_label: str = "again_sparse_tribe_teacher_500"
     run_title: str = "AGAIN Sparse TRIBE Teacher 500"
     arm_window_budgets: dict[str, int] | None = None
+    causal_relative_seconds: tuple[float, ...] = CAUSAL_RELATIVE_SECONDS
+    teacher_dtype: str = "bfloat16"
+    allow_cache_backfill: bool = False
+    gpu_workers: int = 1
+    preprocess_workers: int = 0
+    ready_queue_max_size: int = 4
+    writer_queue_max_size: int = 4
+    microbatch_size: int = 1
+    compile_encoder: bool = True
 
 
 def now_stamp() -> str:
     return datetime.now().strftime("%Y%m%d_%H%M%S")
+
+
+def validate_teacher_dtype(dtype: str) -> str:
+    if dtype not in {"float16", "bfloat16", "float32"}:
+        raise ValueError(f"Unsupported teacher dtype: {dtype}")
+    return dtype
+
+
+def validate_single_gpu_runtime(
+    *,
+    gpu_workers: int,
+    preprocess_workers: int,
+    ready_queue_max_size: int,
+    writer_queue_max_size: int,
+    microbatch_size: int,
+) -> dict[str, Any]:
+    """Validate the Apple-Silicon-safe V-JEPA runtime shape."""
+    if int(gpu_workers) != 1:
+        raise ValueError(
+            "V-JEPA 2.1 MLX extraction must use exactly one GPU owner on Apple Silicon; "
+            f"received gpu_workers={gpu_workers}."
+        )
+    if int(preprocess_workers) < 0:
+        raise ValueError("preprocess_workers must be >= 0")
+    if int(ready_queue_max_size) < 1:
+        raise ValueError("ready_queue_max_size must be >= 1")
+    if int(writer_queue_max_size) < 1:
+        raise ValueError("writer_queue_max_size must be >= 1")
+    if int(microbatch_size) < 1:
+        raise ValueError("microbatch_size must be >= 1")
+    return {
+        "gpu_workers": int(gpu_workers),
+        "preprocess_workers": int(preprocess_workers),
+        "ready_queue_max_size": int(ready_queue_max_size),
+        "writer_queue_max_size": int(writer_queue_max_size),
+        "microbatch_size": int(microbatch_size),
+        "single_gpu_owner": True,
+        "platform_machine": platform.machine(),
+        "platform_system": platform.system(),
+    }
+
+
+def mlx_memory_snapshot() -> dict[str, int | None]:
+    fields = {
+        "mlx_active_memory_bytes": "get_active_memory",
+        "mlx_peak_memory_bytes": "get_peak_memory",
+        "mlx_cache_memory_bytes": "get_cache_memory",
+    }
+    snapshot: dict[str, int | None] = {}
+    metal = getattr(mx, "metal", None)
+    for field, name in fields.items():
+        func = getattr(metal, name, None) if metal is not None else None
+        if callable(func):
+            try:
+                snapshot[field] = int(func())
+            except Exception:  # noqa: BLE001 - diagnostic only
+                snapshot[field] = None
+        else:
+            snapshot[field] = None
+    return snapshot
+
+
+def vjepa21_vitg_dir_for_dtype(root: Path, dtype: str) -> Path:
+    dtype = validate_teacher_dtype(dtype)
+    if dtype == "bfloat16":
+        for name in ("vitg_bfloat16_from_source", "vitg_bfloat16"):
+            candidate = root / "models" / "vjepa21_mlx" / name
+            if (candidate / "model.safetensors").exists():
+                return candidate
+        raise FileNotFoundError(root / "models" / "vjepa21_mlx" / "vitg_bfloat16_from_source" / "model.safetensors")
+    if dtype == "float32":
+        for name in ("vitg_float32_from_source", "vitg_float32"):
+            candidate = root / "models" / "vjepa21_mlx" / name
+            if (candidate / "model.safetensors").exists():
+                return candidate
+        raise FileNotFoundError(root / "models" / "vjepa21_mlx" / "vitg_float32_from_source" / "model.safetensors")
+    for name in ("vitg_float16_from_source", "vitg"):
+        candidate = root / "models" / "vjepa21_mlx" / name
+        if (candidate / "model.safetensors").exists():
+            return candidate
+    return root / "models" / "vjepa21_mlx" / "vitg"
+
+
+def tribe_weights_path_for_dtype(model_dir: Path, dtype: str) -> Path:
+    dtype = validate_teacher_dtype(dtype)
+    path = model_dir / f"tribev2_mlx_{dtype}.npz"
+    if not path.exists():
+        raise FileNotFoundError(path)
+    return path
+
+
+def causal_relative_seconds_for_actual_window_hz(actual_window_hz: float, *, lookback_seconds: float = 2.0) -> tuple[float, ...]:
+    if actual_window_hz <= 0 or not math.isfinite(actual_window_hz):
+        raise ValueError("actual_window_hz must be positive")
+    step = 1.0 / float(actual_window_hz)
+    values: list[float] = []
+    current = -float(lookback_seconds)
+    while current < -1e-9:
+        values.append(round(current, 6))
+        current += step
+    values.append(0.0)
+    return tuple(values)
 
 
 def arm_budgets_for_window_budget(max_actual_windows: int) -> dict[str, int]:
@@ -190,6 +303,7 @@ def fingerprint_payload(
     selector_arm: str = "",
     selector_config_hash: str = "",
     strict_selector_fingerprint: bool = True,
+    teacher_dtype: str = "bfloat16",
 ) -> dict[str, Any]:
     clip_end = max(0.0, float(actual_clip_timestamp))
     clip_start = max(0.0, clip_end - CLIP_DURATION_SECONDS)
@@ -207,7 +321,7 @@ def fingerprint_payload(
         "hidden_layer_selection": selected_vitg_hidden_indices(),
         "layer_grouping_policy": "cache20_group_mean_layers_0.5_0.75_1.0",
         "preprocessing_version": "ffmpeg_videotoolbox_square_256_imagenet_norm_v1",
-        "dtype": "float16_weights_float32_features",
+        "dtype": f"{validate_teacher_dtype(teacher_dtype)}_weights_{validate_teacher_dtype(teacher_dtype)}_encoder_input_float32_cached_features",
         "tribe_head_version": "zimengxiong_tribev2_mlx",
         "tribe_head_sha256": tribe_sha256,
         "tribe_head_pool_policy": TRIBE_HEAD_POOL_POLICY,
@@ -220,10 +334,19 @@ def fingerprint_payload(
     return payload
 
 
-def selector_config_hash(arm_window_budgets: dict[str, int], selector_root: Path) -> str:
+def role_name_for_relative_seconds(relative: float) -> str:
+    if abs(relative) < 1e-9:
+        return "T"
+    prefix = "T+" if relative > 0 else "T-"
+    magnitude = abs(float(relative))
+    text = f"{magnitude:g}"
+    return f"{prefix}{text}"
+
+
+def selector_config_hash(arm_window_budgets: dict[str, int], selector_root: Path, causal_relative_seconds: tuple[float, ...] = CAUSAL_RELATIVE_SECONDS) -> str:
     payload = {
         "arm_window_budgets": arm_window_budgets,
-        "causal_relative_seconds": CAUSAL_RELATIVE_SECONDS,
+        "causal_relative_seconds": list(causal_relative_seconds),
         "selector_bases": SELECTOR_BASES,
         "selector_root_name": selector_root.name,
         "top5_budget": BUDGETS["top5pct"],
@@ -234,6 +357,26 @@ def selector_config_hash(arm_window_budgets: dict[str, int], selector_root: Path
 def cache_fingerprint(payload: dict[str, Any]) -> str:
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()
+
+
+def scout_model_name_from_row(row: dict[str, Any]) -> str:
+    name = str(row.get("scout_model_name") or row.get("scout_model") or "").strip()
+    if name:
+        return name
+    if str(row.get("vjepa_l_novelty_z", "")).strip():
+        return "vjepa21_vitl_dgrauet_mlx_scout"
+    if str(row.get("vjepa_b_novelty_z", "")).strip():
+        return "vjepa21_vitb_lukasugar_mlx_scout"
+    return ""
+
+
+def scout_novelty_value(row: dict[str, Any], default: float = 0.0) -> float:
+    value = row.get("scout_novelty_z")
+    if value is None or str(value).strip() == "":
+        value = row.get("vjepa_l_novelty_z")
+    if value is None or str(value).strip() == "":
+        value = row.get("vjepa_b_novelty_z")
+    return safe_float(value, default)
 
 
 def queue_row(
@@ -253,6 +396,8 @@ def queue_row(
 ) -> dict[str, Any]:
     clip_end = max(0.0, float(actual_clip_timestamp))
     clip_start = max(0.0, clip_end - CLIP_DURATION_SECONDS)
+    scout_novelty = scout_novelty_value(source_row, default=0.0)
+    scout_model_name = scout_model_name_from_row(source_row)
     return {
         "dataset_name": AGAIN_DATASET_NAME,
         "video_id": source_row["video_id"],
@@ -279,6 +424,9 @@ def queue_row(
         "pre_spike_6s_eval_only": source_row.get("pre_spike_6s", ""),
         "pre_spike_8s_eval_only": source_row.get("pre_spike_8s", ""),
         "telemetry_change_z": source_row.get("telemetry_change_z", ""),
+        "scout_model_name": scout_model_name,
+        "scout_novelty_z": scout_novelty,
+        "vjepa_l_novelty_z": source_row.get("vjepa_l_novelty_z", ""),
         "vjepa_b_novelty_z": source_row.get("vjepa_b_novelty_z", ""),
         "cheap_video_audio_z": source_row.get("cheap_video_audio_z", ""),
         "arousal": source_row.get("arousal", ""),
@@ -384,6 +532,8 @@ def build_sparse_teacher_queue(
     tribe_sha256: str,
     arm_window_budgets: dict[str, int] | None = None,
     selector_config_digest: str = "",
+    causal_relative_seconds: tuple[float, ...] = CAUSAL_RELATIVE_SECONDS,
+    teacher_dtype: str = "bfloat16",
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     if arm_window_budgets is None:
         arm_window_budgets = ARM_WINDOW_BUDGETS_500
@@ -394,7 +544,7 @@ def build_sparse_teacher_queue(
     arm_unique_counts: dict[str, int] = {}
     arm_queue_counts: dict[str, int] = {}
     final_centers: dict[str, int] = {}
-    roles = {"-2.0": "T-2", "-1.0": "T-1", "0.0": "T"}
+    roles = {float(relative): role_name_for_relative_seconds(float(relative)) for relative in causal_relative_seconds}
 
     for arm, window_budget in arm_window_budgets.items():
         candidates = selector_candidates(rows_by_video, arm=arm, center_limit=None, rng=rng)
@@ -405,7 +555,7 @@ def build_sparse_teacher_queue(
             center_timestamp = float(safe_float(center_row.get("time_start_seconds")))
             burst_rows: list[dict[str, Any]] = []
             burst_fingerprints: set[str] = set()
-            for relative in CAUSAL_RELATIVE_SECONDS:
+            for relative in causal_relative_seconds:
                 actual_timestamp = max(0.0, center_timestamp + relative)
                 actual_row = rows_lookup.get((str(center_row["video_id"]), actual_timestamp), center_row)
                 payload = fingerprint_payload(
@@ -417,6 +567,7 @@ def build_sparse_teacher_queue(
                     selector_arm=arm,
                     selector_config_hash=selector_config_digest,
                     strict_selector_fingerprint=True,
+                    teacher_dtype=teacher_dtype,
                 )
                 legacy_payload = fingerprint_payload(
                     video_id=str(center_row["video_id"]),
@@ -425,6 +576,7 @@ def build_sparse_teacher_queue(
                     vjepa21_sha256=vjepa21_sha256,
                     tribe_sha256=tribe_sha256,
                     strict_selector_fingerprint=False,
+                    teacher_dtype=teacher_dtype,
                 )
                 fingerprint = cache_fingerprint(payload)
                 legacy_fingerprint = cache_fingerprint(legacy_payload)
@@ -436,7 +588,7 @@ def build_sparse_teacher_queue(
                         selector_role=selector_role,
                         center_timestamp=center_timestamp,
                         actual_clip_timestamp=actual_timestamp,
-                        temporal_role=roles[str(relative)],
+                        temporal_role=roles[float(relative)],
                         source_selector_score=safe_float(center_row.get("_selector_score"), 0.0),
                         candidate_region_id=f"{arm}_{center_index:04d}",
                         oracle_used_for_selection=arm == "oracle_upper_bound",
@@ -470,7 +622,9 @@ def build_sparse_teacher_queue(
         "video_count": len(rows_by_video),
         "video_ids": sorted(rows_by_video),
         "future_rows_included": False,
-        "causal_roles": list(CAUSAL_RELATIVE_SECONDS),
+        "causal_roles": list(causal_relative_seconds),
+        "causal_role_names": [roles[float(relative)] for relative in causal_relative_seconds],
+        "teacher_dtype": validate_teacher_dtype(teacher_dtype),
     }
     return queue, summary
 
@@ -496,6 +650,48 @@ def write_cached_window(path: Path, cortical: np.ndarray, grouped: np.ndarray, p
     )
 
 
+def sparse_window_frame_times(actual_clip_timestamp: float) -> list[float]:
+    subtimes = [index / FRAMES_PER_CLIP * CLIP_DURATION_SECONDS for index in reversed(range(FRAMES_PER_CLIP))]
+    return [max(0.0, float(actual_clip_timestamp) - delta) for delta in subtimes]
+
+
+def runtime_row(
+    *,
+    video_id: str,
+    row: dict[str, Any],
+    cache_hit: bool,
+    cache_hit_mode: str,
+    success: bool,
+    decode_seconds_for_video: float = 0.0,
+    preprocess_seconds: float = 0.0,
+    queue_wait_seconds: float = 0.0,
+    forward_seconds: float = 0.0,
+    forward_batch_seconds: float = 0.0,
+    tribe_head_seconds: float = 0.0,
+    write_seconds: float = 0.0,
+    microbatch_size: int = 1,
+    error: str = "",
+) -> dict[str, Any]:
+    return {
+        "video_id": video_id,
+        "cache_fingerprint": str(row["cache_fingerprint"]),
+        "selector_arm": row.get("selector_arm", ""),
+        "actual_clip_timestamp": row.get("actual_clip_timestamp", ""),
+        "cache_hit": bool(cache_hit),
+        "cache_hit_mode": cache_hit_mode,
+        "success": bool(success),
+        "decode_seconds_for_video": float(decode_seconds_for_video),
+        "preprocess_seconds": float(preprocess_seconds),
+        "queue_wait_seconds": float(queue_wait_seconds),
+        "forward_seconds": float(forward_seconds),
+        "forward_batch_seconds": float(forward_batch_seconds),
+        "tribe_head_seconds": float(tribe_head_seconds),
+        "write_seconds": float(write_seconds),
+        "microbatch_size": int(microbatch_size),
+        "error": error,
+    }
+
+
 def expensive_window_identity_from_payload(payload: dict[str, Any]) -> str:
     identity = {
         "dataset": payload.get("dataset"),
@@ -516,7 +712,7 @@ def expensive_window_identity_from_payload(payload: dict[str, Any]) -> str:
     return json.dumps(identity, sort_keys=True, separators=(",", ":"))
 
 
-def expensive_window_identity_for_row(row: dict[str, Any], *, video_path: Path) -> str:
+def expensive_window_identity_for_row(row: dict[str, Any], *, video_path: Path, teacher_dtype: str = "bfloat16") -> str:
     payload = fingerprint_payload(
         video_id=str(row["video_id"]),
         video_path=str(video_path),
@@ -524,6 +720,7 @@ def expensive_window_identity_for_row(row: dict[str, Any], *, video_path: Path) 
         vjepa21_sha256="ignored_for_expensive_window_identity",
         tribe_sha256="ignored_for_expensive_window_identity",
         strict_selector_fingerprint=False,
+        teacher_dtype=teacher_dtype,
     )
     return expensive_window_identity_from_payload(payload)
 
@@ -552,12 +749,31 @@ def encode_sparse_windows(
     external_cache_root: Path,
     vjepa_weights_dir: Path,
     tribe_model_dir: Path,
+    vjepa_sha256: str,
+    tribe_sha256: str,
+    teacher_dtype: str = "bfloat16",
+    allow_cache_backfill: bool = False,
+    gpu_workers: int = 1,
+    preprocess_workers: int = 0,
+    ready_queue_max_size: int = 4,
+    writer_queue_max_size: int = 4,
+    microbatch_size: int = 1,
+    compile_encoder: bool = True,
 ) -> tuple[dict[str, np.ndarray], list[dict[str, Any]], dict[str, Any]]:
+    teacher_dtype = validate_teacher_dtype(teacher_dtype)
+    runtime_config = validate_single_gpu_runtime(
+        gpu_workers=gpu_workers,
+        preprocess_workers=preprocess_workers,
+        ready_queue_max_size=ready_queue_max_size,
+        writer_queue_max_size=writer_queue_max_size,
+        microbatch_size=microbatch_size,
+    )
+    effective_microbatch_size = min(int(microbatch_size), int(ready_queue_max_size))
     unique_by_fp: dict[str, dict[str, Any]] = {}
     for row in queue:
         unique_by_fp.setdefault(str(row["cache_fingerprint"]), row)
     selected_indices = selected_vitg_hidden_indices()
-    cache_identity_index = build_expensive_window_cache_index(external_cache_root)
+    cache_identity_index = build_expensive_window_cache_index(external_cache_root) if allow_cache_backfill else {}
     model: MlxVjepa21FeatureModel | None = None
     tribe: MlxTribeEncoder | None = None
     features_by_fp: dict[str, np.ndarray] = {}
@@ -575,21 +791,21 @@ def encode_sparse_windows(
     for video_index, (video_id, rows) in enumerate(sorted(by_video.items()), start=1):
         rows.sort(key=lambda item: safe_float(item.get("actual_clip_timestamp")))
         video_path = Path(rows[0]["video_path"])
-        decode_started = time.perf_counter()
-        grid = _decode_video_grid_ffmpeg(video_path, fps=DECODE_FPS, image_size=IMAGE_SIZE)
-        decode_seconds = time.perf_counter() - decode_started
+        miss_rows: list[tuple[int, dict[str, Any], Path]] = []
+        decode_seconds = 0.0
+        decoded_grid: np.ndarray | None = None
         for local_index, row in enumerate(rows, start=1):
             fp = str(row["cache_fingerprint"])
             path = cache_path_for(external_cache_root, fp)
             cached = load_cached_window(path)
             cache_hit_mode = "strict"
-            if cached is None and row.get("legacy_cache_fingerprint"):
+            if allow_cache_backfill and cached is None and row.get("legacy_cache_fingerprint"):
                 legacy_path = cache_path_for(external_cache_root, str(row["legacy_cache_fingerprint"]))
                 cached = load_cached_window(legacy_path)
                 if cached is not None:
                     cache_hit_mode = "legacy_backfilled_to_strict"
-            if cached is None:
-                physical_path = cache_identity_index.get(expensive_window_identity_for_row(row, video_path=video_path))
+            if allow_cache_backfill and cached is None:
+                physical_path = cache_identity_index.get(expensive_window_identity_for_row(row, video_path=video_path, teacher_dtype=teacher_dtype))
                 if physical_path is not None and physical_path != path:
                     cached = load_cached_window(physical_path)
                     if cached is not None:
@@ -605,14 +821,15 @@ def encode_sparse_windows(
                             video_id=video_id,
                             video_path=str(video_path),
                             actual_clip_timestamp=float(row["actual_clip_timestamp"]),
-                            vjepa21_sha256="recorded_in_manifest",
-                            tribe_sha256="recorded_in_manifest",
+                            vjepa21_sha256=vjepa_sha256,
+                            tribe_sha256=tribe_sha256,
                             selector_arm=str(row["selector_arm"]),
                             selector_config_hash=str(row.get("selector_config_hash", "")),
                             strict_selector_fingerprint=True,
+                            teacher_dtype=teacher_dtype,
                         ),
                     )
-                    cache_identity_index.setdefault(expensive_window_identity_for_row(row, video_path=video_path), path)
+                    cache_identity_index.setdefault(expensive_window_identity_for_row(row, video_path=video_path, teacher_dtype=teacher_dtype), path)
                 if cache_hit_mode == "legacy_backfilled_to_strict":
                     legacy_cache_hits += 1
                 if cache_hit_mode == "physical_window_backfilled_to_strict":
@@ -620,81 +837,122 @@ def encode_sparse_windows(
                 features_by_fp[fp] = cortical
                 cache_hits += 1
                 runtime_rows.append(
-                    {
-                        "video_id": video_id,
-                        "cache_fingerprint": fp,
-                        "cache_hit": True,
-                        "cache_hit_mode": cache_hit_mode,
-                        "success": True,
-                        "decode_seconds_for_video": decode_seconds if local_index == 1 else 0.0,
-                        "forward_seconds": 0.0,
-                        "tribe_head_seconds": 0.0,
-                        "error": "",
-                    }
+                    runtime_row(
+                        video_id=video_id,
+                        row=row,
+                        cache_hit=True,
+                        cache_hit_mode=cache_hit_mode,
+                        success=True,
+                    )
                 )
                 continue
+            miss_rows.append((local_index, row, path))
+
+        if miss_rows:
+            decode_started = time.perf_counter()
+            decoded_grid = _decode_video_grid_ffmpeg(video_path, fps=DECODE_FPS, image_size=IMAGE_SIZE)
+            decode_seconds = time.perf_counter() - decode_started
+        for batch_start in range(0, len(miss_rows), effective_microbatch_size):
+            batch = miss_rows[batch_start : batch_start + effective_microbatch_size]
             try:
                 if model is None:
-                    model = MlxVjepa21FeatureModel(str(vjepa_weights_dir), IMAGE_SIZE, compile_encoder=True)
+                    model = MlxVjepa21FeatureModel(
+                        str(vjepa_weights_dir),
+                        IMAGE_SIZE,
+                        compile_encoder=compile_encoder,
+                        input_dtype=teacher_dtype,
+                    )
                 if tribe is None:
-                    tribe = MlxTribeEncoder(str(tribe_model_dir))
-                actual = float(row["actual_clip_timestamp"])
-                subtimes = [index / FRAMES_PER_CLIP * CLIP_DURATION_SECONDS for index in reversed(range(FRAMES_PER_CLIP))]
-                frame_times = [max(0.0, actual - delta) for delta in subtimes]
-                window = _sample_decoded_grid(grid, fps=DECODE_FPS, times=frame_times)
+                    tribe = MlxTribeEncoder(str(tribe_model_dir), dtype=teacher_dtype)
+                if decoded_grid is None:
+                    raise RuntimeError("decoded video grid missing for uncached windows")
+                preprocess_started = time.perf_counter()
+                windows = [
+                    _sample_decoded_grid(
+                        decoded_grid,
+                        fps=DECODE_FPS,
+                        times=sparse_window_frame_times(float(row["actual_clip_timestamp"])),
+                    )
+                    for _local_index, row, _path in batch
+                ]
+                stacked_windows = np.stack(windows, axis=0)
+                preprocess_seconds = time.perf_counter() - preprocess_started
                 forward_started = time.perf_counter()
-                hidden = model.predict_hidden_states(window, selected_indices)
-                forward_seconds = time.perf_counter() - forward_started
-                grouped = group_mean_vitg_layers(np.asarray(hidden[0], dtype=np.float32))
+                hidden = model.predict_hidden_states(stacked_windows, selected_indices)
+                forward_batch_seconds = time.perf_counter() - forward_started
+                if not np.isfinite(hidden).all():
+                    raise ValueError("V-JEPA 2.1 produced non-finite hidden states; refusing to cache batch")
+                grouped_batch = np.stack(
+                    [group_mean_vitg_layers(np.asarray(hidden[index], dtype=np.float32)) for index in range(hidden.shape[0])],
+                    axis=0,
+                )
                 head_started = time.perf_counter()
-                pred = tribe.predict({"video": grouped[None, :, :, None]})
-                cortical = np.asarray(pred[0], dtype=np.float32).mean(axis=-1)
+                pred = tribe.predict({"video": grouped_batch[..., None]})
+                cortical_batch = np.asarray(pred, dtype=np.float32).mean(axis=-1)
+                if not np.isfinite(cortical_batch).all():
+                    raise ValueError("TRIBE head produced non-finite cortical predictions; refusing to cache batch")
                 head_seconds = time.perf_counter() - head_started
-                write_cached_window(
-                    path,
-                    cortical,
-                    grouped,
-                    fingerprint_payload(
-                        video_id=video_id,
-                        video_path=str(video_path),
-                        actual_clip_timestamp=actual,
-                        vjepa21_sha256="recorded_in_manifest",
-                        tribe_sha256="recorded_in_manifest",
-                        selector_arm=str(row["selector_arm"]),
-                        selector_config_hash=str(row.get("selector_config_hash", "")),
-                        strict_selector_fingerprint=True,
-                    ),
-                )
-                cache_identity_index.setdefault(expensive_window_identity_for_row(row, video_path=video_path), path)
-                features_by_fp[fp] = cortical
-                runtime_rows.append(
-                    {
-                        "video_id": video_id,
-                        "cache_fingerprint": fp,
-                        "cache_hit": False,
-                        "cache_hit_mode": "miss_encoded",
-                        "success": True,
-                        "decode_seconds_for_video": decode_seconds if local_index == 1 else 0.0,
-                        "forward_seconds": forward_seconds,
-                        "tribe_head_seconds": head_seconds,
-                        "error": "",
-                    }
-                )
-            except Exception as exc:  # noqa: BLE001 - per-window failure is reported
-                failures += 1
-                runtime_rows.append(
-                    {
-                        "video_id": video_id,
-                        "cache_fingerprint": fp,
-                        "cache_hit": False,
-                        "cache_hit_mode": "miss_failed",
-                        "success": False,
-                        "decode_seconds_for_video": decode_seconds if local_index == 1 else 0.0,
-                        "forward_seconds": 0.0,
-                        "tribe_head_seconds": 0.0,
-                        "error": str(exc),
-                    }
-                )
+                write_started = time.perf_counter()
+                for batch_index, (_local_index, row, path) in enumerate(batch):
+                    actual = float(row["actual_clip_timestamp"])
+                    cortical = np.asarray(cortical_batch[batch_index], dtype=np.float32)
+                    grouped = np.asarray(grouped_batch[batch_index], dtype=np.float32)
+                    write_cached_window(
+                        path,
+                        cortical,
+                        grouped,
+                        fingerprint_payload(
+                            video_id=video_id,
+                            video_path=str(video_path),
+                            actual_clip_timestamp=actual,
+                            vjepa21_sha256=vjepa_sha256,
+                            tribe_sha256=tribe_sha256,
+                            selector_arm=str(row["selector_arm"]),
+                            selector_config_hash=str(row.get("selector_config_hash", "")),
+                            strict_selector_fingerprint=True,
+                            teacher_dtype=teacher_dtype,
+                        ),
+                    )
+                    if allow_cache_backfill:
+                        cache_identity_index.setdefault(expensive_window_identity_for_row(row, video_path=video_path, teacher_dtype=teacher_dtype), path)
+                    features_by_fp[str(row["cache_fingerprint"])] = cortical
+                write_seconds = time.perf_counter() - write_started
+                per_window_forward = forward_batch_seconds / len(batch)
+                per_window_preprocess = preprocess_seconds / len(batch)
+                per_window_head = head_seconds / len(batch)
+                per_window_write = write_seconds / len(batch)
+                for batch_index, (local_index, row, _path) in enumerate(batch):
+                    runtime_rows.append(
+                        runtime_row(
+                            video_id=video_id,
+                            row=row,
+                            cache_hit=False,
+                            cache_hit_mode="miss_encoded",
+                            success=True,
+                            decode_seconds_for_video=decode_seconds if batch_start == 0 and batch_index == 0 else 0.0,
+                            preprocess_seconds=per_window_preprocess,
+                            forward_seconds=per_window_forward,
+                            forward_batch_seconds=forward_batch_seconds,
+                            tribe_head_seconds=per_window_head,
+                            write_seconds=per_window_write,
+                            microbatch_size=len(batch),
+                        )
+                    )
+            except Exception as exc:  # noqa: BLE001 - per-batch failure is reported per window
+                failures += len(batch)
+                for batch_index, (local_index, row, _path) in enumerate(batch):
+                    runtime_rows.append(
+                        runtime_row(
+                            video_id=video_id,
+                            row=row,
+                            cache_hit=False,
+                            cache_hit_mode="miss_failed",
+                            success=False,
+                            decode_seconds_for_video=decode_seconds if batch_start == 0 and batch_index == 0 else 0.0,
+                            microbatch_size=len(batch),
+                            error=str(exc),
+                        )
+                    )
         mx.clear_cache()
         print(
             json.dumps(
@@ -706,6 +964,7 @@ def encode_sparse_windows(
                     "cache_hits": cache_hits,
                     "legacy_cache_hits": legacy_cache_hits,
                     "physical_cache_hits": physical_cache_hits,
+                    "microbatch_size": effective_microbatch_size,
                     "failures": failures,
                 }
             ),
@@ -722,6 +981,11 @@ def encode_sparse_windows(
         "total_runtime_seconds": time.perf_counter() - start_all,
         "seconds_per_successful_window": (time.perf_counter() - start_all) / len(features_by_fp) if features_by_fp else math.nan,
         "peak_rss_bytes": int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss),
+        "teacher_dtype": teacher_dtype,
+        "allow_cache_backfill": bool(allow_cache_backfill),
+        "compile_encoder": bool(compile_encoder),
+        **runtime_config,
+        **mlx_memory_snapshot(),
     }
     return features_by_fp, runtime_rows, summary
 
@@ -730,7 +994,15 @@ def bool_label(value: Any) -> int:
     return 1 if str(value).strip().lower() in {"true", "1", "yes"} else 0
 
 
-def build_center_rows(queue: list[dict[str, Any]], features_by_fp: dict[str, np.ndarray]) -> tuple[list[dict[str, Any]], dict[str, dict[str, np.ndarray]]]:
+def build_center_rows(
+    queue: list[dict[str, Any]],
+    features_by_fp: dict[str, np.ndarray],
+    *,
+    causal_relative_seconds: tuple[float, ...] = CAUSAL_RELATIVE_SECONDS,
+) -> tuple[list[dict[str, Any]], dict[str, dict[str, np.ndarray]]]:
+    role_names = [role_name_for_relative_seconds(relative) for relative in causal_relative_seconds]
+    if "T" not in role_names:
+        raise ValueError("causal_relative_seconds must include 0.0/T for current-window evaluation")
     grouped: dict[tuple[str, str, float], dict[str, dict[str, Any]]] = {}
     for row in queue:
         if row["cache_fingerprint"] not in features_by_fp:
@@ -741,11 +1013,14 @@ def build_center_rows(queue: list[dict[str, Any]], features_by_fp: dict[str, np.
     rows: list[dict[str, Any]] = []
     features: dict[str, dict[str, np.ndarray]] = {}
     for (arm, video_id, center), role_rows in sorted(grouped.items()):
-        if not all(role in role_rows for role in ("T-2", "T-1", "T")):
+        if not all(role in role_rows for role in role_names):
             continue
         current = features_by_fp[role_rows["T"]["cache_fingerprint"]]
-        prev = features_by_fp[role_rows["T-1"]["cache_fingerprint"]]
-        past2 = features_by_fp[role_rows["T-2"]["cache_fingerprint"]]
+        previous_role = next((role for role in reversed(role_names) if role != "T" and role in role_rows), "T")
+        prev = features_by_fp[role_rows[previous_role]["cache_fingerprint"]]
+        past2_role = role_names[0]
+        past2 = features_by_fp[role_rows[past2_role]["cache_fingerprint"]]
+        causal_stack = np.stack([features_by_fp[role_rows[role]["cache_fingerprint"]] for role in role_names], axis=0)
         row0 = role_rows["T"]
         center_id = f"{arm}|{video_id}|{center:.3f}"
         rows.append(
@@ -765,6 +1040,9 @@ def build_center_rows(queue: list[dict[str, Any]], features_by_fp: dict[str, np.
                 "pre_spike_6s": bool_label(row0.get("pre_spike_6s_eval_only")),
                 "pre_spike_8s": bool_label(row0.get("pre_spike_8s_eval_only")),
                 "telemetry_change_z": safe_float(row0.get("telemetry_change_z"), 0.0),
+                "scout_model_name": row0.get("scout_model_name", ""),
+                "scout_novelty_z": scout_novelty_value(row0, default=0.0),
+                "vjepa_l_novelty_z": safe_float(row0.get("vjepa_l_novelty_z"), 0.0),
                 "vjepa_b_novelty_z": safe_float(row0.get("vjepa_b_novelty_z"), 0.0),
                 "cheap_video_audio_z": safe_float(row0.get("cheap_video_audio_z"), 0.0),
                 "arousal": safe_float(row0.get("arousal"), 0.0),
@@ -776,7 +1054,8 @@ def build_center_rows(queue: list[dict[str, Any]], features_by_fp: dict[str, np.
             "raw_sparse_current": current,
             "sparse_delta": current - prev,
             "sparse_pca64_delta_analogue": current - prev,
-            "sparse_causal_past2s_raw_mean": np.mean(np.stack([past2, prev, current]), axis=0),
+            "sparse_causal_roles": causal_stack,
+            "sparse_causal_past2s_raw_mean": np.mean(causal_stack, axis=0),
         }
     return rows, features
 
@@ -973,8 +1252,9 @@ def causal_pca_mean_features(
         pca_width=pca_width,
         random_seed=random_seed,
     )
-    train_pc = train_pc_flat.reshape(len(train_idx), len(CAUSAL_RELATIVE_SECONDS), actual_width).mean(axis=1)
-    test_pc = test_pc_flat.reshape(len(test_idx), len(CAUSAL_RELATIVE_SECONDS), actual_width).mean(axis=1)
+    role_count = int(causal_roles.shape[1])
+    train_pc = train_pc_flat.reshape(len(train_idx), role_count, actual_width).mean(axis=1)
+    test_pc = test_pc_flat.reshape(len(test_idx), role_count, actual_width).mean(axis=1)
     return train_pc, test_pc, actual_width
 
 
@@ -1089,7 +1369,7 @@ def evaluate_arm(
         "timestamp_only_baseline": finite_matrix([[row["center_timestamp"]] for row in rows]),
         "AR_only": finite_matrix([[row["arousal_current"], row["arousal_lag1"], row["arousal_lag2"], row["arousal_delta1"], row["arousal_delta2"]] for row in rows]),
         "telemetry_change_only": finite_matrix([[row["telemetry_change_z"]] for row in rows]),
-        "VJEPA_B_scout_only": finite_matrix([[row["vjepa_b_novelty_z"]] for row in rows]),
+        "VJEPA_B_scout_only": finite_matrix([[row["scout_novelty_z"]] for row in rows]),
         "AR_plus_telemetry_change_plus_VJEPA_B": finite_matrix(
             [
                 [
@@ -1099,7 +1379,7 @@ def evaluate_arm(
                     row["arousal_delta1"],
                     row["arousal_delta2"],
                     row["telemetry_change_z"],
-                    row["vjepa_b_novelty_z"],
+                    row["scout_novelty_z"],
                 ]
                 for row in rows
             ]
@@ -1107,20 +1387,7 @@ def evaluate_arm(
     }
     raw = np.stack([sparse_features[row["center_id"]]["raw_sparse_current"] for row in rows]).astype(np.float32)
     delta = np.stack([sparse_features[row["center_id"]]["sparse_delta"] for row in rows]).astype(np.float32)
-    causal_roles = np.stack(
-        [
-            np.stack(
-                [
-                    sparse_features[row["center_id"]]["raw_sparse_T_minus_2"],
-                    sparse_features[row["center_id"]]["raw_sparse_T_minus_1"],
-                    sparse_features[row["center_id"]]["raw_sparse_current"],
-                ],
-                axis=0,
-            )
-            for row in rows
-        ],
-        axis=0,
-    ).astype(np.float32)
+    causal_roles = np.stack([sparse_features[row["center_id"]]["sparse_causal_roles"] for row in rows], axis=0).astype(np.float32)
     raw_causal_mean = causal_roles.mean(axis=1)
     lane_names = [
         "majority_prevalence_baseline",
@@ -1527,6 +1794,7 @@ def report_lines_queue(queue_summary: dict[str, Any], output_root: Path, externa
         "- subset decision: existing 100-video scout/selector cache was not available; reused the corrected 50-video selector subset and expanded sparse coverage within it.",
         f"- causal roles: `{queue_summary['causal_roles']}`",
         f"- selector config hash: `{queue_summary.get('selector_config_hash')}`",
+        f"- teacher dtype: `{queue_summary.get('teacher_dtype', 'bfloat16')}`",
         f"- future rows included: `{str(queue_summary['future_rows_included']).lower()}`",
         f"- output root: `{output_root}`",
         f"- external cache root: `{portable_path(external_cache_root)}`",
@@ -1550,6 +1818,8 @@ def report_lines_runtime(runtime_summary: dict[str, Any], *, run_title: str) -> 
         "",
         f"- unique actual windows: `{runtime_summary.get('unique_actual_windows')}`",
         f"- successful windows: `{runtime_summary.get('successful_windows')}`",
+        f"- teacher dtype: `{runtime_summary.get('teacher_dtype', 'bfloat16')}`",
+        f"- loose cache backfill enabled: `{str(runtime_summary.get('allow_cache_backfill', False)).lower()}`",
         f"- cache hits: `{runtime_summary.get('cache_hits')}`",
         f"- legacy cache hits backfilled to strict fingerprints: `{runtime_summary.get('legacy_cache_hits')}`",
         f"- physical-window cache hits backfilled to strict fingerprints: `{runtime_summary.get('physical_cache_hits', 0)}`",
@@ -1683,14 +1953,17 @@ def run_sparse_teacher_500(
     assert_again_only_output_path(external_cache_root)
     output_root.mkdir(parents=True, exist_ok=False)
     external_cache_root.mkdir(parents=True, exist_ok=True)
+    mlx_memory_config = configure_mlx_memory_from_env(mx, label="again_sparse_vitg_tribe_teacher")
+    teacher_dtype = validate_teacher_dtype(config.teacher_dtype)
 
     root = external_root()
-    vjepa_weights_dir = root / "models" / "vjepa21_mlx" / "vitg"
+    vjepa_weights_dir = vjepa21_vitg_dir_for_dtype(root, teacher_dtype)
     tribe_model_dir = root / "models" / "tribe-mlx" / "zimengxiong-tribev2-mlx"
     vjepa_sha = sha256_file(vjepa_weights_dir / "model.safetensors")
-    tribe_sha = sha256_file(tribe_model_dir / "tribev2_mlx_float32.npz")
+    tribe_weights_path = tribe_weights_path_for_dtype(tribe_model_dir, teacher_dtype)
+    tribe_sha = sha256_file(tribe_weights_path)
     arm_window_budgets = dict(config.arm_window_budgets) if config.arm_window_budgets else arm_budgets_for_window_budget(config.max_actual_windows)
-    selector_digest = selector_config_hash(arm_window_budgets, config.selector_validation_root)
+    selector_digest = selector_config_hash(arm_window_budgets, config.selector_validation_root, config.causal_relative_seconds)
 
     feature_path = config.selector_validation_root / "again_real_scout_feature_rows.csv"
     feature_rows = read_csv_rows(feature_path)
@@ -1718,6 +1991,8 @@ def run_sparse_teacher_500(
         tribe_sha256=tribe_sha,
         arm_window_budgets=arm_window_budgets,
         selector_config_digest=selector_digest,
+        causal_relative_seconds=config.causal_relative_seconds,
+        teacher_dtype=teacher_dtype,
     )
     write_csv(output_root / f"{config.run_label}_queue.csv", queue)
     write_json(output_root / f"{config.run_label}_queue_summary.json", queue_summary)
@@ -1731,13 +2006,23 @@ def run_sparse_teacher_500(
         external_cache_root=external_cache_root,
         vjepa_weights_dir=vjepa_weights_dir,
         tribe_model_dir=tribe_model_dir,
+        vjepa_sha256=vjepa_sha,
+        tribe_sha256=tribe_sha,
+        teacher_dtype=teacher_dtype,
+        allow_cache_backfill=config.allow_cache_backfill,
+        gpu_workers=config.gpu_workers,
+        preprocess_workers=config.preprocess_workers,
+        ready_queue_max_size=config.ready_queue_max_size,
+        writer_queue_max_size=config.writer_queue_max_size,
+        microbatch_size=config.microbatch_size,
+        compile_encoder=config.compile_encoder,
     )
     write_csv(output_root / f"{config.run_label}_runtime.csv", runtime_rows)
     write_json(output_root / f"{config.run_label}_runtime_summary.json", runtime_summary)
     runtime_report_path = Path("reports") / f"{config.run_label}_runtime_{config.report_date}.md"
     runtime_report_path.write_text("\n".join(report_lines_runtime(runtime_summary, run_title=config.run_title)) + "\n", encoding="utf-8")
 
-    center_rows, sparse_features = build_center_rows(queue, features_by_fp)
+    center_rows, sparse_features = build_center_rows(queue, features_by_fp, causal_relative_seconds=config.causal_relative_seconds)
     add_ar_features(center_rows, feature_rows)
     write_csv(output_root / f"{config.run_label}_center_rows.csv", center_rows)
     eval_center_rows = list(center_rows)
@@ -1783,6 +2068,7 @@ def run_sparse_teacher_500(
         "dense_again_vitg_encoding_run": False,
         "actual_vitg_tribe_window_budget": config.max_actual_windows,
         "arm_window_budgets": arm_window_budgets,
+        "causal_relative_seconds": list(config.causal_relative_seconds),
         "selector_config_hash": selector_digest,
         "actual_unique_windows_queued": queue_summary["unique_actual_windows"],
         "actual_successful_windows": runtime_summary["successful_windows"],
@@ -1795,7 +2081,18 @@ def run_sparse_teacher_500(
         "vjepa21_weights_dir": str(vjepa_weights_dir),
         "vjepa21_model_sha256": vjepa_sha,
         "tribe_model_dir": str(tribe_model_dir),
+        "tribe_weights_path": str(tribe_weights_path),
         "tribe_model_sha256": tribe_sha,
+        "teacher_dtype": teacher_dtype,
+        "allow_cache_backfill": bool(config.allow_cache_backfill),
+        "gpu_workers": int(config.gpu_workers),
+        "preprocess_workers": int(config.preprocess_workers),
+        "ready_queue_max_size": int(config.ready_queue_max_size),
+        "writer_queue_max_size": int(config.writer_queue_max_size),
+        "microbatch_size": int(config.microbatch_size),
+        "compile_encoder": bool(config.compile_encoder),
+        "single_gpu_owner": True,
+        "mlx_memory_config": mlx_memory_config,
         "queue_report": str(queue_report_path),
         "runtime_report": str(runtime_report_path),
         "results_report": str(results_report_path),

@@ -590,7 +590,14 @@ def model_registry(root: Path | None = None) -> list[ScoutModelSpec]:
     root = root or external_root()
     vitb_mlx = root / "models" / "vjepa21_mlx" / "scout" / "vitb" / "vjepa2_1_vitb_dist_vitG_384.safetensors"
     vitb_pt = root / "models" / "vjepa21-pytorch" / "scout" / "vitb" / "vjepa2_1_vitb_dist_vitG_384.pt"
-    vitl_dir = root / "models" / "vjepa21_mlx" / "scout" / "vitl"
+    vitl_bfloat16_dir = root / "models" / "vjepa21_mlx" / "scout" / "vitl_bfloat16"
+    vitl_float16_dir = root / "models" / "vjepa21_mlx" / "scout" / "vitl_float16"
+    if (vitl_float16_dir / "encoder.safetensors").exists():
+        vitl_dir = vitl_float16_dir
+    elif (vitl_bfloat16_dir / "encoder.safetensors").exists():
+        vitl_dir = vitl_bfloat16_dir
+    else:
+        vitl_dir = root / "models" / "vjepa21_mlx" / "scout" / "vitl"
     vitl_encoder = vitl_dir / "encoder.safetensors"
     vitg_dir = root / "models" / "vjepa21_mlx" / "vitg"
     vitg_model = vitg_dir / "model.safetensors"
@@ -627,7 +634,7 @@ def model_registry(root: Path | None = None) -> list[ScoutModelSpec]:
             image_size=384,
             frames_per_clip=64,
             status="ready" if vitl_encoder.exists() else "missing",
-            notes="Preconverted V-JEPA 2.1 ViT-L MLX fallback scout.",
+            notes="Preconverted V-JEPA 2.1 ViT-L MLX fallback scout; prefers local float16 cast for throughput, with bfloat16 available only for explicit dtype tests.",
         ),
         ScoutModelSpec(
             name="vjepa21_vitg_tribe_sparse_teacher",

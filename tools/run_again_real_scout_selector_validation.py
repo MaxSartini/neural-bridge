@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run real AGAIN V-JEPA 2.1 ViT-B scout selector validation."""
+"""Run real AGAIN V-JEPA 2.1 scout selector validation."""
 
 from __future__ import annotations
 
@@ -33,7 +33,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--manifest-root", type=Path, default=default_boundary_manifest_root())
     parser.add_argument("--scout-stride-seconds", type=float, default=4.0)
     parser.add_argument("--scout-frame-count", type=int, default=16)
+    parser.add_argument("--scout-image-size", type=int, default=384)
     parser.add_argument("--scout-batch-size", type=int, default=1)
+    parser.add_argument("--scout-model-name", default="vjepa21_vitb_lukasugar_mlx_scout")
+    parser.add_argument("--scout-input-dtype", choices=["float16", "bfloat16", "float32"], default="float16")
+    parser.add_argument("--no-compile-scout-forward", action="store_true")
+    parser.add_argument("--video-root-override", type=Path, default=None)
     return parser.parse_args()
 
 
@@ -49,7 +54,12 @@ def main() -> int:
         limit_videos=args.limit_videos,
         scout_stride_seconds=args.scout_stride_seconds,
         scout_frame_count=args.scout_frame_count,
+        scout_image_size=args.scout_image_size,
         scout_batch_size=args.scout_batch_size,
+        scout_model_name=args.scout_model_name,
+        scout_input_dtype=args.scout_input_dtype,
+        compile_scout_forward=not args.no_compile_scout_forward,
+        video_root_override=args.video_root_override,
     )
     results = run_validation(
         output_root=output_root,

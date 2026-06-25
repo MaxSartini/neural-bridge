@@ -2,8 +2,8 @@
 
 This module validates whether label-free selectors find arousal spike and
 pre-spike regions before spending sparse ViT-G/TRIBE compute. It runs cheap
-telemetry/video/audio features and V-JEPA 2.1 ViT-B scout inference, but it
-does not train models and does not run ViT-G/TRIBE.
+telemetry/video/audio features and V-JEPA 2.1 scout inference, but it does not
+train models and does not run ViT-G/TRIBE.
 """
 
 from __future__ import annotations
@@ -41,7 +41,9 @@ from backend.scripts.again_scout_sparse_pipeline import (
     write_csv_rows,
     write_json,
 )
+from backend.scripts.mlx_runtime_config import configure_mlx_memory_from_env
 from backend.scripts.again_vjepa21_scout import (
+    load_dgrauet_vitl_model,
     load_lukasugar_vitb_model,
     pool_scout_tokens,
     scout_spec_by_name,
@@ -58,6 +60,10 @@ class RealScoutConfig:
     scout_image_size: int = 384
     cheap_image_size: int = 96
     scout_batch_size: int = 1
+    scout_model_name: str = "vjepa21_vitb_lukasugar_mlx_scout"
+    scout_input_dtype: str = "float16"
+    compile_scout_forward: bool = True
+    video_root_override: Path | None = None
     threshold: float = 0.05
     random_seed: int = 17
 
@@ -65,12 +71,12 @@ class RealScoutConfig:
 SELECTOR_BASES: dict[str, dict[str, float] | str] = {
     "telemetry_change": {"telemetry_change_z": 1.0},
     "cheap_video_audio": {"cheap_video_audio_z": 1.0},
-    "vjepa_b_novelty": {"vjepa_b_novelty_z": 1.0},
+    "vjepa_b_novelty": {"scout_novelty_z": 1.0},
     "telemetry_plus_video_audio": {"telemetry_change_z": 0.5, "cheap_video_audio_z": 0.5},
     "hybrid_telemetry_video_audio_vjepa_b": {
         "telemetry_change_z": 0.34,
         "cheap_video_audio_z": 0.33,
-        "vjepa_b_novelty_z": 0.33,
+        "scout_novelty_z": 0.33,
     },
     "random_same_budget": "random",
     "oracle_spike_upper_bound": "oracle",
@@ -276,33 +282,46 @@ def compute_cheap_video_audio_features(
     return rows_out, stats
 
 
-def scout_cache_key(video_id: str, config: RealScoutConfig, spec_hash: str) -> str:
+def scout_cache_key(video_id: str, config: RealScoutConfig, spec_name: str, spec_hash: str) -> str:
     payload = {
         "video_id": video_id,
-        "scout": "vjepa21_vitb",
+        "scout": spec_name,
         "checkpoint_sha256": spec_hash,
         "stride": config.scout_stride_seconds,
         "clip": config.scout_clip_seconds,
         "frames": config.scout_frame_count,
         "image_size": config.scout_image_size,
+        "input_dtype": config.scout_input_dtype,
     }
     return hashlib.sha256(json.dumps(payload, sort_keys=True).encode("utf-8")).hexdigest()[:24]
 
 
-def run_vitb_scout_for_video(
+def _mlx_input_array(tensor: np.ndarray, dtype_name: str) -> mx.array:
+    if dtype_name == "float16":
+        return mx.array(tensor.astype(np.float16, copy=False))
+    if dtype_name == "bfloat16":
+        return mx.array(tensor.astype(np.float32, copy=False), dtype=mx.bfloat16)
+    if dtype_name == "float32":
+        return mx.array(tensor.astype(np.float32, copy=False))
+    raise ValueError(f"Unsupported MLX input dtype: {dtype_name}")
+
+
+def run_scout_for_video(
     *,
     video_id: str,
     video_path: Path,
     duration_seconds: float,
     model: Any,
+    forward: Any | None,
     spec: Any,
     config: RealScoutConfig,
     external_cache_root: Path,
 ) -> tuple[dict[str, np.ndarray], dict[str, Any]]:
     assert_again_only_output_path(external_cache_root)
-    cache_dir = external_cache_root / "vjepa_b_scout_cache" / video_id
+    cache_dir = external_cache_root / f"{spec.name}_cache" / video_id
     cache_dir.mkdir(parents=True, exist_ok=True)
-    cache_path = cache_dir / f"{scout_cache_key(video_id, config, spec.checkpoint_sha256)}.npz"
+    cache_path = cache_dir / f"{scout_cache_key(video_id, config, spec.name, spec.checkpoint_sha256)}.npz"
+    stat_prefix = "scout"
     if cache_path.exists():
         loaded = np.load(cache_path)
         return {
@@ -310,12 +329,12 @@ def run_vitb_scout_for_video(
             "embeddings": np.asarray(loaded["embeddings"], dtype=np.float32),
             "novelty": np.asarray(loaded["novelty"], dtype=np.float64),
         }, {
-            "vjepa_b_cache_hit": True,
-            "vjepa_b_windows": int(len(loaded["centers"])),
-            "vjepa_b_decode_seconds": 0.0,
-            "vjepa_b_preprocess_seconds": 0.0,
-            "vjepa_b_forward_seconds": 0.0,
-            "vjepa_b_cache_write_seconds": 0.0,
+            f"{stat_prefix}_cache_hit": True,
+            f"{stat_prefix}_windows": int(len(loaded["centers"])),
+            f"{stat_prefix}_decode_seconds": 0.0,
+            f"{stat_prefix}_preprocess_seconds": 0.0,
+            f"{stat_prefix}_forward_seconds": 0.0,
+            f"{stat_prefix}_cache_write_seconds": 0.0,
         }
 
     scout_started = time.perf_counter()
@@ -331,6 +350,7 @@ def run_vitb_scout_for_video(
     embeddings: list[np.ndarray] = []
     preprocess_seconds = 0.0
     forward_seconds = 0.0
+    scout_forward = forward or model
 
     for batch_start in range(0, len(starts), config.scout_batch_size):
         batch_starts = starts[batch_start : batch_start + config.scout_batch_size]
@@ -344,7 +364,7 @@ def run_vitb_scout_for_video(
         tensor = _preprocess_video_batch(np.stack(windows, axis=0), image_size=config.scout_image_size)
         preprocess_seconds += time.perf_counter() - preprocess_started
         forward_started = time.perf_counter()
-        output = model(mx.array(tensor))
+        output = scout_forward(_mlx_input_array(tensor, config.scout_input_dtype))
         mx.eval(output)
         forward_seconds += time.perf_counter() - forward_started
         pooled = pool_scout_tokens(np.asarray(output))
@@ -362,6 +382,7 @@ def run_vitb_scout_for_video(
         novelty=novelty,
         video_id=video_id,
         checkpoint_sha256=spec.checkpoint_sha256,
+        scout_input_dtype=config.scout_input_dtype,
     )
     cache_write_seconds = time.perf_counter() - cache_started
     total_seconds = time.perf_counter() - scout_started
@@ -370,24 +391,40 @@ def run_vitb_scout_for_video(
         "embeddings": embeddings_arr,
         "novelty": novelty,
     }, {
-        "vjepa_b_cache_hit": False,
-        "vjepa_b_windows": int(len(centers)),
-        "vjepa_b_decode_seconds": round(decode_seconds, 3),
-        "vjepa_b_preprocess_seconds": round(preprocess_seconds, 3),
-        "vjepa_b_forward_seconds": round(forward_seconds, 3),
-        "vjepa_b_cache_write_seconds": round(cache_write_seconds, 3),
-        "vjepa_b_total_seconds": round(total_seconds, 3),
+        f"{stat_prefix}_cache_hit": False,
+        f"{stat_prefix}_windows": int(len(centers)),
+        f"{stat_prefix}_decode_seconds": round(decode_seconds, 3),
+        f"{stat_prefix}_preprocess_seconds": round(preprocess_seconds, 3),
+        f"{stat_prefix}_forward_seconds": round(forward_seconds, 3),
+        f"{stat_prefix}_cache_write_seconds": round(cache_write_seconds, 3),
+        f"{stat_prefix}_total_seconds": round(total_seconds, 3),
     }
 
 
-def map_scout_to_rows(rows: list[dict[str, Any]], scout: dict[str, np.ndarray]) -> list[dict[str, Any]]:
+def map_scout_to_rows(rows: list[dict[str, Any]], scout: dict[str, np.ndarray], *, scout_model_name: str) -> list[dict[str, Any]]:
     centers = scout["centers"]
     novelty = zscore(scout["novelty"])
+    model_prefix = "vjepa_l" if "vitl" in scout_model_name else "vjepa_b"
     out = []
     for row in rows:
         time_s = safe_float(row.get("time_start_seconds"))
         value = float(np.interp(time_s, centers, novelty)) if len(centers) else 0.0
-        out.append({"video_id": row["video_id"], "time_start_seconds": time_s, "vjepa_b_novelty_score": value, "vjepa_b_novelty_z": value})
+        scout_row = {
+            "video_id": row["video_id"],
+            "time_start_seconds": time_s,
+            "scout_model_name": scout_model_name,
+            "scout_novelty_score": value,
+            "scout_novelty_z": value,
+            f"{model_prefix}_novelty_score": value,
+            f"{model_prefix}_novelty_z": value,
+        }
+        if model_prefix == "vjepa_b":
+            scout_row["vjepa_l_novelty_score"] = ""
+            scout_row["vjepa_l_novelty_z"] = ""
+        else:
+            scout_row["vjepa_b_novelty_score"] = ""
+            scout_row["vjepa_b_novelty_z"] = ""
+        out.append(scout_row)
     return out
 
 
@@ -425,7 +462,13 @@ def score_rows(rows: list[dict[str, Any]], weights: dict[str, float] | str, rng:
         return lead_score + 0.05 * zscore(spike_delta) + 0.01 * zscore(arousal)
     scores = np.zeros(len(rows), dtype=np.float64)
     for field, weight in weights.items():
-        scores += float(weight) * np.array([safe_float(row.get(field), 0.0) for row in rows], dtype=np.float64)
+        values = []
+        for row in rows:
+            value = row.get(field)
+            if field == "scout_novelty_z" and (value is None or str(value) == ""):
+                value = row.get("vjepa_l_novelty_z") or row.get("vjepa_b_novelty_z", 0.0)
+            values.append(safe_float(value, 0.0))
+        scores += float(weight) * np.array(values, dtype=np.float64)
     return scores
 
 
@@ -622,6 +665,7 @@ def run_validation(
     assert_again_only_output_path(external_cache_root)
     output_root.mkdir(parents=True, exist_ok=False)
     external_cache_root.mkdir(parents=True, exist_ok=True)
+    mlx_memory_config = configure_mlx_memory_from_env(mx, label="again_real_scout_selector_validation")
     manifest_path = manifest_root / "again_boundary_aligned_1hz_manifest.csv"
     all_manifest_rows = load_manifest_rows(manifest_path)
     selected_video_ids = set(select_validation_videos(all_manifest_rows, config.limit_videos))
@@ -635,8 +679,14 @@ def run_validation(
     )
     telemetry_by_key = {(row["video_id"], safe_float(row["time_start_seconds"])): row for row in telemetry_rows}
 
-    spec = scout_spec_by_name("vjepa21_vitb_lukasugar_mlx_scout")
-    model = load_lukasugar_vitb_model(spec, repo_root=Path(".cache/vjepa21-mlx-repos/vjepa2.1-mlx"))
+    spec = scout_spec_by_name(config.scout_model_name)
+    if spec.name == "vjepa21_vitl_dgrauet_mlx_scout":
+        model = load_dgrauet_vitl_model(spec, repo_root=Path(".cache/vjepa21-mlx-repos/dgrauet-vjepa2-mlx"))
+    elif spec.name == "vjepa21_vitb_lukasugar_mlx_scout":
+        model = load_lukasugar_vitb_model(spec, repo_root=Path(".cache/vjepa21-mlx-repos/vjepa2.1-mlx"))
+    else:
+        raise ValueError(f"Unsupported real scout model for validation: {spec.name}")
+    scout_forward = mx.compile(lambda batch: model(batch)) if config.compile_scout_forward else None
     by_video = rows_by_video(manifest_rows)
     cheap_rows_all: list[dict[str, Any]] = []
     scout_rows_all: list[dict[str, Any]] = []
@@ -644,6 +694,8 @@ def run_validation(
 
     for video_index, (video_id, rows) in enumerate(by_video.items(), start=1):
         video_path = Path(rows[0]["video_path"])
+        if config.video_root_override is not None:
+            video_path = config.video_root_override / video_path.name
         duration = max(safe_float(row.get("time_start_seconds")) for row in rows) + 1.0
         video_started = time.perf_counter()
         cheap_rows, cheap_stats = compute_cheap_video_audio_features(
@@ -651,16 +703,17 @@ def run_validation(
             rows,
             image_size=config.cheap_image_size,
         )
-        scout, scout_stats = run_vitb_scout_for_video(
+        scout, scout_stats = run_scout_for_video(
             video_id=video_id,
             video_path=video_path,
             duration_seconds=duration,
             model=model,
+            forward=scout_forward,
             spec=spec,
             config=config,
             external_cache_root=external_cache_root,
         )
-        scout_rows = map_scout_to_rows(rows, scout)
+        scout_rows = map_scout_to_rows(rows, scout, scout_model_name=spec.name)
         cheap_rows_all.extend(cheap_rows)
         scout_rows_all.extend(scout_rows)
         total_seconds = time.perf_counter() - video_started
@@ -675,14 +728,21 @@ def run_validation(
                 "telemetry_rows": len(rows),
                 "spike_rows": int(np.sum(labels["spike"])),
                 "pre_spike_2s_rows": int(np.sum(labels["pre_spike_2s"])),
-                "vjepa_b_windows_processed": scout_stats["vjepa_b_windows"],
+                "scout_model": spec.name,
+                "scout_windows_processed": scout_stats["scout_windows"],
+                "vjepa_b_windows_processed": scout_stats["scout_windows"],
                 "cheap_decode_seconds": cheap_stats["cheap_decode_seconds"],
                 "audio_available": cheap_stats["audio_available"],
-                "vjepa_b_cache_hit": scout_stats["vjepa_b_cache_hit"],
-                "vjepa_b_decode_seconds": scout_stats["vjepa_b_decode_seconds"],
-                "vjepa_b_preprocess_seconds": scout_stats["vjepa_b_preprocess_seconds"],
-                "vjepa_b_forward_seconds": scout_stats["vjepa_b_forward_seconds"],
-                "vjepa_b_cache_write_seconds": scout_stats["vjepa_b_cache_write_seconds"],
+                "scout_cache_hit": scout_stats["scout_cache_hit"],
+                "scout_decode_seconds": scout_stats["scout_decode_seconds"],
+                "scout_preprocess_seconds": scout_stats["scout_preprocess_seconds"],
+                "scout_forward_seconds": scout_stats["scout_forward_seconds"],
+                "scout_cache_write_seconds": scout_stats["scout_cache_write_seconds"],
+                "vjepa_b_cache_hit": scout_stats["scout_cache_hit"],
+                "vjepa_b_decode_seconds": scout_stats["scout_decode_seconds"],
+                "vjepa_b_preprocess_seconds": scout_stats["scout_preprocess_seconds"],
+                "vjepa_b_forward_seconds": scout_stats["scout_forward_seconds"],
+                "vjepa_b_cache_write_seconds": scout_stats["scout_cache_write_seconds"],
                 "total_scout_time_video_seconds": round(total_seconds, 3),
                 "peak_rss_bytes": int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss),
             }
@@ -692,9 +752,10 @@ def run_validation(
                 {
                     "progress": f"{video_index}/{len(by_video)}",
                     "video_id": video_id,
-                    "vjepa_b_windows": scout_stats["vjepa_b_windows"],
+                    "scout_model": spec.name,
+                    "scout_windows": scout_stats["scout_windows"],
                     "total_seconds": round(total_seconds, 3),
-                    "cache_hit": scout_stats["vjepa_b_cache_hit"],
+                    "cache_hit": scout_stats["scout_cache_hit"],
                 }
             ),
             flush=True,
@@ -745,6 +806,10 @@ def run_validation(
         "scout_clip_seconds": config.scout_clip_seconds,
         "scout_frame_count": config.scout_frame_count,
         "scout_image_size": config.scout_image_size,
+        "scout_input_dtype": config.scout_input_dtype,
+        "compile_scout_forward": config.compile_scout_forward,
+        "video_root_override": "" if config.video_root_override is None else str(config.video_root_override),
+        "mlx_memory_config": mlx_memory_config,
     }
     write_json(output_root / "run_manifest.json", run_manifest)
     return {
@@ -759,6 +824,9 @@ def run_validation(
 def render_report(results: dict[str, Any], *, report_path: Path) -> str:
     selector_rows = results["selector_rows"]
     throughput_rows = results["throughput_rows"]
+    manifest = results.get("manifest", {})
+    scout_model_name = str(manifest.get("scout_model", "vjepa21_vitb_lukasugar_mlx_scout"))
+    scout_label = "V-JEPA-L" if "vitl" in scout_model_name else "V-JEPA-B"
 
     def row_for(selector: str, budget: str) -> dict[str, Any] | None:
         for row in selector_rows:
@@ -777,15 +845,15 @@ def render_report(results: dict[str, Any], *, report_path: Path) -> str:
     oracle_top5 = row_for("oracle_spike_upper_bound", "top5pct") or {}
     hybrid_top10 = row_for("hybrid_telemetry_video_audio_vjepa_b", "top10pct") or {}
     hybrid_max30 = row_for("hybrid_telemetry_video_audio_vjepa_b", "max30") or {}
-    cache_hits = sum(1 for row in throughput_rows if str(row.get("vjepa_b_cache_hit")).lower() == "true")
+    cache_hits = sum(1 for row in throughput_rows if str(row.get("scout_cache_hit", row.get("vjepa_b_cache_hit"))).lower() == "true")
     uncached_forward = [
-        safe_float(row.get("vjepa_b_forward_seconds"))
+        safe_float(row.get("scout_forward_seconds", row.get("vjepa_b_forward_seconds")))
         for row in throughput_rows
-        if str(row.get("vjepa_b_cache_hit")).lower() != "true"
+        if str(row.get("scout_cache_hit", row.get("vjepa_b_cache_hit"))).lower() != "true"
     ]
     mean_forward = np.mean(uncached_forward) if uncached_forward else math.nan
     mean_total = np.mean([safe_float(row.get("total_scout_time_video_seconds")) for row in throughput_rows])
-    total_windows = sum(safe_int(row.get("vjepa_b_windows_processed")) for row in throughput_rows)
+    total_windows = sum(safe_int(row.get("scout_windows_processed", row.get("vjepa_b_windows_processed"))) for row in throughput_rows)
 
     def pct(value: Any) -> str:
         val = safe_float(value)
@@ -796,9 +864,10 @@ def render_report(results: dict[str, Any], *, report_path: Path) -> str:
         "",
         "## Executive Summary",
         f"- Videos validated: {len(throughput_rows)}",
-        f"- ViT-B scout windows processed: {total_windows}",
-        f"- ViT-B cache hits: {cache_hits}/{len(throughput_rows)}",
-        f"- Mean uncached ViT-B forward time/video: {'n/a' if not math.isfinite(mean_forward) else f'{mean_forward:.3f}s'}",
+        f"- Scout model: `{scout_model_name}`",
+        f"- {scout_label} scout windows processed: {total_windows}",
+        f"- {scout_label} cache hits: {cache_hits}/{len(throughput_rows)}",
+        f"- Mean uncached {scout_label} forward time/video: {'n/a' if not math.isfinite(mean_forward) else f'{mean_forward:.3f}s'}",
         f"- Mean total scout time/video: {mean_total:.3f}s",
         f"- Hybrid top-5% spike recall: {pct(hybrid_top5.get('spike_recall'))}",
         f"- Same-timestamp-budget random top-5% spike recall: {pct(random_top5.get('spike_recall'))}",
