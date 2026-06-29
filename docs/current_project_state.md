@@ -1,137 +1,108 @@
-# Current Project State - 2026-06-25
+# Current Project State
 
-This is the short operating snapshot for the cleaned Neural Bridge repo after the VEATIC-124 v2 evidence pass, raw representation audit, v1 model-ready tensor export, frozen-tensor trained-head benchmark, and dense 995-video H100 AGAIN cache/postpass run.
+Last updated: 2026-06-29
 
-## Repo
+## Source Of Truth
 
-- Active repo: this Git checkout.
-- External asset root: configured locally through `.env` as `NEURAL_BRIDGE_EXTERNAL_ROOT`.
+This document describes the canonical local state immediately after original Phase 5 and Claude/adversarial review. Use only current local repository/workspace files and current user prompts as benchmark truth. Do not use prior Codex chat memory, Claude/Anthropic state, VS Code chat state, previous agent plans, old compacted context, or post-original-Phase-5 Spark outputs as authority.
 
-The repo should stay lightweight. Heavy research assets belong on the external drive, not in git.
+`codebase-memory-mcp` is allowed for code navigation, imports, symbol lookup, and file location. It is not benchmark authority.
 
-## Active Scientific Direction
+## Canonical Artifact State
 
-Neural Bridge is testing where predicted neural response trajectories improve human-response forecasts under controlled baselines.
+Preserve these artifacts:
 
-Current evidence is strongest for VEATIC-124 video-dominant cortical/TRIBE arousal event and spike ranking. v2 has validated specific hypotheses around event/spike ranking and causal temporal context. It still should not claim exact continuous arousal-value forecasting or full text+audio+video multimodal TRIBE evidence.
+- Dense root: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`
+- Phase 4 external root: `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/`
+- Original Phase 5 main root: `outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/`
+- Original Phase 5 sanity root: `outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/`
+- Original Phase 5 runner: `backend/scripts/run_again_dense_2hz_phase5_learned_heads.py`
+- Evidence bundle: `evidence_bundle_phase0_to_phase5_20260625/`
+- Claude/adversarial review artifact, if present.
 
-The model-head input is frozen as tensors rather than only described in reports. Keep `cortical_pca64_delta` as the frozen v2 baseline. The implemented trained-head layer uses `pca_sequence_128_causal_past_2s_mean` first, includes fresh same-row AR and controls, keeps `roi_parcel_features` as an important side candidate, and treats `topk_vertices_512` as supervised/cautionary.
+Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly only referencing them from docs.
 
-The current dense AGAIN supervised manifest is now a true boundary-aligned `2Hz` view built from native decimal-timestamp annotations onto the H100 cache row index. Use `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/labels_aligned_2hz.parquet` for dense 2Hz claims. Do not use the older `again_boundary_aligned_1hz_manifest.csv` as a dense 2Hz fallback.
+## Phase 4 Summary
 
-Dense AGAIN cache status: the expensive data-generation run has now been completed on H100 rather than locally. The run used official V-JEPA 2.1 ViT-G, full dense `995` videos, `2Hz` rows, `2Hz` sampling, `256px`, and float16 precision. It did not run PCA, bridge training, or benchmarking. The follow-up cache-only TRIBE v2 postpass consumed precomputed V-JEPA caches only, preserved the `[rows,20,1,1408] -> [rows,2,1408] -> [1,2,1408,rows]` adapter contract, and wrote row-level `cortical_prediction [rows,20484]` outputs. Final postpass status: `995` videos succeeded, `0` failed, `243,575` rows. The Drive folder is `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`; the local download target is `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`.
+Phase 4 completed the dense AGAIN 2Hz fold-safe PCA bridge. The best primary spike lane was:
 
-The local internal-SSD copy has passed a lightweight completeness/schema audit, tracked at `reports/again_dense_h100_local_audit_20260625.md`. The repaired cache has `995` final successes, `0` failed-video lines, `243,575` row-index rows, valid matching `row_index.parquet` and `row_index.csv` exports, no missing required per-video files, no partial/temp transfer files, `0` remaining per-video `traceback.txt` files, and matching sampled output shapes. Preserve the timing nuance that `131` videos start at `0.5s` rather than `0.0s`, and preserve quality flags for downstream train/test-aware filtering.
+- Target: `arousal_spike_rows_2_6_train_q90`
+- Feature: `temporal_mean_2s_then_pca256`
+- Lane: `AR_plus_PCA_plus_temporal_diagnostics`
+- Grouped-video PR-AUC: about `0.17165`
+- AR-only grouped-video PR-AUC: about `0.14725`
+- Phase 3 AR+raw grouped-video PR-AUC: about `0.17030`
 
-The full 995-video dense V-JEPA/TRIBE output bundle is now the correct substrate for later local PCA, temporal diagnostics, AR + cortical bridge training, shuffled/random/time controls, quality-filtered checks, and full grouped-video benchmarks. Do not describe the H100 postpass itself as a positive benchmark result; it generated the cache needed to run those benchmarks.
+Phase 4 is the canonical PCA bridge reference for the original Phase 5 learned-head result.
 
-Dense AGAIN 2Hz Phase 1-3 status: implemented in `backend/scripts/again_dense_2hz_benchmark.py` with wrappers `build_again_labels_aligned_2hz.py`, `run_again_dense_2hz_ar_baseline.py`, and `run_again_dense_2hz_raw_cortical_benchmark.py`. The label manifest covers `243,441/243,575` dense rows across `995/995` videos, preserves between-second label movement, and creates row-horizon targets. Phase 2/3 runs use MLX-backed ridge fits with train-only inner alpha selection, grouped-video folds, blocked temporal validation, and controls. In the latest grouped-video Phase 3 run, `AR + raw cortical` improves over AR and shuffled/random controls for `arousal_spike_rows_2_6_train_q90` (`17.03%` vs AR `14.73%` PR-AUC) and `arousal_abs_delta_p4rows_train_q90` (`12.73%` vs AR `11.82%` PR-AUC), but not for `arousal_delta_p2rows_train_q90` (`20.19%` vs AR `20.84%`). This is a raw/diagnostic baseline floor, not PCA bridge proof.
+## Original Phase 5 Summary
 
-AGAIN multimodal status: TRIBE/V-JEPA infrastructure can support multimodal inputs, but the local cleaned AGAIN video mirrors currently available to this repo are video-only containers. A 2026-06-22 `ffprobe` sweep over the internal scratch and external SSD AGAIN roots checked `1,095` `.webm`/video containers and found `0` embedded audio streams with `0` probe errors. `facebook/w2v-bert-2.0` is present and recognized as an encoder, but it has no usable AGAIN audio stream in these cleaned files. The external `meta-llama-Llama-3.2-3B` path remains a placeholder; a machine-local LM Studio MLX text candidate may satisfy the repo's MLX text-model directory check when configured locally.
+Original Phase 5 completed at:
 
-MLX memory knobs are verified. `iogpu.wired_limit_mb` exists on this macOS install and is referenced by the installed MLX stubs for raising the system wired limit. MLX itself does not parse `MLX_MAX_MAPPED_MEM_MB`; Neural Bridge implements that name as a compatibility shim that calls `mx.set_wired_limit(bytes)` in heavy scripts. Without changing sysctl, MLX reports `max_recommended_working_set_size` around `24.96 GiB` on this 32 GiB M2 Max. `MLX_MAX_MAPPED_MEM_MB=24576` applies; `26624` requires first raising the system limit with `sudo sysctl iogpu.wired_limit_mb=26624`.
+- Main root: `outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/`
+- Label-permutation sanity root: `outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/`
+- Runner: `backend/scripts/run_again_dense_2hz_phase5_learned_heads.py`
 
-## Current Benchmark Assets
+Primary setup:
 
-- Complete VEATIC manifest: `benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl`
-- Manifest rows: 10,357 at 1 Hz
-- Complete cortical cache: `<external-assets-root>/benchmarks/veatic/tribe_cache`
-- Cache shape contract: per-video `tribe_raw_output.npz` with required key `predictions`
-- Modality coverage: current audit shows `122/124` cache entries are video-only (`text` and `audio` missing) and `2/124` contain text+audio+video.
-- Main targets: `valence`, `arousal`
+- Target: `arousal_spike_rows_2_6_train_q90`
+- Continuous training source: `future_arousal_max_delta_rows_2_6`
+- Feature: `temporal_mean_2s_then_pca256`
+- Input: AR + `temporal_mean_2s_then_pca256` + temporal diagnostics
+- Best learned head: `gated_ar_pca_mlp`
+- Best loss: `regression_plus_binary`
+- Best grouped-video PR-AUC: about `0.21913`
 
-Current feature families:
+This was a large improvement over AR-only `0.14725` and Phase 4 `0.17165`. The original Phase 5 label-permutation sanity showed collapse near chance/prevalence and supported no gross leakage.
 
-- `cortical_global`
-- `cortical_global_delta`
-- `cortical_pca_64`
-- `cortical_pca64_delta`
-- raw cortical trajectories used for the raw-representation audit and available for future loader work
+## Claude/Adversarial Critique
 
-Raw-representation/tensor-export assets now available:
+The original Phase 5 result is not fake and not gross leakage. The old headline was overpromoted.
 
-- Raw representation audit output: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/outputs/veatic_124_raw_representation_audit_primary_20260620_152411`
-- Tracked lightweight audit copy: `outputs/veatic_124_raw_representation_audit_primary_20260620_152411`
-- Frozen tensor root: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/tensors/veatic_124_raw_representation_v1`
-- Tracked tensor summary: `outputs/veatic_124_raw_representation_tensor_export_v1`
-- Tensor export coverage: `84` contracts, `420` external `.npy` files, verification `pass`
-- PCA cache reuse: `14` cache entries reused, `0` rebuilt
-- Video `83`: included in the all-video tensor export; exclude-video-83 tensor sensitivity was intentionally skipped
+The defensible current claim is cross-video future arousal spike / emotional moment ranking from video-derived cortical bridge features.
 
-Post-v2 trained-head and scaling assets now available:
+Strict forward-time temporal generalization remains under repair because blocked-temporal matched controls were not properly required to beat real. Exact continuous future arousal forecasting is not proven as the main claim.
 
-- Frozen tensor trained-head code: `backend/scripts/veatic_frozen_tensor_adapter.py`, `backend/scripts/veatic_frozen_tensor_trained_heads.py`, and `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py`
-- Trained-head policy: MPS required, no CPU sklearn fallback, fresh same-row AR, fresh shuffled/random controls, no prior result-row reuse
-- Trained-head result handle from the completed run: `outputs/veatic_124_frozen_tensor_trained_heads_mps_20260620_full_lightweight.zip`
-- V-JEPA 2.1 MLX adapter: `backend/app/services/mlx_vjepa21_cortical.py`
-- V-JEPA 2.1 selection trigger: converted MLX weights with `tensor_layout=vjepa2_1_mlx_port`
-- AGAIN audio inventory: `reports/again_video_audio_stream_inventory_20260622.md`, confirming `0/1,095` local AGAIN video containers with embedded audio streams.
-- H100 dense AGAIN V-JEPA/TRIBE asset: Google Drive folder `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`, local pull target `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`. Expected contents include global manifests, `row_index.parquet`, `row_index.csv`, `video_metadata.csv`, split manifests, `BASELINE_READINESS.md`, `README_OUTPUT_SCHEMA.md`, and `per_video/<video_id>/` folders with `tribe_v2_cortical_predictions.npz`, `baseline_features_rowlevel.npz`, `vjepa_temporal_diagnostics.npz`, `rows_aligned.csv`, `input_mapping.json`, `diagnostics.json`, `manifest.json`, and `status.json`.
-- Dense AGAIN 2Hz labels and baseline reports: `reports/again_labels_aligned_2hz_20260625_091209.md`, `reports/again_dense_2hz_ar_baseline_20260625_093722.md`, and `reports/again_dense_2hz_raw_cortical_vs_ar_20260625_094242.md`.
+Continuous arousal movement scoring remains promising and should be evaluated with ranking/lift metrics, not only MAE/MSE. The old Phase 5 promotion gate was too generous and grouped-biased.
 
-Current v2 evidence reports now tracked in this repo:
+## Quarantine And Non-Canonical Outputs
 
-- `benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md`
-- `benchmarks/veatic/veatic_124_retest_event_spike_core_20260616.md`
-- `benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md`
-- `outputs/veatic_124_temporal_context_v2_20260616_1557/veatic_124_temporal_context_v2_report.md`
-- `outputs/veatic_124_temporal_fairness_20260616_1509/veatic_124_temporal_fairness_report.md`
-- Frozen evidence manifest: `benchmarks/veatic/veatic_v2_evidence_manifest.json`
-- External protected snapshot: `${NEURAL_BRIDGE_EXTERNAL_ROOT}/evidence_snapshots/veatic_124_v2_20260616`
+The post-original-Phase-5 Spark-era quarantine was reviewed and deleted after confirming canonical Phase 4, dense cache, original Phase 5 roots, original runner, and evidence bundle still existed.
 
-Current default benchmark entrypoint:
+Ignore Phase 5a, Phase 5b, Phase 5c, max-capacity, deep, strict-longtrain, strict-recheck, chimera, Spark-generated exploratory outputs, and `holy_shit_pass`-style gates. They are non-canonical and should not be cited, resurrected, or used to steer future work.
 
-```bash
-python3 backend/scripts/run_veatic_strict_benchmark.py --primary-only
-```
+## Exact Next Repair Tasks
 
-Fresh Codex sessions should read `AGENTS.md` and run `npm run audit:repo` before changing repo state.
-Run `npm run evidence:verify` before using the v2 baseline as a reference.
+The next task is original Phase 5 adversarial repair, not Phase 5b/5c expansion. Start with the original winning lane:
 
-Use `--dry-run` to print the strict contract and control ledger without loading the external cache.
-Use `--modality-audit-only` to report cache-level text/audio/video coverage.
+`gated_ar_pca_mlp` / `regression_plus_binary` / `temporal_mean_2s_then_pca256` / AR + temporal diagnostics.
 
-## Validated v2 Findings
+Required repair items:
 
-- Video-dominant cortical/TRIBE features improve arousal future-spike/event ranking under blocked validation.
-- `cortical_pca64_delta` is the strongest blocked full-frame spike row at threshold `0.05`: PR-AUC `0.2536` versus AR `0.1969`, shuffled `0.1840`, and random `0.1944`.
-- Official split event/spike rows pass controls across the current feature families.
-- Grouped-video validation improves aggregate spike F1 over AR for PCA modes.
-- Balanced event-vs-stable sampling confirms event-conditioned discrimination for the strongest spike rows.
-- Temporal context v2 shows short causal windows improve selected future arousal spike ranking over current-only evaluation.
-- Alignment policy is resolved: current 0s alignment remains the primary non-leaky benchmark, while offset-grid results are diagnostics.
-- Raw representation audit promotes `pca_sequence_128_causal_past_2s_mean` as the best learned-head input for event/spike ranking; `roi_parcel_features` is the best compact side candidate; `topk_vertices_512` is useful but supervised/cautionary; raw uncompressed ridge is valid but not the best next build target.
-- Tensor export v1 materialized model-ready train/test tensors for `pca_sequence_128_causal_past_2s_mean`, `roi_parcel_features`, `topk_vertices_512`, and `cortical_pca64_delta_frozen_baseline` across `blocked`, `official`, and `grouped_0..4` splits for the three primary targets.
-- Frozen tensor trained heads are implemented. In the completed MPS run, `AR_plus_PCA128` and `residualized_AR_plus_PCA128` beat `AR_only`, canonical shuffled/random controls, and their PCA64-delta incremental counterparts across grouped spike gates; `PCA128_only` did not stably beat AR.
-- Dense AGAIN data generation is complete and the first true-2Hz raw-cortical baseline layer has run. The result is mixed but useful: AR+raw cortical passes grouped/control gates for the spike rows 2-6 and +4-row absolute movement targets, while +2-row delta remains AR-dominant. PCA/bridge experiments are still not run.
+- Restore the best checkpoint before test scoring.
+- Fix control labels and make controls explicitly matched.
+- Ensure `regression_plus_binary` has matched `regression_plus_binary` controls.
+- Correct blocked support logic: real must beat the best matched blocked control, not merely AR.
+- Use blocked inner validation for blocked outer protocol.
+- Add blocked split audit.
+- Add video-mean/static PCA diagnostic.
+- Add within-video and top-percent metrics.
+- Re-run or rescore the original winning lane first before expanding scope.
 
-## Benchmark Rules
+## What Not To Do Next
 
-- Full-frame VEATIC rows remain the main baseline.
-- Event-conditioned rows are diagnostics unless balanced against stable controls.
-- Positive-only pre-event and event masks should report recall/top-k style diagnostics, not PR-AUC as the main claim.
-- Thresholds must be fit on train data only.
-- PCA and other transforms must be fit on train data only.
-- Controls include AR, shuffled cortical rows, split-local shuffles, Gaussian features, label shuffles, feature shuffles, timestamp-only, video/time-only, majority, fixed-split holdouts, grouped-video holdouts, zero-change diagnostics, and one backend policy per final run.
-- CPU/MPS device consistency should be checked before mixing thresholded results.
-- Do not describe a cache as multimodal unless `modality_missing_flags` or `tribe_summary.event_quality` show text, audio, and video present.
+- Do not train or benchmark unless the task explicitly asks for the adversarial repair run.
+- Do not write Phase 5b/5c/max-capacity/deep/chimera runners.
+- Do not cite Spark weird outputs as evidence.
+- Do not claim continuous arousal forecasting is solved.
+- Do not claim strict blocked-temporal matched controls are solved.
+- Do not use `holy_shit_pass` as a valid gate.
+- Do not touch dense cache files, Phase 4 outputs, original Phase 5 roots, or evidence bundle contents.
 
-## Remaining Work
+## Claim Framing
 
-1. Build the next AGAIN PCA/bridge layer from the dense 995-video TRIBE bundle with train-only PCA widths and learned bridge heads.
-2. Keep grouped-video validation, blocked validation, and controls as promotion gates for any learned head or dense AGAIN follow-up.
-3. Add the dense AGAIN Phase 1-3 summaries to the evidence dashboard when dashboard work resumes.
-4. Finish the guarded `83,84` multimodal pilot after populating or authorizing the gated `meta-llama/Llama-3.2-3B` text encoder.
-5. Keep the benchmark dashboard aligned with the current VEATIC and AGAIN evidence layers.
+Current proven wedge: cross-video future arousal spike / emotional moment ranking.
 
-Current multimodal pilot status:
+Not yet proven: exact continuous future arousal forecasting or strict full forward-time temporal mechanism.
 
-- `facebook/w2v-bert-2.0` is present on the external SSD.
-- A local LM Studio MLX Llama 3.2 3B Instruct 4-bit model directory can pass the repo's MLX text-model directory check when configured locally.
-- The pilot reaches audio extraction, word extraction, Text/Sentence creation, and text feature preparation.
-- It is blocked by gated/missing `meta-llama/Llama-3.2-3B` text encoder assets.
-- A full VEATIC-124 multimodal re-encode is not warranted because only videos `83` and `84` contain audio streams.
-
-## Next Safe Move
-
-Use the frozen v2 evidence bundle and frozen raw-representation tensor contract as the VEATIC baseline. The first trained-head layer already exists. For AGAIN, use `labels_aligned_2hz.parquet` plus the audited local dense H100 TRIBE bundle. The next scientific step is train-only PCA/bridge work over the full 995-video artifact, not another 1Hz or sparse rerun.
+Commercial framing: Neural Bridge is a translation layer that turns noisy video/cortical representations into ranked human-response intelligence. The bridge/benchmark/control protocol is the moat, not V-JEPA/TRIBE themselves.

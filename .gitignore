@@ -90,6 +90,7 @@ data/
 # Local scratch folders
 tmp/
 scratch/
+quarantine/
 mydoc/
 mytest/
 

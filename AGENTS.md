@@ -2,28 +2,92 @@
 
 This repo is Neural Bridge.
 
-## Current Truth
+## Source Of Truth
 
-- The proven baseline is VEATIC-124 v2 using video-dominant TRIBE-predicted cortical response features.
-- The headline claim is arousal event/spike ranking under strict controls, not exact continuous arousal-value forecasting.
-- The current cache is not a proven full text+audio+video multimodal cache.
-- The strict modality audit reports `122/124` video-only cache entries and `2/124` text+audio+video entries.
-- Only VEATIC videos `83` and `84` contain audio streams, so do not propose re-encoding all 124 videos for multimodal coverage.
-- The guarded `83,84` multimodal pilot reaches audio extraction, word extraction, Text/Sentence creation, and text feature preparation.
-- That pilot is blocked until `meta-llama/Llama-3.2-3B` is available locally or authorized through Hugging Face.
-- The raw representation audit is complete. Keep frozen `cortical_pca64_delta` as the v2 baseline.
-- The trained-head benchmark layer is implemented. It uses frozen `pca_sequence_128_causal_past_2s_mean` tensors, fresh same-row AR, fresh controls, grouped gates, and MPS-only training.
-- `AR_plus_PCA128` and `residualized_AR_plus_PCA128` passed grouped spike incremental gates in the completed trained-head run; `PCA128_only` did not stably beat AR.
-- `roi_parcel_features` is an important side candidate; `topk_vertices_512` is supervised/cautionary.
-- Model-ready tensors are frozen under `NEURAL_BRIDGE_EXTERNAL_ROOT/tensors/veatic_124_raw_representation_v1/` with lightweight summaries in `outputs/veatic_124_raw_representation_tensor_export_v1/`.
-- V-JEPA 2.1 MLX support is implemented and selected from converted weights with `tensor_layout=vjepa2_1_mlx_port`.
-- Dense AGAIN H100 data generation is complete: official V-JEPA 2.1 ViT-G encoded the full 995-video AGAIN set at `2Hz` rows, `2Hz` sampling, `256px`, float16, followed by a cache-only TRIBE v2 postpass. The postpass completed `995/995` videos, `0` failures, and `243,575` row-level cortical predictions.
-- Dense AGAIN true-2Hz label alignment and first baseline layer are implemented. Use `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/labels_aligned_2hz.parquet`, not the older 1Hz boundary manifest, for dense 2Hz claims. The latest Phase 3 raw/diagnostic benchmark uses MLX-backed train-only ridge alpha selection, grouped-video folds, blocked temporal validation, and controls. `AR + raw cortical` beats AR and shuffled/random controls for `arousal_spike_rows_2_6_train_q90` and `arousal_abs_delta_p4rows_train_q90`, but not for `arousal_delta_p2rows_train_q90`. Treat this as a raw baseline floor, not PCA bridge proof.
-- Current local AGAIN cleaned video mirrors are not audio-bearing: a 2026-06-22 embedded-stream audit checked 1,095 AGAIN video containers across internal scratch and external SSD roots and found 0 audio streams with 0 probe errors. Do not add Wav2Vec-BERT AGAIN claims unless a separate/original audio-bearing media source is found and audited.
+Use only this repository, the configured local workspace, and current user prompts as benchmark truth. Do not use prior Codex chat memory, Claude/Anthropic state, VS Code chat state, old compacted context, previous agent plans, or post-original-Phase-5 Spark outputs as authority.
+
+`codebase-memory-mcp` may be used for code navigation, imports, symbol lookup, and file location. Do not use MCP memory as previous-task or benchmark authority.
+
+## Current Canonical State
+
+The repo is reset to the point immediately after original Phase 5 and Claude/adversarial review.
+
+Phase 4 completed the dense AGAIN 2Hz fold-safe PCA bridge. The best Phase 4 primary spike lane was:
+
+- Target: `arousal_spike_rows_2_6_train_q90`
+- Feature: `temporal_mean_2s_then_pca256`
+- Lane: `AR_plus_PCA_plus_temporal_diagnostics`
+- Grouped-video PR-AUC: about `0.17165`
+- AR-only grouped-video PR-AUC: about `0.14725`
+- Phase 3 AR+raw grouped-video PR-AUC: about `0.17030`
+
+Original Phase 5 completed the learned-head pass over the canonical Phase 4 feature. The canonical roots are:
+
+- Main run: `outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/`
+- Label-permutation sanity run: `outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/`
+- Runner: `backend/scripts/run_again_dense_2hz_phase5_learned_heads.py`
+
+Original Phase 5 primary setup:
+
+- Target: `arousal_spike_rows_2_6_train_q90`
+- Continuous training source: `future_arousal_max_delta_rows_2_6`
+- Feature: `temporal_mean_2s_then_pca256`
+- Input: AR + `temporal_mean_2s_then_pca256` + temporal diagnostics
+- Best learned head: `gated_ar_pca_mlp`
+- Best loss: `regression_plus_binary`
+- Best grouped-video PR-AUC: about `0.21913`
+
+This was a large grouped-video improvement over AR-only `0.14725` and Phase 4 `0.17165`. The original Phase 5 label-permutation sanity collapsed near chance/prevalence and supports no gross leakage.
+
+## Claude/Adversarial Review
+
+The original Phase 5 result is not fake and not gross leakage, but the old headline was overpromoted. The defensible current claim is cross-video future arousal spike / emotional moment ranking from video-derived cortical bridge features.
+
+Do not claim exact continuous future arousal forecasting is solved. Do not claim strict full forward-time temporal mechanism is solved. Strict forward-time temporal generalization remains under repair because blocked-temporal matched controls were not properly required to beat real.
+
+Continuous arousal movement scoring remains promising and should be evaluated with ranking/lift metrics, not only MAE/MSE. The old Phase 5 promotion gate was too generous and grouped-biased.
+
+## Non-Canonical Work
+
+Phase 5a, Phase 5b, Phase 5c, max-capacity, deep, strict-longtrain, chimera, Spark-generated exploratory outputs, and any `holy_shit_pass`-style gates are non-canonical. Do not use them as evidence, do not cite them in docs, and do not resurrect their runners or reports.
+
+The next task is original Phase 5 adversarial repair, not Phase 5b/5c expansion.
+
+## Next Repair Tasks
+
+- Restore the best checkpoint before test scoring.
+- Fix control labels and make controls explicitly matched.
+- Ensure `regression_plus_binary` has matched `regression_plus_binary` controls.
+- Correct blocked support logic: real must beat the best matched blocked control, not merely AR.
+- Use blocked inner validation for blocked outer protocol.
+- Add blocked split audit.
+- Add video-mean/static PCA diagnostic.
+- Add within-video and top-percent metrics.
+- Re-run or rescore the original winning lane first: `gated_ar_pca_mlp` / `regression_plus_binary` / `temporal_mean_2s_then_pca256` / AR + temporal diagnostics.
+
+## Canonical Artifacts To Preserve
+
+- Dense root: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`
+- Phase 4 external root: `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/`
+- Original Phase 5 main root: `outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/`
+- Original Phase 5 sanity root: `outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/`
+- Original Phase 5 runner: `backend/scripts/run_again_dense_2hz_phase5_learned_heads.py`
+- Evidence bundle: `evidence_bundle_phase0_to_phase5_20260625/`
+- Claude/adversarial review artifact, if present.
+
+Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly only referencing them from docs.
+
+## Current Claim Framing
+
+Current proven wedge: cross-video future arousal spike / emotional moment ranking from video-derived cortical bridge features.
+
+Not yet proven: exact continuous future arousal forecasting or strict full forward-time temporal mechanism.
+
+Commercial framing: Neural Bridge is a translation layer that turns noisy video/cortical representations into ranked human-response intelligence. The bridge/benchmark/control protocol is the moat, not V-JEPA/TRIBE themselves.
 
 ## Start Here
 
-Read these files before making claims about project state:
+Read these files before making project-state claims:
 
 1. `README.md`
 2. `docs/current_project_state.md`
@@ -46,51 +110,30 @@ python3 -m pytest -q tests/test_mlx_vjepa21_cortical.py tests/test_veatic_tribe_
 
 Use `npm run verify` before pushing when dependencies are available.
 
-## Guardrails
-
-- Keep train-only thresholds, train-only transforms, blocked validation, grouped-video validation, and shuffled/random/time controls intact.
-- Do not tune decision thresholds on filtered test subsets.
-- Do not report positive-only event/pre-event masks as PR-AUC discrimination tests.
-- Do not describe a cache as multimodal unless modality flags or audit output show text, audio, and video present.
-- Do not commit heavyweight data, model weights, raw media, local caches, or machine-specific paths.
-- Do not commit external tensor payloads (`.npy`); only lightweight tensor summaries/manifests and row samples belong in git.
-- Do not rerun the raw representation audit or tensor export when existing verified outputs can be reused.
-- Use the implemented frozen-tensor trained-head runner and frozen tensor contract.
-- For full AGAIN work, start from the audited dense H100 bundle and `labels_aligned_2hz.parquet`; do not use 1Hz or sparse AGAIN artifacts for dense 2Hz claims.
-- Keep machine-specific paths in local `.env`; `.env.example` must stay portable.
-- Treat `benchmarks/` and `outputs/` as retained evidence artifacts. Use current docs before generated metadata.
-- Treat `benchmarks/veatic/veatic_v2_evidence_manifest.json` and `evidence_snapshots/veatic_124_v2_20260616` under the external root as the frozen v2 evidence contract.
-
-## External Assets
-
-Heavy assets live outside git under `NEURAL_BRIDGE_EXTERNAL_ROOT`.
-
-Expected current families:
-
-- `benchmarks/veatic/tribe_cache`
-- `evidence_snapshots/veatic_124_v2_20260616`
-- `outputs/veatic_124_raw_representation_audit_primary_20260620_152411`
-- `tensors/veatic_124_raw_representation_v1`
-- `datasets/veatic`
-- `models/tribe-mlx`
-- `models/upstream-encoders/facebook-w2v-bert-2.0`
-- `models/upstream-encoders/meta-llama-Llama-3.2-3B` when authorized and populated
-- Local reference workstation candidate: an LM Studio MLX Llama 3.2 3B Instruct 4-bit directory can satisfy the repo MLX text-model directory check, but it is machine-local and not a portable external-root contract.
-- `models/upstream-encoders-mlx/facebook-vjepa2-vitg-fpc64-256`
-- `models/vjepa21_mlx/vitg`
-- `benchmarks/again`
-- Google Drive `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz` and local pull target `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/` for the completed dense 995-video AGAIN TRIBE v2 postpass bundle.
-- `data/external/AGAIN/cleaned` or the local equivalent under `NEURAL_BRIDGE_EXTERNAL_ROOT`
-- `models/transcription/mlx-community-whisper-small-mlx`
-
 ## Code Discovery
 
-Prefer the codebase-memory MCP graph for code structure:
+Prefer the codebase-memory MCP graph for code structure. This repo requires MCP-first discovery on turns that need code-level lookup:
 
 1. `search_graph`
 2. `trace_path`
 3. `get_code_snippet`
-4. `query_graph`
-5. `get_architecture`
+4. literal search only when MCP returns insufficient signal
 
-Use `rg` for literal strings, docs, configs, and generated reports.
+Default project selection:
+
+- Local source project: `Users-maxsartini-Neural-Bridge` (`/Users/maxsartini/Neural Bridge`)
+- External artifact project: `Volumes-onn.-Drive-Neural-Bridge` (`/Volumes/onn. Drive/Neural Bridge`)
+
+Use local source first for source edits and code decisions. Use the external artifact project only for evidence bundles, large outputs, or artifacts, and include explicit file scope when possible.
+
+Use `rg` for literal strings, docs, configs, and generated reports when appropriate. Keep discovery output compact.
+
+## Guardrails
+
+- Keep train-only thresholds, train-only transforms, grouped-video validation, blocked validation, and matched controls intact.
+- Do not tune decision thresholds on filtered test subsets.
+- Do not report positive-only event/pre-event masks as PR-AUC discrimination tests.
+- Do not describe a cache as multimodal unless modality flags or audit output show text, audio, and video present.
+- Do not commit heavyweight data, model weights, raw media, local caches, external tensor payloads, or machine-specific paths.
+- Keep machine-specific paths in local `.env`; `.env.example` must stay portable.
+- Treat `benchmarks/` and `outputs/` as retained evidence artifacts. Use current docs before generated metadata.
