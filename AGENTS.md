@@ -21,46 +21,38 @@ Do not claim:
 Canonical adversarial review:
 `docs/reviews/neural_bridge_phase5_adversarial_review_20260625.html`
 
-Review bottom line: Phase 5 is not fraud and not grossly leaky; label permutation supports no gross leakage; grouped-video signal is real and fold-robust; honest matched-control grouped edge is about `+0.02` PR-AUC; blocked-temporal matched controls beat real.
+Canonical deterministic repair report:
+`reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md`
+
+Current bottom line: grouped-video ranking signal survives eval-mode checkpoint rescoring; blocked-temporal matched controls and AR-only beat real, so strict forward-time temporal generalization is not proven.
 
 ## Canonical Artifacts
 
 - Dense root: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`
 - Phase 4 root: `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/`
-- Phase 5 main: `outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/`
-- Phase 5 sanity: `outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/`
-- Phase 5 runner: `backend/scripts/run_again_dense_2hz_phase5_learned_heads.py`
 - Evidence bundle: `evidence_bundle_phase0_to_phase5_20260625/`
+- Primary repair checkpoint root: `outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_20260629_171825/`
+- Eval-mode rescore root: `outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_evalmode_rescore_/`
 
-Do not touch dense cache files, Phase 4 outputs, Phase 5 output roots, or evidence bundle contents unless explicitly asked.
+Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly asked. Do not force-add ignored output roots.
 
 ## Current Numbers
 
-- AR-only grouped spike PR-AUC: about `0.14725`
-- Phase 3 AR+raw grouped spike PR-AUC: about `0.17030`
-- Phase 4 grouped spike PR-AUC: about `0.17165`
-- Phase 5 grouped spike PR-AUC: about `0.21913`
-- Matched-control grouped cortical edge: about `+0.02` PR-AUC
+- grouped real `regression_plus_binary` PR-AUC: `0.2300639382`
+- grouped best matched control `ar_plus_shuffled_pca` PR-AUC: `0.2042740689`
+- grouped real-minus-control delta: `+0.0257898694`
+- grouped AR-only PR-AUC: `0.2246816187`
+- grouped fold-seed delta: positive in `15/15`
+- blocked real PR-AUC: `0.2218656156`
+- blocked best matched control `ar_plus_random_pca` PR-AUC: `0.2311845051`
+- blocked real-minus-control delta: `-0.0093188895`
+- blocked AR-only PR-AUC: `0.2654721820`
 
 Primary lane: `arousal_spike_rows_2_6_train_q90` using `gated_ar_pca_mlp` / `regression_plus_binary` / `temporal_mean_2s_then_pca256` / AR + temporal diagnostics.
 
 ## Next Task
 
-Next work is original Phase 5 adversarial repair, starting with the primary lane above.
-
-Repair checklist:
-
-- restore best checkpoint before test scoring
-- add matched controls for every promoted loss, especially `regression_plus_binary`
-- require real > best matched blocked control
-- use blocked inner validation for blocked outer protocol
-- add blocked split audit
-- add video-mean/static PCA diagnostic
-- add within-video ranking metrics
-- add top-percent product metrics
-- add paired fold delta / CI versus matched controls
-- remove or retire `holy_shit_pass`
-- report real-minus-matched-control as headline effect
+Next work is blocked-temporal mechanism diagnosis/repair before any secondary heads. Focus on AR-only dominance, why real PCA helps grouped but hurts blocked, blocked AR+random/shuffled PCA diagnostics, temporal-negative controls, and gate/fusion instrumentation. Do not rerun the full 702 matrix unless a targeted diagnostic requires it.
 
 ## Code Discovery
 

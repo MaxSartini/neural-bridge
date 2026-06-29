@@ -8,6 +8,8 @@ Defensible claim: cross-video future arousal spike / emotional moment ranking fr
 
 Canonical review: `docs/reviews/neural_bridge_phase5_adversarial_review_20260625.html`
 
+Canonical deterministic Phase 5 repair report: `reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md`
+
 Do not claim:
 
 - exact continuous future arousal forecasting is solved
@@ -18,18 +20,29 @@ Do not claim:
 ## Evidence Summary
 
 - Phase 5 is not fraud and not grossly leaky.
-- Label permutation supports no gross leakage.
-- Grouped-video cross-video spike/event ranking signal is real and fold-robust.
-- The honest matched-control grouped cortical edge is about `+0.02` PR-AUC.
-- Blocked-temporal matched controls beat real, so strict forward-time temporal generalization remains under repair.
-- Continuous arousal movement remains promising, but should be scored with ranking/lift metrics, not only MAE/MSE.
+- Label permutation supports no gross leakage and remains near chance under eval-mode rescore.
+- Grouped-video cross-video spike/event ranking signal is real, fold-robust, and survives deterministic eval-mode checkpoint rescoring.
+- The canonical eval-mode matched-control grouped cortical edge is `+0.0257898694` PR-AUC.
+- Blocked-temporal matched controls and AR-only beat real, so strict forward-time temporal generalization remains unproven.
+- Continuous arousal movement is not a solved claim; score it with ranking/lift metrics and controls.
 
 ## Current Numbers
 
-- AR-only grouped spike PR-AUC: about `0.14725`
-- Phase 3 AR+raw grouped spike PR-AUC: about `0.17030`
-- Phase 4 grouped spike PR-AUC: about `0.17165`
-- Phase 5 grouped spike PR-AUC: about `0.21913`
+Canonical deterministic eval-mode primary repair:
+
+- grouped real `regression_plus_binary` PR-AUC: `0.2300639382`
+- grouped best matched control `ar_plus_shuffled_pca` PR-AUC: `0.2042740689`
+- grouped real-minus-control delta: `+0.0257898694`
+- grouped AR-only PR-AUC: `0.2246816187`
+- grouped fold-seed delta: positive in `15/15`
+- grouped label permutation PR-AUC: `0.1058053218`
+- grouped video-mean PCA diagnostic PR-AUC: `0.1054810779`
+- blocked real PR-AUC: `0.2218656156`
+- blocked best matched control `ar_plus_random_pca` PR-AUC: `0.2311845051`
+- blocked real-minus-control delta: `-0.0093188895`
+- blocked AR-only PR-AUC: `0.2654721820`
+- blocked label permutation PR-AUC: `0.1101291638`
+- blocked video-mean PCA diagnostic PR-AUC: `0.1955273615`
 
 Primary lane:
 
@@ -42,27 +55,14 @@ Primary lane:
 
 - Dense root: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`
 - Phase 4 root: `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/`
-- Phase 5 main: `outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/`
-- Phase 5 sanity: `outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/`
-- Phase 5 runner: `backend/scripts/run_again_dense_2hz_phase5_learned_heads.py`
 - Evidence bundle: `evidence_bundle_phase0_to_phase5_20260625/`
+- Primary repair checkpoint root: `outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_20260629_171825/`
+- Eval-mode rescore root: `outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_evalmode_rescore_/`
 
-Do not touch dense cache files, Phase 4 outputs, Phase 5 output roots, or evidence bundle contents unless explicitly asked.
+Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly asked. Heavy output roots remain ignored.
 
-## Next Repair
+## Current Repair Status
 
-Next task is original Phase 5 adversarial repair, starting with the primary lane above.
+The primary repair matrix trained correctly and saved best checkpoints. The eval-mode rescore loaded all `702/702` saved best checkpoints, disabled dropout, and scored only the original held-out rows. These eval-mode metrics are the canonical deterministic Phase 5 primary repair numbers.
 
-Checklist:
-
-- restore best checkpoint before test scoring
-- add matched controls for every promoted loss, especially `regression_plus_binary`
-- require real > best matched blocked control
-- use blocked inner validation for blocked outer protocol
-- add blocked split audit
-- add video-mean/static PCA diagnostic
-- add within-video ranking metrics
-- add top-percent product metrics
-- add paired fold delta / CI versus matched controls
-- remove or retire `holy_shit_pass`
-- report real-minus-matched-control as headline effect
+Next task: explain and repair blocked-temporal failure before starting secondary heads. Focus on AR-only dominance, real-PCA fusion under blocked validation, blocked AR+random/shuffled PCA diagnostics, temporal-negative controls, and gate/fusion instrumentation. Do not claim strict temporal prediction, do not use the old `holy_shit_pass`, and do not rerun the full 702 matrix unless a targeted diagnostic requires it.
