@@ -1,0 +1,13 @@
+variant_name,seed,best_epoch,best_inner_val_delta_vs_frozen_ar,frozen_ar_inner_val_pr_auc,pr_auc,delta_vs_frozen_ar_pr_auc,residual_suppressed,checkpoint_restored,inner_val_selection_labels,training_labels,selected_checkpoint_beat_frozen_ar_on_inner_val,selected_checkpoint_beat_frozen_ar_on_test
+blocked_delta_selected_gated_residual,20260625,6.0000000000,0.0001253889,0.2320768625,0.2617032245,0.0002078826,False,True,true_inner_val_labels,permuted_train_labels,True,True
+blocked_delta_selected_gated_residual,20260626,7.0000000000,0.0002785123,0.2394680800,0.2680561783,-0.0001566098,False,True,true_inner_val_labels,permuted_train_labels,True,False
+blocked_delta_selected_gated_residual,20260627,14.0000000000,0.0011159304,0.2387057818,0.2687396338,0.0020312177,False,True,true_inner_val_labels,permuted_train_labels,True,True
+low_ar_confidence_residual,20260625,1.0000000000,0.0000886282,0.2320768625,0.2616754210,0.0001800791,False,True,true_inner_val_labels,permuted_train_labels,True,True
+low_ar_confidence_residual,20260626,1.0000000000,0.0001626947,0.2394680800,0.2685131458,0.0003003578,False,True,true_inner_val_labels,permuted_train_labels,True,True
+low_ar_confidence_residual,20260627,7.0000000000,0.0005878226,0.2387057818,0.2680931883,0.0013847722,False,True,true_inner_val_labels,permuted_train_labels,True,True
+monotonic_do_no_harm_residual,20260625,10.0000000000,0.0001400164,0.2320768625,0.2616504668,0.0001551249,False,True,true_inner_val_labels,permuted_train_labels,True,True
+monotonic_do_no_harm_residual,20260626,10.0000000000,0.0002489334,0.2394680800,0.2684933589,0.0002805709,False,True,true_inner_val_labels,permuted_train_labels,True,True
+monotonic_do_no_harm_residual,20260627,1.0000000000,0.0000995174,0.2387057818,0.2670138220,0.0003054059,False,True,true_inner_val_labels,permuted_train_labels,True,True
+rank_lift_residual,20260625,1.0000000000,0.0001161867,0.2320768625,0.2617171663,0.0002218244,False,True,true_inner_val_labels,permuted_train_labels,True,True
+rank_lift_residual,20260626,5.0000000000,0.0005609734,0.2394680800,0.2692932684,0.0010804804,False,True,true_inner_val_labels,permuted_train_labels,True,True
+rank_lift_residual,20260627,4.0000000000,0.0002726710,0.2387057818,0.2667323564,0.0000239403,False,True,true_inner_val_labels,permuted_train_labels,True,True
