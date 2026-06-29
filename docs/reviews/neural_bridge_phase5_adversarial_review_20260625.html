@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neural Bridge — Phase 5 Adversarial Review</title>
+<style>
+  :root{
+    --ink:#1a1c20; --muted:#5b6470; --line:#e3e6ea; --bg:#ffffff; --soft:#f7f8fa;
+    --red:#b3261e; --red-bg:#fdecea; --red-line:#f3c1bc;
+    --blue:#1456a0; --blue-bg:#eaf1fb; --blue-line:#bcd3f0;
+    --violet:#5b3a9e; --violet-bg:#f1ecfb; --violet-line:#d6c8f0;
+    --green:#1d7a46; --amber:#9a6700; --amber-bg:#fff6df;
+    --mono:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--soft);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.62;font-size:16px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:980px;margin:0 auto;padding:0 22px 90px}
+  header.top{background:linear-gradient(135deg,#16181d,#23272f);color:#fff;padding:46px 0 38px;margin-bottom:0}
+  header.top .wrap{padding-bottom:0}
+  .kicker{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#9aa6b6;margin:0 0 10px}
+  h1{font-size:30px;line-height:1.18;margin:0 0 14px;font-weight:680;letter-spacing:-.01em}
+  .sub{color:#c4ccd6;font-size:15.5px;max-width:760px;margin:0}
+  .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:12.7px;color:#9aa6b6}
+  .meta code{color:#cdd6e2;font-family:var(--mono)}
+  main{background:var(--bg);border:1px solid var(--line);border-top:none;
+    padding:40px 46px 54px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+  h2{font-size:21.5px;margin:46px 0 6px;padding-top:16px;border-top:1px solid var(--line);font-weight:660;letter-spacing:-.01em}
+  h2:first-of-type{border-top:none;padding-top:0;margin-top:8px}
+  h3{font-size:16.5px;margin:26px 0 6px;font-weight:650}
+  p{margin:10px 0}
+  .lead{font-size:16.5px;color:#2c313a}
+  a{color:var(--blue)}
+  code{font-family:var(--mono);font-size:.9em;background:#eef0f3;padding:1px 5px;border-radius:4px;color:#2a2d33}
+  .num{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums}
+  .part{display:inline-flex;align-items:center;gap:9px;font-size:12px;letter-spacing:.13em;text-transform:uppercase;
+    font-weight:700;padding:5px 12px;border-radius:999px;margin:10px 0 2px}
+  .part.red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-line)}
+  .part.blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-line)}
+  .part.violet{background:var(--violet-bg);color:var(--violet);border:1px solid var(--violet-line)}
+  .verdict{border:1px solid var(--line);border-left:5px solid #16181d;background:var(--soft);
+    padding:20px 22px;border-radius:8px;margin:22px 0 6px}
+  .verdict h3{margin:0 0 8px;font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .verdict .big{font-size:17px;color:#1a1c20}
+  table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:8px 11px;text-align:left;vertical-align:top}
+  th{background:var(--soft);font-weight:640;font-size:12.5px;letter-spacing:.02em}
+  td.r,th.r{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+  tr.hl td{background:#fff8e8}
+  tr.bad td{background:var(--red-bg)}
+  tr.good td{background:#edf7f0}
+  .crit{border:1px solid var(--line);border-radius:9px;padding:2px 20px 14px;margin:18px 0;background:#fff}
+  .crit .hd{display:flex;align-items:baseline;gap:11px;flex-wrap:wrap;margin:16px 0 2px}
+  .crit .hd .id{font-family:var(--mono);font-weight:700;color:var(--red)}
+  .crit .hd .t{font-size:16.5px;font-weight:650}
+  .sev{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;font-weight:800;padding:3px 9px;border-radius:5px;white-space:nowrap}
+  .sev.fatal{background:var(--red);color:#fff}
+  .sev.major{background:#e0552b;color:#fff}
+  .sev.moderate{background:var(--amber-bg);color:var(--amber);border:1px solid #e9cf8f}
+  .sev.concede{background:#edf7f0;color:var(--green);border:1px solid #b9e0c6}
+  .tag{font-size:11.5px;color:var(--muted)}
+  blockquote{margin:14px 0;padding:12px 18px;background:var(--soft);border-left:4px solid var(--line);
+    border-radius:0 6px 6px 0;color:#33373e;font-size:14.5px}
+  blockquote.steel{border-left-color:var(--blue);background:var(--blue-bg)}
+  .pathline{font-family:var(--mono);font-size:12px;color:var(--muted);margin:6px 0 0}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  .callout{background:var(--amber-bg);border:1px solid #e9cf8f;border-radius:8px;padding:14px 18px;margin:16px 0;font-size:14.5px}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+  .card{border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:#fff}
+  .card h4{margin:0 0 6px;font-size:14px}
+  .card.win{border-top:3px solid var(--green)}
+  .card.lose{border-top:3px solid var(--red)}
+  .small{font-size:13px;color:var(--muted)}
+  .foot{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+  .chip{display:inline-block;font-family:var(--mono);font-size:11.5px;background:#eef0f3;border:1px solid var(--line);
+    border-radius:5px;padding:1px 7px;margin:1px 2px}
+  @media(max-width:680px){main{padding:26px 20px}.twocol{grid-template-columns:1fr}h1{font-size:24px}}
+  @media print{body{background:#fff}main{border:none;box-shadow:none;padding:0}header.top{background:#16181d!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <p class="kicker">Adversarial Methodology Review · Red Team / Blue Team / Synthesis</p>
+    <h1>Neural Bridge — Phase 5 “Learned Heads” Final Results</h1>
+    <p class="sub">An independent critical review of the dense-AGAIN 2&nbsp;Hz Phase&nbsp;5 benchmark — the author’s designated <em>final</em> result — paired with a deliberately supportive counter-review, then reconciled into concrete critiques and recommended changes.</p>
+    <div class="meta">
+      <span>Repo: <code>MaxSartini/neural-bridge</code> @ <code>c955d65</code></span>
+      <span>Author: <code>Max Sartini</code></span>
+      <span>Reviewed: <code>2026-06-25</code></span>
+      <span>Focus: <code>evidence_bundle_phase0_to_phase5_20260625</code> · Phase&nbsp;5</span>
+    </div>
+  </div>
+</header>
+<main class="wrap" style="max-width:980px">
+
+<!-- ============ BOTTOM LINE ============ -->
+<div class="verdict">
+  <h3>Bottom line</h3>
+  <p class="big">Phase&nbsp;5 is <strong>not</strong> fraud and <strong>not</strong> grossly leaky — its label-permutation and quality controls are clean, and it shows a <strong>small but genuinely fold-robust</strong> cortical advantage <em>under one validation protocol</em>. But the headline (PR-AUC <span class="num">0.21913</span>, “Holy-shit pass”, <em>promote</em>) is <strong>over-stated by roughly 2–3×</strong>: the honest, architecture-matched effect of the cortical features is <span class="num">≈ +0.02</span> PR-AUC, not the advertised <span class="num">+0.047</span> (vs Phase&nbsp;4) or <span class="num">+0.072</span> (vs AR). Critically, the effect <strong>reverses sign under temporal blocking</strong> — there, random/shuffled-noise controls <em>beat</em> the real cortical features — and the promotion gate is <strong>hard-coded so it can never see that failure</strong>. The most defensible claim is far narrower than the one the bundle advertises.</p>
+</div>
+
+<p class="lead">This document has three parts: <strong style="color:var(--red)">Part&nbsp;I — Critical (Red Team)</strong>, my adversarial read; <strong style="color:var(--blue)">Part&nbsp;II — Supportive (Blue Team)</strong>, the strongest good-faith defense, produced by an independent sub-agent instructed to champion the work; and <strong style="color:var(--violet)">Part&nbsp;III — Synthesis</strong>, where the two are reconciled into prioritized critiques and a change-list. Per your instruction, all <em>documentation</em> claims are judged against the <strong>bundled</strong> <code>BUNDLE_README.md</code> only; the top-level README/ROADMAP are set aside.</p>
+
+<!-- ============ HEADLINE NUMBERS ============ -->
+<h2>The numbers everything hinges on</h2>
+<p>One target (<code>arousal_spike_rows_2_6_train_q90</code>, “does an arousal spike occur 1–3&nbsp;s ahead”) at ~<span class="num">10.2%</span> positive prevalence, so <strong>chance PR-AUC ≈ 0.10</strong>. The pipeline progression:</p>
+
+<table>
+<thead><tr><th>Stage</th><th>What it is</th><th class="r">Grouped PR-AUC</th><th class="r">vs chance (0.10)</th></tr></thead>
+<tbody>
+<tr><td>Chance / label-permutation</td><td>Null floor (permuted labels, same head)</td><td class="r">0.10428</td><td class="r">—</td></tr>
+<tr><td>AR-only</td><td>Autoregressive history baseline</td><td class="r">0.14725</td><td class="r">+0.043</td></tr>
+<tr><td>Phase 3 — AR + raw cortical</td><td>Raw TRIBE features</td><td class="r">0.17030</td><td class="r">+0.066</td></tr>
+<tr><td>Phase 4 — PCA bridge</td><td>Linear/ridge over PCA</td><td class="r">0.17165</td><td class="r">+0.067</td></tr>
+<tr class="hl"><td><strong>Phase 5 — learned head (headline)</strong></td><td><code>gated_ar_pca_mlp</code>, <code>regression_plus_binary</code>, grouped</td><td class="r"><strong>0.21913</strong></td><td class="r">+0.115</td></tr>
+</tbody>
+</table>
+
+<p>The promotion summary leads with <strong>“+0.04748 vs Phase 4”</strong> and <strong>“+0.072 vs AR.”</strong> But the comparison that actually isolates the <em>cortical signal</em> — real features vs the <strong>same gated head fed shuffled/random PCA of identical shape</strong> — tells a different and protocol-dependent story:</p>
+
+<table>
+<thead><tr><th>Protocol (loss = <code>binary</code>, matched controls exist here)</th><th class="r">Real</th><th class="r">Best noise control</th><th class="r">Real − control</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr class="good"><td><strong>grouped_video</strong> — hold out whole videos</td><td class="r">0.21581</td><td class="r">0.19404 <span class="small">(ar+shuffled_pca)</span></td><td class="r">+0.0218</td><td>Real wins, <strong>5/5 folds</strong></td></tr>
+<tr class="bad"><td><strong>blocked_temporal_70_30</strong> — hold out future time</td><td class="r">0.19822</td><td class="r">0.21912 <span class="small">(random_pca)</span></td><td class="r">−0.0209</td><td><strong>Noise beats real</strong></td></tr>
+</tbody>
+</table>
+
+<p class="small">Sources: <code>outputs/again_dense_2hz_phase5_learned_heads_20260625_182423/metrics/phase5_summary_metrics.csv</code>, <code>…/phase5_control_metrics.csv</code>, <code>…/phase5_fold_metrics.csv</code>; <code>reports/again_dense_2hz_phase5_promotion_summary_182423.md</code>. Under blocked-temporal, real (0.19822) is beaten by <em>all four</em> PCA controls: random_pca 0.21912, ar+random_pca 0.21606, ar+shuffled_pca 0.21320, shuffled_pca 0.20847.</p>
+
+<!-- ============ PART I — RED TEAM ============ -->
+<span class="part red">● Part I — Critical Review (Red Team)</span>
+<h2 style="border-top:none;padding-top:6px">Where the methodology and results fail</h2>
+
+<div class="crit">
+  <div class="hd"><span class="id">C1</span><span class="t">The headline effect does not survive temporal blocking — noise controls beat the real features</span><span class="sev fatal">Fatal</span></div>
+  <p>The cortical features beat their matched noise controls when whole <em>videos</em> are held out (grouped_video, +0.022), but are <strong>beaten by those same noise controls</strong> when <em>future time</em> is held out (blocked_temporal, −0.021). Two equally valid validation protocols disagree on the <em>sign</em> of the effect. A result that flips sign between cross-stimulus and cross-time generalization is, by definition, not a robust finding.</p>
+  <p><strong>The most damaging interpretation — and the one the data points to.</strong> The <code>gated_ar_pca_mlp</code> head learns a sigmoid gate that mixes an AR pathway with the PCA pathway (<code>fused = gate·pca + (1−gate)·ar</code>, <a href="neural-bridge/backend/scripts/run_again_dense_2hz_phase5_learned_heads.py">runner</a> L197–198). When PCA is noise, the gate routes around it to AR — which is exactly why the controls are so strong. The cortical features add value <em>only</em> when whole videos are unseen. The simplest explanation is that the PCA features encode <strong>video-level / static structure</strong> (genre, motion regime, overall “vibe” → base spike rate) rather than moment-to-moment predictive dynamics. Holding out whole videos rewards that static information; holding out future time within the timeline removes the video-identity advantage and the cortical edge vanishes. In other words, Phase 5 may be ranking <em>which kinds of videos</em> have more spikes, not <em>when</em> a spike will occur — which is the claim being made.</p>
+  <p class="tag"><strong>Why it matters:</strong> the entire project thesis is temporal/predictive (“future arousal spike ranking”). The one protocol that genuinely tests forward-in-time prediction is the one where the signal disappears.</p>
+</div>
+
+<div class="crit">
+  <div class="hd"><span class="id">C2</span><span class="t">The promotion gate is coded so it can never be vetoed by the blocked-temporal failure</span><span class="sev fatal">Fatal</span></div>
+  <p>This is not a presentation problem; it is in the source. In <code>promotion_gates()</code>:</p>
+  <ul>
+    <li><strong>L796:</strong> <code>grouped = summary[validation_protocol == "grouped_video"]</code> — the <code>beats_controls</code> test is computed <strong>only on grouped-video</strong>. The gate <em>never</em> requires the real features to beat their controls under blocked-temporal.</li>
+    <li><strong>L828:</strong> <code>blocked_temporal_support = blocked_score &gt; ar_only_threshold (0.147)</code> — the “blocked support” flag is set <strong>True merely because the real blocked lane clears the weak AR floor</strong>, not because it beats the blocked controls. It loses to every noise control (C1), yet the report prints <code>Blocked temporal support: True</code>.</li>
+    <li><strong>L814–817:</strong> <code>weak/good/strong/holy_shit</code> pass on absolute thresholds (≥0.18/0.19/0.20) gated by the grouped-only <code>beats_controls</code>.</li>
+  </ul>
+  <p>So <code>recommendation: promote_to_phase6_candidate</code> and <code>holy_shit_pass: True</code> are <strong>structurally incapable</strong> of being stopped by the way the data actually fails. A gate that can only ever confirm is not a gate.</p>
+  <p class="tag"><strong>Rhetoric, too:</strong> a pass tier literally named <code>holy_shit_pass</code> (and four green “pass” lines) for a PR-AUC of 0.22 on a 10%-prevalence task signals motivated reasoning baked into the evaluation harness.</p>
+</div>
+
+<div class="crit">
+  <div class="hd"><span class="id">C3</span><span class="t">Effect-size inflation: the advertised deltas compare against the wrong baselines</span><span class="sev major">Major</span></div>
+  <p>The honest question is “how much do the <em>cortical</em> features add, holding architecture and capacity fixed?” That answer is the real-minus-matched-noise gap: <span class="num">≈ +0.02</span> PR-AUC (grouped), and <strong>negative</strong> (blocked). Instead the bundle headlines:</p>
+  <ul>
+    <li><strong>+0.047 vs Phase 4</strong> — but Phase 4 is ridge/linear; this delta mostly measures <em>MLP capacity</em>, not cortical signal.</li>
+    <li><strong>+0.072 vs AR</strong> — measures capacity + the AR pathway itself, not the cortical increment.</li>
+  </ul>
+  <p>Both conflate “a bigger model” with “the brain features work.” The matched control that isolates the latter (shuffled/random PCA in the <em>same</em> gated head) is reported but never used as the headline number.</p>
+  <p><strong>Compounding it:</strong> the controls were run <strong>only for <code>loss = binary</code></strong> (<code>phase5_control_metrics.csv</code> → <code>distinct losses: {'binary'}</code>), yet the promoted number uses <code>loss = regression_plus_binary</code> — a configuration with <strong>no matched controls at all</strong>. The single most-promoted figure is the one cell that was never subjected to a like-for-like control.</p>
+</div>
+
+<div class="crit">
+  <div class="hd"><span class="id">C4</span><span class="t">Garden of forking paths: the headline is the best cell of a multi-axis sweep</span><span class="sev major">Major</span></div>
+  <p>The promoted <span class="num">0.21913</span> is the maximum over <strong>2 protocols × 3 losses × 3 model heads</strong> (plus the implicit earlier selection of feature and target). It is the best of 3 “real” variants even within its own cell (the other two: 0.18450, 0.14990). Selecting the arg-max configuration and then reporting that configuration’s score as <em>the</em> result, without a multiplicity penalty or a held-out re-confirmation, inflates the apparent effect.</p>
+  <p>A tell of forking-path selection: the “winning” feature changes every phase — VEATIC’s winner was <code>pca_sequence_128_causal_past_2s_mean</code>, Phase 4’s differs again, and Phase 5’s is <code>temporal_mean_2s_then_pca256</code>. When the winning configuration is unstable across stages, some of each “win” is the sweep selecting noise.</p>
+</div>
+
+<div class="crit">
+  <div class="hd"><span class="id">C5</span><span class="t">Absolute performance is weak, and the headline metric was chosen after the natural one failed</span><span class="sev moderate">Moderate</span></div>
+  <p>Even taken at face value: ROC-AUC <span class="num">0.699</span>, top-<span class="num">1%</span> recall <span class="num">0.040</span> (i.e. at the sharpest spikes, barely above the 1% base rate), top-10% recall <span class="num">0.265</span>, continuous Pearson <span class="num">0.219</span>, continuous MAE that the zero-change baseline still beats. The project openly concedes continuous forecasting fails — and then frames the win on PR-AUC/top-k <em>ranking</em>. Switching to the metric that works after the headline metric fails is legitimate only if flagged as exploratory; here it is presented as the proven core.</p>
+</div>
+
+<div class="crit">
+  <div class="hd"><span class="id">C6</span><span class="t">Reported uncertainty understates cross-video variance</span><span class="sev moderate">Moderate</span></div>
+  <p>The promotion JSON quotes <code>std_pr_auc = 0.00524</code> with <code>seeds: 3</code> — i.e. seed-only dispersion (re-initialization), which is tiny by construction and makes the +0.047 delta look hugely significant. The honest uncertainty for “generalizes to new videos” is the cross-<em>fold</em> spread. <em>(In fairness — see Part II and the synthesis — I checked this and the grouped effect is in fact fold-robust; but the artifact’s own reported error bar is the wrong one and overstates precision.)</em></p>
+</div>
+
+<div class="crit">
+  <div class="hd"><span class="id">C7</span><span class="t">Bundled-README headline omits the control context for the blocked number</span><span class="sev moderate">Moderate</span></div>
+  <p>Scoped to the bundled doc as instructed: <code>BUNDLE_README.md</code> → “Headline Results” cites <em>“blocked temporal real PR-AUC 0.20712”</em> alongside the wins, presenting it as corroboration. It omits that under blocked-temporal the <strong>noise controls (≈0.219) beat that real number</strong>. A reader of the bundle alone would conclude blocked-temporal supports the claim; the underlying CSVs say the opposite.</p>
+</div>
+
+<!-- ============ PART II — BLUE TEAM ============ -->
+<span class="part blue">● Part II — Supportive Review (Blue Team)</span>
+<h2 style="border-top:none;padding-top:6px">The strongest good-faith case for the work</h2>
+<p class="small">Produced by an independent sub-agent instructed to champion Max’s methodology and results. Faithfully condensed; every number was independently re-checked against the files.</p>
+
+<blockquote class="steel">“This is one of the most disciplined, self-skeptical ML benchmark harnesses I have reviewed. The rigor is wired into the code and the artifacts, not decorative.”</blockquote>
+
+<h3>Genuine strengths (these hold up)</h3>
+<ul>
+  <li><strong>Matched, same-capacity controls.</strong> <code>random_pca</code> draws Gaussian noise of <em>identical shape</em> fed to the <em>same</em> gated MLP — far stronger than beating a majority baseline. Eight controls run in the same loop as the real lane.</li>
+  <li><strong>Leakage discipline is enforced in code,</strong> not promised: train-only standardization and thresholds, inner-validation early stopping inside the train fold, fold-safe Phase-4 PCA reused (never refit on test), <code>uses_future_features = False</code> across all 378 control rows, and seven machine-written audits (<code>transform_leakage_audit</code>, <code>split_leakage_audit</code>, <code>row_join_integrity</code> over 27.3M rows, <code>nan_inf_audit</code>, …) all returning <code>pass</code>.</li>
+  <li><strong>The label-permutation null is the cleanest single result.</strong> Retraining the <em>winning</em> head on permuted labels collapses to PR-AUC <span class="num">0.10428</span>, ROC-AUC <span class="num">0.513</span> (chance). This decisively rules out the “it’s all an evaluation bug / gross label leakage” hypothesis.</li>
+  <li><strong>The grouped-video win is fold-robust.</strong> Paired per-fold, real beats the best matched control in <strong>5 of 5 video folds</strong> (mean +0.019, std 0.005) — not a one-fold or one-seed artifact.</li>
+  <li><strong>Reproducibility infrastructure:</strong> SHA-256 checksum manifest + one-shot verifier, git commit recorded per run, fixed seeds, per-feature checksums, evidence frozen separately from heavy caches.</li>
+  <li><strong>Honest scoping &amp; hardware honesty:</strong> the bundle explicitly lists what remains unproven; the paid H100 995-video encode is correctly labelled a “data-generation milestone, not a benchmark result”; CUDA is actively barred and CPU fallback refused on the Mac/MLX runtime.</li>
+</ul>
+
+<h3>The Blue Team’s best rebuttals to my critiques</h3>
+<ul>
+  <li><em>“0.22 is small”</em> → it is ~2.1× the prevalence floor; ROC 0.70 on a stochastic, future-facing affective event from <em>predicted</em> cortical features is a conventional “moderate-and-real” discriminator.</li>
+  <li><em>“cherry-picking”</em> → primary target and feature are module constants fixed before the run; the head/loss grid is small; Bonferroni across the 9 grouped real lanes still clears Phase 4; the permutation null is independent of multiplicity.</li>
+  <li><em>“VEATIC→AGAIN doesn’t transfer”</em> → Phase 5 is trained and validated <em>entirely within AGAIN</em>; it independently <em>replicates the phenomenon</em> on 995 new videos, which is stronger than weight transfer.</li>
+  <li><em>“the gate thresholds are arbitrary”</em> → they are hard-coded literals (pre-registered, not moved post-hoc).</li>
+</ul>
+
+<div class="callout">
+<strong>Notably, even the champion conceded C1.</strong> The Blue Team flagged the blocked-temporal control reversal as <em>“the one a hostile reviewer would actually land,”</em> recommended tightening the blocked gate to enforce a control comparison, and spun off a documentation follow-up. When the designated advocate volunteers your central critique as real, that critique is real.
+</div>
+
+<!-- ============ PART III — SYNTHESIS ============ -->
+<span class="part violet">● Part III — Synthesis &amp; Recommendations</span>
+<h2 style="border-top:none;padding-top:6px">Reconciled verdict</h2>
+<p>The two reviews disagree less than their tone suggests. Both agree the pipeline is <strong>clean of gross leakage</strong> (label-permutation + audits), that the controls are <strong>well-designed and same-capacity</strong>, and that the grouped-video advantage is <strong>real and fold-robust</strong>. They diverge on what that advantage <em>means</em> — and the evidence adjudicates:</p>
+
+<div class="twocol">
+  <div class="card win">
+    <h4>What survives scrutiny</h4>
+    <ul class="small" style="margin:6px 0 0;padding-left:18px">
+      <li>No fabrication; no gross leakage (perm-null at chance).</li>
+      <li>A small, <strong>fold-consistent</strong> cortical edge over matched noise under <em>cross-video</em> splits: <strong>≈ +0.02 PR-AUC</strong>.</li>
+      <li>Real engineering scale &amp; reproducibility (995 videos, 243,575 rows, checksums).</li>
+    </ul>
+  </div>
+  <div class="card lose">
+    <h4>What does not survive</h4>
+    <ul class="small" style="margin:6px 0 0;padding-left:18px">
+      <li>The “+0.047 / +0.072” framing (baseline-inflated by ~2–3×).</li>
+      <li>Any <em>temporal/predictive</em> claim — the edge is gone (reversed) under future-time holdout.</li>
+      <li>The <code>promote</code> / <code>holy_shit_pass</code> decision (gate can’t see the failure).</li>
+    </ul>
+  </div>
+</div>
+
+<p>The Blue Team’s defense of C1 — “blocked-temporal is only diagnostic; flexible heads exploit autocorrelation from noise” — actually <em>concedes the case</em>: if a flexible head reaches 0.219 in blocked-temporal from <strong>noise</strong>, then the grouped 0.219 is also substantially capacity + autocorrelation, and the genuine cortical increment is the small grouped-only residual, of <strong>unestablished mechanism</strong>.</p>
+
+<h2>The main critiques, ranked (what to put in front of the author)</h2>
+<table>
+<thead><tr><th style="width:34px">#</th><th>Critique</th><th>Severity</th><th>One-line</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td>Effect reverses under temporal blocking; likely a static/video-level proxy, not predictive dynamics</td><td><span class="sev fatal">Fatal</span></td><td>The predictive claim fails the predictive test.</td></tr>
+<tr><td class="num">2</td><td>Promotion gate checks controls only in the favorable protocol; “blocked support” only checks the AR floor</td><td><span class="sev fatal">Fatal</span></td><td>A gate that cannot fail.</td></tr>
+<tr><td class="num">3</td><td>Headline deltas (+0.047/+0.072) measure model capacity, not cortical signal; headline loss has no matched controls</td><td><span class="sev major">Major</span></td><td>Honest effect ≈ +0.02.</td></tr>
+<tr><td class="num">4</td><td>Arg-max over protocol×loss×head with no multiplicity control; unstable winners across phases</td><td><span class="sev major">Major</span></td><td>Forking paths.</td></tr>
+<tr><td class="num">5</td><td>Weak absolutes; ranking metric adopted after continuous failed</td><td><span class="sev moderate">Moderate</span></td><td>0.04 top-1% recall.</td></tr>
+<tr><td class="num">6</td><td>Seed-only error bars; bundled-README omits blocked control context</td><td><span class="sev moderate">Moderate</span></td><td>Overstated precision.</td></tr>
+</tbody>
+</table>
+
+<h2>What I would change (concrete, in priority order)</h2>
+<ol>
+  <li><strong>Make the gate symmetric.</strong> Require <code>beats_controls</code> under <strong>both</strong> protocols, and redefine <code>blocked_temporal_support</code> as “real beats blocked <em>controls</em>,” not “real beats the AR floor.” Under that definition Phase 5 <em>fails</em> — which is the correct outcome. Delete <code>holy_shit_pass</code>.</li>
+  <li><strong>Run the matched controls for every loss</strong> (especially <code>regression_plus_binary</code>), so the promoted cell has a like-for-like shuffled/random comparison. Report the <strong>real−matched-control</strong> gap as the headline effect (≈ +0.02 grouped, ≤ 0 blocked).</li>
+  <li><strong>Settle the mechanism with two cheap tests.</strong> (a) Add a <em>video-mean cortical</em> control: replace each row’s features with its video’s mean cortical vector — if it matches the real lane under grouped-video, the signal is static/video-level, not dynamic. (b) Score <em>within-video</em> ranking (rank spikes inside each held-out video) so video-level base rates cannot help. If the grouped edge survives (a) and (b), the predictive claim is earned; if not, restate it as a static-correlate finding.</li>
+  <li><strong>Replace absolute pass thresholds with significance.</strong> Use the paired per-fold delta (real − matched control) with a bootstrap/permutation CI; promote only if the CI excludes 0 under <em>both</em> protocols.</li>
+  <li><strong>Pre-register the primary cell</strong> (protocol, loss, head, feature, target) before the run, and report all non-primary cells as exploratory with a multiplicity note.</li>
+  <li><strong>Re-word the bundled README headline</strong> to state the matched-control effect and the blocked-temporal reversal in the same breath as the win.</li>
+</ol>
+
+<h2>The one claim that is actually defensible</h2>
+<blockquote>
+On dense 995-video AGAIN (243,575 rows @ 2&nbsp;Hz), a same-capacity gated head over TRIBE-predicted cortical PCA features shows a <strong>small, fold-consistent advantage over identically-shaped noise controls when whole videos are held out (≈ +0.02 PR-AUC, 5/5 folds)</strong>, with a label-permutation null at chance. <strong>This advantage does not survive forward-in-time holdout</strong> and its mechanism (predictive dynamics vs. video-level static structure) is not yet established.
+</blockquote>
+<p>That sentence is bulletproof. The bundle’s sentence — “+0.047 vs Phase 4, +0.072 vs AR, Holy-shit pass, promote” — is not.</p>
+
+<div class="foot">
+  <p><strong>How this review was produced.</strong> The repo was cloned and read directly (not summarized from the README). I aggregated the raw Phase-5 metrics CSVs (<code>summary</code>, <code>control</code>, <code>fold</code>), read the runner <code>backend/scripts/run_again_dense_2hz_phase5_learned_heads.py</code> (gate logic L772–833, gated head L175–198), decompressed the three <code>large_evidence_compressed/*.csv.gz</code> archives (995-video / 243,575-row provenance confirmed), and ran a paired per-fold significance check. A separate sub-agent independently produced the supportive review (Part II). The synthesis (Part III) is mine.</p>
+  <p><strong>Files examined (selection):</strong>
+    <span class="chip">BUNDLE_README.md</span>
+    <span class="chip">phase5_promotion_summary_182423.md</span>
+    <span class="chip">phase5_learned_heads_benchmark_182423.md</span>
+    <span class="chip">phase5_summary_metrics.csv</span>
+    <span class="chip">phase5_control_metrics.csv</span>
+    <span class="chip">phase5_fold_metrics.csv</span>
+    <span class="chip">run_again_dense_2hz_phase5_learned_heads.py</span>
+    <span class="chip">row_index.csv.gz</span>
+    <span class="chip">again_manifest_proposal.csv.gz</span>
+    <span class="chip">again_boundary_aligned_1hz_manifest.csv.gz</span>
+  </p>
+  <p><strong>Caveat:</strong> the heavy per-row cortical tensors and PCA arrays are excluded from the bundle, so the video-level-proxy hypothesis (C1) is presented as the best-supported interpretation and the disambiguating experiment, not a re-run result. All numeric claims are from the tracked metrics artifacts listed above.</p>
+</div>
+
+</main>
+</body>
+</html>

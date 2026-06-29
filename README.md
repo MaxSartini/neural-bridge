@@ -33,7 +33,13 @@ Commercially, Neural Bridge is a translation layer that turns noisy video/cortic
 
 ## Adversarial Review Caveats
 
-Claude/adversarial review found that the original Phase 5 result is not fake and not gross leakage, but the headline was overpromoted. The old Phase 5 promotion gate was too generous and grouped-biased.
+The canonical adversarial critique is [docs/reviews/neural_bridge_phase5_adversarial_review_20260625.html](docs/reviews/neural_bridge_phase5_adversarial_review_20260625.html).
+
+Claude/adversarial review found that the original Phase 5 result is not fraud and not grossly leaky. Label permutation sanity supports no gross leakage, and the grouped-video cross-video spike/event ranking signal is real and fold-robust.
+
+The headline effect was overpromoted. The honest matched-control grouped cortical edge is closer to about `+0.02` PR-AUC, not the larger deltas versus AR-only or Phase 4.
+
+Blocked-temporal matched controls beat real, so strict forward-time temporal generalization is not yet proven. The old Phase 5 promotion gate was structurally flawed because `blocked_temporal_support` checked real > AR, not real > best matched blocked control.
 
 Continuous arousal movement scoring remains promising, but should be evaluated with ranking/lift metrics rather than only MAE/MSE.
 
@@ -43,7 +49,7 @@ The next task is original Phase 5 adversarial repair, not Phase 5b/5c expansion.
 
 `gated_ar_pca_mlp` / `regression_plus_binary` / `temporal_mean_2s_then_pca256` / AR + temporal diagnostics.
 
-Required repair items include restoring the best checkpoint before test scoring, using matched controls, fixing blocked support logic, using blocked inner validation for blocked outer protocol, adding blocked split audit, adding video-mean/static PCA diagnostics, and adding within-video plus top-percent metrics.
+Required repair items include restoring the best checkpoint before test scoring, adding matched controls for every promoted loss especially `regression_plus_binary`, correcting the blocked gate to require real > best matched blocked control, using blocked inner validation for blocked outer protocol, adding blocked split audit, adding video-mean/static PCA diagnostics, adding within-video ranking metrics, adding top-percent product-facing metrics, adding paired fold delta / CI versus matched controls, removing or retiring `holy_shit_pass`, and reporting real-minus-matched-control as the headline effect.
 
 ## Canonical Artifacts
 
@@ -53,6 +59,7 @@ Required repair items include restoring the best checkpoint before test scoring,
 - Original Phase 5 sanity root: `outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/`
 - Original Phase 5 runner: `backend/scripts/run_again_dense_2hz_phase5_learned_heads.py`
 - Evidence bundle: `evidence_bundle_phase0_to_phase5_20260625/`
+- Canonical adversarial review: `docs/reviews/neural_bridge_phase5_adversarial_review_20260625.html`
 
 Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless a task explicitly requires documentation-only references.
 

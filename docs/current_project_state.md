@@ -18,7 +18,7 @@ Preserve these artifacts:
 - Original Phase 5 sanity root: `outputs/again_dense_2hz_phase5_learned_heads_20260625_185338/`
 - Original Phase 5 runner: `backend/scripts/run_again_dense_2hz_phase5_learned_heads.py`
 - Evidence bundle: `evidence_bundle_phase0_to_phase5_20260625/`
-- Claude/adversarial review artifact, if present.
+- Canonical adversarial review: `docs/reviews/neural_bridge_phase5_adversarial_review_20260625.html`
 
 Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly only referencing them from docs.
 
@@ -57,11 +57,17 @@ This was a large improvement over AR-only `0.14725` and Phase 4 `0.17165`. The o
 
 ## Claude/Adversarial Critique
 
-The original Phase 5 result is not fake and not gross leakage. The old headline was overpromoted.
+Canonical review artifact: `docs/reviews/neural_bridge_phase5_adversarial_review_20260625.html`.
+
+The original Phase 5 result is not fraud and not grossly leaky. Label permutation sanity supports no gross leakage, and the grouped-video cross-video spike/event ranking signal is real and fold-robust.
+
+The old headline effect was overpromoted. The honest matched-control grouped cortical edge is closer to about `+0.02` PR-AUC, not the larger deltas versus AR-only or Phase 4.
 
 The defensible current claim is cross-video future arousal spike / emotional moment ranking from video-derived cortical bridge features.
 
-Strict forward-time temporal generalization remains under repair because blocked-temporal matched controls were not properly required to beat real. Exact continuous future arousal forecasting is not proven as the main claim.
+Blocked-temporal matched controls beat real, so strict forward-time temporal generalization remains under repair and is not yet proven. Exact continuous future arousal forecasting is not proven as the main claim.
+
+The old promotion gate was structurally flawed because `blocked_temporal_support` checked real > AR, not real > best matched blocked control.
 
 Continuous arousal movement scoring remains promising and should be evaluated with ranking/lift metrics, not only MAE/MSE. The old Phase 5 promotion gate was too generous and grouped-biased.
 
@@ -80,13 +86,16 @@ The next task is original Phase 5 adversarial repair, not Phase 5b/5c expansion.
 Required repair items:
 
 - Restore the best checkpoint before test scoring.
-- Fix control labels and make controls explicitly matched.
-- Ensure `regression_plus_binary` has matched `regression_plus_binary` controls.
-- Correct blocked support logic: real must beat the best matched blocked control, not merely AR.
+- Add matched controls for every promoted loss, especially `regression_plus_binary`.
+- Correct the blocked gate so real must beat the best matched blocked control, not merely AR.
 - Use blocked inner validation for blocked outer protocol.
 - Add blocked split audit.
 - Add video-mean/static PCA diagnostic.
-- Add within-video and top-percent metrics.
+- Add within-video ranking metrics.
+- Add top-percent product-facing metrics.
+- Add paired fold delta / CI versus matched controls.
+- Remove or retire `holy_shit_pass`.
+- Report real-minus-matched-control as the headline effect.
 - Re-run or rescore the original winning lane first before expanding scope.
 
 ## What Not To Do Next
