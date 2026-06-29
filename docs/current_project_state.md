@@ -24,6 +24,7 @@ Do not claim:
 - Grouped-video cross-video spike/event ranking signal is real, fold-robust, and survives deterministic eval-mode checkpoint rescoring.
 - The canonical eval-mode matched-control grouped cortical edge is `+0.0257898694` PR-AUC.
 - Blocked-temporal matched controls and AR-only beat real, so strict forward-time temporal generalization remains unproven.
+- The fused gated head appears to let real PCA interfere with the AR/time path under blocked validation.
 - Continuous arousal movement is not a solved claim; score it with ranking/lift metrics and controls.
 
 ## Current Numbers
@@ -65,4 +66,4 @@ Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, 
 
 The primary repair matrix trained correctly and saved best checkpoints. The eval-mode rescore loaded all `702/702` saved best checkpoints, disabled dropout, and scored only the original held-out rows. These eval-mode metrics are the canonical deterministic Phase 5 primary repair numbers.
 
-Next task: explain and repair blocked-temporal failure before starting secondary heads. Focus on AR-only dominance, real-PCA fusion under blocked validation, blocked AR+random/shuffled PCA diagnostics, temporal-negative controls, and gate/fusion instrumentation. Do not claim strict temporal prediction, do not use the old `holy_shit_pass`, and do not rerun the full 702 matrix unless a targeted diagnostic requires it.
+Next task: frozen-AR residual-over-AR repair before starting secondary heads. Freeze or anchor the AR score/logit as the baseline floor, train cortical PCA/diagnostics only as a residual correction, and combine `final_score = frozen_ar_score + alpha * residual_score` with `alpha` initialized near zero. The residual must beat frozen AR and matched residual controls, or learn to do no harm if cortical residual signal is useless. Do not claim strict temporal prediction unless frozen residual beats AR and matched controls under blocked temporal validation. Do not use Phase 5b/5c/Spark outputs, do not use the old `holy_shit_pass`, and do not rerun the full 702 matrix unless a targeted diagnostic requires it.

@@ -22,7 +22,7 @@ Key eval-mode Phase 5 primary repair numbers:
 - blocked real-minus-control delta: `-0.0093188895`
 - blocked AR-only PR-AUC: `0.2654721820`
 
-The Phase 5 primary repair result is a grouped-video ranking result, not proof of strict temporal prediction. Label permutation stays near chance, video-mean PCA does not explain the grouped signal, and blocked-temporal matched controls plus AR-only beat real.
+The Phase 5 primary repair result is a grouped-video ranking result, not proof of strict temporal prediction. Label permutation stays near chance, video-mean PCA does not explain the grouped signal, and blocked-temporal matched controls plus AR-only beat real. The fused gated head appears to let real PCA interfere with the AR/time path under blocked validation.
 
 Do not claim continuous arousal forecasting is solved, strict temporal prediction is proven, Phase 5b/5c/Spark outputs are canonical, or `holy_shit_pass` is a valid gate.
 
@@ -38,4 +38,4 @@ Primary Phase 5 lane: `arousal_spike_rows_2_6_train_q90` with `gated_ar_pca_mlp`
 
 ## Next Work
 
-Explain and repair the blocked-temporal failure before starting secondary heads. Focus on AR-only dominance, real-PCA fusion under blocked validation, blocked AR+random/shuffled PCA diagnostics, temporal-negative controls, and gate/fusion instrumentation. Do not rerun the full 702 matrix unless a targeted diagnostic shows it is necessary.
+Run the frozen-AR residual-over-AR repair before starting secondary heads. Freeze or anchor the AR score/logit as the baseline floor, train cortical PCA/diagnostics only as a residual correction, and combine `final_score = frozen_ar_score + alpha * residual_score` with `alpha` initialized near zero. The residual must beat frozen AR and matched residual controls, or learn to do no harm. Do not claim strict temporal generalization unless the frozen residual beats AR and matched controls under blocked temporal validation. Do not rerun the full 702 matrix unless a targeted diagnostic shows it is necessary.

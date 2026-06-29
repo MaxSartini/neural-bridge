@@ -24,7 +24,7 @@ Canonical adversarial review:
 Canonical deterministic repair report:
 `reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md`
 
-Current bottom line: grouped-video ranking signal survives eval-mode checkpoint rescoring; blocked-temporal matched controls and AR-only beat real, so strict forward-time temporal generalization is not proven.
+Current bottom line: grouped-video ranking signal survives eval-mode checkpoint rescoring; blocked-temporal matched controls and AR-only beat real, so strict forward-time temporal generalization is not proven. The fused gated head appears to let real PCA interfere with the AR/time path under blocked validation.
 
 ## Canonical Artifacts
 
@@ -52,7 +52,7 @@ Primary lane: `arousal_spike_rows_2_6_train_q90` using `gated_ar_pca_mlp` / `reg
 
 ## Next Task
 
-Next work is blocked-temporal mechanism diagnosis/repair before any secondary heads. Focus on AR-only dominance, why real PCA helps grouped but hurts blocked, blocked AR+random/shuffled PCA diagnostics, temporal-negative controls, and gate/fusion instrumentation. Do not rerun the full 702 matrix unless a targeted diagnostic requires it.
+Next work is frozen-AR residual-over-AR repair before any secondary heads. Freeze or anchor the AR score/logit as the baseline floor, train cortical PCA/diagnostics only as a residual correction, and combine `final_score = frozen_ar_score + alpha * residual_score` with `alpha` initialized near zero. The residual must earn improvement over frozen AR and matched residual controls, or learn to do no harm. Do not claim strict temporal generalization unless frozen residual beats AR and matched controls under blocked temporal validation. Do not rerun the full 702 matrix unless a targeted diagnostic requires it.
 
 ## Code Discovery
 
