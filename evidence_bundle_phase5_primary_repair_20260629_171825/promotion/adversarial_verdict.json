@@ -1,0 +1,18 @@
+{
+  "recommendation": "repair_required",
+  "cross_video_ranking_strengthened": true,
+  "grouped_support": true,
+  "grouped_real_pr_auc": 0.2282800471,
+  "grouped_best_matched_control_pr_auc": 0.2021634578,
+  "grouped_matched_control_delta": 0.0261165893,
+  "grouped_fold_seed_positive": "15/15",
+  "strict_forward_time_temporal_generalization_proven": false,
+  "blocked_support": false,
+  "blocked_real_pr_auc": 0.2199977456,
+  "blocked_best_matched_control_pr_auc": 0.2288685899,
+  "blocked_matched_control_delta": -0.0088708442,
+  "label_permutation_pass": true,
+  "video_mean_static_control_pass": true,
+  "checkpoint_restore_pass": true,
+  "corrected_claim": "Robust cross-video future arousal spike / emotional moment ranking is strengthened; strict forward-time temporal generalization remains unproven."
+}
