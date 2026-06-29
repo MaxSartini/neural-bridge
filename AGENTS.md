@@ -24,7 +24,10 @@ Canonical adversarial review:
 Canonical deterministic repair report:
 `reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md`
 
-Current bottom line: grouped-video ranking signal survives eval-mode checkpoint rescoring; blocked-temporal matched controls and AR-only beat real, so strict forward-time temporal generalization is not proven. The fused gated head appears to let real PCA interfere with the AR/time path under blocked validation.
+Canonical frozen-AR residual report:
+`reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md`
+
+Current bottom line: grouped-video ranking signal survives eval-mode checkpoint rescoring, and the frozen-AR residual experiment strengthens the cross-video ranking claim by showing real cortical residual improves grouped beyond frozen AR and matched residual controls. Blocked strict forward-time temporal generalization is still not proven. Frozen-AR residual reduced blocked harm: old fused real was far below blocked AR, while frozen residual is within do-no-harm tolerance.
 
 ## Canonical Artifacts
 
@@ -33,6 +36,8 @@ Current bottom line: grouped-video ranking signal survives eval-mode checkpoint 
 - Evidence bundle: `evidence_bundle_phase0_to_phase5_20260625/`
 - Primary repair checkpoint root: `outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_20260629_171825/`
 - Eval-mode rescore root: `outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_evalmode_rescore_/`
+- Frozen-AR residual output root: `outputs/again_dense_2hz_phase5_frozen_ar_residual_/`
+- Frozen-AR residual evidence snapshot: `evidence_bundle_phase5_frozen_ar_residual_/`
 
 Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly asked. Do not force-add ignored output roots.
 
@@ -47,12 +52,23 @@ Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, 
 - blocked best matched control `ar_plus_random_pca` PR-AUC: `0.2311845051`
 - blocked real-minus-control delta: `-0.0093188895`
 - blocked AR-only PR-AUC: `0.2654721820`
+- frozen-AR residual grouped frozen AR PR-AUC: `0.2246816187`
+- frozen-AR residual grouped best real residual PR-AUC: `0.2383409298`
+- frozen-AR residual grouped matched control PR-AUC: `0.2248361805`
+- frozen-AR residual grouped delta vs frozen AR: `+0.0136593110`
+- frozen-AR residual grouped delta vs matched control: `+0.0135047493`
+- frozen-AR residual blocked frozen AR PR-AUC: `0.2654721820`
+- frozen-AR residual blocked best real residual PR-AUC: `0.2635930904`
+- frozen-AR residual blocked delta vs frozen AR: `-0.0018790916`
+- frozen-AR residual blocked delta vs matched control: `-0.0017473477`
+- frozen-AR residual do_no_harm_blocked_pass: yes
+- frozen-AR residual full_forward_time_pass: no
 
 Primary lane: `arousal_spike_rows_2_6_train_q90` using `gated_ar_pca_mlp` / `regression_plus_binary` / `temporal_mean_2s_then_pca256` / AR + temporal diagnostics.
 
 ## Next Task
 
-Next work is frozen-AR residual-over-AR repair before any secondary heads. Freeze or anchor the AR score/logit as the baseline floor, train cortical PCA/diagnostics only as a residual correction, and combine `final_score = frozen_ar_score + alpha * residual_score` with `alpha` initialized near zero. The residual must earn improvement over frozen AR and matched residual controls, or learn to do no harm. Do not claim strict temporal generalization unless frozen residual beats AR and matched controls under blocked temporal validation. Do not rerun the full 702 matrix unless a targeted diagnostic requires it.
+Next work is targeted blocked residual improvement, not broad secondary heads. Candidate repairs include stronger residual alpha regularization, blocked-only inner-val delta selection, rank/lift auxiliary loss, monotonic/do-no-harm residual gating, or training residual branches only where AR confidence is low. Do not claim strict temporal generalization unless frozen residual beats AR and matched controls under blocked temporal validation. Do not rerun the full 702 matrix unless a targeted diagnostic requires it.
 
 ## Code Discovery
 
