@@ -2,11 +2,11 @@
 
 ## Executive Summary
 
-Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software. It predicts and ranks future human arousal/event moments from frozen video-derived predictions of brain cortical response structure, allowing creative, media, game, and AI-video teams to understand which parts of a video are likely to matter before audience data exists.
+Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software. It predicts and ranks future human arousal/event moments from frozen video-derived predictions generated from brain cortical response data, allowing creative, media, game, and AI-video teams to understand which parts of a video are likely to matter before audience data exists.
 
 This is Service as Software for video response intelligence: automated expert response analysis, not merely a dashboard. The customer is not buying a seat in another analytics tool. The customer is buying the outcome a specialist team would normally deliver: evaluate this video, find the likely response moments, flag the weak sections, compare the cuts, and produce a response-readiness report before launch.
 
-The neuro angle is the point. Neural Bridge is not just a visual-content model that sees objects, actions, or scene categories. It uses a learned video-side proxy for brain cortical response structure, then asks whether that neuro-response representation can rank future human arousal events under adversarial controls.
+The neuro angle is the point. Neural Bridge is not just a visual-content model that sees objects, actions, or scene categories. It uses a learned video-side proxy for brain cortical response data, then asks whether that neuro-response representation can rank future human arousal events under adversarial controls.
 
 The result is commercially stronger because it is cross-domain. VEATIC covers film, TV/reality, documentary, and home-video emotion content; AGAIN covers interactive gameplay and game-video arousal. Neural Bridge is therefore not only a single-dataset media demo. It is a paired evidence ladder across edited affect video and gaming video.
 
@@ -167,7 +167,7 @@ That distinction matters commercially. A response-readiness report is more valua
 
 ## Scientific Core
 
-The commercial story is grounded in the science. Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions of brain cortical response structure across VEATIC and AGAIN.
+The commercial story is grounded in the science. Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
 
 VEATIC and AGAIN form a paired evidence ladder:
 
@@ -176,7 +176,7 @@ VEATIC and AGAIN form a paired evidence ladder:
 
 Dataset sources: [VEATIC project page](https://veatic.github.io/), [VEATIC WACV 2024 paper](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html), [AGAIN project page](https://again.institutedigitalgames.com/), [AGAIN arXiv paper](https://arxiv.org/abs/2104.02643).
 
-Most video AI detects visible content. Neural Bridge uses video-derived predictions of brain cortical response structure to rank future response-relevant moments.
+Most video AI detects visible content. Neural Bridge uses video-derived predictions generated from brain cortical response data to rank future response-relevant moments.
 
 Most systems answer:
 
@@ -211,7 +211,7 @@ Proven:
 - AGAIN bounded strict forward-time future-event ranking for the redesigned washout-gap target/head
 - AGAIN grouped-video compatibility for the same target/head
 - evidence that video-derived neuro-response features contain future human-response event signal beyond AR and matched controls
-- evidence that video-derived predictions of brain cortical response structure contain future human-response event signal beyond AR and matched controls
+- evidence that video-derived predictions generated from brain cortical response data contain future human-response event signal beyond AR and matched controls
 
 Open:
 
@@ -237,7 +237,7 @@ The business would be weak if Neural Bridge were only a vibes dashboard. It matt
 - blocked temporal validation
 - grouped held-out-video validation
 
-That means the commercial claim is not merely "our model makes a pretty timeline." It is: video-derived predictions of brain cortical response structure capture future response-event signal beyond obvious baselines.
+That means the commercial claim is not merely "our model makes a pretty timeline." It is: video-derived predictions generated from brain cortical response data capture future response-event signal beyond obvious baselines.
 
 ## Moat
 

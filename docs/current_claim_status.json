@@ -1,5 +1,5 @@
 {
-  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions of brain cortical response structure across VEATIC and AGAIN.",
+  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.",
   "datasets": {
     "VEATIC-124 v2": {
       "role": "foundational evidence",
@@ -39,7 +39,7 @@
     }
   },
   "proven": [
-    "Controlled future human arousal event-ranking from frozen video-derived predictions of brain cortical response structure across VEATIC and AGAIN.",
+    "Controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.",
     "VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal.",
     "AGAIN replicated and extended the result at scale.",
     "Bounded strict forward-time future-event ranking is proven on AGAIN for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
@@ -175,7 +175,7 @@
     "policy": "Only deterministic contract tests, claim-bearing runners, no-training verdict/audit scripts, and documented runtime tools are indexed. Runtime probes are not claim-bearing benchmark evidence."
   },
   "commercial_model": "service_as_software",
-  "commercial_summary": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software: submit video or variants, use video-derived predictions of brain cortical response structure to rank future response-event moments, flag weak segments, compare cuts, and produce response-readiness reports before audience data exists.",
+  "commercial_summary": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software: submit video or variants, use video-derived predictions generated from brain cortical response data to rank future response-event moments, flag weak segments, compare cuts, and produce response-readiness reports before audience data exists.",
   "primary_wedge": "pre-release creative response intelligence for video",
   "buyer_personas": [
     "ad agencies",
@@ -198,7 +198,7 @@
   ],
   "service_as_software": {
     "one_liner": "Neural Bridge is Service as Software for neuro-response video intelligence.",
-    "core_phrase": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software using video-derived predictions of brain cortical response structure.",
+    "core_phrase": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software using video-derived predictions generated from brain cortical response data.",
     "customer_outcome": "Tell us which parts of this video are likely to work, which are weak, and which variant we should test or ship.",
     "main_doc": "docs/neural_bridge_service_as_software.md",
     "neuro_response_core": "The system uses frozen video-side features trained from brain cortical response data; the claim is future human arousal event ranking from that neuro-response representation, not generic video analytics."
