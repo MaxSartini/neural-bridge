@@ -12,6 +12,8 @@ Canonical deterministic Phase 5 repair report: `reports/again_dense_2hz_phase5_e
 
 Canonical frozen-AR residual report: `reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md`
 
+Repaired temporal residual grouped compatibility verdict: `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_REPAIRED_VERDICT.md`
+
 Do not claim:
 
 - exact continuous future arousal forecasting is solved
@@ -26,6 +28,8 @@ Do not claim:
 - Grouped-video cross-video spike/event ranking signal is real, fold-robust, and survives deterministic eval-mode checkpoint rescoring.
 - The canonical eval-mode matched-control grouped cortical edge is `+0.0257898694` PR-AUC.
 - Frozen-AR residual repair strengthens the cross-video ranking claim by showing real cortical residual improves grouped beyond frozen AR and matched residual controls.
+- The repaired temporal residual grouped compatibility verdict strengthens the redesigned washout-gap grouped compatibility evidence: real short temporal conv residual beats AR/frozen and matched controls across `50/50` fold-seed comparisons.
+- The original grouped compatibility artifact failed the legacy label-permutation-near-chance gate; the repaired frozen-AR-residual-aware verdict treats that legacy gate as inapplicable because label permutation includes the same frozen AR floor.
 - Blocked-temporal matched controls and AR-only still prevent a strict forward-time temporal generalization claim.
 - Frozen-AR residual reduced blocked harm: old fused real was far below blocked AR, while frozen residual is within do-no-harm tolerance.
 - The fused gated head appeared to let real PCA interfere with the AR/time path under blocked validation; frozen AR made the AR path the baseline floor.
@@ -64,6 +68,24 @@ Frozen-AR residual repair:
 - full_forward_time_pass: no
 - recommendation: `exploratory_grouped_only`
 
+Temporal residual grouped compatibility repaired verdict:
+
+- target: `future_arousal_max_delta_rows_4_10_train_q90`
+- architecture: `short_temporal_conv_residual`
+- grouped real PR-AUC: `0.2313831909`
+- grouped AR/frozen PR-AUC: `0.2174953276`
+- grouped best matched control PR-AUC: `0.2174209937`
+- grouped delta vs AR: `+0.0138878634`
+- grouped delta vs best matched control: `+0.0139621972`
+- grouped fold-seed positives vs best control: `50/50`
+- label permutation PR-AUC: `0.2153099775`
+- real-minus-label-permutation delta: `+0.0160732134`
+- label-permutation-minus-AR delta: `-0.0021853501`
+- original artifact failed legacy `label_permutation_near_chance_pass`
+- repaired frozen-AR-residual-aware grouped compatibility pass: yes
+- no retraining, PCA regeneration, or 504 run was done for the verdict repair
+- strict broad temporal generalization still requires explicit later confirmation
+
 Primary lane:
 
 - target: `arousal_spike_rows_2_6_train_q90`
@@ -88,5 +110,7 @@ Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, 
 The primary repair matrix trained correctly and saved best checkpoints. The eval-mode rescore loaded all `702/702` saved best checkpoints, disabled dropout, and scored only the original held-out rows. These eval-mode metrics are the canonical deterministic Phase 5 primary repair numbers.
 
 The frozen-AR residual experiment re-forwarded AR-only best checkpoints in eval mode, avoided AR retraining, and trained cortical residual corrections over the frozen AR baseline. It produced a grouped residual pass and a blocked do-no-harm pass, but not a blocked residual pass or full forward-time pass.
+
+The temporal residual grouped compatibility verdict was repaired without rerunning the 350-row experiment. The legacy label-permutation-near-chance gate is recorded as inapplicable to frozen-AR residual designs because the label-permutation residual lane retains the frozen AR floor. Under the repaired null, real beats label permutation by `+0.0160732134` mean PR-AUC and in `50/50` fold-seed comparisons, while label permutation remains below AR by `-0.0021853501`.
 
 Next task: targeted blocked residual improvement, not broad secondary heads. Candidate repairs include stronger residual alpha regularization, blocked-only inner-val delta selection, rank/lift auxiliary loss, monotonic/do-no-harm residual gating, or training residual branches only where AR confidence is low. Do not claim strict temporal prediction unless frozen residual beats AR and matched controls under blocked temporal validation. Do not use Phase 5b/5c/Spark outputs, do not use the old `holy_shit_pass`, and do not rerun the full 702 matrix unless a targeted diagnostic requires it.

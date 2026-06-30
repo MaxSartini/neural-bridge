@@ -23,8 +23,20 @@ Key result:
 - Delta vs AR/frozen baseline: `+0.0138878634`
 - Delta vs best control: `+0.0139621972`
 - Fold-seed positives vs best control: `50/50`
-- Grouped compatibility pass: `false`
-- Failed gate: `label_permutation_not_near_chance`
-- Recommendation: `grouped_compatibility_failed_do_not_run_504`
+- Original grouped compatibility pass: `false`
+- Original failed gate: `label_permutation_not_near_chance`
+- Repaired frozen-AR-residual-aware grouped compatibility pass: `true`
+- Repaired failed gates: `[]`
+- Repaired recommendation: `grouped_compatibility_pass_review_before_any_504`
+
+Verdict repair:
+
+- No retraining was done.
+- No PCA was regenerated.
+- No 504 was run.
+- The original artifact failed the legacy label-permutation-near-chance gate.
+- The repaired verdict treats the legacy near-chance gate as inapplicable because `label_permutation_residual` includes the same frozen AR floor and only permutes residual train/inner-val labels.
+- Under the repaired null, real beats label permutation by `+0.0160732134` mean PR-AUC, real beats label permutation in `50/50` fold-seed comparisons, and label permutation is below AR by `-0.0021853501`.
+- Strict broad temporal generalization still requires explicit later confirmation.
 
 This bundle contains small MD/CSV/JSON artifacts only. It excludes heavy PCA score arrays, checkpoints, row-index CSVs, and the full ignored output root.

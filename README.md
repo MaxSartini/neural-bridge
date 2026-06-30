@@ -12,6 +12,8 @@ Canonical deterministic rescore: [reports/again_dense_2hz_phase5_evalmode_rescor
 
 Frozen-AR residual repair: [reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md](reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md)
 
+Repaired grouped compatibility verdict: [reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_REPAIRED_VERDICT.md](reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_REPAIRED_VERDICT.md)
+
 Key eval-mode Phase 5 primary repair numbers:
 
 - grouped real `regression_plus_binary` PR-AUC: `0.2300639382`
@@ -39,7 +41,24 @@ Frozen-AR residual repair result:
 - full_forward_time_pass: no
 - recommendation: `exploratory_grouped_only`
 
-The current canonical state includes the deterministic eval-mode Phase 5 repair plus the frozen-AR residual experiment. The frozen-AR residual result strengthens the cross-video future arousal spike / emotional moment ranking claim by showing real cortical residual improves grouped beyond frozen AR and matched residual controls. Blocked strict forward-time temporal generalization remains unproven. Frozen-AR residual reduced blocked harm: old fused real was far below blocked AR, while frozen residual is within do-no-harm tolerance.
+Temporal residual grouped compatibility repaired verdict:
+
+- target: `future_arousal_max_delta_rows_4_10_train_q90`
+- architecture: `short_temporal_conv_residual`
+- grouped real PR-AUC: `0.2313831909`
+- grouped AR/frozen PR-AUC: `0.2174953276`
+- grouped best matched control PR-AUC: `0.2174209937`
+- grouped delta vs AR: `+0.0138878634`
+- grouped delta vs best matched control: `+0.0139621972`
+- grouped fold-seed positives vs best control: `50/50`
+- label permutation PR-AUC: `0.2153099775`
+- real-minus-label-permutation delta: `+0.0160732134`
+- label-permutation-minus-AR delta: `-0.0021853501`
+- original artifact failed the legacy label-permutation-near-chance gate
+- repaired frozen-AR-residual-aware verdict: grouped compatibility pass
+- no retraining, PCA regeneration, or 504 run was done for the verdict repair
+
+The current canonical state includes the deterministic eval-mode Phase 5 repair, the frozen-AR residual experiment, and the repaired grouped compatibility verdict for the redesigned washout-gap binary target. The frozen-AR residual and temporal residual grouped compatibility results strengthen the cross-video future arousal spike / emotional moment ranking claim by showing real cortical residual improves grouped beyond frozen AR and matched controls. Blocked strict forward-time temporal generalization remains unproven. Frozen-AR residual reduced blocked harm: old fused real was far below blocked AR, while frozen residual is within do-no-harm tolerance.
 
 Do not claim continuous arousal forecasting is solved, strict temporal prediction is proven, Phase 5b/5c/Spark outputs are canonical, or `holy_shit_pass` is a valid gate.
 
