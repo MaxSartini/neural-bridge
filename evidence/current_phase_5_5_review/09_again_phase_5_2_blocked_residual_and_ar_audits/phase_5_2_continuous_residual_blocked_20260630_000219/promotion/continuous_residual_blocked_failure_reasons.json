@@ -1,0 +1,13 @@
+{
+  "continuous_residual_pass": false,
+  "credible_continuous_pass": false,
+  "failed_gates": [
+    "real_gt_frozen_ar_top5_pass",
+    "real_gt_controls_top5_pass",
+    "seed_consistency_pass",
+    "no_single_seed_over_60pct_pass",
+    "continuous_residual_pass",
+    "credible_continuous_pass"
+  ],
+  "recommendation": "continuous_residual_failed_do_not_run_grouped_or_504"
+}

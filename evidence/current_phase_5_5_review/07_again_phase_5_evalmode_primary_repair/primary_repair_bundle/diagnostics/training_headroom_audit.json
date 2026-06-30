@@ -1,0 +1,11 @@
+{
+  "completed_rows": 702,
+  "failed_rows": 0,
+  "checkpoints_restored_before_scoring": 702,
+  "mean_epochs_run": 66.5199430199,
+  "median_epochs_run": 44,
+  "patience_stops": 659,
+  "max_epoch_stops": 43,
+  "overfit_flags": 480,
+  "note": "Derived posthoc because separate training_headroom_audit artifact was not written during run."
+}

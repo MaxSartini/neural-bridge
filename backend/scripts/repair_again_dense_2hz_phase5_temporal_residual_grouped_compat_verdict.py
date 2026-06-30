@@ -25,7 +25,7 @@ from backend.scripts import run_again_dense_2hz_phase5_frozen_ar_residual as fr
 
 
 SCHEMA_VERSION = "again_dense_2hz_phase5_temporal_residual_grouped_compat_repaired_verdict_v1"
-DEFAULT_BUNDLE = Path("evidence_bundle_phase5_temporal_residual_grouped_compat_20260630_033520")
+DEFAULT_BUNDLE = Path("evidence/phase_5_5_grouped_compatibility_20260630_033520")
 DEFAULT_REPORT = Path("reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_REPAIRED_VERDICT.md")
 TARGET = "future_arousal_max_delta_rows_4_10_train_q90"
 ARCHITECTURE = "short_temporal_conv_residual"
@@ -210,7 +210,7 @@ This report repairs only the grouped compatibility verdict logic for the complet
 
 ## Source
 
-- Evidence bundle: `evidence_bundle_phase5_temporal_residual_grouped_compat_20260630_033520/`
+- Evidence bundle: `evidence/phase_5_5_grouped_compatibility_20260630_033520/`
 - Original output root: `outputs/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520`
 - Target: `{gates['target']}`
 - Protocol: `{gates['protocol']}`

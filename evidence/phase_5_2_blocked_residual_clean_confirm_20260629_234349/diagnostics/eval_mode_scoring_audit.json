@@ -1,0 +1,5 @@
+{
+  "deterministic_eval_mode_scoring": true,
+  "dropout_disabled": true,
+  "pass": true
+}

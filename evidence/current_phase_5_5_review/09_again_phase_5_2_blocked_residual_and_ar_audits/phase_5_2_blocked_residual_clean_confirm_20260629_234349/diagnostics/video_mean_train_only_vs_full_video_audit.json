@@ -1,0 +1,95 @@
+{
+  "rows": [
+    {
+      "best_epoch": 38.0,
+      "checkpoint_restored": true,
+      "control_type": "full_video_video_mean_pca_residual_oracle_warning",
+      "delta_vs_frozen_ar_pr_auc": 0.0002619420880921042,
+      "pr_auc": 0.2617572840026622,
+      "residual_suppressed": false,
+      "seed": 20260625
+    },
+    {
+      "best_epoch": 30.0,
+      "checkpoint_restored": true,
+      "control_type": "full_video_video_mean_pca_residual_oracle_warning",
+      "delta_vs_frozen_ar_pr_auc": 0.0003637020765377974,
+      "pr_auc": 0.2685764900973696,
+      "residual_suppressed": false,
+      "seed": 20260626
+    },
+    {
+      "best_epoch": 3.0,
+      "checkpoint_restored": true,
+      "control_type": "full_video_video_mean_pca_residual_oracle_warning",
+      "delta_vs_frozen_ar_pr_auc": 0.0004032038512357672,
+      "pr_auc": 0.2671116198853006,
+      "residual_suppressed": false,
+      "seed": 20260627
+    },
+    {
+      "best_epoch": 35.0,
+      "checkpoint_restored": true,
+      "control_type": "full_video_video_mean_pca_residual_oracle_warning",
+      "delta_vs_frozen_ar_pr_auc": 0.00028926944030926993,
+      "pr_auc": 0.2669976854743741,
+      "residual_suppressed": false,
+      "seed": 20260628
+    },
+    {
+      "best_epoch": 39.0,
+      "checkpoint_restored": true,
+      "control_type": "full_video_video_mean_pca_residual_oracle_warning",
+      "delta_vs_frozen_ar_pr_auc": 0.00039262409246432206,
+      "pr_auc": 0.26710104012652913,
+      "residual_suppressed": false,
+      "seed": 20260629
+    },
+    {
+      "best_epoch": 36.0,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_pca_residual",
+      "delta_vs_frozen_ar_pr_auc": 0.00026207710374043236,
+      "pr_auc": 0.2617574190183105,
+      "residual_suppressed": false,
+      "seed": 20260625
+    },
+    {
+      "best_epoch": 27.0,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_pca_residual",
+      "delta_vs_frozen_ar_pr_auc": 0.0003783127850497392,
+      "pr_auc": 0.26859110080588156,
+      "residual_suppressed": false,
+      "seed": 20260626
+    },
+    {
+      "best_epoch": 4.0,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_pca_residual",
+      "delta_vs_frozen_ar_pr_auc": 0.00038707761693712595,
+      "pr_auc": 0.26709549365100194,
+      "residual_suppressed": false,
+      "seed": 20260627
+    },
+    {
+      "best_epoch": 2.0,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_pca_residual",
+      "delta_vs_frozen_ar_pr_auc": 0.0002866357825642152,
+      "pr_auc": 0.266995051816629,
+      "residual_suppressed": false,
+      "seed": 20260628
+    },
+    {
+      "best_epoch": 40.0,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_pca_residual",
+      "delta_vs_frozen_ar_pr_auc": 0.00045436675134397086,
+      "pr_auc": 0.2671627827854088,
+      "residual_suppressed": false,
+      "seed": 20260629
+    }
+  ],
+  "train_only_and_full_video_separated": true
+}

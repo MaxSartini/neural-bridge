@@ -1,0 +1,90 @@
+{
+  "alignment_distance_summary": {
+    "count": 243441,
+    "max": 0.2981999999999996,
+    "mean": 0.06591622321219516,
+    "min": 0.0,
+    "p50": 0.06560000000000343,
+    "p90": 0.11829999999999785,
+    "p99": 0.1384999999999934
+  },
+  "annotation_path": "outputs/again_cleaned_inventory_audit_20260621_123531/again_manifest_proposal.csv",
+  "annotation_sha256": "ea0a98d902f36f95d10e57786608986e5561e84f72e8ae2f16b35b1606f3de77",
+  "benchmark_run": false,
+  "between_second_rows_preserved": true,
+  "boundary_path": "outputs/again_video_boundary_audit_20260621_204520/again_video_boundary_recommendations.csv",
+  "boundary_sha256": "81d367d02698a98b1db1cd2197cc74f17ba65581bbf44ae91f2538f0c1e6ffc9",
+  "created_at_utc": "2026-06-25T09:12:08.401046+00:00",
+  "dense_root_contract": "H100 V-JEPA 2.1 ViT-G + TRIBE v2 cache-only postpass",
+  "dense_rows": 243575,
+  "first_timestamp_counts": {
+    "0.0": 864,
+    "0.5": 131
+  },
+  "half_second_abs_arousal_movement_histogram": {
+    "bin_edges": [
+      0.0,
+      0.005,
+      0.01,
+      0.025,
+      0.05,
+      0.075,
+      0.1,
+      0.2,
+      "inf"
+    ],
+    "counts": [
+      162075,
+      11038,
+      23255,
+      20189,
+      10054,
+      5616,
+      7675,
+      2489
+    ],
+    "rows": 242391
+  },
+  "labeled_rows": 243441,
+  "manifest_rows": 243575,
+  "max_alignment_tolerance_seconds": 0.3,
+  "missing_annotation_videos": [],
+  "no_boundary_videos": [],
+  "non_policy_videos": [],
+  "pca_run": false,
+  "row_rate_hz": 2.0,
+  "row_step_seconds": 0.5,
+  "rows_missing_ar_context": 4153,
+  "rows_outside_alignment_tolerance_or_annotation": 134,
+  "rows_outside_boundary": 0,
+  "schema_version": "again_dense_2hz_benchmark_v1",
+  "small_spike_targets_created": true,
+  "target_coverage": {
+    "arousal_abs_delta_p4rows_train_q90": {
+      "mask_column": "target_mask_arousal_delta_p4rows",
+      "rows": 239358,
+      "source_column": "future_arousal_delta_p4rows",
+      "videos": 995
+    },
+    "arousal_delta_p2rows_train_q90": {
+      "mask_column": "target_mask_arousal_delta_p2rows",
+      "rows": 241379,
+      "source_column": "future_arousal_delta_p2rows",
+      "videos": 995
+    },
+    "arousal_spike_rows_2_6_train_q90": {
+      "mask_column": "target_mask_arousal_spike_rows_2_6",
+      "rows": 237206,
+      "source_column": "future_arousal_max_delta_rows_2_6",
+      "videos": 995
+    }
+  },
+  "tribe_encoding_run": false,
+  "true_2hz_on_2hz": true,
+  "unlabeled_rows": 134,
+  "videos_total": 995,
+  "videos_with_any_unlabeled_rows": 38,
+  "videos_with_labels": 995,
+  "videos_with_zero_labeled_rows": 0,
+  "vjepa_encoding_run": false
+}

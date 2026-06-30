@@ -1,0 +1,221 @@
+{
+  "rows": [
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 10,
+      "checkpoint_restored": true,
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 12,
+      "checkpoint_restored": true,
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 12,
+      "checkpoint_restored": true,
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 6,
+      "checkpoint_restored": true,
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 6,
+      "checkpoint_restored": true,
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 8,
+      "checkpoint_restored": true,
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 8,
+      "checkpoint_restored": true,
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 2,
+      "checkpoint_restored": true,
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 11,
+      "checkpoint_restored": true,
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 37,
+      "checkpoint_restored": true,
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 9,
+      "checkpoint_restored": true,
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 12,
+      "checkpoint_restored": true,
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 0,
+      "checkpoint_restored": false,
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 2,
+      "checkpoint_restored": true,
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 5,
+      "checkpoint_restored": true,
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 2,
+      "checkpoint_restored": true,
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 0,
+      "checkpoint_restored": false,
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 0,
+      "checkpoint_restored": false,
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 0,
+      "checkpoint_restored": false,
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 3,
+      "checkpoint_restored": true,
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 3,
+      "checkpoint_restored": true,
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 5,
+      "checkpoint_restored": true,
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "uses_test_rows_for_mean": false
+    }
+  ],
+  "train_only_video_mean_primary_static_control": true
+}

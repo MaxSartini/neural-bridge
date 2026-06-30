@@ -1,0 +1,39 @@
+{
+  "binary": {
+    "best_architecture": "short_temporal_conv_residual",
+    "best_control": "random_pca_residual",
+    "best_control_pr_auc": 0.2654930636010302,
+    "deltas": {
+      "real_minus_best_control_pr_auc": 0.008362567071886151,
+      "real_minus_frozen_ar_pr_auc": 0.007641153533377798,
+      "real_minus_label_permutation_residual_pr_auc": 0.009868665264022192,
+      "real_minus_random_pca_residual_pr_auc": 0.008362567071886151,
+      "real_minus_shuffled_pca_residual_pr_auc": 0.00905580587798488,
+      "real_minus_train_only_video_mean_residual_pr_auc": 0.009004921817229727
+    },
+    "frozen_ar_pr_auc": 0.26621447713953855,
+    "real_pr_auc": 0.27385563067291635,
+    "seed_positive_count": 3,
+    "target": "future_arousal_max_delta_rows_4_10_train_q90"
+  },
+  "continuous": {
+    "best_architecture": "short_temporal_conv_residual",
+    "best_control": "train_only_video_mean_residual",
+    "best_control_top_5pct_lift": 0.08364395021150506,
+    "deltas": {
+      "real_minus_best_control_top_5pct_lift": -1.57157580057965e-05,
+      "real_minus_frozen_ar_spearman": 0.0055230967303089434,
+      "real_minus_frozen_ar_top_5pct_lift": -0.00012306869030000167,
+      "real_minus_label_permutation_residual_top_5pct_lift": 0.01196544369061786,
+      "real_minus_random_pca_residual_top_5pct_lift": 0.014518670737743364,
+      "real_minus_shuffled_pca_residual_top_5pct_lift": 0.010910714666048663,
+      "real_minus_train_only_video_mean_residual_top_5pct_lift": -1.57157580057965e-05
+    },
+    "frozen_ar_spearman": 0.05874850857062133,
+    "frozen_ar_top_5pct_lift": 0.08375130314379926,
+    "real_spearman": 0.06427160530093028,
+    "real_top_5pct_lift": 0.08362823445349926,
+    "seed_positive_count": 1,
+    "target": "residual_future_max_delta_rows_4_10"
+  }
+}

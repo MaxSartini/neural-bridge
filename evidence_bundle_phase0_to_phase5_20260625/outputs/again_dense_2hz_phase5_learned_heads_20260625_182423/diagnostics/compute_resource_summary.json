@@ -1,7 +1,0 @@
-{
-  "backend": "mlx",
-  "cpu_training_fallback": false,
-  "cuda_barred": true,
-  "mlx_available": true,
-  "mlx_default_device": "Device(gpu, 0)"
-}

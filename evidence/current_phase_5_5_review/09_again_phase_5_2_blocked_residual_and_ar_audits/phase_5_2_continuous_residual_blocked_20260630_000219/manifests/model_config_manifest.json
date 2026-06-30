@@ -1,0 +1,13 @@
+{
+  "controls": [
+    "frozen_ar_only",
+    "real_continuous_residual",
+    "shuffled_pca_continuous_residual",
+    "random_pca_continuous_residual",
+    "train_only_video_mean_continuous_residual",
+    "label_permutation_continuous_residual",
+    "diagnostics_only_continuous_residual"
+  ],
+  "loss": "continuous_rank_lift_residual",
+  "variant": "monotonic_do_no_harm_residual"
+}

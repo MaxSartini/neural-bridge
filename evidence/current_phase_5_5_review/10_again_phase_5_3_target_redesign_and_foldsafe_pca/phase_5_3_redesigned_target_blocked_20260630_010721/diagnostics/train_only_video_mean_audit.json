@@ -1,0 +1,53 @@
+{
+  "rows": [
+    {
+      "best_epoch": 3.0,
+      "checkpoint_restored": true,
+      "residual_suppressed": false,
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "best_epoch": 1.0,
+      "checkpoint_restored": true,
+      "residual_suppressed": false,
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "best_epoch": 4.0,
+      "checkpoint_restored": true,
+      "residual_suppressed": false,
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "best_epoch": 4.0,
+      "checkpoint_restored": true,
+      "residual_suppressed": false,
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "best_epoch": 5.0,
+      "checkpoint_restored": true,
+      "residual_suppressed": false,
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "best_epoch": 0.0,
+      "checkpoint_restored": false,
+      "residual_suppressed": true,
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    }
+  ],
+  "train_only_video_mean_primary_static_control": true
+}

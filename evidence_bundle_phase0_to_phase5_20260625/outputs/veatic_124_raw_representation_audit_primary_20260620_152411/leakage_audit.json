@@ -1,9 +1,0 @@
-{
-  "schema_version": "veatic_raw_representation_leakage_audit_v1",
-  "fit_scope": "train_rows_only",
-  "test_label_tuning": false,
-  "future_feature_rows_in_primary": false,
-  "positive_only_pr_auc_headline": false,
-  "failures": [],
-  "status": "pass"
-}

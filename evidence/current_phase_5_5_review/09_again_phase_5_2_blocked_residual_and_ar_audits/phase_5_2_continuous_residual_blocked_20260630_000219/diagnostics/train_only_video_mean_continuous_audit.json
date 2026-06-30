@@ -1,0 +1,50 @@
+{
+  "rows": [
+    {
+      "best_epoch": 3.0,
+      "checkpoint_restored": true,
+      "continuous_spearman": 0.2623767090121664,
+      "control_type": "train_only_video_mean_continuous_residual",
+      "residual_suppressed": false,
+      "seed": 20260625,
+      "top_5pct_continuous_lift": 0.09585216641426086
+    },
+    {
+      "best_epoch": 2.0,
+      "checkpoint_restored": true,
+      "continuous_spearman": 0.2687040297057167,
+      "control_type": "train_only_video_mean_continuous_residual",
+      "residual_suppressed": false,
+      "seed": 20260626,
+      "top_5pct_continuous_lift": 0.09897421300411224
+    },
+    {
+      "best_epoch": 2.0,
+      "checkpoint_restored": true,
+      "continuous_spearman": 0.26815156475035273,
+      "control_type": "train_only_video_mean_continuous_residual",
+      "residual_suppressed": false,
+      "seed": 20260627,
+      "top_5pct_continuous_lift": 0.09846395254135132
+    },
+    {
+      "best_epoch": 0.0,
+      "checkpoint_restored": false,
+      "continuous_spearman": 0.2691063569331542,
+      "control_type": "train_only_video_mean_continuous_residual",
+      "residual_suppressed": true,
+      "seed": 20260628,
+      "top_5pct_continuous_lift": 0.09809362888336182
+    },
+    {
+      "best_epoch": 2.0,
+      "checkpoint_restored": true,
+      "continuous_spearman": 0.266338582502936,
+      "control_type": "train_only_video_mean_continuous_residual",
+      "residual_suppressed": false,
+      "seed": 20260629,
+      "top_5pct_continuous_lift": 0.09865769743919373
+    }
+  ],
+  "train_only_video_mean_primary_static_control": true
+}

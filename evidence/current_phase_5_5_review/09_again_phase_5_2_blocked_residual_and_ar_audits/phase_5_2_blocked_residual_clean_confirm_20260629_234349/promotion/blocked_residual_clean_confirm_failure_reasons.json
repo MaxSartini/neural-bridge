@@ -1,0 +1,22 @@
+{
+  "credible_confirmation_pass": false,
+  "failed_primary_gates": [
+    "real_gt_frozen_ar_pass",
+    "real_gt_shuffled_pass",
+    "real_gt_random_pass",
+    "real_gt_clean_label_permutation_pass",
+    "real_gt_train_only_video_mean_pass",
+    "real_gt_frozen_ar_credible_pass",
+    "real_gt_shuffled_credible_pass",
+    "real_gt_random_credible_pass",
+    "real_gt_clean_label_permutation_credible_pass",
+    "real_gt_train_only_video_mean_credible_pass",
+    "seed_consistency_pass",
+    "no_single_seed_over_60pct_pass",
+    "weak_confirmation_pass",
+    "credible_confirmation_pass"
+  ],
+  "recommendation": "clean_confirmation_failed_do_not_run_grouped_or_504",
+  "strict_forward_time_temporal_generalization_proven": false,
+  "weak_confirmation_pass": false
+}

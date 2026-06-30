@@ -1,0 +1,15 @@
+{
+  "block_count": 256,
+  "feature": "raw_cortical_block_summary",
+  "label_free_deterministic_block_summary": true,
+  "pca_run": false,
+  "rows": 243575,
+  "schema_version": "again_dense_2hz_benchmark_v1",
+  "source": "tribe_v2_cortical_predictions.npz:cortical_prediction [rows,20484]",
+  "summary_per_block": [
+    "mean",
+    "std"
+  ],
+  "train_fit": false,
+  "width": 512
+}

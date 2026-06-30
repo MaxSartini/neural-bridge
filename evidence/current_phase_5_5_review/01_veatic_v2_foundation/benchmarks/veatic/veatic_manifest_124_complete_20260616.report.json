@@ -1,0 +1,3245 @@
+{
+  "schema_version": "veatic_manifest_report_v1",
+  "root": "<external-assets-root>/datasets/veatic",
+  "video_dir": "<external-assets-root>/datasets/veatic/videos",
+  "rating_dir": "<external-assets-root>/datasets/veatic/rating_averaged",
+  "folder_structure": {
+    "root_exists": true,
+    "expected_video_dir": "<external-assets-root>/datasets/veatic/video",
+    "expected_video_dir_exists": false,
+    "alternate_video_dir": "<external-assets-root>/datasets/veatic/videos",
+    "alternate_video_dir_exists": true,
+    "selected_video_dir": "<external-assets-root>/datasets/veatic/videos",
+    "selected_video_dir_exists": true,
+    "rating_averaged_dir_exists": true
+  },
+  "output": "benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
+  "sample_hz": 1.0,
+  "split_contract": {
+    "mode_a_official_veatic": {
+      "field": "splits.official_70_30",
+      "train_fraction": 0.7,
+      "purpose": "Comparable to the official VEATIC first-70-percent / last-30-percent frame protocol."
+    },
+    "mode_b_blocked_temporal_gap": {
+      "field": "splits.blocked_temporal_gap",
+      "train_fraction": 0.6,
+      "gap_fraction": 0.1,
+      "purpose": "Tests temporal tracking while avoiding adjacent-frame leakage through a middle buffer."
+    },
+    "mode_c_leave_video_out": {
+      "field": "splits.leave_video_out_group",
+      "purpose": "Tests generalization to unseen videos by holding out whole video IDs."
+    }
+  },
+  "valid_videos": 124,
+  "rejected_videos": 0,
+  "rows": 10357,
+  "videos": [
+    {
+      "video_id": "0",
+      "frames": 1443,
+      "fps": 25.0,
+      "duration_seconds": 57.72,
+      "expected_duration_seconds_from_labels": 57.72,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1443,
+      "label_frames": 1443,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 58,
+      "official_split_counts": {
+        "train": 41,
+        "test": 17
+      },
+      "blocked_gap_split_counts": {
+        "train": 35,
+        "gap": 6,
+        "test": 17
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/0.mp4"
+    },
+    {
+      "video_id": "100",
+      "frames": 1332,
+      "fps": 25.0,
+      "duration_seconds": 53.28,
+      "expected_duration_seconds_from_labels": 53.28,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1332,
+      "label_frames": 1332,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 54,
+      "official_split_counts": {
+        "train": 38,
+        "test": 16
+      },
+      "blocked_gap_split_counts": {
+        "train": 32,
+        "gap": 6,
+        "test": 16
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/100.mp4"
+    },
+    {
+      "video_id": "101",
+      "frames": 1332,
+      "fps": 25.0,
+      "duration_seconds": 53.28,
+      "expected_duration_seconds_from_labels": 53.28,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1332,
+      "label_frames": 1332,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 54,
+      "official_split_counts": {
+        "train": 38,
+        "test": 16
+      },
+      "blocked_gap_split_counts": {
+        "train": 32,
+        "gap": 6,
+        "test": 16
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/101.mp4"
+    },
+    {
+      "video_id": "102",
+      "frames": 2838,
+      "fps": 25.0,
+      "duration_seconds": 113.52,
+      "expected_duration_seconds_from_labels": 113.52,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2838,
+      "label_frames": 2838,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 114,
+      "official_split_counts": {
+        "train": 80,
+        "test": 34
+      },
+      "blocked_gap_split_counts": {
+        "train": 69,
+        "gap": 11,
+        "test": 34
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/102.mp4"
+    },
+    {
+      "video_id": "103",
+      "frames": 2838,
+      "fps": 25.0,
+      "duration_seconds": 113.52,
+      "expected_duration_seconds_from_labels": 113.52,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2838,
+      "label_frames": 2838,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 114,
+      "official_split_counts": {
+        "train": 80,
+        "test": 34
+      },
+      "blocked_gap_split_counts": {
+        "train": 69,
+        "gap": 11,
+        "test": 34
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/103.mp4"
+    },
+    {
+      "video_id": "104",
+      "frames": 1952,
+      "fps": 25.0,
+      "duration_seconds": 78.08,
+      "expected_duration_seconds_from_labels": 78.08,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1952,
+      "label_frames": 1952,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 79,
+      "official_split_counts": {
+        "train": 55,
+        "test": 24
+      },
+      "blocked_gap_split_counts": {
+        "train": 47,
+        "gap": 8,
+        "test": 24
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/104.mp4"
+    },
+    {
+      "video_id": "105",
+      "frames": 1952,
+      "fps": 25.0,
+      "duration_seconds": 78.08,
+      "expected_duration_seconds_from_labels": 78.08,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1952,
+      "label_frames": 1952,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 79,
+      "official_split_counts": {
+        "train": 55,
+        "test": 24
+      },
+      "blocked_gap_split_counts": {
+        "train": 47,
+        "gap": 8,
+        "test": 24
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/105.mp4"
+    },
+    {
+      "video_id": "106",
+      "frames": 1816,
+      "fps": 25.0,
+      "duration_seconds": 72.64,
+      "expected_duration_seconds_from_labels": 72.64,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1816,
+      "label_frames": 1816,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 73,
+      "official_split_counts": {
+        "train": 51,
+        "test": 22
+      },
+      "blocked_gap_split_counts": {
+        "train": 44,
+        "gap": 7,
+        "test": 22
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/106.mp4"
+    },
+    {
+      "video_id": "107",
+      "frames": 1816,
+      "fps": 25.0,
+      "duration_seconds": 72.64,
+      "expected_duration_seconds_from_labels": 72.64,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1816,
+      "label_frames": 1816,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 73,
+      "official_split_counts": {
+        "train": 51,
+        "test": 22
+      },
+      "blocked_gap_split_counts": {
+        "train": 44,
+        "gap": 7,
+        "test": 22
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/107.mp4"
+    },
+    {
+      "video_id": "108",
+      "frames": 1532,
+      "fps": 25.0,
+      "duration_seconds": 61.28,
+      "expected_duration_seconds_from_labels": 61.28,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1532,
+      "label_frames": 1532,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 62,
+      "official_split_counts": {
+        "train": 43,
+        "test": 19
+      },
+      "blocked_gap_split_counts": {
+        "train": 37,
+        "gap": 6,
+        "test": 19
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/108.mp4"
+    },
+    {
+      "video_id": "109",
+      "frames": 1532,
+      "fps": 25.0,
+      "duration_seconds": 61.28,
+      "expected_duration_seconds_from_labels": 61.28,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1532,
+      "label_frames": 1532,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 62,
+      "official_split_counts": {
+        "train": 43,
+        "test": 19
+      },
+      "blocked_gap_split_counts": {
+        "train": 37,
+        "gap": 6,
+        "test": 19
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/109.mp4"
+    },
+    {
+      "video_id": "10",
+      "frames": 1690,
+      "fps": 25.0,
+      "duration_seconds": 67.6,
+      "expected_duration_seconds_from_labels": 67.6,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1690,
+      "label_frames": 1690,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 68,
+      "official_split_counts": {
+        "train": 48,
+        "test": 20
+      },
+      "blocked_gap_split_counts": {
+        "train": 41,
+        "gap": 7,
+        "test": 20
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/10.mp4"
+    },
+    {
+      "video_id": "110",
+      "frames": 4471,
+      "fps": 25.0,
+      "duration_seconds": 178.84,
+      "expected_duration_seconds_from_labels": 178.84,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 4471,
+      "label_frames": 4471,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 179,
+      "official_split_counts": {
+        "train": 126,
+        "test": 53
+      },
+      "blocked_gap_split_counts": {
+        "train": 108,
+        "gap": 18,
+        "test": 53
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/110.mp4"
+    },
+    {
+      "video_id": "111",
+      "frames": 4471,
+      "fps": 25.0,
+      "duration_seconds": 178.84,
+      "expected_duration_seconds_from_labels": 178.84,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 4471,
+      "label_frames": 4471,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 179,
+      "official_split_counts": {
+        "train": 126,
+        "test": 53
+      },
+      "blocked_gap_split_counts": {
+        "train": 108,
+        "gap": 18,
+        "test": 53
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/111.mp4"
+    },
+    {
+      "video_id": "112",
+      "frames": 3232,
+      "fps": 25.0,
+      "duration_seconds": 129.28,
+      "expected_duration_seconds_from_labels": 129.28,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3232,
+      "label_frames": 3232,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 130,
+      "official_split_counts": {
+        "train": 91,
+        "test": 39
+      },
+      "blocked_gap_split_counts": {
+        "train": 78,
+        "gap": 13,
+        "test": 39
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/112.mp4"
+    },
+    {
+      "video_id": "113",
+      "frames": 3232,
+      "fps": 25.0,
+      "duration_seconds": 129.28,
+      "expected_duration_seconds_from_labels": 129.28,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3232,
+      "label_frames": 3232,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 130,
+      "official_split_counts": {
+        "train": 91,
+        "test": 39
+      },
+      "blocked_gap_split_counts": {
+        "train": 78,
+        "gap": 13,
+        "test": 39
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/113.mp4"
+    },
+    {
+      "video_id": "114",
+      "frames": 2087,
+      "fps": 25.0,
+      "duration_seconds": 83.48,
+      "expected_duration_seconds_from_labels": 83.48,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2087,
+      "label_frames": 2087,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 84,
+      "official_split_counts": {
+        "train": 59,
+        "test": 25
+      },
+      "blocked_gap_split_counts": {
+        "train": 51,
+        "gap": 8,
+        "test": 25
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/114.mp4"
+    },
+    {
+      "video_id": "115",
+      "frames": 2087,
+      "fps": 25.0,
+      "duration_seconds": 83.48,
+      "expected_duration_seconds_from_labels": 83.48,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2087,
+      "label_frames": 2087,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 84,
+      "official_split_counts": {
+        "train": 59,
+        "test": 25
+      },
+      "blocked_gap_split_counts": {
+        "train": 51,
+        "gap": 8,
+        "test": 25
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/115.mp4"
+    },
+    {
+      "video_id": "116",
+      "frames": 4337,
+      "fps": 25.0,
+      "duration_seconds": 173.48,
+      "expected_duration_seconds_from_labels": 173.48,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 4337,
+      "label_frames": 4337,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 174,
+      "official_split_counts": {
+        "train": 122,
+        "test": 52
+      },
+      "blocked_gap_split_counts": {
+        "train": 105,
+        "gap": 17,
+        "test": 52
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/116.mp4"
+    },
+    {
+      "video_id": "117",
+      "frames": 4337,
+      "fps": 25.0,
+      "duration_seconds": 173.48,
+      "expected_duration_seconds_from_labels": 173.48,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 4337,
+      "label_frames": 4337,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 174,
+      "official_split_counts": {
+        "train": 122,
+        "test": 52
+      },
+      "blocked_gap_split_counts": {
+        "train": 105,
+        "gap": 17,
+        "test": 52
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/117.mp4"
+    },
+    {
+      "video_id": "118",
+      "frames": 4030,
+      "fps": 25.0,
+      "duration_seconds": 161.2,
+      "expected_duration_seconds_from_labels": 161.2,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 4030,
+      "label_frames": 4030,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 162,
+      "official_split_counts": {
+        "train": 113,
+        "test": 49
+      },
+      "blocked_gap_split_counts": {
+        "train": 97,
+        "gap": 16,
+        "test": 49
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/118.mp4"
+    },
+    {
+      "video_id": "119",
+      "frames": 4030,
+      "fps": 25.0,
+      "duration_seconds": 161.2,
+      "expected_duration_seconds_from_labels": 161.2,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 4030,
+      "label_frames": 4030,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 162,
+      "official_split_counts": {
+        "train": 113,
+        "test": 49
+      },
+      "blocked_gap_split_counts": {
+        "train": 97,
+        "gap": 16,
+        "test": 49
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/119.mp4"
+    },
+    {
+      "video_id": "11",
+      "frames": 3150,
+      "fps": 25.0,
+      "duration_seconds": 126.0,
+      "expected_duration_seconds_from_labels": 126.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3150,
+      "label_frames": 3150,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 126,
+      "official_split_counts": {
+        "train": 89,
+        "test": 37
+      },
+      "blocked_gap_split_counts": {
+        "train": 76,
+        "gap": 13,
+        "test": 37
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/11.mp4"
+    },
+    {
+      "video_id": "120",
+      "frames": 3330,
+      "fps": 25.0,
+      "duration_seconds": 133.2,
+      "expected_duration_seconds_from_labels": 133.2,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3330,
+      "label_frames": 3330,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 134,
+      "official_split_counts": {
+        "train": 94,
+        "test": 40
+      },
+      "blocked_gap_split_counts": {
+        "train": 80,
+        "gap": 14,
+        "test": 40
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/120.mp4"
+    },
+    {
+      "video_id": "121",
+      "frames": 3330,
+      "fps": 25.0,
+      "duration_seconds": 133.2,
+      "expected_duration_seconds_from_labels": 133.2,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3330,
+      "label_frames": 3330,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 134,
+      "official_split_counts": {
+        "train": 94,
+        "test": 40
+      },
+      "blocked_gap_split_counts": {
+        "train": 80,
+        "gap": 14,
+        "test": 40
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/121.mp4"
+    },
+    {
+      "video_id": "122",
+      "frames": 1267,
+      "fps": 25.0,
+      "duration_seconds": 50.68,
+      "expected_duration_seconds_from_labels": 50.68,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1267,
+      "label_frames": 1267,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 51,
+      "official_split_counts": {
+        "train": 36,
+        "test": 15
+      },
+      "blocked_gap_split_counts": {
+        "train": 31,
+        "gap": 5,
+        "test": 15
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/122.mp4"
+    },
+    {
+      "video_id": "123",
+      "frames": 1267,
+      "fps": 25.0,
+      "duration_seconds": 50.68,
+      "expected_duration_seconds_from_labels": 50.68,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1267,
+      "label_frames": 1267,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 51,
+      "official_split_counts": {
+        "train": 36,
+        "test": 15
+      },
+      "blocked_gap_split_counts": {
+        "train": 31,
+        "gap": 5,
+        "test": 15
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/123.mp4"
+    },
+    {
+      "video_id": "12",
+      "frames": 716,
+      "fps": 25.0,
+      "duration_seconds": 28.64,
+      "expected_duration_seconds_from_labels": 28.64,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 716,
+      "label_frames": 716,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 29,
+      "official_split_counts": {
+        "train": 21,
+        "test": 8
+      },
+      "blocked_gap_split_counts": {
+        "train": 18,
+        "gap": 3,
+        "test": 8
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/12.mp4"
+    },
+    {
+      "video_id": "13",
+      "frames": 2176,
+      "fps": 25.0,
+      "duration_seconds": 87.04,
+      "expected_duration_seconds_from_labels": 87.04,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2176,
+      "label_frames": 2176,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 88,
+      "official_split_counts": {
+        "train": 61,
+        "test": 27
+      },
+      "blocked_gap_split_counts": {
+        "train": 53,
+        "gap": 8,
+        "test": 27
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/13.mp4"
+    },
+    {
+      "video_id": "14",
+      "frames": 1154,
+      "fps": 25.0,
+      "duration_seconds": 46.16,
+      "expected_duration_seconds_from_labels": 46.16,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1154,
+      "label_frames": 1154,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 47,
+      "official_split_counts": {
+        "train": 33,
+        "test": 14
+      },
+      "blocked_gap_split_counts": {
+        "train": 28,
+        "gap": 5,
+        "test": 14
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/14.mp4"
+    },
+    {
+      "video_id": "15",
+      "frames": 1872,
+      "fps": 25.0,
+      "duration_seconds": 74.88,
+      "expected_duration_seconds_from_labels": 74.88,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1872,
+      "label_frames": 1872,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 75,
+      "official_split_counts": {
+        "train": 53,
+        "test": 22
+      },
+      "blocked_gap_split_counts": {
+        "train": 45,
+        "gap": 8,
+        "test": 22
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/15.mp4"
+    },
+    {
+      "video_id": "16",
+      "frames": 2112,
+      "fps": 25.0,
+      "duration_seconds": 84.48,
+      "expected_duration_seconds_from_labels": 84.48,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2112,
+      "label_frames": 2112,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 85,
+      "official_split_counts": {
+        "train": 60,
+        "test": 25
+      },
+      "blocked_gap_split_counts": {
+        "train": 51,
+        "gap": 9,
+        "test": 25
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/16.mp4"
+    },
+    {
+      "video_id": "17",
+      "frames": 960,
+      "fps": 25.0,
+      "duration_seconds": 38.4,
+      "expected_duration_seconds_from_labels": 38.4,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 960,
+      "label_frames": 960,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 39,
+      "official_split_counts": {
+        "train": 27,
+        "test": 12
+      },
+      "blocked_gap_split_counts": {
+        "train": 24,
+        "gap": 3,
+        "test": 12
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/17.mp4"
+    },
+    {
+      "video_id": "18",
+      "frames": 2352,
+      "fps": 25.0,
+      "duration_seconds": 94.08,
+      "expected_duration_seconds_from_labels": 94.08,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2352,
+      "label_frames": 2352,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 95,
+      "official_split_counts": {
+        "train": 66,
+        "test": 29
+      },
+      "blocked_gap_split_counts": {
+        "train": 57,
+        "gap": 9,
+        "test": 29
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/18.mp4"
+    },
+    {
+      "video_id": "19",
+      "frames": 720,
+      "fps": 25.0,
+      "duration_seconds": 28.8,
+      "expected_duration_seconds_from_labels": 28.8,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 720,
+      "label_frames": 720,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 29,
+      "official_split_counts": {
+        "train": 21,
+        "test": 8
+      },
+      "blocked_gap_split_counts": {
+        "train": 18,
+        "gap": 3,
+        "test": 8
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/19.mp4"
+    },
+    {
+      "video_id": "1",
+      "frames": 1619,
+      "fps": 25.0,
+      "duration_seconds": 64.76,
+      "expected_duration_seconds_from_labels": 64.76,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1619,
+      "label_frames": 1619,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 65,
+      "official_split_counts": {
+        "train": 46,
+        "test": 19
+      },
+      "blocked_gap_split_counts": {
+        "train": 39,
+        "gap": 7,
+        "test": 19
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/1.mp4"
+    },
+    {
+      "video_id": "20",
+      "frames": 453,
+      "fps": 25.0,
+      "duration_seconds": 18.12,
+      "expected_duration_seconds_from_labels": 18.12,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 453,
+      "label_frames": 453,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 19,
+      "official_split_counts": {
+        "train": 13,
+        "test": 6
+      },
+      "blocked_gap_split_counts": {
+        "train": 11,
+        "gap": 2,
+        "test": 6
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/20.mp4"
+    },
+    {
+      "video_id": "21",
+      "frames": 900,
+      "fps": 25.0,
+      "duration_seconds": 36.0,
+      "expected_duration_seconds_from_labels": 36.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 900,
+      "label_frames": 900,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 36,
+      "official_split_counts": {
+        "train": 26,
+        "test": 10
+      },
+      "blocked_gap_split_counts": {
+        "train": 22,
+        "gap": 4,
+        "test": 10
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/21.mp4"
+    },
+    {
+      "video_id": "22",
+      "frames": 2040,
+      "fps": 25.0,
+      "duration_seconds": 81.6,
+      "expected_duration_seconds_from_labels": 81.6,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2040,
+      "label_frames": 2040,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 82,
+      "official_split_counts": {
+        "train": 58,
+        "test": 24
+      },
+      "blocked_gap_split_counts": {
+        "train": 49,
+        "gap": 9,
+        "test": 24
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/22.mp4"
+    },
+    {
+      "video_id": "23",
+      "frames": 1438,
+      "fps": 25.0,
+      "duration_seconds": 57.52,
+      "expected_duration_seconds_from_labels": 57.52,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1438,
+      "label_frames": 1438,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 58,
+      "official_split_counts": {
+        "train": 41,
+        "test": 17
+      },
+      "blocked_gap_split_counts": {
+        "train": 35,
+        "gap": 6,
+        "test": 17
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/23.mp4"
+    },
+    {
+      "video_id": "24",
+      "frames": 2894,
+      "fps": 25.0,
+      "duration_seconds": 115.76,
+      "expected_duration_seconds_from_labels": 115.76,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2894,
+      "label_frames": 2894,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 116,
+      "official_split_counts": {
+        "train": 81,
+        "test": 35
+      },
+      "blocked_gap_split_counts": {
+        "train": 70,
+        "gap": 11,
+        "test": 35
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/24.mp4"
+    },
+    {
+      "video_id": "25",
+      "frames": 2850,
+      "fps": 25.0,
+      "duration_seconds": 114.0,
+      "expected_duration_seconds_from_labels": 114.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2850,
+      "label_frames": 2850,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 114,
+      "official_split_counts": {
+        "train": 80,
+        "test": 34
+      },
+      "blocked_gap_split_counts": {
+        "train": 69,
+        "gap": 11,
+        "test": 34
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/25.mp4"
+    },
+    {
+      "video_id": "26",
+      "frames": 1843,
+      "fps": 25.0,
+      "duration_seconds": 73.72,
+      "expected_duration_seconds_from_labels": 73.72,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1843,
+      "label_frames": 1843,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 74,
+      "official_split_counts": {
+        "train": 52,
+        "test": 22
+      },
+      "blocked_gap_split_counts": {
+        "train": 45,
+        "gap": 7,
+        "test": 22
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/26.mp4"
+    },
+    {
+      "video_id": "27",
+      "frames": 2343,
+      "fps": 25.0,
+      "duration_seconds": 93.72,
+      "expected_duration_seconds_from_labels": 93.72,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2343,
+      "label_frames": 2343,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 94,
+      "official_split_counts": {
+        "train": 66,
+        "test": 28
+      },
+      "blocked_gap_split_counts": {
+        "train": 57,
+        "gap": 9,
+        "test": 28
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/27.mp4"
+    },
+    {
+      "video_id": "28",
+      "frames": 1224,
+      "fps": 25.0,
+      "duration_seconds": 48.96,
+      "expected_duration_seconds_from_labels": 48.96,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1224,
+      "label_frames": 1224,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 49,
+      "official_split_counts": {
+        "train": 35,
+        "test": 14
+      },
+      "blocked_gap_split_counts": {
+        "train": 30,
+        "gap": 5,
+        "test": 14
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/28.mp4"
+    },
+    {
+      "video_id": "29",
+      "frames": 3288,
+      "fps": 25.0,
+      "duration_seconds": 131.52,
+      "expected_duration_seconds_from_labels": 131.52,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3288,
+      "label_frames": 3288,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 132,
+      "official_split_counts": {
+        "train": 93,
+        "test": 39
+      },
+      "blocked_gap_split_counts": {
+        "train": 79,
+        "gap": 14,
+        "test": 39
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/29.mp4"
+    },
+    {
+      "video_id": "2",
+      "frames": 1154,
+      "fps": 25.0,
+      "duration_seconds": 46.16,
+      "expected_duration_seconds_from_labels": 46.16,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1154,
+      "label_frames": 1154,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 47,
+      "official_split_counts": {
+        "train": 33,
+        "test": 14
+      },
+      "blocked_gap_split_counts": {
+        "train": 28,
+        "gap": 5,
+        "test": 14
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/2.mp4"
+    },
+    {
+      "video_id": "30",
+      "frames": 2041,
+      "fps": 25.0,
+      "duration_seconds": 81.64,
+      "expected_duration_seconds_from_labels": 81.64,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2041,
+      "label_frames": 2041,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 82,
+      "official_split_counts": {
+        "train": 58,
+        "test": 24
+      },
+      "blocked_gap_split_counts": {
+        "train": 49,
+        "gap": 9,
+        "test": 24
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/30.mp4"
+    },
+    {
+      "video_id": "31",
+      "frames": 2040,
+      "fps": 25.0,
+      "duration_seconds": 81.6,
+      "expected_duration_seconds_from_labels": 81.6,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2040,
+      "label_frames": 2040,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 82,
+      "official_split_counts": {
+        "train": 58,
+        "test": 24
+      },
+      "blocked_gap_split_counts": {
+        "train": 49,
+        "gap": 9,
+        "test": 24
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/31.mp4"
+    },
+    {
+      "video_id": "32",
+      "frames": 3718,
+      "fps": 25.0,
+      "duration_seconds": 148.72,
+      "expected_duration_seconds_from_labels": 148.72,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3718,
+      "label_frames": 3718,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 149,
+      "official_split_counts": {
+        "train": 105,
+        "test": 44
+      },
+      "blocked_gap_split_counts": {
+        "train": 90,
+        "gap": 15,
+        "test": 44
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/32.mp4"
+    },
+    {
+      "video_id": "33",
+      "frames": 2300,
+      "fps": 25.0,
+      "duration_seconds": 92.0,
+      "expected_duration_seconds_from_labels": 92.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2300,
+      "label_frames": 2300,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 92,
+      "official_split_counts": {
+        "train": 65,
+        "test": 27
+      },
+      "blocked_gap_split_counts": {
+        "train": 56,
+        "gap": 9,
+        "test": 27
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/33.mp4"
+    },
+    {
+      "video_id": "34",
+      "frames": 2160,
+      "fps": 25.0,
+      "duration_seconds": 86.4,
+      "expected_duration_seconds_from_labels": 86.4,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2160,
+      "label_frames": 2160,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 87,
+      "official_split_counts": {
+        "train": 61,
+        "test": 26
+      },
+      "blocked_gap_split_counts": {
+        "train": 52,
+        "gap": 9,
+        "test": 26
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/34.mp4"
+    },
+    {
+      "video_id": "35",
+      "frames": 2250,
+      "fps": 25.0,
+      "duration_seconds": 90.0,
+      "expected_duration_seconds_from_labels": 90.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2250,
+      "label_frames": 2250,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 90,
+      "official_split_counts": {
+        "train": 63,
+        "test": 27
+      },
+      "blocked_gap_split_counts": {
+        "train": 54,
+        "gap": 9,
+        "test": 27
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/35.mp4"
+    },
+    {
+      "video_id": "36",
+      "frames": 1440,
+      "fps": 25.0,
+      "duration_seconds": 57.6,
+      "expected_duration_seconds_from_labels": 57.6,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1440,
+      "label_frames": 1440,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 58,
+      "official_split_counts": {
+        "train": 41,
+        "test": 17
+      },
+      "blocked_gap_split_counts": {
+        "train": 35,
+        "gap": 6,
+        "test": 17
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/36.mp4"
+    },
+    {
+      "video_id": "37",
+      "frames": 1800,
+      "fps": 25.0,
+      "duration_seconds": 72.0,
+      "expected_duration_seconds_from_labels": 72.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1800,
+      "label_frames": 1800,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 72,
+      "official_split_counts": {
+        "train": 51,
+        "test": 21
+      },
+      "blocked_gap_split_counts": {
+        "train": 44,
+        "gap": 7,
+        "test": 21
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/37.mp4"
+    },
+    {
+      "video_id": "38",
+      "frames": 2688,
+      "fps": 25.0,
+      "duration_seconds": 107.52,
+      "expected_duration_seconds_from_labels": 107.52,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2688,
+      "label_frames": 2688,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 108,
+      "official_split_counts": {
+        "train": 76,
+        "test": 32
+      },
+      "blocked_gap_split_counts": {
+        "train": 65,
+        "gap": 11,
+        "test": 32
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/38.mp4"
+    },
+    {
+      "video_id": "39",
+      "frames": 3360,
+      "fps": 25.0,
+      "duration_seconds": 134.4,
+      "expected_duration_seconds_from_labels": 134.4,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3360,
+      "label_frames": 3360,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 135,
+      "official_split_counts": {
+        "train": 95,
+        "test": 40
+      },
+      "blocked_gap_split_counts": {
+        "train": 81,
+        "gap": 14,
+        "test": 40
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/39.mp4"
+    },
+    {
+      "video_id": "3",
+      "frames": 3930,
+      "fps": 25.0,
+      "duration_seconds": 157.2,
+      "expected_duration_seconds_from_labels": 157.2,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3930,
+      "label_frames": 3930,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 158,
+      "official_split_counts": {
+        "train": 111,
+        "test": 47
+      },
+      "blocked_gap_split_counts": {
+        "train": 95,
+        "gap": 16,
+        "test": 47
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/3.mp4"
+    },
+    {
+      "video_id": "40",
+      "frames": 1920,
+      "fps": 25.0,
+      "duration_seconds": 76.8,
+      "expected_duration_seconds_from_labels": 76.8,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1920,
+      "label_frames": 1920,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 77,
+      "official_split_counts": {
+        "train": 54,
+        "test": 23
+      },
+      "blocked_gap_split_counts": {
+        "train": 47,
+        "gap": 7,
+        "test": 23
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/40.mp4"
+    },
+    {
+      "video_id": "41",
+      "frames": 2495,
+      "fps": 25.0,
+      "duration_seconds": 99.8,
+      "expected_duration_seconds_from_labels": 99.8,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2495,
+      "label_frames": 2495,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 100,
+      "official_split_counts": {
+        "train": 70,
+        "test": 30
+      },
+      "blocked_gap_split_counts": {
+        "train": 60,
+        "gap": 10,
+        "test": 30
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/41.mp4"
+    },
+    {
+      "video_id": "42",
+      "frames": 2160,
+      "fps": 25.0,
+      "duration_seconds": 86.4,
+      "expected_duration_seconds_from_labels": 86.4,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2160,
+      "label_frames": 2160,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 87,
+      "official_split_counts": {
+        "train": 61,
+        "test": 26
+      },
+      "blocked_gap_split_counts": {
+        "train": 52,
+        "gap": 9,
+        "test": 26
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/42.mp4"
+    },
+    {
+      "video_id": "43",
+      "frames": 1800,
+      "fps": 25.0,
+      "duration_seconds": 72.0,
+      "expected_duration_seconds_from_labels": 72.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1800,
+      "label_frames": 1800,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 72,
+      "official_split_counts": {
+        "train": 51,
+        "test": 21
+      },
+      "blocked_gap_split_counts": {
+        "train": 44,
+        "gap": 7,
+        "test": 21
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/43.mp4"
+    },
+    {
+      "video_id": "44",
+      "frames": 1464,
+      "fps": 25.0,
+      "duration_seconds": 58.56,
+      "expected_duration_seconds_from_labels": 58.56,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1464,
+      "label_frames": 1464,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 59,
+      "official_split_counts": {
+        "train": 41,
+        "test": 18
+      },
+      "blocked_gap_split_counts": {
+        "train": 36,
+        "gap": 5,
+        "test": 18
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/44.mp4"
+    },
+    {
+      "video_id": "45",
+      "frames": 1560,
+      "fps": 25.0,
+      "duration_seconds": 62.4,
+      "expected_duration_seconds_from_labels": 62.4,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1560,
+      "label_frames": 1560,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 63,
+      "official_split_counts": {
+        "train": 44,
+        "test": 19
+      },
+      "blocked_gap_split_counts": {
+        "train": 38,
+        "gap": 6,
+        "test": 19
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/45.mp4"
+    },
+    {
+      "video_id": "46",
+      "frames": 3233,
+      "fps": 25.0,
+      "duration_seconds": 129.32,
+      "expected_duration_seconds_from_labels": 129.32,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3233,
+      "label_frames": 3233,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 130,
+      "official_split_counts": {
+        "train": 91,
+        "test": 39
+      },
+      "blocked_gap_split_counts": {
+        "train": 78,
+        "gap": 13,
+        "test": 39
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/46.mp4"
+    },
+    {
+      "video_id": "47",
+      "frames": 1440,
+      "fps": 25.0,
+      "duration_seconds": 57.6,
+      "expected_duration_seconds_from_labels": 57.6,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1440,
+      "label_frames": 1440,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 58,
+      "official_split_counts": {
+        "train": 41,
+        "test": 17
+      },
+      "blocked_gap_split_counts": {
+        "train": 35,
+        "gap": 6,
+        "test": 17
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/47.mp4"
+    },
+    {
+      "video_id": "48",
+      "frames": 2136,
+      "fps": 25.0,
+      "duration_seconds": 85.44,
+      "expected_duration_seconds_from_labels": 85.44,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2136,
+      "label_frames": 2136,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 86,
+      "official_split_counts": {
+        "train": 60,
+        "test": 26
+      },
+      "blocked_gap_split_counts": {
+        "train": 52,
+        "gap": 8,
+        "test": 26
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/48.mp4"
+    },
+    {
+      "video_id": "49",
+      "frames": 2184,
+      "fps": 25.0,
+      "duration_seconds": 87.36,
+      "expected_duration_seconds_from_labels": 87.36,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2184,
+      "label_frames": 2184,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 88,
+      "official_split_counts": {
+        "train": 62,
+        "test": 26
+      },
+      "blocked_gap_split_counts": {
+        "train": 53,
+        "gap": 9,
+        "test": 26
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/49.mp4"
+    },
+    {
+      "video_id": "4",
+      "frames": 1454,
+      "fps": 25.0,
+      "duration_seconds": 58.16,
+      "expected_duration_seconds_from_labels": 58.16,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1454,
+      "label_frames": 1454,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 59,
+      "official_split_counts": {
+        "train": 41,
+        "test": 18
+      },
+      "blocked_gap_split_counts": {
+        "train": 35,
+        "gap": 6,
+        "test": 18
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/4.mp4"
+    },
+    {
+      "video_id": "50",
+      "frames": 1849,
+      "fps": 25.0,
+      "duration_seconds": 73.96,
+      "expected_duration_seconds_from_labels": 73.96,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1849,
+      "label_frames": 1849,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 74,
+      "official_split_counts": {
+        "train": 52,
+        "test": 22
+      },
+      "blocked_gap_split_counts": {
+        "train": 45,
+        "gap": 7,
+        "test": 22
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/50.mp4"
+    },
+    {
+      "video_id": "51",
+      "frames": 1812,
+      "fps": 25.0,
+      "duration_seconds": 72.48,
+      "expected_duration_seconds_from_labels": 72.48,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1812,
+      "label_frames": 1812,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 73,
+      "official_split_counts": {
+        "train": 51,
+        "test": 22
+      },
+      "blocked_gap_split_counts": {
+        "train": 44,
+        "gap": 7,
+        "test": 22
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/51.mp4"
+    },
+    {
+      "video_id": "52",
+      "frames": 264,
+      "fps": 25.0,
+      "duration_seconds": 10.56,
+      "expected_duration_seconds_from_labels": 10.56,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 264,
+      "label_frames": 264,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 11,
+      "official_split_counts": {
+        "train": 8,
+        "test": 3
+      },
+      "blocked_gap_split_counts": {
+        "train": 7,
+        "gap": 1,
+        "test": 3
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/52.mp4"
+    },
+    {
+      "video_id": "53",
+      "frames": 1296,
+      "fps": 25.0,
+      "duration_seconds": 51.84,
+      "expected_duration_seconds_from_labels": 51.84,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1296,
+      "label_frames": 1296,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 52,
+      "official_split_counts": {
+        "train": 37,
+        "test": 15
+      },
+      "blocked_gap_split_counts": {
+        "train": 32,
+        "gap": 5,
+        "test": 15
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/53.mp4"
+    },
+    {
+      "video_id": "54",
+      "frames": 864,
+      "fps": 25.0,
+      "duration_seconds": 34.56,
+      "expected_duration_seconds_from_labels": 34.56,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 864,
+      "label_frames": 864,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 35,
+      "official_split_counts": {
+        "train": 25,
+        "test": 10
+      },
+      "blocked_gap_split_counts": {
+        "train": 21,
+        "gap": 4,
+        "test": 10
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/54.mp4"
+    },
+    {
+      "video_id": "55",
+      "frames": 1200,
+      "fps": 25.0,
+      "duration_seconds": 48.0,
+      "expected_duration_seconds_from_labels": 48.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1200,
+      "label_frames": 1200,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 48,
+      "official_split_counts": {
+        "train": 34,
+        "test": 14
+      },
+      "blocked_gap_split_counts": {
+        "train": 29,
+        "gap": 5,
+        "test": 14
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/55.mp4"
+    },
+    {
+      "video_id": "56",
+      "frames": 2745,
+      "fps": 25.0,
+      "duration_seconds": 109.8,
+      "expected_duration_seconds_from_labels": 109.8,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2745,
+      "label_frames": 2745,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 110,
+      "official_split_counts": {
+        "train": 77,
+        "test": 33
+      },
+      "blocked_gap_split_counts": {
+        "train": 66,
+        "gap": 11,
+        "test": 33
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/56.mp4"
+    },
+    {
+      "video_id": "57",
+      "frames": 1896,
+      "fps": 25.0,
+      "duration_seconds": 75.84,
+      "expected_duration_seconds_from_labels": 75.84,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1896,
+      "label_frames": 1896,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 76,
+      "official_split_counts": {
+        "train": 54,
+        "test": 22
+      },
+      "blocked_gap_split_counts": {
+        "train": 46,
+        "gap": 8,
+        "test": 22
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/57.mp4"
+    },
+    {
+      "video_id": "58",
+      "frames": 1560,
+      "fps": 25.0,
+      "duration_seconds": 62.4,
+      "expected_duration_seconds_from_labels": 62.4,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1560,
+      "label_frames": 1560,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 63,
+      "official_split_counts": {
+        "train": 44,
+        "test": 19
+      },
+      "blocked_gap_split_counts": {
+        "train": 38,
+        "gap": 6,
+        "test": 19
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/58.mp4"
+    },
+    {
+      "video_id": "59",
+      "frames": 2088,
+      "fps": 25.0,
+      "duration_seconds": 83.52,
+      "expected_duration_seconds_from_labels": 83.52,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2088,
+      "label_frames": 2088,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 84,
+      "official_split_counts": {
+        "train": 59,
+        "test": 25
+      },
+      "blocked_gap_split_counts": {
+        "train": 51,
+        "gap": 8,
+        "test": 25
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/59.mp4"
+    },
+    {
+      "video_id": "5",
+      "frames": 2577,
+      "fps": 25.0,
+      "duration_seconds": 103.08,
+      "expected_duration_seconds_from_labels": 103.08,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2577,
+      "label_frames": 2577,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 104,
+      "official_split_counts": {
+        "train": 73,
+        "test": 31
+      },
+      "blocked_gap_split_counts": {
+        "train": 62,
+        "gap": 11,
+        "test": 31
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/5.mp4"
+    },
+    {
+      "video_id": "60",
+      "frames": 1272,
+      "fps": 25.0,
+      "duration_seconds": 50.88,
+      "expected_duration_seconds_from_labels": 50.88,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1272,
+      "label_frames": 1272,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 51,
+      "official_split_counts": {
+        "train": 36,
+        "test": 15
+      },
+      "blocked_gap_split_counts": {
+        "train": 31,
+        "gap": 5,
+        "test": 15
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/60.mp4"
+    },
+    {
+      "video_id": "61",
+      "frames": 1526,
+      "fps": 25.0,
+      "duration_seconds": 61.04,
+      "expected_duration_seconds_from_labels": 61.04,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1526,
+      "label_frames": 1526,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 62,
+      "official_split_counts": {
+        "train": 43,
+        "test": 19
+      },
+      "blocked_gap_split_counts": {
+        "train": 37,
+        "gap": 6,
+        "test": 19
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/61.mp4"
+    },
+    {
+      "video_id": "62",
+      "frames": 1080,
+      "fps": 25.0,
+      "duration_seconds": 43.2,
+      "expected_duration_seconds_from_labels": 43.2,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1080,
+      "label_frames": 1080,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 44,
+      "official_split_counts": {
+        "train": 31,
+        "test": 13
+      },
+      "blocked_gap_split_counts": {
+        "train": 26,
+        "gap": 5,
+        "test": 13
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/62.mp4"
+    },
+    {
+      "video_id": "63",
+      "frames": 816,
+      "fps": 25.0,
+      "duration_seconds": 32.64,
+      "expected_duration_seconds_from_labels": 32.64,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 816,
+      "label_frames": 816,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 33,
+      "official_split_counts": {
+        "train": 23,
+        "test": 10
+      },
+      "blocked_gap_split_counts": {
+        "train": 20,
+        "gap": 3,
+        "test": 10
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/63.mp4"
+    },
+    {
+      "video_id": "64",
+      "frames": 1589,
+      "fps": 25.0,
+      "duration_seconds": 63.56,
+      "expected_duration_seconds_from_labels": 63.56,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1589,
+      "label_frames": 1589,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 64,
+      "official_split_counts": {
+        "train": 45,
+        "test": 19
+      },
+      "blocked_gap_split_counts": {
+        "train": 39,
+        "gap": 6,
+        "test": 19
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/64.mp4"
+    },
+    {
+      "video_id": "65",
+      "frames": 1474,
+      "fps": 25.0,
+      "duration_seconds": 58.96,
+      "expected_duration_seconds_from_labels": 58.96,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1474,
+      "label_frames": 1474,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 59,
+      "official_split_counts": {
+        "train": 42,
+        "test": 17
+      },
+      "blocked_gap_split_counts": {
+        "train": 36,
+        "gap": 6,
+        "test": 17
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/65.mp4"
+    },
+    {
+      "video_id": "66",
+      "frames": 1400,
+      "fps": 25.0,
+      "duration_seconds": 56.0,
+      "expected_duration_seconds_from_labels": 56.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1400,
+      "label_frames": 1400,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 56,
+      "official_split_counts": {
+        "train": 40,
+        "test": 16
+      },
+      "blocked_gap_split_counts": {
+        "train": 34,
+        "gap": 6,
+        "test": 16
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/66.mp4"
+    },
+    {
+      "video_id": "67",
+      "frames": 2250,
+      "fps": 25.0,
+      "duration_seconds": 90.0,
+      "expected_duration_seconds_from_labels": 90.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2250,
+      "label_frames": 2250,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 90,
+      "official_split_counts": {
+        "train": 63,
+        "test": 27
+      },
+      "blocked_gap_split_counts": {
+        "train": 54,
+        "gap": 9,
+        "test": 27
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/67.mp4"
+    },
+    {
+      "video_id": "68",
+      "frames": 1320,
+      "fps": 25.0,
+      "duration_seconds": 52.8,
+      "expected_duration_seconds_from_labels": 52.8,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1320,
+      "label_frames": 1320,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 53,
+      "official_split_counts": {
+        "train": 37,
+        "test": 16
+      },
+      "blocked_gap_split_counts": {
+        "train": 32,
+        "gap": 5,
+        "test": 16
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/68.mp4"
+    },
+    {
+      "video_id": "69",
+      "frames": 2369,
+      "fps": 25.0,
+      "duration_seconds": 94.76,
+      "expected_duration_seconds_from_labels": 94.76,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2369,
+      "label_frames": 2369,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 95,
+      "official_split_counts": {
+        "train": 67,
+        "test": 28
+      },
+      "blocked_gap_split_counts": {
+        "train": 57,
+        "gap": 10,
+        "test": 28
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/69.mp4"
+    },
+    {
+      "video_id": "6",
+      "frames": 841,
+      "fps": 25.0,
+      "duration_seconds": 33.64,
+      "expected_duration_seconds_from_labels": 33.64,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 841,
+      "label_frames": 841,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 34,
+      "official_split_counts": {
+        "train": 24,
+        "test": 10
+      },
+      "blocked_gap_split_counts": {
+        "train": 21,
+        "gap": 3,
+        "test": 10
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/6.mp4"
+    },
+    {
+      "video_id": "70",
+      "frames": 1681,
+      "fps": 25.0,
+      "duration_seconds": 67.24,
+      "expected_duration_seconds_from_labels": 67.24,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1681,
+      "label_frames": 1681,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 68,
+      "official_split_counts": {
+        "train": 48,
+        "test": 20
+      },
+      "blocked_gap_split_counts": {
+        "train": 41,
+        "gap": 7,
+        "test": 20
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/70.mp4"
+    },
+    {
+      "video_id": "71",
+      "frames": 1500,
+      "fps": 25.0,
+      "duration_seconds": 60.0,
+      "expected_duration_seconds_from_labels": 60.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1500,
+      "label_frames": 1500,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 60,
+      "official_split_counts": {
+        "train": 42,
+        "test": 18
+      },
+      "blocked_gap_split_counts": {
+        "train": 36,
+        "gap": 6,
+        "test": 18
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/71.mp4"
+    },
+    {
+      "video_id": "72",
+      "frames": 2100,
+      "fps": 25.0,
+      "duration_seconds": 84.0,
+      "expected_duration_seconds_from_labels": 84.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2100,
+      "label_frames": 2100,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 84,
+      "official_split_counts": {
+        "train": 59,
+        "test": 25
+      },
+      "blocked_gap_split_counts": {
+        "train": 51,
+        "gap": 8,
+        "test": 25
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/72.mp4"
+    },
+    {
+      "video_id": "73",
+      "frames": 3120,
+      "fps": 25.0,
+      "duration_seconds": 124.8,
+      "expected_duration_seconds_from_labels": 124.8,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3120,
+      "label_frames": 3120,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 125,
+      "official_split_counts": {
+        "train": 88,
+        "test": 37
+      },
+      "blocked_gap_split_counts": {
+        "train": 75,
+        "gap": 13,
+        "test": 37
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/73.mp4"
+    },
+    {
+      "video_id": "74",
+      "frames": 1800,
+      "fps": 25.0,
+      "duration_seconds": 72.0,
+      "expected_duration_seconds_from_labels": 72.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1800,
+      "label_frames": 1800,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 72,
+      "official_split_counts": {
+        "train": 51,
+        "test": 21
+      },
+      "blocked_gap_split_counts": {
+        "train": 44,
+        "gap": 7,
+        "test": 21
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/74.mp4"
+    },
+    {
+      "video_id": "75",
+      "frames": 1314,
+      "fps": 25.0,
+      "duration_seconds": 52.56,
+      "expected_duration_seconds_from_labels": 52.56,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1314,
+      "label_frames": 1314,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 53,
+      "official_split_counts": {
+        "train": 37,
+        "test": 16
+      },
+      "blocked_gap_split_counts": {
+        "train": 32,
+        "gap": 5,
+        "test": 16
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/75.mp4"
+    },
+    {
+      "video_id": "76",
+      "frames": 2158,
+      "fps": 25.0,
+      "duration_seconds": 86.32,
+      "expected_duration_seconds_from_labels": 86.32,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2158,
+      "label_frames": 2158,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 87,
+      "official_split_counts": {
+        "train": 61,
+        "test": 26
+      },
+      "blocked_gap_split_counts": {
+        "train": 52,
+        "gap": 9,
+        "test": 26
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/76.mp4"
+    },
+    {
+      "video_id": "77",
+      "frames": 2184,
+      "fps": 25.0,
+      "duration_seconds": 87.36,
+      "expected_duration_seconds_from_labels": 87.36,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2184,
+      "label_frames": 2184,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 88,
+      "official_split_counts": {
+        "train": 62,
+        "test": 26
+      },
+      "blocked_gap_split_counts": {
+        "train": 53,
+        "gap": 9,
+        "test": 26
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/77.mp4"
+    },
+    {
+      "video_id": "78",
+      "frames": 1444,
+      "fps": 25.0,
+      "duration_seconds": 57.76,
+      "expected_duration_seconds_from_labels": 57.76,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1444,
+      "label_frames": 1444,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 58,
+      "official_split_counts": {
+        "train": 41,
+        "test": 17
+      },
+      "blocked_gap_split_counts": {
+        "train": 35,
+        "gap": 6,
+        "test": 17
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/78.mp4"
+    },
+    {
+      "video_id": "79",
+      "frames": 1375,
+      "fps": 25.0,
+      "duration_seconds": 55.0,
+      "expected_duration_seconds_from_labels": 55.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1375,
+      "label_frames": 1375,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 55,
+      "official_split_counts": {
+        "train": 39,
+        "test": 16
+      },
+      "blocked_gap_split_counts": {
+        "train": 33,
+        "gap": 6,
+        "test": 16
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/79.mp4"
+    },
+    {
+      "video_id": "7",
+      "frames": 1762,
+      "fps": 25.0,
+      "duration_seconds": 70.48,
+      "expected_duration_seconds_from_labels": 70.48,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1762,
+      "label_frames": 1762,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 71,
+      "official_split_counts": {
+        "train": 50,
+        "test": 21
+      },
+      "blocked_gap_split_counts": {
+        "train": 43,
+        "gap": 7,
+        "test": 21
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/7.mp4"
+    },
+    {
+      "video_id": "80",
+      "frames": 2190,
+      "fps": 25.0,
+      "duration_seconds": 87.6,
+      "expected_duration_seconds_from_labels": 87.6,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2190,
+      "label_frames": 2190,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 88,
+      "official_split_counts": {
+        "train": 62,
+        "test": 26
+      },
+      "blocked_gap_split_counts": {
+        "train": 53,
+        "gap": 9,
+        "test": 26
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/80.mp4"
+    },
+    {
+      "video_id": "81",
+      "frames": 720,
+      "fps": 25.0,
+      "duration_seconds": 28.8,
+      "expected_duration_seconds_from_labels": 28.8,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 720,
+      "label_frames": 720,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 29,
+      "official_split_counts": {
+        "train": 21,
+        "test": 8
+      },
+      "blocked_gap_split_counts": {
+        "train": 18,
+        "gap": 3,
+        "test": 8
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/81.mp4"
+    },
+    {
+      "video_id": "82",
+      "frames": 850,
+      "fps": 25.0,
+      "duration_seconds": 34.0,
+      "expected_duration_seconds_from_labels": 34.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 850,
+      "label_frames": 850,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 34,
+      "official_split_counts": {
+        "train": 24,
+        "test": 10
+      },
+      "blocked_gap_split_counts": {
+        "train": 21,
+        "gap": 3,
+        "test": 10
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/82.mp4"
+    },
+    {
+      "video_id": "83",
+      "frames": 3571,
+      "fps": 25.0,
+      "duration_seconds": 142.84,
+      "expected_duration_seconds_from_labels": 142.84,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3571,
+      "label_frames": 3571,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 143,
+      "official_split_counts": {
+        "train": 100,
+        "test": 43
+      },
+      "blocked_gap_split_counts": {
+        "train": 86,
+        "gap": 14,
+        "test": 43
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/83.mp4"
+    },
+    {
+      "video_id": "84",
+      "frames": 876,
+      "fps": 25.0,
+      "duration_seconds": 35.04,
+      "expected_duration_seconds_from_labels": 35.04,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 876,
+      "label_frames": 876,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 36,
+      "official_split_counts": {
+        "train": 25,
+        "test": 11
+      },
+      "blocked_gap_split_counts": {
+        "train": 21,
+        "gap": 4,
+        "test": 11
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/84.mp4"
+    },
+    {
+      "video_id": "85",
+      "frames": 3064,
+      "fps": 25.0,
+      "duration_seconds": 122.56,
+      "expected_duration_seconds_from_labels": 122.56,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3064,
+      "label_frames": 3064,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 123,
+      "official_split_counts": {
+        "train": 86,
+        "test": 37
+      },
+      "blocked_gap_split_counts": {
+        "train": 74,
+        "gap": 12,
+        "test": 37
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/85.mp4"
+    },
+    {
+      "video_id": "86",
+      "frames": 1976,
+      "fps": 25.0,
+      "duration_seconds": 79.04,
+      "expected_duration_seconds_from_labels": 79.04,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1976,
+      "label_frames": 1976,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 80,
+      "official_split_counts": {
+        "train": 56,
+        "test": 24
+      },
+      "blocked_gap_split_counts": {
+        "train": 48,
+        "gap": 8,
+        "test": 24
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/86.mp4"
+    },
+    {
+      "video_id": "87",
+      "frames": 3622,
+      "fps": 25.0,
+      "duration_seconds": 144.88,
+      "expected_duration_seconds_from_labels": 144.88,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3622,
+      "label_frames": 3622,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 145,
+      "official_split_counts": {
+        "train": 102,
+        "test": 43
+      },
+      "blocked_gap_split_counts": {
+        "train": 87,
+        "gap": 15,
+        "test": 43
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/87.mp4"
+    },
+    {
+      "video_id": "88",
+      "frames": 2582,
+      "fps": 25.0,
+      "duration_seconds": 103.28,
+      "expected_duration_seconds_from_labels": 103.28,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2582,
+      "label_frames": 2582,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 104,
+      "official_split_counts": {
+        "train": 73,
+        "test": 31
+      },
+      "blocked_gap_split_counts": {
+        "train": 62,
+        "gap": 11,
+        "test": 31
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/88.mp4"
+    },
+    {
+      "video_id": "89",
+      "frames": 3978,
+      "fps": 25.0,
+      "duration_seconds": 159.12,
+      "expected_duration_seconds_from_labels": 159.12,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3978,
+      "label_frames": 3978,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 160,
+      "official_split_counts": {
+        "train": 112,
+        "test": 48
+      },
+      "blocked_gap_split_counts": {
+        "train": 96,
+        "gap": 16,
+        "test": 48
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/89.mp4"
+    },
+    {
+      "video_id": "8",
+      "frames": 1050,
+      "fps": 25.0,
+      "duration_seconds": 42.0,
+      "expected_duration_seconds_from_labels": 42.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1050,
+      "label_frames": 1050,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 42,
+      "official_split_counts": {
+        "train": 30,
+        "test": 12
+      },
+      "blocked_gap_split_counts": {
+        "train": 26,
+        "gap": 4,
+        "test": 12
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/8.mp4"
+    },
+    {
+      "video_id": "90",
+      "frames": 2852,
+      "fps": 25.0,
+      "duration_seconds": 114.08,
+      "expected_duration_seconds_from_labels": 114.08,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2852,
+      "label_frames": 2852,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 115,
+      "official_split_counts": {
+        "train": 80,
+        "test": 35
+      },
+      "blocked_gap_split_counts": {
+        "train": 69,
+        "gap": 11,
+        "test": 35
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/90.mp4"
+    },
+    {
+      "video_id": "91",
+      "frames": 2649,
+      "fps": 25.0,
+      "duration_seconds": 105.96,
+      "expected_duration_seconds_from_labels": 105.96,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2649,
+      "label_frames": 2649,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 106,
+      "official_split_counts": {
+        "train": 75,
+        "test": 31
+      },
+      "blocked_gap_split_counts": {
+        "train": 64,
+        "gap": 11,
+        "test": 31
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/91.mp4"
+    },
+    {
+      "video_id": "92",
+      "frames": 1161,
+      "fps": 25.0,
+      "duration_seconds": 46.44,
+      "expected_duration_seconds_from_labels": 46.44,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1161,
+      "label_frames": 1161,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 47,
+      "official_split_counts": {
+        "train": 33,
+        "test": 14
+      },
+      "blocked_gap_split_counts": {
+        "train": 28,
+        "gap": 5,
+        "test": 14
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/92.mp4"
+    },
+    {
+      "video_id": "93",
+      "frames": 2150,
+      "fps": 25.0,
+      "duration_seconds": 86.0,
+      "expected_duration_seconds_from_labels": 86.0,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2150,
+      "label_frames": 2150,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 86,
+      "official_split_counts": {
+        "train": 61,
+        "test": 25
+      },
+      "blocked_gap_split_counts": {
+        "train": 52,
+        "gap": 9,
+        "test": 25
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/93.mp4"
+    },
+    {
+      "video_id": "94",
+      "frames": 2064,
+      "fps": 25.0,
+      "duration_seconds": 82.56,
+      "expected_duration_seconds_from_labels": 82.56,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2064,
+      "label_frames": 2064,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 83,
+      "official_split_counts": {
+        "train": 58,
+        "test": 25
+      },
+      "blocked_gap_split_counts": {
+        "train": 50,
+        "gap": 8,
+        "test": 25
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/94.mp4"
+    },
+    {
+      "video_id": "95",
+      "frames": 704,
+      "fps": 25.0,
+      "duration_seconds": 28.16,
+      "expected_duration_seconds_from_labels": 28.16,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 704,
+      "label_frames": 704,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 29,
+      "official_split_counts": {
+        "train": 20,
+        "test": 9
+      },
+      "blocked_gap_split_counts": {
+        "train": 17,
+        "gap": 3,
+        "test": 9
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/95.mp4"
+    },
+    {
+      "video_id": "96",
+      "frames": 1943,
+      "fps": 25.0,
+      "duration_seconds": 77.72,
+      "expected_duration_seconds_from_labels": 77.72,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1943,
+      "label_frames": 1943,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 78,
+      "official_split_counts": {
+        "train": 55,
+        "test": 23
+      },
+      "blocked_gap_split_counts": {
+        "train": 47,
+        "gap": 8,
+        "test": 23
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/96.mp4"
+    },
+    {
+      "video_id": "97",
+      "frames": 1674,
+      "fps": 25.0,
+      "duration_seconds": 66.96,
+      "expected_duration_seconds_from_labels": 66.96,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 1674,
+      "label_frames": 1674,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 67,
+      "official_split_counts": {
+        "train": 47,
+        "test": 20
+      },
+      "blocked_gap_split_counts": {
+        "train": 41,
+        "gap": 6,
+        "test": 20
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/97.mp4"
+    },
+    {
+      "video_id": "98",
+      "frames": 3288,
+      "fps": 25.0,
+      "duration_seconds": 131.52,
+      "expected_duration_seconds_from_labels": 131.52,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3288,
+      "label_frames": 3288,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 132,
+      "official_split_counts": {
+        "train": 93,
+        "test": 39
+      },
+      "blocked_gap_split_counts": {
+        "train": 79,
+        "gap": 14,
+        "test": 39
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/98.mp4"
+    },
+    {
+      "video_id": "99",
+      "frames": 3288,
+      "fps": 25.0,
+      "duration_seconds": 131.52,
+      "expected_duration_seconds_from_labels": 131.52,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 3288,
+      "label_frames": 3288,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 132,
+      "official_split_counts": {
+        "train": 93,
+        "test": 39
+      },
+      "blocked_gap_split_counts": {
+        "train": 79,
+        "gap": 14,
+        "test": 39
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/99.mp4"
+    },
+    {
+      "video_id": "9",
+      "frames": 2411,
+      "fps": 25.0,
+      "duration_seconds": 96.44,
+      "expected_duration_seconds_from_labels": 96.44,
+      "duration_delta_seconds": 0.0,
+      "ffprobe_nb_frames": 2411,
+      "label_frames": 2411,
+      "nb_frames_delta": 0,
+      "alignment_status": "ok",
+      "manifest_rows": 97,
+      "official_split_counts": {
+        "train": 68,
+        "test": 29
+      },
+      "blocked_gap_split_counts": {
+        "train": 58,
+        "gap": 10,
+        "test": 29
+      },
+      "media_path": "<external-assets-root>/datasets/veatic/videos/9.mp4"
+    }
+  ],
+  "rejected": [],
+  "strict_duration_validation": true,
+  "source_manifest": "benchmarks/veatic/veatic_manifest_1hz.jsonl",
+  "freeze_reason": "124/124 complete cortical/TRIBE cache confirmatory benchmark manifest",
+  "cache_dir": "<external-assets-root>/benchmarks/veatic/tribe_cache",
+  "complete_video_ids": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "50",
+    "51",
+    "52",
+    "53",
+    "54",
+    "55",
+    "56",
+    "57",
+    "58",
+    "59",
+    "60",
+    "61",
+    "62",
+    "63",
+    "64",
+    "65",
+    "66",
+    "67",
+    "68",
+    "69",
+    "70",
+    "71",
+    "72",
+    "73",
+    "74",
+    "75",
+    "76",
+    "77",
+    "78",
+    "79",
+    "80",
+    "81",
+    "82",
+    "83",
+    "84",
+    "85",
+    "86",
+    "87",
+    "88",
+    "89",
+    "90",
+    "91",
+    "92",
+    "93",
+    "94",
+    "95",
+    "96",
+    "97",
+    "98",
+    "99",
+    "100",
+    "101",
+    "102",
+    "103",
+    "104",
+    "105",
+    "106",
+    "107",
+    "108",
+    "109",
+    "110",
+    "111",
+    "112",
+    "113",
+    "114",
+    "115",
+    "116",
+    "117",
+    "118",
+    "119",
+    "120",
+    "121",
+    "122",
+    "123"
+  ],
+  "cache_validation": {
+    "manifest_videos": 124,
+    "complete_video_ids": 124,
+    "raw_missing": [],
+    "status_incomplete": [],
+    "nonfinite_prediction_videos": [],
+    "label_bad_count": 0,
+    "feature_alignment_counts": {
+      "exact": 123,
+      "linear_resampled_by_benchmark": 1
+    },
+    "shape_mismatches": [
+      {
+        "video_id": "83",
+        "prediction_shape": [
+          263,
+          20484
+        ],
+        "manifest_rows": 143,
+        "policy": "included; benchmark resamples rows linearly to manifest length"
+      }
+    ],
+    "alternate_fixed_video_83_cache_found": false
+  },
+  "manifest_hash_sha256": "9b33000cf297344e6c3470d52fe1960fa66ff469429dd3f6507e1704e7fddad7",
+  "rows_per_video_distribution": {
+    "min": 11,
+    "median": 78.5,
+    "max": 179,
+    "total_rows": 10357
+  },
+  "arousal_distribution": {
+    "min": -0.6425546407699585,
+    "mean": 0.13057215847161033,
+    "median": 0.08900219202041626,
+    "max": 0.8886752128601074,
+    "std": 0.2508697914190207
+  },
+  "event_count_summary": {
+    "arousal__future_spike_1_3s@0.03": {
+      "rows": 10233,
+      "events": 2758,
+      "positive_rate": 0.26952017981041726,
+      "zero_event_videos": 0,
+      "per_video_event_count_min": 1,
+      "per_video_event_count_max": 58,
+      "per_video_event_count_median": 20.0
+    },
+    "arousal__future_spike_1_3s@0.05": {
+      "rows": 10233,
+      "events": 1681,
+      "positive_rate": 0.16427245187139647,
+      "zero_event_videos": 0,
+      "per_video_event_count_min": 1,
+      "per_video_event_count_max": 41,
+      "per_video_event_count_median": 12.0
+    },
+    "arousal__future_spike_1_3s@0.075": {
+      "rows": 10233,
+      "events": 992,
+      "positive_rate": 0.09694126844522623,
+      "zero_event_videos": 7,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 32,
+      "per_video_event_count_median": 7.0
+    },
+    "arousal__future_spike_1_3s@0.1": {
+      "rows": 10233,
+      "events": 616,
+      "positive_rate": 0.06019740056679371,
+      "zero_event_videos": 25,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 28,
+      "per_video_event_count_median": 4.0
+    },
+    "arousal__future_change_p1s_movement@0.03": {
+      "rows": 10233,
+      "events": 1669,
+      "positive_rate": 0.1630997752369784,
+      "zero_event_videos": 0,
+      "per_video_event_count_min": 1,
+      "per_video_event_count_max": 52,
+      "per_video_event_count_median": 10.0
+    },
+    "arousal__future_change_p1s_movement@0.05": {
+      "rows": 10233,
+      "events": 647,
+      "positive_rate": 0.06322681520570703,
+      "zero_event_videos": 10,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 28,
+      "per_video_event_count_median": 4.0
+    },
+    "arousal__future_change_p1s_movement@0.075": {
+      "rows": 10233,
+      "events": 299,
+      "positive_rate": 0.029219192807583307,
+      "zero_event_videos": 31,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 22,
+      "per_video_event_count_median": 1.0
+    },
+    "arousal__future_change_p1s_movement@0.1": {
+      "rows": 10233,
+      "events": 160,
+      "positive_rate": 0.015635688458907455,
+      "zero_event_videos": 54,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 13,
+      "per_video_event_count_median": 1.0
+    },
+    "arousal__future_change_p2s_movement@0.03": {
+      "rows": 10109,
+      "events": 3303,
+      "positive_rate": 0.3267385498071026,
+      "zero_event_videos": 0,
+      "per_video_event_count_min": 2,
+      "per_video_event_count_max": 92,
+      "per_video_event_count_median": 23.0
+    },
+    "arousal__future_change_p2s_movement@0.05": {
+      "rows": 10109,
+      "events": 1679,
+      "positive_rate": 0.16608962310812148,
+      "zero_event_videos": 2,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 65,
+      "per_video_event_count_median": 10.0
+    },
+    "arousal__future_change_p2s_movement@0.075": {
+      "rows": 10109,
+      "events": 817,
+      "positive_rate": 0.08081907211395786,
+      "zero_event_videos": 16,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 36,
+      "per_video_event_count_median": 5.0
+    },
+    "arousal__future_change_p2s_movement@0.1": {
+      "rows": 10109,
+      "events": 460,
+      "positive_rate": 0.045504006330992185,
+      "zero_event_videos": 32,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 26,
+      "per_video_event_count_median": 2.0
+    },
+    "arousal__future_change_p3s_movement@0.03": {
+      "rows": 9985,
+      "events": 4354,
+      "positive_rate": 0.43605408112168254,
+      "zero_event_videos": 0,
+      "per_video_event_count_min": 4,
+      "per_video_event_count_max": 112,
+      "per_video_event_count_median": 30.5
+    },
+    "arousal__future_change_p3s_movement@0.05": {
+      "rows": 9985,
+      "events": 2582,
+      "positive_rate": 0.2585878818227341,
+      "zero_event_videos": 1,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 85,
+      "per_video_event_count_median": 17.0
+    },
+    "arousal__future_change_p3s_movement@0.075": {
+      "rows": 9985,
+      "events": 1457,
+      "positive_rate": 0.1459188783174762,
+      "zero_event_videos": 5,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 59,
+      "per_video_event_count_median": 9.0
+    },
+    "arousal__future_change_p3s_movement@0.1": {
+      "rows": 9985,
+      "events": 880,
+      "positive_rate": 0.08813219829744617,
+      "zero_event_videos": 22,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 48,
+      "per_video_event_count_median": 6.0
+    },
+    "arousal__future_change_p5s_movement@0.03": {
+      "rows": 9737,
+      "events": 5568,
+      "positive_rate": 0.5718393755776934,
+      "zero_event_videos": 0,
+      "per_video_event_count_min": 5,
+      "per_video_event_count_max": 131,
+      "per_video_event_count_median": 39.0
+    },
+    "arousal__future_change_p5s_movement@0.05": {
+      "rows": 9737,
+      "events": 3872,
+      "positive_rate": 0.39765841635000515,
+      "zero_event_videos": 0,
+      "per_video_event_count_min": 1,
+      "per_video_event_count_max": 108,
+      "per_video_event_count_median": 27.0
+    },
+    "arousal__future_change_p5s_movement@0.075": {
+      "rows": 9737,
+      "events": 2511,
+      "positive_rate": 0.2578823046112766,
+      "zero_event_videos": 2,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 94,
+      "per_video_event_count_median": 16.0
+    },
+    "arousal__future_change_p5s_movement@0.1": {
+      "rows": 9737,
+      "events": 1691,
+      "positive_rate": 0.1736674540412858,
+      "zero_event_videos": 8,
+      "per_video_event_count_min": 0,
+      "per_video_event_count_max": 78,
+      "per_video_event_count_median": 10.0
+    }
+  },
+  "rejected_for_confirmatory_cache": [],
+  "git_commit": "not-a-git-repo"
+}

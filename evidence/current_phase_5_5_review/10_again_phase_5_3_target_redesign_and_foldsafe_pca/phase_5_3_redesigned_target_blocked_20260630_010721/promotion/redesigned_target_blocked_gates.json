@@ -1,0 +1,62 @@
+{
+  "binary": {
+    "best_control": "train_only_video_mean_residual",
+    "best_control_pr_auc": 0.26638357478742175,
+    "deltas": {
+      "real_minus_best_control_pr_auc": -1.430035264882168e-05,
+      "real_minus_frozen_ar_pr_auc": 0.0001547972952343768,
+      "real_minus_label_permutation_residual_pr_auc": 0.00011599496348918548,
+      "real_minus_random_pca_residual_pr_auc": 9.16011030979158e-05,
+      "real_minus_shuffled_pca_residual_pr_auc": 9.140906881222044e-05,
+      "real_minus_train_only_video_mean_residual_pr_auc": -1.430035264882168e-05
+    },
+    "do_no_harm_pass": true,
+    "frozen_ar_pr_auc": 0.26621447713953855,
+    "real_pr_auc": 0.26636927443477293,
+    "seed_positive_count": 1,
+    "target": "future_arousal_max_delta_rows_4_10_train_q90"
+  },
+  "binary_pass": false,
+  "checkpoint_restore_pass": true,
+  "continuous": {
+    "best_control": "train_only_video_mean_residual",
+    "best_control_top_5pct_lift": 0.08390126346300042,
+    "binary_do_no_harm_pass": false,
+    "deltas": {
+      "real_minus_best_control_top_5pct_lift": -0.005852349102497115,
+      "real_minus_frozen_ar_pr_auc": null,
+      "real_minus_frozen_ar_spearman": -0.0010315811870658317,
+      "real_minus_frozen_ar_top_5pct_lift": -0.0057023887832959586,
+      "real_minus_label_permutation_residual_top_5pct_lift": -0.0024689560135205263,
+      "real_minus_random_pca_residual_top_5pct_lift": 0.005546237031618745,
+      "real_minus_shuffled_pca_residual_top_5pct_lift": 0.003854932884375245,
+      "real_minus_train_only_video_mean_residual_top_5pct_lift": -0.005852349102497115
+    },
+    "frozen_ar_spearman": 0.05874850857062133,
+    "frozen_ar_top_5pct_lift": 0.08375130314379926,
+    "real_spearman": 0.0577169273835555,
+    "real_top_5pct_lift": 0.0780489143605033,
+    "seed_positive_count": 0,
+    "target": "residual_future_max_delta_rows_4_10"
+  },
+  "continuous_pass": false,
+  "eval_mode_scoring_pass": true,
+  "failed_gates": [
+    "binary_min_delta_threshold",
+    "binary_seed_consistency",
+    "continuous_min_delta_threshold",
+    "continuous_spearman_delta",
+    "continuous_seed_consistency",
+    "continuous_binary_do_no_harm"
+  ],
+  "frozen_ar_integrity_pass": true,
+  "full_504_started": false,
+  "grouped_started": false,
+  "matrix_rows_actual": 42,
+  "matrix_rows_expected": 42,
+  "protocol": "blocked_temporal_70_30",
+  "recommendation": "redesigned_target_blocked_failed_do_not_run_grouped_or_504",
+  "schema_version": "again_dense_2hz_phase5_redesigned_target_blocked_v1",
+  "strict_forward_time_temporal_generalization_proven": false,
+  "variant": "monotonic_do_no_harm_residual"
+}

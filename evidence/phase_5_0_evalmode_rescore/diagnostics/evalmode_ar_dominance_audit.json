@@ -1,0 +1,6 @@
+{
+  "ar_only_dominates_blocked": true,
+  "blocked_ar_only_pr_auc": 0.2654721819898222,
+  "blocked_best_matched_control_pr_auc": 0.23118450509329044,
+  "blocked_real_pr_auc": 0.2218656155688442
+}

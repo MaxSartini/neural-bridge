@@ -1,0 +1,20 @@
+[
+  {
+    "milestone": "AGAIN Phase 5 Eval-Mode Rescore Evidence Bundle",
+    "source_path": "outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_evalmode_rescore_/metrics/evalmode_within_video_metrics.csv",
+    "reason": "exceeds_73400320_bytes_cap",
+    "size_bytes": 105207118
+  },
+  {
+    "milestone": "AGAIN Phase 5.5 Temporal Residual Binary Big Confirmation Evidence Bundle",
+    "source_path": "outputs/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437/metrics/temporal_residual_binary_big_confirm_seed_metrics.partial.csv",
+    "reason": "partial_metric_not_copied",
+    "size_bytes": 100222
+  },
+  {
+    "milestone": "AGAIN Phase 5.5 temporal residual diagnostic",
+    "source_path": "evidence/phase_5_4_temporal_residual_diagnostic_20260630_020557/metrics/temporal_residual_blocked_seed_metrics.partial.csv",
+    "reason": "partial_metric_not_copied",
+    "size_bytes": 237064
+  }
+]

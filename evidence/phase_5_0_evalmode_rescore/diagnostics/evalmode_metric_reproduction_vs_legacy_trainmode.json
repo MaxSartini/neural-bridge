@@ -1,0 +1,7 @@
+{
+  "comparison_csv": "outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_evalmode_rescore_/diagnostics/evalmode_metric_reproduction_vs_legacy_trainmode.csv",
+  "eval_mode_scoring": true,
+  "max_abs_delta_pr_auc": 0.021204176199712488,
+  "max_abs_delta_roc_auc": 0.03165444822599783,
+  "source_was_legacy_train_mode_dropout_scoring": true
+}

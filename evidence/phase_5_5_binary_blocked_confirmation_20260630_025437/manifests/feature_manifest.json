@@ -1,0 +1,1505 @@
+{
+  "features": [
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "shuffled_train_and_test_separately",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "random_gaussian_matched_shape",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "train_only_video_mean",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_diagnostics_sequence_flat",
+          "channels": 53,
+          "control": "diagnostics_only",
+          "window_rows": 5
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "sequence": 265,
+        "sequence_channels": 53,
+        "sequence_window": 5
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "shuffled_train_and_test_separately",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "random_gaussian_matched_shape",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "train_only_video_mean",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_diagnostics_sequence_flat",
+          "channels": 53,
+          "control": "diagnostics_only",
+          "window_rows": 5
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "sequence": 265,
+        "sequence_channels": 53,
+        "sequence_window": 5
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "shuffled_train_and_test_separately",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "random_gaussian_matched_shape",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "train_only_video_mean",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_diagnostics_sequence_flat",
+          "channels": 53,
+          "control": "diagnostics_only",
+          "window_rows": 5
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "sequence": 265,
+        "sequence_channels": 53,
+        "sequence_window": 5
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260628,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "shuffled_train_and_test_separately",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260628,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "random_gaussian_matched_shape",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260628,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260628,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "train_only_video_mean",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260628,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_diagnostics_sequence_flat",
+          "channels": 53,
+          "control": "diagnostics_only",
+          "window_rows": 5
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "sequence": 265,
+        "sequence_channels": 53,
+        "sequence_window": 5
+      },
+      "seed": 20260628,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260629,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "shuffled_train_and_test_separately",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260629,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "random_gaussian_matched_shape",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260629,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260629,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "train_only_video_mean",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260629,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_diagnostics_sequence_flat",
+          "channels": 53,
+          "control": "diagnostics_only",
+          "window_rows": 5
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "sequence": 265,
+        "sequence_channels": 53,
+        "sequence_window": 5
+      },
+      "seed": 20260629,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260630,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "shuffled_train_and_test_separately",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260630,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "random_gaussian_matched_shape",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260630,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260630,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "train_only_video_mean",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260630,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_diagnostics_sequence_flat",
+          "channels": 53,
+          "control": "diagnostics_only",
+          "window_rows": 5
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "sequence": 265,
+        "sequence_channels": 53,
+        "sequence_window": 5
+      },
+      "seed": 20260630,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260631,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "shuffled_train_and_test_separately",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260631,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "random_gaussian_matched_shape",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260631,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260631,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "train_only_video_mean",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260631,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_diagnostics_sequence_flat",
+          "channels": 53,
+          "control": "diagnostics_only",
+          "window_rows": 5
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "sequence": 265,
+        "sequence_channels": 53,
+        "sequence_window": 5
+      },
+      "seed": 20260631,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260632,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "shuffled_train_and_test_separately",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260632,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "random_gaussian_matched_shape",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260632,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260632,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "train_only_video_mean",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260632,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_diagnostics_sequence_flat",
+          "channels": 53,
+          "control": "diagnostics_only",
+          "window_rows": 5
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "sequence": 265,
+        "sequence_channels": 53,
+        "sequence_window": 5
+      },
+      "seed": 20260632,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260633,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "shuffled_train_and_test_separately",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260633,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "random_gaussian_matched_shape",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260633,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260633,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "train_only_video_mean",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260633,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_diagnostics_sequence_flat",
+          "channels": 53,
+          "control": "diagnostics_only",
+          "window_rows": 5
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "sequence": 265,
+        "sequence_channels": 53,
+        "sequence_window": 5
+      },
+      "seed": 20260633,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260634,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "shuffled_train_and_test_separately",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260634,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "random_gaussian_matched_shape",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260634,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260634,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_pca_sequence_flat",
+          "channels": 256,
+          "pca_control": "train_only_video_mean",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "window_rows": 5
+        },
+        {
+          "block": "current_temporal_diagnostics",
+          "width": 53
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "diagnostics": 53,
+        "sequence": 1280,
+        "sequence_channels": 256,
+        "sequence_window": 5
+      },
+      "seed": 20260634,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "blocks": [
+        {
+          "block": "causal_diagnostics_sequence_flat",
+          "channels": 53,
+          "control": "diagnostics_only",
+          "window_rows": 5
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "sequence": 265,
+        "sequence_channels": 53,
+        "sequence_window": 5
+      },
+      "seed": 20260634,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    }
+  ],
+  "row_count": 60
+}

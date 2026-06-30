@@ -61,7 +61,8 @@ FORBIDDEN_TRACKED_SUFFIXES = {
 }
 
 MAX_TRACKED_FILE_BYTES = 15 * 1024 * 1024
-EVIDENCE_BUNDLE_PREFIX = "evidence_bundle_phase0_to_phase5_20260625/"
+REVIEW_DOSSIER_PREFIX = "evidence/current_phase_5_5_review/"
+EVIDENCE_TRACKED_PREFIXES = ("evidence/phase_", REVIEW_DOSSIER_PREFIX)
 MAX_EVIDENCE_BUNDLE_FILE_BYTES = 70 * 1024 * 1024
 EVIDENCE_BUNDLE_ALLOWED_SUFFIXES = {".csv", ".json", ".jsonl", ".md", ".parquet", ".py", ".txt"}
 EVIDENCE_BUNDLE_ALLOWED_DOUBLE_SUFFIXES = {(".csv", ".gz")}
@@ -103,7 +104,7 @@ def audit_required_files(errors: list[str]) -> None:
 def audit_tracked_bulk(files: list[Path], errors: list[str]) -> None:
     for path in files:
         rel = relative(path)
-        if rel.startswith(EVIDENCE_BUNDLE_PREFIX):
+        if rel.startswith(EVIDENCE_TRACKED_PREFIXES):
             size = path.stat().st_size
             if (
                 path.name != ".codexignore"
@@ -134,11 +135,14 @@ def audit_stale_terms(files: list[Path], errors: list[str], warnings: list[str])
         for label, pattern in FORBIDDEN_PATTERNS.items():
             for match in pattern.finditer(text):
                 line = text.count("\n", 0, match.start()) + 1
-                errors.append(f"{label}: {rel}:{line}")
+                if label.startswith("machine-specific") and rel.startswith("evidence/"):
+                    warnings.append(f"historical evidence provenance: {rel}:{line}")
+                else:
+                    errors.append(f"{label}: {rel}:{line}")
         for label, pattern in CONTROLLED_EVIDENCE_PATTERNS.items():
             for match in pattern.finditer(text):
                 line = text.count("\n", 0, match.start()) + 1
-                if CONTROLLED_EVIDENCE_FILES.match(rel):
+                if CONTROLLED_EVIDENCE_FILES.match(rel) or rel.startswith("evidence/"):
                     warnings.append(f"{label}: {rel}:{line}")
                 else:
                     errors.append(f"retired active-reference term: {rel}:{line}")
@@ -146,10 +150,12 @@ def audit_stale_terms(files: list[Path], errors: list[str], warnings: list[str])
 
 def audit_orientation_content(errors: list[str]) -> None:
     checks = {
-        "README.md": ["video-dominant", "modality", "Llama-3.2-3B", "evidence:verify", "pca_sequence_128_causal_past_2s_mean"],
-        "AGENTS.md": ["video-dominant", "modality", "Llama-3.2-3B", "npm run audit:repo", "evidence:verify", "pca_sequence_128_causal_past_2s_mean"],
+        "README.md": ["Best Results First", "future_arousal_max_delta_rows_4_10_train_q90", "short_temporal_conv_residual", "No 504 run has been promoted"],
+        "AGENTS.md": ["future_arousal_max_delta_rows_4_10_train_q90", "short_temporal_conv_residual", "repaired grouped compatibility"],
         "REQUIREMENTS.md": ["video-dominant", "TRIBE_TEXT_ENCODER_LOCAL_DIR", "Llama-3.2-3B"],
-        "ROADMAP.md": ["VEATIC-124 v2", "audit", "protected external snapshot", "tensor contract"],
+        "ROADMAP.md": ["Best Current Result", "Phase 5.5 evidence ladder", "504", "evidence/"],
+        "docs/current_project_state.md": ["future_arousal_max_delta_rows_4_10_train_q90", "short_temporal_conv_residual", "Continuous exact arousal forecasting remains open"],
+        "docs/neural_bridge_phase5_5_evidence_ladder.md": ["Best AGAIN Results", "Grouped Compatibility Block", "Forbidden Claim Wording"],
         "docs/veatic_v2_evidence_freeze.md": ["evidence:verify", "does not re-encode videos", "Post-freeze Tensor Contract"],
         "docs/veatic_raw_representation_audit.md": ["pca_sequence_128_causal_past_2s_mean", "roi_parcel_features", "topk_vertices_512"],
         "outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md": ["84 tensor contracts", "420", "No videos were re-encoded"],

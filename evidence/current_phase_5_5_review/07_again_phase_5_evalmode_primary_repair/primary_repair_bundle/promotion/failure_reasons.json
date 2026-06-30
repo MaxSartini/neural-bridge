@@ -1,0 +1,8 @@
+{
+  "blocked_matched_control_pass": false,
+  "blocked_matched_control_reason": "blocked real_ar_pca_diag PR-AUC 0.2199977456 is below best matched blocked control ar_plus_random_pca PR-AUC 0.2288685899",
+  "strict_forward_time_temporal_generalization_proven": false,
+  "strict_forward_time_temporal_generalization_reason": "Corrected blocked-temporal gate requires real > best matched blocked control; this run has real-minus-control delta -0.0088708442 PR-AUC.",
+  "full_pass": false,
+  "repair_required": true
+}

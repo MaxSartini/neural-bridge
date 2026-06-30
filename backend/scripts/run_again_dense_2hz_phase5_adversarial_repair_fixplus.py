@@ -701,7 +701,7 @@ def default_phase4_root() -> str:
     external = os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT")
     if external:
         return str(Path(external) / "outputs" / "again_dense_2hz_phase4_pca_bridge_20260625_full")
-    return "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full"
+    return "outputs/again_dense_2hz_phase4_pca_bridge_20260625_full"
 
 
 def build_parser() -> argparse.ArgumentParser:

@@ -1,0 +1,9 @@
+{
+  "blocked_repair_still_needed": true,
+  "blocked_residual_pass": true,
+  "control_failure_blocks_actionable_repair": true,
+  "full_forward_time_pass": true,
+  "grouped_residual_pass_not_evaluated": true,
+  "label_permutation_pass": false,
+  "video_mean_static_control_pass": false
+}

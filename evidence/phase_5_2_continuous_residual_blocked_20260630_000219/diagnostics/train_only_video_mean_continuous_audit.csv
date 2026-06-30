@@ -1,0 +1,6 @@
+seed,control_type,best_epoch,top_5pct_continuous_lift,continuous_spearman,checkpoint_restored,residual_suppressed
+20260625,train_only_video_mean_continuous_residual,3.0,0.09585216641426086,0.2623767090121664,True,False
+20260626,train_only_video_mean_continuous_residual,2.0,0.09897421300411224,0.2687040297057167,True,False
+20260627,train_only_video_mean_continuous_residual,2.0,0.09846395254135132,0.26815156475035273,True,False
+20260628,train_only_video_mean_continuous_residual,0.0,0.09809362888336182,0.2691063569331542,False,True
+20260629,train_only_video_mean_continuous_residual,2.0,0.09865769743919373,0.266338582502936,True,False

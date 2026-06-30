@@ -1,0 +1,4298 @@
+{
+  "context_rows": [
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "real_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "random_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "label_permutation_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": true,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "input_width": 53,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "real_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "random_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "label_permutation_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": true,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "input_width": 53,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "real_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "random_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "label_permutation_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": true,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "input_width": 53,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "real_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "random_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "label_permutation_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": true,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "diagnostics_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "input_width": 265,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "real_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "random_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "label_permutation_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": true,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "diagnostics_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "input_width": 265,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "real_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "random_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "label_permutation_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": true,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9708658456802368,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "diagnostics_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9870049953460693,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "input_width": 265,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8837643265724182,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9485439658164978,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "temporal_context_causal_only": true,
+      "test_rows": 69101,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 159923,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "real_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "random_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "label_permutation_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": true,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "input_width": 53,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "real_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "random_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "label_permutation_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": true,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "input_width": 53,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "real_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "random_pca_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "label_permutation_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": true,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 309,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "input_width": 53,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "real_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "random_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "label_permutation_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": true,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "diagnostics_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "input_width": 265,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "real_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "random_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "label_permutation_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": true,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "diagnostics_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "input_width": 265,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "real_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "shuffled_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "random_pca_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "label_permutation_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": true,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "train_only_video_mean_residual",
+      "input_width": 1333,
+      "label_permutation_policy_required": false,
+      "pca_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "pca_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_sequence_test": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.9704093933105469,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "diagnostics_sequence_train": {
+        "causal_only": true,
+        "mean_context_row_availability": 0.986833930015564,
+        "same_video_history_masking": true,
+        "uses_future_rows": false,
+        "window_rows": 5
+      },
+      "input_width": 265,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "real_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "shuffled_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "random_pca_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "label_permutation_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": true,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "train_only_video_mean_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 1242,
+      "label_permutation_policy_required": false,
+      "pca_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "pca_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": true,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "control": "diagnostics_only_residual",
+      "diagnostics_delta_test": {
+        "causal_only": true,
+        "full_history_available_rate": 0.8819403648376465,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "diagnostics_delta_train": {
+        "causal_only": true,
+        "full_history_available_rate": 0.9478495121002197,
+        "max_past_lag_rows": 8,
+        "same_video_history_masking": true,
+        "uses_future_rows": false
+      },
+      "input_width": 215,
+      "label_permutation_policy_required": false,
+      "same_video_history_masking": true,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "temporal_context_causal_only": true,
+      "test_rows": 68008,
+      "train_only_video_mean_policy_required": false,
+      "train_rows": 156873,
+      "uses_centered_or_future_windows": false
+    }
+  ],
+  "foldsafe_pca_audit": {
+    "dense_cache_not_modified": true,
+    "feature_family": "temporal_mean_2s",
+    "future_leakage_introduced": false,
+    "leakage_audit_pass": true,
+    "no_test_rows_used_in_pca_fit": true,
+    "original_pca_artifact_not_reused": true,
+    "output_root": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312",
+    "pca_width": 256,
+    "protocol": "blocked_temporal_70_30",
+    "redesigned_test_rows_excluded_from_pca_fit": true,
+    "row_counts_match_redesigned_split": true,
+    "rows": [
+      {
+        "leakage_audit_pass": true,
+        "score_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+        "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+        "test_idx_digest": "3e0420210fbd993d3113681c7d24556e",
+        "test_rows": 69101,
+        "train_idx_digest": "c86521f8bd3b3a8ef2e9d1d0188eb3d8",
+        "train_rows": 159923
+      },
+      {
+        "leakage_audit_pass": true,
+        "score_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+        "target_name": "residual_future_max_delta_rows_4_10",
+        "test_idx_digest": "1eae8f7205a70dcbe7e25c0bc7d7698f",
+        "test_rows": 68008,
+        "train_idx_digest": "bacd280c4bdc0389ded9dd9cb0b68f66",
+        "train_rows": 156873
+      }
+    ],
+    "safe_to_run_redesigned_target_training": true,
+    "schema_version": "again_dense_2hz_phase5_redesigned_target_foldsafe_pca_v1",
+    "target_window_overlap_unchanged": true,
+    "targets": [
+      "future_arousal_max_delta_rows_4_10_train_q90",
+      "residual_future_max_delta_rows_4_10"
+    ],
+    "vjepa_tribe_not_rerun": true
+  },
+  "label_permutation_policy_pass": true,
+  "leakage_context_audit_pass": true,
+  "no_centered_or_future_windows": true,
+  "same_video_history_masking": true,
+  "schema_version": "again_dense_2hz_phase5_temporal_residual_blocked_v1",
+  "split_row_audits": [
+    {
+      "explained_variance_ratio_sum": 0.999078137301159,
+      "row_index_verified": true,
+      "score_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "test_idx_digest": "3e0420210fbd993d3113681c7d24556e",
+      "test_rows": 69101,
+      "train_idx_digest": "c86521f8bd3b3a8ef2e9d1d0188eb3d8",
+      "train_rows": 159923
+    },
+    {
+      "explained_variance_ratio_sum": 0.9990749483178785,
+      "row_index_verified": true,
+      "score_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "test_idx_digest": "1eae8f7205a70dcbe7e25c0bc7d7698f",
+      "test_rows": 68008,
+      "train_idx_digest": "bacd280c4bdc0389ded9dd9cb0b68f66",
+      "train_rows": 156873
+    }
+  ],
+  "temporal_context_causal_only": true,
+  "train_only_video_mean_pass": true
+}

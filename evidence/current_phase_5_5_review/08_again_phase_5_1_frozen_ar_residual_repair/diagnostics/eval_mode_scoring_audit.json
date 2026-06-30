@@ -1,0 +1,5 @@
+{
+  "dropout_disabled": true,
+  "eval_mode_scoring": true,
+  "pass": true
+}

@@ -1,0 +1,11 @@
+seed,control_type,uses_test_rows_for_mean,best_epoch,checkpoint_restored
+20260625,train_only_video_mean_residual,False,8,True
+20260626,train_only_video_mean_residual,False,2,True
+20260627,train_only_video_mean_residual,False,11,True
+20260628,train_only_video_mean_residual,False,8,True
+20260629,train_only_video_mean_residual,False,5,True
+20260630,train_only_video_mean_residual,False,4,True
+20260631,train_only_video_mean_residual,False,16,True
+20260632,train_only_video_mean_residual,False,0,False
+20260633,train_only_video_mean_residual,False,6,True
+20260634,train_only_video_mean_residual,False,6,True

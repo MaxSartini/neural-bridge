@@ -1,0 +1,124 @@
+{
+  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge/cortical representations across VEATIC and AGAIN.",
+  "datasets": {
+    "VEATIC-124 v2": {
+      "role": "foundational evidence",
+      "status": "established original controlled future arousal spike/event-ranking signal",
+      "key_numbers": {
+        "strongest_blocked_feature": "cortical_pca64_delta",
+        "strongest_blocked_target": "arousal__future_spike_1_3s",
+        "strongest_blocked_pr_auc": 0.2536,
+        "strongest_blocked_ar_pr_auc": 0.1969,
+        "strongest_blocked_shuffled_pr_auc": 0.184,
+        "strongest_blocked_random_pr_auc": 0.1944,
+        "balanced_target": "arousal__future_spike_1_3s@0.05",
+        "balanced_pr_auc": 0.3394,
+        "balanced_delta_over_ar": 0.0609,
+        "balanced_delta_over_shuffled": 0.0631,
+        "balanced_delta_over_random": 0.0476
+      }
+    },
+    "AGAIN dense 2Hz": {
+      "role": "scaled confirmation and current main result",
+      "status": "replicated, repaired, and strengthened event-ranking evidence at scale",
+      "cache": {
+        "videos_complete": "995/995",
+        "row_level_cortical_rows": 243575,
+        "row_rate_hz": 2,
+        "image_size_px": 256,
+        "precision": "float16",
+        "encoder": "official V-JEPA 2.1 ViT-G",
+        "tribe_stage": "TRIBE v2 cache-only postpass",
+        "labels": "aligned at true 2 Hz"
+      }
+    }
+  },
+  "proven": [
+    "Controlled future human arousal event-ranking from frozen video-derived bridge/cortical representations across VEATIC and AGAIN.",
+    "VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal.",
+    "AGAIN replicated and extended the result at scale.",
+    "Bounded strict forward-time future-event ranking is proven on AGAIN for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
+    "Grouped held-out-video compatibility for the same AGAIN target/head is proven under the repaired frozen-AR-residual-aware verdict."
+  ],
+  "open": [
+    "Continuous exact arousal forecasting remains open.",
+    "Broad all-target/all-dataset temporal prediction remains open.",
+    "No 504 run has been performed or promoted.",
+    "Grouped compatibility is not itself a 504 run.",
+    "The repaired grouped verdict is a verdict repair from existing artifacts, not a rerun."
+  ],
+  "canonical_numbers": {
+    "again_blocked_binary_big_confirmation": {
+      "target": "future_arousal_max_delta_rows_4_10_train_q90",
+      "protocol": "blocked_temporal_70_30",
+      "architecture": "short_temporal_conv_residual",
+      "real_pr_auc": 0.267073563,
+      "frozen_ar_pr_auc": 0.2602336231,
+      "best_control": "random_pca_residual",
+      "best_control_pr_auc": 0.2593369051,
+      "delta_vs_frozen_ar": 0.0068399399,
+      "delta_vs_best_control": 0.0077366579,
+      "seeds_positive_vs_ar": "9/10",
+      "seeds_positive_vs_best_control": "9/10",
+      "weak_confirmation": true,
+      "credible_confirmation": true,
+      "strong_confirmation": true,
+      "failed_gates": []
+    },
+    "again_grouped_compatibility_repaired_verdict": {
+      "target": "future_arousal_max_delta_rows_4_10_train_q90",
+      "protocol": "grouped_video",
+      "architecture": "short_temporal_conv_residual",
+      "rows": "350/350",
+      "real_pr_auc": 0.2313831909,
+      "ar_frozen_pr_auc": 0.2174953276,
+      "best_control": "train_only_video_mean_residual",
+      "best_control_pr_auc": 0.2174209937,
+      "delta_vs_ar_frozen": 0.0138878634,
+      "delta_vs_best_control": 0.0139621972,
+      "fold_seed_positives_vs_best_control": "50/50",
+      "label_permutation_pr_auc": 0.2153099775,
+      "real_minus_label_permutation": 0.0160732134,
+      "label_permutation_minus_ar": -0.0021853501,
+      "fold_seed_positives_vs_label_permutation": "50/50",
+      "repaired_grouped_compatibility_pass": true,
+      "failed_repaired_gates": [],
+      "no_retraining": true,
+      "no_pca_generation": true,
+      "no_grouped_rerun": true,
+      "no_504": true
+    }
+  },
+  "canonical_reports": [
+    "docs/neural_bridge_phase5_5_evidence_ladder.md",
+    "docs/current_project_state.md",
+    "docs/veatic_v2_evidence_summary.md",
+    "docs/again_dense_h100_cache.md",
+    "reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md",
+    "reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md",
+    "reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md",
+    "reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_REPAIRED_VERDICT.md",
+    "evidence/current_phase_5_5_review/README.md",
+    "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",
+    "evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/README.md",
+    "evidence/phase_5_5_grouped_compatibility_20260630_033520/README.md"
+  ],
+  "do_not_claim": [
+    "mind reading",
+    "continuous arousal forecasting is solved",
+    "universal emotion prediction",
+    "504 proven",
+    "exact continuous arousal forecasting is solved",
+    "broad all-target/all-dataset temporal prediction is solved",
+    "treat Phase 5b/5c/Spark/max-capacity/deep/chimera outputs as canonical",
+    "use holy_shit_pass as a valid gate"
+  ],
+  "last_updated": "2026-06-30",
+  "review_evidence_dossier": {
+    "path": "evidence/current_phase_5_5_review/",
+    "claim_ledger": "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",
+    "artifact_manifest": "evidence/current_phase_5_5_review/artifact_manifest.csv",
+    "definitions_and_process": "evidence/current_phase_5_5_review/DEFINITIONS_AND_PROCESS.md",
+    "reviewer_checklist": "evidence/current_phase_5_5_review/REVIEWER_CHECKLIST.md"
+  }
+}

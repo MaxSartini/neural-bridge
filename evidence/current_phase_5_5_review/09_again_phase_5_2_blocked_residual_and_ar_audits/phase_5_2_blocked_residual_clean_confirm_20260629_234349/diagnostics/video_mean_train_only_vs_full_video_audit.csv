@@ -1,0 +1,11 @@
+seed,control_type,pr_auc,delta_vs_frozen_ar_pr_auc,best_epoch,checkpoint_restored,residual_suppressed
+20260625,full_video_video_mean_pca_residual_oracle_warning,0.2617572840026622,0.0002619420880921042,38.0,True,False
+20260626,full_video_video_mean_pca_residual_oracle_warning,0.2685764900973696,0.0003637020765377974,30.0,True,False
+20260627,full_video_video_mean_pca_residual_oracle_warning,0.2671116198853006,0.0004032038512357672,3.0,True,False
+20260628,full_video_video_mean_pca_residual_oracle_warning,0.2669976854743741,0.00028926944030926993,35.0,True,False
+20260629,full_video_video_mean_pca_residual_oracle_warning,0.26710104012652913,0.00039262409246432206,39.0,True,False
+20260625,train_only_video_mean_pca_residual,0.2617574190183105,0.00026207710374043236,36.0,True,False
+20260626,train_only_video_mean_pca_residual,0.26859110080588156,0.0003783127850497392,27.0,True,False
+20260627,train_only_video_mean_pca_residual,0.26709549365100194,0.00038707761693712595,4.0,True,False
+20260628,train_only_video_mean_pca_residual,0.266995051816629,0.0002866357825642152,2.0,True,False
+20260629,train_only_video_mean_pca_residual,0.2671627827854088,0.00045436675134397086,40.0,True,False

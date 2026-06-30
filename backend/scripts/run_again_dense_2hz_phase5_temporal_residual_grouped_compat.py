@@ -16,6 +16,7 @@ import argparse
 import gc
 import json
 import math
+import os
 import sys
 import time
 from dataclasses import dataclass, replace
@@ -41,7 +42,7 @@ from backend.scripts.again_dense_2hz_benchmark import AR_FEATURE_COLUMNS, featur
 
 SCHEMA_VERSION = "again_dense_2hz_phase5_temporal_residual_grouped_compat_v1"
 SOURCE_ROOT = Path("outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_20260629_171825")
-EXTERNAL_PHASE4_ROOT = Path("/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full")
+EXTERNAL_PHASE4_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", ".")) / "outputs/again_dense_2hz_phase4_pca_bridge_20260625_full"
 TARGET_NAME = redesigned.BINARY_TARGET
 PROTOCOL = "grouped_video"
 ARCHITECTURE = "short_temporal_conv_residual"

@@ -1,0 +1,14 @@
+classification,future_feature_leakage,kind,notes,operation
+observed/current,False,label_input,Manifest rows read averaged labels at row timestamp.,arousal labels current manifest
+label-only future target construction,False,target,Allowed target y(t+h)-y(t); not used as feature.,future_change
+label-only future target construction,False,target,Allowed binary future-label target.,event_future_spike_1_3s
+causal/past-only baseline plus future target,False,target,History window uses current/past labels; future label is target only.,residual_future_p*_rolling3
+causal/past-only baseline plus future target,False,target,Rolling baseline uses current/past values in retest code.,local target future_minus_rolling_baseline
+causal/past-only denominator plus future target,False,target,Local volatility uses current/past values; near-perfect local-volatility rows remain suspicious and should not be headline.,local target future_change_local_volatility
+causal/past-only,False,feature,Uses current minus previous within video.,pca64_delta delta1
+causal/past-only,False,feature,Uses current/previous deltas only.,pca64_delta accel
+causal/past-only,False,feature,Window is current plus prior two rows within video.,pca64_delta rollmean3
+causal/past-only,False,feature,Slope over current plus prior two rows.,pca64_delta slope3
+causal/past-only,False,feature,Slope over current plus prior four rows.,pca64_delta slope5
+label-only future/onset diagnostic,False,evaluation_mask,Masks filter test rows for diagnostics; thresholds remain train-selected.,pre_event masks
+label-only future/onset diagnostic,False,evaluation_mask,Positive-only masks have undefined PR-AUC; use balanced event-vs-stable for discrimination.,event_plus_pre masks

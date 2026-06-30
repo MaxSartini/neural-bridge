@@ -16,8 +16,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BUNDLE_NAME = "evidence_bundle_phase0_to_phase5_20260625"
-BUNDLE = ROOT / BUNDLE_NAME
+BUNDLE_NAME = "phase_0_to_5_historical_ladder_20260625"
+BUNDLE = ROOT / "evidence" / BUNDLE_NAME
 MAX_SIZE = 70 * 1024 * 1024
 EXT_ROOT = Path(
     os.environ.get(
@@ -454,7 +454,7 @@ gzip -cd large_evidence_compressed/again_dense_root_metadata/row_index.csv.gz | 
 ```bash
 python3 - <<'PY'
 import hashlib, json, pathlib
-bundle = pathlib.Path('evidence_bundle_phase0_to_phase5_20260625')
+bundle = pathlib.Path('evidence/phase_0_to_5_historical_ladder_20260625')
 rows = json.loads((bundle / 'checksum_manifest.json').read_text())['files']
 for row in rows:
     path = bundle / row['bundle_path']

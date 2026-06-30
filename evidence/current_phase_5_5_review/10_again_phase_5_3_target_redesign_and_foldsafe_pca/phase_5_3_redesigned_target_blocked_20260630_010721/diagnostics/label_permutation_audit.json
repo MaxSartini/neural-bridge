@@ -1,0 +1,65 @@
+{
+  "policy_implemented": true,
+  "rows": [
+    {
+      "best_epoch": 0.0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "inner_val_selection_policy": "permuted_inner_val_labels_targets",
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "training_label_policy": "permuted_train_labels_targets"
+    },
+    {
+      "best_epoch": 0.0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "inner_val_selection_policy": "permuted_inner_val_labels_targets",
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "training_label_policy": "permuted_train_labels_targets"
+    },
+    {
+      "best_epoch": 13.0,
+      "best_inner_val_delta_vs_frozen_ar": 5.446921982940611e-06,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "inner_val_selection_policy": "permuted_inner_val_labels_targets",
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary",
+      "training_label_policy": "permuted_train_labels_targets"
+    },
+    {
+      "best_epoch": 5.0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0022089025005698204,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "inner_val_selection_policy": "permuted_inner_val_labels_targets",
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "training_label_policy": "permuted_train_labels_targets"
+    },
+    {
+      "best_epoch": 9.0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0004253038205206394,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "inner_val_selection_policy": "permuted_inner_val_labels_targets",
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "training_label_policy": "permuted_train_labels_targets"
+    },
+    {
+      "best_epoch": 20.0,
+      "best_inner_val_delta_vs_frozen_ar": 0.004176463931798935,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "inner_val_selection_policy": "permuted_inner_val_labels_targets",
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous",
+      "training_label_policy": "permuted_train_labels_targets"
+    }
+  ]
+}

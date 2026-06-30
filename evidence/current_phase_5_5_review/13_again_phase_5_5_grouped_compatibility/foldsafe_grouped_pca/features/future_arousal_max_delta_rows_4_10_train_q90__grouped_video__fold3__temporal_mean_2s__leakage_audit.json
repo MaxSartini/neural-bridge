@@ -1,0 +1,19 @@
+{
+  "dense_cache_modified": false,
+  "fold": 3,
+  "future_leakage_suspected": false,
+  "leakage_audit_pass": true,
+  "no_global_pca": true,
+  "no_test_rows_used_in_pca_fit": true,
+  "original_pca_artifact_not_reused": true,
+  "original_pca_artifact_reused": false,
+  "protocol": "grouped_video",
+  "schema_version": "again_dense_2hz_phase5_temporal_residual_grouped_compat_v1",
+  "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+  "target_window_overlap": false,
+  "test_idx_digest": "5959f9e8cf1eda1045cec7cebe31fb83",
+  "train_idx_digest": "edf6f84ad9e30f73db7dbc9b5762d815",
+  "train_test_row_overlap": false,
+  "tribe_encoding_run": false,
+  "vjepa_encoding_run": false
+}

@@ -1,0 +1,437 @@
+{
+  "future_arousal_abs_delta_rows_4_10": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3
+    ],
+    "washout_gap_seconds": 1.5
+  },
+  "future_arousal_abs_delta_rows_4_10_train_q90": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3
+    ],
+    "washout_gap_seconds": 1.5
+  },
+  "future_arousal_abs_delta_rows_6_12": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "washout_gap_seconds": 2.5
+  },
+  "future_arousal_abs_delta_rows_6_12_train_q90": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "washout_gap_seconds": 2.5
+  },
+  "future_arousal_max_delta_rows_4_10": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3
+    ],
+    "washout_gap_seconds": 1.5
+  },
+  "future_arousal_max_delta_rows_4_10_train_q90": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3
+    ],
+    "washout_gap_seconds": 1.5
+  },
+  "future_arousal_max_delta_rows_6_12": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "washout_gap_seconds": 2.5
+  },
+  "future_arousal_max_delta_rows_6_12_train_q90": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "washout_gap_seconds": 2.5
+  },
+  "future_onset_spike_rows_4_10_train_q90_current_q50": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3
+    ],
+    "washout_gap_seconds": 1.5
+  },
+  "future_onset_spike_rows_4_10_train_q90_current_q60": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3
+    ],
+    "washout_gap_seconds": 1.5
+  },
+  "future_onset_spike_rows_4_10_train_q90_current_q70": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3
+    ],
+    "washout_gap_seconds": 1.5
+  },
+  "future_onset_spike_rows_6_12_train_q90_current_q50": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "washout_gap_seconds": 2.5
+  },
+  "future_onset_spike_rows_6_12_train_q90_current_q60": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "washout_gap_seconds": 2.5
+  },
+  "future_onset_spike_rows_6_12_train_q90_current_q70": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "washout_gap_seconds": 2.5
+  },
+  "residual_future_abs_delta_rows_4_10": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3
+    ],
+    "washout_gap_seconds": 1.5
+  },
+  "residual_future_max_delta_rows_2_6": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1
+    ],
+    "washout_gap_seconds": 0.5
+  },
+  "residual_future_max_delta_rows_4_10": {
+    "future_leakage_suspected": false,
+    "history_rows_used": [
+      0,
+      -1,
+      -2,
+      -4
+    ],
+    "target_rows_used": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "target_window_overlap": false,
+    "washout_gap_rows": [
+      1,
+      2,
+      3
+    ],
+    "washout_gap_seconds": 1.5
+  }
+}

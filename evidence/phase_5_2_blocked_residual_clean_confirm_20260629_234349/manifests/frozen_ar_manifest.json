@@ -1,0 +1,67 @@
+{
+  "ar_only_retraining_avoided": true,
+  "scores": [
+    {
+      "ar_retrained": false,
+      "fold": 1,
+      "inner_val_rows": 32716,
+      "key": "blocked_temporal_70_30__fold1__seed20260625__regression_plus_binary",
+      "loss": "regression_plus_binary",
+      "protocol": "blocked_temporal_70_30",
+      "seed": 20260625,
+      "source": "reused_previous_frozen_ar_score_cache",
+      "test_checksum": "fa40aeff7baf6a11289df36b6efaaf4b",
+      "train_checksum": "26b1e204772266e20c344bcd7674f9f3"
+    },
+    {
+      "ar_retrained": false,
+      "fold": 1,
+      "inner_val_rows": 32716,
+      "key": "blocked_temporal_70_30__fold1__seed20260626__regression_plus_binary",
+      "loss": "regression_plus_binary",
+      "protocol": "blocked_temporal_70_30",
+      "seed": 20260626,
+      "source": "reused_previous_frozen_ar_score_cache",
+      "test_checksum": "8c7a555b24d19576e41d88cda28a8d24",
+      "train_checksum": "e4256a5d3664a875e1cf431b0dccf23f"
+    },
+    {
+      "ar_retrained": false,
+      "fold": 1,
+      "inner_val_rows": 32716,
+      "key": "blocked_temporal_70_30__fold1__seed20260627__regression_plus_binary",
+      "loss": "regression_plus_binary",
+      "protocol": "blocked_temporal_70_30",
+      "seed": 20260627,
+      "source": "reused_previous_frozen_ar_score_cache",
+      "test_checksum": "695629cbd47953323ea7a413bc945deb",
+      "train_checksum": "b5b309c5555a7dc64417d640c6f01114"
+    },
+    {
+      "ar_retrained": false,
+      "fallback_source_seed": 20260627,
+      "fold": 1,
+      "inner_val_rows": 32716,
+      "key": "blocked_temporal_70_30__fold1__seed20260628__regression_plus_binary",
+      "loss": "regression_plus_binary",
+      "protocol": "blocked_temporal_70_30",
+      "seed": 20260628,
+      "source": "reused_fallback_frozen_ar_score_cache_no_ar_checkpoint_for_confirmation_seed",
+      "test_checksum": "695629cbd47953323ea7a413bc945deb",
+      "train_checksum": "b5b309c5555a7dc64417d640c6f01114"
+    },
+    {
+      "ar_retrained": false,
+      "fallback_source_seed": 20260627,
+      "fold": 1,
+      "inner_val_rows": 32716,
+      "key": "blocked_temporal_70_30__fold1__seed20260629__regression_plus_binary",
+      "loss": "regression_plus_binary",
+      "protocol": "blocked_temporal_70_30",
+      "seed": 20260629,
+      "source": "reused_fallback_frozen_ar_score_cache_no_ar_checkpoint_for_confirmation_seed",
+      "test_checksum": "695629cbd47953323ea7a413bc945deb",
+      "train_checksum": "b5b309c5555a7dc64417d640c6f01114"
+    }
+  ]
+}

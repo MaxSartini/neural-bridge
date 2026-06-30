@@ -1,0 +1,7 @@
+target_name,target_type,seed,best_epoch,checkpoint_restored,residual_suppressed
+future_arousal_max_delta_rows_4_10_train_q90,binary,20260625,3.0,True,False
+future_arousal_max_delta_rows_4_10_train_q90,binary,20260626,1.0,True,False
+future_arousal_max_delta_rows_4_10_train_q90,binary,20260627,4.0,True,False
+residual_future_max_delta_rows_4_10,continuous,20260625,4.0,True,False
+residual_future_max_delta_rows_4_10,continuous,20260626,5.0,True,False
+residual_future_max_delta_rows_4_10,continuous,20260627,0.0,False,True

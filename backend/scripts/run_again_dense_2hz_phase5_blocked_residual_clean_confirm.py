@@ -1,7 +1,7 @@
 """Clean monotonic-only blocked residual confirmation.
 
 This runs the design from
-`evidence_bundle_phase5_blocked_residual_targeted_230325/confirmation_design.json`.
+`evidence/phase_5_2_blocked_residual_targeted_230325/confirmation_design.json`.
 It is intentionally bounded:
 
 1 blocked protocol x 1 variant x 1 loss x 5 seeds x 9 controls = 45 rows.
@@ -39,7 +39,7 @@ from backend.scripts import run_again_dense_2hz_phase5_learned_heads as base
 SCHEMA_VERSION = "again_dense_2hz_phase5_blocked_residual_clean_confirm_v1"
 SOURCE_ROOT = Path("outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_20260629_171825")
 PREVIOUS_FROZEN_ROOT = Path("outputs/again_dense_2hz_phase5_frozen_ar_residual_")
-DESIGN_PATH = Path("evidence_bundle_phase5_blocked_residual_targeted_230325/confirmation_design.json")
+DESIGN_PATH = Path("evidence/phase_5_2_blocked_residual_targeted_230325/confirmation_design.json")
 TARGET_NAME = fr.TARGET_NAME
 CONTINUOUS_SOURCE = fr.CONTINUOUS_SOURCE
 FEATURE_NAME = fr.FEATURE_NAME
