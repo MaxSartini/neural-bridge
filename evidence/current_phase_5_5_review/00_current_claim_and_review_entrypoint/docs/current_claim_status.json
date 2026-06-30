@@ -64,7 +64,9 @@
       "weak_confirmation": true,
       "credible_confirmation": true,
       "strong_confirmation": true,
-      "failed_gates": []
+      "failed_gates": [],
+      "relative_lift_vs_frozen_ar_percent": 2.63,
+      "relative_lift_vs_best_control_percent": 2.98
     },
     "again_grouped_compatibility_updated_verdict": {
       "target": "future_arousal_max_delta_rows_4_10_train_q90",
@@ -87,7 +89,9 @@
       "no_grouped_rerun": true,
       "no_504": true,
       "updated_grouped_compatibility_pass": true,
-      "failed_updated_gates": []
+      "failed_updated_gates": [],
+      "relative_lift_vs_ar_frozen_percent": 6.39,
+      "relative_lift_vs_best_control_percent": 6.42
     },
     "again_raw_cortical_alone_failure": {
       "target": "arousal_spike_rows_2_6_train_q90",
@@ -97,7 +101,11 @@
       "grouped_raw_cortical_only_pr_auc": 0.136579,
       "grouped_ar_only_pr_auc": 0.147251,
       "grouped_ar_plus_raw_cortical_pr_auc": 0.170299,
-      "interpretation": "raw predicted cortical/fMRI features alone are commercially useless on the blocked AGAIN target; Neural Bridge Phase 5.5 is about 2.15x raw-cortical-only PR-AUC and +14.276 PR-AUC percentage points higher"
+      "interpretation": "raw predicted cortical/fMRI features alone are commercially useless on the blocked AGAIN target; Neural Bridge Phase 5.5 is +0.1427585630 PR-AUC higher than raw-cortical-only, a +114.84% relative lift",
+      "phase_5_5_delta_over_raw_cortical_pr_auc": 0.142758563,
+      "phase_5_5_relative_lift_over_raw_cortical_percent": 114.84,
+      "phase_5_5_delta_over_ar_plus_raw_pr_auc": 0.099342563,
+      "phase_5_5_relative_lift_over_ar_plus_raw_percent": 59.23
     }
   },
   "canonical_reports": [
@@ -167,14 +175,19 @@
   "ar_baseline_significance": {
     "why_it_matters": "AR/frozen AR is the strong recent-arousal persistence baseline; beating it shows the bridge is not merely following arousal momentum.",
     "blocked_delta_vs_frozen_ar_pr_auc": 0.0068399399,
-    "blocked_delta_vs_frozen_ar_percentage_points": 0.68399399,
     "blocked_seeds_positive_vs_ar": "9/10",
     "grouped_delta_vs_ar_frozen_pr_auc": 0.0138878634,
-    "grouped_delta_vs_ar_frozen_percentage_points": 1.38878634,
-    "grouped_fold_seed_positives_vs_control": "50/50"
+    "grouped_fold_seed_positives_vs_control": "50/50",
+    "blocked_relative_lift_vs_frozen_ar_percent": 2.63,
+    "grouped_relative_lift_vs_ar_frozen_percent": 6.39
   },
   "upstream_model_compounding": {
     "summary": "Neural Bridge is designed to compound with future upstream brain-response models: as TRIBE/V-JEPA-like systems improve, they can provide stronger frozen predicted cortical/fMRI signal for the same bridge, control, validation, and response-reporting layer.",
     "guardrail": "This does not claim automatic proof for future models; each upgraded substrate still needs the same controls and validation."
+  },
+  "metric_definitions": {
+    "pr_auc": "Area under the precision-recall curve; report as a unitless value. Put percentage only on relative lift/loss, not on PR-AUC itself.",
+    "pr_auc_delta": "Direct unitless difference between two PR-AUC values, such as +0.0068399399.",
+    "relative_lift_percent": "PR-AUC delta divided by the baseline PR-AUC, reported as a percentage."
   }
 }

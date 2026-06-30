@@ -8,7 +8,7 @@ TRIBE/V-JEPA are the upstream substrate, not the moat by themselves. Neural Brid
 
 Raw predicted cortical/fMRI features alone fail badly on AGAIN. On the original Phase 3 spike target `arousal_spike_rows_2_6_train_q90`, `raw_cortical_only` scored blocked PR-AUC `0.124315` versus AR-only `0.203622`; direct `AR_plus_raw_cortical` was `0.167731`, below AR. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. Neural Bridge is the difference: fold-safe compression, frozen AR anchoring, a washout-gap future event target, and temporal/event-context residual learning turn weak raw predicted cortical/fMRI features into controlled future event-ranking.
 
-Beating AR is the central benchmark difficulty. AR/frozen AR is a strong recent-arousal persistence baseline, and many earlier lanes failed because they could not beat it under blocked temporal validation. The Phase 5.5 blocked confirmation beats matched frozen AR by `+0.0068399399` PR-AUC (`+0.684` percentage points) with `9/10` positive seeds, and the grouped compatibility run beats AR/frozen by `+0.0138878634` PR-AUC (`+1.389` points) with `50/50` fold-seed positives.
+Beating AR is the central benchmark difficulty. AR/frozen AR is a strong recent-arousal persistence baseline, and many earlier lanes failed because they could not beat it under blocked temporal validation. The Phase 5.5 blocked confirmation beats matched frozen AR by `+0.0068399399` PR-AUC (`+2.63%` relative lift) with `9/10` positive seeds, and the grouped compatibility run beats AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) with `50/50` fold-seed positives.
 
 
 ## What Is Now Proven
@@ -30,9 +30,8 @@ This is why the result is broader than a single benchmark trick. The evidence sp
 ## Metric And Term Definitions
 
 - `PR-AUC`: area under the precision-recall curve. It is the primary metric for rare future-event/spike ranking because it rewards putting true future arousal events near the top of the ranked list.
-- `PR-AUC percentage`: PR-AUC multiplied by 100. Example: `0.2670735630` is `26.707%` PR-AUC.
-- `percentage-point delta`: direct difference between two PR-AUC percentages. Example: `0.2670735630 - 0.2602336231 = 0.0068399399`, reported as `+0.684` PR-AUC percentage points.
-- `relative lift`: percentage-point delta divided by the baseline PR-AUC. Example: `+0.0068399399 / 0.2602336231 = +2.63%` relative lift over frozen AR.
+- `PR-AUC delta`: direct unitless PR-AUC difference. Example: `0.2670735630 - 0.2602336231 = +0.0068399399`.
+- `relative lift`: raw PR-AUC delta divided by the baseline PR-AUC. Example: `+0.0068399399 / 0.2602336231 = +2.63%` relative lift over frozen AR.
 - `AR` / `frozen AR`: autoregressive baseline using recent/past arousal information. It is intentionally strong because human arousal is temporally persistent.
 - `beating AR`: the key hurdle. A future-event model is not convincing if it only tracks recent arousal persistence; the current AGAIN Phase 5.5 result beats the matched AR floor and matched controls.
 - `blocked_temporal_70_30`: forward-time split; train on earlier rows and test on later rows, probing future temporal generalization.
@@ -72,8 +71,7 @@ Blocked binary confirmation:
 - best control: `random_pca_residual`, PR-AUC `0.2593369051`
 - delta vs frozen AR: `+0.0068399399`
 - delta vs best control: `+0.0077366579`
-- PR-AUC as percentages: real `26.707%`, frozen AR `26.023%`, best control `25.934%`
-- percentage-point deltas: `+0.684` over frozen AR, `+0.774` over best control
+- raw PR-AUC deltas: `+0.0068399399` over frozen AR (`+2.63%` relative lift), `+0.0077366579` over best control (`+2.98%` relative lift)
 - relative lifts: `+2.63%` over frozen AR, `+2.98%` over best control
 - seeds positive vs AR: `9/10`
 - seeds positive vs best control: `9/10`
@@ -91,8 +89,7 @@ Grouped compatibility:
 - best matched control: `train_only_video_mean_residual`, PR-AUC `0.2174209937`
 - delta vs AR/frozen: `+0.0138878634`
 - delta vs best matched control: `+0.0139621972`
-- PR-AUC as percentages: real `23.138%`, AR/frozen `21.750%`, best control `21.742%`
-- percentage-point deltas: `+1.389` over AR/frozen, `+1.396` over best control
+- raw PR-AUC deltas: `+0.0138878634` over AR/frozen (`+6.39%` relative lift), `+0.0139621972` over best control (`+6.42%` relative lift)
 - relative lifts: `+6.39%` over AR/frozen, `+6.42%` over best control
 - fold-seed positives vs best control: `50/50`
 - real minus label permutation: `+0.0160732134`
@@ -109,8 +106,8 @@ The core negative-control lesson is visible from the beginning of AGAIN. Raw pre
 - `AR_plus_raw_cortical` PR-AUC: `0.167731`
 - blocked conclusion: raw predicted cortical/fMRI features alone are far below AR, and directly adding raw predicted cortical/fMRI features damages AR.
 - current Phase 5.5 blocked real PR-AUC: `0.2670735630`
-- raw-to-Phase-5.5 gain: `+14.276` PR-AUC percentage points over raw predicted cortical/fMRI features alone, about `2.15x` the raw-only predicted cortical/fMRI baseline and `+114.8%` relative lift
-- direct-AR-plus-raw-to-Phase-5.5 gain: `+9.934` PR-AUC percentage points, about `+59.2%` relative lift
+- raw-to-Phase-5.5 gain: `+0.1427585630` PR-AUC over raw predicted cortical/fMRI features alone (`+114.84%` relative lift; `2.15x` the raw-only predicted cortical/fMRI baseline)
+- direct-AR-plus-raw-to-Phase-5.5 gain: `+0.0993425630` PR-AUC (`+59.23%` relative lift)
 - protocol: `grouped_video`
 - `raw_cortical_only` PR-AUC: `0.136579`
 - AR-only PR-AUC: `0.147251`

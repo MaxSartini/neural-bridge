@@ -169,7 +169,7 @@ Neural Bridge is different because its frozen video-side features come from upst
 
 That distinction matters commercially. A response-readiness report is more valuable when it is not only describing what appears on screen, but ranking moments using features generated from predicted human brain-response activity. This is the difference between content recognition and neuro-response intelligence.
 
-Beating AR is the hard scientific and commercial proof point. Recent arousal is already predictive, so AR is a strong persistence baseline. If Neural Bridge only matched AR, it would not be enough. The current AGAIN blocked confirmation beats frozen AR by `+0.684` PR-AUC percentage points across 10 matched seeds, and grouped-video compatibility beats AR/frozen by `+1.389` points across `50/50` fold-seeds. That is the evidence that the system is ranking future response events beyond simple arousal momentum.
+Beating AR is the hard scientific and commercial proof point. Recent arousal is already predictive, so AR is a strong persistence baseline. If Neural Bridge only matched AR, it would not be enough. The current AGAIN blocked confirmation beats frozen AR by `+0.0068399399` PR-AUC, a `+2.63%` relative lift across 10 matched seeds, and grouped-video compatibility beats AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) across `50/50` fold-seeds. That is the evidence that the system is ranking future response events beyond simple arousal momentum.
 
 ## Scientific Core
 
@@ -202,9 +202,9 @@ The achievement is that Neural Bridge survived this control discipline across VE
 
 ## The Night-And-Day Bridge Effect
 
-Raw predicted cortical/fMRI features by themselves were not enough. On the early AGAIN blocked spike target, `raw_cortical_only` scored `12.432%` PR-AUC, while direct `AR_plus_raw_cortical` reached only `16.773%`. The current Phase 5.5 blocked confirmation reaches `26.707%` PR-AUC.
+Raw predicted cortical/fMRI features by themselves were not enough. On the early AGAIN blocked spike target, `raw_cortical_only` scored `0.124315` PR-AUC, while direct `AR_plus_raw_cortical` reached only `0.167731`. The current Phase 5.5 blocked confirmation reaches `0.2670735630` PR-AUC.
 
-That is not a tiny improvement hidden behind decimals. Phase 5.5 is `+14.276` PR-AUC percentage points over raw predicted cortical/fMRI features alone, about `2.15x` the raw-cortical-only score and `+114.8%` relative lift. It is `+9.934` points over direct `AR_plus_raw_cortical`, about `+59.2%` relative lift.
+That is not a tiny improvement hidden behind decimals. Phase 5.5 is `+0.1427585630` PR-AUC over raw predicted cortical/fMRI features alone (`+114.84%` relative lift; `2.15x` the raw-cortical-only score). It is `+0.0993425630` PR-AUC over direct `AR_plus_raw_cortical` (`+59.23%` relative lift).
 
 This is the core lesson: raw predicted cortical/fMRI features are commercially useless on their own for the blocked AGAIN target. Neural Bridge is what makes the neuro-response signal usable: fold-safe compression, AR anchoring, future-event target design, temporal/event context, and adversarial controls.
 

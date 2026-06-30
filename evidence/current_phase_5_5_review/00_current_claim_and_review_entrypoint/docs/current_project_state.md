@@ -12,7 +12,7 @@ The neuro-response features are frozen predicted cortical/fMRI response features
 
 Raw predicted cortical/fMRI features alone fail badly on AGAIN. On the original Phase 3 target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. The current success comes from Neural Bridge, not raw predicted cortical/fMRI features by themselves.
 
-The AR beat is the headline technical hurdle. AR means recent/past arousal, and it is deliberately strong because human arousal is persistent. The confirmed blocked result beats matched frozen AR by `+0.0068399399` PR-AUC (`+0.684` percentage points) with `9/10` positive seeds; grouped compatibility beats AR/frozen by `+0.0138878634` PR-AUC (`+1.389` points) with `50/50` fold-seed positives.
+The AR beat is the headline technical hurdle. AR means recent/past arousal, and it is deliberately strong because human arousal is persistent. The confirmed blocked result beats matched frozen AR by `+0.0068399399` PR-AUC (`+2.63%` relative lift) with `9/10` positive seeds; grouped compatibility beats AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) with `50/50` fold-seed positives.
 
 Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict.
 

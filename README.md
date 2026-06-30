@@ -8,11 +8,11 @@ AGAIN blocked temporal binary confirmation: `future_arousal_max_delta_rows_4_10_
 
 AGAIN grouped-video compatibility for the same target/head reached real PR-AUC `0.2313831909` vs AR/frozen `0.2174953276` and best matched control `0.2174209937`, with delta `+0.0139621972` vs best control and `50/50` fold-seed positives. The updated frozen-AR-residual-aware verdict passed with failed gates `[]`.
 
-Beating AR is the hard part. AR is the recent/past-arousal baseline, and arousal persistence is already powerful; a model that cannot beat AR is mostly rediscovering momentum. The current AGAIN blocked result clears that frozen AR floor by `+0.684` PR-AUC percentage points across 10 matched seeds, and the grouped compatibility result clears AR/frozen by `+1.389` points across `50/50` fold-seeds. That is the central scientific win.
+Beating AR is the hard part. AR is the recent/past-arousal baseline, and arousal persistence is already powerful; a model that cannot beat AR is mostly rediscovering momentum. The current AGAIN blocked result clears that frozen AR floor by `+0.0068399399` PR-AUC, a `+2.63%` relative lift across 10 matched seeds, and the grouped compatibility result clears AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) across `50/50` fold-seeds. That is the central scientific win.
 
 Raw predicted cortical/fMRI features alone fail badly on AGAIN: blocked `raw_cortical_only` was `0.124315` vs AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Neural Bridge is the difference.
 
-In percentage terms, the current confirmed AGAIN blocked result is `26.707%` PR-AUC versus `26.023%` frozen AR and `25.934%` best control: `+0.684` PR-AUC percentage points over AR and `+0.774` points over the best control. Compared with the early blocked raw-cortical-only result (`12.432%` PR-AUC), Phase 5.5 is `+14.276` PR-AUC points higher, about `2.15x` the raw-cortical-only score and `+114.8%` relative lift. Compared with direct `AR_plus_raw_cortical` (`16.773%`), Phase 5.5 is `+9.934` points higher and about `+59.2%` relative lift. Without the Neural Bridge pipeline, the raw predicted cortical/fMRI signal is not commercially useful; with the bridge, it becomes a controlled future-event ranking system.
+In raw PR-AUC terms, the current confirmed AGAIN blocked result is `0.2670735630` versus `0.2602336231` frozen AR and `0.2593369051` best control: `+0.0068399399` over AR (`+2.63%` relative lift) and `+0.0077366579` over the best control (`+2.98%` relative lift). Compared with the early blocked raw-cortical-only result (`0.124315` PR-AUC), Phase 5.5 is `+0.1427585630` PR-AUC higher, or `+114.84%` relative lift (`2.15x` the raw-cortical-only score). Compared with direct `AR_plus_raw_cortical` (`0.167731` PR-AUC), Phase 5.5 is `+0.0993425630` PR-AUC higher, or `+59.23%` relative lift. Without the Neural Bridge pipeline, the raw predicted cortical/fMRI signal is not commercially useful; with the bridge, it becomes a controlled future-event ranking system.
 
 ## Neuro-Response Core
 
@@ -35,9 +35,8 @@ That means the evidence is not a single narrow demo. It spans film, TV/reality, 
 ## Metrics In Plain English
 
 - `PR-AUC` means area under the precision-recall curve. For rare future arousal events, it measures whether true future response moments are ranked near the top.
-- `26.707% PR-AUC` is the same number as `0.2670735630` written as a percentage.
-- `+0.684 percentage points` means the direct PR-AUC difference between `26.707%` and `26.023%`.
-- `+2.63% relative lift` means the `+0.684` point gain divided by the frozen AR baseline.
+- PR-AUC is unitless; report the raw value and put percentage only on relative lift/loss.
+- `+2.63% relative lift` means the raw PR-AUC delta `+0.0068399399` divided by the frozen AR baseline `0.2602336231`.
 - `AR` or `frozen AR` is the strong autoregressive baseline from recent/past arousal.
 - Beating AR matters because recent arousal is already predictive. Neural Bridge is claim-bearing only when it beats AR and matched controls, not when it merely follows arousal persistence.
 - `blocked_temporal_70_30` tests forward-time prediction; `grouped_video` tests held-out-video compatibility.

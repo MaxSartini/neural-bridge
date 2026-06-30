@@ -54,7 +54,7 @@
     "key_numbers": "target future_arousal_max_delta_rows_4_10_train_q90; short_temporal_conv_residual; real PR-AUC 0.2670735630; frozen AR 0.2602336231; best control 0.2593369051; deltas +0.0068399399 and +0.0077366579; 9/10 positive seeds; weak/credible/strong true; failed gates [].",
     "primary_evidence": "reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md; evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/",
     "caveats": "Blocked-only binary washout-gap event ranking. Continuous exact forecasting remains open.",
-    "interpretation": "Beating AR is the hard blocked-temporal hurdle because AR is the recent-arousal persistence baseline. This result beats matched frozen AR by +0.684 PR-AUC percentage points and does not rely on weak-control comparisons."
+    "interpretation": "Beating AR is the hard blocked-temporal hurdle because AR is the recent-arousal persistence baseline. This result beats matched frozen AR by +0.0068399399 PR-AUC (+2.63% relative lift) and does not rely on weak-control comparisons."
   },
   {
     "claim_id": "C8",
@@ -63,7 +63,7 @@
     "key_numbers": "350/350 rows; real PR-AUC 0.2313831909; AR/frozen 0.2174953276; best control 0.2174209937; deltas +0.0138878634 and +0.0139621972; 50/50 positives vs best control; label permutation 0.2153099775; real-label +0.0160732134; label-AR -0.0021853501; 50/50 positives vs label; updated pass true; failed gates [].",
     "primary_evidence": "reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md; evidence/phase_5_5_grouped_compatibility_20260630_033520/",
     "caveats": "Verdict update used existing artifacts. It was not a rerun, not PCA generation, and not 504.",
-    "interpretation": "The same head beats AR/frozen by +1.389 PR-AUC percentage points and beats the best matched control in 50/50 fold-seeds, showing held-out-video compatibility rather than only a blocked split artifact."
+    "interpretation": "The same head beats AR/frozen by +0.0138878634 PR-AUC (+6.39% relative lift) and beats the best matched control in 50/50 fold-seeds, showing held-out-video compatibility rather than only a blocked split artifact."
   },
   {
     "claim_id": "C9",

@@ -68,7 +68,7 @@ Bounded strict forward-time future-event ranking is proven on AGAIN for the rede
 
 Key numbers: target future_arousal_max_delta_rows_4_10_train_q90; short_temporal_conv_residual; real PR-AUC 0.2670735630; frozen AR 0.2602336231; best control 0.2593369051; deltas +0.0068399399 and +0.0077366579; 9/10 positive seeds; weak/credible/strong true; failed gates [].
 
-Interpretation: Beating AR is the hard blocked-temporal hurdle because AR is the recent-arousal persistence baseline. This result beats matched frozen AR by +0.684 PR-AUC percentage points and does not rely on weak-control comparisons.
+Interpretation: Beating AR is the hard blocked-temporal hurdle because AR is the recent-arousal persistence baseline. This result beats matched frozen AR by +0.0068399399 PR-AUC (+2.63% relative lift) and does not rely on weak-control comparisons.
 
 Primary evidence: `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md; evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/`
 
@@ -80,7 +80,7 @@ The same AGAIN target/head is compatible with grouped held-out-video generalizat
 
 Key numbers: 350/350 rows; real PR-AUC 0.2313831909; AR/frozen 0.2174953276; best control 0.2174209937; deltas +0.0138878634 and +0.0139621972; 50/50 positives vs best control; label permutation 0.2153099775; real-label +0.0160732134; label-AR -0.0021853501; 50/50 positives vs label; updated pass true; failed gates [].
 
-Interpretation: The same head beats AR/frozen by +1.389 PR-AUC percentage points and beats the best matched control in 50/50 fold-seeds, showing held-out-video compatibility rather than only a blocked split artifact.
+Interpretation: The same head beats AR/frozen by +0.0138878634 PR-AUC (+6.39% relative lift) and beats the best matched control in 50/50 fold-seeds, showing held-out-video compatibility rather than only a blocked split artifact.
 
 Primary evidence: `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md; evidence/phase_5_5_grouped_compatibility_20260630_033520/`
 

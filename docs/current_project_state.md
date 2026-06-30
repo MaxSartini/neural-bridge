@@ -12,7 +12,7 @@ The neuro-response features are frozen predicted cortical/fMRI response features
 
 Raw predicted cortical/fMRI features alone fail badly on AGAIN. On the original Phase 3 target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. The current success comes from Neural Bridge, not raw predicted cortical/fMRI features by themselves.
 
-The AR beat is the headline technical hurdle. AR means recent/past arousal, and it is deliberately strong because human arousal is persistent. The confirmed blocked result beats matched frozen AR by `+0.0068399399` PR-AUC (`+0.684` percentage points) with `9/10` positive seeds; grouped compatibility beats AR/frozen by `+0.0138878634` PR-AUC (`+1.389` points) with `50/50` fold-seed positives.
+The AR beat is the headline technical hurdle. AR means recent/past arousal, and it is deliberately strong because human arousal is persistent. The confirmed blocked result beats matched frozen AR by `+0.0068399399` PR-AUC (`+2.63%` relative lift) with `9/10` positive seeds; grouped compatibility beats AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) with `50/50` fold-seed positives.
 
 Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict.
 
@@ -61,8 +61,7 @@ AGAIN blocked temporal binary confirmation:
 - best control: `random_pca_residual`, PR-AUC `0.2593369051`
 - delta vs frozen AR: `+0.0068399399`
 - delta vs best control: `+0.0077366579`
-- as percentages: real `26.707%`, frozen AR `26.023%`, best control `25.934%`
-- percentage-point deltas: `+0.684` over frozen AR, `+0.774` over best control
+- raw PR-AUC deltas: `+0.0068399399` over frozen AR (`+2.63%` relative lift), `+0.0077366579` over best control (`+2.98%` relative lift)
 - relative lifts: `+2.63%` over frozen AR, `+2.98%` over best control
 - seeds positive vs AR: `9/10`
 - seeds positive vs best control: `9/10`
@@ -96,8 +95,8 @@ AGAIN raw predicted cortical/fMRI features alone:
 - blocked AR-only PR-AUC: `0.203622`
 - blocked `AR_plus_raw_cortical` PR-AUC: `0.167731`
 - current Phase 5.5 blocked real PR-AUC: `0.2670735630`
-- raw-to-Phase-5.5 gain: `+14.276` PR-AUC percentage points, about `2.15x` the raw-only predicted cortical/fMRI baseline and `+114.8%` relative lift
-- direct-AR-plus-raw-to-Phase-5.5 gain: `+9.934` PR-AUC percentage points, about `+59.2%` relative lift
+- raw-to-Phase-5.5 gain: `+0.1427585630` PR-AUC (`+114.84%` relative lift; `2.15x` the raw-only predicted cortical/fMRI baseline)
+- direct-AR-plus-raw-to-Phase-5.5 gain: `+0.0993425630` PR-AUC (`+59.23%` relative lift)
 - grouped `raw_cortical_only` PR-AUC: `0.136579`
 - grouped AR-only PR-AUC: `0.147251`
 - grouped `AR_plus_raw_cortical` PR-AUC: `0.170299`

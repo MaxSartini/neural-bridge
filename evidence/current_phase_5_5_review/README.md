@@ -46,8 +46,8 @@ Primary folder: `13_again_phase_5_5_grouped_compatibility/`
 
 AR/frozen AR is the recent/past-arousal persistence baseline. It is intentionally hard to beat because human arousal is autocorrelated. The current result does not merely follow that momentum:
 
-- blocked confirmation beats frozen AR by `+0.0068399399` PR-AUC, or `+0.684` PR-AUC percentage points, with `9/10` positive seeds.
-- grouped compatibility beats AR/frozen by `+0.0138878634` PR-AUC, or `+1.389` points, with `50/50` fold-seed positives.
+- blocked confirmation beats frozen AR by `+0.0068399399` PR-AUC (`+2.63%` relative lift), with `9/10` positive seeds.
+- grouped compatibility beats AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift), with `50/50` fold-seed positives.
 
 This is why the Phase 5.5 result is claim-bearing: it beats the strong AR floor and the matched controls.
 
