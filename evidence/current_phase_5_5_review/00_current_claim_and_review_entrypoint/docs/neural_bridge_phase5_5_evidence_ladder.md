@@ -2,14 +2,14 @@
 
 Neural Bridge now has a paired cross-dataset evidence ladder: VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal, and AGAIN replicated, scaled, validated, and strengthened it with dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
-The bridge representations are derived from brain cortical responses. The frozen video-side features used in these benchmarks are cortical-response-derived bridge representations, not generic video embeddings and not direct brain recordings from the benchmark viewer rows.
+The neuro-response mechanism is central. The frozen video-side features used in these benchmarks are video-derived predictions generated from brain cortical response data, not generic video embeddings and not direct brain recordings from the benchmark viewer rows.
 
 Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 spike target `arousal_spike_rows_2_6_train_q90`, `raw_cortical_only` scored blocked PR-AUC `0.124315` versus AR-only `0.203622`; direct `AR_plus_raw_cortical` was `0.167731`, below AR. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. Neural Bridge is the difference: fold-safe compression, frozen AR anchoring, a washout-gap future event target, and temporal/event-context residual learning turn weak raw cortical-derived features into controlled future event-ranking.
 
 
 ## What Is Now Proven
 
-- Controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
+- Controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
 - VEATIC-124 v2 established the first controlled future arousal spike/event-ranking result.
 - AGAIN extended the result at scale over 995 videos and true 2 Hz labels.
 - Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`.
@@ -73,7 +73,7 @@ The core negative-control lesson is visible from the beginning of AGAIN. Raw cor
 - `AR_plus_raw_cortical` PR-AUC: `0.170299`
 - grouped conclusion: raw cortical can contain weak signal, but it is not enough and is not the current claim.
 
-Neural Bridge makes the difference by converting cortical-response-derived video representations into fold-safe bridge features, controlling AR, and testing future event ranking against matched controls.
+Neural Bridge makes the difference by converting video-derived neuro-response representations generated from brain cortical response data into fold-safe bridge features, controlling AR, and testing future event ranking against matched controls.
 
 ## VEATIC Evidence Block
 
@@ -103,7 +103,7 @@ Correct VEATIC framing: VEATIC-124 v2 established the original controlled future
 AGAIN is the scaled confirmation and current main result. It uses the dense H100 artifact:
 
 - `995/995` videos complete
-- `243,575` cortical-response-derived bridge rows
+- `243,575` brain-cortical-response-data-generated video feature rows
 - `2 Hz`
 - `256 px`
 - float16
@@ -195,7 +195,7 @@ These tests protect deterministic contracts over split construction, target wind
 
 ## Correct Claim Wording
 
-Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN. VEATIC-124 v2 established the original controlled future arousal event-ranking signal; AGAIN replicated and extended it at scale. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`, and grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict. Raw cortical-derived features alone fail badly on AGAIN; the claim is the Neural Bridge pipeline, not raw cortical features by themselves.
+Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN. VEATIC-124 v2 established the original controlled future arousal event-ranking signal; AGAIN replicated and extended it at scale. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`, and grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict. Raw cortical-derived features alone fail badly on AGAIN; the claim is the Neural Bridge pipeline, not raw cortical features by themselves.
 
 ## Forbidden Claim Wording
 

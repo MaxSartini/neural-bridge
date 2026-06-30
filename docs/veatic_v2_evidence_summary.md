@@ -6,7 +6,7 @@ Generated from the current v2 reports imported into the cleaned Neural Bridge re
 
 VEATIC-124 v2 established the first controlled Neural Bridge future arousal event/spike-ranking result using a video-dominant cortical/TRIBE cache. It shows that visual/video-driven cortical/TRIBE PCA feature modes can improve future arousal spike/event ranking over autoregressive, shuffled, random, timestamp, and video/time controls under blocked and grouped-video validation.
 
-Here `cortical/TRIBE` means frozen video-derived bridge features derived from brain cortical responses. The VEATIC evidence is about those cortical-response-derived features carrying event-ranking signal, not about generic video embeddings or direct viewer neural recordings.
+Here `cortical/TRIBE` means frozen video-derived neuro-response features generated from brain cortical response data. The VEATIC evidence is about those features generated from brain cortical response data carrying event-ranking signal, not about generic video embeddings or direct viewer neural recordings.
 
 
 The claim remains bounded: this is event/spike ranking and temporal-context evidence from a mostly visual/video cache, not exact continuous arousal-value prediction, a finished downstream product model, or proof that full text+audio+video TRIBE has been evaluated.

@@ -9,7 +9,7 @@ Contents:
 
 Key status:
 - 995 / 995 videos complete
-- 243,575 cortical-response-derived bridge rows
+- 243,575 brain-cortical-response-data-generated video feature rows
 - 2 Hz labels and 256 px float16 dense features
 - official V-JEPA 2.1 ViT-G with TRIBE v2 cache-only postpass
 

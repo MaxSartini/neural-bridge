@@ -4,11 +4,11 @@ Last updated: 2026-06-30
 
 ## Current Claim
 
-Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
+Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
 
 VEATIC-124 v2 established the original controlled future arousal spike/event-ranking result. AGAIN replicated, scaled, validated, and strengthened it using 995 videos, 2 Hz dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
-The bridge features are frozen video-derived representations derived from brain cortical responses. The claim is that these cortical-response-derived bridge features improve controlled future event ranking; they are not generic video embeddings, direct viewer neural measurements, or evidence of solved continuous forecasting.
+The neuro-response features are frozen video-derived predictions generated from brain cortical response data. The claim is that these generated-from-cortical-response-data video features improve controlled future event ranking; they are not generic video embeddings, direct viewer neural measurements, or evidence of solved continuous forecasting.
 
 Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. The current success comes from Neural Bridge, not raw cortical features by themselves.
 
@@ -83,7 +83,7 @@ AGAIN raw cortical alone:
 - grouped `raw_cortical_only` PR-AUC: `0.136579`
 - grouped AR-only PR-AUC: `0.147251`
 - grouped `AR_plus_raw_cortical` PR-AUC: `0.170299`
-- conclusion: raw cortical-derived features alone are not the result; Neural Bridge makes the cortical-response-derived signal usable.
+- conclusion: raw cortical-derived features alone are not the result; Neural Bridge makes the brain-cortical-response-data-generated signal usable.
 
 VEATIC-124 v2:
 
@@ -98,8 +98,8 @@ VEATIC-124 v2:
 AGAIN dense cache:
 
 - `995/995` videos complete
-- `243,575` cortical-response-derived bridge rows
-- frozen video-derived bridge features derived from brain cortical responses
+- `243,575` brain-cortical-response-data-generated video feature rows
+- frozen video-derived neuro-response features generated from brain cortical response data
 - `2 Hz`, `256 px`, float16
 - official V-JEPA 2.1 ViT-G
 - TRIBE v2 cache-only postpass

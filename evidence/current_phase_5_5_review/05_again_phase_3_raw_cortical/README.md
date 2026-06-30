@@ -9,4 +9,4 @@ Contents:
 - fold metrics, summary metrics, promotion gates, run manifest, and summary JSON
 - raw cortical block and temporal diagnostic metadata where relevant
 
-This phase is the negative-control reason Neural Bridge matters. The current result is not raw cortical alone; it is the fold-safe, AR-controlled Neural Bridge pipeline built on cortical-response-derived representations.
+This phase is the negative-control reason Neural Bridge matters. The current result is not raw cortical alone; it is the fold-safe, AR-controlled Neural Bridge pipeline built on video-derived neuro-response representations generated from brain cortical response data.

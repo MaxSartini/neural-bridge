@@ -32,7 +32,7 @@
         "encoder": "official V-JEPA 2.1 ViT-G",
         "tribe_stage": "TRIBE v2 cache-only postpass",
         "labels": "aligned at true 2 Hz",
-        "row_description": "brain-cortical-response-derived video feature rows"
+        "row_description": "brain-cortical-response-data-generated video feature rows"
       },
       "dataset_definition": "Gaming/interactive-media arousal corpus: 1,116 raw in-game videos/logs, 995 cleaned videos used here, 124 participants, 9 games, 3 genres, and more than 37 hours of annotated video/logs.",
       "domain_generalization_role": "gaming and interactive-media confirmation benchmark"

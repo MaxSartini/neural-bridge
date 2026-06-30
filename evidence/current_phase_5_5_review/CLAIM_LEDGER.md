@@ -4,7 +4,7 @@ Each current-facing claim below is paired with the numbers and evidence files th
 
 ## C1: canonical_current_claim
 
-Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
+Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
 
 Key numbers: VEATIC blocked PR-AUC 0.2536 vs AR 0.1969; AGAIN blocked real PR-AUC 0.2670735630 vs frozen AR 0.2602336231; AGAIN grouped real PR-AUC 0.2313831909 vs AR 0.2174953276; raw cortical alone blocked PR-AUC 0.124315 vs AR-only 0.203622.
 
@@ -26,7 +26,7 @@ Caveats: Foundational controlled signal, not obsolete and not the only current e
 
 AGAIN scaled the evidence ladder to 995 dense videos with 2 Hz V-JEPA 2.1 / TRIBE v2 features and aligned labels.
 
-Key numbers: 995/995 videos; 243,575 cortical-response-derived bridge rows; 2 Hz; 256 px; float16; official V-JEPA 2.1 ViT-G; TRIBE v2 cache-only postpass.
+Key numbers: 995/995 videos; 243,575 brain-cortical-response-data-generated video feature rows; 2 Hz; 256 px; float16; official V-JEPA 2.1 ViT-G; TRIBE v2 cache-only postpass.
 
 Primary evidence: `docs/again_dense_h100_cache.md; evidence/phase_0_to_5_historical_ladder_20260625/reports/again_dense_h100_local_audit_20260625.md; labels and metadata summaries.`
 

@@ -2,13 +2,13 @@
 
 ## Current Claim Scope
 
-Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
+Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
 
 The current bounded AGAIN proof is not continuous arousal forecasting. It is future-event ranking for the redesigned washout-gap target `future_arousal_max_delta_rows_4_10_train_q90` using `short_temporal_conv_residual`.
 
-The bridge/cortical features are frozen video-derived representations derived from brain cortical responses. They are fixed feature representations tested under train/test-aware controls. They are not generic video embeddings, direct neural recordings from the benchmark viewers, or a claim of mind reading.
+The bridge/cortical features are frozen video-derived predictions generated from brain cortical response data. They are fixed feature representations tested under train/test-aware controls. They are not generic video embeddings, direct neural recordings from the benchmark viewers, or a claim of mind reading.
 
-Raw cortical-derived features alone are a negative-control failure mode, not the claim. On the original AGAIN Phase 3 spike target, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was `0.167731`. Neural Bridge is the controlled pipeline that makes those cortical-response-derived representations useful.
+Raw cortical-derived features alone are a negative-control failure mode, not the claim. On the original AGAIN Phase 3 spike target, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was `0.167731`. Neural Bridge is the controlled pipeline that makes those video-derived neuro-response representations generated from brain cortical response data useful.
 
 ## Primary Targets
 

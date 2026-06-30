@@ -1,6 +1,6 @@
 # Neural Bridge
 
-Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
+Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
 
 ## Best Results First
 
@@ -12,11 +12,11 @@ Raw cortical-derived features alone fail badly on AGAIN: blocked `raw_cortical_o
 
 ## Current State
 
-Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
+Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
 
 VEATIC-124 v2 established the first controlled future arousal spike/event-ranking result. AGAIN replicated and extended it at scale using 995 videos, 2 Hz dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
-The frozen video-side bridge features are derived from brain cortical responses. In this repo, “cortical bridge representation” means a frozen video-derived feature representation whose bridge target comes from cortical response data. It is not a generic video embedding, and it is not a direct neural recording from the benchmark viewer rows.
+The frozen video-side neuro-response features are video-derived predictions generated from brain cortical response data. They are not generic video embeddings, and they are not direct neural recordings from the benchmark viewer rows. The point is the neuro-response bridge: video is transformed into a cortical-response-data-generated representation, then tested for future human arousal event ranking.
 
 Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 spike target `arousal_spike_rows_2_6_train_q90`, `raw_cortical_only` scored blocked PR-AUC `0.124315` versus AR-only `0.203622`; grouped PR-AUC was `0.136579` versus AR-only `0.147251`. Adding raw cortical directly to AR damaged the blocked AR path (`AR_plus_raw_cortical` `0.167731` vs AR-only `0.203622`). The current result is not raw cortical alone; Neural Bridge is the fold-safe PCA, frozen-AR floor, redesigned washout-gap target, and short temporal/event-context residual stack that turns weak raw cortical-derived signals into controlled future event-ranking.
 
@@ -92,16 +92,16 @@ Raw cortical alone versus Neural Bridge:
 - grouped `raw_cortical_only` PR-AUC: `0.136579`
 - grouped AR-only PR-AUC: `0.147251`
 - grouped `AR_plus_raw_cortical` PR-AUC: `0.170299`
-- conclusion: raw cortical-derived features alone are weak; the Neural Bridge pipeline is what makes the cortical-response-derived representation useful for controlled future event-ranking.
+- conclusion: raw cortical-derived features alone are weak; the Neural Bridge pipeline is what makes the video-derived neuro-response representation generated from brain cortical response data useful for controlled future event-ranking.
 
 AGAIN dense substrate:
 
 - `995/995` videos complete
-- `243,575` cortical-response-derived bridge rows
+- `243,575` brain-cortical-response-data-generated video feature rows
 - `2 Hz`, `256 px`, float16
 - official V-JEPA 2.1 ViT-G
 - TRIBE v2 cache-only postpass
-- frozen video-derived bridge features derived from brain cortical responses
+- frozen video-derived neuro-response features generated from brain cortical response data
 - labels aligned at true 2 Hz
 
 AGAIN Phase 5 eval-mode correction:

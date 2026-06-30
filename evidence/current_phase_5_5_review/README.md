@@ -52,7 +52,7 @@ Primary folder: `13_again_phase_5_5_grouped_compatibility/`
 - grouped AR-only PR-AUC: `0.147251`
 - grouped `AR_plus_raw_cortical` PR-AUC: `0.170299`
 
-This is the key negative-control context: raw cortical-derived features alone are weak. Neural Bridge is the controlled bridge pipeline that makes cortical-response-derived video representations useful for future event ranking.
+This is the key negative-control context: raw cortical-derived features alone are weak. Neural Bridge is the controlled bridge pipeline that makes video-derived neuro-response representations generated from brain cortical response data useful for future event ranking.
 
 Primary folder: `05_again_phase_3_raw_cortical/`
 
@@ -100,4 +100,4 @@ Historical benchmark reports inside milestone folders preserve their original wo
 
 This dossier is tracked evidence only. It does not include checkpoints, tensors, `.npy`, `.npz`, dense caches, V-JEPA/TRIBE assets, or full heavy output roots. No training, PCA generation, 504 run, or benchmark rerun was performed to create this documentation pack.
 
-Correct claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN. The frozen video-side features are cortical-response-derived bridge representations, not generic video embeddings. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`; continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open.
+Correct claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN. The frozen video-side features are video-derived predictions generated from brain cortical response data, not generic video embeddings. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`; continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open.

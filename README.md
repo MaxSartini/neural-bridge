@@ -128,12 +128,12 @@ Raw cortical alone versus Neural Bridge:
 - grouped `raw_cortical_only` PR-AUC: `0.136579`
 - grouped AR-only PR-AUC: `0.147251`
 - grouped `AR_plus_raw_cortical` PR-AUC: `0.170299`
-- conclusion: raw cortical-derived features alone are weak; the Neural Bridge pipeline is what makes the cortical-response-derived representation useful for controlled future event-ranking.
+- conclusion: raw cortical-derived features alone are weak; the Neural Bridge pipeline is what makes the video-derived neuro-response representation generated from brain cortical response data useful for controlled future event-ranking.
 
 AGAIN dense substrate:
 
 - `995/995` videos complete
-- `243,575` brain-cortical-response-derived video feature rows
+- `243,575` brain-cortical-response-data-generated video feature rows
 - `2 Hz`, `256 px`, float16
 - official V-JEPA 2.1 ViT-G
 - TRIBE v2 cache-only postpass

@@ -11,14 +11,14 @@ This is the handoff for the dense AGAIN artifact generated on H100 and the subst
 - Image size: `256px`.
 - Row rate: `2Hz`.
 - Frame sampling: `2Hz`.
-- Result: `995/995` videos completed, `0` failed, `243,575` cortical-response-derived bridge rows.
+- Result: `995/995` videos completed, `0` failed, `243,575` brain-cortical-response-data-generated video feature rows.
 - Drive folder: `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`.
 - Local pull target: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`.
 - Local audit: `reports/again_dense_h100_local_audit_20260625.md`.
 
 This artifact began as a data-generation milestone. The later Phase 5/5.5 evaluations now make AGAIN the scaled confirmation/current main result for controlled future arousal event-ranking. Do not describe the cache alone as proof; describe the cache plus the downstream eval-mode correction, frozen-AR residual design, blocked washout-gap confirmation, and updated grouped-video compatibility as the current evidence chain.
 
-Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`; direct `AR_plus_raw_cortical` was `0.167731`, below AR. The cache becomes claim-bearing only after the Neural Bridge pipeline turns those cortical-response-derived representations into fold-safe, AR-controlled future event-ranking evidence.
+Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`; direct `AR_plus_raw_cortical` was `0.167731`, below AR. The cache becomes claim-bearing only after the Neural Bridge pipeline turns those video-derived neuro-response representations generated from brain cortical response data into fold-safe, AR-controlled future event-ranking evidence.
 
 ## What Was Run
 

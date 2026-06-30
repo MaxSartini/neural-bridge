@@ -125,7 +125,7 @@ As AI video models improve, realism is not enough. Generated videos need human-r
 
 Neural Bridge can evaluate which generated variant has stronger predicted response moments, whether a video is visually plausible but emotionally flat, whether generated pacing preserves salience, and whether prompt or edit changes improve response structure.
 
-This is strategically important because AI video labs need human-response evaluation layers, not just image quality metrics. As upstream systems such as V-JEPA, TRIBE, and cortical-response-derived video models improve, the bridge can benefit from stronger frozen representations while preserving the same response-evaluation discipline.
+This is strategically important because AI video labs need human-response evaluation layers, not just image quality metrics. As upstream systems such as V-JEPA, TRIBE, and brain-cortical-response-data-trained video models improve, Neural Bridge can benefit from stronger frozen representations while preserving the same response-evaluation discipline.
 
 ## Vertical 4: Streaming, Recommendation, And Highlighting
 
@@ -254,7 +254,7 @@ The moat is:
 - evidence-bundle discipline
 - ability to turn video-derived cortical-response predictions into response-intelligence reports
 
-This is a service workflow plus technical validation moat. As upstream video and cortical-response-derived representation systems improve, Neural Bridge can improve with them, because stronger frozen neuro-response representations make the bridge stronger when they are evaluated under the same controls.
+This is a service workflow plus technical validation moat. As upstream video and video-derived neuro-response representation generated from brain cortical response data systems improve, Neural Bridge can improve with them, because stronger frozen neuro-response representations make the bridge stronger when they are evaluated under the same controls.
 
 ## Business Model
 

@@ -1,5 +1,5 @@
 {
-  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.",
+  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.",
   "datasets": {
     "VEATIC-124 v2": {
       "role": "foundational evidence",
@@ -30,12 +30,12 @@
         "encoder": "official V-JEPA 2.1 ViT-G",
         "tribe_stage": "TRIBE v2 cache-only postpass",
         "labels": "aligned at true 2 Hz",
-        "row_description": "cortical-response-derived bridge rows"
+        "row_description": "brain-cortical-response-data-generated video feature rows"
       }
     }
   },
   "proven": [
-    "Controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.",
+    "Controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.",
     "VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal.",
     "AGAIN replicated and extended the result at scale.",
     "Bounded strict forward-time future-event ranking is proven on AGAIN for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",

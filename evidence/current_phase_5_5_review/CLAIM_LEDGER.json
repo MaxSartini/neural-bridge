@@ -1,7 +1,7 @@
 [
   {
     "claim_id": "C1",
-    "claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.",
+    "claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.",
     "status": "canonical_current_claim",
     "key_numbers": "VEATIC blocked PR-AUC 0.2536 vs AR 0.1969; AGAIN blocked real PR-AUC 0.2670735630 vs frozen AR 0.2602336231; AGAIN grouped real PR-AUC 0.2313831909 vs AR 0.2174953276; raw cortical alone blocked PR-AUC 0.124315 vs AR-only 0.203622.",
     "primary_evidence": "README.md; docs/neural_bridge_phase5_5_evidence_ladder.md; reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md; reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md",
@@ -19,7 +19,7 @@
     "claim_id": "C3",
     "claim": "AGAIN scaled the evidence ladder to 995 dense videos with 2 Hz V-JEPA 2.1 / TRIBE v2 features and aligned labels.",
     "status": "substrate_complete",
-    "key_numbers": "995/995 videos; 243,575 cortical-response-derived bridge rows; 2 Hz; 256 px; float16; official V-JEPA 2.1 ViT-G; TRIBE v2 cache-only postpass.",
+    "key_numbers": "995/995 videos; 243,575 brain-cortical-response-data-generated video feature rows; 2 Hz; 256 px; float16; official V-JEPA 2.1 ViT-G; TRIBE v2 cache-only postpass.",
     "primary_evidence": "docs/again_dense_h100_cache.md; evidence/phase_0_to_5_historical_ladder_20260625/reports/again_dense_h100_local_audit_20260625.md; labels and metadata summaries.",
     "caveats": "Dense cache and tensors remain outside the review dossier; metadata/manifests document them."
   },

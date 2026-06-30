@@ -103,7 +103,7 @@ AGAIN updated grouped compatibility:
 
 AGAIN dense substrate:
 
-- `995/995` videos complete, `243,575` row-level brain-cortical-response-derived video feature rows, true `2 Hz` labels, `256 px`, float16, official V-JEPA 2.1 ViT-G, TRIBE v2 cache-only postpass
+- `995/995` videos complete, `243,575` row-level brain-cortical-response-data-generated video feature rows, true `2 Hz` labels, `256 px`, float16, official V-JEPA 2.1 ViT-G, TRIBE v2 cache-only postpass
 
 AGAIN eval-mode and frozen-AR design path:
 

@@ -142,7 +142,7 @@ Correct VEATIC framing: VEATIC-124 v2 established the original controlled future
 AGAIN is the scaled confirmation and current main result. It uses the dense H100 artifact:
 
 - `995/995` videos complete
-- `243,575` brain-cortical-response-derived video feature rows
+- `243,575` brain-cortical-response-data-generated video feature rows
 - `2 Hz`
 - `256 px`
 - float16
