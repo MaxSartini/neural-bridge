@@ -2,18 +2,40 @@
 
 Neural Bridge now has a paired cross-dataset evidence ladder: VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal, and AGAIN replicated, scaled, validated, and strengthened it with dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
-The bridge representations are derived from brain cortical responses. The frozen video-side features used in these benchmarks are cortical-response-derived bridge representations, not generic video embeddings and not direct brain recordings from the benchmark viewer rows.
+The neuro-response mechanism is central. The frozen video-side features used in these benchmarks are learned predictions of brain cortical response structure. They are not generic video embeddings and not direct brain recordings from the benchmark viewer rows. Neural Bridge tests whether those video-derived cortical-response predictions carry future human arousal event signal.
 
 Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 spike target `arousal_spike_rows_2_6_train_q90`, `raw_cortical_only` scored blocked PR-AUC `0.124315` versus AR-only `0.203622`; direct `AR_plus_raw_cortical` was `0.167731`, below AR. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. Neural Bridge is the difference: fold-safe compression, frozen AR anchoring, a washout-gap future event target, and temporal/event-context residual learning turn weak raw cortical-derived features into controlled future event-ranking.
 
 
 ## What Is Now Proven
 
-- Controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
+- Controlled future human arousal event-ranking from frozen video-derived predictions of brain cortical response structure across VEATIC and AGAIN.
 - VEATIC-124 v2 established the first controlled future arousal spike/event-ranking result.
 - AGAIN extended the result at scale over 995 videos and true 2 Hz labels.
 - Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`.
 - Grouped held-out-video compatibility for the same AGAIN target/head is proven under the updated frozen-AR-residual-aware verdict.
+
+## Dataset Definitions
+
+VEATIC-124 v2 is the edited affect-video foundation. Public VEATIC documentation describes `124` clips drawn from Hollywood movies, documentaries, home videos, and reality TV shows, with continuous valence and arousal ratings for each frame via real-time annotation. In Neural Bridge, VEATIC is the film/TV/documentary/home-video emotion benchmark: it established that neuro-response-derived video representations can rank future arousal spike/event moments beyond AR and controls on affective edited media. Sources: [VEATIC project page](https://veatic.github.io/), [WACV 2024 paper](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html).
+
+AGAIN is the gaming and interactive-media confirmation. Public AGAIN documentation describes `1,116` raw in-game videos and gameplay logs from `124` participants playing `9` games across `3` genres, with a cleaned/preprocessed `995`-video version. The paper describes more than `37` hours of annotated video and game logs with first-person continuous arousal annotation. In Neural Bridge, AGAIN is the scaled proof point: dense 2 Hz V-JEPA 2.1 / TRIBE v2 neuro-response features over the cleaned `995` videos confirmed bounded strict forward-time future-event ranking. Sources: [AGAIN project page](https://again.institutedigitalgames.com/), [AGAIN arXiv paper](https://arxiv.org/abs/2104.02643).
+
+This is why the result is broader than a single benchmark trick. The evidence spans film, TV/reality, documentary, home-video affect content, and interactive gameplay arousal: VEATIC establishes the controlled signal on edited emotion video; AGAIN scales and confirms it on gaming video.
+
+## Metric And Term Definitions
+
+- `PR-AUC`: area under the precision-recall curve. It is the primary metric for rare future-event/spike ranking because it rewards putting true future arousal events near the top of the ranked list.
+- `PR-AUC percentage`: PR-AUC multiplied by 100. Example: `0.2670735630` is `26.707%` PR-AUC.
+- `percentage-point delta`: direct difference between two PR-AUC percentages. Example: `0.2670735630 - 0.2602336231 = 0.0068399399`, reported as `+0.684` PR-AUC percentage points.
+- `relative lift`: percentage-point delta divided by the baseline PR-AUC. Example: `+0.0068399399 / 0.2602336231 = +2.63%` relative lift over frozen AR.
+- `AR` / `frozen AR`: autoregressive baseline using recent/past arousal information. It is intentionally strong because human arousal is temporally persistent.
+- `blocked_temporal_70_30`: forward-time split; train on earlier rows and test on later rows, probing future temporal generalization.
+- `grouped_video`: held-out-video split; test videos are not in training, probing cross-video compatibility.
+- `shuffled/random controls`: matched controls that break real representation identity while preserving comparable model capacity.
+- `label permutation`: null control that permutes training/inner-validation targets and scores on true held-out labels, testing whether selection or leakage can fake a result.
+- `train-only video mean`: static video/base-rate control computed from training rows only.
+- `weak/credible/strong confirmation`: project gates requiring real-vs-baseline/control deltas, seed consistency, and leakage/control audits; they are not marketing labels.
 
 ## What Remains Open
 
@@ -45,6 +67,9 @@ Blocked binary confirmation:
 - best control: `random_pca_residual`, PR-AUC `0.2593369051`
 - delta vs frozen AR: `+0.0068399399`
 - delta vs best control: `+0.0077366579`
+- PR-AUC as percentages: real `26.707%`, frozen AR `26.023%`, best control `25.934%`
+- percentage-point deltas: `+0.684` over frozen AR, `+0.774` over best control
+- relative lifts: `+2.63%` over frozen AR, `+2.98%` over best control
 - seeds positive vs AR: `9/10`
 - seeds positive vs best control: `9/10`
 - weak / credible / strong confirmation: true
@@ -61,6 +86,9 @@ Grouped compatibility:
 - best matched control: `train_only_video_mean_residual`, PR-AUC `0.2174209937`
 - delta vs AR/frozen: `+0.0138878634`
 - delta vs best matched control: `+0.0139621972`
+- PR-AUC as percentages: real `23.138%`, AR/frozen `21.750%`, best control `21.742%`
+- percentage-point deltas: `+1.389` over AR/frozen, `+1.396` over best control
+- relative lifts: `+6.39%` over AR/frozen, `+6.42%` over best control
 - fold-seed positives vs best control: `50/50`
 - real minus label permutation: `+0.0160732134`
 - updated grouped compatibility pass: true
@@ -75,13 +103,16 @@ The core negative-control lesson is visible from the beginning of AGAIN. Raw cor
 - AR-only PR-AUC: `0.203622`
 - `AR_plus_raw_cortical` PR-AUC: `0.167731`
 - blocked conclusion: raw cortical alone is far below AR, and directly adding raw cortical damages AR.
+- current Phase 5.5 blocked real PR-AUC: `0.2670735630`
+- raw-to-Phase-5.5 gain: `+14.276` PR-AUC percentage points over raw cortical alone, about `2.15x` raw cortical and `+114.8%` relative lift
+- direct-AR-plus-raw-to-Phase-5.5 gain: `+9.934` PR-AUC percentage points, about `+59.2%` relative lift
 - protocol: `grouped_video`
 - `raw_cortical_only` PR-AUC: `0.136579`
 - AR-only PR-AUC: `0.147251`
 - `AR_plus_raw_cortical` PR-AUC: `0.170299`
 - grouped conclusion: raw cortical can contain weak signal, but it is not enough and is not the current claim.
 
-Neural Bridge makes the difference by converting cortical-response-derived video representations into fold-safe bridge features, controlling AR, and testing future event ranking against matched controls.
+Neural Bridge makes the difference by converting video into fold-safe predictions of brain cortical response structure, controlling AR, and testing future event ranking against matched controls.
 
 ## VEATIC Evidence Block
 
@@ -111,7 +142,7 @@ Correct VEATIC framing: VEATIC-124 v2 established the original controlled future
 AGAIN is the scaled confirmation and current main result. It uses the dense H100 artifact:
 
 - `995/995` videos complete
-- `243,575` cortical-response-derived bridge rows
+- `243,575` brain-cortical-response-derived video feature rows
 - `2 Hz`
 - `256 px`
 - float16
@@ -203,7 +234,7 @@ These tests protect deterministic contracts over split construction, target wind
 
 ## Correct Claim Wording
 
-Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN. VEATIC-124 v2 established the original controlled future arousal event-ranking signal; AGAIN replicated and extended it at scale. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`, and grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict. Raw cortical-derived features alone fail badly on AGAIN; the claim is the Neural Bridge pipeline, not raw cortical features by themselves.
+Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions of brain cortical response structure across VEATIC and AGAIN. VEATIC-124 v2 established the original controlled future arousal event-ranking signal; AGAIN replicated and extended it at scale. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`, and grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict. Raw cortical-derived features alone fail badly on AGAIN; the claim is the Neural Bridge pipeline, not raw cortical features by themselves.
 
 ## Forbidden Claim Wording
 

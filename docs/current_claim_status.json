@@ -1,5 +1,5 @@
 {
-  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.",
+  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions of brain cortical response structure across VEATIC and AGAIN.",
   "datasets": {
     "VEATIC-124 v2": {
       "role": "foundational evidence",
@@ -16,7 +16,9 @@
         "balanced_delta_over_ar": 0.0609,
         "balanced_delta_over_shuffled": 0.0631,
         "balanced_delta_over_random": 0.0476
-      }
+      },
+      "dataset_definition": "124 edited affect-video clips from Hollywood movies, documentaries, reality TV shows, and home videos, with continuous valence/arousal annotation.",
+      "domain_generalization_role": "film, TV/reality, documentary, and home-video emotion benchmark"
     },
     "AGAIN dense 2Hz": {
       "role": "scaled confirmation and current main result",
@@ -30,12 +32,14 @@
         "encoder": "official V-JEPA 2.1 ViT-G",
         "tribe_stage": "TRIBE v2 cache-only postpass",
         "labels": "aligned at true 2 Hz",
-        "row_description": "cortical-response-derived bridge rows"
-      }
+        "row_description": "brain-cortical-response-derived video feature rows"
+      },
+      "dataset_definition": "Gaming/interactive-media arousal corpus: 1,116 raw in-game videos/logs, 995 cleaned videos used here, 124 participants, 9 games, 3 genres, and more than 37 hours of annotated video/logs.",
+      "domain_generalization_role": "gaming and interactive-media confirmation benchmark"
     }
   },
   "proven": [
-    "Controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.",
+    "Controlled future human arousal event-ranking from frozen video-derived predictions of brain cortical response structure across VEATIC and AGAIN.",
     "VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal.",
     "AGAIN replicated and extended the result at scale.",
     "Bounded strict forward-time future-event ranking is proven on AGAIN for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
@@ -64,7 +68,14 @@
       "weak_confirmation": true,
       "credible_confirmation": true,
       "strong_confirmation": true,
-      "failed_gates": []
+      "failed_gates": [],
+      "real_pr_auc_percent": 26.7073563,
+      "frozen_ar_pr_auc_percent": 26.02336231,
+      "best_control_pr_auc_percent": 25.93369051,
+      "delta_vs_frozen_ar_percentage_points": 0.68399399,
+      "delta_vs_best_control_percentage_points": 0.77366579,
+      "relative_lift_vs_frozen_ar_percent": 2.628,
+      "relative_lift_vs_best_control_percent": 2.983
     },
     "again_grouped_compatibility_updated_verdict": {
       "target": "future_arousal_max_delta_rows_4_10_train_q90",
@@ -97,7 +108,15 @@
       "grouped_raw_cortical_only_pr_auc": 0.136579,
       "grouped_ar_only_pr_auc": 0.147251,
       "grouped_ar_plus_raw_cortical_pr_auc": 0.170299,
-      "interpretation": "raw cortical-derived features alone fail badly; Neural Bridge is the fold-safe, AR-controlled bridge pipeline, not raw cortical alone"
+      "interpretation": "raw cortical-derived features alone are commercially useless on the blocked AGAIN target; Phase 5.5 is about 2.15x raw cortical-only PR-AUC and +14.276 PR-AUC percentage points higher",
+      "phase_5_5_blocked_real_pr_auc": 0.267073563,
+      "phase_5_5_blocked_real_pr_auc_percent": 26.7073563,
+      "raw_cortical_only_pr_auc_percent": 12.4315,
+      "ar_plus_raw_cortical_pr_auc_percent": 16.7731,
+      "phase_5_5_gain_over_raw_cortical_percentage_points": 14.2758563,
+      "phase_5_5_lift_over_raw_cortical_relative_percent": 114.84,
+      "phase_5_5_gain_over_ar_plus_raw_percentage_points": 9.9342563,
+      "phase_5_5_lift_over_ar_plus_raw_relative_percent": 59.23
     }
   },
   "canonical_reports": [
@@ -156,7 +175,7 @@
     "policy": "Only deterministic contract tests, claim-bearing runners, no-training verdict/audit scripts, and documented runtime tools are indexed. Runtime probes are not claim-bearing benchmark evidence."
   },
   "commercial_model": "service_as_software",
-  "commercial_summary": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software: submit video or variants, rank future response-event moments, flag weak segments, compare cuts, and produce response-readiness reports before audience data exists.",
+  "commercial_summary": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software: submit video or variants, use video-derived predictions of brain cortical response structure to rank future response-event moments, flag weak segments, compare cuts, and produce response-readiness reports before audience data exists.",
   "primary_wedge": "pre-release creative response intelligence for video",
   "buyer_personas": [
     "ad agencies",
@@ -178,9 +197,19 @@
     "Do not claim full multimodal proof unless separately validated."
   ],
   "service_as_software": {
-    "one_liner": "Neural Bridge is Service as Software for video response intelligence.",
-    "core_phrase": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software.",
+    "one_liner": "Neural Bridge is Service as Software for neuro-response video intelligence.",
+    "core_phrase": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software using video-derived predictions of brain cortical response structure.",
     "customer_outcome": "Tell us which parts of this video are likely to work, which are weak, and which variant we should test or ship.",
-    "main_doc": "docs/neural_bridge_service_as_software.md"
+    "main_doc": "docs/neural_bridge_service_as_software.md",
+    "neuro_response_core": "The system uses frozen video-side features trained from brain cortical response data; the claim is future human arousal event ranking from that neuro-response representation, not generic video analytics."
+  },
+  "metric_definitions": {
+    "pr_auc": "Area under the precision-recall curve; primary metric for rare future-event/spike ranking.",
+    "pr_auc_percent": "PR-AUC multiplied by 100, e.g. 0.2670735630 = 26.707% PR-AUC.",
+    "percentage_point_delta": "Direct difference between PR-AUC percentages.",
+    "relative_lift_percent": "Delta divided by the baseline score.",
+    "ar_or_frozen_ar": "Autoregressive baseline using recent/past arousal; intentionally strong because arousal is temporally persistent.",
+    "blocked_temporal_70_30": "Forward-time split testing future temporal generalization.",
+    "grouped_video": "Held-out-video split testing cross-video compatibility."
   }
 }

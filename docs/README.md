@@ -20,7 +20,8 @@ Current evidence framing:
 
 - VEATIC-124 v2 established the original controlled future arousal event-ranking signal.
 - AGAIN replicated, scaled, validated, and strengthened it.
-- Raw cortical-derived features alone fail badly on AGAIN; the Neural Bridge pipeline is what makes those cortical-response-derived bridge representations useful for controlled future event-ranking.
+- Raw cortical-derived features alone fail badly on AGAIN; the Neural Bridge pipeline is what makes video-derived predictions of brain cortical response structure useful for controlled future event-ranking.
+- The neuro-response angle is central: this is not generic video analytics, but response intelligence from a learned proxy for brain cortical response structure.
 - Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`.
 - Commercially, Neural Bridge is Service as Software: automated first-pass expert response evaluation for video, not generic SaaS or a simple dashboard.
 - Continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open.

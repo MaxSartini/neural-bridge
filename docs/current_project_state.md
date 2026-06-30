@@ -4,11 +4,11 @@ Last updated: 2026-06-30
 
 ## Current Claim
 
-Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
+Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions of brain cortical response structure across VEATIC and AGAIN.
 
 VEATIC-124 v2 established the original controlled future arousal spike/event-ranking result. AGAIN replicated, scaled, validated, and strengthened it using 995 videos, 2 Hz dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
-The bridge features are frozen video-derived representations derived from brain cortical responses. The claim is that these cortical-response-derived bridge features improve controlled future event ranking; they are not generic video embeddings, direct viewer neural measurements, or evidence of solved continuous forecasting.
+The bridge features are frozen video-derived predictions of brain cortical response structure. The claim is that these neuro-response-derived video features improve controlled future event ranking; they are not generic video embeddings, direct viewer neural measurements, or evidence of solved continuous forecasting.
 
 Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. The current success comes from Neural Bridge, not raw cortical features by themselves.
 
@@ -30,12 +30,15 @@ Continuous exact arousal forecasting remains open. Broad all-target/all-dataset 
 
 - VEATIC is foundational, not obsolete: it established the original controlled future arousal event/spike-ranking signal.
 - AGAIN is the scaled confirmation and current main result: it replicated and extended the signal with dense V-JEPA 2.1 / TRIBE v2 features over 995 videos.
+- VEATIC is the edited affect-video side: 124 Hollywood movie, documentary, reality-TV, and home-video clips with continuous valence/arousal annotation.
+- AGAIN is the gaming/interactive-media side: 1,116 raw / 995 cleaned gameplay videos from 124 participants playing 9 games across 3 genres, with more than 37 hours of annotated video/logs.
 - The original AGAIN fused head passed grouped eval-mode controls but failed blocked AR/control checks; that failure motivated the frozen-AR residual design.
 - Frozen-AR residual design strengthened grouped evidence and reduced blocked harm by making AR the baseline floor.
 - The redesigned washout-gap binary target plus short temporal conv residual passed a matched 10-seed blocked temporal confirmation.
 - The same target/head passed grouped-video compatibility under the updated frozen-AR-residual-aware label permutation verdict.
 - Continuous arousal movement diagnostics remain mixed/open and should not be promoted as solved exact forecasting.
 - Raw cortical-derived features alone are a negative-control lesson: they are weak under blocked validation and can damage AR if bolted on directly.
+- The neuro-response angle is central: Neural Bridge turns video into a learned proxy for brain cortical response structure, then asks whether that proxy improves future human arousal event ranking under controls.
 
 ## Commercial Interpretation
 
@@ -55,6 +58,9 @@ AGAIN blocked temporal binary confirmation:
 - best control: `random_pca_residual`, PR-AUC `0.2593369051`
 - delta vs frozen AR: `+0.0068399399`
 - delta vs best control: `+0.0077366579`
+- as percentages: real `26.707%`, frozen AR `26.023%`, best control `25.934%`
+- percentage-point deltas: `+0.684` over frozen AR, `+0.774` over best control
+- relative lifts: `+2.63%` over frozen AR, `+2.98%` over best control
 - seeds positive vs AR: `9/10`
 - seeds positive vs best control: `9/10`
 - weak / credible / strong confirmation: true
@@ -86,6 +92,9 @@ AGAIN raw cortical alone:
 - blocked `raw_cortical_only` PR-AUC: `0.124315`
 - blocked AR-only PR-AUC: `0.203622`
 - blocked `AR_plus_raw_cortical` PR-AUC: `0.167731`
+- current Phase 5.5 blocked real PR-AUC: `0.2670735630`
+- raw-to-Phase-5.5 gain: `+14.276` PR-AUC percentage points, about `2.15x` raw cortical and `+114.8%` relative lift
+- direct-AR-plus-raw-to-Phase-5.5 gain: `+9.934` PR-AUC percentage points, about `+59.2%` relative lift
 - grouped `raw_cortical_only` PR-AUC: `0.136579`
 - grouped AR-only PR-AUC: `0.147251`
 - grouped `AR_plus_raw_cortical` PR-AUC: `0.170299`
@@ -104,8 +113,8 @@ VEATIC-124 v2:
 AGAIN dense cache:
 
 - `995/995` videos complete
-- `243,575` cortical-response-derived bridge rows
-- frozen video-derived bridge features derived from brain cortical responses
+- `243,575` brain-cortical-response-derived video feature rows
+- frozen video-derived neuro-response features trained from brain cortical responses
 - `2 Hz`, `256 px`, float16
 - official V-JEPA 2.1 ViT-G
 - TRIBE v2 cache-only postpass

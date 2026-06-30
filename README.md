@@ -1,6 +1,6 @@
 # Neural Bridge
 
-Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
+Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions of brain cortical response structure across VEATIC and AGAIN.
 
 ## Best Results First
 
@@ -9,6 +9,32 @@ AGAIN blocked temporal binary confirmation: `future_arousal_max_delta_rows_4_10_
 AGAIN grouped-video compatibility for the same target/head reached real PR-AUC `0.2313831909` vs AR/frozen `0.2174953276` and best matched control `0.2174209937`, with delta `+0.0139621972` vs best control and `50/50` fold-seed positives. The updated frozen-AR-residual-aware verdict passed with failed gates `[]`.
 
 Raw cortical-derived features alone fail badly on AGAIN: blocked `raw_cortical_only` was `0.124315` vs AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Neural Bridge is the difference.
+
+In percentage terms, the current confirmed AGAIN blocked result is `26.707%` PR-AUC versus `26.023%` frozen AR and `25.934%` best control: `+0.684` PR-AUC percentage points over AR and `+0.774` points over the best control. Compared with the early blocked raw-cortical-only result (`12.432%` PR-AUC), Phase 5.5 is `+14.276` PR-AUC points higher, about `2.15x` the raw-cortical-only score and `+114.8%` relative lift. Compared with direct `AR_plus_raw_cortical` (`16.773%`), Phase 5.5 is `+9.934` points higher and about `+59.2%` relative lift. Without the Neural Bridge pipeline, the raw cortical-derived signal is not commercially useful; with the bridge, it becomes a controlled future-event ranking system.
+
+## Neuro-Response Core
+
+The important thing is not "video analytics." Neural Bridge uses frozen video-side representations trained to predict brain cortical responses, then tests whether those neuro-response-derived features rank future human arousal events beyond AR, static video identity, shuffled/random controls, and label permutation.
+
+That is the commercial and scientific wedge: the system is not merely recognizing objects, actions, or captions. It is using a learned proxy for human cortical response structure to produce pre-release response intelligence.
+
+## Datasets: What Generalized
+
+VEATIC-124 v2 is the film/TV/emotion side of the evidence ladder. Public VEATIC documentation describes 124 video clips from Hollywood movies, documentaries, home videos, and reality TV shows with continuous valence and arousal ratings for each frame via real-time annotation. In this repo, VEATIC established controlled future arousal event/spike ranking on edited, affective real-world video content. Sources: [VEATIC project page](https://veatic.github.io/), [WACV 2024 paper](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html).
+
+AGAIN is the gaming/interactive-media side of the evidence ladder. Public AGAIN documentation describes 1,116 raw in-game videos and gameplay logs from 124 participants playing 9 games across 3 genres, with a cleaned/preprocessed 995-video version. The AGAIN paper describes over 37 hours of annotated video/game logs and first-person continuous arousal annotation. In this repo, AGAIN scaled the result and confirmed bounded strict forward-time future-event ranking on the 995-video dense cache. Sources: [AGAIN project page](https://again.institutedigitalgames.com/), [AGAIN arXiv paper](https://arxiv.org/abs/2104.02643).
+
+That means the evidence is not a single narrow demo. It spans film, TV/reality, documentary, home-video affect content, and interactive gameplay arousal. Put plainly: the Neural Bridge effect appears across edited emotion video and gaming video, with VEATIC as the foundational affect-video result and AGAIN as the scaled gaming confirmation.
+
+## Metrics In Plain English
+
+- `PR-AUC` means area under the precision-recall curve. For rare future arousal events, it measures whether true future response moments are ranked near the top.
+- `26.707% PR-AUC` is the same number as `0.2670735630` written as a percentage.
+- `+0.684 percentage points` means the direct PR-AUC difference between `26.707%` and `26.023%`.
+- `+2.63% relative lift` means the `+0.684` point gain divided by the frozen AR baseline.
+- `AR` or `frozen AR` is the strong autoregressive baseline from recent/past arousal.
+- `blocked_temporal_70_30` tests forward-time prediction; `grouped_video` tests held-out-video compatibility.
+- `shuffled`, `random`, `label permutation`, and `train-only video mean` controls test whether the apparent signal is fake, leaked, static, or selection noise.
 
 ## Commercial Thesis
 
@@ -20,11 +46,11 @@ Commercial interpretation: [docs/neural_bridge_service_as_software.md](docs/neur
 
 ## Current State
 
-Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
+Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions of brain cortical response structure across VEATIC and AGAIN.
 
 VEATIC-124 v2 established the first controlled future arousal spike/event-ranking result. AGAIN replicated and extended it at scale using 995 videos, 2 Hz dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
-The frozen video-side bridge features are derived from brain cortical responses. In this repo, “cortical bridge representation” means a frozen video-derived feature representation whose bridge target comes from cortical response data. It is not a generic video embedding, and it is not a direct neural recording from the benchmark viewer rows.
+The frozen video-side features are learned predictions of brain cortical response structure. They are not generic video embeddings, and they are not direct neural recordings from the benchmark viewer rows. The point is the neuro-response bridge: video is transformed into a cortical-response-informed representation, then tested for future human arousal event ranking.
 
 Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 spike target `arousal_spike_rows_2_6_train_q90`, `raw_cortical_only` scored blocked PR-AUC `0.124315` versus AR-only `0.203622`; grouped PR-AUC was `0.136579` versus AR-only `0.147251`. Adding raw cortical directly to AR damaged the blocked AR path (`AR_plus_raw_cortical` `0.167731` vs AR-only `0.203622`). The current result is not raw cortical alone; Neural Bridge is the fold-safe PCA, frozen-AR floor, redesigned washout-gap target, and short temporal/event-context residual stack that turns weak raw cortical-derived signals into controlled future event-ranking.
 
@@ -107,11 +133,11 @@ Raw cortical alone versus Neural Bridge:
 AGAIN dense substrate:
 
 - `995/995` videos complete
-- `243,575` cortical-response-derived bridge rows
+- `243,575` brain-cortical-response-derived video feature rows
 - `2 Hz`, `256 px`, float16
 - official V-JEPA 2.1 ViT-G
 - TRIBE v2 cache-only postpass
-- frozen video-derived bridge features derived from brain cortical responses
+- frozen video-derived neuro-response features trained from brain cortical responses
 - labels aligned at true 2 Hz
 
 AGAIN Phase 5 eval-mode correction:
