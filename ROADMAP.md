@@ -35,7 +35,7 @@ The same target/head also passed updated grouped-video compatibility:
 
 Proven:
 
-- Controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
+- Controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.
 - Bounded strict forward-time future-event ranking on AGAIN for the redesigned washout-gap binary target/head.
 - Grouped held-out-video compatibility for the same AGAIN target/head under the updated frozen-AR-residual-aware verdict.
 
@@ -51,8 +51,8 @@ Open:
 - VEATIC-124 v2 strict evidence suite and protected snapshot.
 - VEATIC raw-representation audit and frozen tensor contract.
 - VEATIC trained-head layer over frozen tensors.
-- Dense AGAIN H100 V-JEPA 2.1 / TRIBE v2 cache: `995/995` videos, `243,575` brain-cortical-response-data-generated video feature rows, true `2 Hz` labels.
-- AGAIN Phase 3 raw cortical-only negative-control result: blocked `raw_cortical_only` PR-AUC `0.124315` vs AR-only `0.203622`, proving raw cortical-derived features alone are not the win.
+- Dense AGAIN H100 V-JEPA 2.1 / TRIBE v2 cache: `995/995` videos, `243,575` video feature rows generated from video by upstream models trained on brain cortical response data, true `2 Hz` labels.
+- AGAIN Phase 3 raw predicted cortical/fMRI feature-only negative-control result: blocked `raw_cortical_only` PR-AUC `0.124315` vs AR-only `0.203622`, proving raw predicted cortical/fMRI features alone are not the win.
 - AGAIN Phase 5 eval-mode correction.
 - AGAIN frozen-AR residual design.
 - AGAIN blocked AR decomposition and target redesign audits.

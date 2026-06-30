@@ -42,7 +42,16 @@ Primary folder: `12_again_phase_5_5_binary_blocked_confirmation/`
 
 Primary folder: `13_again_phase_5_5_grouped_compatibility/`
 
-### Raw Cortical Alone Fails Badly
+### Beating AR Is The Hard Part
+
+AR/frozen AR is the recent/past-arousal persistence baseline. It is intentionally hard to beat because human arousal is autocorrelated. The current result does not merely follow that momentum:
+
+- blocked confirmation beats frozen AR by `+0.0068399399` PR-AUC, or `+0.684` PR-AUC percentage points, with `9/10` positive seeds.
+- grouped compatibility beats AR/frozen by `+0.0138878634` PR-AUC, or `+1.389` points, with `50/50` fold-seed positives.
+
+This is why the Phase 5.5 result is claim-bearing: it beats the strong AR floor and the matched controls.
+
+### Raw Predicted Cortical/FMRI Features Alone Fail Badly
 
 - target: `arousal_spike_rows_2_6_train_q90`
 - blocked `raw_cortical_only` PR-AUC: `0.124315`
@@ -52,7 +61,7 @@ Primary folder: `13_again_phase_5_5_grouped_compatibility/`
 - grouped AR-only PR-AUC: `0.147251`
 - grouped `AR_plus_raw_cortical` PR-AUC: `0.170299`
 
-This is the key negative-control context: raw cortical-derived features alone are weak. Neural Bridge is the controlled bridge pipeline that makes video-derived neuro-response representations generated from brain cortical response data useful for future event ranking.
+This is the key negative-control context: raw predicted cortical/fMRI features alone are weak. Neural Bridge is the controlled bridge pipeline that makes predicted cortical/fMRI response representations generated from video by upstream models trained on brain cortical response data useful for future event ranking.
 
 Primary folder: `05_again_phase_3_raw_cortical/`
 
@@ -100,4 +109,4 @@ Historical benchmark reports inside milestone folders preserve their original wo
 
 This dossier is tracked evidence only. It does not include checkpoints, tensors, `.npy`, `.npz`, dense caches, V-JEPA/TRIBE assets, or full heavy output roots. No training, PCA generation, 504 run, or benchmark rerun was performed to create this documentation pack.
 
-Correct claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN. The frozen video-side features are video-derived predictions generated from brain cortical response data, not generic video embeddings. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`; continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open.
+Correct claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN. The frozen video-side features are predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data, not generic video embeddings. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`; continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open.

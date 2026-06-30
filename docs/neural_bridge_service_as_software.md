@@ -2,11 +2,15 @@
 
 ## Executive Summary
 
-Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software. It predicts and ranks future human arousal/event moments from frozen video-derived predictions generated from brain cortical response data, allowing creative, media, game, and AI-video teams to understand which parts of a video are likely to matter before audience data exists.
+Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software. It predicts and ranks future human arousal/event moments from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data, allowing creative, media, game, and AI-video teams to understand which parts of a video are likely to matter before audience data exists.
 
 This is Service as Software for video response intelligence: automated expert response analysis, not merely a dashboard. The customer is not buying a seat in another analytics tool. The customer is buying the outcome a specialist team would normally deliver: evaluate this video, find the likely response moments, flag the weak sections, compare the cuts, and produce a response-readiness report before launch.
 
-The neuro angle is the point. Neural Bridge is not just a visual-content model that sees objects, actions, or scene categories. It uses a learned video-side proxy for brain cortical response data, then asks whether that neuro-response representation can rank future human arousal events under adversarial controls.
+The neuro angle is the point. Neural Bridge is not just a visual-content model that sees objects, actions, or scene categories. It consumes frozen cortical/fMRI prediction features from upstream brain-response models such as TRIBE v2, then tests whether that predicted neuro-response representation can rank future human arousal events under adversarial controls.
+
+TRIBE v2 is the upstream brain-prediction layer. It is Meta FAIR's TRImodal Brain Encoder v2: a model for predicting high-resolution fMRI/cortical activity from sensory inputs such as video, audio, and language. In the AGAIN dense path, V-JEPA provides video features and TRIBE maps them into predicted cortical-response features. Neural Bridge does not claim that V-JEPA or TRIBE alone are the moat. They are the frozen upstream substrate.
+
+Neural Bridge is the downstream system that makes that substrate useful: fold-safe feature construction, AR anchoring, future-event target design, temporal/event-context residual learning, matched controls, blocked temporal validation, grouped-video compatibility, and response-intelligence reporting.
 
 The result is commercially stronger because it is cross-domain. VEATIC covers film, TV/reality, documentary, and home-video emotion content; AGAIN covers interactive gameplay and game-video arousal. Neural Bridge is therefore not only a single-dataset media demo. It is a paired evidence ladder across edited affect video and gaming video.
 
@@ -55,7 +59,7 @@ Traditional workflow:
 Neural Bridge workflow:
 
 1. submit video or variants
-2. extract video-derived neuro-response features
+2. extract predicted cortical/fMRI response features
 3. score future response-event likelihood
 4. generate timeline, ranked moments, and diagnostics
 5. use the report to revise, test, or ship
@@ -125,7 +129,7 @@ As AI video models improve, realism is not enough. Generated videos need human-r
 
 Neural Bridge can evaluate which generated variant has stronger predicted response moments, whether a video is visually plausible but emotionally flat, whether generated pacing preserves salience, and whether prompt or edit changes improve response structure.
 
-This is strategically important because AI video labs need human-response evaluation layers, not just image quality metrics. As upstream systems such as V-JEPA, TRIBE, and brain-cortical-response-data-trained video models improve, Neural Bridge can benefit from stronger frozen representations while preserving the same response-evaluation discipline.
+This is strategically important because AI video labs need human-response evaluation layers, not just image quality metrics. As upstream systems such as V-JEPA, TRIBE, and future brain-response prediction models improve, Neural Bridge can inherit stronger frozen neuro-response signal while preserving the same response-evaluation discipline.
 
 ## Vertical 4: Streaming, Recommendation, And Highlighting
 
@@ -161,13 +165,15 @@ The key is not removing humans from creative decisions. The key is moving respon
 
 Ordinary video AI can identify objects, actions, scenes, brands, faces, cuts, and captions. That is useful, but it does not directly answer the commercial question: where is this video likely to create a response?
 
-Neural Bridge is different because its frozen video-side features are trained from brain cortical response data. In plain terms, the model learns a video-to-cortical-response proxy, then the benchmark asks whether that proxy contains signal for future human arousal/event moments.
+Neural Bridge is different because its frozen video-side features come from upstream models that predict brain cortical/fMRI responses. In plain terms, TRIBE/V-JEPA provides a video-to-predicted-cortical/fMRI-response layer; Neural Bridge asks whether that predicted brain-response layer contains signal for future human arousal/event moments beyond AR, static video identity, shuffled/random controls, label permutation, and train-only video mean controls.
 
-That distinction matters commercially. A response-readiness report is more valuable when it is not only describing what appears on screen, but ranking moments using features shaped by human cortical-response structure. This is the difference between content recognition and neuro-response intelligence.
+That distinction matters commercially. A response-readiness report is more valuable when it is not only describing what appears on screen, but ranking moments using features generated from predicted human brain-response activity. This is the difference between content recognition and neuro-response intelligence.
+
+Beating AR is the hard scientific and commercial proof point. Recent arousal is already predictive, so AR is a strong persistence baseline. If Neural Bridge only matched AR, it would not be enough. The current AGAIN blocked confirmation beats frozen AR by `+0.684` PR-AUC percentage points across 10 matched seeds, and grouped-video compatibility beats AR/frozen by `+1.389` points across `50/50` fold-seeds. That is the evidence that the system is ranking future response events beyond simple arousal momentum.
 
 ## Scientific Core
 
-The commercial story is grounded in the science. Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
+The commercial story is grounded in the science. Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.
 
 VEATIC and AGAIN form a paired evidence ladder:
 
@@ -176,7 +182,7 @@ VEATIC and AGAIN form a paired evidence ladder:
 
 Dataset sources: [VEATIC project page](https://veatic.github.io/), [VEATIC WACV 2024 paper](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html), [AGAIN project page](https://again.institutedigitalgames.com/), [AGAIN arXiv paper](https://arxiv.org/abs/2104.02643).
 
-Most video AI detects visible content. Neural Bridge uses video-derived predictions generated from brain cortical response data to rank future response-relevant moments.
+Most video AI detects visible content. Neural Bridge uses predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data to rank future response-relevant moments.
 
 Most systems answer:
 
@@ -196,11 +202,11 @@ The achievement is that Neural Bridge survived this control discipline across VE
 
 ## The Night-And-Day Bridge Effect
 
-Raw cortical-derived features by themselves were not enough. On the early AGAIN blocked spike target, `raw_cortical_only` scored `12.432%` PR-AUC, while direct `AR_plus_raw_cortical` reached only `16.773%`. The current Phase 5.5 blocked confirmation reaches `26.707%` PR-AUC.
+Raw predicted cortical/fMRI features by themselves were not enough. On the early AGAIN blocked spike target, `raw_cortical_only` scored `12.432%` PR-AUC, while direct `AR_plus_raw_cortical` reached only `16.773%`. The current Phase 5.5 blocked confirmation reaches `26.707%` PR-AUC.
 
-That is not a tiny improvement hidden behind decimals. Phase 5.5 is `+14.276` PR-AUC percentage points over raw cortical alone, about `2.15x` the raw-cortical-only score and `+114.8%` relative lift. It is `+9.934` points over direct `AR_plus_raw_cortical`, about `+59.2%` relative lift.
+That is not a tiny improvement hidden behind decimals. Phase 5.5 is `+14.276` PR-AUC percentage points over raw predicted cortical/fMRI features alone, about `2.15x` the raw-cortical-only score and `+114.8%` relative lift. It is `+9.934` points over direct `AR_plus_raw_cortical`, about `+59.2%` relative lift.
 
-This is the core lesson: raw cortical-derived features are commercially useless on their own for the blocked AGAIN target. Neural Bridge is what makes the neuro-response signal usable: fold-safe compression, AR anchoring, future-event target design, temporal/event context, and adversarial controls.
+This is the core lesson: raw predicted cortical/fMRI features are commercially useless on their own for the blocked AGAIN target. Neural Bridge is what makes the neuro-response signal usable: fold-safe compression, AR anchoring, future-event target design, temporal/event context, and adversarial controls.
 
 ## What Was Proven
 
@@ -210,8 +216,9 @@ Proven:
 - VEATIC future arousal event/spike ranking beyond AR and controls
 - AGAIN bounded strict forward-time future-event ranking for the redesigned washout-gap target/head
 - AGAIN grouped-video compatibility for the same target/head
-- evidence that video-derived neuro-response features contain future human-response event signal beyond AR and matched controls
-- evidence that video-derived predictions generated from brain cortical response data contain future human-response event signal beyond AR and matched controls
+- evidence that predicted cortical/fMRI response features generated from video contain future human-response event signal beyond AR and matched controls
+- evidence that predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data contain future human-response event signal beyond AR and matched controls
+- evidence that the bridge beats the strong AR persistence baseline, not just weak controls
 
 Open:
 
@@ -237,11 +244,11 @@ The business would be weak if Neural Bridge were only a vibes dashboard. It matt
 - blocked temporal validation
 - grouped held-out-video validation
 
-That means the commercial claim is not merely "our model makes a pretty timeline." It is: video-derived predictions generated from brain cortical response data capture future response-event signal beyond obvious baselines.
+That means the commercial claim is not merely "our model makes a pretty timeline." It is: predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data capture future response-event signal beyond obvious baselines.
 
 ## Moat
 
-The moat is not simply V-JEPA, TRIBE, or any one upstream encoder.
+The moat is not simply V-JEPA, TRIBE, or any one upstream encoder. Those upstream systems are powerful, but raw/direct predicted cortical features were weak without Neural Bridge.
 
 The moat is:
 
@@ -252,9 +259,9 @@ The moat is:
 - matched control suite
 - cross-dataset evidence
 - evidence-bundle discipline
-- ability to turn video-derived cortical-response predictions into response-intelligence reports
+- ability to turn predicted cortical/fMRI response features into response-intelligence reports
 
-This is a service workflow plus technical validation moat. As upstream video and video-derived neuro-response representation generated from brain cortical response data systems improve, Neural Bridge can improve with them, because stronger frozen neuro-response representations make the bridge stronger when they are evaluated under the same controls.
+This is a service workflow plus technical validation moat. It is also upstream-model-compounding: as TRIBE, V-JEPA, and future brain-response prediction models improve, Neural Bridge gets a better signal substrate to bridge from. The evaluation/control/reporting layer does not become obsolete when upstream models get stronger; it becomes more valuable, because each generation can feed cleaner predicted neuro-response features into the same response-intelligence system.
 
 ## Business Model
 

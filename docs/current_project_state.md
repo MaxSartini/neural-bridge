@@ -4,13 +4,15 @@ Last updated: 2026-06-30
 
 ## Current Claim
 
-Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
+Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.
 
 VEATIC-124 v2 established the original controlled future arousal spike/event-ranking result. AGAIN replicated, scaled, validated, and strengthened it using 995 videos, 2 Hz dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
-The neuro-response features are frozen video-derived predictions generated from brain cortical response data. The claim is that these neuro-response-derived video features improve controlled future event ranking; they are not generic video embeddings, direct viewer neural measurements, or evidence of solved continuous forecasting.
+The neuro-response features are frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data. The claim is that these predicted neuro-response video features improve controlled future event ranking; they are not generic video embeddings, direct viewer neural measurements, or evidence of solved continuous forecasting.
 
-Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. The current success comes from Neural Bridge, not raw cortical features by themselves.
+Raw predicted cortical/fMRI features alone fail badly on AGAIN. On the original Phase 3 target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. The current success comes from Neural Bridge, not raw predicted cortical/fMRI features by themselves.
+
+The AR beat is the headline technical hurdle. AR means recent/past arousal, and it is deliberately strong because human arousal is persistent. The confirmed blocked result beats matched frozen AR by `+0.0068399399` PR-AUC (`+0.684` percentage points) with `9/10` positive seeds; grouped compatibility beats AR/frozen by `+0.0138878634` PR-AUC (`+1.389` points) with `50/50` fold-seed positives.
 
 Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict.
 
@@ -37,8 +39,9 @@ Continuous exact arousal forecasting remains open. Broad all-target/all-dataset 
 - The redesigned washout-gap binary target plus short temporal conv residual passed a matched 10-seed blocked temporal confirmation.
 - The same target/head passed grouped-video compatibility under the updated frozen-AR-residual-aware label permutation verdict.
 - Continuous arousal movement diagnostics remain mixed/open and should not be promoted as solved exact forecasting.
-- Raw cortical-derived features alone are a negative-control lesson: they are weak under blocked validation and can damage AR if bolted on directly.
-- The neuro-response angle is central: Neural Bridge turns video into a learned proxy for brain cortical response data, then asks whether that proxy improves future human arousal event ranking under controls.
+- Raw predicted cortical/fMRI features alone are a negative-control lesson: they are weak under blocked validation and can damage AR if bolted on directly.
+- The neuro-response angle is central: Neural Bridge starts from predicted cortical/fMRI response features generated from video by upstream brain-response models, then tests whether that predicted brain-response layer improves future human arousal event ranking under controls.
+- Beating AR is a big deal: the current result does not merely follow arousal persistence; it beats the matched frozen AR floor and the matched controls.
 
 ## Commercial Interpretation
 
@@ -86,19 +89,19 @@ AGAIN grouped compatibility updated verdict:
 - failed updated gates: `[]`
 - verdict update only: no retraining, no PCA generation, no grouped rerun, no 504
 
-AGAIN raw cortical alone:
+AGAIN raw predicted cortical/fMRI features alone:
 
 - original Phase 3 target: `arousal_spike_rows_2_6_train_q90`
 - blocked `raw_cortical_only` PR-AUC: `0.124315`
 - blocked AR-only PR-AUC: `0.203622`
 - blocked `AR_plus_raw_cortical` PR-AUC: `0.167731`
 - current Phase 5.5 blocked real PR-AUC: `0.2670735630`
-- raw-to-Phase-5.5 gain: `+14.276` PR-AUC percentage points, about `2.15x` raw cortical and `+114.8%` relative lift
+- raw-to-Phase-5.5 gain: `+14.276` PR-AUC percentage points, about `2.15x` the raw-only predicted cortical/fMRI baseline and `+114.8%` relative lift
 - direct-AR-plus-raw-to-Phase-5.5 gain: `+9.934` PR-AUC percentage points, about `+59.2%` relative lift
 - grouped `raw_cortical_only` PR-AUC: `0.136579`
 - grouped AR-only PR-AUC: `0.147251`
 - grouped `AR_plus_raw_cortical` PR-AUC: `0.170299`
-- conclusion: raw cortical-derived features alone are not the result; Neural Bridge makes the brain-cortical-response-data-generated signal usable.
+- conclusion: raw predicted cortical/fMRI features alone are not the result; Neural Bridge makes the predicted cortical/fMRI signal generated from video by upstream brain-response models usable.
 
 VEATIC-124 v2:
 
@@ -113,8 +116,8 @@ VEATIC-124 v2:
 AGAIN dense cache:
 
 - `995/995` videos complete
-- `243,575` brain-cortical-response-data-generated video feature rows
-- frozen video-derived neuro-response features generated from brain cortical response data
+- `243,575` video feature rows generated from video by upstream models trained on brain cortical response data
+- frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data
 - `2 Hz`, `256 px`, float16
 - official V-JEPA 2.1 ViT-G
 - TRIBE v2 cache-only postpass

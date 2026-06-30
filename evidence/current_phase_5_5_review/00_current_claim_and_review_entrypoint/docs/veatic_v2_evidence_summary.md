@@ -6,14 +6,14 @@ Generated from the current v2 reports imported into the cleaned Neural Bridge re
 
 VEATIC-124 v2 established the first controlled Neural Bridge future arousal event/spike-ranking result using a video-dominant cortical/TRIBE cache. It shows that visual/video-driven cortical/TRIBE PCA feature modes can improve future arousal spike/event ranking over autoregressive, shuffled, random, timestamp, and video/time controls under blocked and grouped-video validation.
 
-Here `cortical/TRIBE` means frozen video-derived neuro-response features generated from brain cortical response data. The VEATIC evidence is about those features generated from brain cortical response data carrying event-ranking signal, not about generic video embeddings or direct viewer neural recordings.
+Here `cortical/TRIBE` means frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data. The VEATIC evidence is about those features generated from video by upstream models trained on brain cortical response data carrying event-ranking signal, not about generic video embeddings or direct viewer neural recordings.
 
 
 The claim remains bounded: this is event/spike ranking and temporal-context evidence from a mostly visual/video cache, not exact continuous arousal-value prediction, a finished downstream product model, or proof that full text+audio+video TRIBE has been evaluated.
 
 After the v2 evidence freeze, a raw cortical representation audit, tensor export, and MPS trained-head benchmark were completed without re-encoding videos. These do not replace the v2 claim; they define and test the post-v2 model-head layer on top of it.
 
-Current cross-dataset framing: VEATIC is foundational, not obsolete. AGAIN is now the scaled confirmation/current main result, extending the VEATIC signal with dense 995-video V-JEPA 2.1 / TRIBE v2 features, frozen-AR residual design, blocked washout-gap confirmation, and updated grouped-video compatibility. AGAIN also shows why Neural Bridge matters: raw cortical-derived features alone fail badly under blocked validation before the bridge stack is applied. See `docs/neural_bridge_phase5_5_evidence_ladder.md`.
+Current cross-dataset framing: VEATIC is foundational, not obsolete. AGAIN is now the scaled confirmation/current main result, extending the VEATIC signal with dense 995-video V-JEPA 2.1 / TRIBE v2 features, frozen-AR residual design, blocked washout-gap confirmation, and updated grouped-video compatibility. AGAIN also shows why Neural Bridge matters: raw predicted cortical/fMRI features alone fail badly under blocked validation before the bridge stack is applied. See `docs/neural_bridge_phase5_5_evidence_ladder.md`.
 
 ## Proven Or Supported Hypotheses
 

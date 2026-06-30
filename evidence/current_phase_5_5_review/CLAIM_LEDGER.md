@@ -4,9 +4,9 @@ Each current-facing claim below is paired with the numbers and evidence files th
 
 ## C1: canonical_current_claim
 
-Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
+Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.
 
-Key numbers: VEATIC blocked PR-AUC 0.2536 vs AR 0.1969; AGAIN blocked real PR-AUC 0.2670735630 vs frozen AR 0.2602336231; AGAIN grouped real PR-AUC 0.2313831909 vs AR 0.2174953276; raw cortical alone blocked PR-AUC 0.124315 vs AR-only 0.203622.
+Key numbers: VEATIC blocked PR-AUC 0.2536 vs AR 0.1969; AGAIN blocked real PR-AUC 0.2670735630 vs frozen AR 0.2602336231; AGAIN grouped real PR-AUC 0.2313831909 vs AR 0.2174953276; raw predicted cortical/fMRI features alone blocked PR-AUC 0.124315 vs AR-only 0.203622.
 
 Primary evidence: `README.md; docs/neural_bridge_phase5_5_evidence_ladder.md; reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md; reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 
@@ -26,7 +26,7 @@ Caveats: Foundational controlled signal, not obsolete and not the only current e
 
 AGAIN scaled the evidence ladder to 995 dense videos with 2 Hz V-JEPA 2.1 / TRIBE v2 features and aligned labels.
 
-Key numbers: 995/995 videos; 243,575 brain-cortical-response-data-generated video feature rows; 2 Hz; 256 px; float16; official V-JEPA 2.1 ViT-G; TRIBE v2 cache-only postpass.
+Key numbers: 995/995 videos; 243,575 video feature rows generated from video by upstream models trained on brain cortical response data; 2 Hz; 256 px; float16; official V-JEPA 2.1 ViT-G; TRIBE v2 cache-only postpass.
 
 Primary evidence: `docs/again_dense_h100_cache.md; evidence/phase_0_to_5_historical_ladder_20260625/reports/again_dense_h100_local_audit_20260625.md; labels and metadata summaries.`
 
@@ -34,7 +34,7 @@ Caveats: Dense cache and tensors remain outside the review dossier; metadata/man
 
 ## C4: negative_control_context
 
-Raw cortical-derived features alone fail badly on AGAIN and are not the Neural Bridge result.
+Raw predicted cortical/fMRI features alone fail badly on AGAIN and are not the Neural Bridge result.
 
 Key numbers: arousal_spike_rows_2_6_train_q90; blocked raw_cortical_only 0.124315 vs AR-only 0.203622; blocked AR_plus_raw_cortical 0.167731; grouped raw_cortical_only 0.136579 vs AR-only 0.147251; grouped AR_plus_raw_cortical 0.170299.
 
@@ -68,6 +68,8 @@ Bounded strict forward-time future-event ranking is proven on AGAIN for the rede
 
 Key numbers: target future_arousal_max_delta_rows_4_10_train_q90; short_temporal_conv_residual; real PR-AUC 0.2670735630; frozen AR 0.2602336231; best control 0.2593369051; deltas +0.0068399399 and +0.0077366579; 9/10 positive seeds; weak/credible/strong true; failed gates [].
 
+Interpretation: Beating AR is the hard blocked-temporal hurdle because AR is the recent-arousal persistence baseline. This result beats matched frozen AR by +0.684 PR-AUC percentage points and does not rely on weak-control comparisons.
+
 Primary evidence: `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md; evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/`
 
 Caveats: Blocked-only binary washout-gap event ranking. Continuous exact forecasting remains open.
@@ -77,6 +79,8 @@ Caveats: Blocked-only binary washout-gap event ranking. Continuous exact forecas
 The same AGAIN target/head is compatible with grouped held-out-video generalization under the updated frozen-AR residual-aware verdict.
 
 Key numbers: 350/350 rows; real PR-AUC 0.2313831909; AR/frozen 0.2174953276; best control 0.2174209937; deltas +0.0138878634 and +0.0139621972; 50/50 positives vs best control; label permutation 0.2153099775; real-label +0.0160732134; label-AR -0.0021853501; 50/50 positives vs label; updated pass true; failed gates [].
+
+Interpretation: The same head beats AR/frozen by +1.389 PR-AUC percentage points and beats the best matched control in 50/50 fold-seeds, showing held-out-video compatibility rather than only a blocked split artifact.
 
 Primary evidence: `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md; evidence/phase_5_5_grouped_compatibility_20260630_033520/`
 

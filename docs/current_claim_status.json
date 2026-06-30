@@ -1,5 +1,5 @@
 {
-  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.",
+  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.",
   "datasets": {
     "VEATIC-124 v2": {
       "role": "foundational evidence",
@@ -32,14 +32,14 @@
         "encoder": "official V-JEPA 2.1 ViT-G",
         "tribe_stage": "TRIBE v2 cache-only postpass",
         "labels": "aligned at true 2 Hz",
-        "row_description": "brain-cortical-response-data-generated video feature rows"
+        "row_description": "video feature rows generated from video by upstream models trained on brain cortical response data"
       },
       "dataset_definition": "Gaming/interactive-media arousal corpus: 1,116 raw in-game videos/logs, 995 cleaned videos used here, 124 participants, 9 games, 3 genres, and more than 37 hours of annotated video/logs.",
       "domain_generalization_role": "gaming and interactive-media confirmation benchmark"
     }
   },
   "proven": [
-    "Controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.",
+    "Controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.",
     "VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal.",
     "AGAIN replicated and extended the result at scale.",
     "Bounded strict forward-time future-event ranking is proven on AGAIN for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
@@ -108,7 +108,7 @@
       "grouped_raw_cortical_only_pr_auc": 0.136579,
       "grouped_ar_only_pr_auc": 0.147251,
       "grouped_ar_plus_raw_cortical_pr_auc": 0.170299,
-      "interpretation": "raw cortical-derived features alone are commercially useless on the blocked AGAIN target; Phase 5.5 is about 2.15x raw cortical-only PR-AUC and +14.276 PR-AUC percentage points higher",
+      "interpretation": "raw predicted cortical/fMRI features alone are commercially useless on the blocked AGAIN target; Neural Bridge Phase 5.5 is about 2.15x raw-cortical-only PR-AUC and +14.276 PR-AUC percentage points higher",
       "phase_5_5_blocked_real_pr_auc": 0.267073563,
       "phase_5_5_blocked_real_pr_auc_percent": 26.7073563,
       "raw_cortical_only_pr_auc_percent": 12.4315,
@@ -175,7 +175,7 @@
     "policy": "Only deterministic contract tests, claim-bearing runners, no-training verdict/audit scripts, and documented runtime tools are indexed. Runtime probes are not claim-bearing benchmark evidence."
   },
   "commercial_model": "service_as_software",
-  "commercial_summary": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software: submit video or variants, use video-derived predictions generated from brain cortical response data to rank future response-event moments, flag weak segments, compare cuts, and produce response-readiness reports before audience data exists.",
+  "commercial_summary": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software: submit video or variants, use predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data to rank future response-event moments, flag weak segments, compare cuts, and produce response-readiness reports before audience data exists.",
   "primary_wedge": "pre-release creative response intelligence for video",
   "buyer_personas": [
     "ad agencies",
@@ -198,7 +198,7 @@
   ],
   "service_as_software": {
     "one_liner": "Neural Bridge is Service as Software for neuro-response video intelligence.",
-    "core_phrase": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software using video-derived predictions generated from brain cortical response data.",
+    "core_phrase": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software using predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.",
     "customer_outcome": "Tell us which parts of this video are likely to work, which are weak, and which variant we should test or ship.",
     "main_doc": "docs/neural_bridge_service_as_software.md",
     "neuro_response_core": "The system uses frozen video-side features trained from brain cortical response data; the claim is future human arousal event ranking from that neuro-response representation, not generic video analytics."
@@ -211,5 +211,28 @@
     "ar_or_frozen_ar": "Autoregressive baseline using recent/past arousal; intentionally strong because arousal is temporally persistent.",
     "blocked_temporal_70_30": "Forward-time split testing future temporal generalization.",
     "grouped_video": "Held-out-video split testing cross-video compatibility."
+  },
+  "neuro_response_framing": {
+    "upstream_substrate": "TRIBE/V-JEPA provide frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.",
+    "neural_bridge_role": "Neural Bridge is the downstream bridge/control/validation/reporting layer that turns those predicted neuro-response features into controlled future human arousal event-ranking.",
+    "not_the_claim": [
+      "generic video embeddings",
+      "direct neural recordings from benchmark viewers",
+      "V-JEPA/TRIBE alone as the moat",
+      "raw predicted cortical/fMRI features alone"
+    ]
+  },
+  "ar_baseline_significance": {
+    "why_it_matters": "AR/frozen AR is the strong recent-arousal persistence baseline; beating it shows the bridge is not merely following arousal momentum.",
+    "blocked_delta_vs_frozen_ar_pr_auc": 0.0068399399,
+    "blocked_delta_vs_frozen_ar_percentage_points": 0.68399399,
+    "blocked_seeds_positive_vs_ar": "9/10",
+    "grouped_delta_vs_ar_frozen_pr_auc": 0.0138878634,
+    "grouped_delta_vs_ar_frozen_percentage_points": 1.38878634,
+    "grouped_fold_seed_positives_vs_control": "50/50"
+  },
+  "upstream_model_compounding": {
+    "summary": "Neural Bridge is designed to compound with future upstream brain-response models: as TRIBE/V-JEPA-like systems improve, they can provide stronger frozen predicted cortical/fMRI signal for the same bridge, control, validation, and response-reporting layer.",
+    "guardrail": "This does not claim automatic proof for future models; each upgraded substrate still needs the same controls and validation."
   }
 }

@@ -9,13 +9,15 @@
 
 ## Current Claim
 
-Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
+Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.
 
 VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal. AGAIN replicated, scaled, validated, and strengthened it using 995 videos, 2 Hz dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
-The frozen video-side features are learned predictions generated from brain cortical response data. Treat them as neuro-response-derived video features, not generic video embeddings and not direct neural recordings from the benchmark viewer rows.
+The frozen video-side features are predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data. Treat them as predicted neuro-response video features, not generic video embeddings and not direct neural recordings from the benchmark viewer rows.
 
-Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 spike target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` dropped to `0.167731`. Neural Bridge is the current result, not raw cortical features by themselves.
+Raw predicted cortical/fMRI features alone fail badly on AGAIN. On the original Phase 3 spike target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` dropped to `0.167731`. Neural Bridge is the current result, not raw predicted cortical/fMRI features by themselves.
+
+Beating AR is the core technical hurdle. AR is recent/past arousal persistence, and it is intentionally strong. The current blocked result beats matched frozen AR by `+0.0068399399` PR-AUC (`+0.684` percentage points) with `9/10` positive seeds; updated grouped compatibility beats AR/frozen by `+0.0138878634` PR-AUC (`+1.389` points) with `50/50` fold-seed positives.
 
 Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict.
 
@@ -51,11 +53,11 @@ Canonical blocked temporal binary confirmation:
 Canonical updated grouped compatibility verdict:
 `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 
-Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. Raw cortical-derived features alone were weak; the Neural Bridge pipeline makes the difference. The old fused AGAIN lane passed grouped eval-mode controls but failed blocked AR/control checks; frozen-AR residual and temporal/event-context residual designs fixed the design path. The redesigned washout-gap target/head passes blocked temporal confirmation and updated grouped-video compatibility. Continuous exact arousal forecasting and broad universal temporal prediction remain open.
+Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. Raw predicted cortical/fMRI features alone were weak; the Neural Bridge pipeline makes the difference. The old fused AGAIN lane passed grouped eval-mode controls but failed blocked AR/control checks; frozen-AR residual and temporal/event-context residual designs fixed the design path. The redesigned washout-gap target/head beats the strong AR persistence baseline, passes blocked temporal confirmation, and passes updated grouped-video compatibility. Continuous exact arousal forecasting and broad universal temporal prediction remain open.
 
 ## Commercial Language
 
-Neural Bridge should be described as Service as Software for neuro-response video intelligence: software that automates the first-pass expert service of pre-release video response evaluation, creative diagnostics, variant comparison, and response-readiness reporting using video-derived predictions generated from brain cortical response data.
+Neural Bridge should be described as Service as Software for neuro-response video intelligence: software that automates the first-pass expert service of pre-release video response evaluation, creative diagnostics, variant comparison, and response-readiness reporting using predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.
 
 Use bounded commercial wording: population-level response-event ranking, pre-release response intelligence, controlled future arousal event signal, creative decision support, and Service as Software for response evaluation.
 
@@ -103,7 +105,7 @@ AGAIN updated grouped compatibility:
 
 AGAIN dense substrate:
 
-- `995/995` videos complete, `243,575` row-level brain-cortical-response-data-generated video feature rows, true `2 Hz` labels, `256 px`, float16, official V-JEPA 2.1 ViT-G, TRIBE v2 cache-only postpass
+- `995/995` videos complete, `243,575` row-level video feature rows generated from video by upstream models trained on brain cortical response data, true `2 Hz` labels, `256 px`, float16, official V-JEPA 2.1 ViT-G, TRIBE v2 cache-only postpass
 
 AGAIN eval-mode and frozen-AR design path:
 

@@ -2,13 +2,15 @@
 
 ## Current Claim Scope
 
-Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived predictions generated from brain cortical response data across VEATIC and AGAIN.
+Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.
 
 The current bounded AGAIN proof is not continuous arousal forecasting. It is future-event ranking for the redesigned washout-gap target `future_arousal_max_delta_rows_4_10_train_q90` using `short_temporal_conv_residual`.
 
-The bridge/cortical features are frozen video-derived predictions generated from brain cortical response data. They are fixed feature representations tested under train/test-aware controls. They are not generic video embeddings, direct neural recordings from the benchmark viewers, or a claim of mind reading.
+The neuro-response features are frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data. They are fixed feature representations tested under train/test-aware controls. They are not generic video embeddings, direct neural recordings from the benchmark viewers, or a claim of mind reading.
 
-Raw cortical-derived features alone are a negative-control failure mode, not the claim. On the original AGAIN Phase 3 spike target, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was `0.167731`. Neural Bridge is the controlled pipeline that makes those video-derived neuro-response representations generated from brain cortical response data useful.
+TRIBE/V-JEPA are the upstream substrate, not the Neural Bridge moat by themselves. Neural Bridge is the downstream layer that turns predicted neuro-response features into controlled future-event ranking through fold-safe transforms, AR baselines, matched controls, blocked/grouped validation, and response-intelligence reporting. Future upstream brain-response models can strengthen Neural Bridge by providing better frozen neuro-response signal.
+
+Raw predicted cortical/fMRI features alone are a negative-control failure mode, not the claim. On the original AGAIN Phase 3 spike target, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was `0.167731`. Neural Bridge is the controlled pipeline that makes those predicted cortical/fMRI response representations generated from video by upstream models trained on brain cortical response data useful.
 
 ## Primary Targets
 
@@ -37,4 +39,4 @@ Relevant AGAIN and VEATIC v2 scripts, tests, benchmark artifacts, and runtime-on
 
 ## Promotion Boundaries
 
-The repo may claim bounded strict forward-time future-event ranking on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`, and grouped-video compatibility under the updated verdict. It must not claim exact continuous forecasting, mind reading, universal emotion prediction, broad all-target/all-dataset temporal prediction, raw cortical alone as the win, or 504-proven generalization.
+The repo may claim bounded strict forward-time future-event ranking on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`, and grouped-video compatibility under the updated verdict. It must not claim exact continuous forecasting, mind reading, universal emotion prediction, broad all-target/all-dataset temporal prediction, raw predicted cortical/fMRI features alone as the win, or 504-proven generalization.
