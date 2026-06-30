@@ -135,13 +135,13 @@
     },
     {
       "bytes": 1700,
-      "path": "benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.json",
+      "path": "benchmarks/veatic/veatic_124_alignment_lag_audit_20260616.json",
       "role": "veatic_124_benchmark_output",
       "sha256": "def6ccac0fea3aeef20eb2199f4969336f7e158b83703da36a816961954251c1"
     },
     {
       "bytes": 2879,
-      "path": "benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md",
+      "path": "benchmarks/veatic/veatic_124_alignment_lag_audit_20260616.md",
       "role": "veatic_124_benchmark_output",
       "sha256": "ebe124127f1df3ca1145eb6c7262464e8176156991e86113f2bdc14bb4c831ed"
     },

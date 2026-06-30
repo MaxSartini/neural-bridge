@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from probe_veatic_vjepa21_real_video_smoke import (  # noqa: E402
+from probe_veatic_vjepa21_real_video_runtime import (  # noqa: E402
     ffprobe,
     load_manifest_rows,
     npz_prediction_stats,

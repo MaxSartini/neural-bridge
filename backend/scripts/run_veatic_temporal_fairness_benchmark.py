@@ -25,8 +25,8 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[2]
 EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(ROOT / "external_assets"))).expanduser()
-ALIGN_SCRIPT = ROOT / "backend" / "scripts" / "run_veatic_alignment_lag_repair.py"
-spec = importlib.util.spec_from_file_location("alignment_lag_repair", ALIGN_SCRIPT)
+ALIGN_SCRIPT = ROOT / "backend" / "scripts" / "run_veatic_alignment_lag_audit.py"
+spec = importlib.util.spec_from_file_location("alignment_lag_audit", ALIGN_SCRIPT)
 align = importlib.util.module_from_spec(spec)
 assert spec.loader is not None
 spec.loader.exec_module(align)

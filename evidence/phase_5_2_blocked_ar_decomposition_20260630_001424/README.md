@@ -11,5 +11,5 @@ Small no-training evidence bundle for the blocked AR decomposition audit.
 Current status:
 
 - This audit motivated the redesigned washout-gap target family.
-- The later binary target `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual` passed blocked confirmation and repaired grouped compatibility.
+- The later binary target `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual` passed blocked confirmation and updated grouped compatibility.
 - The AR leakage conclusion remains clean/legal; current caveats are about continuous exact forecasting and broader all-target/all-dataset generalization.

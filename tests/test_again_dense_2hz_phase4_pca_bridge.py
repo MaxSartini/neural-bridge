@@ -87,7 +87,7 @@ def _fake_dense_root(tmp_path):
     return root
 
 
-def test_phase4_smoke_uses_train_only_pca_and_writes_required_outputs(tmp_path):
+def test_phase4_contract_uses_train_only_pca_and_writes_required_outputs(tmp_path):
     dense_root = _fake_dense_root(tmp_path)
     output_root = tmp_path / "again_phase4_output"
     manifest = run_phase4(

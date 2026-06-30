@@ -11,12 +11,14 @@ This is the handoff for the dense AGAIN artifact generated on H100 and the subst
 - Image size: `256px`.
 - Row rate: `2Hz`.
 - Frame sampling: `2Hz`.
-- Result: `995/995` videos completed, `0` failed, `243,575` row-level cortical rows.
+- Result: `995/995` videos completed, `0` failed, `243,575` cortical-response-derived bridge rows.
 - Drive folder: `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`.
 - Local pull target: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`.
 - Local audit: `reports/again_dense_h100_local_audit_20260625.md`.
 
-This artifact began as a data-generation milestone. The later Phase 5/5.5 evaluations now make AGAIN the scaled confirmation/current main result for controlled future arousal event-ranking. Do not describe the cache alone as proof; describe the cache plus the downstream eval-mode repair, frozen-AR residual repair, blocked washout-gap confirmation, and repaired grouped-video compatibility as the current evidence chain.
+This artifact began as a data-generation milestone. The later Phase 5/5.5 evaluations now make AGAIN the scaled confirmation/current main result for controlled future arousal event-ranking. Do not describe the cache alone as proof; describe the cache plus the downstream eval-mode correction, frozen-AR residual design, blocked washout-gap confirmation, and updated grouped-video compatibility as the current evidence chain.
+
+Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`; direct `AR_plus_raw_cortical` was `0.167731`, below AR. The cache becomes claim-bearing only after the Neural Bridge pipeline turns those cortical-response-derived representations into fold-safe, AR-controlled future event-ranking evidence.
 
 ## What Was Run
 
@@ -106,16 +108,16 @@ The first dense 2Hz raw-cortical-vs-AR benchmark has also run. It used MLX-backe
 - `reports/again_dense_2hz_ar_baseline_20260625_093722.md`
 - `reports/again_dense_2hz_raw_cortical_vs_ar_20260625_094242.md`
 
-Headline grouped-video result, still Phase 3 and not PCA/bridge proof: `AR + raw cortical` improves over AR and shuffled/random controls for `arousal_spike_rows_2_6_train_q90` and `arousal_abs_delta_p4rows_train_q90`, but not for `arousal_delta_p2rows_train_q90`.
+Headline Phase 3 lesson, still not PCA/bridge proof: raw cortical alone is weak. For `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` was `0.124315` PR-AUC versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` fell to `0.167731`. Grouped `AR_plus_raw_cortical` improved over AR (`0.170299` vs `0.147251`), but that direct raw lane is not the current claim and did not solve blocked validation.
 
 ## Current Downstream Evidence Status
 
 AGAIN has since progressed beyond cache readiness and raw-cortical Phase 3 diagnostics:
 
 - Blocked temporal binary confirmation: `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual`, real PR-AUC `0.2670735630`, frozen AR `0.2602336231`, best control `0.2593369051`, strong confirmation true, failed gates `[]`.
-- Repaired grouped compatibility: same target/head, real PR-AUC `0.2313831909`, AR/frozen `0.2174953276`, best matched control `0.2174209937`, fold-seed positives vs best control `50/50`, repaired grouped compatibility pass true.
-- Phase 5 eval-mode repair: grouped real PR-AUC `0.2300639382`, best matched control `0.2042740689`, delta `+0.0257898694`, fold-seed positive `15/15`.
-- Frozen-AR residual repair: grouped frozen AR `0.2246816187`, best real residual `0.2383409298`, best matched residual control `0.2248361805`, delta vs AR `+0.0136593110`, delta vs control `+0.0135047493`.
+- Updated grouped compatibility: same target/head, real PR-AUC `0.2313831909`, AR/frozen `0.2174953276`, best matched control `0.2174209937`, fold-seed positives vs best control `50/50`, updated grouped compatibility pass true.
+- Phase 5 eval-mode correction: grouped real PR-AUC `0.2300639382`, best matched control `0.2042740689`, delta `+0.0257898694`, fold-seed positive `15/15`.
+- Frozen-AR residual design: grouped frozen AR `0.2246816187`, best real residual `0.2383409298`, best matched residual control `0.2248361805`, delta vs AR `+0.0136593110`, delta vs control `+0.0135047493`.
 
 Current claim boundary: bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap target/head. Continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open. No 504 run has been performed or promoted.
 
@@ -136,7 +138,7 @@ Timing nuance: `864` videos start at `0.0s`; `131` videos start at `0.5s`. The `
 
 Quality nuance: quality flags are present. The audit found `4,816` quality-excluded rows across `966` videos, driven by duplicate-frame flags, and `0` black-frame-flagged videos. Keep those flags for train/test-aware filtering or weighting.
 
-Cache repair: `113` stale `traceback.txt` files from successful per-video folders were removed after final `status.json`, global manifests, row counts, and sampled arrays passed. A local non-git repair manifest was written at `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_run/cache_repair_20260625_stale_success_tracebacks.json`.
+Cache cleanup: `113` stale `traceback.txt` files from successful per-video folders were removed after final `status.json`, global manifests, row counts, and sampled arrays passed. A local non-git cleanup manifest was written at `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_run/cache_repair_20260625_stale_success_tracebacks.json`.
 
 ## Current Guardrails
 

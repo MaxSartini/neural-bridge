@@ -19,6 +19,11 @@ REQUIRED_FILES = [
     ".env.example",
     "docs/README.md",
     "docs/current_project_state.md",
+    "docs/current_claim_status.json",
+    "docs/neural_bridge_phase5_5_evidence_ladder.md",
+    "docs/executable_validation_index.md",
+    "docs/executable_validation_manifest.csv",
+    "docs/executable_validation_manifest.json",
     "docs/again_dense_h100_cache.md",
     "docs/veatic_v2_evidence_summary.md",
     "docs/veatic_v2_evidence_freeze.md",
@@ -104,6 +109,8 @@ def audit_required_files(errors: list[str]) -> None:
 def audit_tracked_bulk(files: list[Path], errors: list[str]) -> None:
     for path in files:
         rel = relative(path)
+        if not path.exists():
+            continue
         if rel.startswith(EVIDENCE_TRACKED_PREFIXES):
             size = path.stat().st_size
             if (
@@ -127,6 +134,8 @@ def audit_tracked_bulk(files: list[Path], errors: list[str]) -> None:
 def audit_stale_terms(files: list[Path], errors: list[str], warnings: list[str]) -> None:
     for path in files:
         rel = relative(path)
+        if not path.exists():
+            continue
         if rel == "backend/scripts/audit_repo_readiness.py":
             continue
         if not is_text(path):
@@ -150,12 +159,13 @@ def audit_stale_terms(files: list[Path], errors: list[str], warnings: list[str])
 
 def audit_orientation_content(errors: list[str]) -> None:
     checks = {
-        "README.md": ["Best Results First", "future_arousal_max_delta_rows_4_10_train_q90", "short_temporal_conv_residual", "No 504 run has been promoted"],
-        "AGENTS.md": ["future_arousal_max_delta_rows_4_10_train_q90", "short_temporal_conv_residual", "repaired grouped compatibility"],
+        "README.md": ["Best Results First", "future_arousal_max_delta_rows_4_10_train_q90", "short_temporal_conv_residual", "Raw cortical-derived features alone fail badly", "No 504 run has been promoted", "Executable Validation"],
+        "AGENTS.md": ["future_arousal_max_delta_rows_4_10_train_q90", "short_temporal_conv_residual", "updated grouped compatibility", "Raw cortical-derived features alone fail badly", "Test And Script Validation"],
         "REQUIREMENTS.md": ["video-dominant", "TRIBE_TEXT_ENCODER_LOCAL_DIR", "Llama-3.2-3B"],
         "ROADMAP.md": ["Best Current Result", "Phase 5.5 evidence ladder", "504", "evidence/"],
-        "docs/current_project_state.md": ["future_arousal_max_delta_rows_4_10_train_q90", "short_temporal_conv_residual", "Continuous exact arousal forecasting remains open"],
-        "docs/neural_bridge_phase5_5_evidence_ladder.md": ["Best AGAIN Results", "Grouped Compatibility Block", "Forbidden Claim Wording"],
+        "docs/current_project_state.md": ["future_arousal_max_delta_rows_4_10_train_q90", "short_temporal_conv_residual", "raw_cortical_only", "Continuous exact arousal forecasting remains open", "Executable Validation"],
+        "docs/neural_bridge_phase5_5_evidence_ladder.md": ["Best AGAIN Results", "Raw Cortical Alone Fails Badly", "Grouped Compatibility Block", "Forbidden Claim Wording", "Executable Validation"],
+        "docs/executable_validation_index.md": ["Best Validation First", "Current Claim-Bearing Runners", "Deterministic Tests"],
         "docs/veatic_v2_evidence_freeze.md": ["evidence:verify", "does not re-encode videos", "Post-freeze Tensor Contract"],
         "docs/veatic_raw_representation_audit.md": ["pca_sequence_128_causal_past_2s_mean", "roi_parcel_features", "topk_vertices_512"],
         "outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md": ["84 tensor contracts", "420", "No videos were re-encoded"],

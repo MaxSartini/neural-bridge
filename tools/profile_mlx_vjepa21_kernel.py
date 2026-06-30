@@ -32,7 +32,7 @@ from backend.app.services.mlx_vjepa21_cortical import (  # noqa: E402
     MlxVjepa21Video,
     _preprocess_video_batch,
 )
-from probe_veatic_vjepa21_real_video_smoke import (  # noqa: E402
+from probe_veatic_vjepa21_real_video_runtime import (  # noqa: E402
     load_manifest_rows,
     resolve_external_path,
     select_short_video,

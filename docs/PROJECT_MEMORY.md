@@ -29,16 +29,16 @@ Current dense AGAIN H100 state is maintained in:
 - `reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md`
 - `reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md`
 - `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
-- `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_REPAIRED_VERDICT.md`
+- `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 - `tools/run_h100_tribe_postpass.py`
 - Google Drive `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`
 - local pull target `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`
 
 Future handoff entries should summarize only current state or newly completed work.
 
-For the current claim, VEATIC and AGAIN are a paired evidence ladder. VEATIC-124 v2 established the original controlled future arousal event-ranking signal. AGAIN is now the scaled confirmation/current main result: dense 995-video H100 V-JEPA 2.1 / TRIBE v2 bundle, true 2Hz `labels_aligned_2hz.parquet`, Phase 5 eval-mode repair, frozen-AR residual repair, blocked washout-gap binary confirmation, and repaired grouped-video compatibility.
+For the current claim, VEATIC and AGAIN are a paired evidence ladder. VEATIC-124 v2 established the original controlled future arousal event-ranking signal. AGAIN is now the scaled confirmation/current main result: dense 995-video H100 V-JEPA 2.1 / TRIBE v2 bundle, true 2Hz `labels_aligned_2hz.parquet`, Phase 5 eval-mode correction, frozen-AR residual design, blocked washout-gap binary confirmation, and updated grouped-video compatibility.
 
-Current AGAIN bounded proof: `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual` passes blocked temporal confirmation with real PR-AUC `0.2670735630` vs frozen AR `0.2602336231` and best control `0.2593369051`; repaired grouped compatibility passes with real PR-AUC `0.2313831909` vs AR/frozen `0.2174953276` and best control `0.2174209937`. Continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open; no 504 run has been promoted.
+Raw cortical-derived features alone fail badly on AGAIN: on the original Phase 3 spike target, blocked `raw_cortical_only` PR-AUC was `0.124315` vs AR-only `0.203622`, and direct `AR_plus_raw_cortical` was `0.167731`. Current AGAIN bounded proof: `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual` passes blocked temporal confirmation with real PR-AUC `0.2670735630` vs frozen AR `0.2602336231` and best control `0.2593369051`; updated grouped compatibility passes with real PR-AUC `0.2313831909` vs AR/frozen `0.2174953276` and best control `0.2174209937`. Continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open; no 504 run has been promoted.
 
 Run `npm run audit:repo` before handing the repo to a fresh Codex session or teammate.
 Run `npm run evidence:verify` before relying on the frozen v2 evidence bundle.

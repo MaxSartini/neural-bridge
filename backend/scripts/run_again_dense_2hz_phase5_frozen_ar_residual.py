@@ -1,4 +1,4 @@
-"""Targeted Phase 5 frozen-AR residual-over-AR repair.
+"""Targeted Phase 5 frozen-AR residual-over-AR phase5_base.
 
 This runner is intentionally bounded to the primary Phase 5 lane:
 `arousal_spike_rows_2_6_train_q90`, `temporal_mean_2s_then_pca256`,
@@ -41,7 +41,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from backend.scripts import run_again_dense_2hz_phase5_adversarial_repair_fixplus as repair
+from backend.scripts import run_again_dense_2hz_phase5_adversarial_correction_fixplus as phase5_base
 from backend.scripts import run_again_dense_2hz_phase5_learned_heads as base
 from backend.scripts.again_dense_2hz_benchmark import (
     AR_FEATURE_COLUMNS,
@@ -217,7 +217,7 @@ def split_y(split: Any, train_idx: np.ndarray, test_idx: np.ndarray) -> tuple[np
 
 
 def inner_split(df: pd.DataFrame, train_idx: np.ndarray, y_train: np.ndarray) -> tuple[np.ndarray, np.ndarray, dict[str, Any]]:
-    return repair.temporal_inner_validation_relative_split(df, train_idx, y_train)
+    return phase5_base.temporal_inner_validation_relative_split(df, train_idx, y_train)
 
 
 def config_for_ar(seed: int) -> Any:
@@ -342,7 +342,7 @@ class Block:
 
 
 def build_blocks(source_root: Path) -> tuple[dict[tuple[str, int], Block], pd.DataFrame, Path, Path]:
-    repair.patch_base_module()
+    phase5_base.patch_base_module()
     manifest = json.loads((source_root / "run_manifest.json").read_text())
     dense_root = Path(manifest["dense_root"])
     phase4_root = Path(manifest["phase4_root"])
@@ -357,7 +357,7 @@ def build_blocks(source_root: Path) -> tuple[dict[tuple[str, int], Block], pd.Da
     blocks: dict[tuple[str, int], Block] = {}
     for split in splits:
         rng = np.random.default_rng(20260625 + int(split.fold) + 9)
-        train_idx, test_idx, train_x, test_x, block_dims, _ = repair.assemble_feature_blocks_repair(
+        train_idx, test_idx, train_x, test_x, block_dims, _ = phase5_base.assemble_feature_blocks_correction(
             df,
             dense_root,
             phase4_root,
@@ -821,14 +821,14 @@ def compute_gates(summary: pd.DataFrame, fold_df: pd.DataFrame) -> dict[str, Any
         "strict_forward_time_temporal_generalization_proven": bool(blocked_pass),
         "recommendation": "promote_to_phase6_candidate"
         if grouped_pass and blocked_pass
-        else ("exploratory_grouped_only" if grouped_pass else "repair_required"),
+        else ("exploratory_grouped_only" if grouped_pass else "correction_required"),
     }
 
 
 def write_report(path: Path, gates: dict[str, Any], output_root: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
-        f"""# Phase 5 Frozen-AR Residual Repair Summary
+        f"""# Phase 5 Frozen-AR Residual Design Summary
 
 Output root: `{output_root}`
 
@@ -1045,7 +1045,7 @@ def main() -> int:
     )
     write_json(output_root / "promotion" / "frozen_ar_residual_gates.json", gates)
     write_json(output_root / "promotion" / "frozen_ar_residual_adversarial_verdict.json", gates)
-    write_json(output_root / "promotion" / "frozen_ar_residual_failure_reasons.json", {"repair_required": gates["recommendation"] == "repair_required", "blocked_residual_pass": gates["blocked_residual_pass"], "full_forward_time_pass": gates["full_forward_time_pass"]})
+    write_json(output_root / "promotion" / "frozen_ar_residual_failure_reasons.json", {"correction_required": gates["recommendation"] == "correction_required", "blocked_residual_pass": gates["blocked_residual_pass"], "full_forward_time_pass": gates["full_forward_time_pass"]})
     summary.to_csv(output_root / "promotion" / "frozen_ar_residual_best_heads.csv", index=False)
     summary[summary["control_type"].isin(["real_frozen_ar_residual", *MATCHED_CONTROLS])].to_csv(output_root / "promotion" / "frozen_ar_residual_matched_control_comparison.csv", index=False)
     summary.to_csv(output_root / "promotion" / "frozen_ar_residual_vs_evalmode_baseline.csv", index=False)

@@ -1,0 +1,10 @@
+{
+  "date": "2026-06-30",
+  "command": "npm test",
+  "result": "pass",
+  "tests_passed": 93,
+  "tests_failed": 0,
+  "duration_seconds": 5.64,
+  "underlying_command": "python3 -m pytest -q tests",
+  "notes": "Deterministic contract suite only; no training, V-JEPA/TRIBE rerun, PCA refit, grouped rerun, or 504."
+}

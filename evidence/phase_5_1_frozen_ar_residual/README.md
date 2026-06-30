@@ -8,7 +8,7 @@ The frozen-AR residual experiment used deterministic eval-mode scoring. AR-only 
 
 ## Current Status Note
 
-This older frozen-AR residual repair fixed the AR-floor design and strengthened grouped-video evidence, but it did not yet solve blocked temporal improvement for the original rows 2-6 spike target. Later target redesign plus `short_temporal_conv_residual` produced the current bounded AGAIN blocked washout-gap confirmation and repaired grouped compatibility. Use `../../docs/neural_bridge_phase5_5_evidence_ladder.md` for the current claim boundary.
+This older frozen-AR residual design established the AR-floor path and strengthened grouped-video evidence, but it did not yet solve blocked temporal improvement for the original rows 2-6 spike target. Later target redesign plus `short_temporal_conv_residual` produced the current bounded AGAIN blocked washout-gap confirmation and updated grouped compatibility. Use `../../docs/neural_bridge_phase5_5_evidence_ladder.md` for the current claim boundary.
 
 ## Verdict
 

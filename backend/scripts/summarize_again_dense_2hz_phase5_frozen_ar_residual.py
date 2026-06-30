@@ -1,4 +1,4 @@
-"""Summarize the Phase 5 frozen-AR residual repair output root."""
+"""Summarize the Phase 5 frozen-AR residual design output root."""
 
 from __future__ import annotations
 

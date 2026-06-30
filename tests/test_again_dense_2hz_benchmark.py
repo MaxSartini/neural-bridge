@@ -101,7 +101,7 @@ def test_row_index_reader_accepts_parquet(tmp_path: Path):
     assert list(df["time_seconds"]) == [0.0, 0.5]
 
 
-def test_ar_smoke_benchmark_uses_train_only_thresholds():
+def test_ar_contract_benchmark_uses_train_only_thresholds():
     rows = []
     for video_index in range(4):
         for row_index in range(12):

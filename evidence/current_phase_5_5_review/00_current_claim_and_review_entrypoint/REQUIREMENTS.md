@@ -163,7 +163,7 @@ V-JEPA 2.1 and AGAIN status:
 - `MlxVjepa21Video` is implemented and selected when `TRIBE_VIDEO_ENCODER_MLX_DIR/config.json` declares `tensor_layout=vjepa2_1_mlx_port`.
 - `backend/scripts/run_veatic_tribe_cache.py` includes worker claims, resume status, per-window checkpoints, ffmpeg frame sampling, and protected-cache write refusal for MLX/V-JEPA outputs.
 - Dense full-AGAIN data generation is complete externally: H100 V-JEPA 2.1 ViT-G encoded `995` videos at `2Hz` rows / `2Hz` sampling / `256px` / float16, and cache-only TRIBE v2 completed `995/995` videos with `0` failures and `243,575` row-level cortical predictions. Use `tools/run_h100_tribe_postpass.py` only for cache-only postpass/retry work; it must not decode videos or rerun V-JEPA.
-- Dense AGAIN true-2Hz supervised alignment is implemented in `backend/scripts/again_dense_2hz_benchmark.py` and writes `labels_aligned_2hz.parquet` under the local H100 pull target. Downstream Phase 5/5.5 work now includes eval-mode repair, frozen-AR residual repair, blocked washout-gap binary confirmation, and repaired grouped-video compatibility.
+- Dense AGAIN true-2Hz supervised alignment is implemented in `backend/scripts/again_dense_2hz_benchmark.py` and writes `labels_aligned_2hz.parquet` under the local H100 pull target. Downstream Phase 5/5.5 work now includes eval-mode correction, frozen-AR residual design, blocked washout-gap binary confirmation, and updated grouped-video compatibility.
 
 ## Tracked Versus External Assets
 
@@ -253,11 +253,11 @@ Fresh sessions should read these first:
 - `docs/neural_bridge_phase5_5_evidence_ladder.md`
 - `docs/current_claim_status.json`
 - `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
-- `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_REPAIRED_VERDICT.md`
+- `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 - `docs/veatic_v2_evidence_summary.md`
 - `docs/veatic_v2_evidence_freeze.md`
 - `benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md`
-- `benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md`
+- `benchmarks/veatic/veatic_124_alignment_lag_audit_20260616.md`
 - `docs/veatic_raw_representation_audit.md`
 - `outputs/veatic_124_raw_representation_tensor_export_v1/tensor_export_report.md`
 - `docs/again_dense_h100_cache.md`

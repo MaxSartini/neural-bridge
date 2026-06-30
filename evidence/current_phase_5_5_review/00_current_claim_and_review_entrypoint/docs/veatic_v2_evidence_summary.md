@@ -6,11 +6,14 @@ Generated from the current v2 reports imported into the cleaned Neural Bridge re
 
 VEATIC-124 v2 established the first controlled Neural Bridge future arousal event/spike-ranking result using a video-dominant cortical/TRIBE cache. It shows that visual/video-driven cortical/TRIBE PCA feature modes can improve future arousal spike/event ranking over autoregressive, shuffled, random, timestamp, and video/time controls under blocked and grouped-video validation.
 
+Here `cortical/TRIBE` means frozen video-derived bridge features derived from brain cortical responses. The VEATIC evidence is about those cortical-response-derived features carrying event-ranking signal, not about generic video embeddings or direct viewer neural recordings.
+
+
 The claim remains bounded: this is event/spike ranking and temporal-context evidence from a mostly visual/video cache, not exact continuous arousal-value prediction, a finished downstream product model, or proof that full text+audio+video TRIBE has been evaluated.
 
 After the v2 evidence freeze, a raw cortical representation audit, tensor export, and MPS trained-head benchmark were completed without re-encoding videos. These do not replace the v2 claim; they define and test the post-v2 model-head layer on top of it.
 
-Current cross-dataset framing: VEATIC is foundational, not obsolete. AGAIN is now the scaled confirmation/current main result, extending the VEATIC signal with dense 995-video V-JEPA 2.1 / TRIBE v2 features, frozen-AR residual design, blocked washout-gap confirmation, and repaired grouped-video compatibility. See `docs/neural_bridge_phase5_5_evidence_ladder.md`.
+Current cross-dataset framing: VEATIC is foundational, not obsolete. AGAIN is now the scaled confirmation/current main result, extending the VEATIC signal with dense 995-video V-JEPA 2.1 / TRIBE v2 features, frozen-AR residual design, blocked washout-gap confirmation, and updated grouped-video compatibility. AGAIN also shows why Neural Bridge matters: raw cortical-derived features alone fail badly under blocked validation before the bridge stack is applied. See `docs/neural_bridge_phase5_5_evidence_ladder.md`.
 
 ## Proven Or Supported Hypotheses
 
@@ -29,7 +32,7 @@ Current cross-dataset framing: VEATIC is foundational, not obsolete. AGAIN is no
 - Grouped-video aggregate spike F1 improves over AR for PCA modes: `cortical_pca_64` `+0.0256`, `cortical_pca64_delta` `+0.0177`.
 - Balanced event-vs-stable `arousal__future_spike_1_3s@0.05`: `cortical_pca64_delta` PR-AUC `0.3394`, `+0.0609` over AR, `+0.0631` over shuffled, `+0.0476` over random.
 - Temporal context v2: 4/4 focused feature-target rows improved over current-only by more than `0.005` PR-AUC; best focused windows were `causal_past_2s`.
-- Alignment repair: best offsets vary by target/mode, so no global lag correction was selected; final policy is `keep_current_0s_as_primary_plus_report_offset_diagnostics`.
+- Alignment audit: best offsets vary by target/mode, so no global lag correction was selected; final policy is `keep_current_0s_as_primary_plus_report_offset_diagnostics`.
 - Modality audit: `122/124` current cache entries are video-only and `2/124` contain text+audio+video, so the v2 result should not be described as a full multimodal TRIBE result.
 
 ## Post-v2 Raw Representation And Tensor Export
@@ -65,7 +68,7 @@ Current cross-dataset framing: VEATIC is foundational, not obsolete. AGAIN is no
 - Downstream product-model work is outside the current v2 evidence bundle.
 - Full multimodal TRIBE remains a high-priority pilot, not part of the frozen v2 claim yet. The guarded `83,84` pilot reaches audio/text event preparation but is blocked until the gated `meta-llama/Llama-3.2-3B` text encoder is locally available or authorized.
 - Do not use a full VEATIC-124 re-encode as the next multimodal step: only videos `83` and `84` contain audio streams.
-- Dense AGAIN V-JEPA 2.1 / TRIBE v2 data generation has since completed on H100 for all `995` videos at `2Hz`, `256px`, float16. True 2Hz labels, Phase 5 eval-mode repair, frozen-AR residual repair, blocked washout-gap binary confirmation, and repaired grouped-video compatibility now make AGAIN the scaled confirmation/current main result. This does not mutate the frozen VEATIC v2 evidence claim; it completes the paired VEATIC + AGAIN evidence ladder.
+- Dense AGAIN V-JEPA 2.1 / TRIBE v2 data generation has since completed on H100 for all `995` videos at `2Hz`, `256px`, float16. True 2Hz labels, Phase 5 eval-mode correction, frozen-AR residual design, blocked washout-gap binary confirmation, and updated grouped-video compatibility now make AGAIN the scaled confirmation/current main result. This does not mutate the frozen VEATIC v2 evidence claim; it completes the paired VEATIC + AGAIN evidence ladder.
 
 ## Source Reports
 
@@ -74,7 +77,7 @@ Current cross-dataset framing: VEATIC is foundational, not obsolete. AGAIN is no
 - `benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md`
 - `outputs/veatic_124_temporal_context_v2_20260616_1557/veatic_124_temporal_context_v2_report.md`
 - `outputs/veatic_124_temporal_fairness_20260616_1509/veatic_124_temporal_fairness_report.md`
-- `benchmarks/veatic/veatic_124_alignment_lag_repair_20260616.md`
+- `benchmarks/veatic/veatic_124_alignment_lag_audit_20260616.md`
 - `benchmarks/veatic/veatic_124_alignment_candidate_fixes.md`
 - `benchmarks/veatic/veatic_124_alignment_causal_window_audit.md`
 - `docs/veatic_raw_representation_audit.md`

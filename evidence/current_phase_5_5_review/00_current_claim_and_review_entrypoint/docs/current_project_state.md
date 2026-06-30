@@ -4,11 +4,15 @@ Last updated: 2026-06-30
 
 ## Current Claim
 
-Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge/cortical representations across VEATIC and AGAIN.
+Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
 
-VEATIC-124 v2 established the original controlled future arousal spike/event-ranking result. AGAIN replicated, scaled, repaired, and strengthened it using 995 videos, 2 Hz dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
+VEATIC-124 v2 established the original controlled future arousal spike/event-ranking result. AGAIN replicated, scaled, validated, and strengthened it using 995 videos, 2 Hz dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
-Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is proven under the repaired frozen-AR-residual-aware verdict.
+The bridge features are frozen video-derived representations derived from brain cortical responses. The claim is that these cortical-response-derived bridge features improve controlled future event ranking; they are not generic video embeddings, direct viewer neural measurements, or evidence of solved continuous forecasting.
+
+Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3 target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. The current success comes from Neural Bridge, not raw cortical features by themselves.
+
+Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict.
 
 Continuous exact arousal forecasting remains open. Broad all-target/all-dataset temporal prediction remains open. No 504 run has been promoted.
 
@@ -27,10 +31,11 @@ Continuous exact arousal forecasting remains open. Broad all-target/all-dataset 
 - VEATIC is foundational, not obsolete: it established the original controlled future arousal event/spike-ranking signal.
 - AGAIN is the scaled confirmation and current main result: it replicated and extended the signal with dense V-JEPA 2.1 / TRIBE v2 features over 995 videos.
 - The original AGAIN fused head passed grouped eval-mode controls but failed blocked AR/control checks; that failure motivated the frozen-AR residual design.
-- Frozen-AR residual repair strengthened grouped evidence and reduced blocked harm by making AR the baseline floor.
+- Frozen-AR residual design strengthened grouped evidence and reduced blocked harm by making AR the baseline floor.
 - The redesigned washout-gap binary target plus short temporal conv residual passed a matched 10-seed blocked temporal confirmation.
-- The same target/head passed grouped-video compatibility under the repaired frozen-AR-residual-aware label permutation verdict.
+- The same target/head passed grouped-video compatibility under the updated frozen-AR-residual-aware label permutation verdict.
 - Continuous arousal movement diagnostics remain mixed/open and should not be promoted as solved exact forecasting.
+- Raw cortical-derived features alone are a negative-control lesson: they are weak under blocked validation and can damage AR if bolted on directly.
 
 ## Canonical Numbers
 
@@ -49,7 +54,7 @@ AGAIN blocked temporal binary confirmation:
 - weak / credible / strong confirmation: true
 - failed gates: `[]`
 
-AGAIN grouped compatibility repaired verdict:
+AGAIN grouped compatibility updated verdict:
 
 - target: `future_arousal_max_delta_rows_4_10_train_q90`
 - protocol: `grouped_video`
@@ -65,9 +70,20 @@ AGAIN grouped compatibility repaired verdict:
 - real minus label permutation: `+0.0160732134`
 - label permutation minus AR: `-0.0021853501`
 - fold-seed positives vs label permutation: `50/50`
-- repaired grouped compatibility pass: true
-- failed repaired gates: `[]`
-- verdict repair only: no retraining, no PCA generation, no grouped rerun, no 504
+- updated grouped compatibility pass: true
+- failed updated gates: `[]`
+- verdict update only: no retraining, no PCA generation, no grouped rerun, no 504
+
+AGAIN raw cortical alone:
+
+- original Phase 3 target: `arousal_spike_rows_2_6_train_q90`
+- blocked `raw_cortical_only` PR-AUC: `0.124315`
+- blocked AR-only PR-AUC: `0.203622`
+- blocked `AR_plus_raw_cortical` PR-AUC: `0.167731`
+- grouped `raw_cortical_only` PR-AUC: `0.136579`
+- grouped AR-only PR-AUC: `0.147251`
+- grouped `AR_plus_raw_cortical` PR-AUC: `0.170299`
+- conclusion: raw cortical-derived features alone are not the result; Neural Bridge makes the cortical-response-derived signal usable.
 
 VEATIC-124 v2:
 
@@ -82,13 +98,14 @@ VEATIC-124 v2:
 AGAIN dense cache:
 
 - `995/995` videos complete
-- `243,575` row-level cortical rows
+- `243,575` cortical-response-derived bridge rows
+- frozen video-derived bridge features derived from brain cortical responses
 - `2 Hz`, `256 px`, float16
 - official V-JEPA 2.1 ViT-G
 - TRIBE v2 cache-only postpass
 - labels aligned at true 2 Hz
 
-AGAIN Phase 5 eval-mode repair:
+AGAIN Phase 5 eval-mode correction:
 
 - grouped real PR-AUC: `0.2300639382`
 - grouped best matched control: `0.2042740689`
@@ -97,32 +114,43 @@ AGAIN Phase 5 eval-mode repair:
 - grouped fold-seed positive: `15/15`
 - blocked caveat: old fused lane lost to AR/control under blocked validation
 
-AGAIN frozen-AR residual repair:
+AGAIN frozen-AR residual design:
 
 - grouped frozen AR PR-AUC: `0.2246816187`
 - grouped best real residual PR-AUC: `0.2383409298`
 - grouped best matched residual control PR-AUC: `0.2248361805`
 - grouped delta vs frozen AR: `+0.0136593110`
 - grouped delta vs best matched control: `+0.0135047493`
-- blocked do-no-harm passed, but the older frozen-AR repair did not yet beat AR/control under blocked temporal validation
+- blocked do-no-harm passed, but the older frozen-AR residual design did not yet beat AR/control under blocked temporal validation
 
 ## Canonical Artifacts
 
 - Phase 5.5 evidence ladder: `docs/neural_bridge_phase5_5_evidence_ladder.md`
 - Machine-readable status: `docs/current_claim_status.json`
+- Executable validation index: `docs/executable_validation_index.md`
+- Executable validation manifest: `docs/executable_validation_manifest.csv`, `docs/executable_validation_manifest.json`
+- Latest deterministic test-suite result: `docs/test_suite_result_20260630.json`
 - Reviewer evidence dossier: `evidence/current_phase_5_5_review/README.md`
 - Claim ledger and artifact manifest: `evidence/current_phase_5_5_review/CLAIM_LEDGER.md`, `evidence/current_phase_5_5_review/artifact_manifest.csv`
 - VEATIC summary: `docs/veatic_v2_evidence_summary.md`
 - AGAIN dense cache handoff: `docs/again_dense_h100_cache.md`
 - Canonical adversarial review: `docs/reviews/neural_bridge_phase5_adversarial_review_20260625.html`
-- Eval-mode repair report: `reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md`
+- Eval-mode correction report: `reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md`
 - Frozen-AR residual report: `reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md`
 - Blocked binary confirmation report: `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
-- Repaired grouped compatibility verdict: `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_REPAIRED_VERDICT.md`
+- Updated grouped compatibility verdict: `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 - Dense root: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`
 - Phase 4 root: `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/`
 
 Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly asked. Heavy output roots remain ignored.
+
+## Executable Validation
+
+- Full deterministic suite: `python3 -m pytest -q tests`
+- Latest local result: `93 passed in 5.52s` on `2026-06-30`
+- `npm test` runs the full suite.
+- Executable crosswalk: `evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv`
+- Repo audit: `npm run audit:repo`
 
 ## Next Work
 

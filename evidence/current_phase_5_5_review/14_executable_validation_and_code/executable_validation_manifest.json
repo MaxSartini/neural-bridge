@@ -1,0 +1,740 @@
+[
+  {
+    "family": "shared",
+    "phase": "current",
+    "item_type": "suite",
+    "path": "package.json:npm test",
+    "canonical_status": "current_required",
+    "reviewer_role": "Runs full deterministic pytest suite over tests/.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "shared",
+    "phase": "current",
+    "item_type": "suite",
+    "path": "package.json:npm run audit:repo",
+    "canonical_status": "current_required",
+    "reviewer_role": "Runs repo orientation, stale-term, heavy-artifact, and evidence hygiene audit.",
+    "validation_or_evidence": "python3 backend/scripts/audit_repo_readiness.py"
+  },
+  {
+    "family": "shared",
+    "phase": "current",
+    "item_type": "suite",
+    "path": "docs/executable_validation_index.md",
+    "canonical_status": "current_index",
+    "reviewer_role": "Human-readable map of relevant tests, scripts, benchmarks, and validation commands.",
+    "validation_or_evidence": "This file"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.5",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase5_temporal_residual_binary_big_confirm.py",
+    "canonical_status": "claim_bearing_runner",
+    "reviewer_role": "Matched seed-specific 10-seed blocked binary confirmation for the current bounded proof target/head.",
+    "validation_or_evidence": "reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.5",
+    "item_type": "script",
+    "path": "backend/scripts/summarize_again_dense_2hz_phase5_temporal_residual_binary_big_confirm.py",
+    "canonical_status": "claim_bearing_summarizer",
+    "reviewer_role": "Summarizes the blocked binary confirmation artifacts.",
+    "validation_or_evidence": "evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.5",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase5_temporal_residual_grouped_compat.py",
+    "canonical_status": "claim_bearing_runner",
+    "reviewer_role": "Grouped-video compatibility run for the confirmed target/head.",
+    "validation_or_evidence": "reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520.md"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.5",
+    "item_type": "script",
+    "path": "backend/scripts/summarize_again_dense_2hz_phase5_temporal_residual_grouped_compat.py",
+    "canonical_status": "claim_bearing_summarizer",
+    "reviewer_role": "Summarizes grouped compatibility artifacts.",
+    "validation_or_evidence": "evidence/phase_5_5_grouped_compatibility_20260630_033520/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.5",
+    "item_type": "script",
+    "path": "backend/scripts/update_again_dense_2hz_phase5_temporal_residual_grouped_compat_verdict.py",
+    "canonical_status": "no_training_verdict_update",
+    "reviewer_role": "Updates grouped compatibility verdict logic for frozen-AR residual label-permutation nulls using existing artifacts only.",
+    "validation_or_evidence": "reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.4",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase5_temporal_residual_blocked.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Temporal/event-context residual architecture diagnostic that selected short_temporal_conv_residual.",
+    "validation_or_evidence": "evidence/phase_5_4_temporal_residual_diagnostic_20260630_020557/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.4",
+    "item_type": "script",
+    "path": "backend/scripts/summarize_again_dense_2hz_phase5_temporal_residual_blocked.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Temporal/event-context residual architecture diagnostic that selected short_temporal_conv_residual.",
+    "validation_or_evidence": "evidence/phase_5_4_temporal_residual_diagnostic_20260630_020557/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.3",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase5_redesigned_target_blocked.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Small redesigned-target blocked diagnostic.",
+    "validation_or_evidence": "evidence/phase_5_3_redesigned_target_blocked_20260630_010721/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.3",
+    "item_type": "script",
+    "path": "backend/scripts/summarize_again_dense_2hz_phase5_redesigned_target_blocked.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Small redesigned-target blocked diagnostic.",
+    "validation_or_evidence": "evidence/phase_5_3_redesigned_target_blocked_20260630_010721/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.2",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase5_blocked_residual_targeted.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Blocked residual, clean confirmation, AR decomposition, and continuous residual diagnostics.",
+    "validation_or_evidence": "evidence/phase_5_2_blocked_residual_targeted_230325/; evidence/phase_5_2_blocked_residual_clean_confirm_20260629_234349/; evidence/phase_5_2_continuous_residual_blocked_20260630_000219/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.2",
+    "item_type": "script",
+    "path": "backend/scripts/summarize_again_dense_2hz_phase5_blocked_residual_targeted.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Blocked residual, clean confirmation, AR decomposition, and continuous residual diagnostics.",
+    "validation_or_evidence": "evidence/phase_5_2_blocked_residual_targeted_230325/; evidence/phase_5_2_blocked_residual_clean_confirm_20260629_234349/; evidence/phase_5_2_continuous_residual_blocked_20260630_000219/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.2",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase5_blocked_residual_clean_confirm.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Blocked residual, clean confirmation, AR decomposition, and continuous residual diagnostics.",
+    "validation_or_evidence": "evidence/phase_5_2_blocked_residual_targeted_230325/; evidence/phase_5_2_blocked_residual_clean_confirm_20260629_234349/; evidence/phase_5_2_continuous_residual_blocked_20260630_000219/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.2",
+    "item_type": "script",
+    "path": "backend/scripts/summarize_again_dense_2hz_phase5_blocked_residual_clean_confirm.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Blocked residual, clean confirmation, AR decomposition, and continuous residual diagnostics.",
+    "validation_or_evidence": "evidence/phase_5_2_blocked_residual_targeted_230325/; evidence/phase_5_2_blocked_residual_clean_confirm_20260629_234349/; evidence/phase_5_2_continuous_residual_blocked_20260630_000219/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.2",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase5_continuous_residual_blocked.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Blocked residual, clean confirmation, AR decomposition, and continuous residual diagnostics.",
+    "validation_or_evidence": "evidence/phase_5_2_blocked_residual_targeted_230325/; evidence/phase_5_2_blocked_residual_clean_confirm_20260629_234349/; evidence/phase_5_2_continuous_residual_blocked_20260630_000219/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.2",
+    "item_type": "script",
+    "path": "backend/scripts/summarize_again_dense_2hz_phase5_continuous_residual_blocked.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Blocked residual, clean confirmation, AR decomposition, and continuous residual diagnostics.",
+    "validation_or_evidence": "evidence/phase_5_2_blocked_residual_targeted_230325/; evidence/phase_5_2_blocked_residual_clean_confirm_20260629_234349/; evidence/phase_5_2_continuous_residual_blocked_20260630_000219/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.1",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase5_frozen_ar_residual.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Frozen-AR residual design over the original Phase 5 primary lane.",
+    "validation_or_evidence": "evidence/phase_5_1_frozen_ar_residual/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.1",
+    "item_type": "script",
+    "path": "backend/scripts/summarize_again_dense_2hz_phase5_frozen_ar_residual.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Frozen-AR residual design over the original Phase 5 primary lane.",
+    "validation_or_evidence": "evidence/phase_5_1_frozen_ar_residual/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.0",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase5_adversarial_correction_fixplus.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Primary Phase 5 correction, deterministic eval-mode rescore, and learned-head infrastructure.",
+    "validation_or_evidence": "reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md; evidence/phase_5_0_evalmode_rescore/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.0",
+    "item_type": "script",
+    "path": "backend/scripts/summarize_again_dense_2hz_phase5_adversarial_correction_fixplus.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Primary Phase 5 correction, deterministic eval-mode rescore, and learned-head infrastructure.",
+    "validation_or_evidence": "reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md; evidence/phase_5_0_evalmode_rescore/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.0",
+    "item_type": "script",
+    "path": "backend/scripts/rescore_again_dense_2hz_phase5_evalmode.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Primary Phase 5 correction, deterministic eval-mode rescore, and learned-head infrastructure.",
+    "validation_or_evidence": "reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md; evidence/phase_5_0_evalmode_rescore/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.0",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase5_learned_heads.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Primary Phase 5 correction, deterministic eval-mode rescore, and learned-head infrastructure.",
+    "validation_or_evidence": "reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md; evidence/phase_5_0_evalmode_rescore/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 4",
+    "item_type": "script",
+    "path": "backend/scripts/again_dense_2hz_phase4_pca_bridge.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Fold-safe PCA bridge benchmark and summary.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/06_again_phase_4_pca_bridge/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 4",
+    "item_type": "script",
+    "path": "backend/scripts/summarize_again_dense_2hz_phase4_pca_bridge.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Fold-safe PCA bridge benchmark and summary.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/06_again_phase_4_pca_bridge/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 0-3",
+    "item_type": "script",
+    "path": "backend/scripts/again_dense_2hz_benchmark.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Dense labels, AR features/baselines, raw cortical diagnostics, temporal alignment, and boundary contracts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/02_again_phase_0_inventory_dense_cache/ through 05_again_phase_3_raw_cortical/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 0-3",
+    "item_type": "script",
+    "path": "backend/scripts/build_again_labels_aligned_2hz.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Dense labels, AR features/baselines, raw cortical diagnostics, temporal alignment, and boundary contracts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/02_again_phase_0_inventory_dense_cache/ through 05_again_phase_3_raw_cortical/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 0-3",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_ar_baseline.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Dense labels, AR features/baselines, raw cortical diagnostics, temporal alignment, and boundary contracts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/02_again_phase_0_inventory_dense_cache/ through 05_again_phase_3_raw_cortical/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 0-3",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_raw_cortical_benchmark.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Dense labels, AR features/baselines, raw cortical diagnostics, temporal alignment, and boundary contracts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/02_again_phase_0_inventory_dense_cache/ through 05_again_phase_3_raw_cortical/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 0-3",
+    "item_type": "script",
+    "path": "backend/scripts/again_native_temporal_alignment.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Dense labels, AR features/baselines, raw cortical diagnostics, temporal alignment, and boundary contracts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/02_again_phase_0_inventory_dense_cache/ through 05_again_phase_3_raw_cortical/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 0-3",
+    "item_type": "script",
+    "path": "backend/scripts/again_boundary_manifest.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Dense labels, AR features/baselines, raw cortical diagnostics, temporal alignment, and boundary contracts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/02_again_phase_0_inventory_dense_cache/ through 05_again_phase_3_raw_cortical/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 0-3",
+    "item_type": "script",
+    "path": "backend/scripts/again_full_ar_context.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Dense labels, AR features/baselines, raw cortical diagnostics, temporal alignment, and boundary contracts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/02_again_phase_0_inventory_dense_cache/ through 05_again_phase_3_raw_cortical/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "script",
+    "path": "backend/scripts/run_veatic_strict_benchmark.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "VEATIC-124 v2 benchmark, alignment, temporal context, fairness, and evidence-freeze scripts.",
+    "validation_or_evidence": "benchmarks/veatic/; docs/veatic_v2_evidence_summary.md; evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "script",
+    "path": "backend/scripts/run_veatic_neuro_benchmark.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "VEATIC-124 v2 benchmark, alignment, temporal context, fairness, and evidence-freeze scripts.",
+    "validation_or_evidence": "benchmarks/veatic/; docs/veatic_v2_evidence_summary.md; evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "script",
+    "path": "backend/scripts/run_veatic_event_spike_retest.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "VEATIC-124 v2 benchmark, alignment, temporal context, fairness, and evidence-freeze scripts.",
+    "validation_or_evidence": "benchmarks/veatic/; docs/veatic_v2_evidence_summary.md; evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "script",
+    "path": "backend/scripts/run_veatic_event_conditioned_retest.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "VEATIC-124 v2 benchmark, alignment, temporal context, fairness, and evidence-freeze scripts.",
+    "validation_or_evidence": "benchmarks/veatic/; docs/veatic_v2_evidence_summary.md; evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "script",
+    "path": "backend/scripts/run_veatic_temporal_fairness_benchmark.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "VEATIC-124 v2 benchmark, alignment, temporal context, fairness, and evidence-freeze scripts.",
+    "validation_or_evidence": "benchmarks/veatic/; docs/veatic_v2_evidence_summary.md; evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "script",
+    "path": "backend/scripts/run_veatic_temporal_context_v2.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "VEATIC-124 v2 benchmark, alignment, temporal context, fairness, and evidence-freeze scripts.",
+    "validation_or_evidence": "benchmarks/veatic/; docs/veatic_v2_evidence_summary.md; evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "script",
+    "path": "backend/scripts/run_veatic_alignment_lag_audit.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "VEATIC-124 v2 benchmark, alignment, temporal context, fairness, and evidence-freeze scripts.",
+    "validation_or_evidence": "benchmarks/veatic/; docs/veatic_v2_evidence_summary.md; evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "script",
+    "path": "backend/scripts/build_veatic_manifest.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "VEATIC-124 v2 benchmark, alignment, temporal context, fairness, and evidence-freeze scripts.",
+    "validation_or_evidence": "benchmarks/veatic/; docs/veatic_v2_evidence_summary.md; evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "script",
+    "path": "backend/scripts/audit_veatic_benchmark_device_consistency.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "VEATIC-124 v2 benchmark, alignment, temporal context, fairness, and evidence-freeze scripts.",
+    "validation_or_evidence": "benchmarks/veatic/; docs/veatic_v2_evidence_summary.md; evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "script",
+    "path": "backend/scripts/freeze_veatic_v2_evidence.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "VEATIC-124 v2 benchmark, alignment, temporal context, fairness, and evidence-freeze scripts.",
+    "validation_or_evidence": "benchmarks/veatic/; docs/veatic_v2_evidence_summary.md; evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC post-v2",
+    "item_type": "script",
+    "path": "backend/scripts/run_veatic_raw_representation_audit.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Post-v2 raw representation, tensor contract, and trained-head layer scripts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC post-v2",
+    "item_type": "script",
+    "path": "backend/scripts/veatic_representation_builders.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Post-v2 raw representation, tensor contract, and trained-head layer scripts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC post-v2",
+    "item_type": "script",
+    "path": "backend/scripts/veatic_frozen_tensor_adapter.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Post-v2 raw representation, tensor contract, and trained-head layer scripts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC post-v2",
+    "item_type": "script",
+    "path": "backend/scripts/veatic_frozen_tensor_trained_heads.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Post-v2 raw representation, tensor contract, and trained-head layer scripts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC post-v2",
+    "item_type": "script",
+    "path": "backend/scripts/run_veatic_frozen_tensor_incremental_benchmark.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Post-v2 raw representation, tensor contract, and trained-head layer scripts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC post-v2",
+    "item_type": "script",
+    "path": "backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py",
+    "canonical_status": "supporting_runner_or_library",
+    "reviewer_role": "Post-v2 raw representation, tensor contract, and trained-head layer scripts.",
+    "validation_or_evidence": "evidence/current_phase_5_5_review/01_veatic_v2_foundation/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 0-5",
+    "item_type": "test",
+    "path": "tests/test_again_dense_2hz_benchmark.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Dense 2 Hz target construction, split, AR threshold, lane, and control contracts.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 4",
+    "item_type": "test",
+    "path": "tests/test_again_dense_2hz_phase4_pca_bridge.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Fold-safe PCA bridge and required output metadata contracts.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 1",
+    "item_type": "test",
+    "path": "tests/test_again_native_temporal_alignment.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Native time-grid alignment and future-window contracts.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 0",
+    "item_type": "test",
+    "path": "tests/test_again_boundary_manifest.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Annotation boundary policy contracts.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 2",
+    "item_type": "test",
+    "path": "tests/test_again_full_ar_context.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "AR-only context benchmark guardrails.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "shared",
+    "phase": "split_contracts",
+    "item_type": "test",
+    "path": "tests/test_grouped_video_split.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Grouped-video fold disjointness.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "test",
+    "path": "tests/test_veatic_strict_benchmark_contract.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "VEATIC strict benchmark plan, controls, timing, and modality contracts.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC post-v2",
+    "item_type": "test",
+    "path": "tests/test_veatic_raw_representation_contract.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Raw representation audit and tensor-contract guardrails.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC post-v2",
+    "item_type": "test",
+    "path": "tests/test_veatic_frozen_tensor_adapter.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Frozen tensor contract loading and leakage guardrails.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC post-v2",
+    "item_type": "test",
+    "path": "tests/test_veatic_frozen_tensor_trained_heads.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Frozen tensor trained-head wrapper/lane contracts.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "VEATIC",
+    "phase": "VEATIC v2",
+    "item_type": "test",
+    "path": "tests/test_veatic_tribe_cache_runtime.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "TRIBE cache identity, claim locking, and worker restart contracts.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "shared",
+    "phase": "runtime_contracts",
+    "item_type": "test",
+    "path": "tests/test_mlx_vjepa21_cortical.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "MLX V-JEPA 2.1 / TRIBE adapter config and preprocessing contracts.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "historical_sparse",
+    "item_type": "test",
+    "path": "tests/test_again_scout_sparse_pipeline.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Sparse scout pipeline contracts; historical support, not current claim-bearing evidence.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "historical_sparse",
+    "item_type": "test",
+    "path": "tests/test_again_sparse_tribe_teacher_500.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Sparse teacher queue/cache/PCA contracts; historical support, not current claim-bearing evidence.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "historical_sparse",
+    "item_type": "test",
+    "path": "tests/test_again_real_scout_selector_validation.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Selector-label validation and non-oracle control contracts.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/run_h100_tribe_postpass.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "Dense H100 V-JEPA 2.1 / TRIBE v2 cache-only postpass tool; runtime/data-generation support, not a benchmark claim by itself.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "AGAIN",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/audit_again_video_boundaries.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "AGAIN video boundary audit utility.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "AGAIN",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/audit_again_cleaned_dataset.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "AGAIN cleaned dataset audit utility.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "AGAIN",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/audit_again_alignment_offset.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "AGAIN alignment offset audit utility.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "AGAIN",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/build_again_boundary_manifest.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "AGAIN boundary manifest wrapper.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "shared",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/create_phase0_to_phase5_evidence_bundle.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "Evidence packaging helper for the historical phase bundle.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "VEATIC",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/export_veatic_raw_representation_tensors.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "VEATIC raw representation tensor export utility.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "VEATIC",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/export_veatic_raw_representation_metadata_bundle.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "VEATIC tensor metadata bundle export utility.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "VEATIC",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/probe_veatic_vjepa21_real_video_runtime.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "One-video V-JEPA 2.1 MLX runtime probe; non-claim environment/runtime check.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "VEATIC",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/probe_veatic_vjepa21_speed_ablation.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "V-JEPA 2.1 runtime speed ablation; non-claim runtime tool.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "VEATIC",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/probe_veatic_vjepa21_parallel_workers.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "Parallel-worker runtime probe; non-claim runtime tool.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "shared",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/benchmark_vjepa21_single_gpu_microbatch.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "V-JEPA 2.1 single-GPU microbatch runtime benchmark; non-claim runtime tool.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "shared",
+    "phase": "tooling",
+    "item_type": "tool",
+    "path": "tools/profile_mlx_vjepa21_kernel.py",
+    "canonical_status": "support_or_runtime_tool",
+    "reviewer_role": "MLX V-JEPA kernel profiling tool; non-claim runtime tool.",
+    "validation_or_evidence": "Not cited as performance evidence unless paired with a report/evidence artifact."
+  },
+  {
+    "family": "VEATIC",
+    "phase": "evidence",
+    "item_type": "artifact_dir",
+    "path": "benchmarks/veatic/",
+    "canonical_status": "evidence_surface",
+    "reviewer_role": "Tracked VEATIC-124 v2 CSV/JSON/MD benchmark evidence mirror.",
+    "validation_or_evidence": "Inspect files directly; see artifact_manifest.csv for copied dossier paths and SHA-256 checksums."
+  },
+  {
+    "family": "AGAIN",
+    "phase": "evidence",
+    "item_type": "artifact_dir",
+    "path": "reports/",
+    "canonical_status": "evidence_surface",
+    "reviewer_role": "Tracked AGAIN report summaries; current claim-bearing reports are explicitly listed in docs/current_claim_status.json.",
+    "validation_or_evidence": "Inspect files directly; see artifact_manifest.csv for copied dossier paths and SHA-256 checksums."
+  },
+  {
+    "family": "AGAIN",
+    "phase": "evidence",
+    "item_type": "artifact_dir",
+    "path": "evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/",
+    "canonical_status": "evidence_surface",
+    "reviewer_role": "Phase 5.5 blocked binary confirmation evidence bundle.",
+    "validation_or_evidence": "Inspect files directly; see artifact_manifest.csv for copied dossier paths and SHA-256 checksums."
+  },
+  {
+    "family": "AGAIN",
+    "phase": "evidence",
+    "item_type": "artifact_dir",
+    "path": "evidence/phase_5_5_grouped_compatibility_20260630_033520/",
+    "canonical_status": "evidence_surface",
+    "reviewer_role": "Phase 5.5 grouped compatibility evidence bundle with updated verdict artifacts.",
+    "validation_or_evidence": "Inspect files directly; see artifact_manifest.csv for copied dossier paths and SHA-256 checksums."
+  },
+  {
+    "family": "shared",
+    "phase": "evidence",
+    "item_type": "artifact_dir",
+    "path": "evidence/current_phase_5_5_review/",
+    "canonical_status": "evidence_surface",
+    "reviewer_role": "Reviewer-facing dossier with claim ledger, manifests, definitions, phase evidence, and executable validation index.",
+    "validation_or_evidence": "Inspect files directly; see artifact_manifest.csv for copied dossier paths and SHA-256 checksums."
+  }
+]

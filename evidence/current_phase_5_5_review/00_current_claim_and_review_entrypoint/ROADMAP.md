@@ -1,6 +1,6 @@
 # Neural Bridge Roadmap
 
-This roadmap starts from the current Phase 5.5 evidence ladder: VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal, and AGAIN replicated, scaled, repaired, and strengthened it with dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residual design, blocked washout-gap confirmation, and repaired grouped-video compatibility.
+This roadmap starts from the current Phase 5.5 evidence ladder: VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal, and AGAIN replicated, scaled, validated, and strengthened it with dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residual design, blocked washout-gap confirmation, and updated grouped-video compatibility.
 
 ## Best Current Result
 
@@ -19,7 +19,7 @@ AGAIN now has a bounded strict forward-time future-event ranking result:
 - weak / credible / strong confirmation: true
 - failed gates: `[]`
 
-The same target/head also passed repaired grouped-video compatibility:
+The same target/head also passed updated grouped-video compatibility:
 
 - protocol: `grouped_video`
 - rows: `350/350`
@@ -29,15 +29,15 @@ The same target/head also passed repaired grouped-video compatibility:
 - delta vs AR/frozen: `+0.0138878634`
 - delta vs best matched control: `+0.0139621972`
 - fold-seed positives vs best control: `50/50`
-- repaired grouped compatibility pass: true
+- updated grouped compatibility pass: true
 
 ## Current Claim Boundary
 
 Proven:
 
-- Controlled future human arousal event-ranking from frozen video-derived bridge/cortical representations across VEATIC and AGAIN.
+- Controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
 - Bounded strict forward-time future-event ranking on AGAIN for the redesigned washout-gap binary target/head.
-- Grouped held-out-video compatibility for the same AGAIN target/head under the repaired frozen-AR-residual-aware verdict.
+- Grouped held-out-video compatibility for the same AGAIN target/head under the updated frozen-AR-residual-aware verdict.
 
 Open:
 
@@ -51,13 +51,14 @@ Open:
 - VEATIC-124 v2 strict evidence suite and protected snapshot.
 - VEATIC raw-representation audit and frozen tensor contract.
 - VEATIC trained-head layer over frozen tensors.
-- Dense AGAIN H100 V-JEPA 2.1 / TRIBE v2 cache: `995/995` videos, `243,575` row-level cortical rows, true `2 Hz` labels.
-- AGAIN Phase 5 eval-mode repair.
-- AGAIN frozen-AR residual repair.
+- Dense AGAIN H100 V-JEPA 2.1 / TRIBE v2 cache: `995/995` videos, `243,575` cortical-response-derived bridge rows, true `2 Hz` labels.
+- AGAIN Phase 3 raw cortical-only negative-control result: blocked `raw_cortical_only` PR-AUC `0.124315` vs AR-only `0.203622`, proving raw cortical-derived features alone are not the win.
+- AGAIN Phase 5 eval-mode correction.
+- AGAIN frozen-AR residual design.
 - AGAIN blocked AR decomposition and target redesign audits.
 - AGAIN temporal/event-context residual diagnostic.
 - AGAIN 10-seed blocked binary confirmation.
-- AGAIN repaired grouped-video compatibility verdict.
+- AGAIN updated grouped-video compatibility verdict.
 
 ## Next Work
 

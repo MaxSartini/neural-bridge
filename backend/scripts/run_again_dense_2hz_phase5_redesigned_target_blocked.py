@@ -32,7 +32,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from backend.scripts import again_dense_2hz_phase4_pca_bridge as phase4
-from backend.scripts import run_again_dense_2hz_phase5_adversarial_repair_fixplus as repair
+from backend.scripts import run_again_dense_2hz_phase5_adversarial_correction_fixplus as phase5_base
 from backend.scripts import run_again_dense_2hz_phase5_blocked_residual_clean_confirm as clean
 from backend.scripts import run_again_dense_2hz_phase5_blocked_residual_targeted as targeted
 from backend.scripts import run_again_dense_2hz_phase5_continuous_residual_blocked as continuous_run
@@ -247,7 +247,7 @@ def target_specs() -> tuple[TargetSpec, TargetSpec]:
 
 
 def build_blocks(source_root: Path, pca_root: Path) -> tuple[dict[str, RunBlock], pd.DataFrame, Path, dict[str, Any]]:
-    repair.patch_base_module()
+    phase5_base.patch_base_module()
     source_manifest = json.loads((source_root / "run_manifest.json").read_text(encoding="utf-8"))
     dense_root = Path(source_manifest["dense_root"])
     df = base.load_labels(dense_root)
@@ -257,7 +257,7 @@ def build_blocks(source_root: Path, pca_root: Path) -> tuple[dict[str, RunBlock]
     spec = base.feature_spec(FEATURE_NAME)
     for split in splits:
         rng = np.random.default_rng(20260625 + int(split.fold) + 99)
-        train_idx, test_idx, ar_train_x, ar_test_x, dims, _manifest = repair.assemble_feature_blocks_repair(
+        train_idx, test_idx, ar_train_x, ar_test_x, dims, _manifest = phase5_base.assemble_feature_blocks_correction(
             df,
             dense_root,
             pca_root,

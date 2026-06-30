@@ -1,6 +1,6 @@
-"""Checkpoint-only gate/fusion instrumentation for the Phase 5 repair matrix.
+"""Checkpoint-only gate/fusion instrumentation for the Phase 5 correction matrix.
 
-This script loads saved best checkpoints from the completed primary repair
+This script loads saved best checkpoints from the completed primary correction
 matrix and re-forwards held-out benchmark rows. It does not train models, refit
 PCA, rerun encoders, or modify the dense cache.
 """
@@ -24,7 +24,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from backend.scripts import run_again_dense_2hz_phase5_adversarial_repair_fixplus as repair
+from backend.scripts import run_again_dense_2hz_phase5_adversarial_correction_fixplus as phase5_base
 from backend.scripts import run_again_dense_2hz_phase5_learned_heads as base
 
 
@@ -173,7 +173,7 @@ def selected_checkpoint_rows(source_root: Path) -> pd.DataFrame:
 
 
 def reconstruct_feature_blocks(source_root: Path) -> tuple[dict[tuple[str, int, str], dict[str, Any]], pd.DataFrame, list[Any], Any]:
-    repair.patch_base_module()
+    phase5_base.patch_base_module()
     manifest = json.loads((source_root / "run_manifest.json").read_text())
     dense_root = Path(manifest["dense_root"])
     labels_path = dense_root / "labels_aligned_2hz.parquet"
@@ -185,7 +185,7 @@ def reconstruct_feature_blocks(source_root: Path) -> tuple[dict[tuple[str, int, 
     splits = base.build_split_specs(df, protocols=SELECTED_PROTOCOLS, n_splits=5, target_specs=target_specs)
     spec = base.feature_spec(SELECTED_FEATURE)
 
-    controls_sequence = (None, *repair.DEFAULT_REPAIR_CONTROLS)
+    controls_sequence = (None, *phase5_base.DEFAULT_CORRECTION_CONTROLS)
     blocks: dict[tuple[str, int, str], dict[str, Any]] = {}
     completed_rows_so_far = 0
     for split in splits:
@@ -193,7 +193,7 @@ def reconstruct_feature_blocks(source_root: Path) -> tuple[dict[tuple[str, int, 
             control_type = "real_ar_pca_diag" if control is None else str(control)
             rng = np.random.default_rng(20260625 + int(split.fold) + completed_rows_so_far)
             if control_type in SELECTED_CONTROLS:
-                train_idx, test_idx, train_x, test_x, block_dims, feature_manifest = repair.assemble_feature_blocks_repair(
+                train_idx, test_idx, train_x, test_x, block_dims, feature_manifest = phase5_base.assemble_feature_blocks_correction(
                     df,
                     dense_root,
                     phase4_root,
@@ -571,7 +571,7 @@ Minimal rerun: controls `real_ar_pca_diag`, `ar_plus_random_pca`, `ar_plus_shuff
         "metric_reproduction_mode": "checkpoint_only_eval_mode",
         "tolerance": METRIC_TOLERANCE,
         "pass": bool(audit_df["eval_mode_reproduction_pass"].all()),
-        "reason_if_failed": "Original repair scoring did not call model.eval(); dropout made exact train-mode metric reproduction non-deterministic from checkpoint alone. Instrumentation uses deterministic eval mode.",
+        "reason_if_failed": "Original correction scoring did not call model.eval(); dropout made exact train-mode metric reproduction non-deterministic from checkpoint alone. Instrumentation uses deterministic eval mode.",
         "max_abs_diffs": {
             metric: clean_float(audit_df[f"{metric}_abs_diff"].max())
             for metric in ("pr_auc", "roc_auc", "top_1pct_recall", "top_5pct_recall", "top_10pct_recall", "continuous_pearson")
@@ -639,7 +639,7 @@ Minimal rerun: controls `real_ar_pca_diag`, `ar_plus_random_pca`, `ar_plus_shuff
         "selected_model": SELECTED_MODEL,
         "target": SELECTED_TARGET,
         "feature": SELECTED_FEATURE,
-        "split_reconstruction_method": "Replayed Phase 5 repair split/control order, feature assembly, random seeds, and train-only standardization; loaded saved best checkpoint weights; scored held-out test rows in deterministic eval mode.",
+        "split_reconstruction_method": "Replayed Phase 5 correction split/control order, feature assembly, random seeds, and train-only standardization; loaded saved best checkpoint weights; scored held-out test rows in deterministic eval mode.",
         "checkpoint_loads": load_df.to_dict(orient="records"),
     }
     (output_dir / "gate_fusion_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
@@ -715,7 +715,7 @@ This pass loaded saved best checkpoints and re-forwarded held-out benchmark rows
 
 {md_table(grouped[cols], cols)}
 
-Grouped real remains the best matched-control result. Gate diagnostics show whether real PCA differs from random/shuffled controls under deterministic eval-mode re-forward, but the corrected grouped claim still rests on the committed repair metrics.
+Grouped real remains the best matched-control result. Gate diagnostics show whether real PCA differs from random/shuffled controls under deterministic eval-mode re-forward, but the corrected grouped claim still rests on the committed correction metrics.
 
 ## Blocked Gate Behavior
 

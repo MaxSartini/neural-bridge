@@ -2,7 +2,7 @@
 
 This is the reproducibility contract for the foundational VEATIC half of the Neural Bridge evidence ladder.
 
-Current status: VEATIC-124 v2 established the first controlled future arousal spike/event-ranking result. AGAIN later replicated, scaled, repaired, and strengthened the same evidence line with dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, blocked washout-gap confirmation, and repaired grouped-video compatibility. The current paired claim is maintained in `docs/neural_bridge_phase5_5_evidence_ladder.md`.
+Current status: VEATIC-124 v2 established the first controlled future arousal spike/event-ranking result. AGAIN later replicated, scaled, validated, and strengthened the same evidence line with dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, blocked washout-gap confirmation, and updated grouped-video compatibility. The current paired claim is maintained in `docs/neural_bridge_phase5_5_evidence_ladder.md`.
 
 ## Claim Scope
 

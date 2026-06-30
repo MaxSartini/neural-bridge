@@ -20,7 +20,7 @@ for path in (ROOT, TOOLS):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
 
-from probe_veatic_vjepa21_real_video_smoke import (  # noqa: E402
+from probe_veatic_vjepa21_real_video_runtime import (  # noqa: E402
     ffprobe,
     load_manifest_rows,
     resolve_external_path,

@@ -4,7 +4,7 @@ Purpose: check whether the confirmed blocked binary target/head is compatible wi
 
 Contents:
 - 350-row grouped compatibility evidence
-- repaired frozen-AR-residual-aware verdict
+- updated frozen-AR-residual-aware verdict
 - metrics, fold/seed deltas, controls, gates, failure reasons, leakage/context audit, label permutation audit, train-only video mean audit, and fold-safe grouped PCA metadata
 
 Canonical numbers:
@@ -15,6 +15,6 @@ Canonical numbers:
 - delta vs best matched control: +0.0139621972
 - fold-seed positives vs best control: 50/50
 - label permutation PR-AUC: 0.2153099775
-- repaired grouped compatibility pass: true
+- updated grouped compatibility pass: true
 
 This is grouped-video compatibility, not a 504 run.

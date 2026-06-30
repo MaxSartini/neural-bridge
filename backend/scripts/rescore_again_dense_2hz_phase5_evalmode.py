@@ -1,6 +1,6 @@
-"""Deterministic eval-mode rescore for completed Phase 5 primary repair.
+"""Deterministic eval-mode rescore for completed Phase 5 primary phase5_base.
 
-Loads all saved best checkpoints from the primary repair matrix and re-scores
+Loads all saved best checkpoints from the primary correction matrix and re-scores
 held-out benchmark rows with dropout disabled. This is score-only: no training,
 PCA fitting, V-JEPA/TRIBE work, or dense-cache mutation.
 """
@@ -33,7 +33,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from backend.scripts import run_again_dense_2hz_phase5_adversarial_repair_fixplus as repair
+from backend.scripts import run_again_dense_2hz_phase5_adversarial_correction_fixplus as phase5_base
 from backend.scripts import run_again_dense_2hz_phase5_learned_heads as base
 
 
@@ -220,7 +220,7 @@ def config_for(row: pd.Series) -> Any:
 
 
 def reconstruct_blocks(source_root: Path) -> tuple[dict[tuple[str, int, str], dict[str, Any]], pd.DataFrame]:
-    repair.patch_base_module()
+    phase5_base.patch_base_module()
     manifest = json.loads((source_root / "run_manifest.json").read_text())
     dense_root = Path(manifest["dense_root"])
     phase4_root = Path(manifest["phase4_root"])
@@ -232,14 +232,14 @@ def reconstruct_blocks(source_root: Path) -> tuple[dict[tuple[str, int, str], di
         target_specs=base.matching_target_specs((TARGET_NAME,)),
     )
     spec = base.feature_spec(FEATURE_NAME)
-    controls_sequence = (None, *repair.DEFAULT_REPAIR_CONTROLS)
+    controls_sequence = (None, *phase5_base.DEFAULT_CORRECTION_CONTROLS)
     blocks: dict[tuple[str, int, str], dict[str, Any]] = {}
     completed_rows_so_far = 0
     for split in splits:
         for control in controls_sequence:
             control_type = "real_ar_pca_diag" if control is None else str(control)
             rng = np.random.default_rng(20260625 + int(split.fold) + completed_rows_so_far)
-            train_idx, test_idx, train_x, test_x, block_dims, _feature_manifest = repair.assemble_feature_blocks_repair(
+            train_idx, test_idx, train_x, test_x, block_dims, _feature_manifest = phase5_base.assemble_feature_blocks_correction(
                 df,
                 dense_root,
                 phase4_root,
@@ -442,7 +442,7 @@ def compute_gates(summary: pd.DataFrame, fold: pd.DataFrame, within: pd.DataFram
         "full_pass": False,
         "exploratory_grouped_only_pass": bool(grouped_delta > 0),
         "strict_forward_time_temporal_generalization_proven": False,
-        "recommendation": "repair_required",
+        "recommendation": "correction_required",
     }
     return gates
 
@@ -502,7 +502,7 @@ Eval-mode root: `outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_evalm
 
 ## Scoring Contract
 
-The original repair matrix trained correctly and saved best checkpoints. The original repair scoring was legacy train-mode/dropout-active because `model.eval()` was not called before scoring. This eval-mode checkpoint rescore is the canonical deterministic metric pass: it loads saved best checkpoints, disables dropout with `model.eval()`, and scores only original held-out rows.
+The original correction matrix trained correctly and saved best checkpoints. The original correction scoring was legacy train-mode/dropout-active because `model.eval()` was not called before scoring. This eval-mode checkpoint rescore is the canonical deterministic metric pass: it loads saved best checkpoints, disables dropout with `model.eval()`, and scores only original held-out rows.
 
 No training, secondary heads, secondary targets, V-JEPA/TRIBE/PCA reruns, PCA refits, dense-cache writes, Phase 4 output edits, or original Phase 5 output edits were performed.
 
@@ -697,7 +697,7 @@ def main() -> int:
         ),
         "strict_forward_time_temporal_generalization_proven": False,
         "full_pass": False,
-        "repair_required": True,
+        "correction_required": True,
     }
     verdict = {
         "recommendation": gates["recommendation"],
