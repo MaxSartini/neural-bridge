@@ -3,6 +3,7 @@
 Current-facing documentation:
 
 - `neural_bridge_phase5_5_evidence_ladder.md` - canonical VEATIC + AGAIN evidence ladder and current claim wording.
+- `neural_bridge_service_as_software.md` - commercial thesis: Service as Software for pre-release video response intelligence.
 - `current_claim_status.json` - machine-readable current claim, proven/open boundaries, and canonical artifact pointers.
 - `executable_validation_index.md` - current AGAIN/VEATIC v2 scripts, tests, benchmark artifacts, and validation commands.
 - `executable_validation_manifest.csv` / `executable_validation_manifest.json` - machine-readable executable crosswalk for reviewers.
@@ -21,6 +22,7 @@ Current evidence framing:
 - AGAIN replicated, scaled, validated, and strengthened it.
 - Raw cortical-derived features alone fail badly on AGAIN; the Neural Bridge pipeline is what makes those cortical-response-derived bridge representations useful for controlled future event-ranking.
 - Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`.
+- Commercially, Neural Bridge is Service as Software: automated first-pass expert response evaluation for video, not generic SaaS or a simple dashboard.
 - Continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open.
 - No 504 run has been performed or promoted.
 

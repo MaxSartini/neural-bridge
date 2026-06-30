@@ -102,6 +102,7 @@
   },
   "canonical_reports": [
     "docs/neural_bridge_phase5_5_evidence_ladder.md",
+    "docs/neural_bridge_service_as_software.md",
     "docs/current_project_state.md",
     "docs/veatic_v2_evidence_summary.md",
     "docs/again_dense_h100_cache.md",
@@ -153,5 +154,33 @@
     "executable_manifest": "docs/executable_validation_manifest.json",
     "review_dossier_executable_manifest": "evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.json",
     "policy": "Only deterministic contract tests, claim-bearing runners, no-training verdict/audit scripts, and documented runtime tools are indexed. Runtime probes are not claim-bearing benchmark evidence."
+  },
+  "commercial_model": "service_as_software",
+  "commercial_summary": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software: submit video or variants, rank future response-event moments, flag weak segments, compare cuts, and produce response-readiness reports before audience data exists.",
+  "primary_wedge": "pre-release creative response intelligence for video",
+  "buyer_personas": [
+    "ad agencies",
+    "brand creative teams",
+    "trailer and promo editors",
+    "streaming and media platforms",
+    "game studios",
+    "AI video companies",
+    "audience insight teams"
+  ],
+  "commercial_guardrails": [
+    "Describe Neural Bridge as bounded response intelligence, not mind reading.",
+    "Do not claim individual emotion prediction or individual profiling.",
+    "Do not claim medical or mental-health inference.",
+    "Do not claim exact continuous arousal forecasting is solved.",
+    "Do not claim universal emotion prediction.",
+    "Do not claim guaranteed campaign performance.",
+    "Do not claim replacement of editors, researchers, or panels; describe upstream decision support and selective human review.",
+    "Do not claim full multimodal proof unless separately validated."
+  ],
+  "service_as_software": {
+    "one_liner": "Neural Bridge is Service as Software for video response intelligence.",
+    "core_phrase": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software.",
+    "customer_outcome": "Tell us which parts of this video are likely to work, which are weak, and which variant we should test or ship.",
+    "main_doc": "docs/neural_bridge_service_as_software.md"
   }
 }

@@ -10,6 +10,14 @@ AGAIN grouped-video compatibility for the same target/head reached real PR-AUC `
 
 Raw cortical-derived features alone fail badly on AGAIN: blocked `raw_cortical_only` was `0.124315` vs AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Neural Bridge is the difference.
 
+## Commercial Thesis
+
+Neural Bridge is Service as Software for video response intelligence. It automates the first-pass expert service of pre-release response evaluation: scoring videos, ranking future response moments, comparing variants, and producing response diagnostics before audience data exists.
+
+The business outcome is not "upload video, get chart." It is: upload video, receive the kind of response intelligence report a specialist team would produce, but faster, cheaper, and at far greater scale. Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software.
+
+Commercial interpretation: [docs/neural_bridge_service_as_software.md](docs/neural_bridge_service_as_software.md)
+
 ## Current State
 
 Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen video-derived bridge representations derived from brain cortical responses across VEATIC and AGAIN.
@@ -27,6 +35,8 @@ Continuous exact arousal forecasting remains open. Broad all-target/all-dataset 
 ## Canonical Evidence
 
 Primary narrative: [docs/neural_bridge_phase5_5_evidence_ladder.md](docs/neural_bridge_phase5_5_evidence_ladder.md)
+
+Commercial thesis: [docs/neural_bridge_service_as_software.md](docs/neural_bridge_service_as_software.md)
 
 Reviewer evidence dossier: [evidence/current_phase_5_5_review/README.md](evidence/current_phase_5_5_review/README.md)
 

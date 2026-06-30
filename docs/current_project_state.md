@@ -37,6 +37,12 @@ Continuous exact arousal forecasting remains open. Broad all-target/all-dataset 
 - Continuous arousal movement diagnostics remain mixed/open and should not be promoted as solved exact forecasting.
 - Raw cortical-derived features alone are a negative-control lesson: they are weak under blocked validation and can damage AR if bolted on directly.
 
+## Commercial Interpretation
+
+Neural Bridge is Service as Software for video response intelligence. It converts pre-release video response evaluation from a slow human service into scalable software: submit video or variants, extract bridge features, rank future response-event moments, flag weak segments, compare cuts, and produce a response-readiness report before audience data exists.
+
+The business model is automated expert analysis, not generic SaaS. The customer wants the service outcome a specialist team would normally deliver: evaluate this ad, diagnose this trailer, compare these cuts, find likely response moments, and decide what to test or ship. See `docs/neural_bridge_service_as_software.md`.
+
 ## Canonical Numbers
 
 AGAIN blocked temporal binary confirmation:
@@ -126,6 +132,7 @@ AGAIN frozen-AR residual design:
 ## Canonical Artifacts
 
 - Phase 5.5 evidence ladder: `docs/neural_bridge_phase5_5_evidence_ladder.md`
+- Service-as-Software commercial thesis: `docs/neural_bridge_service_as_software.md`
 - Machine-readable status: `docs/current_claim_status.json`
 - Executable validation index: `docs/executable_validation_index.md`
 - Executable validation manifest: `docs/executable_validation_manifest.csv`, `docs/executable_validation_manifest.json`

@@ -53,6 +53,14 @@ Canonical updated grouped compatibility verdict:
 
 Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. Raw cortical-derived features alone were weak; the Neural Bridge pipeline makes the difference. The old fused AGAIN lane passed grouped eval-mode controls but failed blocked AR/control checks; frozen-AR residual and temporal/event-context residual designs fixed the design path. The redesigned washout-gap target/head passes blocked temporal confirmation and updated grouped-video compatibility. Continuous exact arousal forecasting and broad universal temporal prediction remain open.
 
+## Commercial Language
+
+Neural Bridge should be described as Service as Software for video response intelligence: software that automates the first-pass expert service of pre-release video response evaluation, creative diagnostics, variant comparison, and response-readiness reporting.
+
+Use bounded commercial wording: population-level response-event ranking, pre-release response intelligence, controlled future arousal event signal, creative decision support, and Service as Software for response evaluation.
+
+Do not frame Neural Bridge as generic SaaS, a simple dashboard, mind reading, individual profiling, medical inference, exact continuous arousal solved, universal emotion prediction, guaranteed campaign outcomes, or a replacement for editors/researchers.
+
 ## Canonical Artifacts
 
 - Dense root: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`

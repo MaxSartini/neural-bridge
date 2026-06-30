@@ -23,6 +23,14 @@ Raw cortical-derived features alone fail badly on AGAIN. On the original Phase 3
 - Grouped compatibility is not itself a 504 result.
 - The updated grouped verdict is a no-training verdict update from existing artifacts, not a rerun.
 
+## Commercial Significance
+
+Neural Bridge is Service as Software for video response intelligence. The scientific result matters commercially because it supports an automated version of a high-value expert service: pre-release audience-response testing, creative diagnostics, media-response analysis, and response-readiness reporting for video.
+
+The business wedge is not another analytics dashboard. It is a response intelligence service delivered through software: submit a video, receive ranked future response moments, weak/dead-zone segments, variant comparison, confidence/control diagnostics, and edit-review priorities before audience data exists.
+
+Full commercial interpretation: `docs/neural_bridge_service_as_software.md`.
+
 ## Best AGAIN Results
 
 The strongest current evidence is the AGAIN redesigned washout-gap binary result, confirmed under blocked temporal validation and checked for grouped-video compatibility.
@@ -209,6 +217,7 @@ Neural Bridge demonstrates controlled future human arousal event-ranking from fr
 ## Artifact Links
 
 - Reviewer evidence dossier: `evidence/current_phase_5_5_review/README.md`
+- Commercial thesis: `docs/neural_bridge_service_as_software.md`
 - Claim ledger: `evidence/current_phase_5_5_review/CLAIM_LEDGER.md`
 - Artifact manifest: `evidence/current_phase_5_5_review/artifact_manifest.csv`
 - Executable validation index: `docs/executable_validation_index.md`
