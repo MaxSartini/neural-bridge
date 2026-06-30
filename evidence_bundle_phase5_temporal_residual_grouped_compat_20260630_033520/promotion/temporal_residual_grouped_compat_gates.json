@@ -1,0 +1,263 @@
+{
+  "all_controls_within_fold_seed_use_identical_frozen_ar_scores": true,
+  "ar_baseline_fold_seed_pairs": [
+    [
+      1,
+      20260625
+    ],
+    [
+      1,
+      20260626
+    ],
+    [
+      1,
+      20260627
+    ],
+    [
+      1,
+      20260628
+    ],
+    [
+      1,
+      20260629
+    ],
+    [
+      1,
+      20260630
+    ],
+    [
+      1,
+      20260631
+    ],
+    [
+      1,
+      20260632
+    ],
+    [
+      1,
+      20260633
+    ],
+    [
+      1,
+      20260634
+    ],
+    [
+      2,
+      20260625
+    ],
+    [
+      2,
+      20260626
+    ],
+    [
+      2,
+      20260627
+    ],
+    [
+      2,
+      20260628
+    ],
+    [
+      2,
+      20260629
+    ],
+    [
+      2,
+      20260630
+    ],
+    [
+      2,
+      20260631
+    ],
+    [
+      2,
+      20260632
+    ],
+    [
+      2,
+      20260633
+    ],
+    [
+      2,
+      20260634
+    ],
+    [
+      3,
+      20260625
+    ],
+    [
+      3,
+      20260626
+    ],
+    [
+      3,
+      20260627
+    ],
+    [
+      3,
+      20260628
+    ],
+    [
+      3,
+      20260629
+    ],
+    [
+      3,
+      20260630
+    ],
+    [
+      3,
+      20260631
+    ],
+    [
+      3,
+      20260632
+    ],
+    [
+      3,
+      20260633
+    ],
+    [
+      3,
+      20260634
+    ],
+    [
+      4,
+      20260625
+    ],
+    [
+      4,
+      20260626
+    ],
+    [
+      4,
+      20260627
+    ],
+    [
+      4,
+      20260628
+    ],
+    [
+      4,
+      20260629
+    ],
+    [
+      4,
+      20260630
+    ],
+    [
+      4,
+      20260631
+    ],
+    [
+      4,
+      20260632
+    ],
+    [
+      4,
+      20260633
+    ],
+    [
+      4,
+      20260634
+    ],
+    [
+      5,
+      20260625
+    ],
+    [
+      5,
+      20260626
+    ],
+    [
+      5,
+      20260627
+    ],
+    [
+      5,
+      20260628
+    ],
+    [
+      5,
+      20260629
+    ],
+    [
+      5,
+      20260630
+    ],
+    [
+      5,
+      20260631
+    ],
+    [
+      5,
+      20260632
+    ],
+    [
+      5,
+      20260633
+    ],
+    [
+      5,
+      20260634
+    ]
+  ],
+  "ar_baseline_generation_pass": true,
+  "ar_baselines_newly_trained": 50,
+  "ar_baselines_reused": 0,
+  "ar_frozen_pr_auc": 0.21749532755673864,
+  "architecture": "short_temporal_conv_residual",
+  "best_control": "train_only_video_mean_residual",
+  "best_control_pr_auc": 0.21742099366850393,
+  "checkpoint_restore_pass": true,
+  "control_deltas": {
+    "real_minus_label_permutation_residual_pr_auc": 0.016073213442467205,
+    "real_minus_random_pca_residual_pr_auc": 0.01398681112215569,
+    "real_minus_shuffled_pca_residual_pr_auc": 0.013980434526808916,
+    "real_minus_train_only_video_mean_residual_pr_auc": 0.013962197242018248
+  },
+  "delta_vs_ar": 0.01388786335378353,
+  "delta_vs_best_control": 0.013962197242018248,
+  "each_fold_seed_uses_own_frozen_ar_score": true,
+  "eval_mode_scoring_pass": true,
+  "failed_gates": [
+    "label_permutation_not_near_chance"
+  ],
+  "fold_seed_positives_vs_ar": 50,
+  "fold_seed_positives_vs_best_control": 50,
+  "folds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "frozen_ar_integrity_pass": true,
+  "grouped_compatibility_pass": false,
+  "label_permutation_near_chance_pass": false,
+  "label_permutation_pr_auc": 0.21530997746805497,
+  "leakage_context_audit_pass": true,
+  "matrix_rows_actual": 350,
+  "matrix_rows_expected": 350,
+  "mean_test_positive_rate": 0.10003644398960844,
+  "protocol": "grouped_video",
+  "real_pr_auc": 0.23138319091052217,
+  "recommendation": "grouped_compatibility_failed_do_not_run_504",
+  "residual_control_rows": 350,
+  "schema_version": "again_dense_2hz_phase5_temporal_residual_grouped_compat_v1",
+  "seeds": [
+    20260625,
+    20260626,
+    20260627,
+    20260628,
+    20260629,
+    20260630,
+    20260631,
+    20260632,
+    20260633,
+    20260634
+  ],
+  "shared_three_seed_ar_cache_reused_across_ten_seed_grouped_compat": false,
+  "strict_forward_time_temporal_generalization_proven": false,
+  "target": "future_arousal_max_delta_rows_4_10_train_q90"
+}

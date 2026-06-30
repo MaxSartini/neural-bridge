@@ -1,0 +1,455 @@
+{
+  "policy_implemented": true,
+  "rows": [
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 1,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 1,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 1,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 1,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260628
+    },
+    {
+      "best_epoch": 7,
+      "best_inner_val_delta_vs_frozen_ar": 0.00012118152632834,
+      "control_type": "label_permutation_residual",
+      "fold": 1,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260629
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 1,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260630
+    },
+    {
+      "best_epoch": 35,
+      "best_inner_val_delta_vs_frozen_ar": 0.00031086504121911884,
+      "control_type": "label_permutation_residual",
+      "fold": 1,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260631
+    },
+    {
+      "best_epoch": 3,
+      "best_inner_val_delta_vs_frozen_ar": 4.398304735019065e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 1,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260632
+    },
+    {
+      "best_epoch": 5,
+      "best_inner_val_delta_vs_frozen_ar": 1.919668850131062e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 1,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260633
+    },
+    {
+      "best_epoch": 13,
+      "best_inner_val_delta_vs_frozen_ar": 0.00023154971792806178,
+      "control_type": "label_permutation_residual",
+      "fold": 1,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260634
+    },
+    {
+      "best_epoch": 29,
+      "best_inner_val_delta_vs_frozen_ar": 0.0002526460886742299,
+      "control_type": "label_permutation_residual",
+      "fold": 2,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625
+    },
+    {
+      "best_epoch": 1,
+      "best_inner_val_delta_vs_frozen_ar": 6.513985603634476e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 2,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626
+    },
+    {
+      "best_epoch": 3,
+      "best_inner_val_delta_vs_frozen_ar": 1.6469397351448478e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 2,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627
+    },
+    {
+      "best_epoch": 1,
+      "best_inner_val_delta_vs_frozen_ar": 2.9686285996588513e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 2,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260628
+    },
+    {
+      "best_epoch": 1,
+      "best_inner_val_delta_vs_frozen_ar": 2.6968213005018615e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 2,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260629
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 2,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260630
+    },
+    {
+      "best_epoch": 6,
+      "best_inner_val_delta_vs_frozen_ar": 3.710678647862731e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 2,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260631
+    },
+    {
+      "best_epoch": 40,
+      "best_inner_val_delta_vs_frozen_ar": 0.0008431872863113726,
+      "control_type": "label_permutation_residual",
+      "fold": 2,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260632
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 2,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260633
+    },
+    {
+      "best_epoch": 6,
+      "best_inner_val_delta_vs_frozen_ar": 7.643592011302713e-06,
+      "control_type": "label_permutation_residual",
+      "fold": 2,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260634
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 3,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625
+    },
+    {
+      "best_epoch": 3,
+      "best_inner_val_delta_vs_frozen_ar": 4.798311633556762e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 3,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626
+    },
+    {
+      "best_epoch": 19,
+      "best_inner_val_delta_vs_frozen_ar": 0.0005560431333608146,
+      "control_type": "label_permutation_residual",
+      "fold": 3,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627
+    },
+    {
+      "best_epoch": 36,
+      "best_inner_val_delta_vs_frozen_ar": 0.0004591118155521934,
+      "control_type": "label_permutation_residual",
+      "fold": 3,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260628
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 3,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260629
+    },
+    {
+      "best_epoch": 40,
+      "best_inner_val_delta_vs_frozen_ar": 0.00032003299429866905,
+      "control_type": "label_permutation_residual",
+      "fold": 3,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260630
+    },
+    {
+      "best_epoch": 1,
+      "best_inner_val_delta_vs_frozen_ar": 1.4189601322378564e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 3,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260631
+    },
+    {
+      "best_epoch": 1,
+      "best_inner_val_delta_vs_frozen_ar": 1.5117130167746629e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 3,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260632
+    },
+    {
+      "best_epoch": 1,
+      "best_inner_val_delta_vs_frozen_ar": 2.702884502692182e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 3,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260633
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 3,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260634
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 4,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625
+    },
+    {
+      "best_epoch": 2,
+      "best_inner_val_delta_vs_frozen_ar": 2.5301708143327106e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 4,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 4,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627
+    },
+    {
+      "best_epoch": 14,
+      "best_inner_val_delta_vs_frozen_ar": 0.0002465520462779369,
+      "control_type": "label_permutation_residual",
+      "fold": 4,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260628
+    },
+    {
+      "best_epoch": 13,
+      "best_inner_val_delta_vs_frozen_ar": 0.0002716129535166867,
+      "control_type": "label_permutation_residual",
+      "fold": 4,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260629
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 4,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260630
+    },
+    {
+      "best_epoch": 1,
+      "best_inner_val_delta_vs_frozen_ar": 3.385909270239851e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 4,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260631
+    },
+    {
+      "best_epoch": 12,
+      "best_inner_val_delta_vs_frozen_ar": 0.00020360461147754527,
+      "control_type": "label_permutation_residual",
+      "fold": 4,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260632
+    },
+    {
+      "best_epoch": 2,
+      "best_inner_val_delta_vs_frozen_ar": 1.744022857498584e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 4,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260633
+    },
+    {
+      "best_epoch": 1,
+      "best_inner_val_delta_vs_frozen_ar": 2.4098256424132103e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 4,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260634
+    },
+    {
+      "best_epoch": 13,
+      "best_inner_val_delta_vs_frozen_ar": 0.0003128826564235826,
+      "control_type": "label_permutation_residual",
+      "fold": 5,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625
+    },
+    {
+      "best_epoch": 40,
+      "best_inner_val_delta_vs_frozen_ar": 0.0004070653021390064,
+      "control_type": "label_permutation_residual",
+      "fold": 5,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626
+    },
+    {
+      "best_epoch": 13,
+      "best_inner_val_delta_vs_frozen_ar": 0.00014786495881331796,
+      "control_type": "label_permutation_residual",
+      "fold": 5,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 5,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260628
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 5,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260629
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 5,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260630
+    },
+    {
+      "best_epoch": 3,
+      "best_inner_val_delta_vs_frozen_ar": 5.2488221579383154e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 5,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260631
+    },
+    {
+      "best_epoch": 1,
+      "best_inner_val_delta_vs_frozen_ar": 3.734907028377088e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 5,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260632
+    },
+    {
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "control_type": "label_permutation_residual",
+      "fold": 5,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260633
+    },
+    {
+      "best_epoch": 10,
+      "best_inner_val_delta_vs_frozen_ar": 9.759904171474654e-05,
+      "control_type": "label_permutation_residual",
+      "fold": 5,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260634
+    }
+  ]
+}
