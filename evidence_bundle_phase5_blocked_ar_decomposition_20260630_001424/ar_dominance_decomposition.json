@@ -1,0 +1,132 @@
+{
+  "best_linear_r2_feature_set_for_frozen_ar_score": {
+    "feature_set": "all_simple",
+    "r2_frozen_ar_continuous": 0.44036520118665057,
+    "r2_frozen_ar_score": 0.48586183338061306
+  },
+  "closest_simple_baseline_by_pr_auc": {
+    "abs_pr_auc_gap_to_frozen": 0.062426438612979335,
+    "abs_top5_lift_gap_to_frozen": 0.046952030583750706,
+    "baseline": "per_video_train_base_rate_only",
+    "pr_auc_spike": 0.20455189751689865,
+    "spearman_continuous": -0.05119534998489925,
+    "top_5pct_continuous_lift": 0.04924900115947797
+  },
+  "closest_simple_baseline_by_top5_lift": {
+    "abs_pr_auc_gap_to_frozen": 0.09639185064618938,
+    "abs_top5_lift_gap_to_frozen": 0.03261421188553368,
+    "baseline": "recent_arousal_slope_delta",
+    "pr_auc_spike": 0.1705864854836886,
+    "spearman_continuous": 0.29491236165109797,
+    "top_5pct_continuous_lift": 0.063586819857695
+  },
+  "feature_correlations": [
+    {
+      "corr_with_frozen_ar_continuous": -0.6251047946677998,
+      "corr_with_frozen_ar_score": -0.6833869347791643,
+      "feature": "current_arousal",
+      "spearman_with_frozen_ar_continuous": -0.7310244087806425,
+      "spearman_with_frozen_ar_score": -0.707448234356939
+    },
+    {
+      "corr_with_frozen_ar_continuous": -0.64313782169533,
+      "corr_with_frozen_ar_score": -0.6848998642109401,
+      "feature": "previous_row_arousal",
+      "spearman_with_frozen_ar_continuous": -0.7570114710699063,
+      "spearman_with_frozen_ar_score": -0.7186870972444714
+    },
+    {
+      "corr_with_frozen_ar_continuous": -0.6306325386209768,
+      "corr_with_frozen_ar_score": -0.682237671209955,
+      "feature": "trailing_2s_mean_arousal",
+      "spearman_with_frozen_ar_continuous": -0.7567950730652485,
+      "spearman_with_frozen_ar_score": -0.7149827285413528
+    },
+    {
+      "corr_with_frozen_ar_continuous": -0.6036610376128536,
+      "corr_with_frozen_ar_score": -0.6631493969937641,
+      "feature": "trailing_4s_mean_arousal",
+      "spearman_with_frozen_ar_continuous": -0.7481817772835377,
+      "spearman_with_frozen_ar_score": -0.6909972146058025
+    },
+    {
+      "corr_with_frozen_ar_continuous": 0.0916818208142318,
+      "corr_with_frozen_ar_score": -0.00875477688881119,
+      "feature": "recent_arousal_slope_delta",
+      "spearman_with_frozen_ar_continuous": 0.28755749722641927,
+      "spearman_with_frozen_ar_score": 0.11144410101070698
+    },
+    {
+      "corr_with_frozen_ar_continuous": -0.08170321279180894,
+      "corr_with_frozen_ar_score": -0.15914743850419935,
+      "feature": "time_seconds",
+      "spearman_with_frozen_ar_continuous": -0.09741651466502947,
+      "spearman_with_frozen_ar_score": -0.10505136303418915
+    },
+    {
+      "corr_with_frozen_ar_continuous": -0.07285610018850751,
+      "corr_with_frozen_ar_score": -0.15543233812401414,
+      "feature": "video_relative_time",
+      "spearman_with_frozen_ar_continuous": -0.0911192212948578,
+      "spearman_with_frozen_ar_score": -0.10087179573451541
+    },
+    {
+      "corr_with_frozen_ar_continuous": 0.21645029185881495,
+      "corr_with_frozen_ar_score": 0.17932973106421615,
+      "feature": "per_video_train_base_rate",
+      "spearman_with_frozen_ar_continuous": 0.20074629456277426,
+      "spearman_with_frozen_ar_score": 0.24237192954989292
+    },
+    {
+      "corr_with_frozen_ar_continuous": 0.20392811515839163,
+      "corr_with_frozen_ar_score": 0.160581280594016,
+      "feature": "train_only_video_mean_continuous",
+      "spearman_with_frozen_ar_continuous": 0.17189194918294573,
+      "spearman_with_frozen_ar_score": 0.2057156655433842
+    }
+  ],
+  "frozen_ar_prediction_source": "outputs/again_dense_2hz_phase5_blocked_residual_clean_confirm_20260629_234349/frozen_ar_scores",
+  "frozen_ar_seed_count_loaded": 5,
+  "leakage_risk_classification": "clean/legal",
+  "leakage_risk_rationale": "No AR feature uses future target rows. Strength is dominated by current/local arousal persistence and legal temporal autocorrelation, with current arousal also entering the future-delta target formula as the baseline term.",
+  "linear_r2_decomposition": [
+    {
+      "feature_set": "current_only",
+      "r2_frozen_ar_continuous": 0.39075600431667323,
+      "r2_frozen_ar_score": 0.46701770262685927
+    },
+    {
+      "feature_set": "lag_history_only",
+      "r2_frozen_ar_continuous": 0.4254917291842122,
+      "r2_frozen_ar_score": 0.4714306912358448
+    },
+    {
+      "feature_set": "current_plus_lag_history",
+      "r2_frozen_ar_continuous": 0.4254917291842123,
+      "r2_frozen_ar_score": 0.4714306912358448
+    },
+    {
+      "feature_set": "time_only",
+      "r2_frozen_ar_continuous": 0.006983874961298153,
+      "r2_frozen_ar_score": 0.02546025917546335
+    },
+    {
+      "feature_set": "video_base_rate_only",
+      "r2_frozen_ar_continuous": 0.04759060063976406,
+      "r2_frozen_ar_score": 0.03218105582952646
+    },
+    {
+      "feature_set": "all_simple",
+      "r2_frozen_ar_continuous": 0.44036520118665057,
+      "r2_frozen_ar_score": 0.48586183338061306
+    }
+  ],
+  "simple_baseline_note": "Negated/low-arousal baselines are included because frozen AR score is negatively correlated with current arousal; the target is future increase over current arousal.",
+  "strongest_single_correlation_with_frozen_ar_score": {
+    "corr_with_frozen_ar_continuous": -0.64313782169533,
+    "corr_with_frozen_ar_score": -0.6848998642109401,
+    "feature": "previous_row_arousal",
+    "spearman_with_frozen_ar_continuous": -0.7570114710699063,
+    "spearman_with_frozen_ar_score": -0.7186870972444714
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "ar_feature_offsets_rows": {
+    "arousal": 0,
+    "arousal_delta_prev_1row": [
+      0,
+      -1
+    ],
+    "arousal_delta_prev_2row": [
+      0,
+      -2
+    ],
+    "arousal_delta_prev_4row": [
+      0,
+      -4
+    ],
+    "arousal_lag_1row": -1,
+    "arousal_lag_2row": -2,
+    "arousal_lag_4row": -4
+  },
+  "ar_feature_offsets_seconds": {
+    "arousal": 0.0,
+    "arousal_lag_1row": -0.5,
+    "arousal_lag_2row": -1.0,
+    "arousal_lag_4row": -2.0
+  },
+  "ar_history_overlaps_target_future_rows": false,
+  "binary_spike_threshold_source": "train q90 of future_arousal_max_delta_rows_2_6",
+  "continuous_source": "future_arousal_max_delta_rows_2_6",
+  "current_arousal_used_in_continuous_target_delta_formula": true,
+  "current_row_nearest_annotation_is_after_row_rate": 0.5070265831879298,
+  "future_leakage_pass": true,
+  "label_alignment_method_counts": {
+    "linear_interpolation_from_native_again_annotations_to_dense_2hz_rows": 243575
+  },
+  "max_nearest_annotation_time_minus_row_time_seconds": 3.5822000000000003,
+  "notes": "AR columns use current/past annotation values only. They do not include target future rows +2..+6. Current arousal is part of both AR and the target delta subtraction, which is legal local-state information but makes the task heavily autocorrelative.",
+  "row_step_seconds": 0.5,
+  "target": "arousal_spike_rows_2_6_train_q90",
+  "target_formula": "max(arousal[t+2:t+6]) - arousal[t]",
+  "target_future_offsets_rows": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "target_future_offsets_seconds": [
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0
+  ],
+  "target_window_overlap_pass": true
+}
