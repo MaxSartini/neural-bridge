@@ -169,7 +169,9 @@ Neural Bridge is different because its frozen video-side features come from upst
 
 That distinction matters commercially. A response-readiness report is more valuable when it is not only describing what appears on screen, but ranking moments using features generated from predicted human brain-response activity. This is the difference between content recognition and neuro-response intelligence.
 
-Beating AR is the hard scientific and commercial proof point. Recent arousal is already predictive, so AR is a strong persistence baseline. If Neural Bridge only matched AR, it would not be enough. The current AGAIN blocked confirmation beats frozen AR by `+0.0068399399` PR-AUC, a `+2.63%` relative lift across 10 matched seeds, and grouped-video compatibility beats AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) across `50/50` fold-seeds. That is the evidence that the system is ranking future response events beyond simple arousal momentum.
+Beating AR is the hard scientific and commercial proof point. Recent arousal is already predictive, so AR is a strong persistence baseline. If Neural Bridge only matched AR, it would not be enough. The current AGAIN blocked confirmation beats matched seed-specific frozen AR by `+0.0068399399` PR-AUC (`+2.63%` relative lift) and the best matched control by `+0.0077366579` PR-AUC (`+2.98%` relative lift), with `9/10` positive seeds vs both. Grouped-video compatibility beats matched fold/seed-specific AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) and the best matched control by `+0.0139621972` PR-AUC (`+6.42%` relative lift), with `50/50` fold-seeds positive vs the best matched control. That is the evidence that the system is ranking future response events beyond simple arousal momentum and beyond matched controls.
+
+The distinction matters. An `AR-only baseline` is a standalone autoregressive comparison model/lane. A `frozen AR` floor is the matched seed/fold-specific AR score fixed before residual/control training; all real and control lanes in that seed/fold use the same frozen AR score. A frozen AR floor can be reused from a compatible existing AR checkpoint/score or newly trained for the exact seed/fold when missing. The claim is not "we beat some unrelated AR number"; it is "we beat the matched frozen AR floor and the best matched controls."
 
 ## Scientific Core
 
@@ -216,7 +218,6 @@ Proven:
 - VEATIC future arousal event/spike ranking beyond AR and controls
 - AGAIN bounded strict forward-time future-event ranking for the redesigned washout-gap target/head
 - AGAIN grouped-video compatibility for the same target/head
-- evidence that predicted cortical/fMRI response features generated from video contain future human-response event signal beyond AR and matched controls
 - evidence that predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data contain future human-response event signal beyond AR and matched controls
 - evidence that the bridge beats the strong AR persistence baseline, not just weak controls
 

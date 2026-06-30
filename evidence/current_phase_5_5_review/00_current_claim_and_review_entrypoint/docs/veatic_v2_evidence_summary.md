@@ -62,7 +62,7 @@ Current cross-dataset framing: VEATIC is foundational, not obsolete. AGAIN is no
 ## Boundaries
 
 - Continuous future-change MAE remains diagnostic only.
-- Zero-change baselines still beat real cortical features in most continuous checks.
+- Zero-change baselines still beat the predicted cortical/fMRI response features in most continuous checks.
 - Offset diagnostics should not be promoted into final scores unless a future train-only policy survives controls and grouped validation.
 - Legacy validation branches and retired secondary model expansion are not active validation requirements for the v2 claim.
 - Downstream product-model work is outside the current v2 evidence bundle.

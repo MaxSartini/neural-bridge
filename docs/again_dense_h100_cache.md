@@ -78,8 +78,8 @@ Important per-video arrays:
 
 The bundle is sufficient for local downstream work without re-running V-JEPA or TRIBE:
 
-- train-only PCA widths over TRIBE cortical predictions
-- AR + cortical bridge models
+- train-only PCA widths over TRIBE predicted cortical/fMRI responses
+- AR + predicted cortical/fMRI response bridge models
 - grouped-video and blocked temporal validation
 - timestamp/video-time controls
 - shuffled/random controls

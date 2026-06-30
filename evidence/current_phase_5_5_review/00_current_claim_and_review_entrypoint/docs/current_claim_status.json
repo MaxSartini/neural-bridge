@@ -66,7 +66,11 @@
       "strong_confirmation": true,
       "failed_gates": [],
       "relative_lift_vs_frozen_ar_percent": 2.63,
-      "relative_lift_vs_best_control_percent": 2.98
+      "relative_lift_vs_best_control_percent": 2.98,
+      "frozen_ar_type": "matched_seed_specific_frozen_ar_floor",
+      "best_control_label": "best_matched_control",
+      "seeds_positive_vs_frozen_ar": "9/10",
+      "seeds_positive_vs_best_matched_control": "9/10"
     },
     "again_grouped_compatibility_updated_verdict": {
       "target": "future_arousal_max_delta_rows_4_10_train_q90",
@@ -91,7 +95,10 @@
       "updated_grouped_compatibility_pass": true,
       "failed_updated_gates": [],
       "relative_lift_vs_ar_frozen_percent": 6.39,
-      "relative_lift_vs_best_control_percent": 6.42
+      "relative_lift_vs_best_control_percent": 6.42,
+      "frozen_ar_type": "matched_fold_seed_specific_ar_frozen_floor",
+      "best_control_label": "best_matched_control",
+      "fold_seed_positives_vs_best_matched_control": "50/50"
     },
     "again_raw_cortical_alone_failure": {
       "target": "arousal_spike_rows_2_6_train_q90",
@@ -173,21 +180,28 @@
     ]
   },
   "ar_baseline_significance": {
-    "why_it_matters": "AR/frozen AR is the strong recent-arousal persistence baseline; beating it shows the bridge is not merely following arousal momentum.",
+    "why_it_matters": "AR/frozen AR is the strong recent-arousal persistence baseline; beating the matched seed/fold-specific frozen AR floor and best matched controls shows the bridge is not merely following arousal momentum.",
     "blocked_delta_vs_frozen_ar_pr_auc": 0.0068399399,
     "blocked_seeds_positive_vs_ar": "9/10",
     "grouped_delta_vs_ar_frozen_pr_auc": 0.0138878634,
     "grouped_fold_seed_positives_vs_control": "50/50",
     "blocked_relative_lift_vs_frozen_ar_percent": 2.63,
-    "grouped_relative_lift_vs_ar_frozen_percent": 6.39
+    "grouped_relative_lift_vs_ar_frozen_percent": 6.39,
+    "blocked_delta_vs_best_matched_control_pr_auc": 0.0077366579,
+    "blocked_relative_lift_vs_best_matched_control_percent": 2.98,
+    "grouped_delta_vs_best_matched_control_pr_auc": 0.0139621972,
+    "grouped_relative_lift_vs_best_matched_control_percent": 6.42
   },
   "upstream_model_compounding": {
     "summary": "Neural Bridge is designed to compound with future upstream brain-response models: as TRIBE/V-JEPA-like systems improve, they can provide stronger frozen predicted cortical/fMRI signal for the same bridge, control, validation, and response-reporting layer.",
     "guardrail": "This does not claim automatic proof for future models; each upgraded substrate still needs the same controls and validation."
   },
   "metric_definitions": {
-    "pr_auc": "Area under the precision-recall curve; report as a unitless value. Put percentage only on relative lift/loss, not on PR-AUC itself.",
-    "pr_auc_delta": "Direct unitless difference between two PR-AUC values, such as +0.0068399399.",
-    "relative_lift_percent": "PR-AUC delta divided by the baseline PR-AUC, reported as a percentage."
+    "pr_auc": "Area under the precision-recall curve; primary ranking metric for rare future arousal events.",
+    "pr_auc_delta": "Difference between two PR-AUC scores, such as 0.2670735630 - 0.2602336231 = +0.0068399399.",
+    "relative_lift_percent": "PR-AUC delta divided by the comparison score, such as +0.0068399399 / 0.2602336231 = +2.63%.",
+    "ar_only_baseline": "Standalone autoregressive comparison lane using recent/past arousal information.",
+    "frozen_ar": "Matched seed/fold-specific AR-only score or logit fixed before residual/control training and reused identically across real and matched controls in that seed/fold. It may be reused from a compatible checkpoint/score or newly trained for that exact seed/fold when missing.",
+    "best_matched_control": "The strongest matched control lane for the same target/protocol/head family, used as the control hurdle alongside the matched AR/frozen floor."
   }
 }

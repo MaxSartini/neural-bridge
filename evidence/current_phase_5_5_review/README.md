@@ -10,12 +10,12 @@ This folder is the current reviewer-facing evidence pack. It exists so an extern
 - protocol: `blocked_temporal_70_30`
 - architecture: `short_temporal_conv_residual`
 - real PR-AUC: `0.2670735630`
-- frozen AR PR-AUC: `0.2602336231`
-- best control: `random_pca_residual`, PR-AUC `0.2593369051`
+- matched seed-specific frozen AR PR-AUC: `0.2602336231`
+- best matched control: `random_pca_residual`, PR-AUC `0.2593369051`
 - delta vs frozen AR: `+0.0068399399`
-- delta vs best control: `+0.0077366579`
-- seeds positive vs AR: `9/10`
-- seeds positive vs best control: `9/10`
+- delta vs best matched control: `+0.0077366579`
+- seeds positive vs frozen AR: `9/10`
+- seeds positive vs best matched control: `9/10`
 - weak / credible / strong confirmation: true
 - failed gates: `[]`
 
@@ -28,11 +28,11 @@ Primary folder: `12_again_phase_5_5_binary_blocked_confirmation/`
 - architecture: `short_temporal_conv_residual`
 - rows: `350/350`
 - real PR-AUC: `0.2313831909`
-- AR/frozen PR-AUC: `0.2174953276`
+- matched fold/seed-specific AR/frozen PR-AUC: `0.2174953276`
 - best matched control: `train_only_video_mean_residual`, PR-AUC `0.2174209937`
 - delta vs AR/frozen: `+0.0138878634`
 - delta vs best matched control: `+0.0139621972`
-- fold-seed positives vs best control: `50/50`
+- fold-seed positives vs best matched control: `50/50`
 - label permutation PR-AUC: `0.2153099775`
 - real minus label permutation: `+0.0160732134`
 - label permutation minus AR: `-0.0021853501`
@@ -44,12 +44,12 @@ Primary folder: `13_again_phase_5_5_grouped_compatibility/`
 
 ### Beating AR Is The Hard Part
 
-AR/frozen AR is the recent/past-arousal persistence baseline. It is intentionally hard to beat because human arousal is autocorrelated. The current result does not merely follow that momentum:
+AR/frozen AR is the recent/past-arousal persistence baseline. It is intentionally hard to beat because human arousal is autocorrelated. `AR-only baseline` means a standalone autoregressive comparison lane. `Frozen AR` means the seed/fold-specific AR score is fixed first and then reused identically by all real and control lanes in that seed/fold. The current result does not merely follow that momentum:
 
 - blocked confirmation beats frozen AR by `+0.0068399399` PR-AUC (`+2.63%` relative lift), with `9/10` positive seeds.
-- grouped compatibility beats AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift), with `50/50` fold-seed positives.
+- grouped compatibility beats the matched AR/frozen floor by `+0.0138878634` PR-AUC (`+6.39%` relative lift), with `50/50` fold-seed positives vs the best matched control.
 
-This is why the Phase 5.5 result is claim-bearing: it beats the strong AR floor and the matched controls.
+This is why the Phase 5.5 result is claim-bearing: it beats the matched frozen AR floor and the best matched controls.
 
 ### Raw Predicted Cortical/FMRI Features Alone Fail Badly
 

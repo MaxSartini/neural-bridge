@@ -152,7 +152,7 @@ Post-repair checks found `0` remaining per-video `traceback.txt` files.
 The local dense H100 TRIBE postpass bundle is complete and schema-valid as a cache/data substrate. It is sufficient for the next local dense AGAIN work:
 
 - train-only PCA over cortical predictions
-- AR + cortical bridge training
+- AR + predicted cortical/fMRI response bridge training
 - quality/motion/luma baselines
 - timestamp/video-time controls
 - shuffled/random controls

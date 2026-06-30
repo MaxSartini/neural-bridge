@@ -6,7 +6,7 @@ Each current-facing claim below is paired with the numbers and evidence files th
 
 Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.
 
-Key numbers: VEATIC blocked PR-AUC 0.2536 vs AR 0.1969; AGAIN blocked real PR-AUC 0.2670735630 vs frozen AR 0.2602336231; AGAIN grouped real PR-AUC 0.2313831909 vs AR 0.2174953276; raw predicted cortical/fMRI features alone blocked PR-AUC 0.124315 vs AR-only 0.203622.
+Key numbers: VEATIC blocked PR-AUC 0.2536 vs AR 0.1969; AGAIN blocked real PR-AUC 0.2670735630 vs matched frozen AR 0.2602336231 and best matched control 0.2593369051; AGAIN grouped real PR-AUC 0.2313831909 vs matched AR/frozen 0.2174953276 and best matched control 0.2174209937; raw predicted cortical/fMRI features alone blocked PR-AUC 0.124315 vs AR-only 0.203622.
 
 Primary evidence: `README.md; docs/neural_bridge_phase5_5_evidence_ladder.md; reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md; reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 
@@ -66,9 +66,9 @@ Caveats: This older frozen-AR residual design passed blocked do-no-harm but did 
 
 Bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap binary target/head.
 
-Key numbers: target future_arousal_max_delta_rows_4_10_train_q90; short_temporal_conv_residual; real PR-AUC 0.2670735630; frozen AR 0.2602336231; best control 0.2593369051; deltas +0.0068399399 and +0.0077366579; 9/10 positive seeds; weak/credible/strong true; failed gates [].
+Key numbers: target future_arousal_max_delta_rows_4_10_train_q90; short_temporal_conv_residual; real PR-AUC 0.2670735630; matched seed-specific frozen AR 0.2602336231; best matched control 0.2593369051; deltas +0.0068399399 vs frozen AR and +0.0077366579 vs best matched control; 9/10 positive seeds vs both; weak/credible/strong true; failed gates [].
 
-Interpretation: Beating AR is the hard blocked-temporal hurdle because AR is the recent-arousal persistence baseline. This result beats matched frozen AR by +0.0068399399 PR-AUC (+2.63% relative lift) and does not rely on weak-control comparisons.
+Interpretation: Beating AR is the hard blocked-temporal hurdle because AR is the recent-arousal persistence baseline. This result beats the matched seed-specific frozen AR floor by +0.0068399399 PR-AUC (+2.63% relative lift) and beats the best matched control by +0.0077366579 PR-AUC (+2.98% relative lift).
 
 Primary evidence: `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md; evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/`
 
@@ -78,9 +78,9 @@ Caveats: Blocked-only binary washout-gap event ranking. Continuous exact forecas
 
 The same AGAIN target/head is compatible with grouped held-out-video generalization under the updated frozen-AR residual-aware verdict.
 
-Key numbers: 350/350 rows; real PR-AUC 0.2313831909; AR/frozen 0.2174953276; best control 0.2174209937; deltas +0.0138878634 and +0.0139621972; 50/50 positives vs best control; label permutation 0.2153099775; real-label +0.0160732134; label-AR -0.0021853501; 50/50 positives vs label; updated pass true; failed gates [].
+Key numbers: 350/350 rows; real PR-AUC 0.2313831909; matched fold/seed-specific AR/frozen 0.2174953276; best matched control 0.2174209937; deltas +0.0138878634 vs AR/frozen and +0.0139621972 vs best matched control; 50/50 positives vs best matched control; label permutation 0.2153099775; real-label +0.0160732134; label-AR -0.0021853501; 50/50 positives vs label; updated pass true; failed gates [].
 
-Interpretation: The same head beats AR/frozen by +0.0138878634 PR-AUC (+6.39% relative lift) and beats the best matched control in 50/50 fold-seeds, showing held-out-video compatibility rather than only a blocked split artifact.
+Interpretation: The same head beats the matched fold/seed-specific AR/frozen floor by +0.0138878634 PR-AUC (+6.39% relative lift) and beats the best matched control by +0.0139621972 PR-AUC (+6.42% relative lift), with 50/50 fold-seeds positive vs the best matched control.
 
 Primary evidence: `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md; evidence/phase_5_5_grouped_compatibility_20260630_033520/`
 

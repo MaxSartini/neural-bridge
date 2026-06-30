@@ -8,7 +8,7 @@ TRIBE/V-JEPA are the upstream substrate, not the moat by themselves. Neural Brid
 
 Raw predicted cortical/fMRI features alone fail badly on AGAIN. On the original Phase 3 spike target `arousal_spike_rows_2_6_train_q90`, `raw_cortical_only` scored blocked PR-AUC `0.124315` versus AR-only `0.203622`; direct `AR_plus_raw_cortical` was `0.167731`, below AR. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. Neural Bridge is the difference: fold-safe compression, frozen AR anchoring, a washout-gap future event target, and temporal/event-context residual learning turn weak raw predicted cortical/fMRI features into controlled future event-ranking.
 
-Beating AR is the central benchmark difficulty. AR/frozen AR is a strong recent-arousal persistence baseline, and many earlier lanes failed because they could not beat it under blocked temporal validation. The Phase 5.5 blocked confirmation beats matched frozen AR by `+0.0068399399` PR-AUC (`+2.63%` relative lift) with `9/10` positive seeds, and the grouped compatibility run beats AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) with `50/50` fold-seed positives.
+Beating AR is the central benchmark difficulty. AR is a strong recent-arousal persistence baseline, and many earlier lanes failed because they could not beat it under blocked temporal validation. The Phase 5.5 blocked confirmation beats the matched seed-specific frozen AR floor by `+0.0068399399` PR-AUC (`+2.63%` relative lift) and beats the best matched control by `+0.0077366579` PR-AUC (`+2.98%` relative lift), with `9/10` positive seeds vs both. The grouped compatibility run beats the matched fold/seed-specific AR/frozen floor by `+0.0138878634` PR-AUC (`+6.39%` relative lift) and beats the best matched control by `+0.0139621972` PR-AUC (`+6.42%` relative lift), with `50/50` fold-seed positives vs the best matched control.
 
 
 ## What Is Now Proven
@@ -27,13 +27,14 @@ AGAIN is the gaming and interactive-media confirmation. Public AGAIN documentati
 
 This is why the result is broader than a single benchmark trick. The evidence spans film, TV/reality, documentary, home-video affect content, and interactive gameplay arousal: VEATIC establishes the controlled signal on edited emotion video; AGAIN scales and confirms it on gaming video.
 
-## Metric And Term Definitions
+## Key Metric Terms
 
 - `PR-AUC`: area under the precision-recall curve. It is the primary metric for rare future-event/spike ranking because it rewards putting true future arousal events near the top of the ranked list.
-- `PR-AUC delta`: direct unitless PR-AUC difference. Example: `0.2670735630 - 0.2602336231 = +0.0068399399`.
-- `relative lift`: raw PR-AUC delta divided by the baseline PR-AUC. Example: `+0.0068399399 / 0.2602336231 = +2.63%` relative lift over frozen AR.
-- `AR` / `frozen AR`: autoregressive baseline using recent/past arousal information. It is intentionally strong because human arousal is temporally persistent.
-- `beating AR`: the key hurdle. A future-event model is not convincing if it only tracks recent arousal persistence; the current AGAIN Phase 5.5 result beats the matched AR floor and matched controls.
+- `PR-AUC delta`: difference between two PR-AUC scores. Example: `0.2670735630 - 0.2602336231 = +0.0068399399`.
+- `relative lift`: PR-AUC delta divided by the comparison score. Example: `+0.0068399399 / 0.2602336231 = +2.63%` relative lift over frozen AR.
+- `AR-only baseline`: standalone autoregressive model/lane using recent/past arousal information. It is intentionally strong because human arousal is temporally persistent.
+- `frozen AR`: seed- or fold-specific AR-only score/logit fixed before residual/control training and reused identically as the residual floor for real and matched controls inside that seed/fold. It may come from an existing compatible AR checkpoint/score or be newly trained for that exact seed/fold when missing.
+- `beating AR`: the key hurdle. A future-event model is not convincing if it only tracks recent arousal persistence; the current AGAIN Phase 5.5 result beats the matched frozen AR floor and the best matched controls.
 - `blocked_temporal_70_30`: forward-time split; train on earlier rows and test on later rows, probing future temporal generalization.
 - `grouped_video`: held-out-video split; test videos are not in training, probing cross-video compatibility.
 - `shuffled/random controls`: matched controls that break real representation identity while preserving comparable model capacity.
@@ -67,14 +68,13 @@ Blocked binary confirmation:
 - protocol: `blocked_temporal_70_30`
 - architecture: `short_temporal_conv_residual`
 - real PR-AUC: `0.2670735630`
-- frozen AR PR-AUC: `0.2602336231`
-- best control: `random_pca_residual`, PR-AUC `0.2593369051`
+- matched seed-specific frozen AR PR-AUC: `0.2602336231`
+- best matched control: `random_pca_residual`, PR-AUC `0.2593369051`
 - delta vs frozen AR: `+0.0068399399`
-- delta vs best control: `+0.0077366579`
-- raw PR-AUC deltas: `+0.0068399399` over frozen AR (`+2.63%` relative lift), `+0.0077366579` over best control (`+2.98%` relative lift)
-- relative lifts: `+2.63%` over frozen AR, `+2.98%` over best control
-- seeds positive vs AR: `9/10`
-- seeds positive vs best control: `9/10`
+- delta vs best matched control: `+0.0077366579`
+- raw PR-AUC deltas: `+0.0068399399` over matched frozen AR (`+2.63%` relative lift), `+0.0077366579` over best matched control (`+2.98%` relative lift)
+- seeds positive vs frozen AR: `9/10`
+- seeds positive vs best matched control: `9/10`
 - weak / credible / strong confirmation: true
 - failed gates: `[]`
 
@@ -85,13 +85,12 @@ Grouped compatibility:
 - architecture: `short_temporal_conv_residual`
 - rows: `350/350`
 - real PR-AUC: `0.2313831909`
-- AR/frozen PR-AUC: `0.2174953276`
+- matched fold/seed-specific AR/frozen PR-AUC: `0.2174953276`
 - best matched control: `train_only_video_mean_residual`, PR-AUC `0.2174209937`
 - delta vs AR/frozen: `+0.0138878634`
 - delta vs best matched control: `+0.0139621972`
-- raw PR-AUC deltas: `+0.0138878634` over AR/frozen (`+6.39%` relative lift), `+0.0139621972` over best control (`+6.42%` relative lift)
-- relative lifts: `+6.39%` over AR/frozen, `+6.42%` over best control
-- fold-seed positives vs best control: `50/50`
+- raw PR-AUC deltas: `+0.0138878634` over matched AR/frozen (`+6.39%` relative lift), `+0.0139621972` over best matched control (`+6.42%` relative lift)
+- fold-seed positives vs best matched control: `50/50`
 - real minus label permutation: `+0.0160732134`
 - updated grouped compatibility pass: true
 
@@ -179,12 +178,12 @@ The redesigned washout-gap target tests future movement after an explicit gap fr
 - protocol: `blocked_temporal_70_30`
 - architecture: `short_temporal_conv_residual`
 - real PR-AUC: `0.2670735630`
-- frozen AR PR-AUC: `0.2602336231`
-- best control: `random_pca_residual`, PR-AUC `0.2593369051`
+- matched seed-specific frozen AR PR-AUC: `0.2602336231`
+- best matched control: `random_pca_residual`, PR-AUC `0.2593369051`
 - delta vs frozen AR: `+0.0068399399`
-- delta vs best control: `+0.0077366579`
-- seeds positive vs AR: `9/10`
-- seeds positive vs best control: `9/10`
+- delta vs best matched control: `+0.0077366579`
+- seeds positive vs frozen AR: `9/10`
+- seeds positive vs best matched control: `9/10`
 - weak / credible / strong confirmation: true
 - failed gates: `[]`
 
@@ -199,11 +198,11 @@ The same target/head was checked across all five grouped-video folds and ten see
 - architecture: `short_temporal_conv_residual`
 - rows: `350/350`
 - real PR-AUC: `0.2313831909`
-- AR/frozen PR-AUC: `0.2174953276`
+- matched fold/seed-specific AR/frozen PR-AUC: `0.2174953276`
 - best matched control: `train_only_video_mean_residual`, PR-AUC `0.2174209937`
 - delta vs AR/frozen: `+0.0138878634`
 - delta vs best matched control: `+0.0139621972`
-- fold-seed positives vs best control: `50/50`
+- fold-seed positives vs best matched control: `50/50`
 - label permutation PR-AUC: `0.2153099775`
 - real minus label permutation: `+0.0160732134`
 - label permutation minus AR: `-0.0021853501`

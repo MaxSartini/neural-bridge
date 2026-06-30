@@ -4,15 +4,17 @@ Neural Bridge demonstrates controlled future human arousal event-ranking from fr
 
 ## Best Results First
 
-AGAIN blocked temporal binary confirmation: `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual` reached real PR-AUC `0.2670735630` vs frozen AR `0.2602336231` and best control `0.2593369051`, with deltas `+0.0068399399` vs AR and `+0.0077366579` vs best control. Seeds were positive `9/10` vs AR and `9/10` vs best control; weak, credible, and strong confirmation gates all passed.
+AGAIN blocked temporal binary confirmation: `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual` reached real PR-AUC `0.2670735630` vs matched seed-specific frozen AR `0.2602336231` and best matched control `0.2593369051`, with deltas `+0.0068399399` vs frozen AR and `+0.0077366579` vs best matched control. Seeds were positive `9/10` vs frozen AR and `9/10` vs best matched control; weak, credible, and strong confirmation gates all passed.
 
-AGAIN grouped-video compatibility for the same target/head reached real PR-AUC `0.2313831909` vs AR/frozen `0.2174953276` and best matched control `0.2174209937`, with delta `+0.0139621972` vs best control and `50/50` fold-seed positives. The updated frozen-AR-residual-aware verdict passed with failed gates `[]`.
+AGAIN grouped-video compatibility for the same target/head reached real PR-AUC `0.2313831909` vs matched fold/seed-specific AR/frozen floor `0.2174953276` and best matched control `0.2174209937`, with delta `+0.0138878634` vs AR/frozen and `+0.0139621972` vs best matched control. It was positive in `50/50` fold-seeds vs the best matched control. The updated frozen-AR-residual-aware verdict passed with failed gates `[]`.
 
 Beating AR is the hard part. AR is the recent/past-arousal baseline, and arousal persistence is already powerful; a model that cannot beat AR is mostly rediscovering momentum. The current AGAIN blocked result clears that frozen AR floor by `+0.0068399399` PR-AUC, a `+2.63%` relative lift across 10 matched seeds, and the grouped compatibility result clears AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) across `50/50` fold-seeds. That is the central scientific win.
 
+Terminology matters here. `AR-only baseline` means a standalone autoregressive comparison lane trained/evaluated as its own baseline. `Frozen AR` means the seed- or fold-specific AR-only score/logit is fixed first and then reused as the residual floor; it may be reused from an existing compatible AR checkpoint/score or newly trained for that exact seed/fold when missing. In frozen-AR residual experiments, every real and control lane inside the same seed/fold must use the identical frozen AR score. The headline claim requires beating both that matched frozen AR floor and the best matched control.
+
 Raw predicted cortical/fMRI features alone fail badly on AGAIN: blocked `raw_cortical_only` was `0.124315` vs AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Neural Bridge is the difference.
 
-In raw PR-AUC terms, the current confirmed AGAIN blocked result is `0.2670735630` versus `0.2602336231` frozen AR and `0.2593369051` best control: `+0.0068399399` over AR (`+2.63%` relative lift) and `+0.0077366579` over the best control (`+2.98%` relative lift). Compared with the early blocked raw-cortical-only result (`0.124315` PR-AUC), Phase 5.5 is `+0.1427585630` PR-AUC higher, or `+114.84%` relative lift (`2.15x` the raw-cortical-only score). Compared with direct `AR_plus_raw_cortical` (`0.167731` PR-AUC), Phase 5.5 is `+0.0993425630` PR-AUC higher, or `+59.23%` relative lift. Without the Neural Bridge pipeline, the raw predicted cortical/fMRI signal is not commercially useful; with the bridge, it becomes a controlled future-event ranking system.
+In raw PR-AUC terms, the current confirmed AGAIN blocked result is `0.2670735630` versus `0.2602336231` matched seed-specific frozen AR and `0.2593369051` best matched control: `+0.0068399399` over frozen AR (`+2.63%` relative lift) and `+0.0077366579` over the best matched control (`+2.98%` relative lift). Compared with the early blocked raw-cortical-only result (`0.124315` PR-AUC), Phase 5.5 is `+0.1427585630` PR-AUC higher, or `+114.84%` relative lift (`2.15x` the raw-cortical-only score). Compared with direct `AR_plus_raw_cortical` (`0.167731` PR-AUC), Phase 5.5 is `+0.0993425630` PR-AUC higher, or `+59.23%` relative lift. Without the Neural Bridge pipeline, the raw predicted cortical/fMRI signal is not commercially useful; with the bridge, it becomes a controlled future-event ranking system.
 
 ## Neuro-Response Core
 
@@ -32,13 +34,13 @@ AGAIN is the gaming/interactive-media side of the evidence ladder. Public AGAIN 
 
 That means the evidence is not a single narrow demo. It spans film, TV/reality, documentary, home-video affect content, and interactive gameplay arousal. Put plainly: the Neural Bridge effect appears across edited emotion video and gaming video, with VEATIC as the foundational affect-video result and AGAIN as the scaled gaming confirmation.
 
-## Metrics In Plain English
+## Key Metric Terms
 
 - `PR-AUC` means area under the precision-recall curve. For rare future arousal events, it measures whether true future response moments are ranked near the top.
-- PR-AUC is unitless; report the raw value and put percentage only on relative lift/loss.
 - `+2.63% relative lift` means the raw PR-AUC delta `+0.0068399399` divided by the frozen AR baseline `0.2602336231`.
-- `AR` or `frozen AR` is the strong autoregressive baseline from recent/past arousal.
-- Beating AR matters because recent arousal is already predictive. Neural Bridge is claim-bearing only when it beats AR and matched controls, not when it merely follows arousal persistence.
+- `AR-only baseline` is a standalone autoregressive model/lane from recent/past arousal.
+- `frozen AR` is a matched seed/fold-specific AR score fixed before residual/control training and reused identically across real and matched controls in that seed/fold.
+- Beating AR matters because recent arousal is already predictive. Neural Bridge is claim-bearing only when it beats the relevant AR floor and the best matched controls, not when it merely follows arousal persistence.
 - `blocked_temporal_70_30` tests forward-time prediction; `grouped_video` tests held-out-video compatibility.
 - `shuffled`, `random`, `label permutation`, and `train-only video mean` controls test whether the apparent signal is fake, leaked, static, or selection noise.
 
@@ -96,12 +98,12 @@ AGAIN blocked temporal binary confirmation:
 - protocol: `blocked_temporal_70_30`
 - architecture: `short_temporal_conv_residual`
 - real PR-AUC: `0.2670735630`
-- frozen AR PR-AUC: `0.2602336231`
-- best control: `random_pca_residual`, PR-AUC `0.2593369051`
+- matched seed-specific frozen AR PR-AUC: `0.2602336231`
+- best matched control: `random_pca_residual`, PR-AUC `0.2593369051`
 - delta vs frozen AR: `+0.0068399399`
-- delta vs best control: `+0.0077366579`
-- seeds positive vs AR: `9/10`
-- seeds positive vs best control: `9/10`
+- delta vs best matched control: `+0.0077366579`
+- seeds positive vs frozen AR: `9/10`
+- seeds positive vs best matched control: `9/10`
 - weak / credible / strong confirmation: true
 - failed gates: `[]`
 
@@ -112,11 +114,11 @@ AGAIN grouped compatibility updated verdict:
 - architecture: `short_temporal_conv_residual`
 - rows: `350/350`
 - real PR-AUC: `0.2313831909`
-- AR/frozen PR-AUC: `0.2174953276`
+- matched fold/seed-specific AR/frozen PR-AUC: `0.2174953276`
 - best matched control: `train_only_video_mean_residual`, PR-AUC `0.2174209937`
 - delta vs AR/frozen: `+0.0138878634`
 - delta vs best matched control: `+0.0139621972`
-- fold-seed positives vs best control: `50/50`
+- fold-seed positives vs best matched control: `50/50`
 - label permutation PR-AUC: `0.2153099775`
 - real minus label permutation: `+0.0160732134`
 - label permutation minus AR: `-0.0021853501`

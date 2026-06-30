@@ -4,9 +4,11 @@ Neural Bridge demonstrates controlled future human arousal event-ranking from fr
 
 ## Best Results First
 
-AGAIN blocked temporal binary confirmation: `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual` reached real PR-AUC `0.2670735630` vs frozen AR `0.2602336231` and best control `0.2593369051`, with deltas `+0.0068399399` vs AR and `+0.0077366579` vs best control. Seeds were positive `9/10` vs AR and `9/10` vs best control; weak, credible, and strong confirmation gates all passed.
+AGAIN blocked temporal binary confirmation: `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual` reached real PR-AUC `0.2670735630` vs matched seed-specific frozen AR `0.2602336231` and best matched control `0.2593369051`, with deltas `+0.0068399399` vs frozen AR and `+0.0077366579` vs best matched control. Seeds were positive `9/10` vs frozen AR and `9/10` vs best matched control; weak, credible, and strong confirmation gates all passed.
 
-AGAIN grouped-video compatibility for the same target/head reached real PR-AUC `0.2313831909` vs AR/frozen `0.2174953276` and best matched control `0.2174209937`, with delta `+0.0139621972` vs best control and `50/50` fold-seed positives. The updated frozen-AR-residual-aware verdict passed with failed gates `[]`.
+AGAIN grouped-video compatibility for the same target/head reached real PR-AUC `0.2313831909` vs matched fold/seed-specific AR/frozen floor `0.2174953276` and best matched control `0.2174209937`, with delta `+0.0138878634` vs AR/frozen and `+0.0139621972` vs best matched control. It was positive in `50/50` fold-seeds vs the best matched control. The updated frozen-AR-residual-aware verdict passed with failed gates `[]`.
+
+Terminology matters: `AR-only baseline` is a standalone autoregressive comparison lane. `Frozen AR` is the seed/fold-specific AR-only score fixed before residual/control training and reused identically by real and matched controls inside that seed/fold. The current claim requires beating both the matched frozen AR floor and the best matched controls.
 
 Raw predicted cortical/fMRI features alone fail badly on AGAIN: blocked `raw_cortical_only` was `0.124315` vs AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Neural Bridge is the difference.
 
@@ -54,12 +56,12 @@ AGAIN blocked temporal binary confirmation:
 - protocol: `blocked_temporal_70_30`
 - architecture: `short_temporal_conv_residual`
 - real PR-AUC: `0.2670735630`
-- frozen AR PR-AUC: `0.2602336231`
-- best control: `random_pca_residual`, PR-AUC `0.2593369051`
+- matched seed-specific frozen AR PR-AUC: `0.2602336231`
+- best matched control: `random_pca_residual`, PR-AUC `0.2593369051`
 - delta vs frozen AR: `+0.0068399399`
-- delta vs best control: `+0.0077366579`
-- seeds positive vs AR: `9/10`
-- seeds positive vs best control: `9/10`
+- delta vs best matched control: `+0.0077366579`
+- seeds positive vs frozen AR: `9/10`
+- seeds positive vs best matched control: `9/10`
 - weak / credible / strong confirmation: true
 - failed gates: `[]`
 
@@ -70,11 +72,11 @@ AGAIN grouped compatibility updated verdict:
 - architecture: `short_temporal_conv_residual`
 - rows: `350/350`
 - real PR-AUC: `0.2313831909`
-- AR/frozen PR-AUC: `0.2174953276`
+- matched fold/seed-specific AR/frozen PR-AUC: `0.2174953276`
 - best matched control: `train_only_video_mean_residual`, PR-AUC `0.2174209937`
 - delta vs AR/frozen: `+0.0138878634`
 - delta vs best matched control: `+0.0139621972`
-- fold-seed positives vs best control: `50/50`
+- fold-seed positives vs best matched control: `50/50`
 - label permutation PR-AUC: `0.2153099775`
 - real minus label permutation: `+0.0160732134`
 - label permutation minus AR: `-0.0021853501`

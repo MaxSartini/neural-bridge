@@ -17,7 +17,9 @@ The frozen video-side neuro-response features are predicted cortical/fMRI respon
 
 Raw predicted cortical/fMRI features alone fail badly on AGAIN. On the original Phase 3 spike target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` dropped to `0.167731`. Neural Bridge is the current result, not raw predicted cortical/fMRI features by themselves.
 
-Beating AR is the core technical hurdle. AR is recent/past arousal persistence, and it is intentionally strong. The current blocked result beats matched frozen AR by `+0.0068399399` PR-AUC (`+2.63%` relative lift) with `9/10` positive seeds; updated grouped compatibility beats AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) with `50/50` fold-seed positives.
+Beating AR is the core technical hurdle. AR is recent/past arousal persistence, and it is intentionally strong. The current blocked result beats matched seed-specific frozen AR by `+0.0068399399` PR-AUC (`+2.63%` relative lift) and the best matched control by `+0.0077366579` PR-AUC (`+2.98%` relative lift), with `9/10` positive seeds vs both. Updated grouped compatibility beats matched fold/seed-specific AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) and the best matched control by `+0.0139621972` PR-AUC (`+6.42%` relative lift), with `50/50` fold-seed positives vs the best matched control.
+
+Terminology: `AR-only baseline` is a standalone autoregressive comparison lane. `Frozen AR` is a seed- or fold-specific AR-only score/logit fixed before residual/control training and reused identically across real and matched controls inside that seed/fold. It may be reused from an existing compatible AR checkpoint/score or newly trained for that exact seed/fold when missing.
 
 Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict.
 
@@ -53,7 +55,7 @@ Canonical blocked temporal binary confirmation:
 Canonical updated grouped compatibility verdict:
 `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 
-Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. Raw predicted cortical/fMRI features alone were weak; the Neural Bridge pipeline makes the difference. The old fused AGAIN lane passed grouped eval-mode controls but failed blocked AR/control checks; frozen-AR residual and temporal/event-context residual designs fixed the design path. The redesigned washout-gap target/head beats the strong AR persistence baseline, passes blocked temporal confirmation, and passes updated grouped-video compatibility. Continuous exact arousal forecasting and broad universal temporal prediction remain open.
+Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. Raw predicted cortical/fMRI features alone were weak; the Neural Bridge pipeline makes the difference. The old fused AGAIN lane passed grouped eval-mode controls but failed blocked AR/control checks; frozen-AR residual and temporal/event-context residual designs established the current design path. The redesigned washout-gap target/head beats the strong AR persistence baseline, passes blocked temporal confirmation, and passes updated grouped-video compatibility. Continuous exact arousal forecasting and broad universal temporal prediction remain open.
 
 ## Canonical Artifacts
 
@@ -74,11 +76,11 @@ AGAIN blocked temporal binary confirmation:
 
 - target/head: `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual`
 - real PR-AUC: `0.2670735630`
-- frozen AR PR-AUC: `0.2602336231`
-- best control `random_pca_residual` PR-AUC: `0.2593369051`
+- matched seed-specific frozen AR PR-AUC: `0.2602336231`
+- best matched control `random_pca_residual` PR-AUC: `0.2593369051`
 - delta vs frozen AR: `+0.0068399399`
-- delta vs best control: `+0.0077366579`
-- seeds positive vs AR and best control: `9/10`, `9/10`
+- delta vs best matched control: `+0.0077366579`
+- seeds positive vs frozen AR and best matched control: `9/10`, `9/10`
 - weak / credible / strong confirmation: true
 - failed gates: `[]`
 
@@ -86,11 +88,11 @@ AGAIN updated grouped compatibility:
 
 - target/head: `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual`
 - real PR-AUC: `0.2313831909`
-- AR/frozen PR-AUC: `0.2174953276`
+- matched fold/seed-specific AR/frozen PR-AUC: `0.2174953276`
 - best matched control `train_only_video_mean_residual` PR-AUC: `0.2174209937`
 - delta vs AR/frozen: `+0.0138878634`
-- delta vs best control: `+0.0139621972`
-- fold-seed positives vs best control: `50/50`
+- delta vs best matched control: `+0.0139621972`
+- fold-seed positives vs best matched control: `50/50`
 - real minus label permutation: `+0.0160732134`
 - label permutation minus AR: `-0.0021853501`
 - updated grouped compatibility pass: true

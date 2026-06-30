@@ -1,6 +1,6 @@
 # AGAIN Phase 2: AR Baseline
 
-Purpose: establish autoregressive / temporal-history baselines before cortical bridge features are added.
+Purpose: establish autoregressive / temporal-history baselines before predicted cortical/fMRI response bridge features are added.
 
 Contents:
 - AR baseline report
