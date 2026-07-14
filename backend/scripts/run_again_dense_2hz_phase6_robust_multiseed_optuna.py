@@ -117,10 +117,17 @@ def evaluate_params(
     return out
 
 
-def validation_gate(candidate: dict[int, float], original: dict[int, float]) -> dict[str, Any]:
-    paired = np.asarray([candidate[s] - original[s] for s in VALIDATION_SEEDS], dtype=np.float64)
-    candidate_values = [candidate[s] for s in VALIDATION_SEEDS]
-    original_values = [original[s] for s in VALIDATION_SEEDS]
+def validation_gate(
+    candidate: dict[int, float],
+    original: dict[int, float],
+    *,
+    seeds: tuple[int, ...] = VALIDATION_SEEDS,
+) -> dict[str, Any]:
+    if len(seeds) != 5:
+        raise ValueError("Validation gate requires exactly five seeds")
+    paired = np.asarray([candidate[s] - original[s] for s in seeds], dtype=np.float64)
+    candidate_values = [candidate[s] for s in seeds]
+    original_values = [original[s] for s in seeds]
     checks = {
         "robust_objective_gain_at_least_0_001": robust_objective(candidate_values) - robust_objective(original_values) >= 0.001,
         "mean_delta_improves": float(np.mean(candidate_values)) > float(np.mean(original_values)),
@@ -132,7 +139,7 @@ def validation_gate(candidate: dict[int, float], original: dict[int, float]) -> 
         "robust_objective_gain": robust_objective(candidate_values) - robust_objective(original_values),
         "candidate_mean_delta_vs_ar": float(np.mean(candidate_values)),
         "original_mean_delta_vs_ar": float(np.mean(original_values)),
-        "paired_candidate_minus_original": {str(seed): float(candidate[seed] - original[seed]) for seed in VALIDATION_SEEDS},
+        "paired_candidate_minus_original": {str(seed): float(candidate[seed] - original[seed]) for seed in seeds},
         "paired_wins": int((paired > 0).sum()),
         "checks": checks,
         "failed_gates": [name for name, passed in checks.items() if not passed],

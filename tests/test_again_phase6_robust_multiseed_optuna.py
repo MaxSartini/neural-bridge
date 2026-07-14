@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 from backend.scripts import run_again_dense_2hz_phase6_robust_multiseed_optuna as robust
+from backend.scripts import run_again_dense_2hz_phase6_trial4_fresh_seed_validation as fresh
 
 
 def test_seed_roles_are_disjoint_and_fixed() -> None:
@@ -44,3 +45,20 @@ def test_dry_run_forbids_heldout_and_grouped_scores() -> None:
     assert payload["grouped_scores_read"] is False
     assert payload["original_enqueued_trial_zero"] is True
     assert payload["accelerator"] == "mlx"
+
+
+def test_trial4_fresh_seed_rescue_is_locked_and_inner_only() -> None:
+    assert fresh.FRESH_SEEDS == (20260635, 20260636, 20260637, 20260638, 20260639)
+    assert fresh.TRIAL4_PARAMS["hidden"] == 96
+    assert fresh.TRIAL4_PARAMS["max_epochs"] == 60
+    script = Path(fresh.__file__).resolve()
+    completed = subprocess.run(
+        [sys.executable, str(script), "--dry-run"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(completed.stdout)
+    assert payload["heldout_scores_read"] is False
+    assert payload["grouped_scores_read"] is False
+    assert payload["seed_20260627_deleted"] is False
