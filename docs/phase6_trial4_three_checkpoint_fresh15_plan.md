@@ -2,8 +2,15 @@
 
 ## Status
 
-Preregistered before training or reading blocked held-out scores for seeds
-`20260645`–`20260659`.
+Completed `60/60` rows on MLX and stopped fail-closed. Trial-4 checkpoint
+ensembling worked as a stabilization mechanism but lost to the matched original
+checkpoint ensemble: `0.2687444415` versus `0.2717155074`, with `2/5` paired
+wins. It gained `+0.0027137975` over the 15 Trial-4 single-checkpoint mean,
+reduced Trial-4 variability by `85.89%`, and beat AR in `5/5` by `+0.0087071701`.
+The original ensemble, a prespecified comparator, gained `+0.0044814318` over
+its 15 member mean and beat the AR ensemble by `+0.0116782360`; this is promising
+exploratory evidence, not a post-hoc promotion. Trial-4 control-complete followup
+was not authorized.
 
 ## Purpose
 
@@ -64,4 +71,3 @@ Failure stops before matched semantic controls or grouped evaluation. Passing
 authorizes only a separately frozen control-complete blocked confirmation. This
 experiment cannot change the canonical 420, revive 504/720, or support exact
 continuous forecasting.
-

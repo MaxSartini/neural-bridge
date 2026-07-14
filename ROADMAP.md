@@ -64,11 +64,12 @@ Open:
 - Robust multi-seed Optuna Stage A: 24 trials across five development seeds, checked on five reserved inner-validation seeds. Best candidate won `4/5` but was effectively tied on mean and worse on the robust objective; the planned 720-row held-out campaign stopped before Stage B.
 - Fresh-seed rescue selected trial 4 and passed inner-only Stage A2, but the 15-seed/8-lane blocked Stage B failed the untouched fresh-five held-out gate after `120/120` rows. Trial 4 was more stable and strongly controlled, but not reliably better; grouped Stage C was not run.
 - Fixed 50/50 original/Trial-4 fresh-five pilot: `20/20` blocked rows, positive versus original in `5/5` and AR in `5/5`, but only `+0.0001625` over Trial 4 and `7.21%` worse seed variability. Failed; no control-complete follow-up.
+- Fresh-15 three-checkpoint retraining: `60/60` rows. Trial 4 averaging stabilized strongly but lost to the matched original ensemble; original ensemble PR-AUC `0.2717155`, `+0.0116782` over AR. Promising comparator, not promoted.
 
 ## Next Work
 
 1. Treat same-family hyperparameter tuning as saturated; the canonical original remains the supported single configuration.
-2. Test true multi-checkpoint averaging across independently trained fresh seeds; the simple within-seed two-configuration blend is closed.
+2. Preregister a fresh control-complete blocked confirmation of the original three-checkpoint ensemble; do not retrofit the failed Trial-4 gates.
 3. Keep continuous arousal work separate from the confirmed binary event-ranking claim.
 4. Do not restart broad secondary-head, all-target, or architecture-zoo sweeps without a narrow diagnostic reason.
 5. Treat the historical literal 504 matrix as obsolete; do not recreate it or invent rows to reach 504.

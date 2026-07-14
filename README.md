@@ -201,7 +201,7 @@ The current deterministic validation command is:
 python3 -m pytest -q tests
 ```
 
-Latest results on `2026-07-14`: the fully provisioned backend passed `129` tests, including the real-package research-tooling, locked 10-seed Optuna confirmation, robust multi-seed/fresh-seed/blocked Stage B, fixed-blend, and explicitly post-hoc diagnostic contracts. The default `npm run verify` environment passed `121` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
+Latest results on `2026-07-14`: the fully provisioned backend passed `133` tests, including the checkpoint-ensemble contracts. The default `npm run verify` environment passed `125` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
 
 Future experiment infrastructure now uses the real upstream Optuna, Polars, MLflow, and SHAP packages behind leakage/provenance and Apple-accelerator contracts. Optuna objectives must attest MLX/MPS execution, MLflow records the verified accelerator and full run provenance, Polars hands numeric query results directly to MLX, and official SHAP sends model prediction batches through MLX. Setup, exact device boundaries, and the end-to-end verifier are documented in [docs/research_tooling_integrations.md](docs/research_tooling_integrations.md). These integrations are exploratory tooling and do not alter the canonical 420-row result.
 
@@ -231,3 +231,5 @@ The approved [full bounded 420-row selected-head confirmation](docs/phase5_selec
 A later preregistered fixed 50/50 original/Trial-4 blend completed `20/20` rows on five additional fresh seeds. It beat original in `5/5` and AR in `5/5`, but its `+0.0001625` gain over Trial 4 was below the locked threshold and variability increased by `7.21%`; the pilot failed and was not scaled. The next stabilization hypothesis must average independently trained checkpoints across seeds rather than merely blending two configurations within the same seed.
 
 This is rare favorable-original checkpoint sensitivity, not a broad seed failure: most paired differences were small, but seeds `20260627` and `20260636` produced unusually large original-model advantages that can dominate arithmetic means.
+
+True three-checkpoint retraining on 15 further untouched seeds established that checkpoint averaging is useful, but the canonical original recipe—not Trial 4—benefited most. Trial 4 ensembles reached `0.2687444`, reduced variability by `85.89%`, and beat AR in `5/5`; matched original ensembles reached `0.2717155` and beat Trial 4 in `3/5`. The original ensemble is promising exploratory evidence pending a fresh control-complete confirmation.
