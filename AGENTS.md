@@ -12,6 +12,8 @@
 
 - Use `AGENTS.md` and the current canonical artifacts below as the small always-loaded handoff.
 - Use MemPalace only when a task depends on earlier conversations, decisions, paths, or unfinished work. Recall the smallest relevant set (normally 3-5 results); never inject or summarize whole transcripts by default.
+- For routine handoff, never run a full-project or full-evidence MemPalace mine. Update the canonical files, then add or update one compact `neural_bridge/handoff/current_state` drawer containing the clean Git commit, current claim, decisive metrics, canonical paths, boundaries, and next task; verify it with one top-3 recall query. This is the default seconds-to-one-minute path.
+- Reserve a full MemPalace corpus mine for an explicitly authorized structural rebuild of the evidence corpus or conversation archive. Scope it to the changed directory where possible; do not block ordinary result/documentation handoff on re-embedding the historical evidence tree.
 - Keep `codebase-memory-mcp` for structural code discovery and call/path tracing. MemPalace history and its entity graph do not replace the code knowledge graph.
 - Current files and executable evidence override MemPalace whenever they conflict. Save durable claim changes to canonical repo files before treating historical memory as updated.
 - Use RTK-compressed shell output and targeted snippets to avoid spending context on raw logs or large files.
