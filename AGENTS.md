@@ -9,7 +9,7 @@
 
 ## Current Claim
 
-Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.
+Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.
 
 VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal. AGAIN replicated, scaled, validated, and strengthened it using 995 videos, 2 Hz dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
@@ -22,6 +22,8 @@ Beating AR is the core technical hurdle. AR is recent/past arousal persistence, 
 Terminology: `AR-only baseline` is a standalone autoregressive comparison lane. `Frozen AR` is a seed- or fold-specific AR-only score/logit fixed before residual/control training and reused identically across real and matched controls inside that seed/fold. It may be reused from an existing compatible AR checkpoint/score or newly trained for that exact seed/fold when missing.
 
 Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict.
+
+The deterministic Phase 5 eval-mode `regression_plus_binary` lane also passed its grouped continuous-ranking/lift gate. Across 15 grouped fold-seed evaluations, real future-movement Spearman was `0.2232222830` versus AR-only `0.1982207591`, `ar_plus_shuffled_pca` `0.1938183619`, and `ar_plus_random_pca` `0.1931781163`; real top-1% average-true-movement lift was `0.1359465244` versus `0.1115815364`, `0.1125842464`, and `0.1136304212`, respectively. This proves controlled grouped continuous future-movement ranking/lift for that lane. It does not prove exact continuous values or blocked continuous generalization: the old fused blocked lane lost to AR/controls, and the later washout continuous diagnostic improved Spearman but failed its full top-5%/seed-consistency gate.
 
 Do not claim:
 
@@ -55,7 +57,7 @@ Canonical blocked temporal binary confirmation:
 Canonical updated grouped compatibility verdict:
 `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 
-Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. Raw predicted cortical/fMRI features alone were weak; the Neural Bridge pipeline makes the difference. The old fused AGAIN lane passed grouped eval-mode controls but failed blocked AR/control checks; frozen-AR residual and temporal/event-context residual designs established the current design path. The redesigned washout-gap target/head beats the strong AR persistence baseline, passes blocked temporal confirmation, and passes updated grouped-video compatibility. Continuous exact arousal forecasting and broad universal temporal prediction remain open.
+Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. Raw predicted cortical/fMRI features alone were weak; the Neural Bridge pipeline makes the difference. The old fused AGAIN lane passed grouped event and continuous future-movement ranking/lift controls but failed blocked AR/control checks; frozen-AR residual and temporal/event-context residual designs established the current design path. The redesigned washout-gap target/head beats the strong AR persistence baseline, passes blocked temporal confirmation, and passes updated grouped-video compatibility. Exact continuous-value forecasting, blocked continuous generalization, and broad universal temporal prediction remain open; do not erase the grouped continuous-ranking/lift pass when stating those boundaries.
 
 ## Commercial Language
 
@@ -115,6 +117,10 @@ AGAIN eval-mode and frozen-AR design path:
 - eval-mode grouped best matched control `ar_plus_shuffled_pca` PR-AUC: `0.2042740689`
 - eval-mode grouped real-minus-control delta: `+0.0257898694`
 - eval-mode grouped fold-seed delta: positive in `15/15`
+- eval-mode grouped continuous ranking/lift pass: true
+- eval-mode grouped future-movement Spearman real / AR-only / shuffled / random: `0.2232222830` / `0.1982207591` / `0.1938183619` / `0.1931781163`
+- eval-mode grouped top-1% average-true-movement lift real / AR-only / shuffled / random: `0.1359465244` / `0.1115815364` / `0.1125842464` / `0.1136304212`
+- continuous boundary: grouped future-movement ranking/lift passed; old fused blocked continuous ranking did not beat AR/controls; later washout continuous Spearman improved but the full continuous gate failed
 - frozen-AR residual grouped frozen AR PR-AUC: `0.2246816187`
 - frozen-AR residual grouped best real residual PR-AUC: `0.2383409298`
 - frozen-AR residual grouped matched control PR-AUC: `0.2248361805`

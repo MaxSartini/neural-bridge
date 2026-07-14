@@ -1,5 +1,5 @@
 {
-  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.",
+  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.",
   "datasets": {
     "VEATIC-124 v2": {
       "role": "foundational evidence",
@@ -43,16 +43,39 @@
     "VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal.",
     "AGAIN replicated and extended the result at scale.",
     "Bounded strict forward-time future-event ranking is proven on AGAIN for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
-    "Grouped held-out-video compatibility for the same AGAIN target/head is proven under the updated frozen-AR-residual-aware verdict."
+    "Grouped held-out-video compatibility for the same AGAIN target/head is proven under the updated frozen-AR-residual-aware verdict.",
+    "Controlled grouped held-out-video continuous future-arousal movement ranking/lift is proven on AGAIN for the deterministic Phase 5 eval-mode regression_plus_binary lane against AR-only and matched shuffled/random controls."
   ],
   "open": [
-    "Continuous exact arousal forecasting remains open.",
+    "Exact continuous-value/trajectory forecasting remains open.",
+    "Blocked continuous future-movement generalization remains open.",
     "Broad all-target/all-dataset temporal prediction remains open.",
     "No 504 run has been performed or promoted.",
     "Grouped compatibility is not itself a 504 run.",
     "The updated grouped verdict is a no-training verdict update from existing artifacts, not a rerun."
   ],
   "canonical_numbers": {
+    "again_grouped_continuous_future_movement_ranking": {
+      "target": "arousal_spike_rows_2_6_train_q90 with continuous future-movement output",
+      "protocol": "grouped_video",
+      "model_head": "gated_ar_pca_mlp",
+      "loss": "regression_plus_binary",
+      "fold_seed_evaluations": 15,
+      "continuous_ranking_lift_pass": true,
+      "future_movement_spearman": {
+        "real": 0.223222283,
+        "ar_only": 0.1982207591,
+        "ar_plus_shuffled_pca": 0.1938183619,
+        "ar_plus_random_pca": 0.1931781163
+      },
+      "top_1pct_average_true_movement_lift": {
+        "real": 0.1359465244,
+        "ar_only": 0.1115815364,
+        "ar_plus_shuffled_pca": 0.1125842464,
+        "ar_plus_random_pca": 0.1136304212
+      },
+      "boundary": "Controlled grouped continuous future-movement ranking/lift passed; exact continuous values and blocked continuous generalization remain open."
+    },
     "again_blocked_binary_big_confirmation": {
       "target": "future_arousal_max_delta_rows_4_10_train_q90",
       "protocol": "blocked_temporal_70_30",
@@ -129,6 +152,9 @@
     "docs/veatic_v2_evidence_summary.md",
     "docs/again_dense_h100_cache.md",
     "reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md",
+    "evidence/current_phase_5_5_review/07_again_phase_5_0_evalmode_primary/evalmode_rescore_bundle/metrics/evalmode_continuous_metrics.csv",
+    "evidence/current_phase_5_5_review/07_again_phase_5_0_evalmode_primary/evalmode_rescore_bundle/metrics/evalmode_top_percent_metrics.csv",
+    "evidence/current_phase_5_5_review/07_again_phase_5_0_evalmode_primary/evalmode_rescore_bundle/promotion/evalmode_corrected_promotion_gates.json",
     "reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md",
     "reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md",
     "reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md",
@@ -145,7 +171,7 @@
   ],
   "do_not_claim": [
     "mind reading",
-    "continuous arousal forecasting is solved",
+    "blocked continuous future-movement generalization is solved",
     "universal emotion prediction",
     "504 proven",
     "exact continuous arousal forecasting is solved",
@@ -153,7 +179,7 @@
     "treat Phase 5b/5c/Spark/max-capacity/deep/chimera outputs as canonical",
     "use holy_shit_pass as a valid gate"
   ],
-  "last_updated": "2026-06-30",
+  "last_updated": "2026-07-14",
   "review_evidence_dossier": {
     "path": "evidence/current_phase_5_5_review/",
     "claim_ledger": "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",

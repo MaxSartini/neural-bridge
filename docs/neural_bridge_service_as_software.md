@@ -218,12 +218,14 @@ Proven:
 - VEATIC future arousal event/spike ranking beyond AR and controls
 - AGAIN bounded strict forward-time future-event ranking for the redesigned washout-gap target/head
 - AGAIN grouped-video compatibility for the same target/head
+- AGAIN controlled grouped continuous future-arousal movement ranking/lift beyond AR-only and matched shuffled/random controls in the deterministic eval-mode lane
 - evidence that predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data contain future human-response event signal beyond AR and matched controls
 - evidence that the bridge beats the strong AR persistence baseline, not just weak controls
 
 Open:
 
-- continuous exact arousal forecasting
+- exact continuous-value/trajectory forecasting
+- blocked continuous future-movement generalization
 - broad all-target/all-dataset temporal prediction
 - individual-level prediction
 - medical or diagnostic use
@@ -232,7 +234,7 @@ Open:
 
 Precise claim wording:
 
-> Bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap target/head. Broader continuous forecasting and all-target/all-dataset temporal prediction remain open.
+> Bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap target/head, and controlled grouped continuous future-movement ranking/lift is proven for the deterministic eval-mode lane. Exact continuous values, blocked continuous generalization, and all-target/all-dataset temporal prediction remain open.
 
 ## Why The Technical Result Supports The Business
 

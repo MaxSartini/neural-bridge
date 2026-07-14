@@ -116,10 +116,10 @@ AGAIN has since progressed beyond cache readiness and raw-cortical Phase 3 diagn
 
 - Blocked temporal binary confirmation: `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual`, real PR-AUC `0.2670735630`, frozen AR `0.2602336231`, best control `0.2593369051`, strong confirmation true, failed gates `[]`.
 - Updated grouped compatibility: same target/head, real PR-AUC `0.2313831909`, AR/frozen `0.2174953276`, best matched control `0.2174209937`, fold-seed positives vs best control `50/50`, updated grouped compatibility pass true.
-- Phase 5 eval-mode correction: grouped real PR-AUC `0.2300639382`, best matched control `0.2042740689`, delta `+0.0257898694`, fold-seed positive `15/15`.
+- Phase 5 eval-mode correction: grouped real PR-AUC `0.2300639382`, best matched control `0.2042740689`, delta `+0.0257898694`, fold-seed positive `15/15`; grouped continuous future-movement ranking/lift also passed, with real Spearman `0.2232222830` vs AR-only `0.1982207591`, shuffled `0.1938183619`, and random `0.1931781163`.
 - Frozen-AR residual design: grouped frozen AR `0.2246816187`, best real residual `0.2383409298`, best matched residual control `0.2248361805`, delta vs AR `+0.0136593110`, delta vs control `+0.0135047493`.
 
-Current claim boundary: bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap target/head. Continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open. No 504 run has been performed or promoted.
+Current claim boundary: bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap target/head, and controlled grouped continuous future-movement ranking/lift is proven for the deterministic eval-mode lane. Exact continuous values, blocked continuous generalization, and broad all-target/all-dataset temporal prediction remain open. No 504 run has been performed or promoted.
 
 ## Local Audit Notes
 
