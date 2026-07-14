@@ -4,6 +4,14 @@ Status: preregistered planning-only on `2026-07-14`. Stage 0 permits manifests,
 dry runs, and contract tests only. No model fitting, teacher-score generation,
 held-out scoring, or claim promotion is authorized by this document.
 
+Stage 0 execution record on `2026-07-14`: the real `995`-video / `243,575`-row
+substrate passed all target, split, feature-policy, cold-start, event-support,
+and matrix contracts. The exact dry-run matrices are `96/96` for Stage A and
+`140/140` for Stage B; failed contracts were `[]`. Evidence is frozen in
+`evidence/zero_label_video_only_deployment_stage0_20260714/`. No model was fit,
+no teacher scores were generated, no held-out predictions were scored, and
+Stage A remains unauthorized.
+
 Pre-implementation amendment on `2026-07-14`: before Stage 0 implementation,
 model fitting, teacher-score generation, or held-out scoring, training-q90 event
 PR-AUC was promoted from report-only to a required deployment endpoint. The
@@ -82,8 +90,12 @@ preregistration version and a newly matched teacher ceiling.
 
 - Dataset: AGAIN only, all 995 videos available in the current dense substrate.
 - Frozen inputs: existing 2 Hz predicted cortical/fMRI response features,
-  fold-safe `temporal_mean_2s` PCA256 scores, and the 53 video-derived V-JEPA
-  temporal-diagnostic values.
+  the fixed fold-safe `temporal_mean_2s` / PCA256 recipe, and the 53
+  video-derived V-JEPA temporal-diagnostic values. Stage 0 confirmed that old
+  fold-specific PCA score matrices occupy different coordinate systems and
+  cannot be concatenated for the new split; later PCA bases must be fit only on
+  the applicable outer training pool, and nested teacher PCA bases only on the
+  corresponding teacher-training partition.
 - No V-JEPA/TRIBE re-encoding, dense-cache mutation, VEATIC re-encode, joint
   training, additional target, or PCA-width search.
 - Hardware for later fitting: MLX GPU/MPS required; no silent CPU fallback.

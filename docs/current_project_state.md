@@ -117,12 +117,13 @@ Historical Phase 5/5.5 and Phase 6 reports remain valid evidence for the develop
 ## Current Next Work
 
 1. Follow `docs/zero_label_video_only_deployment_bridge_pilot_preregistration.md`.
-2. Stage 0 is contracts/manifests/dry-run accounting only; do not fit or score a model.
-3. Resolve and checksum the Phase 7 grouped target-name/value-array identity before fitting, using a dedicated video-only block with no AR arrays.
-4. Treat continuous Spearman, top-5% lift, and training-q90 event PR-AUC as jointly required deployment endpoints: all must beat zero-label controls and retain at least `50%` of the teacher's incremental gain over the no-video anchor. This does not demand equality with the privileged Phase 7 AR-assisted teacher.
-5. Stage A (`96/96`) and Stage B (`140/140`) each require separate authorization and cold-start inference with no observed-arousal teacher forcing.
-6. If the bridge passes, consider a bounded V-JEPA 2.1 VEATIC re-encode pilot and balanced VEATIC+AGAIN joint-training study with harmonized targets and leave-one-domain-out evaluation.
-7. Do not resume same-family Optuna, recreate 504, or launch an architecture zoo without a new locked hypothesis.
+2. Stage 0 passed on `995` videos / `243,575` rows with failed contracts `[]`; canonical evidence is `evidence/zero_label_video_only_deployment_stage0_20260714/`. It performed no fitting, teacher generation, held-out scoring, or claim promotion.
+3. The raw future-movement target identity is now frozen at digest `446906dff30be33f204de0f973207975`; the `696/299` development/locked split digests are `cf65a766cd827e6201544dd753049cb4` / `ded8bc2bf079fef91ae5c253b9a9ac2e`.
+4. Old Phase 7 fold-specific PCA score matrices must not be concatenated across the new split. Keep the fixed `temporal_mean_2s` / PCA256 recipe, but fit each basis only inside the applicable outer training pool and each teacher basis inside its nested teacher-training partition.
+5. Treat continuous Spearman, top-5% lift, and training-q90 event PR-AUC as jointly required deployment endpoints: all must beat zero-label controls and retain at least `50%` of the teacher's incremental gain over the no-video anchor. This does not demand equality with the privileged Phase 7 AR-assisted teacher.
+6. Stage A (`96/96`) remains unauthorized; Stage B (`140/140`) requires a second later authorization. Both require cold-start inference with no observed-arousal teacher forcing.
+7. If the bridge later passes, consider a bounded V-JEPA 2.1 VEATIC re-encode pilot and balanced VEATIC+AGAIN joint-training study with harmonized targets and leave-one-domain-out evaluation.
+8. Do not resume same-family Optuna, recreate 504, or launch an architecture zoo without a new locked hypothesis.
 
 ## Validation and Handoff
 

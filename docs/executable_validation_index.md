@@ -6,7 +6,7 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
 - Fully provisioned result: `150 passed in 34.06s` on `2026-07-14`
-- Default `npm run verify` result: `142 passed, 1 skipped in 30.38s` on `2026-07-14`
+- Default `npm run verify` result: `164 passed, 1 skipped in 33.60s` on `2026-07-14`
 - Repo evidence/orientation audit: `npm run audit:repo`
 - Latest local result: `repo_readiness pass controlled_evidence_items=206` on `2026-07-14`
 - Full `npm run verify`, VEATIC frozen-evidence verification, strict-benchmark dry run, and frontend production build: pass on `2026-07-14`
@@ -16,6 +16,7 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 
 | Phase | Script | Role |
 | --- | --- | --- |
+| AGAIN deployment Stage 0 | `backend/scripts/run_again_dense_2hz_zero_label_deployment_stage0.py` | Planning-only contract freeze for the raw target, `696/299` prospective split, nested teacher ownership, video-only feature policy, and exact future `96 + 140` matrices; performs no fitting or scoring. |
 | AGAIN Phase 7 grouped continuous checkpoint ensemble | `backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped.py` | Claim-bearing fresh `420/420` grouped-video confirmation of continuous future-movement ranking/lift; all 15 fold-groups beat AR and matched controls on Spearman and top-5% lift. |
 | AGAIN Phase 7 blocked continuous checkpoint ensemble | `backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm.py` | Fresh `140/140` blocked confirmation with strong aggregate lift but a literal 4/5 Spearman-vs-AR group gate; remains an unpromoted near-pass. |
 | AGAIN Phase 7 continuous checkpoint ensemble diagnostic | `backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic.py` | Initial `84/84` bounded diagnostic that passed ranking/lift gates and kept exact-value gates separate. |
@@ -49,6 +50,7 @@ The tests under `tests/` are synthetic or contract-level checks. They do not tra
 
 Key coverage:
 
+- Zero-label deployment Stage 0 contracts: `test_again_zero_label_deployment_stage0.py` protects the prospective split digests, nested teacher exclusion, raw target identity, incompatible-PCA reuse ban, video-only inference block, causal row-0 cold start, rollout provenance, prediction-before-label seal, event support, and exact `96 + 140` dry-run matrices.
 - Split and target leakage contracts: `test_grouped_video_split.py`, `test_again_dense_2hz_benchmark.py`, `test_again_native_temporal_alignment.py`
 - AGAIN dense/Phase 4 contracts: `test_again_dense_2hz_phase4_pca_bridge.py`, `test_again_boundary_manifest.py`, `test_again_full_ar_context.py`
 - AGAIN selected-head confirmation contracts: `test_again_selected_head_420_confirmation.py` protects the exact 420-key matrix, lane normalization, semantic controls, frozen checksum policy, and overall gate composition.
@@ -84,6 +86,7 @@ Key coverage:
 - Phase 7 continuous diagnostic report: `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513.md`.
 - Phase 7 blocked continuous near-pass report: `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md`.
 - Promoted Phase 7 grouped continuous evidence: `evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/`.
+- Zero-label deployment Stage 0 contract snapshot: `evidence/zero_label_video_only_deployment_stage0_20260714/`.
 - Heavy output roots under `outputs/`, dense cache files, checkpoints, tensors, `.npy`, `.npz`, and model assets remain outside git unless explicitly documented as tiny metadata.
 
 ## Non-Claim Runtime Probes

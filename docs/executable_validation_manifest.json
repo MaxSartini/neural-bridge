@@ -28,6 +28,24 @@
   },
   {
     "family": "AGAIN",
+    "phase": "Deployment Stage 0",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_zero_label_deployment_stage0.py",
+    "canonical_status": "planning_contract_freeze",
+    "reviewer_role": "Freezes the 995-video target/split/feature-policy contracts and exact 96 + 140 dry-run matrices without fitting or scoring.",
+    "validation_or_evidence": "evidence/zero_label_video_only_deployment_stage0_20260714/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Deployment Stage 0",
+    "item_type": "test",
+    "path": "tests/test_again_zero_label_deployment_stage0.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Protects prospective split ownership, nested teacher cross-fit exclusion, video-only inference schema, causal cold start, rollout provenance, event support, and fail-closed matrix accounting.",
+    "validation_or_evidence": "npm run verify:deployment-stage0"
+  },
+  {
+    "family": "AGAIN",
     "phase": "Phase 7 grouped continuous",
     "item_type": "script",
     "path": "backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped.py",

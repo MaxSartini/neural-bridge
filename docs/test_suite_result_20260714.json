@@ -2,9 +2,9 @@
   "date": "2026-07-14",
   "command": "npm run verify",
   "result": "pass",
-  "tests_passed": 142,
+  "tests_passed": 164,
   "tests_failed": 0,
-  "pytest_duration_seconds": 30.38,
+  "pytest_duration_seconds": 33.6,
   "underlying_test_command": "python3 -m pytest -q tests",
   "repo_readiness": "pass",
   "veatic_evidence_verify": "pass",
@@ -13,5 +13,5 @@
   "fully_provisioned_command": "backend/.venv/bin/python -m pytest -q tests",
   "fully_provisioned_tests_passed": 150,
   "fully_provisioned_duration_seconds": 34.06,
-  "notes": "The default npm run verify passed 142 tests and skipped one optional research-tooling test; repository audit, strict benchmark dry run, and frontend build passed. The fully provisioned backend separately passed 150 tests, including Phase 7 grouped continuous contracts. Deterministic contracts and repository/evidence/build validation only; the Phase 7 grouped training/scoring run executed separately on MLX Device(gpu, 0), reused audited fold-safe PCA, and did not rerun V-JEPA/TRIBE, refit PCA, or run 504."
+  "notes": "The refreshed default npm run verify passed 164 tests and skipped one optional research-tooling test; repository audit, strict benchmark dry run, and frontend build passed. This includes 22 new deterministic zero-label deployment Stage 0 contracts. The fully provisioned backend's most recent separate run remains 150 tests before those Stage 0 tests were added. Stage 0 generated manifests and dry-run accounting only: it did not fit a model, generate teacher scores, score held-out predictions, rerun V-JEPA/TRIBE, or authorize Stage A."
 }
