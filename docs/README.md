@@ -50,7 +50,7 @@ Exact trajectory values, a formal blocked Phase 7 continuous pass, and label-fre
 
 ## Next Task
 
-The next bounded research task is a video-only deployment bridge: distill or roll out the Phase 7 signal without observed-arousal inputs, then evaluate from cold start on held-out videos with no teacher forcing.
+The next bounded research task is the planning-only Stage 0 in `zero_label_video_only_deployment_bridge_pilot_preregistration.md`: freeze the target/split/feature-policy manifests and executable leakage/cold-start contracts. It preregisters a later `96/96` development screen and separately authorized `140/140` locked confirmation; no training has started.
 
 A V-JEPA 2.1 VEATIC re-encode and balanced VEATIC+AGAIN joint-training pilot is a strong later option, particularly for cross-domain stability of the video-only student. It should be gated by a smaller harmonized pilot before full re-encoding.
 

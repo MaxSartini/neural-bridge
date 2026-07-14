@@ -116,11 +116,12 @@ Historical Phase 5/5.5 and Phase 6 reports remain valid evidence for the develop
 
 ## Current Next Work
 
-1. Freeze a bounded video-only deployment-bridge protocol using the Phase 7 model as teacher.
-2. Evaluate from cold start on held-out videos with no observed-arousal teacher forcing.
-3. Compare against video-only, static-video, self-rollout, and persistence controls.
-4. If the bridge is promising, run a bounded V-JEPA 2.1 VEATIC re-encode pilot and balanced VEATIC+AGAIN joint-training study with harmonized targets and leave-one-domain-out evaluation.
-5. Do not resume same-family Optuna, recreate 504, or launch an architecture zoo without a new locked hypothesis.
+1. Follow `docs/zero_label_video_only_deployment_bridge_pilot_preregistration.md`.
+2. Stage 0 is contracts/manifests/dry-run accounting only; do not fit or score a model.
+3. Resolve and checksum the Phase 7 grouped target-name/value-array identity before fitting, using a dedicated video-only block with no AR arrays.
+4. Stage A (`96/96`) and Stage B (`140/140`) each require separate authorization and cold-start inference with no observed-arousal teacher forcing.
+5. If the bridge passes, consider a bounded V-JEPA 2.1 VEATIC re-encode pilot and balanced VEATIC+AGAIN joint-training study with harmonized targets and leave-one-domain-out evaluation.
+6. Do not resume same-family Optuna, recreate 504, or launch an architecture zoo without a new locked hypothesis.
 
 ## Validation and Handoff
 

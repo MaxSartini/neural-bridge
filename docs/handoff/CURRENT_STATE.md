@@ -34,7 +34,11 @@ Both codebase-memory projects are ready: internal repo and external SSD heavy-ar
 
 ## Next Task
 
-Run a bounded zero-label video-only deployment-bridge pilot using the Phase 7 teacher signal. Evaluation must forbid observed-arousal teacher forcing. A harmonized V-JEPA 2.1 VEATIC + AGAIN pilot is the later cross-domain option, not an automatic full re-encode.
+The bounded zero-label protocol is now preregistered in `docs/zero_label_video_only_deployment_bridge_pilot_preregistration.md`. This planning turn did not train or score a model. Stage 0 is limited to target/split/feature-policy manifests, dry-run matrix accounting, and executable leakage/cold-start contracts; Stage A still requires explicit authorization.
+
+The Stage 0 target-identity audit is mandatory. The current grouped Phase 7 runner relabels a block as `residual_future_max_delta_rows_4_10` while retaining continuous arrays built from `future_arousal_max_delta_rows_4_10`. The deployment pilot therefore locks the actual like-for-like raw future-movement value column and must checksum builder/scorer identity before fitting. This is a semantic contract finding, not a retroactive change to the Phase 7 grouped pass.
+
+The preregistered path is a `96/96` development screen of teacher distillation and strict self-rollout, followed only after a locked-winner authorization by a `140/140` prospectively locked deployment-pilot confirmation. All 995 AGAIN videos have historical benchmark exposure; the 299-video subset is locked only prospectively for this new method. A harmonized V-JEPA 2.1 VEATIC + AGAIN pilot remains the later cross-domain option, not an automatic full re-encode.
 
 ## Fast Handoff Rule
 

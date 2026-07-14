@@ -104,17 +104,21 @@
     "The updated grouped verdict is a no-training verdict update from existing artifacts, not a rerun."
   ],
   "next_task": {
-    "status": "deployment_bridge_pending",
-    "plan": "docs/phase7_continuous_checkpoint_ensemble_grouped_preregistration.md",
-    "objective": "Phase 7 grouped continuous checkpoint-ensemble confirmation completed and promoted; next bounded hypothesis is a video-only student or cold-start/self-rollout bridge that removes observed arousal context from client inference.",
+    "status": "deployment_bridge_preregistered_no_training",
+    "plan": "docs/zero_label_video_only_deployment_bridge_pilot_preregistration.md",
+    "objective": "Execute Stage 0 contracts only: freeze a video-only target/split/feature-policy implementation that removes observed arousal from every held-out inference row. No training or scoring is authorized yet.",
     "expected_rows": {
-      "member": 315,
-      "ensemble": 105,
-      "total": 420
+      "stage_a_member": 72,
+      "stage_a_ensemble": 24,
+      "stage_a_total": 96,
+      "stage_b_member": 105,
+      "stage_b_ensemble": 35,
+      "stage_b_total": 140
     },
-    "reuse_policy": "The Phase 7 grouped run freshly trained model and target-specific AR lanes for nine untouched seeds in each grouped fold; only the previously audited fold-safe grouped PCA substrate was reused.",
+    "reuse_policy": "Reuse only the frozen dense predicted cortical/fMRI feature cache, audited fold-safe PCA substrate, and fixed Phase 7 teacher recipe. The canonical Phase 7 output snapshot has no reusable row-level teacher cache/checkpoints, so later teacher targets must be regenerated strictly inside each deployment training split with new provenance; held-out teacher scores remain ceiling-only.",
+    "target_identity_boundary": "Before fitting, a dedicated audit must prove that target name, value column, mask, row IDs, and array digests agree. The current Phase 7 grouped runner labels the block residual_future_max_delta_rows_4_10 while its grouped continuous arrays come from future_arousal_max_delta_rows_4_10; the pilot locks the actual like-for-like raw future-movement column.",
     "historical_504_boundary": "The literal 504 matrix was an older 3-seed x 4-variant x 7-lane development design across one blocked split and five grouped folds. It is not the current task and is not 420 current rows plus 84 missing rows.",
-    "stop_boundary": "Do not reinterpret the blocked 4/5 near-pass, claim exact continuous values, equate benchmark teacher-forced AR context with label-free client deployment, restore 504, or begin a deployment-bridge sweep without a locked protocol."
+    "stop_boundary": "Do not train during Stage 0; Stage A and Stage B each require separate authorization. Do not reinterpret the blocked 4/5 near-pass, claim exact continuous values, equate the AR-assisted ceiling with label-free client deployment, call the prospectively locked AGAIN subset historically untouched, restore 504, or widen this into a deployment-bridge sweep."
   },
   "canonical_numbers": {
     "again_original_three_checkpoint_blocked_confirmation": {
