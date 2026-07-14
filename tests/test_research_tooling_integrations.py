@@ -84,6 +84,29 @@ def test_optuna_objective_runs_on_mlx_and_records_split_contract() -> None:
     )
 
 
+def test_optuna_enqueues_prespecified_baseline_first() -> None:
+    spec = TrainOnlyStudySpec(
+        study_name="neural-bridge-enqueued-baseline-test",
+        n_trials=1,
+        sampler_seed=17,
+        accelerator_backend="mlx",
+        load_if_exists=False,
+        initial_trials=({"scale": 0.75},),
+    )
+
+    def objective(trial, _train_indices, _validation_indices):
+        return AcceleratedObjectiveResult(trial.suggest_float("scale", 0.0, 1.0), "mlx")
+
+    study = run_train_only_study(
+        spec,
+        objective,
+        inner_train_indices=[0, 1],
+        inner_validation_indices=[2],
+    )
+
+    assert study.trials[0].params["scale"] == pytest.approx(0.75)
+
+
 def test_optuna_rejects_split_overlap() -> None:
     spec = TrainOnlyStudySpec("overlap", 1, 1, "mlx", load_if_exists=False)
     with pytest.raises(ValueError, match="overlap"):

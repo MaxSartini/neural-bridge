@@ -533,12 +533,25 @@ def feature_pack_for(
 
 
 class TemporalResidualHead(base.nn.Module):
-    def __init__(self, input_dim: int, architecture: str, *, hidden: int = 64, sequence_window: int = 0, sequence_channels: int = 0):
+    def __init__(
+        self,
+        input_dim: int,
+        architecture: str,
+        *,
+        hidden: int = 64,
+        sequence_window: int = 0,
+        sequence_channels: int = 0,
+        alpha_initial_logit: float = -4.0,
+        alpha_cap: float = 0.12,
+        gate_bias: float = 4.0,
+    ):
         super().__init__()
         self.architecture = architecture
         self.sequence_window = int(sequence_window)
         self.sequence_channels = int(sequence_channels)
-        self.alpha = base.mx.array([-4.0], dtype=base.mx.float32)
+        self.alpha = base.mx.array([float(alpha_initial_logit)], dtype=base.mx.float32)
+        self.alpha_cap = float(alpha_cap)
+        self.gate_bias = float(gate_bias)
         self.gate = base.nn.Linear(input_dim, 1)
         self.conf_gate = base.nn.Linear(3, 1)
         if architecture == "short_temporal_conv_residual":
@@ -552,7 +565,7 @@ class TemporalResidualHead(base.nn.Module):
         self.out = base.nn.Linear(hidden, 2)
 
     def alpha_value(self) -> Any:
-        return base.mx.sigmoid(self.alpha) * 0.12
+        return base.mx.sigmoid(self.alpha) * self.alpha_cap
 
     def confidence_features(self, ar_score: Any) -> Any:
         return base.mx.concatenate(
@@ -565,7 +578,7 @@ class TemporalResidualHead(base.nn.Module):
         )
 
     def gate_value(self, x: Any, ar_score: Any) -> Any:
-        gate = base.mx.sigmoid(self.gate(x) - 4.0)
+        gate = base.mx.sigmoid(self.gate(x) - self.gate_bias)
         if self.architecture == "low_ar_confidence_temporal_residual":
             confidence_gate = base.mx.sigmoid(self.conf_gate(self.confidence_features(ar_score)))
             gate = gate * confidence_gate
@@ -661,16 +674,25 @@ def train_temporal_residual(
     batch_size: int,
     max_epochs: int,
     patience: int,
+    hyperparameters: dict[str, float | int] | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]], dict[str, Any]]:
     base.require_mlx()
     base.mx.random.seed(int(seed))
+    hp = dict(hyperparameters or {})
     model = TemporalResidualHead(
         pack.train_x.shape[1],
         architecture,
+        hidden=int(hp.get("hidden", 64)),
         sequence_window=int(pack.dims.get("sequence_window", 0)),
         sequence_channels=int(pack.dims.get("sequence_channels", 0)),
+        alpha_initial_logit=float(hp.get("alpha_initial_logit", -4.0)),
+        alpha_cap=float(hp.get("alpha_cap", 0.12)),
+        gate_bias=float(hp.get("gate_bias", 4.0)),
     )
-    optimizer = base.optim.AdamW(learning_rate=2e-4, weight_decay=1e-4)
+    optimizer = base.optim.AdamW(
+        learning_rate=float(hp.get("learning_rate", 2e-4)),
+        weight_decay=float(hp.get("weight_decay", 1e-4)),
+    )
     inner_train = block.inner_train
     inner_val = block.inner_val
     rng = np.random.default_rng(int(seed) + 10007 * (ARCHITECTURES.index(architecture) + 1) + 503 * (CONTROLS.index(control) + 1))
@@ -725,7 +747,11 @@ def train_temporal_residual(
             anchor = 0.03 * base.mx.mean((out[:, 0:1] - ar_r[:, None]) * (out[:, 0:1] - ar_r[:, None]))
             return reg_loss + anchor + 0.01 * base.mx.mean(model_obj.alpha_value() * model_obj.alpha_value())
         bce = base.nn.losses.binary_cross_entropy(out[:, 1:2], yb, with_logits=True)
-        return reg_loss + 0.5 * base.mx.mean(bce * wb) + 0.01 * base.mx.mean(model_obj.alpha_value() * model_obj.alpha_value())
+        return (
+            reg_loss
+            + float(hp.get("lambda_binary", 0.5)) * base.mx.mean(bce * wb)
+            + 0.01 * base.mx.mean(model_obj.alpha_value() * model_obj.alpha_value())
+        )
 
     loss_and_grad = base.nn.value_and_grad(model, loss_fn)
     for epoch in range(1, int(max_epochs) + 1):
@@ -863,6 +889,15 @@ def train_temporal_residual(
         "dropout_disabled": True,
         "label_policy": label_policy,
         "alpha_final": float(alpha_final),
+        "hyperparameters": {
+            "hidden": int(hp.get("hidden", 64)),
+            "learning_rate": float(hp.get("learning_rate", 2e-4)),
+            "weight_decay": float(hp.get("weight_decay", 1e-4)),
+            "alpha_initial_logit": float(hp.get("alpha_initial_logit", -4.0)),
+            "alpha_cap": float(hp.get("alpha_cap", 0.12)),
+            "gate_bias": float(hp.get("gate_bias", 4.0)),
+            "lambda_binary": float(hp.get("lambda_binary", 0.5)),
+        },
         "gate_mean": float(np.mean(gate)) if len(gate) else math.nan,
         "gate_p05": float(np.quantile(gate, 0.05)) if len(gate) else math.nan,
         "gate_p50": float(np.quantile(gate, 0.50)) if len(gate) else math.nan,

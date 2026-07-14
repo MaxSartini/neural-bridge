@@ -6,7 +6,7 @@ import hashlib
 import json
 import math
 from dataclasses import dataclass
-from typing import Any, Callable, Sequence
+from typing import Any, Callable, Mapping, Sequence
 
 from ._optional import require_upstream
 from .acceleration import require_accelerator
@@ -33,6 +33,7 @@ class TrainOnlyStudySpec:
     storage: str | None = None
     load_if_exists: bool = True
     timeout_seconds: float | None = None
+    initial_trials: tuple[Mapping[str, Any], ...] = ()
 
     def __post_init__(self) -> None:
         if not self.study_name.strip():
@@ -91,6 +92,9 @@ def run_train_only_study(
     study.set_user_attr("neural_bridge.accelerator_detail", accelerator.detail)
     study.set_user_attr("neural_bridge.inner_train_sha256", _index_digest(train))
     study.set_user_attr("neural_bridge.inner_validation_sha256", _index_digest(validation))
+    if not study.trials:
+        for params in spec.initial_trials:
+            study.enqueue_trial(dict(params))
 
     def guarded_objective(trial: Any) -> float:
         result = objective(trial, train, validation)
