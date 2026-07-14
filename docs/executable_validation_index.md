@@ -5,8 +5,8 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 ## Best Validation First
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
-- Fully provisioned result: `133 passed in 25.39s` on `2026-07-14`
-- Default `npm run verify` result: `125 passed, 1 skipped in 21.71s` on `2026-07-14`
+- Fully provisioned result: `136 passed in 26.26s` on `2026-07-14`
+- Default `npm run verify` result: `128 passed, 1 skipped in 22.87s` on `2026-07-14`
 - Repo evidence/orientation audit: `npm run audit:repo`
 - Latest local result: `repo_readiness pass controlled_evidence_items=206` on `2026-07-14`
 - Full `npm run verify`, VEATIC frozen-evidence verification, strict-benchmark dry run, and frontend production build: pass on `2026-07-14`
@@ -16,6 +16,7 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 
 | Phase | Script | Role |
 | --- | --- | --- |
+| AGAIN Phase 6 checkpoint ensemble confirmation | `backend/scripts/run_again_dense_2hz_phase6_original_three_checkpoint_control_complete.py` | Claim-bearing fresh `140/140` blocked confirmation of the original three-checkpoint ensemble against AR and all matched controls. |
 | AGAIN Phase 6 checkpoint ensemble | `backend/scripts/run_again_dense_2hz_phase6_trial4_three_checkpoint_fresh15.py` | Larger fresh-15 retraining with five fixed three-checkpoint groups; Trial 4 failed against matched original ensembles. |
 | AGAIN Phase 6 stabilization | `backend/scripts/run_again_dense_2hz_phase6_fixed_blend_fresh5.py` | Fixed-weight five-fresh-seed blocked pilot; failed locked gain/stability gates and stopped before controls. |
 | AGAIN Phase 6 robust optimization | `backend/scripts/run_again_dense_2hz_phase6_robust_multiseed_optuna.py` | Multi-seed, inner-validation-only Stage A; no blocked/grouped held-out read. |
@@ -52,6 +53,7 @@ Key coverage:
 - AGAIN robust Optuna contracts: `test_again_phase6_robust_multiseed_optuna.py` protects held-out exclusion, fresh-seed separation, MLX enforcement, explicit retention of seed `20260627`, Stage B gates, and fail-closed Stage C authorization.
 - AGAIN fixed-blend contracts: `test_again_phase6_fixed_blend_fresh5.py` protects untouched seeds, literal 50/50 weights, no viewed-score reuse or weight search, locked stability gates, and fail-closed follow-up authorization.
 - AGAIN checkpoint-ensemble contracts: `test_again_phase6_trial4_three_checkpoint_fresh15.py` protects 15 untouched seeds, disjoint fixed groups, exactly three aligned members, no member selection/weight search, and fail-closed audits.
+- AGAIN control-complete ensemble contracts: `test_again_phase6_original_three_checkpoint_control_complete.py` protects untouched seeds, fixed groups, full control scope, exact 140 rows, and fail-closed grouped authorization.
 - VEATIC v2 benchmark contracts: `test_veatic_strict_benchmark_contract.py`, `test_veatic_raw_representation_contract.py`
 - Frozen tensor/trained-head contracts: `test_veatic_frozen_tensor_adapter.py`, `test_veatic_frozen_tensor_trained_heads.py`
 - Runtime/cache contracts: `test_veatic_tribe_cache_runtime.py`, `test_mlx_vjepa21_cortical.py`
@@ -69,6 +71,7 @@ Key coverage:
 - Exploratory blocked Stage B evidence: `evidence/phase_6_trial4_blocked_15seed_20260714_145637/`.
 - Exploratory fixed-blend fresh-five evidence: `evidence/phase_6_fixed_blend_fresh5_20260714_153441/`.
 - Exploratory three-checkpoint fresh-15 evidence: `evidence/phase_6_trial4_three_checkpoint_fresh15_20260714_154602/`.
+- Promoted blocked three-checkpoint evidence: `evidence/phase_6_original_three_checkpoint_control_complete_20260714_160001/`.
 - Heavy output roots under `outputs/`, dense cache files, checkpoints, tensors, `.npy`, `.npz`, and model assets remain outside git unless explicitly documented as tiny metadata.
 
 ## Non-Claim Runtime Probes

@@ -2,8 +2,13 @@
 
 ## Status
 
-Preregistered before training or reading blocked held-out scores for seeds
-`20260660`–`20260674`.
+Completed and passed all locked gates on `2026-07-14`. Exactly `140/140` rows
+ran on MLX over untouched seeds `20260660`–`20260674`. Real ensemble PR-AUC was
+`0.2668905427` versus AR ensemble `0.2597235728` and best aggregate matched
+control `random_pca_residual` at `0.2589301730`. Deltas were `+0.0071669699`
+and `+0.0079603697`; all five groups were positive versus AR and their per-group
+best control. Real ensembling added `+0.0057164681` over the 15 member mean and
+won `5/5`. Failed gates were `[]`; fresh grouped confirmation is authorized.
 
 ## Candidate And Scope
 
@@ -46,4 +51,3 @@ Failure stops before grouped evaluation. A pass promotes only blocked
 control-complete evidence for this ensemble recipe and authorizes a separate
 fresh grouped confirmation plan. It does not alter the canonical 420 or broaden
 continuous claims.
-

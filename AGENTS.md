@@ -102,6 +102,17 @@ Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, 
 
 ## Current Numbers
 
+AGAIN original three-checkpoint blocked ensemble confirmation:
+
+- target/head: `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual`
+- matrix: `140/140` rows over 15 untouched seeds and five fixed groups
+- real / AR / best-control PR-AUC: `0.2668905427` / `0.2597235728` / `0.2589301730`
+- delta vs AR / best control: `+0.0071669699` / `+0.0079603697`
+- positive groups vs AR / per-group best control: `5/5` / `5/5`
+- ensemble uplift over 15 real members: `+0.0057164681`, positive `5/5`
+- blocked control-complete pass: true; failed gates: `[]`
+- boundary: grouped ensemble compatibility has not yet been run
+
 AGAIN full bounded selected-head confirmation:
 
 - target/head: `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual`
@@ -184,11 +195,13 @@ The preregistered fixed 50/50 original/Trial-4 fresh-five pilot then completed `
 
 The subsequent larger retraining used 15 untouched seeds in five fixed three-checkpoint groups (`60/60` rows). Trial-4 ensembling improved over its member mean by `+0.0027137975`, reduced variability by `85.89%`, and beat AR in `5/5`, but lost to the equally ensembled original recipe by `-0.0029710659` with only `2/5` wins. The prespecified original ensemble reached `0.2717155074`, `+0.0044814318` over its member mean and `+0.0116782360` over the AR ensemble. The Trial-4 candidate failed; the original ensemble is a promising comparator requiring a new fresh, control-complete confirmation before promotion.
 
+That fresh original three-checkpoint control-complete blocked confirmation has now passed. Across `140/140` rows on untouched seeds `20260660`–`20260674`, real ensemble PR-AUC was `0.2668905427` versus AR ensemble `0.2597235728` and best aggregate matched control `random_pca_residual` at `0.2589301730`. Real-minus-AR / best-control was `+0.0071669699` / `+0.0079603697`, all `5/5` groups were positive versus both, ensemble uplift over the 15 real members was `+0.0057164681`, and failed gates were `[]`. This promotes bounded blocked control-complete evidence for the original three-checkpoint ensemble and authorizes a separate fresh grouped confirmation; grouped ensemble compatibility is not yet proven.
+
 The real upstream Optuna, Polars, MLflow, and SHAP integrations are installed as the `research-tooling` backend extra and documented in `docs/research_tooling_integrations.md`. Run `npm run verify:research-tooling` to exercise all four with verified MLX GPU/MPS hardware. Their runs remain exploratory and cannot promote canonical evidence.
 
 ## Test And Script Validation
 
-`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the fully provisioned backend environment passed `133` tests, including the checkpoint-ensemble contracts. The default `npm run verify` environment passed `125` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
+`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the fully provisioned backend environment passed `136` tests, including the control-complete checkpoint-ensemble contracts. The default `npm run verify` environment passed `128` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
 
 Relevant AGAIN and VEATIC v2 runners, tests, benchmark artifacts, and runtime-only tools are indexed in `docs/executable_validation_manifest.csv` and mirrored under `evidence/current_phase_5_5_review/14_executable_validation_and_code/`. Do not add placeholder smoke tests as validation. Add tests only when they protect a real split, target, leakage, control, manifest, scorer, checkpoint, or claim-boundary contract.
 

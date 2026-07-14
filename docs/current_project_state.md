@@ -182,4 +182,4 @@ Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, 
 
 ## Next Work
 
-The approved bounded 420-row selected-head confirmation remains canonical. Trial 4 did not replace it. A fresh-15 larger retraining showed that three-checkpoint averaging materially improves both recipes: Trial 4 became highly stable and beat AR, but the equally ensembled original recipe was better (`0.2717155` vs `0.2687444`). This is promising exploratory evidence only. The next bounded task is a newly preregistered, fresh, control-complete blocked confirmation of the original three-checkpoint ensemble.
+The approved bounded 420-row selected-head confirmation remains canonical. Trial 4 did not replace it. The original three-checkpoint ensemble subsequently passed a fresh control-complete blocked confirmation on `140/140` rows: real `0.2668905`, AR `0.2597236`, best control `0.2589302`, with `5/5` groups positive versus both. This adds promoted bounded blocked ensemble evidence without rewriting the canonical 420. The next bounded task is a fresh grouped-video control-complete ensemble confirmation.
