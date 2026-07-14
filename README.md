@@ -201,7 +201,9 @@ The current deterministic validation command is:
 python3 -m pytest -q tests
 ```
 
-Latest local result on `2026-07-14`: `99 passed in 6.70s`; full `npm run verify` and VEATIC frozen-evidence verification passed.
+Latest results on `2026-07-14`: the fully provisioned backend passed `106` tests, including seven real-package research-tooling contracts; the lightweight system-Python suite passed `99` and skipped the single optional research-tooling module. The full `npm run verify`, repository readiness audit, strict-benchmark dry run, and frontend production build passed after the integration change.
+
+Future experiment infrastructure now uses the real upstream Optuna, Polars, MLflow, and SHAP packages behind leakage/provenance and Apple-accelerator contracts. Optuna objectives must attest MLX/MPS execution, MLflow records the verified accelerator and full run provenance, Polars hands numeric query results directly to MLX, and official SHAP sends model prediction batches through MLX. Setup, exact device boundaries, and the end-to-end verifier are documented in [docs/research_tooling_integrations.md](docs/research_tooling_integrations.md). These integrations are exploratory tooling and do not alter the canonical 420-row result.
 
 `npm test` now runs that full deterministic suite. The executable crosswalk for relevant AGAIN and VEATIC v2 scripts, tests, benchmark artifacts, and runtime-only tools is tracked in [docs/executable_validation_manifest.csv](docs/executable_validation_manifest.csv) and mirrored in [evidence/current_phase_5_5_review/14_executable_validation_and_code/](evidence/current_phase_5_5_review/14_executable_validation_and_code/). Runtime probes are not claim-bearing benchmark evidence.
 

@@ -170,9 +170,11 @@ VEATIC-124 v2:
 
 The approved full bounded 420-row selected-head confirmation is complete. No follow-on experimental sweep or continuous-model task is authorized by this handoff. Review the promoted report/evidence and define any later task explicitly; do not reinterpret this as a 504 run, restore obsolete variants, or widen the exact-continuous/universal-generalization claim boundary.
 
+The real upstream Optuna, Polars, MLflow, and SHAP integrations are installed as the `research-tooling` backend extra and documented in `docs/research_tooling_integrations.md`. Run `npm run verify:research-tooling` to exercise all four with verified MLX GPU/MPS hardware. Their runs remain exploratory and cannot promote canonical evidence.
+
 ## Test And Script Validation
 
-`npm test` runs the full deterministic contract suite: `python3 -m pytest -q tests`. The current validated suite is `99 passed in 6.70s` on `2026-07-14`; `npm run verify`, the repository audit, VEATIC evidence verification, the strict-benchmark dry run, and the frontend production build passed.
+`npm test` runs the full deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the fully provisioned backend suite passed `106` tests, including seven real-package research-tooling contracts; the lightweight system-Python suite passed `99` and skipped the single optional research-tooling module. `npm run verify`, the repository audit, strict-benchmark dry run, and frontend production build passed after the integration change.
 
 Relevant AGAIN and VEATIC v2 runners, tests, benchmark artifacts, and runtime-only tools are indexed in `docs/executable_validation_manifest.csv` and mirrored under `evidence/current_phase_5_5_review/14_executable_validation_and_code/`. Do not add placeholder smoke tests as validation. Add tests only when they protect a real split, target, leakage, control, manifest, scorer, checkpoint, or claim-boundary contract.
 

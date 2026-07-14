@@ -63,6 +63,12 @@ dev = [
     "pytest-asyncio>=0.23.0",
     "pipreqs>=0.5.0",
 ]
+research-tooling = [
+    "mlflow>=3.14.0,<4.0",
+    "optuna>=4.9.0,<5.0",
+    "polars>=1.42.1,<2.0",
+    "shap>=0.52.0,<0.53",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -75,4 +81,4 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["app"]
+packages = ["app", "integrations"]
