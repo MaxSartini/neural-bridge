@@ -1,5 +1,8 @@
 # Neural Bridge Agent Guide
 
+> [!WARNING]
+> Frozen dossier copy. The repository-root `AGENTS.md` and current claim ledger supersede this snapshot, including the later-restored grouped continuous future-movement ranking/lift result.
+
 ## Source Rules
 
 - Use current repo/workspace files and current user prompts as benchmark truth.

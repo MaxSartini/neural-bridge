@@ -42,6 +42,19 @@ Primary folder: `12_again_phase_5_5_binary_blocked_confirmation/`
 
 Primary folder: `13_again_phase_5_5_grouped_compatibility/`
 
+### AGAIN Grouped Continuous Future-Movement Ranking/Lift
+
+- protocol: deterministic eval-mode `grouped_video`
+- head/loss: `gated_ar_pca_mlp` / `regression_plus_binary`
+- fold-seed evaluations: `15`
+- future-movement Spearman real / AR-only / shuffled / random: `0.2232222830` / `0.1982207591` / `0.1938183619` / `0.1931781163`
+- top-1% average-true-movement lift real / AR-only / shuffled / random: `0.1359465244` / `0.1115815364` / `0.1125842464` / `0.1136304212`
+- stored `continuous_ranking_lift_pass`: `true`
+
+This is a controlled grouped continuous-ranking victory. It does not claim exact continuous values or blocked continuous generalization. The later washout continuous diagnostic improved Spearman but missed its full top-5%/seed-consistency gate; that narrower failure does not erase this separate grouped pass.
+
+Primary folder: `07_again_phase_5_0_evalmode_primary/`
+
 ### Beating AR Is The Hard Part
 
 AR/frozen AR is the recent/past-arousal persistence baseline. It is intentionally hard to beat because human arousal is autocorrelated. `AR-only baseline` means a standalone autoregressive comparison lane. `Frozen AR` means the seed/fold-specific AR score is fixed first and then reused identically by all real and control lanes in that seed/fold. The current result does not merely follow that momentum:
@@ -109,4 +122,4 @@ Historical benchmark reports inside milestone folders preserve their original wo
 
 This dossier is tracked evidence only. It does not include checkpoints, tensors, `.npy`, `.npz`, dense caches, V-JEPA/TRIBE assets, or full heavy output roots. No training, PCA generation, 504 run, or benchmark rerun was performed to create this documentation pack.
 
-Correct claim: Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN. The frozen video-side features are predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data, not generic video embeddings. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`; continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open.
+Correct claim: Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN plus controlled grouped continuous future-movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Exact continuous values, blocked continuous generalization, and broad all-target/all-dataset temporal prediction remain open.

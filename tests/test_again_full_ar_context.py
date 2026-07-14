@@ -50,6 +50,7 @@ def test_full_ar_context_is_context_only_not_sparse_pca_comparison(tmp_path: Pat
         output_root=output_root,
         config=FullArContextConfig(
             manifest_path=manifest_path,
+            report_dir=tmp_path / "reports",
             report_date="test",
             n_splits=2,
         ),
@@ -60,6 +61,7 @@ def test_full_ar_context_is_context_only_not_sparse_pca_comparison(tmp_path: Pat
     assert manifest["sparse_pca128_features_used"] is False
     assert manifest["direct_sparse_pca128_comparison_made"] is False
     assert manifest["veatic_outputs_modified"] is False
+    assert manifest["report_path"] == str(tmp_path / "reports" / "again_full_ar_context_test.md")
     with (output_root / "again_full_ar_context_lane_results.csv").open(newline="", encoding="utf-8") as handle:
         rows = list(csv.DictReader(handle))
     assert rows

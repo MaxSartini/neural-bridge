@@ -1,5 +1,8 @@
 # Phase 5 Temporal Residual Grouped Compatibility
 
+> [!WARNING]
+> **SUPERSEDED VERDICT.** This report preserves the original legacy-gate result. Its `grouped_compatibility_pass: False` is not the current interpretation because the raw-prevalence label-permutation-near-chance gate is inapplicable to a frozen-AR residual design. Use [`again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`](again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md), which passes with no failed gates. No training or rerun was used for that verdict correction.
+
 Output root: `outputs/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520`
 
 This is a grouped-video compatibility check for the confirmed blocked binary washout-gap short temporal conv residual. It uses the same 10 seeds as the blocked confirmation across all 5 grouped-video folds. It does not run 504, continuous targets, extra targets, extra architectures, V-JEPA/TRIBE, or claim changes.

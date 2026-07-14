@@ -1,5 +1,8 @@
 # Phase 5 Continuous Residual Blocked Summary
 
+> [!NOTE]
+> **HISTORICAL, PROTOCOL-SPECIFIC FAILURE.** This blocked residual diagnostic failed and remains valid for this exact setup. It does not erase the separate deterministic eval-mode grouped continuous future-movement ranking/lift pass: real Spearman `0.2232222830` beat AR-only `0.1982207591`, shuffled `0.1938183619`, and random `0.1931781163`; real top-1% lift `0.1359465244` beat `0.1115815364`, `0.1125842464`, and `0.1136304212`. Exact-value forecasting and blocked continuous generalization remain open.
+
 Output root: `outputs/again_dense_2hz_phase5_continuous_residual_blocked_20260630_000219`
 
 This is a targeted continuous future arousal movement residual experiment over frozen AR. It uses only `blocked_temporal_70_30`, only `monotonic_do_no_harm_residual`, five prespecified seeds, and seven controls for a maximum of 35 rows. It does not rerun binary spike confirmation, grouped 5-fold, 504, secondary targets, AR training, V-JEPA/TRIBE, or PCA.

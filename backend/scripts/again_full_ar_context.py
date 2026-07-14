@@ -49,6 +49,7 @@ PRIMARY_TARGETS = (
 @dataclass(frozen=True)
 class FullArContextConfig:
     manifest_path: Path = DEFAULT_MANIFEST_PATH
+    report_dir: Path = Path("reports")
     report_date: str = datetime.now().strftime("%Y%m%d_%H%M%S")
     random_seed: int = 20260622
     n_splits: int = 5
@@ -418,8 +419,8 @@ def run_full_ar_context(*, output_root: Path, config: FullArContextConfig) -> di
     write_csv(output_root / "again_full_ar_context_fold_results.csv", fold_rows)
     write_json(output_root / "again_full_ar_context_summary.json", summary)
     report = build_report(summary, lane_rows)
-    report_path = Path("reports") / f"again_full_ar_context_{config.report_date}.md"
-    report_path.parent.mkdir(exist_ok=True)
+    report_path = config.report_dir / f"again_full_ar_context_{config.report_date}.md"
+    report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(report, encoding="utf-8")
     run_manifest = {
         **summary,

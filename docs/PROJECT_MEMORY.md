@@ -5,6 +5,7 @@ Current project state is maintained in:
 - `docs/neural_bridge_phase5_5_evidence_ladder.md`
 - `docs/current_claim_status.json`
 - `docs/current_project_state.md`
+- `docs/how_neural_bridge_was_discovered.md`
 - `docs/veatic_v2_evidence_summary.md`
 - `docs/veatic_v2_evidence_freeze.md`
 - `AGENTS.md`
@@ -30,6 +31,7 @@ Current dense AGAIN H100 state is maintained in:
 - `reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md`
 - `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
 - `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
+- `reports/README.md`
 - `tools/run_h100_tribe_postpass.py`
 - Google Drive `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`
 - local pull target `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`

@@ -147,6 +147,7 @@
   },
   "canonical_reports": [
     "docs/neural_bridge_phase5_5_evidence_ladder.md",
+    "docs/how_neural_bridge_was_discovered.md",
     "docs/neural_bridge_service_as_software.md",
     "docs/current_project_state.md",
     "docs/veatic_v2_evidence_summary.md",
@@ -158,6 +159,7 @@
     "reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md",
     "reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md",
     "reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md",
+    "reports/README.md",
     "evidence/current_phase_5_5_review/README.md",
     "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",
     "evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/README.md",
@@ -165,6 +167,7 @@
     "docs/executable_validation_index.md",
     "docs/executable_validation_manifest.csv",
     "docs/executable_validation_manifest.json",
+    "docs/test_suite_result_20260714.json",
     "evidence/current_phase_5_5_review/14_executable_validation_and_code/README.md",
     "evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv",
     "evidence/current_phase_5_5_review/14_executable_validation_and_code/test_suite_result_20260630.json"
@@ -191,11 +194,11 @@
     "deterministic_test_command": "python3 -m pytest -q tests",
     "npm_test_command": "npm test",
     "latest_local_result": {
-      "date": "2026-06-30",
+      "date": "2026-07-14",
       "result": "pass",
       "tests_passed": 93,
       "tests_failed": 0,
-      "duration_seconds": 5.52
+      "duration_seconds": 5.58
     },
     "repo_audit_command": "npm run audit:repo",
     "repo_audit_latest_local_result": "repo_readiness pass controlled_evidence_items=206",

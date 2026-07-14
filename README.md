@@ -72,6 +72,8 @@ Exact continuous-value forecasting and blocked continuous generalization remain 
 
 Primary narrative: [docs/neural_bridge_phase5_5_evidence_ladder.md](docs/neural_bridge_phase5_5_evidence_ladder.md)
 
+Discovery and washout-gap evolution: [docs/how_neural_bridge_was_discovered.md](docs/how_neural_bridge_was_discovered.md)
+
 Commercial thesis: [docs/neural_bridge_service_as_software.md](docs/neural_bridge_service_as_software.md)
 
 Reviewer evidence dossier: [evidence/current_phase_5_5_review/README.md](evidence/current_phase_5_5_review/README.md)
@@ -91,6 +93,8 @@ AGAIN frozen-AR residual design: [reports/again_dense_2hz_phase5_frozen_ar_resid
 AGAIN blocked binary confirmation: [reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md](reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md)
 
 AGAIN updated grouped compatibility verdict: [reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md](reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md)
+
+Report authority and supersession index: [reports/README.md](reports/README.md)
 
 ## Detailed Evidence Numbers
 
@@ -195,7 +199,7 @@ The current deterministic validation command is:
 python3 -m pytest -q tests
 ```
 
-Latest local result on `2026-06-30`: `93 passed in 5.52s`.
+Latest local result on `2026-07-14`: `93 passed in 5.58s`; full `npm run verify` and VEATIC frozen-evidence verification passed.
 
 `npm test` now runs that full deterministic suite. The executable crosswalk for relevant AGAIN and VEATIC v2 scripts, tests, benchmark artifacts, and runtime-only tools is tracked in [docs/executable_validation_manifest.csv](docs/executable_validation_manifest.csv) and mirrored in [evidence/current_phase_5_5_review/14_executable_validation_and_code/](evidence/current_phase_5_5_review/14_executable_validation_and_code/). Runtime probes are not claim-bearing benchmark evidence.
 

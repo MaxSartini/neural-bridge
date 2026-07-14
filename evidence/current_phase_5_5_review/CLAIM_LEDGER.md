@@ -4,13 +4,13 @@ Each current-facing claim below is paired with the numbers and evidence files th
 
 ## C1: canonical_current_claim
 
-Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.
+Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN plus controlled grouped continuous future-movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.
 
 Key numbers: VEATIC blocked PR-AUC 0.2536 vs AR 0.1969; AGAIN blocked real PR-AUC 0.2670735630 vs matched frozen AR 0.2602336231 and best matched control 0.2593369051; AGAIN grouped real PR-AUC 0.2313831909 vs matched AR/frozen 0.2174953276 and best matched control 0.2174209937; raw predicted cortical/fMRI features alone blocked PR-AUC 0.124315 vs AR-only 0.203622.
 
 Primary evidence: `README.md; docs/neural_bridge_phase5_5_evidence_ladder.md; reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md; reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 
-Caveats: Event ranking, not mind reading or exact continuous forecasting; no 504 run has been promoted.
+Caveats: Grouped continuous ranking/lift is proven, not exact-value forecasting or blocked continuous generalization; no 504 run has been promoted.
 
 ## C2: foundational_proven
 
@@ -86,12 +86,22 @@ Primary evidence: `reports/again_dense_2hz_phase5_temporal_residual_grouped_comp
 
 Caveats: Verdict update used existing artifacts. It was not a rerun, not PCA generation, and not 504.
 
-## C9: open_not_proven
+## C9: proven_grouped_continuous_ranking_lift
 
-Continuous exact arousal forecasting remains open.
+The deterministic eval-mode `regression_plus_binary` lane proves controlled grouped held-out-video continuous future-movement ranking/lift on AGAIN.
+
+Key numbers: 15 grouped fold-seed evaluations; future-movement Spearman real `0.2232222830` vs AR-only `0.1982207591`, shuffled `0.1938183619`, random `0.1931781163`; top-1% average-true-movement lift real `0.1359465244` vs `0.1115815364`, `0.1125842464`, `0.1136304212`; stored `continuous_ranking_lift_pass` true.
+
+Primary evidence: `reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md; evidence/current_phase_5_5_review/07_again_phase_5_0_evalmode_primary/evalmode_rescore_bundle/metrics/evalmode_continuous_metrics.csv; evidence/current_phase_5_5_review/07_again_phase_5_0_evalmode_primary/evalmode_rescore_bundle/metrics/evalmode_top_percent_metrics.csv; evidence/current_phase_5_5_review/07_again_phase_5_0_evalmode_primary/evalmode_rescore_bundle/promotion/evalmode_corrected_promotion_gates.json`
+
+Caveats: Grouped continuous ranking/lift, not exact values and not blocked continuous generalization.
+
+## C10: open_exact_and_blocked_continuous
+
+Exact continuous-value forecasting and blocked continuous future-movement generalization remain open.
 
 Key numbers: continuous blocked residual diagnostic real Spearman 0.2484145880 vs frozen AR 0.2695371538; top 5pct lift delta -0.0029861629; continuous_residual_pass false.
 
 Primary evidence: `reports/again_dense_2hz_phase5_continuous_residual_blocked_summary_20260630_000219.md; evidence/phase_5_2_continuous_residual_blocked_20260630_000219/`
 
-Caveats: Failed diagnostic rejects this exact blocked monotonic continuous setup, not all future continuous work.
+Caveats: This protocol-specific failure does not erase C9's separate controlled grouped continuous-ranking/lift pass.

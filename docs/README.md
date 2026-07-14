@@ -38,6 +38,8 @@ Legacy and implementation entrypoints:
 
 Detailed evidence artifacts live outside this folder:
 
+- `how_neural_bridge_was_discovered.md` - the evidence-backed discovery sequence from VEATIC through the grouped continuous pass, frozen AR, washout-gap redesign, blocked confirmation, and grouped compatibility.
+
 - `../evidence/current_phase_5_5_review/` - current reviewer-facing dossier with claim ledger, artifact manifest, definitions/process, VEATIC v2 foundation evidence, and AGAIN Phase 0-5.5 milestone evidence.
 - `../evidence/current_phase_5_5_review/14_executable_validation_and_code/` - executable validation manifest and latest deterministic test-suite result.
 - `../evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/`

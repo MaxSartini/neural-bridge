@@ -152,7 +152,7 @@ AGAIN frozen-AR residual design:
 - Machine-readable status: `docs/current_claim_status.json`
 - Executable validation index: `docs/executable_validation_index.md`
 - Executable validation manifest: `docs/executable_validation_manifest.csv`, `docs/executable_validation_manifest.json`
-- Latest deterministic test-suite result: `docs/test_suite_result_20260630.json`
+- Latest deterministic validation result: `docs/test_suite_result_20260714.json`
 - Reviewer evidence dossier: `evidence/current_phase_5_5_review/README.md`
 - Claim ledger and artifact manifest: `evidence/current_phase_5_5_review/CLAIM_LEDGER.md`, `evidence/current_phase_5_5_review/artifact_manifest.csv`
 - VEATIC summary: `docs/veatic_v2_evidence_summary.md`
@@ -170,7 +170,7 @@ Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, 
 ## Executable Validation
 
 - Full deterministic suite: `python3 -m pytest -q tests`
-- Latest local result: `93 passed in 5.52s` on `2026-06-30`
+- Latest local result: `93 passed in 5.58s` on `2026-07-14`; `npm run verify` and VEATIC frozen-evidence verification passed
 - `npm test` runs the full suite.
 - Executable crosswalk: `evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv`
 - Repo audit: `npm run audit:repo`

@@ -251,9 +251,11 @@ Fresh sessions should read these first:
 - `ROADMAP.md`
 - `docs/current_project_state.md`
 - `docs/neural_bridge_phase5_5_evidence_ladder.md`
+- `docs/how_neural_bridge_was_discovered.md`
 - `docs/current_claim_status.json`
 - `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
 - `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
+- `reports/README.md`
 - `docs/veatic_v2_evidence_summary.md`
 - `docs/veatic_v2_evidence_freeze.md`
 - `benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md`

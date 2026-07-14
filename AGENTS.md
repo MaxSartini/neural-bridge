@@ -55,6 +55,9 @@ Canonical frozen-AR residual report:
 Canonical Phase 5.5 evidence ladder:
 `docs/neural_bridge_phase5_5_evidence_ladder.md`
 
+Canonical discovery and washout-gap evolution:
+`docs/how_neural_bridge_was_discovered.md`
+
 Canonical reviewer evidence dossier:
 `evidence/current_phase_5_5_review/README.md`
 
@@ -152,7 +155,7 @@ Next work is explicit review and any intentionally approved 504/broader compatib
 
 ## Test And Script Validation
 
-`npm test` runs the full deterministic contract suite: `python3 -m pytest -q tests`. The current validated suite is `93 passed in 5.52s` on `2026-06-30`.
+`npm test` runs the full deterministic contract suite: `python3 -m pytest -q tests`. The current validated suite is `93 passed in 5.58s` on `2026-07-14`; `npm run verify`, the repository audit, VEATIC evidence verification, the strict-benchmark dry run, and the frontend production build passed.
 
 Relevant AGAIN and VEATIC v2 runners, tests, benchmark artifacts, and runtime-only tools are indexed in `docs/executable_validation_manifest.csv` and mirrored under `evidence/current_phase_5_5_review/14_executable_validation_and_code/`. Do not add placeholder smoke tests as validation. Add tests only when they protect a real split, target, leakage, control, manifest, scorer, checkpoint, or claim-boundary contract.
 

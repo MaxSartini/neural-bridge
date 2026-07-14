@@ -240,7 +240,7 @@ The original grouped artifact failed the legacy label-permutation-near-chance ga
 ## Executable Validation
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
-- Latest local result: `93 passed in 5.52s` on `2026-06-30`
+- Latest local result: `93 passed in 5.58s` on `2026-07-14`; full repository verification and VEATIC frozen-evidence verification passed
 - Repo readiness audit: `npm run audit:repo`
 - Latest local audit result: `repo_readiness pass controlled_evidence_items=206`
 - Executable validation index: `docs/executable_validation_index.md`

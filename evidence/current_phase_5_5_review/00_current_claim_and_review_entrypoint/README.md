@@ -1,5 +1,8 @@
 # Neural Bridge
 
+> [!WARNING]
+> **FROZEN DOSSIER SNAPSHOT.** This copied entrypoint preserves the dossier state when it was assembled. For the current claim—including the controlled grouped continuous future-movement ranking/lift pass—use the repository-root `README.md`, `AGENTS.md`, `docs/current_claim_status.json`, and `evidence/current_phase_5_5_review/CLAIM_LEDGER.md`.
+
 Neural Bridge demonstrates controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.
 
 ## Best Results First

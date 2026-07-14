@@ -5,9 +5,10 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 ## Best Validation First
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
-- Latest local result: `93 passed in 6.42s` on `2026-06-30`
+- Latest local result: `93 passed in 5.58s` on `2026-07-14`
 - Repo evidence/orientation audit: `npm run audit:repo`
-- Latest local result: `repo_readiness pass controlled_evidence_items=206` on `2026-06-30`
+- Latest local result: `repo_readiness pass controlled_evidence_items=206` on `2026-07-14`
+- Full `npm run verify`, VEATIC frozen-evidence verification, strict-benchmark dry run, and frontend production build: pass on `2026-07-14`
 - Default npm test now runs the full deterministic suite: `npm test`
 
 ## Current Claim-Bearing Runners
@@ -54,4 +55,5 @@ Runtime probes under `tools/` are for environment, encoder, and throughput check
 
 - Reviewer executable manifest: `evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv`
 - Machine-readable executable manifest: `docs/executable_validation_manifest.json`
-- Test result record: `evidence/current_phase_5_5_review/14_executable_validation_and_code/test_suite_result_20260630.json`
+- Current validation result: `docs/test_suite_result_20260714.json`
+- Frozen reviewer-dossier test record: `evidence/current_phase_5_5_review/14_executable_validation_and_code/test_suite_result_20260630.json`
