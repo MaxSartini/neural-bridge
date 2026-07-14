@@ -6,6 +6,7 @@ Current project state is maintained in:
 - `docs/neural_bridge_phase7_evidence.md`
 - `docs/current_claim_status.json`
 - `docs/current_project_state.md`
+- `docs/handoff/CURRENT_STATE.md`
 - `docs/phase7_continuous_checkpoint_ensemble_grouped_preregistration.md`
 - `docs/how_neural_bridge_was_discovered.md`
 - `docs/veatic_v2_evidence_summary.md`
@@ -45,7 +46,7 @@ Current dense AGAIN H100 state is maintained in:
 
 Future handoff entries should summarize only current state or newly completed work.
 
-Routine continuity uses the compact fast path: update the canonical files, commit and validate, then update one `neural_bridge/handoff/current_state` MemPalace drawer and prove it with a top-3 recall query. Do not remine the full project or the historical evidence tree after ordinary result or documentation changes. Full corpus mining is reserved for an explicitly requested structural evidence/archive rebuild.
+Routine continuity uses the compact fast path: update and validate `docs/handoff/CURRENT_STATE.md`, mine only `docs/handoff/` into the `neural_bridge` MemPalace wing, and prove it with a top-3 recall query. Do not remine the full project or the historical evidence tree after ordinary result or documentation changes. Full corpus mining is reserved for an explicitly requested structural evidence/archive rebuild.
 
 For the current claim, VEATIC and AGAIN are a paired evidence ladder. VEATIC-124 v2 established the original controlled future arousal event-ranking signal. AGAIN is the scaled confirmation/current main benchmark. Phase 7 is the current performance headline: its fresh grouped washout-target checkpoint ensemble passed `420/420`, beat AR and best matched controls on Spearman and top-5% lift in all `15/15` fold-groups and `5/5` fold means, and failed no gates.
 
