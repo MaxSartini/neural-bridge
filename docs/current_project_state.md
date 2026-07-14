@@ -8,11 +8,13 @@ Phase 7 is the strongest current Neural Bridge result. Its separately preregiste
 
 Plainly: on unseen videos, Neural Bridge is better than recent-response momentum and false-signal controls at identifying where the largest upcoming human-arousal movements will occur.
 
-The `8.22%` Spearman and `8.97%` top-5% relative lifts are the difficult final increment over a trained persistence model that already captures most easy short-horizon signal. They are not the total value created. On the early same-target ablation, raw cortical-only was `38.95%` below trained AR, and directly adding raw cortical features remained `17.63%` below AR. Phase 7 turns that former negative contribution into a positive correction in every fold-group.
-
 Compared with the original validated grouped continuous bridge, Phase 7 increases Spearman by `16.61%` (`0.2232222830` → `0.2603011121`), top-5% lift by `23.59%` (`0.0789694843` → `0.0975979581`), and top-1% lift by `14.52%` (`0.1359465244` → `0.1556892559`). Its top-5% margin over AR nearly doubled: `+98.92%` larger than the original bridge margin.
 
-Spike/event progression is also substantial. Within the original grouped target, raw cortical-only `0.136579` grew to the frozen-AR residual bridge at `0.2383409298`: `+74.51%`. That bridge was `+39.95%` above direct AR-plus-raw. The later fresh grouped redesigned-target binary ensemble reached `0.2343675680` versus AR `0.2180497906`, positive `15/15`; its margin over AR is `17.50%` larger than the earlier promoted single-model margin. Phase 7's continuous predictions additionally rank the corresponding event at `0.2231895329` PR-AUC vs AR `0.2088047413`, positive `15/15`, as supporting evidence.
+Within the original same-target grouped spike benchmark, raw cortical-only `0.136579` grew to the frozen-AR residual bridge at `0.2383409298`: `+74.51%`. That learned bridge was `+39.95%` above direct AR-plus-raw and `+38.85%` above the canonical Phase 4 score `0.1716477402`. These are the clearest apples-to-apples measures of the value created by Neural Bridge rather than the upstream representation.
+
+The `8.22%` Spearman and `8.97%` top-5% Phase 7 lifts over AR are the difficult final increment over a trained persistence model that already captures most easy short-horizon signal. They are not the total value created. On the early blocked ablation, raw cortical-only was `38.95%` below trained AR, and directly adding raw cortical features remained `17.63%` below AR. Phase 7 turns that former negative contribution into a positive correction in every fold-group.
+
+The later fresh grouped redesigned-target binary ensemble reached `0.2343675680` versus AR `0.2180497906`, positive `15/15`; its margin over AR is `17.50%` larger than the earlier promoted single-model margin. Phase 7's continuous predictions additionally rank the corresponding event at `0.2231895329` PR-AUC vs AR `0.2088047413`, positive `15/15`, as supporting evidence.
 
 ## Canonical Scientific Claim
 
@@ -127,6 +129,7 @@ Run before handoff:
 ```bash
 npm run verify
 npm run audit:repo
+npm run verify:research-tooling
 ```
 
 ML work must use MLX/MPS and fail closed rather than silently falling back to CPU. Heavy outputs remain ignored; claim-bearing summaries and checksum anchors are tracked.

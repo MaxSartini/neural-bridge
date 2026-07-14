@@ -8,6 +8,18 @@ Phase 7 is the current headline result. It independently confirms controlled gro
 
 Across a fresh `420/420` grouped-video confirmation matrix, Neural Bridge ranked future human-arousal movement better than a strong target-specific autoregressive baseline and every matched control in all `15/15` fold-groups, with all preregistered gates passing.
 
+## Magnitude at a Glance
+
+Phase 7 is the culmination of a much larger bridge effect than its final `8.22%` Spearman and `8.97%` top-5% gains over AR imply:
+
+- original same-target grouped spike: raw cortical `0.136579` → frozen-AR residual bridge `0.2383409298`, or `+74.51%`;
+- same target: learned bridge `+39.95%` over direct AR-plus-raw and `+38.85%` over the Phase 4 bridge;
+- original validated continuous bridge → Phase 7: `+16.61%` Spearman, `+23.59%` top-5% lift, and `+14.52%` top-1% lift;
+- original → Phase 7 top-5% margin beyond AR: `+98.92%`; and
+- current confirmation strength: `420/420`, `15/15` fold-group wins versus AR and controls on both primary metrics, failed gates `[]`.
+
+The spike percentages are same-target comparisons. The continuous percentages compare complete system generations on the same metric family. They are not cross-metric arithmetic.
+
 ## Plain-Language Explanation
 
 Recent arousal has momentum: if arousal is rising now, a simple model can often guess that it will remain elevated for a short time. Phase 7 asked whether Neural Bridge could do more than repeat that obvious pattern.
@@ -66,11 +78,11 @@ The original grouped spike target provides a same-target view of how the bridge 
 | early raw cortical only | `0.136579` | baseline |
 | early trained AR only | `0.147251` | `+7.81%` |
 | early AR + raw cortical | `0.170299` | `+24.69%` |
-| Phase 4 fold-safe PCA bridge | `0.171600` | `+25.64%` |
+| Phase 4 fold-safe PCA bridge | `0.1716477402` | `+25.68%` |
 | Phase 5 deterministic learned bridge | `0.2300639382` | `+68.45%` |
 | Phase 5 frozen-AR residual bridge | `0.2383409298` | `+74.51%` |
 
-Within that original grouped target, the frozen-AR residual bridge is `+39.95%` above direct AR-plus-raw and `+38.89%` above the Phase 4 bridge. This is the strongest apples-to-apples numerical demonstration that the learned Neural Bridge stack—not the raw upstream representation—created the value.
+Within that original grouped target, the frozen-AR residual bridge is `+39.95%` above direct AR-plus-raw and `+38.85%` above the canonical Phase 4 score. This is the strongest apples-to-apples numerical demonstration that the learned Neural Bridge stack—not the raw upstream representation—created the value.
 
 The later redesigned future-event target strengthened the scientific test and then passed both blocked and grouped confirmation. The fresh Phase 6 original-recipe ensemble reached grouped PR-AUC `0.2343675680` versus AR `0.2180497906` and best control `0.2179716645`, with `15/15` positive fold-groups. Its grouped margin over AR (`+0.0163177774`) is `17.50%` larger than the earlier promoted single-model margin (`+0.0138878634`).
 
@@ -189,6 +201,20 @@ Phase 7 also reported slightly better descriptive MAE and RMSE than AR, but exac
 The strongest residual benchmark uses observed current/past arousal features as its AR context. This is a valid and demanding scientific comparison, but an unlabeled pre-release client video will not supply those response measurements.
 
 The next deployment experiment is consequently clear: distill the Phase 7 teacher into a video-only student, or validate a cold-start self-rollout architecture, then evaluate it on held-out videos with no observed-arousal teacher forcing. Passing that bridge would connect the proven intelligence layer to a raw-video product workflow.
+
+## Metric Source Map
+
+| Metric family | Canonical source |
+| --- | --- |
+| VEATIC `0.2536` / `0.1969` / `0.1840` / `0.1944` and balanced `0.3394` | [`benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md`](../benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md) and [`benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md`](../benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md) |
+| Early AGAIN blocked and grouped raw/AR/AR+raw ablations | [`evidence/current_phase_5_5_review/05_again_phase_3_raw_cortical/README.md`](../evidence/current_phase_5_5_review/05_again_phase_3_raw_cortical/README.md) and its tracked [`promotion_gates.json`](../evidence/current_phase_5_5_review/05_again_phase_3_raw_cortical/outputs/again_dense_2hz_raw_cortical_benchmark_20260625_093733/promotion_gates.json) |
+| Phase 4 grouped bridge reference | [`best_lanes_by_target.json`](../evidence/current_phase_5_5_review/06_again_phase_4_pca_bridge/external_root_phase4_snapshot/promotion/best_lanes_by_target.json) and the tracked [Phase 4 promotion report](../evidence/current_phase_5_5_review/06_again_phase_4_pca_bridge/reports/again_dense_2hz_phase4_pca_promotion_summary_20260625_153419.md) |
+| Original Phase 5 grouped event and continuous ranking/lift | [`reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md`](../reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md) and tracked [`evalmode_summary_metrics.csv`](../evidence/current_phase_5_5_review/07_again_phase_5_0_evalmode_primary/evalmode_rescore_bundle/metrics/evalmode_summary_metrics.csv) |
+| Phase 5 frozen-AR residual `0.2383409298` | [`reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md`](../reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md) |
+| Phase 5.5 blocked and grouped washout confirmations | [`reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`](../reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md) and [`reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`](../reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md) |
+| Phase 6 grouped binary ensemble | [`reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md`](../reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md) |
+| Phase 7 grouped metrics, controls, event support, and generation comparison | [`reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`](../reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md) and the checksum-anchored evidence snapshot below |
+| Phase 7 blocked `4/5` near-pass | [`reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md`](../reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md) |
 
 ## Canonical Evidence
 

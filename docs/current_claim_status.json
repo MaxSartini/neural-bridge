@@ -1,6 +1,7 @@
 {
   "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.",
   "headline_result": "Phase 7 passed a fresh 420/420 grouped held-out-video continuous checkpoint-ensemble confirmation with all 15/15 fold-groups and 5/5 fold means positive versus target-specific AR and matched controls on Spearman and top-5% lift; failed gates were empty.",
+  "headline_magnitude": "Within the original grouped AGAIN spike target, Neural Bridge raised raw cortical PR-AUC from 0.136579 to 0.2383409298 (+74.51%) and finished 39.95% above direct AR-plus-raw. Versus the original validated continuous bridge, Phase 7 improves Spearman 16.61%, top-5% lift 23.59%, top-1% lift 14.52%, and the top-5% margin beyond AR 98.92%.",
   "value_interpretation": {
     "phase7_relative_lift_vs_ar_spearman_percent": 8.22,
     "phase7_relative_lift_vs_ar_top5_percent": 8.97,
@@ -17,11 +18,12 @@
       "raw_cortical_pr_auc": 0.136579,
       "ar_only_pr_auc": 0.147251,
       "ar_plus_raw_pr_auc": 0.170299,
-      "phase4_bridge_pr_auc": 0.1716,
+      "phase4_bridge_pr_auc": 0.1716477402,
       "phase5_evalmode_bridge_pr_auc": 0.2300639382,
       "phase5_frozen_ar_residual_pr_auc": 0.2383409298,
       "frozen_residual_vs_raw_percent": 74.51,
-      "frozen_residual_vs_ar_plus_raw_percent": 39.95
+      "frozen_residual_vs_ar_plus_raw_percent": 39.95,
+      "frozen_residual_vs_phase4_percent": 38.85
     },
     "phase7_supporting_event_from_continuous": {
       "real_pr_auc": 0.2231895329,

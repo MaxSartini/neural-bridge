@@ -2,6 +2,27 @@
 
 Neural Bridge predicts which upcoming moments are most likely to produce the strongest changes in human arousal, using video-derived predicted cortical/fMRI response features. Its strongest result is Phase 7: a fresh, preregistered grouped-video confirmation that passed all gates at exactly `420/420` scored rows.
 
+## From Failed Raw Representation to Phase 7
+
+The headline is not merely that Phase 7 is `8%` better than AR. Neural Bridge turned predicted cortical/fMRI features that were weak—or actively harmful when fused naively—into a repeatable forward-looking signal:
+
+- on the original same-target grouped AGAIN spike benchmark, the bridge moved from raw cortical PR-AUC `0.136579` to `0.2383409298`: **`+74.51%`**;
+- the learned bridge was **`+39.95%`** above direct trained-AR-plus-raw fusion and **`+38.85%`** above the Phase 4 PCA bridge;
+- against the original validated continuous bridge, Phase 7 is **`+16.61%`** higher on Spearman, **`+23.59%`** higher on top-5% lift, and **`+14.52%`** higher on top-1% lift;
+- the useful top-5% margin added beyond AR grew by **`+98.92%`**—almost exactly double; and
+- the current Phase 7 confirmation completed **`420/420`** rows and won **`15/15`** fold-groups versus both AR and matched controls on both primary metrics.
+
+These are deliberately separated comparisons. The `+74.51%`, `+39.95%`, and `+38.85%` figures are within the original grouped spike target. The Phase 7 percentages are whole-system generation comparisons within continuous ranking/lift. No percentage is calculated across PR-AUC and Spearman or across unrelated targets.
+
+| Development stage | Result | What changed |
+| --- | --- | --- |
+| Early blocked AGAIN raw ablation | raw `0.124315`, AR `0.203622`, AR+raw `0.167731` PR-AUC | raw features were `38.95%` below trained AR; naïve fusion was still `17.63%` below AR |
+| Original grouped spike progression | raw `0.136579` → Phase 5 frozen-residual bridge `0.2383409298` PR-AUC | same-target bridge gain `+74.51%`; `+39.95%` over direct AR+raw |
+| Original grouped continuous win | Spearman `0.2232222830`; top-1% lift `0.1359465244` | first controlled grouped continuous-ranking/lift victory |
+| Phase 5.5 stricter washout confirmation | blocked `9/10` seeds; grouped `50/50` fold-seeds; failed gates `[]` | beat matched frozen AR after an explicit persistence washout gap |
+| Phase 6 checkpoint stabilization | grouped binary `0.2343675680` vs AR `0.2180497906`; `15/15` | fixed three-checkpoint averaging became a validated stability mechanism |
+| Phase 7 culmination | `420/420`; Spearman `0.2603011121`; top-5% lift `0.0975979581`; `15/15` | strongest current grouped continuous result, beyond AR and every matched control |
+
 ## The Result in Plain English
 
 Give the system a video sequence and recent response context. Neural Bridge ranks the moments ahead by how much human arousal is likely to move. On videos held out from training, it ranked those future changes better than:
@@ -49,7 +70,7 @@ The event-ranking line improved just as dramatically. On the original grouped AG
 | raw cortical only | `0.136579` | upstream representation alone was weak |
 | trained AR only | `0.147251` | persistence beat raw cortical |
 | trained AR + raw cortical | `0.170299` | direct concatenation helped grouped ranking but was not a robust bridge |
-| Phase 4 fold-safe PCA bridge | `0.171600` | first controlled grouped bridge recovery |
+| Phase 4 fold-safe PCA bridge | `0.1716477402` | first controlled grouped bridge recovery |
 | Phase 5 deterministic learned bridge | `0.2300639382` | `+68.45%` over raw cortical |
 | Phase 5 frozen-AR residual bridge | `0.2383409298` | `+74.51%` over raw cortical and `+39.95%` over AR + raw |
 

@@ -4,6 +4,8 @@ Neural Bridge was not a single model win. It emerged from failures, corrections,
 
 The current culmination is Phase 7: a fresh grouped continuous future-movement checkpoint-ensemble confirmation that passed `420/420`, won all `15/15` fold-groups versus AR and matched controls on both primary metrics, and failed no gates.
 
+The magnitude is clearest across the full development path. On the original same-target grouped spike benchmark, Neural Bridge moved raw cortical PR-AUC from `0.136579` to `0.2383409298` (`+74.51%`), finishing `+39.95%` above direct AR-plus-raw and `+38.85%` above the canonical Phase 4 score `0.1716477402`. Compared with the original validated continuous system, Phase 7 is `+16.61%` higher on Spearman, `+23.59%` higher on top-5% lift, and `+14.52%` higher on top-1% lift; its top-5% margin beyond AR is `+98.92%` larger. These are same-target or same-metric-family comparisons, not arithmetic across unrelated targets.
+
 ## 1. VEATIC Established The Phenomenon
 
 VEATIC-124 v2 showed that cortical-prediction-derived video features could rank future arousal spikes beyond AR and matched controls. The strongest blocked full-frame spike result reached PR-AUC `0.2536` versus AR `0.1969`, shuffled `0.1840`, and random `0.1944`. The balanced event-vs-stable result reached `0.3394`, beating AR by `+0.0609`.

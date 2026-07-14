@@ -2,6 +2,8 @@
 
 Phase 7 is the current Neural Bridge headline. The fresh grouped held-out-video continuous checkpoint-ensemble confirmation completed `420/420` rows, passed every preregistered gate, and beat AR and best matched controls in all `15/15` fold-groups on both Spearman and top-5% lift.
 
+The complete bridge effect is larger than the final Phase 7-over-AR percentage: original grouped raw cortical `0.136579` became `0.2383409298` (`+74.51%`) and finished `+39.95%` above direct AR-plus-raw; Phase 7 is `+16.61%` / `+23.59%` / `+14.52%` above the original validated continuous bridge on Spearman / top-5% / top-1%, and its top-5% margin beyond AR is `+98.92%` larger.
+
 ## Best Result First
 
 - real / AR / best-control Spearman: `0.2603011121` / `0.2405371348` / `0.2402523335`;

@@ -13,6 +13,8 @@ Phase 7 is the current headline result. Start with:
 
 Phase 7 passed a fresh grouped held-out-video `420/420` matrix. Neural Bridge beat target-specific AR and best matched controls on Spearman and top-5% lift in all `15/15` fold-groups and all `5/5` fold means; failed gates were `[]`.
 
+The larger bridge effect is the headline: original grouped raw cortical `0.136579` became `0.2383409298` (`+74.51%`) under the learned bridge, `+39.95%` above direct AR-plus-raw. Phase 7 then improved the original validated continuous bridge by `+16.61%` Spearman, `+23.59%` top-5% lift, and `+14.52%` top-1% lift, while increasing the top-5% margin beyond AR by `+98.92%`.
+
 In ordinary language: the model is consistently better than recent-response momentum and false-signal controls at identifying where the largest upcoming human-arousal movements will occur on unseen videos.
 
 ## Current Authority
@@ -57,6 +59,7 @@ A V-JEPA 2.1 VEATIC re-encode and balanced VEATIC+AGAIN joint-training pilot is 
 ```bash
 npm run verify
 npm run audit:repo
+npm run verify:research-tooling
 ```
 
 MLX/MPS is the reference accelerator path. Heavy output roots, caches, checkpoints, arrays, datasets, and model weights remain outside git.

@@ -162,12 +162,12 @@ def audit_stale_terms(files: list[Path], errors: list[str], warnings: list[str])
 
 def audit_orientation_content(errors: list[str]) -> None:
     checks = {
-        "README.md": ["Phase 7: Strongest Current Evidence", "residual_future_max_delta_rows_4_10", "short_temporal_conv_residual", "Why “8% Better” Understates the Result", "Original AGAIN spike/event results", "15/15", "neural_bridge_phase7_evidence.md", "Run and Validate"],
+        "README.md": ["From Failed Raw Representation to Phase 7", "+74.51%", "+39.95%", "+16.61%", "+23.59%", "+14.52%", "+98.92%", "Phase 7: Strongest Current Evidence", "residual_future_max_delta_rows_4_10", "short_temporal_conv_residual", "Why “8% Better” Understates the Result", "Original AGAIN spike/event results", "15/15", "neural_bridge_phase7_evidence.md", "Run and Validate"],
         "AGENTS.md": ["residual_future_max_delta_rows_4_10", "short_temporal_conv_residual", "+16.61%", "+74.51%", "15/15", "current_phase_7_review", "Test And Script Validation"],
         "REQUIREMENTS.md": ["video-dominant", "TRIBE_TEXT_ENCODER_LOCAL_DIR", "Llama-3.2-3B"],
         "ROADMAP.md": ["Current King: Phase 7", "Video-Only Deployment Bridge", "Cross-Domain Training Pilot", "504", "evidence"],
-        "docs/current_project_state.md": ["Phase 7 is the strongest current Neural Bridge result", "residual_future_max_delta_rows_4_10", "short_temporal_conv_residual", "16.61%", "+74.51%", "Precise Boundaries", "Validation and Handoff"],
-        "docs/neural_bridge_phase7_evidence.md": ["One-Sentence Result", "Improvement over the original validated continuous bridge", "Full AGAIN spike/event progression", "15/15", "Baseline definitions", "Current Deployment Boundary"],
+        "docs/current_project_state.md": ["Phase 7 is the strongest current Neural Bridge result", "residual_future_max_delta_rows_4_10", "short_temporal_conv_residual", "16.61%", "+74.51%", "+39.95%", "+98.92%", "Precise Boundaries", "Validation and Handoff"],
+        "docs/neural_bridge_phase7_evidence.md": ["One-Sentence Result", "Magnitude at a Glance", "Improvement over the original validated continuous bridge", "Full AGAIN spike/event progression", "Metric Source Map", "15/15", "Baseline definitions", "Current Deployment Boundary"],
         "docs/neural_bridge_phase5_5_evidence_ladder.md": ["Best AGAIN Results", "Raw Predicted Cortical/FMRI Features Alone Fail Badly", "Continuous Future-Movement Ranking Result", "Grouped Compatibility Block", "Current Evidence Boundaries", "Executable Validation"],
         "docs/how_neural_bridge_was_discovered.md": ["four bounded victories", "Phase 7 Won the Grouped Continuous Test", "Washout-Gap Targets Changed The Scientific Question", "+0.0055230967"],
         "reports/README.md": ["Current Claim-Bearing Reports", "Superseded And Historical Reports", "grouped continuous-ranking/lift pass"],
