@@ -2,6 +2,8 @@
 
 Neural Bridge now has a paired cross-dataset evidence ladder: VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal, and AGAIN replicated, scaled, validated, and strengthened it with dense V-JEPA 2.1 / TRIBE v2 features, controlled grouped continuous future-movement ranking/lift, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
+The bounded selected-head result is now consolidated into one `420/420` confirmation artifact: `70/70` blocked temporal rows plus `350/350` grouped held-out-video rows. All rows were reused after provenance and checksum audit, no rerun was required, and all overall gates passed.
+
 The neuro-response mechanism is central. The frozen video-side features used in these benchmarks are predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data. They are not generic video embeddings and not direct brain recordings from the benchmark viewer rows. Neural Bridge tests whether those predicted neuro-response features carry future human arousal event signal.
 
 TRIBE/V-JEPA are the upstream substrate, not the moat by themselves. Neural Bridge is the downstream bridge, control, validation, and response-intelligence layer. As upstream brain-response prediction models improve, Neural Bridge can inherit stronger frozen neuro-response signal and evaluate it under the same controls.
@@ -74,6 +76,16 @@ Full commercial interpretation: `docs/neural_bridge_service_as_software.md`.
 ## Best AGAIN Results
 
 The strongest current evidence is the AGAIN redesigned washout-gap binary result, confirmed under blocked temporal validation and checked for grouped-video compatibility.
+
+Full bounded selected-head confirmation:
+
+- matrix: `420/420` (`70/70` blocked plus `350/350` grouped)
+- rows reused / rerun: `420` / `0`
+- target/head: `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual`
+- matrix uniqueness, provenance, frozen-AR identity, control-policy, checkpoint, blocked, and updated grouped gates: pass
+- failed gates: `[]`
+- report: `reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md`
+- evidence: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`
 
 Blocked binary confirmation:
 
@@ -287,4 +299,4 @@ Neural Bridge demonstrates controlled future human arousal event-ranking across 
 
 ## Next Work
 
-Next work is the approved full bounded 420-row selected-head confirmation in `docs/phase5_selected_head_420_confirmation_plan.md`. It must consolidate and audit the existing 70 blocked and 350 grouped rows for the confirmed washout-gap target/head, reuse valid rows, and rerun only an explicitly identified incompatible slice. The historical literal 504 matrix was an older three-seed/four-variant development design and must not be recreated or padded during this task. Do not widen claims or begin blocked-continuous development until the consolidated confirmation is assembled, audited, and promoted; grouped continuous future-movement ranking/lift remains separately supported.
+The approved bounded 420-row selected-head confirmation in `docs/phase5_selected_head_420_confirmation_plan.md` is complete and promoted. No follow-on experiment is approved in this handoff. The historical literal 504 matrix remains an obsolete three-seed/four-variant development design and must not be recreated or padded. Do not widen claims into exact continuous values, blocked continuous generalization, or universal prediction; grouped continuous future-movement ranking/lift remains separately supported.

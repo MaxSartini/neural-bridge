@@ -5,7 +5,7 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 ## Best Validation First
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
-- Latest local result: `93 passed in 5.58s` on `2026-07-14`
+- Latest local result: `99 passed in 6.70s` on `2026-07-14`
 - Repo evidence/orientation audit: `npm run audit:repo`
 - Latest local result: `repo_readiness pass controlled_evidence_items=206` on `2026-07-14`
 - Full `npm run verify`, VEATIC frozen-evidence verification, strict-benchmark dry run, and frontend production build: pass on `2026-07-14`
@@ -15,6 +15,7 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 
 | Phase | Script | Role |
 | --- | --- | --- |
+| AGAIN Phase 5.5 | `backend/scripts/assemble_again_dense_2hz_phase5_selected_head_420_confirmation.py` | No-training/no-scoring assembler and fail-closed provenance audit for the full bounded 420-row selected-head confirmation. |
 | AGAIN Phase 5.5 | `backend/scripts/run_again_dense_2hz_phase5_temporal_residual_binary_big_confirm.py` | 10-seed blocked binary confirmation for `future_arousal_max_delta_rows_4_10_train_q90` and `short_temporal_conv_residual`. |
 | AGAIN Phase 5.5 | `backend/scripts/run_again_dense_2hz_phase5_temporal_residual_grouped_compat.py` | 5-fold x 10-seed grouped-video compatibility run for the confirmed target/head. |
 | AGAIN Phase 5.5 | `backend/scripts/update_again_dense_2hz_phase5_temporal_residual_grouped_compat_verdict.py` | No-training updated verdict logic for frozen-AR residual label-permutation nulls. |
@@ -36,6 +37,7 @@ Key coverage:
 
 - Split and target leakage contracts: `test_grouped_video_split.py`, `test_again_dense_2hz_benchmark.py`, `test_again_native_temporal_alignment.py`
 - AGAIN dense/Phase 4 contracts: `test_again_dense_2hz_phase4_pca_bridge.py`, `test_again_boundary_manifest.py`, `test_again_full_ar_context.py`
+- AGAIN selected-head confirmation contracts: `test_again_selected_head_420_confirmation.py` protects the exact 420-key matrix, lane normalization, semantic controls, frozen checksum policy, and overall gate composition.
 - VEATIC v2 benchmark contracts: `test_veatic_strict_benchmark_contract.py`, `test_veatic_raw_representation_contract.py`
 - Frozen tensor/trained-head contracts: `test_veatic_frozen_tensor_adapter.py`, `test_veatic_frozen_tensor_trained_heads.py`
 - Runtime/cache contracts: `test_veatic_tribe_cache_runtime.py`, `test_mlx_vjepa21_cortical.py`
@@ -45,6 +47,7 @@ Key coverage:
 
 - `benchmarks/veatic/` is a tracked VEATIC v2 benchmark evidence mirror.
 - Current AGAIN benchmark evidence lives in `reports/`, `evidence/phase_*`, and `evidence/current_phase_5_5_review/`.
+- Current consolidated selected-head evidence: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`.
 - Heavy output roots under `outputs/`, dense cache files, checkpoints, tensors, `.npy`, `.npz`, and model assets remain outside git unless explicitly documented as tiny metadata.
 
 ## Non-Claim Runtime Probes

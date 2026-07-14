@@ -30,6 +30,15 @@
     "family": "AGAIN",
     "phase": "Phase 5.5",
     "item_type": "script",
+    "path": "backend/scripts/assemble_again_dense_2hz_phase5_selected_head_420_confirmation.py",
+    "canonical_status": "claim_bearing_no_training_assembler",
+    "reviewer_role": "Assembles and fail-closed audits the exact 420-row selected-head confirmation without training or scoring.",
+    "validation_or_evidence": "reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 5.5",
+    "item_type": "script",
     "path": "backend/scripts/run_again_dense_2hz_phase5_temporal_residual_binary_big_confirm.py",
     "canonical_status": "claim_bearing_runner",
     "reviewer_role": "Matched seed-specific 10-seed blocked binary confirmation for the current bounded proof target/head.",
@@ -478,6 +487,15 @@
   },
   {
     "family": "AGAIN",
+    "phase": "Phase 5.5",
+    "item_type": "test",
+    "path": "tests/test_again_selected_head_420_confirmation.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Exact 420-key matrix, lane semantics, checksum, and overall gate-composition contracts.",
+    "validation_or_evidence": "python3 -m pytest -q tests"
+  },
+  {
+    "family": "AGAIN",
     "phase": "Phase 2",
     "item_type": "test",
     "path": "tests/test_again_full_ar_context.py",
@@ -727,6 +745,15 @@
     "canonical_status": "evidence_surface",
     "reviewer_role": "Phase 5.5 grouped compatibility evidence bundle with updated verdict artifacts.",
     "validation_or_evidence": "Inspect files directly; see artifact_manifest.csv for copied dossier paths and SHA-256 checksums."
+  },
+  {
+    "family": "AGAIN",
+    "phase": "evidence",
+    "item_type": "artifact_dir",
+    "path": "evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/",
+    "canonical_status": "evidence_surface",
+    "reviewer_role": "Full bounded 420-row selected-head confirmation evidence with zero reruns and fail-closed provenance audit.",
+    "validation_or_evidence": "Inspect files directly; see artifact_manifest.csv for SHA-256 checksums."
   },
   {
     "family": "shared",

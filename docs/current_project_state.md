@@ -18,6 +18,8 @@ Terminology: `AR-only baseline` means a standalone autoregressive comparison lan
 
 Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict. The deterministic Phase 5 eval-mode `regression_plus_binary` lane separately passed controlled grouped continuous future-movement ranking/lift against AR-only and matched shuffled/random controls.
 
+The unified bounded selected-head artifact passes at exactly `420/420` rows (`70/70` blocked plus `350/350` grouped). All `420` rows were reused after provenance and integrity audit, no slice required rerunning, and the overall failed-gate list is `[]`.
+
 Exact continuous-value forecasting and blocked continuous generalization remain open. This does not erase the grouped continuous-ranking/lift pass. Broad all-target/all-dataset temporal prediction remains open. No 504 run has been promoted.
 
 ## Do Not Claim
@@ -40,6 +42,7 @@ Exact continuous-value forecasting and blocked continuous generalization remain 
 - Frozen-AR residual design strengthened grouped evidence and reduced blocked harm by making AR the baseline floor.
 - The redesigned washout-gap binary target plus short temporal conv residual passed a matched 10-seed blocked temporal confirmation.
 - The same target/head passed grouped-video compatibility under the updated frozen-AR-residual-aware label permutation verdict.
+- The full selected-head matrix is consolidated and promoted at `420/420`, with `420` reused rows, `0` reruns, and all provenance/integrity gates passing.
 - Grouped continuous future-movement ranking/lift passed in the deterministic eval-mode lane: real beat AR-only and matched shuffled/random controls on future-movement Spearman and top-1% average-true-movement lift across 15 grouped fold-seed evaluations.
 - Continuous evidence is protocol-bounded: the old fused blocked lane lost to AR/controls, while the later washout continuous diagnostic improved Spearman but failed its full top-5%/seed-consistency gate. Do not promote this as exact-value or blocked continuous forecasting.
 - Raw predicted cortical/fMRI features alone are a negative-control lesson: they are weak under blocked validation and can damage AR if bolted on directly.
@@ -162,6 +165,8 @@ AGAIN frozen-AR residual design:
 - Frozen-AR residual report: `reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md`
 - Blocked binary confirmation report: `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
 - Updated grouped compatibility verdict: `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
+- Full selected-head confirmation: `reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md`
+- Full selected-head evidence: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`
 - Dense root: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`
 - Phase 4 root: `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/`
 
@@ -170,11 +175,11 @@ Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, 
 ## Executable Validation
 
 - Full deterministic suite: `python3 -m pytest -q tests`
-- Latest local result: `93 passed in 5.58s` on `2026-07-14`; `npm run verify` and VEATIC frozen-evidence verification passed
+- Latest local result: `99 passed in 6.70s` on `2026-07-14`; `npm run verify` and VEATIC frozen-evidence verification passed
 - `npm test` runs the full suite.
 - Executable crosswalk: `evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv`
 - Repo audit: `npm run audit:repo`
 
 ## Next Work
 
-Next work is the approved full bounded 420-row selected-head confirmation defined in `docs/phase5_selected_head_420_confirmation_plan.md`. Consolidate and audit the existing `70/70` blocked rows plus `350/350` grouped rows for the confirmed washout-gap target/head; reuse valid rows and rerun only an explicitly identified missing or provenance-incompatible slice. The historical literal 504 matrix was an older three-seed/four-variant development design, not 420 current rows plus 84 missing rows. Do not restore obsolete variants, invent rows to retain the 504 label, or begin continuous-model development in the same task. Exact continuous-value forecasting, blocked continuous generalization, and broad universal temporal prediction remain separate research problems; grouped continuous future-movement ranking/lift is already controlled positive evidence.
+The approved bounded 420-row selected-head confirmation is complete. No subsequent experiment is authorized here; define any follow-on task explicitly after reviewing the promoted report and evidence snapshot. The historical 504 development matrix remains out of scope. Exact continuous-value forecasting, blocked continuous generalization, and broad universal temporal prediction remain separate research problems; grouped continuous future-movement ranking/lift is already controlled positive evidence.

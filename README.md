@@ -8,6 +8,8 @@ AGAIN blocked temporal binary confirmation: `future_arousal_max_delta_rows_4_10_
 
 AGAIN grouped-video compatibility for the same target/head reached real PR-AUC `0.2313831909` vs matched fold/seed-specific AR/frozen floor `0.2174953276` and best matched control `0.2174209937`, with delta `+0.0138878634` vs AR/frozen and `+0.0139621972` vs best matched control. It was positive in `50/50` fold-seeds vs the best matched control. The updated frozen-AR-residual-aware verdict passed with failed gates `[]`.
 
+The unified bounded selected-head confirmation now passes at exactly `420/420` rows: `70/70` blocked plus `350/350` grouped. All rows were reused after target/head/window, split/PCA, frozen-AR score-cache, control-policy, eval-mode checkpoint, and gate audits; rerun count was `0` and failed gates were `[]`. This is the current consolidated confirmation, not a 504 run.
+
 AGAIN also has a controlled grouped continuous future-movement ranking/lift result from the deterministic eval-mode `regression_plus_binary` lane. Across 15 grouped fold-seed evaluations, real future-movement Spearman was `0.2232222830` vs AR-only `0.1982207591`, `ar_plus_shuffled_pca` `0.1938183619`, and `ar_plus_random_pca` `0.1931781163`. Real top-1% average-true-movement lift was `0.1359465244` vs `0.1115815364`, `0.1125842464`, and `0.1136304212`, respectively; the stored `continuous_ranking_lift_pass` is `true`. This is a grouped continuous-ranking result, not exact-value forecasting and not a blocked continuous pass.
 
 Beating AR is the hard part. AR is the recent/past-arousal baseline, and arousal persistence is already powerful; a model that cannot beat AR is mostly rediscovering momentum. The current AGAIN blocked result clears that frozen AR floor by `+0.0068399399` PR-AUC, a `+2.63%` relative lift across 10 matched seeds, and the grouped compatibility result clears AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) across `50/50` fold-seeds. That is the central scientific win.
@@ -199,7 +201,7 @@ The current deterministic validation command is:
 python3 -m pytest -q tests
 ```
 
-Latest local result on `2026-07-14`: `93 passed in 5.58s`; full `npm run verify` and VEATIC frozen-evidence verification passed.
+Latest local result on `2026-07-14`: `99 passed in 6.70s`; full `npm run verify` and VEATIC frozen-evidence verification passed.
 
 `npm test` now runs that full deterministic suite. The executable crosswalk for relevant AGAIN and VEATIC v2 scripts, tests, benchmark artifacts, and runtime-only tools is tracked in [docs/executable_validation_manifest.csv](docs/executable_validation_manifest.csv) and mirrored in [evidence/current_phase_5_5_review/14_executable_validation_and_code/](evidence/current_phase_5_5_review/14_executable_validation_and_code/). Runtime probes are not claim-bearing benchmark evidence.
 
@@ -213,6 +215,8 @@ Latest local result on `2026-07-14`: `93 passed in 5.58s`; full `npm run verify`
 - Current reviewer dossier: `evidence/current_phase_5_5_review/`
 - Blocked binary confirmation evidence snapshot: `evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/`
 - Grouped compatibility evidence snapshot: `evidence/phase_5_5_grouped_compatibility_20260630_033520/`
+- Full selected-head confirmation report: `reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md`
+- Full selected-head confirmation evidence snapshot: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`
 
 Current confirmed AGAIN lane: `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual` over fold-safe `temporal_mean_2s_then_pca256` and matched frozen AR.
 
@@ -220,4 +224,4 @@ Historical Phase 5 fused-head lane: `arousal_spike_rows_2_6_train_q90` with `gat
 
 ## Next Work
 
-Next work is the approved [full bounded 420-row selected-head confirmation](docs/phase5_selected_head_420_confirmation_plan.md): consolidate and audit the existing 70 blocked and 350 grouped rows for the confirmed washout-gap target/head, reusing valid rows and rerunning only an explicitly identified incompatible slice. The historical literal 504 matrix was an older three-seed/four-variant development design; it is not the current confirmation and no rows should be invented to preserve that name. Exact continuous-value forecasting, blocked continuous generalization, and broad all-target/all-dataset temporal prediction remain open research problems; grouped continuous future-movement ranking/lift is already a controlled positive result.
+The approved [full bounded 420-row selected-head confirmation](docs/phase5_selected_head_420_confirmation_plan.md) is complete and promoted. No follow-on experimental sweep is approved in this handoff; any later work should be defined explicitly after review. The historical literal 504 matrix remains an obsolete development design, not the current confirmation. Exact continuous-value forecasting, blocked continuous generalization, and broad all-target/all-dataset temporal prediction remain open research problems; grouped continuous future-movement ranking/lift remains a separate controlled positive result.

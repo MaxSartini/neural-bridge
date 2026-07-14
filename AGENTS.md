@@ -33,6 +33,8 @@ Terminology: `AR-only baseline` is a standalone autoregressive comparison lane. 
 
 Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict.
 
+The full bounded selected-head confirmation is now assembled and promoted: exactly `420/420` scored rows (`70/70` blocked plus `350/350` grouped) passed matrix completeness, uniqueness, target/head/window, split/PCA provenance, frozen-AR score-cache identity, executable control-policy, eval-mode checkpoint, canonical blocked-gate, and updated grouped-gate audits. All `420` rows were provenance-compatible reuse; rerun count was `0` and failed gates were `[]`.
+
 The deterministic Phase 5 eval-mode `regression_plus_binary` lane also passed its grouped continuous-ranking/lift gate. Across 15 grouped fold-seed evaluations, real future-movement Spearman was `0.2232222830` versus AR-only `0.1982207591`, `ar_plus_shuffled_pca` `0.1938183619`, and `ar_plus_random_pca` `0.1931781163`; real top-1% average-true-movement lift was `0.1359465244` versus `0.1115815364`, `0.1125842464`, and `0.1136304212`, respectively. This proves controlled grouped continuous future-movement ranking/lift for that lane. It does not prove exact continuous values or blocked continuous generalization: the old fused blocked lane lost to AR/controls, and the later washout continuous diagnostic improved Spearman but failed its full top-5%/seed-consistency gate.
 
 Do not claim:
@@ -70,7 +72,10 @@ Canonical blocked temporal binary confirmation:
 Canonical updated grouped compatibility verdict:
 `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 
-Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. Raw predicted cortical/fMRI features alone were weak; the Neural Bridge pipeline makes the difference. The old fused AGAIN lane passed grouped event and continuous future-movement ranking/lift controls but failed blocked AR/control checks; frozen-AR residual and temporal/event-context residual designs established the current design path. The redesigned washout-gap target/head beats the strong AR persistence baseline, passes blocked temporal confirmation, and passes updated grouped-video compatibility. Exact continuous-value forecasting, blocked continuous generalization, and broad universal temporal prediction remain open; do not erase the grouped continuous-ranking/lift pass when stating those boundaries.
+Canonical full bounded selected-head confirmation:
+`reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md`
+
+Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. Raw predicted cortical/fMRI features alone were weak; the Neural Bridge pipeline makes the difference. The old fused AGAIN lane passed grouped event and continuous future-movement ranking/lift controls but failed blocked AR/control checks; frozen-AR residual and temporal/event-context residual designs established the current design path. The redesigned washout-gap target/head beats the strong AR persistence baseline, passes blocked temporal confirmation and updated grouped-video compatibility, and now passes the unified bounded `420/420` selected-head confirmation audit. Exact continuous-value forecasting, blocked continuous generalization, and broad universal temporal prediction remain open; do not erase the grouped continuous-ranking/lift pass when stating those boundaries.
 
 ## Commercial Language
 
@@ -90,10 +95,22 @@ Do not frame Neural Bridge as generic SaaS, a simple dashboard, mind reading, in
 - Current reviewer dossier: `evidence/current_phase_5_5_review/`
 - Blocked binary confirmation evidence snapshot: `evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/`
 - Grouped compatibility evidence snapshot: `evidence/phase_5_5_grouped_compatibility_20260630_033520/`
+- Selected-head 420 confirmation output root: `outputs/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953/`
+- Selected-head 420 confirmation evidence snapshot: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`
 
 Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly asked. Do not force-add ignored output roots.
 
 ## Current Numbers
+
+AGAIN full bounded selected-head confirmation:
+
+- target/head: `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual`
+- matrix completeness: `420/420` (`70/70` blocked, `350/350` grouped)
+- rows reused / rerun: `420` / `0`
+- provenance, frozen-AR checksum identity, executable control policies, and checkpoint restoration: pass
+- canonical blocked confirmation and updated grouped compatibility: pass
+- overall selected-head confirmation pass: true
+- failed gates: `[]`
 
 AGAIN blocked temporal binary confirmation:
 
@@ -151,11 +168,11 @@ VEATIC-124 v2:
 
 ## Next Task
 
-Execute the approved full bounded 420-row selected-head confirmation plan in `docs/phase5_selected_head_420_confirmation_plan.md`. Consolidate and audit the existing `70/70` blocked rows and `350/350` grouped rows for `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual`; reuse valid rows and rerun only an explicitly identified missing or provenance-incompatible slice. The historical literal 504 matrix was an older three-seed/four-variant development design and is not the current task. Do not invent rows to reach 504, restore obsolete variants, or begin continuous-model development during this task.
+The approved full bounded 420-row selected-head confirmation is complete. No follow-on experimental sweep or continuous-model task is authorized by this handoff. Review the promoted report/evidence and define any later task explicitly; do not reinterpret this as a 504 run, restore obsolete variants, or widen the exact-continuous/universal-generalization claim boundary.
 
 ## Test And Script Validation
 
-`npm test` runs the full deterministic contract suite: `python3 -m pytest -q tests`. The current validated suite is `93 passed in 5.58s` on `2026-07-14`; `npm run verify`, the repository audit, VEATIC evidence verification, the strict-benchmark dry run, and the frontend production build passed.
+`npm test` runs the full deterministic contract suite: `python3 -m pytest -q tests`. The current validated suite is `99 passed in 6.70s` on `2026-07-14`; `npm run verify`, the repository audit, VEATIC evidence verification, the strict-benchmark dry run, and the frontend production build passed.
 
 Relevant AGAIN and VEATIC v2 runners, tests, benchmark artifacts, and runtime-only tools are indexed in `docs/executable_validation_manifest.csv` and mirrored under `evidence/current_phase_5_5_review/14_executable_validation_and_code/`. Do not add placeholder smoke tests as validation. Add tests only when they protect a real split, target, leakage, control, manifest, scorer, checkpoint, or claim-boundary contract.
 

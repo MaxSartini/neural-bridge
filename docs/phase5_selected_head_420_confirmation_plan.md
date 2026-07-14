@@ -2,7 +2,15 @@
 
 ## Status
 
-Approved next task. The constituent blocked and grouped evaluations already exist, but the unified 420-row confirmation artifact has not yet been assembled, audited, or promoted.
+Completed and promoted on `2026-07-14`. The unified artifact passed at exactly `420/420` rows (`70/70` blocked plus `350/350` grouped), reusing all `420` provenance-compatible scored rows with `0` reruns and failed gates `[]`.
+
+Canonical completion artifacts:
+
+- report: `reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md`
+- output root: `outputs/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953/`
+- evidence snapshot: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`
+- assembler: `backend/scripts/assemble_again_dense_2hz_phase5_selected_head_420_confirmation.py`
+- deterministic contracts: `tests/test_again_selected_head_420_confirmation.py`
 
 ## Purpose
 

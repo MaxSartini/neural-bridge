@@ -44,31 +44,54 @@
     "AGAIN replicated and extended the result at scale.",
     "Bounded strict forward-time future-event ranking is proven on AGAIN for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
     "Grouped held-out-video compatibility for the same AGAIN target/head is proven under the updated frozen-AR-residual-aware verdict.",
+    "The full bounded AGAIN selected-head confirmation passes at exactly 420/420 scored rows: 70/70 blocked plus 350/350 grouped, with all 420 rows reused, zero reruns, and no failed gates.",
     "Controlled grouped held-out-video continuous future-arousal movement ranking/lift is proven on AGAIN for the deterministic Phase 5 eval-mode regression_plus_binary lane against AR-only and matched shuffled/random controls."
   ],
   "open": [
     "Exact continuous-value/trajectory forecasting remains open.",
     "Blocked continuous future-movement generalization remains open.",
     "Broad all-target/all-dataset temporal prediction remains open.",
-    "The unified 420-row selected-head confirmation artifact has not yet been assembled, audited, or promoted.",
     "No 504 run has been performed or promoted.",
     "Grouped compatibility is not itself a 504 run.",
     "The updated grouped verdict is a no-training verdict update from existing artifacts, not a rerun."
   ],
   "next_task": {
-    "status": "approved_not_started",
+    "status": "completed_promoted",
     "plan": "docs/phase5_selected_head_420_confirmation_plan.md",
-    "objective": "Consolidate and audit the existing 70 blocked and 350 grouped rows as one full bounded selected-head confirmation for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
+    "objective": "Consolidated and audited the existing 70 blocked and 350 grouped rows as one full bounded selected-head confirmation for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
     "expected_rows": {
       "blocked": 70,
       "grouped": 350,
       "total": 420
     },
-    "reuse_policy": "Reuse valid scored rows and rerun only an explicitly identified missing or provenance-incompatible slice.",
+    "reuse_policy": "All 420 rows passed provenance compatibility and were reused; no slice required rerunning.",
     "historical_504_boundary": "The literal 504 matrix was an older 3-seed x 4-variant x 7-lane development design across one blocked split and five grouped folds. It is not the current task and is not 420 current rows plus 84 missing rows.",
-    "stop_boundary": "Do not restore obsolete variants, invent rows to reach 504, or begin continuous-model development in the same task."
+    "stop_boundary": "Task complete. No follow-on sweep is authorized; do not restore obsolete variants, invent rows to reach 504, or widen continuous/generalization claims."
   },
   "canonical_numbers": {
+    "again_selected_head_420_confirmation": {
+      "target": "future_arousal_max_delta_rows_4_10_train_q90",
+      "architecture": "short_temporal_conv_residual",
+      "feature": "temporal_mean_2s_then_pca256",
+      "matrix_rows": 420,
+      "blocked_rows": 70,
+      "grouped_rows": 350,
+      "rows_reused": 420,
+      "rows_rerun": 0,
+      "matrix_completeness_pass": true,
+      "matrix_uniqueness_pass": true,
+      "provenance_integrity_pass": true,
+      "frozen_ar_checksum_identity_pass": true,
+      "control_policy_pass": true,
+      "checkpoint_restore_and_checksum_pass": true,
+      "blocked_confirmation_pass": true,
+      "updated_grouped_compatibility_pass": true,
+      "overall_selected_head_420_confirmation_pass": true,
+      "failed_gates": [],
+      "no_504_run": true,
+      "no_new_training": true,
+      "no_new_scoring": true
+    },
     "again_grouped_continuous_future_movement_ranking": {
       "target": "arousal_spike_rows_2_6_train_q90 with continuous future-movement output",
       "protocol": "grouped_video",
@@ -173,11 +196,13 @@
     "reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md",
     "reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md",
     "reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md",
+    "reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md",
     "reports/README.md",
     "evidence/current_phase_5_5_review/README.md",
     "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",
     "evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/README.md",
     "evidence/phase_5_5_grouped_compatibility_20260630_033520/README.md",
+    "evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/README.md",
     "docs/executable_validation_index.md",
     "docs/executable_validation_manifest.csv",
     "docs/executable_validation_manifest.json",
@@ -199,6 +224,7 @@
   "last_updated": "2026-07-14",
   "review_evidence_dossier": {
     "path": "evidence/current_phase_5_5_review/",
+    "selected_head_420_confirmation": "evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/",
     "claim_ledger": "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",
     "artifact_manifest": "evidence/current_phase_5_5_review/artifact_manifest.csv",
     "definitions_and_process": "evidence/current_phase_5_5_review/DEFINITIONS_AND_PROCESS.md",
@@ -210,9 +236,9 @@
     "latest_local_result": {
       "date": "2026-07-14",
       "result": "pass",
-      "tests_passed": 93,
+      "tests_passed": 99,
       "tests_failed": 0,
-      "duration_seconds": 5.58
+      "duration_seconds": 6.7
     },
     "repo_audit_command": "npm run audit:repo",
     "repo_audit_latest_local_result": "repo_readiness pass controlled_evidence_items=206",

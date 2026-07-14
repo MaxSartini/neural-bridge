@@ -4,6 +4,7 @@ Reports preserve the chronological research record. Older failures are not delet
 
 ## Current Claim-Bearing Reports
 
+- Full bounded selected-head confirmation (`420/420`, zero reruns): `again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md`
 - Blocked washout-gap binary confirmation: `again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
 - Updated grouped compatibility verdict: `again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 - Deterministic eval-mode correction, including the grouped continuous-ranking/lift pass: `again_dense_2hz_phase5_evalmode_rescore_summary_.md`
