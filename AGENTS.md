@@ -151,7 +151,7 @@ VEATIC-124 v2:
 
 ## Next Task
 
-Next work is explicit review and any intentionally approved 504/broader compatibility plan, not broad uncontrolled secondary heads. Do not claim 504 or universal temporal prediction until that later confirmation is actually run and promoted.
+Execute the approved full bounded 420-row selected-head confirmation plan in `docs/phase5_selected_head_420_confirmation_plan.md`. Consolidate and audit the existing `70/70` blocked rows and `350/350` grouped rows for `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual`; reuse valid rows and rerun only an explicitly identified missing or provenance-incompatible slice. The historical literal 504 matrix was an older three-seed/four-variant development design and is not the current task. Do not invent rows to reach 504, restore obsolete variants, or begin continuous-model development during this task.
 
 ## Test And Script Validation
 

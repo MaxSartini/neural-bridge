@@ -287,4 +287,4 @@ Neural Bridge demonstrates controlled future human arousal event-ranking across 
 
 ## Next Work
 
-Next work is explicit review and planning for any 504/broader compatibility confirmation. Do not widen claims until that later run is intentionally performed, audited, and promoted. Exact continuous-value forecasting and blocked continuous generalization remain separate open research problems; grouped continuous future-movement ranking/lift is already supported.
+Next work is the approved full bounded 420-row selected-head confirmation in `docs/phase5_selected_head_420_confirmation_plan.md`. It must consolidate and audit the existing 70 blocked and 350 grouped rows for the confirmed washout-gap target/head, reuse valid rows, and rerun only an explicitly identified incompatible slice. The historical literal 504 matrix was an older three-seed/four-variant development design and must not be recreated or padded during this task. Do not widen claims or begin blocked-continuous development until the consolidated confirmation is assembled, audited, and promoted; grouped continuous future-movement ranking/lift remains separately supported.

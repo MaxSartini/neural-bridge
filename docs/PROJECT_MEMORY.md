@@ -5,6 +5,7 @@ Current project state is maintained in:
 - `docs/neural_bridge_phase5_5_evidence_ladder.md`
 - `docs/current_claim_status.json`
 - `docs/current_project_state.md`
+- `docs/phase5_selected_head_420_confirmation_plan.md`
 - `docs/how_neural_bridge_was_discovered.md`
 - `docs/veatic_v2_evidence_summary.md`
 - `docs/veatic_v2_evidence_freeze.md`
@@ -43,6 +44,8 @@ For the current claim, VEATIC and AGAIN are a paired evidence ladder. VEATIC-124
 Raw predicted cortical/fMRI features alone fail badly on AGAIN: on the original Phase 3 spike target, blocked `raw_cortical_only` PR-AUC was `0.124315` vs AR-only `0.203622`, and direct `AR_plus_raw_cortical` was `0.167731`. Current AGAIN bounded proof: `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual` passes blocked temporal confirmation with real PR-AUC `0.2670735630` vs frozen AR `0.2602336231` and best control `0.2593369051`; updated grouped compatibility passes with real PR-AUC `0.2313831909` vs AR/frozen `0.2174953276` and best control `0.2174209937`.
 
 Do not erase the continuous result when stating the claim boundary. The deterministic Phase 5 eval-mode `regression_plus_binary` lane passed grouped continuous future-movement ranking/lift across 15 fold-seed evaluations: real future-movement Spearman `0.2232222830` beat AR-only `0.1982207591`, shuffled `0.1938183619`, and random `0.1931781163`; real top-1% average-true-movement lift `0.1359465244` beat `0.1115815364`, `0.1125842464`, and `0.1136304212`. Exact continuous values and blocked continuous generalization remain open. The later washout continuous diagnostic improved Spearman but failed its full top-5%/seed-consistency gate. Broad all-target/all-dataset temporal prediction remains open; no 504 run has been promoted.
+
+Approved next task: execute `docs/phase5_selected_head_420_confirmation_plan.md`. Consolidate and audit the existing 70 blocked plus 350 grouped rows for the selected `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual` lane, reuse valid rows, and rerun only an explicitly identified missing or provenance-incompatible slice. The historical literal 504 matrix was an older three-seed/four-variant development design; do not recreate it, pad the current matrix to 504, or begin continuous-model development in the same task.
 
 Run `npm run audit:repo` before handing the repo to a fresh Codex session or teammate.
 Run `npm run evidence:verify` before relying on the frozen v2 evidence bundle.

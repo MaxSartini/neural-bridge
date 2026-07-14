@@ -8,6 +8,7 @@ Current-facing documentation:
 - `executable_validation_index.md` - current AGAIN/VEATIC v2 scripts, tests, benchmark artifacts, and validation commands.
 - `executable_validation_manifest.csv` / `executable_validation_manifest.json` - machine-readable executable crosswalk for reviewers.
 - `current_project_state.md` - short operating snapshot for the cleaned repo.
+- `phase5_selected_head_420_confirmation_plan.md` - approved next-task contract for consolidating the existing 70 blocked and 350 grouped rows into one audited selected-head confirmation.
 - `veatic_v2_evidence_summary.md` - foundational VEATIC-124 v2 scientific evidence.
 - `external_assets_manifest.md` - source-versus-external asset boundary.
 - `veatic_v2_evidence_freeze.md` - frozen v2 evidence bundle, checksums, and no-reencode verifier.
@@ -26,6 +27,7 @@ Current evidence framing:
 - Commercially, Neural Bridge is Service as Software: automated first-pass expert response evaluation for video, not generic SaaS or a simple dashboard.
 - Continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open.
 - No 504 run has been performed or promoted.
+- The next task is the bounded 420-row selected-head confirmation; the historical literal 504 matrix was an older three-seed/four-variant development design, not 420 current rows plus 84 missing rows.
 
 Legacy and implementation entrypoints:
 
