@@ -42,6 +42,26 @@ Primary folder: `12_again_phase_5_5_binary_blocked_confirmation/`
 
 Primary folder: `13_again_phase_5_5_grouped_compatibility/`
 
+### AGAIN Original Three-Checkpoint Ensemble
+
+The selected original training recipe now has separate fresh control-complete
+ensemble confirmations:
+
+- blocked: `140/140`, real / AR / best control `0.2668905427` /
+  `0.2597235728` / `0.2589301730`, `5/5` positive versus both
+- grouped-video: `420/420` (`315` member + `105` ensemble), real / AR / best
+  control `0.2343675680` / `0.2180497906` / `0.2179716645`
+- grouped deltas versus AR / best control / member mean: `+0.0163177774` /
+  `+0.0163959035` / `+0.0082200727`
+- grouped positives: `15/15` fold-groups and `5/5` fold means versus AR and
+  best matched control
+- failed gates: `[]` in both confirmations
+
+Primary evidence: `evidence/phase_6_original_three_checkpoint_control_complete_20260714_160001/`
+and `evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/`.
+This is bounded to the selected binary target/head and does not broaden the
+continuous claim.
+
 ### AGAIN Grouped Continuous Future-Movement Ranking/Lift
 
 - protocol: deterministic eval-mode `grouped_video`

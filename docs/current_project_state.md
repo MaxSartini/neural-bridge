@@ -175,11 +175,11 @@ Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, 
 ## Executable Validation
 
 - Full deterministic suite: `python3 -m pytest -q tests`
-- Latest local result: `99 passed in 6.70s` on `2026-07-14`; `npm run verify` and VEATIC frozen-evidence verification passed
+- Latest local result: fully provisioned backend `138 passed in 27.45s`; default `npm run verify` `130 passed, 1 skipped in 21.92s`; repository audit, strict benchmark dry run, and frontend build passed on `2026-07-14`
 - `npm test` runs the full suite.
 - Executable crosswalk: `evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv`
 - Repo audit: `npm run audit:repo`
 
 ## Next Work
 
-The approved bounded 420-row selected-head confirmation remains canonical. Trial 4 did not replace it. The original three-checkpoint ensemble subsequently passed a fresh control-complete blocked confirmation on `140/140` rows: real `0.2668905`, AR `0.2597236`, best control `0.2589302`, with `5/5` groups positive versus both. This adds promoted bounded blocked ensemble evidence without rewriting the canonical 420. The next bounded task is a fresh grouped-video control-complete ensemble confirmation.
+The approved bounded 420-row selected-head confirmation remains canonical. Trial 4 did not replace it. The original three-checkpoint ensemble subsequently passed a fresh control-complete blocked confirmation on `140/140` rows: real `0.2668905`, AR `0.2597236`, best control `0.2589302`, with `5/5` groups positive versus both. Its separate fresh grouped-video confirmation also passed `420/420` rows: real `0.2343676`, AR `0.2180498`, best control `0.2179717`, `15/15` fold-groups and `5/5` fold means positive versus both, and `+0.0082201` uplift over its member mean. These add promoted bounded ensemble evidence without rewriting the canonical selected-head 420. The next modeling step requires a new explicit plan; do not resume same-family Optuna, 504, or continuous development by default.

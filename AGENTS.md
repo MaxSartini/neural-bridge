@@ -35,6 +35,8 @@ Bounded strict forward-time future-event ranking is proven on AGAIN for `future_
 
 The full bounded selected-head confirmation is now assembled and promoted: exactly `420/420` scored rows (`70/70` blocked plus `350/350` grouped) passed matrix completeness, uniqueness, target/head/window, split/PCA provenance, frozen-AR score-cache identity, executable control-policy, eval-mode checkpoint, canonical blocked-gate, and updated grouped-gate audits. All `420` rows were provenance-compatible reuse; rerun count was `0` and failed gates were `[]`.
 
+The original three-checkpoint ensemble is now promoted under both bounded protocols. Its fresh control-complete blocked confirmation passed `140/140` rows, and its separate fresh grouped-video confirmation passed `420/420` rows (`315` member plus `105` ensemble). In the grouped confirmation, real ensemble PR-AUC was `0.2343675680` versus AR `0.2180497906` and best matched control `0.2179716645`; all `15/15` fold-groups and `5/5` fold means were positive versus both, ensembling added `+0.0082200727` over the 45 real-member mean, and failed gates were `[]`.
+
 The deterministic Phase 5 eval-mode `regression_plus_binary` lane also passed its grouped continuous-ranking/lift gate. Across 15 grouped fold-seed evaluations, real future-movement Spearman was `0.2232222830` versus AR-only `0.1982207591`, `ar_plus_shuffled_pca` `0.1938183619`, and `ar_plus_random_pca` `0.1931781163`; real top-1% average-true-movement lift was `0.1359465244` versus `0.1115815364`, `0.1125842464`, and `0.1136304212`, respectively. This proves controlled grouped continuous future-movement ranking/lift for that lane. It does not prove exact continuous values or blocked continuous generalization: the old fused blocked lane lost to AR/controls, and the later washout continuous diagnostic improved Spearman but failed its full top-5%/seed-consistency gate.
 
 Do not claim:
@@ -97,6 +99,8 @@ Do not frame Neural Bridge as generic SaaS, a simple dashboard, mind reading, in
 - Grouped compatibility evidence snapshot: `evidence/phase_5_5_grouped_compatibility_20260630_033520/`
 - Selected-head 420 confirmation output root: `outputs/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953/`
 - Selected-head 420 confirmation evidence snapshot: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`
+- Original three-checkpoint grouped confirmation output root: `outputs/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024/`
+- Original three-checkpoint grouped confirmation evidence snapshot: `evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/`
 
 Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly asked. Do not force-add ignored output roots.
 
@@ -111,7 +115,18 @@ AGAIN original three-checkpoint blocked ensemble confirmation:
 - positive groups vs AR / per-group best control: `5/5` / `5/5`
 - ensemble uplift over 15 real members: `+0.0057164681`, positive `5/5`
 - blocked control-complete pass: true; failed gates: `[]`
-- boundary: grouped ensemble compatibility has not yet been run
+
+AGAIN original three-checkpoint grouped ensemble confirmation:
+
+- target/head: `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual`
+- matrix: `420/420` rows (`315` member plus `105` ensemble) over five grouped-video folds, nine untouched seeds, and three fixed groups
+- real / AR / best-control PR-AUC: `0.2343675680` / `0.2180497906` / `0.2179716645`
+- best aggregate matched control: `train_only_video_mean_residual`
+- delta vs AR / best control: `+0.0163177774` / `+0.0163959035`
+- positive fold-groups vs AR / per-fold-group best control: `15/15` / `15/15`
+- positive fold means vs AR / best control: `5/5` / `5/5`
+- ensemble uplift over 45 real members: `+0.0082200727`, positive `15/15`
+- grouped control-complete pass: true; failed gates: `[]`
 
 AGAIN full bounded selected-head confirmation:
 
@@ -193,15 +208,17 @@ Do not describe this as a broad seed problem. Most seed-to-seed differences are 
 
 The preregistered fixed 50/50 original/Trial-4 fresh-five pilot then completed `20/20` blocked rows on seeds `20260640`–`20260644`. It beat original in `5/5`, Trial 4 in `3/5`, and AR in `5/5`, but improved over the stronger component by only `+0.0001625462` and increased rather than reduced seed variability by `7.21%`. The pilot failed its locked minimum-gain, median, and stability gates; no matched-control or grouped follow-up is authorized. This rules out the simple within-seed 50/50 blend, not multi-checkpoint seed averaging.
 
-The subsequent larger retraining used 15 untouched seeds in five fixed three-checkpoint groups (`60/60` rows). Trial-4 ensembling improved over its member mean by `+0.0027137975`, reduced variability by `85.89%`, and beat AR in `5/5`, but lost to the equally ensembled original recipe by `-0.0029710659` with only `2/5` wins. The prespecified original ensemble reached `0.2717155074`, `+0.0044814318` over its member mean and `+0.0116782360` over the AR ensemble. The Trial-4 candidate failed; the original ensemble is a promising comparator requiring a new fresh, control-complete confirmation before promotion.
+The subsequent larger retraining used 15 untouched seeds in five fixed three-checkpoint groups (`60/60` rows). Trial-4 ensembling improved over its member mean by `+0.0027137975`, reduced variability by `85.89%`, and beat AR in `5/5`, but lost to the equally ensembled original recipe by `-0.0029710659` with only `2/5` wins. The prespecified original ensemble reached `0.2717155074`, `+0.0044814318` over its member mean and `+0.0116782360` over the AR ensemble. The Trial-4 candidate failed; this made the original ensemble the comparator subsequently tested and promoted by fresh blocked and grouped confirmations.
 
-That fresh original three-checkpoint control-complete blocked confirmation has now passed. Across `140/140` rows on untouched seeds `20260660`–`20260674`, real ensemble PR-AUC was `0.2668905427` versus AR ensemble `0.2597235728` and best aggregate matched control `random_pca_residual` at `0.2589301730`. Real-minus-AR / best-control was `+0.0071669699` / `+0.0079603697`, all `5/5` groups were positive versus both, ensemble uplift over the 15 real members was `+0.0057164681`, and failed gates were `[]`. This promotes bounded blocked control-complete evidence for the original three-checkpoint ensemble and authorizes a separate fresh grouped confirmation; grouped ensemble compatibility is not yet proven.
+That fresh original three-checkpoint control-complete blocked confirmation passed. Across `140/140` rows on untouched seeds `20260660`–`20260674`, real ensemble PR-AUC was `0.2668905427` versus AR ensemble `0.2597235728` and best aggregate matched control `random_pca_residual` at `0.2589301730`. Real-minus-AR / best-control was `+0.0071669699` / `+0.0079603697`, all `5/5` groups were positive versus both, ensemble uplift over the 15 real members was `+0.0057164681`, and failed gates were `[]`.
+
+The separately preregistered fresh grouped-video confirmation then passed `420/420` rows on seeds `20260675`–`20260683`. Real ensemble PR-AUC was `0.2343675680` versus AR `0.2180497906` and best aggregate matched control `train_only_video_mean_residual` at `0.2179716645`. Real-minus-AR / best-control was `+0.0163177774` / `+0.0163959035`; all `15/15` fold-groups and all `5/5` fold means were positive versus both. Ensembling added `+0.0082200727` over the 45 real members and won `15/15`; failed gates were `[]`. This promotes bounded grouped-video control-complete evidence for the original three-checkpoint ensemble. Do not generalize it beyond the selected target/head or into exact continuous forecasting.
 
 The real upstream Optuna, Polars, MLflow, and SHAP integrations are installed as the `research-tooling` backend extra and documented in `docs/research_tooling_integrations.md`. Run `npm run verify:research-tooling` to exercise all four with verified MLX GPU/MPS hardware. Their runs remain exploratory and cannot promote canonical evidence.
 
 ## Test And Script Validation
 
-`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the fully provisioned backend environment passed `136` tests, including the control-complete checkpoint-ensemble contracts. The default `npm run verify` environment passed `128` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
+`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the fully provisioned backend environment passed `138` tests, including the blocked and grouped control-complete checkpoint-ensemble contracts. The default `npm run verify` environment passed `130` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
 
 Relevant AGAIN and VEATIC v2 runners, tests, benchmark artifacts, and runtime-only tools are indexed in `docs/executable_validation_manifest.csv` and mirrored under `evidence/current_phase_5_5_review/14_executable_validation_and_code/`. Do not add placeholder smoke tests as validation. Add tests only when they protect a real split, target, leakage, control, manifest, scorer, checkpoint, or claim-boundary contract.
 

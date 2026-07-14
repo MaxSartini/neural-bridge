@@ -6,6 +6,7 @@ Current project state is maintained in:
 - `docs/current_claim_status.json`
 - `docs/current_project_state.md`
 - `docs/phase5_selected_head_420_confirmation_plan.md`
+- `docs/phase6_original_three_checkpoint_grouped_confirmation_plan.md`
 - `docs/how_neural_bridge_was_discovered.md`
 - `docs/veatic_v2_evidence_summary.md`
 - `docs/veatic_v2_evidence_freeze.md`
@@ -32,6 +33,8 @@ Current dense AGAIN H100 state is maintained in:
 - `reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md`
 - `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
 - `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
+- `reports/again_dense_2hz_phase6_original_three_checkpoint_control_complete_20260714_160001.md`
+- `reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md`
 - `reports/README.md`
 - `tools/run_h100_tribe_postpass.py`
 - Google Drive `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`
@@ -45,7 +48,7 @@ Raw predicted cortical/fMRI features alone fail badly on AGAIN: on the original 
 
 Do not erase the continuous result when stating the claim boundary. The deterministic Phase 5 eval-mode `regression_plus_binary` lane passed grouped continuous future-movement ranking/lift across 15 fold-seed evaluations: real future-movement Spearman `0.2232222830` beat AR-only `0.1982207591`, shuffled `0.1938183619`, and random `0.1931781163`; real top-1% average-true-movement lift `0.1359465244` beat `0.1115815364`, `0.1125842464`, and `0.1136304212`. Exact continuous values and blocked continuous generalization remain open. The later washout continuous diagnostic improved Spearman but failed its full top-5%/seed-consistency gate. Broad all-target/all-dataset temporal prediction remains open; no 504 run has been promoted.
 
-Approved next task: execute `docs/phase5_selected_head_420_confirmation_plan.md`. Consolidate and audit the existing 70 blocked plus 350 grouped rows for the selected `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual` lane, reuse valid rows, and rerun only an explicitly identified missing or provenance-incompatible slice. The historical literal 504 matrix was an older three-seed/four-variant development design; do not recreate it, pad the current matrix to 504, or begin continuous-model development in the same task.
+The selected-head 420 audit is complete and canonical. The original three-checkpoint ensemble is additionally promoted under two separate fresh control-complete confirmations: blocked `140/140` with real/AR/best-control PR-AUC `0.2668905` / `0.2597236` / `0.2589302`, and grouped-video `420/420` with `0.2343676` / `0.2180498` / `0.2179717`. The grouped run was positive versus AR and the per-fold-group best control in `15/15`, positive by fold mean in `5/5`, added `+0.0082201` over the 45 real-member mean, and failed no gates. No follow-on modeling sweep is authorized without a new explicit plan. The historical literal 504 matrix was an older three-seed/four-variant development design; do not recreate it, resume same-family Optuna, or widen continuous claims.
 
 Run `npm run audit:repo` before handing the repo to a fresh Codex session or teammate.
 Run `npm run evidence:verify` before relying on the frozen v2 evidence bundle.

@@ -1,5 +1,16 @@
 # Phase 6 Original Three-Checkpoint Grouped Confirmation Plan
 
+## Status
+
+Completed and passed all locked gates on `2026-07-14`. Exactly `420/420` rows
+ran on MLX: `315` member rows plus `105` ensemble rows across five grouped-video
+folds. Real ensemble PR-AUC was `0.2343675680` versus AR `0.2180497906` and
+best aggregate matched control `train_only_video_mean_residual` at
+`0.2179716645`. Deltas were `+0.0163177774` and `+0.0163959035`; all `15/15`
+fold-groups and all `5/5` fold means were positive versus both. Ensembling added
+`+0.0082200727` over the 45 real-member mean and won `15/15`. Failed gates were
+`[]`.
+
 ## Question
 
 Does the already promoted original three-checkpoint ensemble retain its controlled

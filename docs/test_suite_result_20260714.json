@@ -2,13 +2,13 @@
   "date": "2026-07-14",
   "command": "npm run verify",
   "result": "pass",
-  "tests_passed": 128,
+  "tests_passed": 130,
   "tests_failed": 0,
-  "pytest_duration_seconds": 22.87,
+  "pytest_duration_seconds": 21.92,
   "underlying_test_command": "python3 -m pytest -q tests",
   "repo_readiness": "pass",
   "veatic_evidence_verify": "pass",
   "frontend_build": "pass",
   "strict_benchmark_dry_run": "pass",
-  "notes": "One optional research-tooling test skipped in the default environment. The fully provisioned backend separately passed 136 tests in 26.26 seconds. Deterministic contracts and repository/evidence/build validation only; control-complete checkpoint-ensemble training was run separately on MLX; no V-JEPA/TRIBE rerun, PCA refit, grouped rerun, or 504."
+  "notes": "One optional research-tooling test skipped in the default environment. The fully provisioned backend separately passed 138 tests in 27.45 seconds. Deterministic contracts and repository/evidence/build validation only; the blocked and grouped control-complete checkpoint-ensemble training runs were executed separately on MLX. The grouped run reused the audited fold-safe PCA and did not rerun V-JEPA/TRIBE, refit PCA, or run 504."
 }

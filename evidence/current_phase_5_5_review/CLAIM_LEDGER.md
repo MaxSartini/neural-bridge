@@ -105,3 +105,22 @@ Key numbers: continuous blocked residual diagnostic real Spearman 0.2484145880 v
 Primary evidence: `reports/again_dense_2hz_phase5_continuous_residual_blocked_summary_20260630_000219.md; evidence/phase_5_2_continuous_residual_blocked_20260630_000219/`
 
 Caveats: This protocol-specific failure does not erase C9's separate controlled grouped continuous-ranking/lift pass.
+
+## C11: proven_original_three_checkpoint_ensemble
+
+The canonical original three-checkpoint ensemble is promoted for the selected
+AGAIN target/head under separate fresh blocked and grouped-video
+control-complete confirmations.
+
+Key numbers: blocked `140/140`, real/AR/best-control PR-AUC `0.2668905427` /
+`0.2597235728` / `0.2589301730`, `5/5` groups positive versus both; grouped
+`420/420` (`315` member + `105` ensemble), real/AR/best-control `0.2343675680`
+/ `0.2180497906` / `0.2179716645`, `15/15` fold-groups and `5/5` fold means
+positive versus both, ensemble uplift over members `+0.0082200727`; failed
+gates `[]` in both confirmations.
+
+Primary evidence: `reports/again_dense_2hz_phase6_original_three_checkpoint_control_complete_20260714_160001.md; reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md; evidence/phase_6_original_three_checkpoint_control_complete_20260714_160001/; evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/`
+
+Caveats: Selected binary washout-gap target/head only. This does not establish
+exact continuous values, blocked continuous generalization, 504, or universal
+prediction.

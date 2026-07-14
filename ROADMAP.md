@@ -66,11 +66,12 @@ Open:
 - Fixed 50/50 original/Trial-4 fresh-five pilot: `20/20` blocked rows, positive versus original in `5/5` and AR in `5/5`, but only `+0.0001625` over Trial 4 and `7.21%` worse seed variability. Failed; no control-complete follow-up.
 - Fresh-15 three-checkpoint retraining: `60/60` rows. Trial 4 averaging stabilized strongly but lost to the matched original ensemble; original ensemble PR-AUC `0.2717155`, `+0.0116782` over AR. Promising comparator, not promoted.
 - Fresh original three-checkpoint control-complete blocked confirmation: `140/140`, pass, real `0.2668905`, AR `0.2597236`, best control `0.2589302`, `5/5` positive versus both.
+- Fresh original three-checkpoint grouped-video confirmation: `420/420`, pass, real `0.2343676`, AR `0.2180498`, best control `0.2179717`, `15/15` fold-groups and `5/5` fold means positive versus both; `+0.0082201` over the 45 real-member mean.
 
 ## Next Work
 
 1. Treat same-family hyperparameter tuning as saturated; the canonical original remains the supported single configuration.
-2. Preregister a fresh grouped-video control-complete confirmation of the original three-checkpoint ensemble; blocked promotion is complete.
+2. Treat the original three-checkpoint ensemble as promoted for the selected target/head under both bounded blocked and grouped-video protocols; preserve the single-model and ensemble results separately.
 3. Keep continuous arousal work separate from the confirmed binary event-ranking claim.
 4. Do not restart broad secondary-head, all-target, or architecture-zoo sweeps without a narrow diagnostic reason.
 5. Treat the historical literal 504 matrix as obsolete; do not recreate it or invent rows to reach 504.

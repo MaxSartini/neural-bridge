@@ -45,6 +45,7 @@
     "Bounded strict forward-time future-event ranking is proven on AGAIN for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
     "Grouped held-out-video compatibility for the same AGAIN target/head is proven under the updated frozen-AR-residual-aware verdict.",
     "The full bounded AGAIN selected-head confirmation passes at exactly 420/420 scored rows: 70/70 blocked plus 350/350 grouped, with all 420 rows reused, zero reruns, and no failed gates.",
+    "The original three-checkpoint ensemble passes separate fresh control-complete blocked and grouped-video confirmations for the selected AGAIN target/head: 140/140 blocked rows and 420/420 grouped rows, both with no failed gates.",
     "Controlled grouped held-out-video continuous future-arousal movement ranking/lift is proven on AGAIN for the deterministic Phase 5 eval-mode regression_plus_binary lane against AR-only and matched shuffled/random controls."
   ],
   "open": [
@@ -57,18 +58,52 @@
   ],
   "next_task": {
     "status": "completed_promoted",
-    "plan": "docs/phase5_selected_head_420_confirmation_plan.md",
-    "objective": "Consolidated and audited the existing 70 blocked and 350 grouped rows as one full bounded selected-head confirmation for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
+    "plan": "docs/phase6_original_three_checkpoint_grouped_confirmation_plan.md",
+    "objective": "Completed fresh control-complete grouped-video confirmation of the promoted original three-checkpoint ensemble for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
     "expected_rows": {
-      "blocked": 70,
-      "grouped": 350,
+      "member": 315,
+      "ensemble": 105,
       "total": 420
     },
-    "reuse_policy": "All 420 rows passed provenance compatibility and were reused; no slice required rerunning.",
+    "reuse_policy": "All model/AR scores were freshly trained for the nine untouched seeds in each grouped fold; only the previously audited fold-safe grouped PCA substrate was reused.",
     "historical_504_boundary": "The literal 504 matrix was an older 3-seed x 4-variant x 7-lane development design across one blocked split and five grouped folds. It is not the current task and is not 420 current rows plus 84 missing rows.",
-    "stop_boundary": "Task complete. No follow-on sweep is authorized; do not restore obsolete variants, invent rows to reach 504, or widen continuous/generalization claims."
+    "stop_boundary": "Task complete. No follow-on modeling sweep is authorized without a new explicit plan; do not restore obsolete variants, invent rows to reach 504, resume same-family Optuna, or widen continuous/generalization claims."
   },
   "canonical_numbers": {
+    "again_original_three_checkpoint_blocked_confirmation": {
+      "target": "future_arousal_max_delta_rows_4_10_train_q90",
+      "architecture": "short_temporal_conv_residual",
+      "matrix_rows": 140,
+      "real_ensemble_pr_auc": 0.2668905427,
+      "ar_ensemble_pr_auc": 0.2597235728,
+      "best_control_pr_auc": 0.258930173,
+      "real_minus_ar": 0.0071669699,
+      "real_minus_best_control": 0.0079603697,
+      "positive_groups_vs_ar": 5,
+      "positive_groups_vs_best_control": 5,
+      "blocked_control_complete_pass": true,
+      "failed_gates": []
+    },
+    "again_original_three_checkpoint_grouped_confirmation": {
+      "target": "future_arousal_max_delta_rows_4_10_train_q90",
+      "architecture": "short_temporal_conv_residual",
+      "matrix_rows": 420,
+      "member_rows": 315,
+      "ensemble_rows": 105,
+      "real_ensemble_pr_auc": 0.234367568,
+      "ar_ensemble_pr_auc": 0.2180497906,
+      "best_control": "train_only_video_mean_residual",
+      "best_control_pr_auc": 0.2179716645,
+      "real_minus_ar": 0.0163177774,
+      "real_minus_best_control": 0.0163959035,
+      "real_minus_member_mean": 0.0082200727,
+      "positive_fold_groups_vs_ar": 15,
+      "positive_fold_groups_vs_best_control": 15,
+      "positive_fold_means_vs_ar": 5,
+      "positive_fold_means_vs_best_control": 5,
+      "grouped_control_complete_pass": true,
+      "failed_gates": []
+    },
     "again_selected_head_420_confirmation": {
       "target": "future_arousal_max_delta_rows_4_10_train_q90",
       "architecture": "short_temporal_conv_residual",
@@ -197,12 +232,16 @@
     "reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md",
     "reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md",
     "reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md",
+    "reports/again_dense_2hz_phase6_original_three_checkpoint_control_complete_20260714_160001.md",
+    "reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md",
     "reports/README.md",
     "evidence/current_phase_5_5_review/README.md",
     "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",
     "evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/README.md",
     "evidence/phase_5_5_grouped_compatibility_20260630_033520/README.md",
     "evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/README.md",
+    "evidence/phase_6_original_three_checkpoint_control_complete_20260714_160001/README.md",
+    "evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/README.md",
     "docs/executable_validation_index.md",
     "docs/executable_validation_manifest.csv",
     "docs/executable_validation_manifest.json",
@@ -236,9 +275,12 @@
     "latest_local_result": {
       "date": "2026-07-14",
       "result": "pass",
-      "tests_passed": 99,
+      "tests_passed": 130,
       "tests_failed": 0,
-      "duration_seconds": 6.7
+      "tests_skipped": 1,
+      "duration_seconds": 21.92,
+      "fully_provisioned_tests_passed": 138,
+      "fully_provisioned_duration_seconds": 27.45
     },
     "repo_audit_command": "npm run audit:repo",
     "repo_audit_latest_local_result": "repo_readiness pass controlled_evidence_items=206",

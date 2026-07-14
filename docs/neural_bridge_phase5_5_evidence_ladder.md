@@ -252,7 +252,7 @@ The original grouped artifact failed the legacy label-permutation-near-chance ga
 ## Executable Validation
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
-- Latest fully provisioned local result: `124 passed in 20.55s` on `2026-07-14`; repository readiness and the Phase 6 robust/stress-seed contracts passed
+- Latest fully provisioned local result: `138 passed in 27.45s` on `2026-07-14`; repository readiness and the blocked/grouped ensemble contracts passed
 - Repo readiness audit: `npm run audit:repo`
 - Latest local audit result: `repo_readiness pass controlled_evidence_items=206`
 - Executable validation index: `docs/executable_validation_index.md`
@@ -295,8 +295,11 @@ Neural Bridge demonstrates controlled future human arousal event-ranking across 
 - Updated grouped compatibility verdict: `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 - Blocked binary confirmation evidence bundle: `evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/`
 - Grouped compatibility evidence bundle: `evidence/phase_5_5_grouped_compatibility_20260630_033520/`
+- Original three-checkpoint blocked report: `reports/again_dense_2hz_phase6_original_three_checkpoint_control_complete_20260714_160001.md`
+- Original three-checkpoint grouped report: `reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md`
+- Original three-checkpoint grouped evidence: `evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/`
 - Phase 0-5 evidence bundle: `evidence/phase_0_to_5_historical_ladder_20260625/BUNDLE_README.md`
 
 ## Next Work
 
-The approved bounded 420-row selected-head confirmation in `docs/phase5_selected_head_420_confirmation_plan.md` remains complete and promoted. The later one-seed Optuna winner failed its locked 10-seed confirmation. A robust multi-seed rescue reached a preregistered 15-seed blocked Stage B, where trial 4 remained a strong controlled bridge and was `19.41%` less variable, but failed the untouched fresh-five improvement gate; grouped Stage C was therefore not run. Seed `20260627` remains present and reported as a predesignated stress seed, never deleted. The next bounded modeling hypothesis is locked ensembling/checkpoint stabilization, not more same-family Optuna. The historical literal 504 matrix remains obsolete and must not be recreated or padded. Do not widen claims into exact continuous values, blocked continuous generalization, or universal prediction; grouped continuous future-movement ranking/lift remains separately supported.
+The approved bounded 420-row selected-head confirmation remains complete and promoted. The one-seed Optuna winner and robust Trial-4 rescue did not replace it. The subsequent original three-checkpoint ensemble passed separate fresh blocked (`140/140`) and grouped-video (`420/420`) control-complete confirmations, so checkpoint stabilization is now promoted for the selected target/head under both bounded protocols. No further modeling sweep is authorized without a new explicit plan. Seed `20260627` remains present and reported, never deleted. The historical literal 504 matrix remains obsolete and must not be recreated or padded. Do not widen claims into exact continuous values, blocked continuous generalization, or universal prediction; grouped continuous future-movement ranking/lift remains separately supported.
