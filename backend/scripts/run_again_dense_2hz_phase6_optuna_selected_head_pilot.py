@@ -144,11 +144,13 @@ def train_inner_only(
     batch_size: int,
     max_epochs: int,
     patience: int,
+    training_seed: int = SEED,
+    report_to_trial: bool = True,
 ) -> float:
     """Return best inner-validation delta without touching held-out arrays."""
 
     base.require_mlx()
-    base.mx.random.seed(SEED)
+    base.mx.random.seed(int(training_seed))
     model = temporal.TemporalResidualHead(
         pack.train_x.shape[1],
         ARCHITECTURE,
@@ -168,7 +170,7 @@ def train_inner_only(
     ar_train_score = ar["train_score"].astype(np.float32)
     ar_train_reg = ar["train_reg"].astype(np.float32)
     ar_val_pr = average_precision_score(block.train_y[val_idx], ar_train_score[val_idx])
-    rng = np.random.default_rng(SEED + 10007 * (temporal.ARCHITECTURES.index(ARCHITECTURE) + 1))
+    rng = np.random.default_rng(int(training_seed) + 10007 * (temporal.ARCHITECTURES.index(ARCHITECTURE) + 1))
 
     def loss_fn(model_obj: Any, xb: Any, ar_b: Any, ar_r: Any, yb: Any, yr: Any) -> Any:
         out = model_obj(xb, ar_b, ar_r)
@@ -180,7 +182,7 @@ def train_inner_only(
         return reg + float(params["lambda_binary"]) * bce + alpha_penalty
 
     loss_and_grad = base.nn.value_and_grad(model, loss_fn)
-    best_delta = 0.0
+    best_delta = float("-inf")
     stale = 0
     for epoch in range(1, max_epochs + 1):
         if hasattr(model, "train"):
@@ -209,7 +211,8 @@ def train_inner_only(
         )
         val_pr = average_precision_score(block.train_y[val_idx], val_score)
         delta = float(val_pr - ar_val_pr)
-        trial.report(delta, epoch)
+        if report_to_trial:
+            trial.report(delta, epoch)
         if delta > best_delta:
             best_delta = delta
             stale = 0
