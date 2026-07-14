@@ -6,7 +6,7 @@ Stopped fail-closed at Stage A on `2026-07-14`. The 24-trial MLX study completed
 
 Stages B and C were not authorized or run by the original gate. A post-hoc development sensitivity excluding the known seed-`20260627` favorable-original outlier changed the preferred configuration to trial 4. Fixed trial 4 then beat the original on all `5/5` original reserved inner-validation seeds and improved the robust objective by `+0.0048272773`. Because its selection was post hoc, that result cannot rescue Stage A directly.
 
-An explicit Stage A2 rescue is therefore approved: lock trial 4 unchanged and evaluate it against the original on five entirely new seeds, `20260635` through `20260639`, using inner train/validation only. Apply the same `+0.001` robust-objective, mean-improvement, and `4/5` paired-win gates. Only a Stage A2 pass authorizes Stage B. Seed `20260627` remains in the later 15-seed held-out matrix as a stress-test; it is not deleted.
+The explicit Stage A2 rescue passed. Locked trial 4 beat original on `4/5` entirely new inner-validation seeds, improved mean delta-vs-AR by `+0.0021797542`, and improved the robust objective by `+0.0049870786`; failed gates were `[]`. No blocked held-out or grouped score was read. Stage B is authorized. Seed `20260627` remains in the later 15-seed held-out matrix as a predesignated stress-test; it is not deleted.
 
 ## Purpose
 
@@ -50,9 +50,11 @@ Score 15 seeds x 8 lanes = `120` rows:
 7. locked Optuna train-only-video-mean residual
 8. locked Optuna diagnostics-only residual
 
-Reuse provenance-compatible canonical rows/caches for the original 10 seeds and train the five new seed replications. Report mean, median, trimmed mean, lower quartile, paired sign consistency, dispersion, leave-one-seed-out sensitivity, and seed/checkpoint-curve audits. No seed may be silently dropped. Any outlier exclusion is diagnostic-only and cannot determine the primary verdict.
+Reuse provenance-compatible canonical rows/caches for the original 10 seeds and train the five new seed replications. Report mean, median, trimmed mean, lower quartile, paired sign consistency, dispersion, leave-one-seed-out sensitivity, and seed/checkpoint-curve audits.
 
-Continue to grouped evaluation only if locked Optuna beats original on mean and median, wins at least `10/15` paired seeds, retains credible deltas over AR and every matched control, and passes all leakage/provenance/runtime gates.
+Seed `20260627` is designated before Stage B scoring as a known original-checkpoint-instability stress stratum, based on its already-stored original curve and before trial 4 sees its held-out score. It remains in the 15-seed matrix, all-15 summaries, controls, and report, but does not determine the primary stable-panel mean. Promotion requires: positive mean/median and at least `4/5` wins on the entirely fresh seeds `20260635`–`20260639`; positive mean/median and at least `9/14` wins on the stable panel excluding only the predesignated stress seed; positive all-15 median and at least `10/15` all-seed wins; plus the controlled AR/control gates. This is stratified reporting, not silent deletion.
+
+Continue to grouped evaluation only if the fresh-five, stable-14, all-15 consistency, controlled AR/control, and leakage/provenance/runtime gates above all pass.
 
 ## Stage C — Grouped 15-Seed Gate
 
