@@ -50,7 +50,7 @@ Exact trajectory values, a formal blocked Phase 7 continuous pass, and label-fre
 
 ## Next Task
 
-The next bounded research task is the planning-only Stage 0 in `zero_label_video_only_deployment_bridge_pilot_preregistration.md`: freeze the target/split/feature-policy manifests and executable leakage/cold-start contracts. It preregisters a later `96/96` development screen and separately authorized `140/140` locked confirmation; no training has started.
+The next bounded research task is the planning-only Stage 0 in `zero_label_video_only_deployment_bridge_pilot_preregistration.md`: freeze the target/split/feature-policy manifests and executable leakage/cold-start contracts. It preregisters a later `96/96` development screen and separately authorized `140/140` locked confirmation; no training has started. Continuous Spearman, top-5% lift, and event PR-AUC are all required deployment endpoints. A pass retains at least half of the AR-assisted teacher's incremental gain over the matched no-video zero-label anchor on each endpoint; it does not unrealistically require a cold-start model to equal the teacher's absolute Phase 7 score.
 
 A V-JEPA 2.1 VEATIC re-encode and balanced VEATIC+AGAIN joint-training pilot is a strong later option, particularly for cross-domain stability of the video-only student. It should be gated by a smaller harmonized pilot before full re-encoding.
 

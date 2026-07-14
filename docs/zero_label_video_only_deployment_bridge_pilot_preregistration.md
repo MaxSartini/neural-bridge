@@ -4,12 +4,21 @@ Status: preregistered planning-only on `2026-07-14`. Stage 0 permits manifests,
 dry runs, and contract tests only. No model fitting, teacher-score generation,
 held-out scoring, or claim promotion is authorized by this document.
 
+Pre-implementation amendment on `2026-07-14`: before Stage 0 implementation,
+model fitting, teacher-score generation, or held-out scoring, training-q90 event
+PR-AUC was promoted from report-only to a required deployment endpoint. The
+amendment also makes explicit that the realistic success scale is retention of
+the teacher's *incremental gain*, not equality with the teacher's absolute
+score. This prospective change does not retroactively turn the stored Phase 7
+event metric into a Phase 7 promotion gate; it applies only to this deployment
+pilot. No model result was inspected to make this amendment.
+
 ## Question and evidence boundary
 
 Can a model that receives only the frozen predicted cortical/fMRI video-feature
-cache and causal video metadata rank future human-arousal movement on held-out
-full AGAIN videos, from cold start, without observed arousal at any inference
-row?
+cache and causal video metadata rank both continuous future human-arousal
+movement and future high-movement events on held-out full AGAIN videos, from
+cold start, without observed arousal at any inference row?
 
 The current Phase 7 AR-assisted checkpoint ensemble is the research ceiling and
 teacher recipe. It is not a deployable baseline because its AR path consumes
@@ -28,6 +37,15 @@ The pilot tests two prespecified hypotheses:
 H2 cannot rescue a failed H1 after scoring by being called the same method. Each
 candidate is evaluated independently in Stage A. Only the locked selection rule
 below may choose a Stage B candidate.
+
+The Phase 7 ceiling has a deliberate information advantage: it receives
+observed current/past arousal, while the deployment candidate starts every
+unseen video without any response labels. Matching the Phase 7 absolute score
+is therefore not a pass requirement and would be an exceptional result. The
+locked practical target is to beat every zero-label control and retain at least
+`50%` of the Phase 7 teacher's *incremental gain over the matched no-video
+zero-label anchor* on every required endpoint. This is not `50%` of the raw
+Phase 7 metric value.
 
 ## Stage 0 blocking semantic audit
 
@@ -49,7 +67,7 @@ retroactive failed gate. The deployment pilot locks its hard outcome to the
 actual like-for-like value column:
 
 - hard outcome: `future_arousal_max_delta_rows_4_10`;
-- event support label: a training-only q90 threshold on that value;
+- required event endpoint label: a training-only q90 threshold on that value;
 - full cold-start score mask: `label_available`, target mask true, and finite
   hard outcome;
 - forbidden mask dependency: `ar_context_available`.
@@ -195,7 +213,8 @@ teacher ceiling. No losing candidate is scored on the locked pool.
 
 ## Exact scored-row matrices
 
-A scored row is one lane/seed-or-ensemble/fold-or-panel metric record. Training
+A scored row is one lane/seed-or-ensemble/fold-or-panel record containing the
+complete fixed metric vector. Metrics do not multiply the row count. Training
 jobs, prediction rows, audits, teacher cross-fit shards, and curves are not
 scored rows.
 
@@ -213,13 +232,26 @@ target-valid masks.
 
 ## Metrics and retention
 
-Co-primary metrics are computed exactly as in the current continuous evidence:
+Three required promotion metrics are evaluated as one conjunctive gate:
 
 1. pooled continuous Spearman ranking;
-2. top-5% average-true-future-movement lift.
+2. top-5% average-true-future-movement lift;
+3. training-q90 future high-movement event PR-AUC.
 
-The metric-specific strongest prespecified zero-label control is the primary
-comparator. Exact-value metrics never choose a winner.
+The first two preserve the continuous response-movement surface. The third
+preserves the commercially actionable spike/event surface. All three must pass;
+strength on one endpoint cannot compensate for failure on another. The event
+threshold is fit on the applicable training pool only and then frozen for its
+held-out fold or panel. The metric-specific strongest prespecified zero-label
+control is the comparator for each metric. Exact-value metrics never choose a
+winner.
+
+Event PR-AUC is defined only when the scored comparison slice contains at least
+one positive and one negative event under the frozen training-only threshold.
+If the aggregate, required fold/panel, or required first-30-second slice lacks
+either class, that event gate is unevaluable and therefore fails closed. The
+slice may not be skipped, pooled with a different split, or repaired by changing
+the threshold after labels are opened.
 
 Teacher retention is evaluated on the common compatibility rows where the
 AR-assisted ceiling is defined. For metric `m`:
@@ -227,18 +259,26 @@ AR-assisted ceiling is defined. For metric `m`:
 `R_m = (candidate_m - no_video_closed_loop_persistence_m) /
        (teacher_m - no_video_closed_loop_persistence_m)`.
 
-The denominator must be finite and positive. Absolute and relative degradation
-from the teacher are always reported even if a candidate passes.
+The denominator must be finite and positive for each of `spearman`, `top5`, and
+`event_pr_auc`. Absolute and relative degradation from the teacher are always
+reported even if a candidate passes. The `R_m >= 0.50` gates mean that the
+candidate preserves at least half of the teacher-added signal beyond the
+no-video zero-label anchor; they do not require half of an absolute metric score
+and do not imply that parity with the privileged teacher is expected.
 
-Secondary/report-only metrics are top-1% and top-10% lift, training-q90 event
-PR-AUC, video-macro summaries, the first-10-second and first-30-second slices,
-MAE, RMSE, bias, and calibration. MAE/RMSE improvements cannot promote exact
-continuous-value forecasting.
+Secondary/report-only metrics are top-1% and top-10% lift, event prevalence,
+prespecified top-k event precision/recall, video-macro summaries, the
+first-10-second slice, MAE, RMSE, bias, and calibration. The first-30-second
+slice is separately gated below for all three required endpoints. MAE/RMSE
+improvements cannot promote exact continuous-value forecasting, and event
+PR-AUC supports ranking rather than calibrated event probability claims.
 
 Because the dataset size is fixed, the design uses practical minimum-effect and
 consistency gates rather than a post-hoc power claim. Stage B also uses a paired
 video-block bootstrap with 10,000 resamples and fixed seed `20260724`; all rows
-from a sampled video move together and both primary metrics are recomputed.
+from a sampled video move together and all three required metrics are
+recomputed. Because promotion requires the conjunction rather than success on
+any one endpoint, no endpoint can be selected post hoc to rescue the verdict.
 
 ## Stage A continuation gate
 
@@ -247,28 +287,31 @@ A candidate qualifies only if every condition passes:
 1. Exact `96/96` scope, unique keys, identical comparison rows, 100% finite
    prediction coverage, and every target/provenance/zero-label/cold-start audit.
 2. Aggregate candidate minus strongest zero-label control is at least `+0.002`
-   Spearman and `+0.001` top-5% lift.
-3. Candidate beats the per-fold strongest zero-label control on both metrics in
-   all `3/3` development folds; both paired medians are positive.
+   Spearman, `+0.001` top-5% lift, and `+0.002` event PR-AUC.
+3. Candidate beats the per-fold strongest zero-label control on all three
+   required metrics in all `3/3` development folds; all three paired medians are
+   positive.
 4. Candidate beats `sequence_shuffled_video` and `video_label_permutation` on
-   both primary metrics.
+   all three required metrics.
 5. No one fold supplies more than `60%` of total positive candidate-minus-best-
-   control gain for either primary metric.
-6. `R_spearman >= 0.50` and `R_top5 >= 0.50`.
+   control gain for any required metric.
+6. `R_spearman >= 0.50`, `R_top5 >= 0.50`, and
+   `R_event_pr_auc >= 0.50`.
 7. In the first 30 seconds, candidate beats the strongest zero-label control on
-   both metrics in aggregate and in at least `2/3` folds.
+   all three required metrics in aggregate and in at least `2/3` folds.
 8. Its three-checkpoint ensemble improves over its three-member mean by at least
-   `+0.001` Spearman and by a positive amount on top-5% lift.
+   `+0.001` Spearman and by a positive amount on both top-5% lift and event
+   PR-AUC.
 9. H2 additionally has zero teacher-forced state reads, zero cross-video state
    carry, no nonfinite/exploding state, and an executable dependency audit proving
    that each response lag came only from an earlier prediction.
 
 If neither candidate passes, stop. If one passes, it is the Stage B candidate.
 If both pass, select the candidate with larger
-`min(R_spearman, R_top5)`; if those values differ by less than `0.02`, select H1
-because it is the simpler inference path. The winner's code/config/checkpoint
-policy and all manifests must be signed and locked before any Stage B label or
-ceiling access.
+`min(R_spearman, R_top5, R_event_pr_auc)`; if those values differ by less than
+`0.02`, select H1 because it is the simpler inference path. The winner's
+code/config/checkpoint policy and all manifests must be signed and locked before
+any Stage B label or ceiling access.
 
 A Stage A pass authorizes only a separate request to run Stage B. It does not
 promote a deployment claim.
@@ -281,21 +324,24 @@ Every condition must pass:
    unchanged and there was no deployment-bridge training/selection access to its
    labels before the locked prediction checksums.
 2. Aggregate candidate minus strongest zero-label control is at least `+0.002`
-   Spearman and `+0.001` top-5% lift.
-3. Candidate beats the panel-specific strongest zero-label control on both
-   metrics in at least `4/5` panels; both paired panel medians are positive.
-4. No panel supplies more than `50%` of total positive gain for either metric.
+   Spearman, `+0.001` top-5% lift, and `+0.002` event PR-AUC.
+3. Candidate beats the panel-specific strongest zero-label control on all three
+   required metrics in at least `4/5` panels; all three paired panel medians are
+   positive.
+4. No panel supplies more than `50%` of total positive gain for any required
+   metric.
 5. The one-sided paired video-block bootstrap lower 95% bound is above zero for
-   both primary deltas against their fixed metric-specific strongest controls.
-6. `R_spearman >= 0.50` and `R_top5 >= 0.50`; exact teacher degradation is
-   present in the report.
+   all three required deltas against their fixed metric-specific strongest
+   controls.
+6. `R_spearman >= 0.50`, `R_top5 >= 0.50`, and
+   `R_event_pr_auc >= 0.50`; exact teacher degradation is present in the report.
 7. In the first 30 seconds, candidate beats the strongest zero-label control on
-   both metrics in aggregate and in at least `4/5` panels.
+   all three required metrics in aggregate and in at least `4/5` panels.
 8. Top-1% and top-10% lift each beat their strongest zero-label control, and the
-   candidate beats shuffled-video and label-permutation controls on both
-   co-primary metrics.
+   candidate beats shuffled-video and label-permutation controls on all three
+   required metrics.
 9. Ensemble uplift over the three-member mean is at least `+0.001` Spearman and
-   positive top-5% lift.
+   positive on both top-5% lift and event PR-AUC.
 
 ## Required Stage 0 implementation contracts
 
@@ -306,6 +352,10 @@ Before any later fitting, add executable tests for:
 - deterministic 696/299 split and Stage A fold/Stage B panel digests;
 - complete video disjointness for outer and nested teacher-cross-fit splits;
 - train-only PCA, scaling, q90, initialization, and teacher statistics;
+- frozen held-out event-threshold identity, event-label digest, and PR-AUC row
+  identity across every candidate/control comparison;
+- fail-closed undefined-event behavior for any required aggregate,
+  fold/panel, or first-30-second PR-AUC slice with only one outcome class;
 - positive feature allowlist and forbidden-column rejection;
 - same-video causal ordering, row-0 prediction, history padding, and video reset;
 - H2 teacher-forcing ratio exactly zero and prior-state provenance;
@@ -336,9 +386,10 @@ If Stage B passes, the strongest permitted statement is:
 
 > On a prospectively locked AGAIN full-video subset, the prespecified
 > cached-feature candidate produced cold-start video-only future-arousal
-> movement ranking/lift without observed-arousal inputs at inference, beat all
-> fixed zero-label controls, and retained the reported fraction of the matched
-> AR-assisted research ceiling.
+> movement ranking/lift and high-movement event ranking without observed-arousal
+> inputs at inference, beat all fixed zero-label controls, and retained at least
+> half of the matched AR-assisted teacher's incremental gain over the no-video
+> zero-label anchor on every required endpoint.
 
 It would not yet prove exact trajectories, end-to-end raw-video runtime, client
 readiness, external/cross-domain transfer, VEATIC performance, fully confirmed

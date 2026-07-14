@@ -106,7 +106,7 @@
   "next_task": {
     "status": "deployment_bridge_preregistered_no_training",
     "plan": "docs/zero_label_video_only_deployment_bridge_pilot_preregistration.md",
-    "objective": "Execute Stage 0 contracts only: freeze a video-only target/split/feature-policy implementation that removes observed arousal from every held-out inference row. No training or scoring is authorized yet.",
+    "objective": "Execute Stage 0 contracts only: freeze a video-only target/split/feature-policy implementation that removes observed arousal from every held-out inference row and preserves both continuous movement and event/spike ranking endpoints. No training or scoring is authorized yet.",
     "expected_rows": {
       "stage_a_member": 72,
       "stage_a_ensemble": 24,
@@ -116,6 +116,12 @@
       "stage_b_total": 140
     },
     "reuse_policy": "Reuse only the frozen dense predicted cortical/fMRI feature cache, audited fold-safe PCA substrate, and fixed Phase 7 teacher recipe. The canonical Phase 7 output snapshot has no reusable row-level teacher cache/checkpoints, so later teacher targets must be regenerated strictly inside each deployment training split with new provenance; held-out teacher scores remain ceiling-only.",
+    "required_deployment_endpoints": [
+      "pooled_continuous_spearman",
+      "top_5_percent_true_future_movement_lift",
+      "training_q90_future_event_pr_auc"
+    ],
+    "teacher_retention_boundary": "Every required endpoint must beat its strongest zero-label control and retain at least 50% of the matched Phase 7 teacher's incremental gain over the no-video zero-label anchor. This is not 50% of the raw metric and does not require absolute parity with the observed-arousal-assisted teacher.",
     "target_identity_boundary": "Before fitting, a dedicated audit must prove that target name, value column, mask, row IDs, and array digests agree. The current Phase 7 grouped runner labels the block residual_future_max_delta_rows_4_10 while its grouped continuous arrays come from future_arousal_max_delta_rows_4_10; the pilot locks the actual like-for-like raw future-movement column.",
     "historical_504_boundary": "The literal 504 matrix was an older 3-seed x 4-variant x 7-lane development design across one blocked split and five grouped folds. It is not the current task and is not 420 current rows plus 84 missing rows.",
     "stop_boundary": "Do not train during Stage 0; Stage A and Stage B each require separate authorization. Do not reinterpret the blocked 4/5 near-pass, claim exact continuous values, equate the AR-assisted ceiling with label-free client deployment, call the prospectively locked AGAIN subset historically untouched, restore 504, or widen this into a deployment-bridge sweep."
