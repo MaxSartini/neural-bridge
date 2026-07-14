@@ -50,10 +50,24 @@
     "Exact continuous-value/trajectory forecasting remains open.",
     "Blocked continuous future-movement generalization remains open.",
     "Broad all-target/all-dataset temporal prediction remains open.",
+    "The unified 420-row selected-head confirmation artifact has not yet been assembled, audited, or promoted.",
     "No 504 run has been performed or promoted.",
     "Grouped compatibility is not itself a 504 run.",
     "The updated grouped verdict is a no-training verdict update from existing artifacts, not a rerun."
   ],
+  "next_task": {
+    "status": "approved_not_started",
+    "plan": "docs/phase5_selected_head_420_confirmation_plan.md",
+    "objective": "Consolidate and audit the existing 70 blocked and 350 grouped rows as one full bounded selected-head confirmation for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
+    "expected_rows": {
+      "blocked": 70,
+      "grouped": 350,
+      "total": 420
+    },
+    "reuse_policy": "Reuse valid scored rows and rerun only an explicitly identified missing or provenance-incompatible slice.",
+    "historical_504_boundary": "The literal 504 matrix was an older 3-seed x 4-variant x 7-lane development design across one blocked split and five grouped folds. It is not the current task and is not 420 current rows plus 84 missing rows.",
+    "stop_boundary": "Do not restore obsolete variants, invent rows to reach 504, or begin continuous-model development in the same task."
+  },
   "canonical_numbers": {
     "again_grouped_continuous_future_movement_ranking": {
       "target": "arousal_spike_rows_2_6_train_q90 with continuous future-movement output",
