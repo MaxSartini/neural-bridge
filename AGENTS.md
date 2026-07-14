@@ -7,6 +7,16 @@
 - `codebase-memory-mcp` is for code navigation only, not benchmark authority.
 - Keep context use compact. Do not dump full reports, logs, or generated metadata unless asked.
 
+## Continuity And Context Efficiency
+
+- Use `AGENTS.md` and the current canonical artifacts below as the small always-loaded handoff.
+- Use MemPalace only when a task depends on earlier conversations, decisions, paths, or unfinished work. Recall the smallest relevant set (normally 3-5 results); never inject or summarize whole transcripts by default.
+- Keep `codebase-memory-mcp` for structural code discovery and call/path tracing. MemPalace history and its entity graph do not replace the code knowledge graph.
+- Current files and executable evidence override MemPalace whenever they conflict. Save durable claim changes to canonical repo files before treating historical memory as updated.
+- Use RTK-compressed shell output and targeted snippets to avoid spending context on raw logs or large files.
+- After substantive code changes, refresh the internal and external `codebase-memory-mcp` projects before handoff. Do not pay the reindex cost for conversation-only or documentation-only turns.
+- Only mark the MemPalace wing fresh after canonical files are updated, validation is complete, relevant graph indexes are refreshed, and both repositories are clean. A Git-head or dirty-worktree mismatch means recalled project status is stale until verified.
+
 ## Current Claim
 
 Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.
