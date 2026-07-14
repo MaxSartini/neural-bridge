@@ -2,8 +2,16 @@
 
 ## Status
 
-Preregistered before any seed `20260640`–`20260644` model was trained or any
-blocked held-out score for those seeds was read.
+Completed and stopped fail-closed on `2026-07-14`. All `20/20` rows ran on MLX
+without weight search or reuse of viewed seed scores. The blend beat original
+in `5/5`, Trial 4 in `3/5`, and AR in `5/5`, but failed the minimum improvement,
+median, and variance-reduction gates. A control-complete confirmation was not
+authorized.
+
+Mean PR-AUC was `0.2655538049` for the blend, `0.2647935898` for original,
+`0.2653912587` for Trial 4, and `0.2588130741` for AR. The blend was only
+`+0.0001625462` above the stronger component and its seed-level standard
+deviation was `7.21%` higher than the lower-variance component.
 
 ## Question
 

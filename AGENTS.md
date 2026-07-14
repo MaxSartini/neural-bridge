@@ -178,11 +178,15 @@ Stage A2 passed on five new inner-validation seeds, authorizing Stage B. Stage B
 
 Trial 4 reduced seed-level PR-AUC standard deviation by `19.41%` versus original but did not reliably improve fresh held-out performance. The next bounded modeling hypothesis should be a locked ensemble or checkpoint-stabilization method that addresses complementary favorable original/candidate seed behavior. Do not do more same-family Optuna tuning, delete stress seeds, run Stage C, restore 504, or begin continuous development without a new explicit plan.
 
+Do not describe this as a broad seed problem. Most seed-to-seed differences are small. The precise issue is rare favorable-original checkpoint sensitivity: seed `20260627` and later fresh seed `20260636` produced unusually large original-over-Trial-4 gaps, while Trial 4 won `7/10` across fresh seeds `20260635`–`20260644` with a positive paired median but a negative mean dominated by seed `20260636`.
+
+The preregistered fixed 50/50 original/Trial-4 fresh-five pilot then completed `20/20` blocked rows on seeds `20260640`–`20260644`. It beat original in `5/5`, Trial 4 in `3/5`, and AR in `5/5`, but improved over the stronger component by only `+0.0001625462` and increased rather than reduced seed variability by `7.21%`. The pilot failed its locked minimum-gain, median, and stability gates; no matched-control or grouped follow-up is authorized. This rules out the simple within-seed 50/50 blend, not multi-checkpoint seed averaging.
+
 The real upstream Optuna, Polars, MLflow, and SHAP integrations are installed as the `research-tooling` backend extra and documented in `docs/research_tooling_integrations.md`. Run `npm run verify:research-tooling` to exercise all four with verified MLX GPU/MPS hardware. Their runs remain exploratory and cannot promote canonical evidence.
 
 ## Test And Script Validation
 
-`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the fully provisioned backend environment passed `124` tests, including the locked 10-seed, robust multi-seed, fresh-seed, blocked Stage B, and explicitly post-hoc convergence-diagnostic contracts. The default `npm run verify` environment passed `116` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
+`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the fully provisioned backend environment passed `129` tests, including the locked 10-seed, robust multi-seed, fresh-seed, blocked Stage B, fixed-blend, and explicitly post-hoc convergence-diagnostic contracts. The default `npm run verify` environment passed `121` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
 
 Relevant AGAIN and VEATIC v2 runners, tests, benchmark artifacts, and runtime-only tools are indexed in `docs/executable_validation_manifest.csv` and mirrored under `evidence/current_phase_5_5_review/14_executable_validation_and_code/`. Do not add placeholder smoke tests as validation. Add tests only when they protect a real split, target, leakage, control, manifest, scorer, checkpoint, or claim-boundary contract.
 
