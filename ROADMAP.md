@@ -60,11 +60,12 @@ Open:
 - AGAIN updated grouped-video compatibility verdict.
 - Full bounded selected-head consolidation: `420/420` audited rows (`70/70` blocked plus `350/350` grouped), with no reruns required.
 - One-seed, 16-trial Optuna selected-head pilot on MLX: exact original reproduction at `0.2697372519`, tuned result `0.2718557352`, and `+0.0081646445` vs frozen AR/best control. This is exploratory, not promoted.
+- Locked-winner 10-seed Optuna confirmation: tuned beat original in `7/10` seeds but failed the preregistered aggregate-improvement gate (`-0.0011081356` mean delta). It retained positive controlled deltas versus AR and controls. Seed `20260627` was an unusually favorable canonical-original peak, but remains part of the failed verdict.
 
 ## Next Work
 
-1. Run one locked-winner 10-seed blocked confirmation of the Optuna configuration against the existing canonical original rows, frozen AR, and the same matched controls.
-2. Do not optimize separately per seed. Decide whether the locked improvement replicates before authorizing grouped confirmation or any broader search.
+1. Define a bounded multi-seed Optuna objective using only inner-training/validation evidence across development seeds, then lock one configuration before any new evaluation.
+2. Reserve a distinct evaluation protocol; do not optimize against the already-viewed blocked held-out seed results or launch grouped confirmation for the failed single-seed winner.
 3. Keep continuous arousal work separate from the confirmed binary event-ranking claim.
 4. Do not restart broad secondary-head, all-target, or architecture-zoo sweeps without a narrow diagnostic reason.
 5. Treat the historical literal 504 matrix as obsolete; do not recreate it or invent rows to reach 504.

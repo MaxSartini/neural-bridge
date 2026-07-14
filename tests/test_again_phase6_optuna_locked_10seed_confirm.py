@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 from backend.scripts import run_again_dense_2hz_phase6_optuna_locked_10seed_confirm as locked
+from backend.scripts import run_again_dense_2hz_phase6_seed27_convergence_diagnostic as convergence
 
 
 def test_confirmation_scope_is_exactly_locked() -> None:
@@ -52,3 +53,18 @@ def test_dry_run_attests_no_optimization_or_retraining() -> None:
     assert payload["reuse_canonical_original_rows"] is True
     assert payload["reuse_all_canonical_frozen_ar_scores"] is True
     assert payload["accelerator"] == "mlx"
+
+
+def test_seed27_convergence_diagnostic_is_explicitly_posthoc() -> None:
+    script = Path(convergence.__file__).resolve()
+    completed = subprocess.run(
+        [sys.executable, str(script), "--dry-run"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    payload = json.loads(completed.stdout)
+    assert payload["seed"] == 20260627
+    assert payload["posthoc"] is True
+    assert payload["claim_bearing"] is False
+    assert payload["max_epochs"] > 40

@@ -252,7 +252,7 @@ The original grouped artifact failed the legacy label-permutation-near-chance ga
 ## Executable Validation
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
-- Latest fully provisioned local result: `113 passed in 9.65s` on `2026-07-14`; full repository verification and the selected-head Optuna pilot contracts passed
+- Latest fully provisioned local result: `118 passed in 14.62s` on `2026-07-14`; repository readiness and the locked Optuna confirmation/diagnostic contracts passed
 - Repo readiness audit: `npm run audit:repo`
 - Latest local audit result: `repo_readiness pass controlled_evidence_items=206`
 - Executable validation index: `docs/executable_validation_index.md`
@@ -299,4 +299,4 @@ Neural Bridge demonstrates controlled future human arousal event-ranking across 
 
 ## Next Work
 
-The approved bounded 420-row selected-head confirmation in `docs/phase5_selected_head_420_confirmation_plan.md` is complete and promoted. A later one-seed Optuna pilot around the exact selected setup reproduced the original exactly and improved held-out PR-AUC by `+0.0021184833`; it is exploratory and does not change this evidence ladder. The next bounded experiment, when explicitly started, is a locked-winner 10-seed blocked confirmation. The historical literal 504 matrix remains obsolete and must not be recreated or padded. Do not widen claims into exact continuous values, blocked continuous generalization, or universal prediction; grouped continuous future-movement ranking/lift remains separately supported.
+The approved bounded 420-row selected-head confirmation in `docs/phase5_selected_head_420_confirmation_plan.md` remains complete and promoted. A later one-seed Optuna pilot was promising, but its preregistered locked-winner 10-seed confirmation failed to improve aggregate PR-AUC and does not change this evidence ladder. Future Optuna work must use multi-seed inner-validation development and a distinct reserved evaluation protocol. The historical literal 504 matrix remains obsolete and must not be recreated or padded. Do not widen claims into exact continuous values, blocked continuous generalization, or universal prediction; grouped continuous future-movement ranking/lift remains separately supported.

@@ -1,5 +1,11 @@
 # Phase 6 Optuna Locked-Winner 10-Seed Confirmation Plan
 
+## Status
+
+Completed on `2026-07-14` in `515.80 s` on MLX `Device(gpu, 0)`. The locked configuration beat the canonical original in `7/10` seeds and `6/9` follow-up seeds, but mean tuned-minus-original PR-AUC was `-0.0011081356` across all seeds and `-0.0014666488` across the nine follow-up seeds. The prespecified locked-improvement verdict therefore failed. Tuned still beat frozen AR and the best tuned matched control by `+0.0057318043` and `+0.0067636509`, respectively, with `8/10` positive seeds versus both.
+
+The failure was dominated by seed `20260627`, where the canonical original exceeded tuned by `+0.0178629568`. Its stored original training curve confirms an unusually favorable inner-validation peak: `+0.0272760719` at epoch 14, about `73%` above the original runs' median best peak, followed by decline. A post-hoc 80-epoch convergence diagnostic reproduced the tuned score exactly and selected epoch 38 again, ruling out the 40-epoch ceiling as the explanation. This diagnostic explains the outlier but cannot change the preregistered verdict.
+
 ## Purpose
 
 Test whether the single Optuna configuration locked by the seed-`20260625` pilot improves the already-proven selected head across the canonical blocked seeds.

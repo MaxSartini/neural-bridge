@@ -168,15 +168,17 @@ VEATIC-124 v2:
 
 ## Next Task
 
-The approved full bounded 420-row selected-head confirmation is complete. A one-seed, 16-trial Optuna pilot around the exact selected target/head also completed on MLX: the original reproduced exactly at `0.2697372519` held-out PR-AUC, while the locked Optuna winner reached `0.2718557352` (`+0.0021184833` vs original; `+0.0081646445` vs frozen AR and best matched control). This is promising exploratory evidence, not a promoted multi-seed result.
+The approved full bounded 420-row selected-head confirmation remains canonical. The one-seed Optuna pilot was promising, but its preregistered locked-winner 10-seed confirmation did not establish an aggregate improvement: tuned/original PR-AUC was `0.2659654274` / `0.2670735630`, all-seed delta `-0.0011081356`, and nine-follow-up-seed delta `-0.0014666488`. Tuned beat original in `7/10` seeds and had a positive paired median (`+0.0004281433`), while retaining a controlled bridge win over frozen AR (`+0.0057318043`) and the best tuned matched control (`+0.0067636509`) with `8/10` positive seeds versus both.
 
-The next bounded task, when explicitly started, is a locked-winner 10-seed blocked confirmation. Reuse the existing canonical original rows for comparison, train the single already-locked Optuna configuration across the canonical blocked seeds, and evaluate the same matched controls. Do not optimize separately per seed, rerun the 420 matrix, start grouped confirmation, restore the obsolete 504 design, or begin continuous-model development during that task.
+Seed `20260627` dominated the mean failure: its canonical original beat tuned by `+0.0178629568`. The stored original curve has an unusually favorable `+0.0272760719` inner-validation peak at epoch 14, roughly `73%` above the original runs' median best peak, then declines. A post-hoc 80-epoch diagnostic reproduced the tuned score exactly, so tuned under-training is not the explanation. Do not delete the seed or relabel the preregistered verdict as a pass.
+
+The next bounded development task is to define a multi-seed inner-validation Optuna objective that aggregates across several development seeds, locks one configuration, and reserves a distinct evaluation protocol. Do not optimize against the already-viewed held-out seed scores, start grouped confirmation for the failed single-seed winner, rerun the 420 matrix, restore 504, or begin continuous-model development.
 
 The real upstream Optuna, Polars, MLflow, and SHAP integrations are installed as the `research-tooling` backend extra and documented in `docs/research_tooling_integrations.md`. Run `npm run verify:research-tooling` to exercise all four with verified MLX GPU/MPS hardware. Their runs remain exploratory and cannot promote canonical evidence.
 
 ## Test And Script Validation
 
-`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the fully provisioned backend environment passed `113` tests, including the real-package research-tooling and selected-head Optuna pilot contracts. The default `npm run verify` environment passed `105` tests and skipped one optional research-tooling module; the repository audit, strict-benchmark dry run, and frontend production build passed.
+`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the fully provisioned backend environment passed `118` tests, including the locked 10-seed and explicitly post-hoc convergence-diagnostic contracts. The default `npm run verify` environment passed `110` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
 
 Relevant AGAIN and VEATIC v2 runners, tests, benchmark artifacts, and runtime-only tools are indexed in `docs/executable_validation_manifest.csv` and mirrored under `evidence/current_phase_5_5_review/14_executable_validation_and_code/`. Do not add placeholder smoke tests as validation. Add tests only when they protect a real split, target, leakage, control, manifest, scorer, checkpoint, or claim-boundary contract.
 
