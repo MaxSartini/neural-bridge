@@ -27,7 +27,7 @@ This is confirmation, not optimization. The run fixes:
 - Verify each reused held-out frozen-AR checksum against the canonical 70-row confirmation table.
 - Reuse the canonical original real/control rows for comparison; do not retrain the original configuration.
 - Train only the locked tuned real residual and its five matched residual controls.
-- No per-seed tuning, Optuna study, target/head search, V-JEPA/TRIBE run, PCA fit/refit, grouped run, 420 rerun, 504 reconstruction, or continuous-model work.
+- No per-seed tuning, Optuna study, target/head search, V-JEPA/TRIBE run, PCA fit/refit, grouped run, 420 rerun,, or continuous-model work.
 
 ## Evaluation Sets
 

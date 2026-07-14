@@ -1,0 +1,74 @@
+{
+  "accelerator": "mlx",
+  "candidate_params": {
+    "alpha_cap": 0.08,
+    "alpha_initial_logit": -3.0,
+    "gate_bias": 4.0,
+    "hidden": 96,
+    "lambda_binary": 0.8,
+    "learning_rate": 0.0002796515604869101,
+    "max_epochs": 60,
+    "patience": 8,
+    "weight_decay": 0.00015731894101489417
+  },
+  "duration_seconds": 335.0922050476074,
+  "groups": [
+    [
+      20260645,
+      20260646,
+      20260647
+    ],
+    [
+      20260648,
+      20260649,
+      20260650
+    ],
+    [
+      20260651,
+      20260652,
+      20260653
+    ],
+    [
+      20260654,
+      20260655,
+      20260656
+    ],
+    [
+      20260657,
+      20260658,
+      20260659
+    ]
+  ],
+  "heldout_weight_search": false,
+  "member_selection": false,
+  "original_params": {
+    "alpha_cap": 0.12,
+    "alpha_initial_logit": -4.0,
+    "gate_bias": 4.0,
+    "hidden": 64,
+    "lambda_binary": 0.5,
+    "learning_rate": 0.0002,
+    "max_epochs": 40,
+    "patience": 8,
+    "weight_decay": 0.0001
+  },
+  "rows": 60,
+  "schema_version": "again_dense_2hz_phase6_trial4_three_checkpoint_fresh15_v1",
+  "seeds": [
+    20260645,
+    20260646,
+    20260647,
+    20260648,
+    20260649,
+    20260650,
+    20260651,
+    20260652,
+    20260653,
+    20260654,
+    20260655,
+    20260656,
+    20260657,
+    20260658,
+    20260659
+  ]
+}

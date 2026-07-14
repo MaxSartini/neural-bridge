@@ -1,6 +1,6 @@
 # Phase 5 Target Redesign Audit 20260630_003224
 
-This is a no-training blocked temporal target feasibility audit. It uses only `labels_aligned_2hz.parquet`, existing row/video/time metadata, and existing frozen-AR score cache for low-confidence slice diagnostics. It does not run residual models, grouped validation, 504 confirmation, V-JEPA/TRIBE/PCA, or AR retraining, and it does not change project claims.
+This is a no-training blocked temporal target feasibility audit. It uses only `labels_aligned_2hz.parquet`, existing row/video/time metadata, and existing frozen-AR score cache for low-confidence slice diagnostics. It does not run residual models, grouped validation,, V-JEPA/TRIBE/PCA, or AR retraining, and it does not change project claims.
 
 ## Bottom Line
 
@@ -136,7 +136,7 @@ Detailed rows and offsets are in `target_overlap_audit.json`.
 
 ## Exact Next Training Recommendation
 
-Do not run grouped, 504, broad variants, or secondary targets from this audit alone. If a follow-up training run is approved later, the smallest clean matrix should be blocked-only and target-focused:
+Do not run grouped, broad variants, or secondary targets from this audit alone. If a follow-up training run is approved later, the smallest clean matrix should be blocked-only and target-focused:
 
 - Protocol: `blocked_temporal_70_30` only.
 - Targets: `future_arousal_max_delta_rows_4_10_train_q90` and `residual_future_max_delta_rows_4_10`.

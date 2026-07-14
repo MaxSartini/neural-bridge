@@ -13,7 +13,6 @@ Neural Bridge passes a full bounded 420-row selected-head confirmation for futur
 - Feature: `temporal_mean_2s_then_pca256`
 - Seeds: `20260625` through `20260634`
 - Lanes: seven matched lanes per protocol/fold/seed
-- Historical 504 matrix: not run and not part of this confirmation
 
 ## Canonical Protocol Results
 
@@ -43,4 +42,4 @@ The grouped label-permutation verdict remains frozen-AR-residual-aware: real min
 
 ## Claim Boundary
 
-This is a bounded selected-head binary future-event ranking confirmation. It is not a 504 run and does not establish exact continuous-value forecasting, blocked continuous generalization, broad all-target/all-dataset prediction, or universal temporal generalization. The prior grouped continuous future-movement ranking/lift pass remains a separate bounded result.
+This is a bounded selected-head binary future-event ranking confirmation. It is does not establish exact continuous-value forecasting, blocked continuous generalization, broad all-target/all-dataset prediction, or universal temporal generalization. The prior grouped continuous future-movement ranking/lift pass remains a separate bounded result.

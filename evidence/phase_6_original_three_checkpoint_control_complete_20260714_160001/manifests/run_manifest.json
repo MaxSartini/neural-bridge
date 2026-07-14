@@ -1,0 +1,71 @@
+{
+  "accelerator": "mlx",
+  "controls": [
+    "real_residual",
+    "shuffled_pca_residual",
+    "random_pca_residual",
+    "label_permutation_residual",
+    "train_only_video_mean_residual",
+    "diagnostics_only_residual"
+  ],
+  "duration_seconds": 903.7731273174286,
+  "groups": [
+    [
+      20260660,
+      20260661,
+      20260662
+    ],
+    [
+      20260663,
+      20260664,
+      20260665
+    ],
+    [
+      20260666,
+      20260667,
+      20260668
+    ],
+    [
+      20260669,
+      20260670,
+      20260671
+    ],
+    [
+      20260672,
+      20260673,
+      20260674
+    ]
+  ],
+  "member_selection": false,
+  "params": {
+    "alpha_cap": 0.12,
+    "alpha_initial_logit": -4.0,
+    "gate_bias": 4.0,
+    "hidden": 64,
+    "lambda_binary": 0.5,
+    "learning_rate": 0.0002,
+    "max_epochs": 40,
+    "patience": 8,
+    "weight_decay": 0.0001
+  },
+  "rows": 140,
+  "schema_version": "again_dense_2hz_phase6_original_three_checkpoint_control_complete_v1",
+  "seeds": [
+    20260660,
+    20260661,
+    20260662,
+    20260663,
+    20260664,
+    20260665,
+    20260666,
+    20260667,
+    20260668,
+    20260669,
+    20260670,
+    20260671,
+    20260672,
+    20260673,
+    20260674
+  ],
+  "weight_search": false
+}

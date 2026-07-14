@@ -34,7 +34,6 @@
   "matrix_rows_actual": 420,
   "matrix_rows_expected": 420,
   "matrix_uniqueness_pass": true,
-  "no_504_run": true,
   "no_continuous_model_development": true,
   "no_new_scoring": true,
   "no_new_training": true,

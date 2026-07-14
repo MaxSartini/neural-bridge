@@ -221,7 +221,7 @@ Output root: `{output_root}`
 
 This confirmation applies one pilot-locked configuration unchanged across the
 canonical blocked seeds. It performs no optimization, encoder/PCA work,
-grouped evaluation, 420 rerun, 504 reconstruction, or continuous modeling.
+grouped evaluation, 420 rerun, or continuous modeling.
 
 ## Result
 
@@ -471,7 +471,6 @@ def main() -> int:
         "no_vjepa_tribe_pca_rerun": True,
         "no_grouped": True,
         "no_420_rerun": True,
-        "no_504": True,
         "no_continuous": True,
         "residual_target_definition": residual_meta,
         "duration_seconds": result["duration_seconds"],

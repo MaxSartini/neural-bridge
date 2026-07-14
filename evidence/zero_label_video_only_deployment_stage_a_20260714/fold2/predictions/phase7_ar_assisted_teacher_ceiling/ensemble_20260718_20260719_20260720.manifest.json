@@ -1,0 +1,18 @@
+{
+  "labels_loaded_by_predictor": false,
+  "member_seeds": [
+    20260718,
+    20260719,
+    20260720
+  ],
+  "prediction_digest": "950c33a81efe0c7f92ee03a722d375bb",
+  "prediction_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_deployment_stage_a_20260714/fold2/predictions/phase7_ar_assisted_teacher_ceiling/ensemble_20260718_20260719_20260720.parquet",
+  "prediction_rows": 56948,
+  "prediction_sealed_before_label_join": true,
+  "prediction_sha256": "b4a905d753d62eaa166e2032dddce87e21d81b5c4249187ff63de976537e7a7c",
+  "weights": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ]
+}

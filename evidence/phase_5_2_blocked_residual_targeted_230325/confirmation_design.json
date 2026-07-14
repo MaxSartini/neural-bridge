@@ -94,8 +94,7 @@
       "diagnostics_only_residual"
     ],
     "total_rows_including_frozen_ar": 45,
-    "residual_trainings_excluding_frozen_ar": 40,
-    "full_504_confirmation_justified_now": false
+    "residual_trainings_excluding_frozen_ar": 40
   },
   "grouped_policy": {
     "run_grouped_next": false,

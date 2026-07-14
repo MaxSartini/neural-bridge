@@ -56,7 +56,7 @@ def passing_source_gates() -> tuple[dict[str, object], dict[str, object]]:
     )
 
 
-def test_expected_matrix_is_exact_selected_head_420_not_historical_504():
+def test_expected_matrix_is_exact_selected_head_420():
     keys = expected_matrix_keys()
     assert len(keys) == 420
     assert len([key for key in keys if key[0] == "blocked_temporal_70_30"]) == 70

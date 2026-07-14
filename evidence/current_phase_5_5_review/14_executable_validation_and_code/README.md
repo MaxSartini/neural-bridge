@@ -18,6 +18,6 @@ This folder pairs the current claim dossier with the tests, benchmark runners, a
 
 ## Policy
 
-This is an executable index, not a benchmark rerun. No training, PCA generation, V-JEPA/TRIBE work, dense-cache mutation, grouped run, 504 run, or heavy output generation was performed to create this folder.
+This is an executable index, not a benchmark rerun. No training, PCA generation, V-JEPA/TRIBE work, dense-cache mutation, grouped run, or heavy output generation was performed to create this folder.
 
 Runtime probes and environment checks are marked as non-claim tools. Claim-bearing evidence remains the reports and phase-numbered evidence bundles linked from the main dossier.

@@ -1,8 +1,14 @@
 # Neural Bridge Roadmap
 
-Phase 7 is the current performance frontier. The project has moved from “does the neuro-response bridge work?” to “how do we deploy the proven signal from video alone and extend its generalization?”
+Phase 7 remains the AR-assisted performance frontier. The first cached-feature video-only deployment bridge is now confirmed on a prospectively locked 299-video AGAIN pool. The project has moved from “can the signal survive without response labels at inference?” to “can we run it end to end from raw video and confirm it beyond AGAIN?”
 
-## Current King: Phase 7
+## Current Deployment Win: Locked Zero-Label Bridge
+
+The fixed direct-supervised temporal lane passed `140/140` locked rows, beat the strongest false-signal/no-video controls by `+77.65%` Spearman, `+70.80%` top-5% lift, and `+26.50%` event PR-AUC, and won all `5/5` full-video panels on every endpoint.
+
+This establishes cached-feature zero-label inference on AGAIN. Raw-video end-to-end runtime and external/client validity remain separate milestones.
+
+## Research Ceiling: Phase 7
 
 The fresh grouped held-out-video continuous confirmation passed `420/420` rows with failed gates `[]`:
 
@@ -14,7 +20,7 @@ The fresh grouped held-out-video continuous confirmation passed `420/420` rows w
 - positive fold means: `5/5`;
 - checkpoint-ensemble uplift: `+0.0077966938` Spearman and `+0.0025021192` top-5%.
 
-This proves controlled grouped continuous future-arousal movement ranking/lift for the selected washout target/head. The separate blocked test was a strong aggregate `4/5` near-pass under a locked `5/5` gate and remains reported exactly that way.
+This proves controlled grouped continuous future-arousal movement ranking/lift for the selected washout target/head.
 
 ## What Has Been Established
 
@@ -26,21 +32,12 @@ This proves controlled grouped continuous future-arousal movement ranking/lift f
 - Fixed checkpoint averaging is a real stabilizer, not a cosmetic change.
 - The effect is not dependent on a single favorable seed or fold.
 
-## Milestone 1: Video-Only Deployment Bridge
+## Milestone 1: End-to-End Raw-Video Runtime
 
-Goal: preserve as much of the Phase 7 teacher signal as possible when no observed arousal history is available.
-
-Required protocol:
-
-1. freeze a small number of deployment hypotheses before held-out scoring;
-2. train a video-only student, cold-start self-rollout, or both from the Phase 7 teacher;
-3. prohibit observed-arousal teacher forcing at evaluation;
-4. use held-out-video folds and a true cold-start window;
-5. compare against video-only, train-only video mean, self-rollout persistence, shuffled, random, and label-permutation controls;
-6. keep ranking/lift and exact-value gates separate;
-7. run on MLX/MPS with no CPU fallback.
-
-Success means the core response-ranking intelligence becomes usable on raw pre-release client video.
+- freeze the confirmed prediction recipe;
+- run upstream feature generation plus the video-only bridge from a raw client-style file;
+- measure Apple Silicon latency, memory, failure handling, and deterministic provenance;
+- produce continuous heat maps and event bands without false exact-value claims.
 
 ## Milestone 2: Cross-Domain Training Pilot
 
@@ -59,7 +56,7 @@ If the pilot transfers positively, scale the VEATIC 2.1 re-encode. If not, retai
 
 ## Milestone 3: Product Evaluation Surface
 
-After a video-only bridge passes:
+Now that the video-only bridge has passed:
 
 - convert ranked future movement into response heat maps and event bands;
 - expose confidence and calibration rather than false precision;
@@ -72,10 +69,10 @@ After a video-only bridge passes:
 - Phase 7 is the current headline; Phase 5.5 and Phase 6 are its evidence foundation.
 - Do not resume broad same-family Optuna tuning; it has already been tested and bounded.
 - Do not delete or hide difficult seeds.
-- Do not recreate the obsolete `504` matrix.
 - Do not combine ranking/lift and exact-value claims after the fact.
 - Do not launch all-target or architecture-zoo sweeps without a narrow preregistered hypothesis.
 - Preserve matched AR and controls; beating weak controls alone is not enough.
+- Never tune or select again on the locked 299-video pool.
 
 ## Repository Rules
 

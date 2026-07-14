@@ -1,0 +1,26 @@
+{
+  "pooled_continuous_spearman": {
+    "control_lane": "diagnostics_only_supervised_temporal",
+    "lower_95_one_sided": 0.060678721220981294,
+    "mean_delta": 0.08002621642160654,
+    "median_delta": 0.0799066875077542,
+    "positive_fraction": 1.0,
+    "resamples": 2000
+  },
+  "top_5pct_true_future_movement_lift": {
+    "control_lane": "no_video_supervised_temporal",
+    "lower_95_one_sided": 0.01877400722567002,
+    "mean_delta": 0.03208057830705195,
+    "median_delta": 0.03211543503620737,
+    "positive_fraction": 1.0,
+    "resamples": 2000
+  },
+  "training_q90_future_event_pr_auc": {
+    "control_lane": "diagnostics_only_supervised_temporal",
+    "lower_95_one_sided": 0.0235455193560911,
+    "mean_delta": 0.03586403763082539,
+    "median_delta": 0.035642510854902276,
+    "positive_fraction": 1.0,
+    "resamples": 2000
+  }
+}

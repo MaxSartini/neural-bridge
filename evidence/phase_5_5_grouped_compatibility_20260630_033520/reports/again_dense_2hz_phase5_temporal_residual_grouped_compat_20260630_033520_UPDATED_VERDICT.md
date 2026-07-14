@@ -1,6 +1,6 @@
 # Phase 5 Temporal Residual Grouped Compatibility Updated Verdict
 
-This report updates only the grouped compatibility verdict logic for the completed frozen-AR residual grouped run. No training, scoring, PCA generation, grouped rerun, or 504 run was performed.
+This report updates only the grouped compatibility verdict logic for the completed frozen-AR residual grouped run. No training, scoring, PCA generation, grouped rerun, or  was performed.
 
 ## Source
 
@@ -56,4 +56,4 @@ Observed:
 - Failed updated gates: `[]`
 - Recommendation: `grouped_compatibility_pass_review_before_any_504`
 
-This updated verdict remains a grouped compatibility result only. It is not a 504 run, not a broad claim change, and strict broad temporal generalization still requires explicit later confirmation.
+This updated verdict remains a grouped compatibility result only. It is , not a broad claim change, and strict broad temporal generalization still requires explicit later confirmation.

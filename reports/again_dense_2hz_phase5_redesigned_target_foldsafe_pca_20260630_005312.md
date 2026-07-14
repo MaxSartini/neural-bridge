@@ -2,7 +2,7 @@
 
 Output root: `outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312`
 
-This is a PCA-projection-only preparation run for the redesigned blocked target follow-up. It does not train residual models, does not run grouped or 504, does not rerun V-JEPA/TRIBE, does not use global PCA, and does not modify the dense cache.
+This is a PCA-projection-only preparation run for the redesigned blocked target follow-up. It does not train residual models, does not run grouped, does not rerun V-JEPA/TRIBE, does not use global PCA, and does not modify the dense cache.
 
 ## Why This Was Needed
 

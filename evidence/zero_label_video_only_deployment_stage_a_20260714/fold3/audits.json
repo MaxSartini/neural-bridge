@@ -1,0 +1,209 @@
+{
+  "audits": [
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "87a996f2bc84b40d00a2ada7356ffc67031e554c72266281cbf6edfe901f6e81",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_distilled_temporal",
+      "seed": 20260718
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "09de8ee2aced727f4b6405b0430a49aa3316f21e2765011a50913e97ba261779",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_temporal",
+      "seed": 20260718
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "ff810f5f61d4e787925e2de3f21faf0b041ed4847d99901fa5d8f8eab5eea97d",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_current_row",
+      "seed": 20260718
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "016f8f2b1b437747e36a488467c9d3ac3201c033bb612b8c032170844185b154",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "sequence_shuffled_video",
+      "seed": 20260718
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "f0f2640b48c59bcac1268f5e9ea3b76c0633ad813bd0a792fd77dd57e6a62d9c",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_label_permutation",
+      "seed": 20260718
+    },
+    {
+      "all_finite": true,
+      "cross_video_state_carry": 0,
+      "delta_initialization": 0.0,
+      "fold": 3,
+      "initial_state": "training_arousal_median",
+      "labels_loaded_by_predictor": false,
+      "lane": "video_closed_loop_rollout",
+      "prior_sources_digest": "10fded749e6e35281feb00b8508e0f7a",
+      "seed": 20260718,
+      "state_reset_per_video": true,
+      "teacher_forced_state_reads": 0,
+      "teacher_forcing_ratio": 0.0
+    },
+    {
+      "all_finite": true,
+      "cross_video_state_carry": 0,
+      "delta_initialization": 0.0,
+      "fold": 3,
+      "initial_state": "training_arousal_median",
+      "labels_loaded_by_predictor": false,
+      "lane": "no_video_closed_loop_persistence",
+      "prior_sources_digest": "10fded749e6e35281feb00b8508e0f7a",
+      "seed": 20260718,
+      "state_reset_per_video": true,
+      "teacher_forced_state_reads": 0,
+      "teacher_forcing_ratio": 0.0
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "0d7253e7e03e5537fc1a259cb4121a5c0b0844dd818424fdf4c1932e3bea8334",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_distilled_temporal",
+      "seed": 20260719
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "48bf1595c2d97620aa2f64ff6d753131a4e6e54cacfa6e1dd220b4f8d5b366b3",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_temporal",
+      "seed": 20260719
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "376c72c48cc952e5980c3706e188c8ab5822465ad0ebfc46897065d5f96dffcf",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_current_row",
+      "seed": 20260719
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "80e69b2687f9b58ffaa66528847a30ed02befba9aa584c0fb7811549558cc810",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "sequence_shuffled_video",
+      "seed": 20260719
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "8f6cea04b7970668496f73ccbb7238d7a2885607d44d59b509f4861700a09b18",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_label_permutation",
+      "seed": 20260719
+    },
+    {
+      "all_finite": true,
+      "cross_video_state_carry": 0,
+      "delta_initialization": 0.0,
+      "fold": 3,
+      "initial_state": "training_arousal_median",
+      "labels_loaded_by_predictor": false,
+      "lane": "video_closed_loop_rollout",
+      "prior_sources_digest": "10fded749e6e35281feb00b8508e0f7a",
+      "seed": 20260719,
+      "state_reset_per_video": true,
+      "teacher_forced_state_reads": 0,
+      "teacher_forcing_ratio": 0.0
+    },
+    {
+      "all_finite": true,
+      "cross_video_state_carry": 0,
+      "delta_initialization": 0.0,
+      "fold": 3,
+      "initial_state": "training_arousal_median",
+      "labels_loaded_by_predictor": false,
+      "lane": "no_video_closed_loop_persistence",
+      "prior_sources_digest": "10fded749e6e35281feb00b8508e0f7a",
+      "seed": 20260719,
+      "state_reset_per_video": true,
+      "teacher_forced_state_reads": 0,
+      "teacher_forcing_ratio": 0.0
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "f85819d06ea26f56af4a54d48521c974ba0ccbf50d308092d7c113c6f32e3227",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_distilled_temporal",
+      "seed": 20260720
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "53f076e9a93805b84966e257a8fe7d81947256f540c487cda508f238ba22a142",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_temporal",
+      "seed": 20260720
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "2db6f7f4f90d60e77b9927bbcd8f38d9c2cf08044be8168e20a6b470eb4263b5",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_current_row",
+      "seed": 20260720
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "3bee7397ade2f150d9d44ce8330e36aa4735f98f962088e664888ec1d14c72a2",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "sequence_shuffled_video",
+      "seed": 20260720
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "e6d12ec361c9aeddd2a6751db1647234cd31ad72097025a3f14023bf387d30f5",
+      "fold": 3,
+      "labels_loaded_by_predictor": false,
+      "lane": "video_label_permutation",
+      "seed": 20260720
+    },
+    {
+      "all_finite": true,
+      "cross_video_state_carry": 0,
+      "delta_initialization": 0.0,
+      "fold": 3,
+      "initial_state": "training_arousal_median",
+      "labels_loaded_by_predictor": false,
+      "lane": "video_closed_loop_rollout",
+      "prior_sources_digest": "10fded749e6e35281feb00b8508e0f7a",
+      "seed": 20260720,
+      "state_reset_per_video": true,
+      "teacher_forced_state_reads": 0,
+      "teacher_forcing_ratio": 0.0
+    },
+    {
+      "all_finite": true,
+      "cross_video_state_carry": 0,
+      "delta_initialization": 0.0,
+      "fold": 3,
+      "initial_state": "training_arousal_median",
+      "labels_loaded_by_predictor": false,
+      "lane": "no_video_closed_loop_persistence",
+      "prior_sources_digest": "10fded749e6e35281feb00b8508e0f7a",
+      "seed": 20260720,
+      "state_reset_per_video": true,
+      "teacher_forced_state_reads": 0,
+      "teacher_forcing_ratio": 0.0
+    }
+  ],
+  "fold": 3
+}

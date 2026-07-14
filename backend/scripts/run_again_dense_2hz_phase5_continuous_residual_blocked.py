@@ -3,7 +3,7 @@
 Bounded run:
 blocked_temporal_70_30 only x 5 seeds x 7 controls = 35 rows.
 
-This is not a binary spike confirmation rerun, not grouped 5-fold, not 504, and
+This is not a binary spike confirmation rerun, not grouped 5-fold, not , and
 not a broad model search. It keeps AR frozen and trains only a monotonic
 continuous residual branch for future arousal movement ranking/lift.
 """
@@ -560,7 +560,6 @@ def compute_gates(summary: pd.DataFrame, fold_df: pd.DataFrame) -> dict[str, Any
         "credible_continuous_pass": credible_continuous_pass,
         "strict_forward_time_spike_prediction_claimed": False,
         "full_grouped_5fold_started": False,
-        "full_504_started": False,
         "recommendation": recommendation,
         "pr_auc_secondary": {
             "real": float(real["mean_binary_pr_auc"]),
@@ -595,7 +594,7 @@ def write_report(path: Path, gates: dict[str, Any], output_root: Path) -> None:
 
 Output root: `{output_root}`
 
-This is a targeted continuous future arousal movement residual experiment over frozen AR. It uses only `blocked_temporal_70_30`, only `monotonic_do_no_harm_residual`, five prespecified seeds, and seven controls for a maximum of 35 rows. It does not rerun binary spike confirmation, grouped 5-fold, 504, secondary targets, AR training, V-JEPA/TRIBE, or PCA.
+This is a targeted continuous future arousal movement residual experiment over frozen AR. It uses only `blocked_temporal_70_30`, only `monotonic_do_no_harm_residual`, five prespecified seeds, and seven controls for a maximum of 35 rows. It does not rerun binary spike confirmation, grouped 5-fold, secondary targets, AR training, V-JEPA/TRIBE, or PCA.
 
 ## Result
 
@@ -796,7 +795,6 @@ def main() -> int:
             "matrix_size": len(matrix),
             "no_ar_retraining": True,
             "no_grouped": True,
-            "no_504": True,
             "no_secondary_targets": True,
             "no_vjepa_tribe_pca_rerun": True,
             "duration_seconds": time.time() - start,

@@ -50,7 +50,6 @@
     "continuous_binary_do_no_harm"
   ],
   "frozen_ar_integrity_pass": true,
-  "full_504_started": false,
   "grouped_started": false,
   "matrix_rows_actual": 42,
   "matrix_rows_expected": 42,

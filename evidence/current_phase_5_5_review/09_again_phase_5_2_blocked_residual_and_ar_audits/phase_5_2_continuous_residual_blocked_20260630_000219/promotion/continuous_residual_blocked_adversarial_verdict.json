@@ -37,7 +37,6 @@
   },
   "eval_mode_scoring_pass": true,
   "frozen_ar_integrity_pass": true,
-  "full_504_started": false,
   "full_grouped_5fold_started": false,
   "label_permutation_policy_implemented": true,
   "loss": "continuous_rank_lift_residual",

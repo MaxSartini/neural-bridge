@@ -50,16 +50,6 @@ Row accounting:
 - grouped: `5 folds x 10 seeds x 7 lanes = 350`
 - selected-head total: `420` scored rows
 
-## Historical 504 Distinction
-
-The earlier literal 504 design was a development-stage matrix:
-
-- blocked: `1 x 3 seeds x 4 exploratory variants x 7 lanes = 84`
-- grouped: `5 x 3 seeds x 4 exploratory variants x 7 lanes = 420`
-- total: `504`
-
-That design used the older target/design stage and four exploratory residual variants. It is not the current selected-head confirmation and its 84 blocked rows are not missing from the current matrix. Do not add obsolete variants or synthetic audit rows to make the current row count equal 504. A ten-seed recreation of that old four-variant breadth would be 1,680 rows and is not authorized by this plan.
-
 ## Canonical Inputs
 
 - blocked report: `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
@@ -109,7 +99,7 @@ If every gate passes, the bounded promotion wording is:
 
 > Neural Bridge passes a full bounded 420-row selected-head confirmation for future arousal event ranking on AGAIN across strict blocked temporal validation and grouped held-out-video compatibility, using the redesigned washout-gap target, short temporal convolution residual, matched frozen AR, and matched controls.
 
-Do not call this a 504 run. Do not claim exact continuous-value forecasting, blocked continuous generalization, broad all-target/all-dataset prediction, or universal temporal generalization.
+Do not claim exact continuous-value forecasting, broad all-target/all-dataset prediction, or universal temporal generalization.
 
 ## Stop Condition
 

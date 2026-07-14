@@ -6,7 +6,6 @@
   "feature": "temporal_mean_2s_then_pca256",
   "loss": "continuous_rank_lift_residual",
   "matrix_size": 35,
-  "no_504": true,
   "no_ar_retraining": true,
   "no_grouped": true,
   "no_secondary_targets": true,

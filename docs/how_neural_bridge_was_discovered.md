@@ -18,7 +18,7 @@ AGAIN scaled the work to `995` videos and `243,575` dense 2 Hz feature rows. Raw
 
 Correct deterministic evaluation recovered grouped event-ranking and a separate controlled grouped continuous future-movement ranking/lift result. Across 15 fold-seed evaluations, real continuous Spearman was `0.2232222830` versus AR-only `0.1982207591`, shuffled `0.1938183619`, and random `0.1931781163`. Real top-1% average-true-movement lift was `0.1359465244` versus `0.1115815364`, `0.1125842464`, and `0.1136304212`. The stored `continuous_ranking_lift_pass` is `true`.
 
-This is a real continuous-ranking victory. It is not exact-value trajectory forecasting and it is not a blocked continuous pass.
+This is a real continuous-ranking victory. It is not calibrated exact-value trajectory forecasting.
 
 ## 4. Blocked Evaluation Exposed Persistence
 
@@ -58,15 +58,20 @@ Fresh three-checkpoint averaging materially improved the original recipe over it
 
 Phase 7 applied the proven temporal residual recipe and checkpoint stabilization to `residual_future_max_delta_rows_4_10`. Its fresh grouped confirmation reached Spearman `0.2603011121` versus AR `0.2405371348` and best control `0.2402523335`; top-5% lift was `0.0975979581` versus `0.0895663763` and `0.0897088493`. All `15/15` fold-groups and `5/5` fold means were positive on both metrics, and failed gates were `[]`.
 
-The separate blocked confirmation was a strong aggregate `4/5` near-pass under a locked `5/5` gate. The grouped result is independently claim-bearing and does not need that blocked verdict to be rewritten.
+## 12. The Video-Only Path Found a Simpler Winner
+
+The first deployment study tested Phase 7 teacher distillation, self-rollout, and a prespecified direct-supervised temporal control. Distillation and self-rollout did not retain the study's required fraction of teacher-added gain. The direct-supervised lane was nevertheless the clear development winner, beating its no-video anchor in all `3/3` development folds on every endpoint.
+
+That observation did not reopen the held-out pool. A new protocol prospectively fixed the direct-supervised method before the 299 locked videos were scored. The resulting confirmation passed `140/140`, used no observed arousal at inference, won every `5/5` full-video panel, and beat the strongest false-signal/no-video controls by `+77.65%` Spearman, `+70.80%` top-5% lift, and `+26.50%` event PR-AUC. The trial taught a useful modeling lesson: deployment did not require imitating every advantage of the privileged teacher; direct supervised learning from video-side neuro-response features was enough to establish a strong zero-label-at-inference signal.
 
 ## Current Result
 
-Neural Bridge now has four bounded victories:
+Neural Bridge now has five bounded victories:
 
-1. Controlled future arousal event/spike ranking across VEATIC and AGAIN.
-2. Bounded blocked washout-gap future-event ranking on AGAIN, beyond frozen AR and controls.
+1. A prospectively locked 299-video deployment confirmation with no observed arousal at inference, beating the strongest false-signal/no-video controls on Spearman, top-5% lift, and event PR-AUC.
+2. A fresh Phase 7 grouped continuous confirmation for the selected washout target/head, with perfect `15/15` fold-group directional consistency and checkpoint-ensemble uplift.
 3. Controlled grouped continuous future-movement ranking/lift on AGAIN.
-4. A fresh Phase 7 grouped continuous confirmation for the selected washout target/head, with perfect `15/15` fold-group directional consistency and checkpoint-ensemble uplift.
+4. Bounded blocked washout-gap future-event ranking on AGAIN, beyond frozen AR and controls.
+5. Controlled future arousal event/spike ranking across VEATIC and AGAIN.
 
-The next milestone is label-free deployment from video alone. Exact continuous values, a formal Phase 7 blocked continuous pass, broad all-target/all-dataset temporal prediction, and 504 confirmation are not claimed.
+The next milestone is end-to-end raw-video runtime and external transfer. Calibrated exact continuous values and broad universal prediction are not claimed.

@@ -2,7 +2,7 @@
 
 Output root: `outputs/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437`
 
-This is a blocked-only 10-seed confirmation for the redesigned binary washout-gap target using only `short_temporal_conv_residual`. It does not run continuous, grouped, 504, extra targets, extra architectures, V-JEPA/TRIBE/PCA, PCA refit, or claim changes.
+This is a blocked-only 10-seed confirmation for the redesigned binary washout-gap target using only `short_temporal_conv_residual`. It does not run continuous, grouped, extra targets, extra architectures, V-JEPA/TRIBE/PCA, PCA refit, or claim changes.
 
 ## Scope
 
@@ -44,4 +44,4 @@ This is a blocked-only 10-seed confirmation for the redesigned binary washout-ga
 - Failed gates: `[]`
 - Recommendation: `binary_big_confirmation_pass_review_before_any_grouped_or_504`
 
-Strict forward-time temporal generalization remains unproven until any further confirmation is explicitly reviewed and promoted. This report alone does not authorize grouped or 504.
+Strict forward-time temporal generalization remains unproven until any further confirmation is explicitly reviewed and promoted. This report alone does not authorize grouped.

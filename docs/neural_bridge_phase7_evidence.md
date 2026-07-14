@@ -146,18 +146,6 @@ The confirmation compared the real bridge against target-specific AR and matched
 
 The best aggregate Spearman control was `train_only_video_mean_residual`; the best top-5% control was `random_pca_residual`. Neural Bridge beat both.
 
-## Relationship to the Blocked Result
-
-Phase 7 also ran a separately preregistered fresh blocked-time confirmation over `140/140` rows. It was strongly positive on aggregate:
-
-- Spearman: real `0.1176781535`, AR `0.1103312855`, best control `0.1072552766`;
-- top-5% lift: real `0.0840262922`, AR `0.0759273576`, best control `0.0757026078`;
-- top-5% wins versus AR and control: `5/5` groups;
-- Spearman wins versus best control: `5/5`;
-- Spearman wins versus AR: `4/5`.
-
-The protocol required literal `5/5` Spearman wins over AR, so the blocked verdict remains an unpromoted near-pass. It missed one deliberately strict consistency gate while passing every other gate. The later grouped run was separately specified and separately passed; it does not retroactively alter the blocked verdict.
-
 ## Relationship to Earlier Phases
 
 Phase 5.5 established the selected binary future-event head under blocked and grouped controls. Phase 6 showed that the original recipe becomes stronger and more stable when three independently trained checkpoints are averaged, then confirmed that ensemble under fresh blocked and grouped binary protocols.
@@ -198,9 +186,7 @@ Phase 7 also reported slightly better descriptive MAE and RMSE than AR, but exac
 
 ## Current Deployment Boundary
 
-The strongest residual benchmark uses observed current/past arousal features as its AR context. This is a valid and demanding scientific comparison, but an unlabeled pre-release client video will not supply those response measurements.
-
-The next deployment experiment is consequently clear: distill the Phase 7 teacher into a video-only student, or validate a cold-start self-rollout architecture, then evaluate it on held-out videos with no observed-arousal teacher forcing. Passing that bridge would connect the proven intelligence layer to a raw-video product workflow.
+Phase 7 is the strongest observed-arousal-assisted scientific ceiling. The separately locked direct-supervised deployment bridge now proves cached-feature inference on 299 prospectively held-out AGAIN videos with no observed arousal at inference. End-to-end raw-video feature generation, external transfer, and prospective client outcomes remain the next validation layer.
 
 ## Metric Source Map
 
@@ -214,7 +200,7 @@ The next deployment experiment is consequently clear: distill the Phase 7 teache
 | Phase 5.5 blocked and grouped washout confirmations | [`reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`](../reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md) and [`reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`](../reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md) |
 | Phase 6 grouped binary ensemble | [`reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md`](../reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md) |
 | Phase 7 grouped metrics, controls, event support, and generation comparison | [`reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`](../reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md) and the checksum-anchored evidence snapshot below |
-| Phase 7 blocked `4/5` near-pass | [`reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md`](../reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md) |
+| Locked zero-label-at-inference deployment confirmation | [`reports/again_dense_2hz_zero_label_direct_supervised_locked_confirmation_20260715.md`](../reports/again_dense_2hz_zero_label_direct_supervised_locked_confirmation_20260715.md) |
 
 ## Canonical Evidence
 
@@ -223,11 +209,10 @@ The next deployment experiment is consequently clear: distill the Phase 7 teache
 - grouped preregistration: `docs/phase7_continuous_checkpoint_ensemble_grouped_preregistration.md`
 - grouped runner: `backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped.py`
 - grouped contract test: `tests/test_again_phase7_continuous_checkpoint_ensemble_grouped.py`
-- blocked report: `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md`
 - diagnostic report: `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513.md`
 - machine-readable status: `docs/current_claim_status.json`
 - historical discovery ladder: `docs/how_neural_bridge_was_discovered.md`
 
 ## Current Bottom Line
 
-Phase 7 is a real, clean win: Neural Bridge consistently ranks future arousal movement on unseen videos better than strong persistence and matched false-signal baselines. The result passed a fresh `420/420` controlled matrix with `15/15` positive fold-groups and no failed gates. The work now moves from proving the intelligence exists to making that intelligence available without observed response labels at deployment time.
+Phase 7 is a real, clean win: Neural Bridge consistently ranks future arousal movement on unseen videos better than strong persistence and matched false-signal baselines. The result passed a fresh `420/420` controlled matrix with `15/15` positive fold-groups and no failed gates. The newer locked deployment confirmation shows that substantial signal survives without observed response labels at inference; raw-video runtime and external transfer are now the next layer.

@@ -95,5 +95,5 @@ Ties do not count as paired wins. Standard deviation uses population `ddof=0`.
 - A pass means only that the fixed blend deserves a separately preregistered,
   control-complete confirmation on additional fresh seeds.
 - This pilot cannot replace or weaken the canonical 420-row result, authorize
-  the failed robust campaign's Stage C, revive 504, or support exact continuous
+  the failed robust campaign's Stage C or support exact continuous
   forecasting claims.

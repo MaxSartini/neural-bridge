@@ -12,4 +12,4 @@
 
 ## Non-Claim Policy
 
-Runtime probes can validate environment behavior, model conversion, or throughput. They do not establish Neural Bridge performance claims. Current claim-bearing evidence starts at `docs/neural_bridge_phase7_evidence.md`, `reports/`, `evidence/phase_*`, and `evidence/current_phase_7_review/`; the Phase 5.5 dossier remains the historical foundation.
+Runtime probes can validate environment behavior, model conversion, or throughput. They do not establish Neural Bridge performance claims. Current claim-bearing evidence starts at `docs/neural_bridge_phase7_evidence.md`, `reports/`, `evidence/phase_*`, and `evidence/current_review/`; the Phase 5.5 dossier remains the historical foundation.

@@ -39,7 +39,6 @@
   "matrix_rows_expected": 350,
   "mean_delta_vs_ar_pass": true,
   "mean_delta_vs_best_primary_control_pass": true,
-  "no_504_run": true,
   "no_new_scoring": true,
   "no_pca_generation": true,
   "no_retraining": true,

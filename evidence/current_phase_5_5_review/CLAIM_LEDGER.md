@@ -1,4 +1,4 @@
-# Claim Ledger
+# Historical Phase 5.5 Claim Ledger
 
 Ledger caveats describe the evidence available at that milestone. They are not
 permanent prohibitions: a later valid executable pass supersedes stale caution
@@ -15,7 +15,7 @@ Key numbers: VEATIC blocked PR-AUC 0.2536 vs AR 0.1969; AGAIN blocked real PR-AU
 
 Primary evidence: `README.md; docs/neural_bridge_phase5_5_evidence_ladder.md; reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md; reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
 
-Caveats: Grouped continuous ranking/lift is proven, not exact-value forecasting or blocked continuous generalization; no 504 run has been promoted.
+Caveats: Grouped continuous ranking/lift is proven; calibrated exact-value forecasting is not claimed.
 
 ## C2: foundational_proven
 
@@ -89,7 +89,7 @@ Interpretation: The same head beats the matched fold/seed-specific AR/frozen flo
 
 Primary evidence: `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md; evidence/phase_5_5_grouped_compatibility_20260630_033520/`
 
-Caveats: Verdict update used existing artifacts. It was not a rerun, not PCA generation, and not 504.
+Caveats: Verdict update used existing artifacts. It was not a rerun, not PCA generation, and not .
 
 ## C9: proven_grouped_continuous_ranking_lift
 
@@ -127,5 +127,5 @@ gates `[]` in both confirmations.
 Primary evidence: `reports/again_dense_2hz_phase6_original_three_checkpoint_control_complete_20260714_160001.md; reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md; evidence/phase_6_original_three_checkpoint_control_complete_20260714_160001/; evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/`
 
 Caveats: Selected binary washout-gap target/head only. This does not establish
-exact continuous values, blocked continuous generalization, 504, or universal
+exact continuous values, blocked continuous generalization, or universal
 prediction.

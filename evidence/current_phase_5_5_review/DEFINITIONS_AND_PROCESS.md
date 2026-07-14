@@ -21,7 +21,7 @@ Raw predicted cortical/fMRI features alone are a negative-control failure mode, 
 ## Primary Protocols
 
 - `blocked_temporal_70_30`: forward-time blocked temporal evaluation inside AGAIN. This is the proof protocol for the current bounded strict forward-time event-ranking claim.
-- `grouped_video`: held-out-video compatibility evaluation. The updated grouped verdict is a compatibility result, not a 504 run.
+- `grouped_video`: held-out-video compatibility evaluation. The updated grouped verdict is a compatibility result, .
 
 ## Controls
 
@@ -39,4 +39,4 @@ Relevant AGAIN and VEATIC v2 scripts, tests, benchmark artifacts, and runtime-on
 
 ## Promotion Boundaries
 
-The repo may claim bounded strict forward-time future-event ranking on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`, and grouped-video compatibility under the updated verdict. It must not claim exact continuous forecasting, mind reading, universal emotion prediction, broad all-target/all-dataset temporal prediction, raw predicted cortical/fMRI features alone as the win, or 504-proven generalization.
+The repo may claim bounded strict forward-time future-event ranking on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`, and grouped-video compatibility under the updated verdict. It must not claim exact continuous forecasting, mind reading, universal emotion prediction, broad all-target/all-dataset temporal prediction, raw predicted cortical/fMRI features alone as the win-proven generalization.

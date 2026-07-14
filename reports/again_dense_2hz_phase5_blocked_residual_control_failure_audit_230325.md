@@ -88,7 +88,7 @@ This audit does invalidate using the bounded blocked diagnostic as proof of stri
 
 ## Recommended Next Action
 
-Do not run a 504 confirmation and do not start more training until the failed controls are understood.
+Do not run and do not start more training until the failed controls are understood.
 
 The next action should be a no-training analysis of the existing diagnostic artifacts:
 

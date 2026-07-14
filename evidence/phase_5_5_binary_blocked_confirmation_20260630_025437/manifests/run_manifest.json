@@ -19,7 +19,6 @@
   "feature": "temporal_mean_2s_then_pca256",
   "foldsafe_pca_root": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312",
   "matrix_size": 70,
-  "no_504": true,
   "no_continuous": true,
   "no_extra_architectures": true,
   "no_extra_targets": true,

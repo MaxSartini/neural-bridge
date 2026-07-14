@@ -37,7 +37,6 @@ Current dense AGAIN H100 state is maintained in:
 - `reports/again_dense_2hz_phase6_original_three_checkpoint_control_complete_20260714_160001.md`
 - `reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md`
 - `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513.md`
-- `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md`
 - `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`
 - `reports/README.md`
 - `tools/run_h100_tribe_postpass.py`
@@ -54,9 +53,9 @@ Lead with total bridge magnitude, not only the last-mile AR delta. On the origin
 
 Raw predicted cortical/fMRI features alone fail badly on AGAIN: on the original Phase 3 spike target, blocked `raw_cortical_only` PR-AUC was `0.124315` vs AR-only `0.203622`, and direct `AR_plus_raw_cortical` was `0.167731`. Current AGAIN bounded proof: `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual` passes blocked temporal confirmation with real PR-AUC `0.2670735630` vs frozen AR `0.2602336231` and best control `0.2593369051`; updated grouped compatibility passes with real PR-AUC `0.2313831909` vs AR/frozen `0.2174953276` and best control `0.2174209937`.
 
-Do not bury the Phase 7 win under Phase 5.5 history. State first that its grouped continuous confirmation passed cleanly, then preserve the exact scope: ranking/lift rather than exact values; grouped rather than a relabeled blocked pass. Its blocked `140/140` companion remained an unpromoted `4/5` near-confirmation under a locked `5/5` gate. Zero-label raw-video deployment remains the next bridge because the strongest benchmark uses observed AR context.
+Do not bury the Phase 7 win under Phase 5.5 history. State first that its grouped continuous confirmation passed cleanly, then preserve the exact scope: ranking/lift rather than calibrated exact values. The locked direct-supervised result now proves cached-feature zero-label-at-inference operation; end-to-end raw-video runtime and external transfer remain next.
 
-The binary selected-head 420 audit and original three-checkpoint blocked/grouped confirmations remain promoted foundations. The next bounded hypothesis is a video-only student or cold-start self-rollout using the Phase 7 teacher signal. A harmonized V-JEPA 2.1 VEATIC+AGAIN pilot is a later cross-domain option, not an automatic full re-encode. Do not recreate 504, resume same-family Optuna, or launch a broad architecture sweep.
+The binary selected-head 420 audit and original three-checkpoint blocked/grouped confirmations remain promoted foundations. The locked direct-supervised video-only confirmation now passes on the held-out 299-video pool. A harmonized V-JEPA 2.1 VEATIC+AGAIN pilot is a later cross-domain option, not an automatic full re-encode. Do not resume same-family Optuna or launch a broad architecture sweep.
 
 Run `npm run audit:repo` before handing the repo to a fresh Codex session or teammate.
 Run `npm run evidence:verify` before relying on the frozen v2 evidence bundle.

@@ -2,7 +2,7 @@
 
 Output root: `outputs/again_dense_2hz_phase5_temporal_residual_blocked_20260630_020557`
 
-This is a bounded blocked-only temporal/event-context residual diagnostic over the redesigned targets. It uses the fold-safe redesigned PCA256 artifacts and keeps frozen AR as the baseline floor. It does not run grouped, 504, extra targets, V-JEPA/TRIBE/PCA, AR retraining, or claim changes.
+This is a bounded blocked-only temporal/event-context residual diagnostic over the redesigned targets. It uses the fold-safe redesigned PCA256 artifacts and keeps frozen AR as the baseline floor. It does not run grouped, extra targets, V-JEPA/TRIBE/PCA, AR retraining, or claim changes.
 
 ## Binary Washout-Gap Target
 
@@ -38,6 +38,6 @@ This is a bounded blocked-only temporal/event-context residual diagnostic over t
 - `checkpoint_restore_pass`: `True`
 - `eval_mode_scoring_pass`: `True`
 - Failed gates: `['continuous_min_delta_threshold', 'continuous_seed_consistency']`
-- Recommendation: `temporal_residual_blocked_failed_do_not_run_grouped_or_504`
+- Recommendation: `temporal_residual_blocked_failed_do_not_run_grouped`
 
-Strict forward-time temporal generalization remains unproven. This diagnostic should not trigger grouped or 504 unless the blocked gates pass cleanly and the result is reviewed.
+Strict forward-time temporal generalization remains unproven. This diagnostic should not trigger grouped unless the blocked gates pass cleanly and the result is reviewed.

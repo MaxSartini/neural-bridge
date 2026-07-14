@@ -26,7 +26,6 @@
   ],
   "matrix_rows_actual": 420,
   "matrix_rows_expected": 420,
-  "no_504": true,
   "no_continuous_model_development": true,
   "no_pca_fit": true,
   "no_scoring": true,

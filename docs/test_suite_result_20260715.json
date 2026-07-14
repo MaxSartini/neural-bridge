@@ -1,0 +1,28 @@
+{
+  "date": "2026-07-15",
+  "command": "npm run verify",
+  "pytest": {
+    "passed": 182,
+    "skipped": 1,
+    "duration_seconds": 31.05
+  },
+  "repo_readiness": {
+    "status": "pass",
+    "controlled_evidence_items": 206
+  },
+  "frontend_production_build": "pass",
+  "strict_benchmark_dry_run": "pass",
+  "deployment_locked_contracts": {
+    "passed": 44,
+    "status": "pass"
+  },
+  "research_tooling": {
+    "status": "pass",
+    "mlx": "Device(gpu, 0)",
+    "mps": "built=True,available=True,device=mps:0",
+    "optuna": "4.9.0",
+    "polars": "1.42.1",
+    "mlflow": "3.14.0",
+    "shap": "0.52.0"
+  }
+}

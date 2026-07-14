@@ -5,20 +5,20 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 ## Best Validation First
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
-- Fully provisioned result: `150 passed in 34.06s` on `2026-07-14`
-- Default `npm run verify` result: `164 passed, 1 skipped in 33.60s` on `2026-07-14`
+- Current `npm run verify` result: `182 passed, 1 skipped in 31.05s` on `2026-07-15`
 - Repo evidence/orientation audit: `npm run audit:repo`
-- Latest local result: `repo_readiness pass controlled_evidence_items=206` on `2026-07-14`
-- Full `npm run verify`, VEATIC frozen-evidence verification, strict-benchmark dry run, and frontend production build: pass on `2026-07-14`
+- Latest local result: `repo_readiness pass controlled_evidence_items=206` on `2026-07-15`
+- Full `npm run verify`, strict-benchmark dry run, and frontend production build: pass on `2026-07-15`
 - Default npm test now runs the full deterministic suite: `npm test`
 
 ## Current Claim-Bearing Runners
 
 | Phase | Script | Role |
 | --- | --- | --- |
-| AGAIN deployment Stage 0 | `backend/scripts/run_again_dense_2hz_zero_label_deployment_stage0.py` | Planning-only contract freeze for the raw target, `696/299` prospective split, nested teacher ownership, video-only feature policy, and exact future `96 + 140` matrices; performs no fitting or scoring. |
+| AGAIN locked zero-label deployment confirmation | `backend/scripts/run_again_dense_2hz_zero_label_direct_supervised_locked_confirmation.py` | Claim-bearing `140/140` confirmation on the prospectively locked 299-video pool with no observed arousal at inference; all three endpoint tiers passed. |
+| AGAIN zero-label deployment Stage A | `backend/scripts/run_again_dense_2hz_zero_label_deployment_stage_a.py` | Development-only method comparison that selected the direct-supervised temporal lane before the locked confirmation. |
+| AGAIN zero-label deployment Stage 0 | `backend/scripts/run_again_dense_2hz_zero_label_deployment_stage0.py` | Contract freeze for the `696/299` prospective split, target, and inference policy. |
 | AGAIN Phase 7 grouped continuous checkpoint ensemble | `backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped.py` | Claim-bearing fresh `420/420` grouped-video confirmation of continuous future-movement ranking/lift; all 15 fold-groups beat AR and matched controls on Spearman and top-5% lift. |
-| AGAIN Phase 7 blocked continuous checkpoint ensemble | `backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm.py` | Fresh `140/140` blocked confirmation with strong aggregate lift but a literal 4/5 Spearman-vs-AR group gate; remains an unpromoted near-pass. |
 | AGAIN Phase 7 continuous checkpoint ensemble diagnostic | `backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic.py` | Initial `84/84` bounded diagnostic that passed ranking/lift gates and kept exact-value gates separate. |
 | AGAIN Phase 6 grouped checkpoint ensemble confirmation | `backend/scripts/run_again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation.py` | Claim-bearing fresh `420/420` grouped-video confirmation of the original three-checkpoint ensemble against fold/seed-matched AR and all controls. |
 | AGAIN Phase 6 checkpoint ensemble confirmation | `backend/scripts/run_again_dense_2hz_phase6_original_three_checkpoint_control_complete.py` | Claim-bearing fresh `140/140` blocked confirmation of the original three-checkpoint ensemble against AR and all matched controls. |
@@ -48,8 +48,9 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 
 The tests under `tests/` are synthetic or contract-level checks. They do not train claim-bearing models, rerun V-JEPA/TRIBE, refit PCA, or require ignored heavy output roots.
 
-Key coverage:
+Key coverage, newest first:
 
+- Locked zero-label deployment confirmation contracts: `test_again_zero_label_direct_supervised_locked_confirmation.py` protects the prospectively locked pool, prediction-before-label seal, no-arousal inference schema, control construction, exact row accounting, and fail-closed tier gates.
 - Zero-label deployment Stage 0 contracts: `test_again_zero_label_deployment_stage0.py` protects the prospective split digests, nested teacher exclusion, raw target identity, incompatible-PCA reuse ban, video-only inference block, causal row-0 cold start, rollout provenance, prediction-before-label seal, event support, and exact `96 + 140` dry-run matrices.
 - Split and target leakage contracts: `test_grouped_video_split.py`, `test_again_dense_2hz_benchmark.py`, `test_again_native_temporal_alignment.py`
 - AGAIN dense/Phase 4 contracts: `test_again_dense_2hz_phase4_pca_bridge.py`, `test_again_boundary_manifest.py`, `test_again_full_ar_context.py`
@@ -62,7 +63,6 @@ Key coverage:
 - AGAIN control-complete ensemble contracts: `test_again_phase6_original_three_checkpoint_control_complete.py` protects untouched seeds, fixed groups, full control scope, exact 140 rows, and fail-closed grouped authorization.
 - AGAIN grouped ensemble contracts: `test_again_phase6_original_three_checkpoint_grouped_confirmation.py` protects the five-fold, nine-seed, three-group, seven-lane, exact 420-row grouped scope and full matched-control set.
 - AGAIN Phase 7 continuous diagnostic contracts: `test_again_phase7_continuous_checkpoint_ensemble_diagnostic.py` protects the target-specific continuous AR baseline, fixed checkpoint groups, MLX enforcement, and separate ranking/lift versus exact-value gates.
-- AGAIN Phase 7 blocked continuous contracts: `test_again_phase7_continuous_checkpoint_ensemble_blocked_confirm.py` protects untouched seeds, exact `140`-row scope, full controls, and the fail-closed 5/5 blocked Spearman gate.
 - AGAIN Phase 7 grouped continuous contracts: `test_again_phase7_continuous_checkpoint_ensemble_grouped.py` protects the five-fold, nine-seed, exact `420`-row scope, audited fold-safe PCA reuse, all matched controls, and the exact-value claim boundary.
 - VEATIC v2 benchmark contracts: `test_veatic_strict_benchmark_contract.py`, `test_veatic_raw_representation_contract.py`
 - Frozen tensor/trained-head contracts: `test_veatic_frozen_tensor_adapter.py`, `test_veatic_frozen_tensor_trained_heads.py`
@@ -72,7 +72,10 @@ Key coverage:
 ## Benchmark Artifacts
 
 - `benchmarks/veatic/` is a tracked VEATIC v2 benchmark evidence mirror.
-- Current AGAIN benchmark evidence lives in `reports/`, `evidence/phase_*`, and the Phase 7-first `evidence/current_phase_7_review/`; `evidence/current_phase_5_5_review/` remains the detailed historical dossier.
+- Current AGAIN benchmark evidence lives in `reports/`, `evidence/phase_*`, and the newest-result-first `evidence/current_review/`; `evidence/current_phase_5_5_review/` remains the detailed historical dossier.
+- Locked zero-label deployment evidence: `evidence/zero_label_video_only_direct_supervised_locked_confirmation_20260715/`.
+- Zero-label Stage A development evidence: `evidence/zero_label_video_only_deployment_stage_a_20260714/`.
+- Promoted Phase 7 grouped continuous evidence: `evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/`.
 - Current consolidated selected-head evidence: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`.
 - Exploratory Optuna pilot evidence: `evidence/phase_6_optuna_selected_head_pilot_20260714_135902/`.
 - Exploratory locked-winner confirmation evidence: `evidence/phase_6_optuna_locked_10seed_confirmation_20260714_141457/`.
@@ -84,8 +87,6 @@ Key coverage:
 - Promoted blocked three-checkpoint evidence: `evidence/phase_6_original_three_checkpoint_control_complete_20260714_160001/`.
 - Promoted grouped three-checkpoint evidence: `evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/`.
 - Phase 7 continuous diagnostic report: `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513.md`.
-- Phase 7 blocked continuous near-pass report: `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md`.
-- Promoted Phase 7 grouped continuous evidence: `evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/`.
 - Zero-label deployment Stage 0 contract snapshot: `evidence/zero_label_video_only_deployment_stage0_20260714/`.
 - Heavy output roots under `outputs/`, dense cache files, checkpoints, tensors, `.npy`, `.npz`, and model assets remain outside git unless explicitly documented as tiny metadata.
 
@@ -95,8 +96,8 @@ Runtime probes under `tools/` are for environment, encoder, and throughput check
 
 ## Reviewer Entry Points
 
-- Current reviewer entrypoint: `evidence/current_phase_7_review/README.md`
+- Current reviewer entrypoint: `evidence/current_review/README.md`
 - Historical reviewer executable manifest: `evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv`
 - Machine-readable executable manifest: `docs/executable_validation_manifest.json`
-- Current validation result: `docs/test_suite_result_20260714.json`
+- Current validation result: `docs/test_suite_result_20260715.json`
 - Frozen reviewer-dossier test record: `evidence/current_phase_5_5_review/14_executable_validation_and_code/test_suite_result_20260630.json`

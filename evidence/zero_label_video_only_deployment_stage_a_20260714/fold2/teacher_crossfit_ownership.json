@@ -1,0 +1,32 @@
+{
+  "fold": 2,
+  "outer_test_video_entered_teacher_fit": false,
+  "records": [
+    {
+      "nested_fold": 1,
+      "outer_test_video_entered_fit": false,
+      "teacher_score_digest": "1a9889ce9bc1dd3275cd08a517e5ed1c",
+      "test_row_digest": "3f91ebd77a09c4e2d4d53a3e2b991e89",
+      "test_video_digest": "6d8edc54250c36ea9bfc5eee0180af50",
+      "train_video_digest": "f46ede0d0bd5e67874948d1130b73adf"
+    },
+    {
+      "nested_fold": 2,
+      "outer_test_video_entered_fit": false,
+      "teacher_score_digest": "78804d5e995b6d352b50529290c6c8d2",
+      "test_row_digest": "bbfffe9622208e0a44c5176d7b5a4be5",
+      "test_video_digest": "2bc147edd9576a12aa1792c8869dc2ad",
+      "train_video_digest": "66550bb70cdaf66820ca18fb8aa1905a"
+    },
+    {
+      "nested_fold": 3,
+      "outer_test_video_entered_fit": false,
+      "teacher_score_digest": "68776f598a4ad89d391dd934a42bf8b3",
+      "test_row_digest": "957930ce7780cdba991d6e044aece42b",
+      "test_video_digest": "4788d916a8ce2b811c0e4fa3a0091183",
+      "train_video_digest": "29e61fd4b208b5fe42f4984a729a102a"
+    }
+  ],
+  "soft_target_coverage": 106726,
+  "soft_target_digest": "9aec175227a7cf53ad65a2d073191610"
+}

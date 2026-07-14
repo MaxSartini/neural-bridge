@@ -39,7 +39,6 @@
   "failed_gates": [],
   "frozen_ar_integrity_pass": true,
   "frozen_ar_pr_auc": 0.26023362314678505,
-  "full_504_started": false,
   "grouped_started": false,
   "leakage_context_audit_pass": true,
   "matrix_rows_actual": 70,

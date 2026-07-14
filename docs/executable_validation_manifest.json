@@ -28,6 +28,42 @@
   },
   {
     "family": "AGAIN",
+    "phase": "Locked zero-label deployment confirmation",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_zero_label_direct_supervised_locked_confirmation.py",
+    "canonical_status": "claim_bearing_locked_confirmation",
+    "reviewer_role": "Runs the prospectively locked 299-video direct-supervised confirmation with no observed arousal at inference and MLX-only training.",
+    "validation_or_evidence": "reports/again_dense_2hz_zero_label_direct_supervised_locked_confirmation_20260715.md"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Locked zero-label deployment confirmation",
+    "item_type": "test",
+    "path": "tests/test_again_zero_label_direct_supervised_locked_confirmation.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Protects the locked split, prediction seal, zero-arousal inference schema, controls, metrics, and fail-closed tiers.",
+    "validation_or_evidence": "npm run verify:deployment-locked-confirm"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Zero-label deployment Stage A",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_zero_label_deployment_stage_a.py",
+    "canonical_status": "development_method_selection",
+    "reviewer_role": "Compares bounded video-only development methods and identifies the direct-supervised temporal lane for prospective confirmation.",
+    "validation_or_evidence": "reports/again_dense_2hz_zero_label_deployment_stage_a_20260714.md"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Zero-label deployment Stage A",
+    "item_type": "test",
+    "path": "tests/test_again_zero_label_deployment_stage_a.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Protects development-only split ownership, zero-arousal inference features, controls, and method-selection accounting.",
+    "validation_or_evidence": "python3 -m pytest -q tests/test_again_zero_label_deployment_stage_a.py"
+  },
+  {
+    "family": "AGAIN",
     "phase": "Deployment Stage 0",
     "item_type": "script",
     "path": "backend/scripts/run_again_dense_2hz_zero_label_deployment_stage0.py",
@@ -61,24 +97,6 @@
     "canonical_status": "deterministic_contract_test",
     "reviewer_role": "Protects exact grouped scope, fold-safe PCA reuse, target-specific frozen AR, controls, preregistered gates, and exact-value boundary.",
     "validation_or_evidence": "python3 -m pytest -q tests/test_again_phase7_continuous_checkpoint_ensemble_grouped.py"
-  },
-  {
-    "family": "AGAIN",
-    "phase": "Phase 7 blocked continuous",
-    "item_type": "script",
-    "path": "backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm.py",
-    "canonical_status": "bounded_blocked_near_pass",
-    "reviewer_role": "Fresh blocked continuous ensemble confirmation; preserves the literal 4/5 Spearman-vs-AR gate failure and cannot be relabeled as a pass.",
-    "validation_or_evidence": "reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md"
-  },
-  {
-    "family": "AGAIN",
-    "phase": "Phase 7 blocked continuous",
-    "item_type": "test",
-    "path": "tests/test_again_phase7_continuous_checkpoint_ensemble_blocked_confirm.py",
-    "canonical_status": "deterministic_contract_test",
-    "reviewer_role": "Protects fresh seeds, exact 140-row scope, checkpoint grouping, controls, contribution caps, and fail-closed blocked verdict.",
-    "validation_or_evidence": "python3 -m pytest -q tests/test_again_phase7_continuous_checkpoint_ensemble_blocked_confirm.py"
   },
   {
     "family": "AGAIN",
@@ -1002,9 +1020,9 @@
     "family": "shared",
     "phase": "current evidence",
     "item_type": "artifact_dir",
-    "path": "evidence/current_phase_7_review/",
+    "path": "evidence/current_review/",
     "canonical_status": "current_evidence_entrypoint",
-    "reviewer_role": "Current Phase 7-first reviewer dossier and claim ledger.",
-    "validation_or_evidence": "evidence/current_phase_7_review/README.md"
+    "reviewer_role": "Current newest-result-first reviewer dossier and claim ledger.",
+    "validation_or_evidence": "evidence/current_review/README.md"
   }
 ]

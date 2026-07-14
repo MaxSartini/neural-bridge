@@ -1,0 +1,119 @@
+{
+  "authorization": "explicit_user_authorization_20260714_after_stage0_pass",
+  "authorized": true,
+  "cold_start": {
+    "h1_missing_history": "zeros_plus_explicit_mask",
+    "h2_initial_deltas": 0.0,
+    "h2_initial_state": "outer_training_arousal_median",
+    "prediction_starts_at_row0": true,
+    "teacher_forcing_ratio": 0.0
+  },
+  "controls": {
+    "label_permutation": "deterministic_whole_video_teacher_target_donor_with_linear_row_resampling",
+    "no_video": "zero_pca_and_diagnostics_keep_only_time_metadata",
+    "sequence_shuffle": "deterministic_whole_video_donor_with_linear_row_resampling"
+  },
+  "cpu_fallback": false,
+  "dense_root": "/Users/maxsartini/Neural Bridge/.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz",
+  "development_split_digest": "cf65a766cd827e6201544dd753049cb4",
+  "ensemble": {
+    "members": [
+      20260718,
+      20260719,
+      20260720
+    ],
+    "weights": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ]
+  },
+  "event_threshold": {
+    "fit_scope": "outer_training_only",
+    "quantile": 0.9
+  },
+  "external_phase4_root": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full",
+  "hardware": "mlx_gpu_mps",
+  "heldout_hyperparameter_search": false,
+  "implementation_code_sha256": {
+    "contracts": "49190ae60f8cf81aba483c6aec95195926a9e1ab8925b72212af6c6145012300",
+    "runner": "5d3d8cf077239df6bece7e9023b947cc919095db6cb5046fa7b0c12afa473450",
+    "utility": "c781090a712183d8b45d4c945c03cc4cdbaad85ca0e7867d22ce536907832483"
+  },
+  "implementation_freeze_digest": "6b3780bfe1b5fe91b11c77337d06112a",
+  "input": {
+    "diagnostics_width": 53,
+    "history_mask_width": 5,
+    "pca_channels": 256,
+    "sequence_window_rows": 5,
+    "time_features": [
+      "log1p_time_seconds",
+      "video_time_fraction"
+    ]
+  },
+  "lanes": [
+    "video_distilled_temporal",
+    "video_closed_loop_rollout",
+    "video_supervised_temporal",
+    "video_supervised_current_row",
+    "no_video_closed_loop_persistence",
+    "sequence_shuffled_video",
+    "video_label_permutation",
+    "phase7_ar_assisted_teacher_ceiling"
+  ],
+  "locked_split_digest": "ded8bc2bf079fef91ae5c253b9a9ac2e",
+  "member_selection": false,
+  "model": {
+    "batch_size": 8192,
+    "gradient_clip": 1.0,
+    "h1_checkpoint_selection": "inner_grouped_video_teacher_huber_only",
+    "h1_loss": "weighted_huber_to_standardized_crossfit_teacher_regression_score",
+    "h2_state_loss": "huber_to_current_arousal_with_zero_teacher_forcing",
+    "hidden": 64,
+    "learning_rate": 0.0002,
+    "max_epochs": 80,
+    "optimizer": "mlx.optimizers.AdamW",
+    "patience": 12,
+    "supervised_loss": "weighted_huber_to_hard_future_movement",
+    "weight_decay": 0.0001
+  },
+  "outer_folds": [
+    1,
+    2,
+    3
+  ],
+  "output_root": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_deployment_stage_a_20260714",
+  "pca": {
+    "nested_teacher_train_only": true,
+    "outer_train_only": true,
+    "oversampling": 32,
+    "power_iterations": 1,
+    "source_family": "temporal_mean_2s",
+    "width": 256
+  },
+  "required_metrics": [
+    "pooled_continuous_spearman",
+    "top_5pct_true_future_movement_lift",
+    "training_q90_future_event_pr_auc"
+  ],
+  "rows": {
+    "ensemble": 24,
+    "member": 72,
+    "total": 96
+  },
+  "schema_version": "again_dense_2hz_zero_label_deployment_stage_a_v1",
+  "seeds": [
+    20260718,
+    20260719,
+    20260720
+  ],
+  "signed_implementation_digest": "2796d1deb1f47198e51e30c6eea266bd",
+  "split_manifest_sha256": "760b30b73a91a3f51ccd26fbb7a57de35ea73b9ef9579956e48e17f8de9f1e69",
+  "stage": "stage_a",
+  "stage0_pass": true,
+  "stage0_result_sha256": "141d22da1307324e4f900ee8f981f66a3714d49c57f166f3dd69d92cf4bd7812",
+  "stage_b_authorized": false,
+  "target_identity_digest": "446906dff30be33f204de0f973207975",
+  "target_manifest_sha256": "4d810d9d31ab3f147fdfcf723feacf2a846c6a99d05e619af22fb017c6752045",
+  "weight_search": false
+}

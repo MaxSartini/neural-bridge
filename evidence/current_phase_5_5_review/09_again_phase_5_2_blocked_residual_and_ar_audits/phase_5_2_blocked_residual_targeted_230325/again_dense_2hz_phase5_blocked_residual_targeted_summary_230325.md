@@ -46,4 +46,4 @@ Controls per variant: real residual, frozen AR only, shuffled PCA residual, rand
 - `grouped_fold1_reference_sanity_pass`: `True`
 - `recommendation`: `blocked_delta_positive_but_control_failures`
 
-`full_forward_time_pass` is diagnostic-only here and is not promotable. Strict forward-time temporal generalization remains unproven. `monotonic_do_no_harm_residual` is the best candidate for a future cleaner confirmation, but a 504-style confirmation run should not be started until the label-permutation and static-control failures are understood.
+`full_forward_time_pass` is diagnostic-only here and is not promotable. Strict forward-time temporal generalization remains unproven. `monotonic_do_no_harm_residual` is the best candidate for a future cleaner confirmation, but a  run should not be started until the label-permutation and static-control failures are understood.

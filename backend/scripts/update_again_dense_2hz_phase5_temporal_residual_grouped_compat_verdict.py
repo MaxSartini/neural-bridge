@@ -153,7 +153,6 @@ def compute_updated_gates(bundle: Path) -> dict[str, Any]:
         "no_retraining": True,
         "no_new_scoring": True,
         "no_pca_generation": True,
-        "no_504_run": True,
         "target": TARGET,
         "protocol": PROTOCOL,
         "architecture": ARCHITECTURE,
@@ -206,7 +205,7 @@ def compute_updated_gates(bundle: Path) -> dict[str, Any]:
 def write_report(path: Path, gates: dict[str, Any]) -> None:
     text = f"""# Phase 5 Temporal Residual Grouped Compatibility Updated Verdict
 
-This report updates only the grouped compatibility verdict logic for the completed frozen-AR residual grouped run. No training, scoring, PCA generation, grouped rerun, or 504 run was performed.
+This report updates only the grouped compatibility verdict logic for the completed frozen-AR residual grouped run. No training, scoring, PCA generation, grouped rerun, or  was performed.
 
 ## Source
 
@@ -262,7 +261,7 @@ Observed:
 - Failed updated gates: `{gates['failed_gates']}`
 - Recommendation: `{gates['recommendation']}`
 
-This updated verdict remains a grouped compatibility result only. It is not a 504 run, not a broad claim change, and strict broad temporal generalization still requires explicit later confirmation.
+This updated verdict remains a grouped compatibility result only. It is , not a broad claim change, and strict broad temporal generalization still requires explicit later confirmation.
 """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")

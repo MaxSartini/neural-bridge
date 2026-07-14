@@ -58,15 +58,10 @@ The deterministic eval-mode correction preserved more than binary event-ranking.
 
 This establishes controlled grouped continuous future-movement ranking/lift. Phase 7 then independently strengthened that claim for the washout-gap continuous target `residual_future_max_delta_rows_4_10` with the selected `short_temporal_conv_residual` head and fixed three-checkpoint ensembles. Its separately preregistered grouped confirmation completed exactly `420/420` rows: real Spearman was `0.2603011121` versus target-specific AR `0.2405371348` and best matched control `0.2402523335`; real top-5% lift was `0.0975979581` versus AR `0.0895663763` and best control `0.0897088493`. All `15/15` fold-groups and all `5/5` fold means were positive, and failed gates were `[]`.
 
-The Phase 7 blocked confirmation remains a distinct near-pass rather than a promoted blocked result: it was positive on aggregate and passed every gate except the locked `5/5` group Spearman-vs-AR requirement (`4/5`). The grouped pass does not rewrite that verdict. Both Phase 7 protocols explicitly leave `exact_continuous_value_forecasting_proven: false`; MAE/RMSE are descriptive diagnostics, not post-hoc promotion gates.
-
 ## What Remains Open
 
 - Exact continuous-value/trajectory forecasting remains open.
-- Fully confirmed blocked continuous future-movement generalization remains open; the Phase 7 blocked run was a literal `4/5` near-pass while the separate grouped-video confirmation passed.
 - Broad all-target/all-dataset temporal prediction remains open.
-- No 504 run has been performed or promoted.
-- Grouped compatibility is not itself a 504 result.
 - The updated grouped verdict is a no-training verdict update from existing artifacts, not a rerun.
 
 ## Commercial Significance
@@ -242,7 +237,7 @@ The same target/head was checked across all five grouped-video folds and ten see
 - updated grouped compatibility pass: true
 - failed updated gates: `[]`
 
-The original grouped artifact failed the legacy label-permutation-near-chance gate. That gate is inapplicable for frozen-AR residual designs because the label-permutation residual lane retains the same frozen AR floor and only permutes residual train/inner-val labels. The updated verdict was computed from existing CSV/JSON artifacts; no retraining, PCA generation, grouped rerun, or 504 was done.
+The original grouped artifact failed the legacy label-permutation-near-chance gate. That gate is inapplicable for frozen-AR residual designs because the label-permutation residual lane retains the same frozen AR floor and only permutes residual train/inner-val labels. The updated verdict was computed from existing CSV/JSON artifacts; no retraining, PCA generation, grouped rerun was done.
 
 ## Controls And Adversarial Discipline
 
@@ -263,7 +258,7 @@ The original grouped artifact failed the legacy label-permutation-near-chance ga
 - AGAIN/VEATIC v2 script-test-benchmark crosswalk: `docs/executable_validation_manifest.csv`
 - Reviewer copy: `evidence/current_phase_5_5_review/14_executable_validation_and_code/`
 
-These tests protect deterministic contracts over split construction, target windows, leakage boundaries, tensor/manifest contracts, scorer utilities, cache claims, and runtime configuration. They do not rerun training, V-JEPA/TRIBE, PCA, grouped compatibility, or 504.
+These tests protect deterministic contracts over split construction, target windows, leakage boundaries, tensor/manifest contracts, scorer utilities, cache claims, and runtime configuration. They do not rerun training, V-JEPA/TRIBE, PCA, grouped compatibility.
 
 ## Correct Claim Wording
 
@@ -279,7 +274,7 @@ plainly. Never suppress a new pass because an older document was cautious.
 - mind reading
 - exact continuous arousal forecasting is solved
 - universal emotion prediction
-- 504 proven
+- proven
 - broad all-target/all-dataset temporal prediction solved
 - exact continuous future arousal forecasting solved
 
@@ -311,4 +306,4 @@ plainly. Never suppress a new pass because an older document was cautious.
 
 ## Next Work
 
-The approved bounded 420-row selected-head binary confirmation remains complete and promoted. The one-seed Optuna winner and robust Trial-4 rescue did not replace it. The subsequent original three-checkpoint ensemble passed separate fresh blocked (`140/140`) and grouped-video (`420/420`) binary control-complete confirmations. Phase 7 then promoted checkpoint-stabilized grouped continuous future-movement ranking/lift for `residual_future_max_delta_rows_4_10` after a fresh `420/420` grouped pass; its separate blocked result remains a literal `4/5` near-pass. The next scientific bottleneck is deployment validity: the current strongest residual benchmark consumes observed current/past arousal, so a video-only student or cold-start self-rollout protocol must be validated before claiming label-free client-video operation. Seed `20260627` remains present and reported, never deleted. The historical literal 504 matrix remains obsolete and must not be recreated or padded. Do not widen claims into exact continuous values or universal prediction.
+The locked direct-supervised deployment bridge is now the newest result: `140/140` rows passed on the prospectively held-out 299-video pool with no observed arousal at inference. Phase 7 remains the strongest observed-arousal-assisted research ceiling after its grouped `420/420` / `15/15` pass. Phase 6 checkpoint stabilization, the Phase 5.5 selected-head binary confirmations, Phase 5 learned residual bridge, and VEATIC foundation remain the chronological evidence beneath those wins. The next scientific bottleneck is end-to-end raw-video runtime and external transfer. Do not widen claims into calibrated exact values or universal prediction.

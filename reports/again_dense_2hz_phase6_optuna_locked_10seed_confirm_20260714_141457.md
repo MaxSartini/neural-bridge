@@ -4,7 +4,7 @@ Output root: `outputs/again_dense_2hz_phase6_optuna_locked_10seed_confirm_202607
 
 This confirmation applies one pilot-locked configuration unchanged across the
 canonical blocked seeds. It performs no optimization, encoder/PCA work,
-grouped evaluation, 420 rerun, 504 reconstruction, or continuous modeling.
+grouped evaluation, 420 rerun,, or continuous modeling.
 
 ## Result
 

@@ -2,7 +2,7 @@
 
 Output root: `outputs/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520`
 
-This is a grouped-video compatibility check for the confirmed blocked binary washout-gap short temporal conv residual. It uses the same 10 seeds as the blocked confirmation across all 5 grouped-video folds. It does not run 504, continuous targets, extra targets, extra architectures, V-JEPA/TRIBE, or claim changes.
+This is a grouped-video compatibility check for the confirmed blocked binary washout-gap short temporal conv residual. It uses the same 10 seeds as the blocked confirmation across all 5 grouped-video folds. It does not run continuous targets, extra targets, extra architectures, V-JEPA/TRIBE, or claim changes.
 
 ## Scope
 
@@ -41,4 +41,4 @@ This is a grouped-video compatibility check for the confirmed blocked binary was
 - Failed gates: `['label_permutation_not_near_chance']`
 - Recommendation: `grouped_compatibility_failed_do_not_run_504`
 
-This report is a compatibility check, not a 504 run and not a broad claim change. Strict broad temporal generalization remains subject to review and any later explicitly approved confirmation.
+This report is a compatibility check,  and not a broad claim change. Strict broad temporal generalization remains subject to review and any later explicitly approved confirmation.

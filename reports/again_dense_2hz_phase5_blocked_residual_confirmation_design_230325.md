@@ -1,6 +1,6 @@
 # Phase 5 Blocked Residual Confirmation Design 230325
 
-This is a design-only protocol for a future clean blocked residual confirmation. It does not report a new benchmark, does not change existing claims, and does not justify starting the 504 confirmation now.
+This is a design-only protocol for a future clean blocked residual confirmation. It does not report a new benchmark, does not change existing claims, and does not justify starting the now.
 
 Current status from the pushed same-variant audit `70215b0`:
 
@@ -19,7 +19,7 @@ The confirmation protocol below is meant to remove ambiguous null-control defini
 
 ## Recommended Next Action
 
-Recommended next action: do not run the 504 confirmation yet. First implement a small clean confirmation runner/summarizer design for `monotonic_do_no_harm_residual` only, with corrected null controls and stricter gates. Run it only after the gate definitions below are encoded and reviewed.
+Recommended next action: do not run the yet. First implement a small clean confirmation runner/summarizer design for `monotonic_do_no_harm_residual` only, with corrected null controls and stricter gates. Run it only after the gate definitions below are encoded and reviewed.
 
 The next runnable experiment, when approved, should be a small monotonic-only blocked confirmation, not a broad variant search. It should answer one question: does the monotonic do-no-harm residual produce a practically meaningful blocked-temporal gain over frozen AR and clean same-variant null controls?
 
@@ -103,7 +103,6 @@ Rationale: the same-variant audit showed label-permutation and matched-control m
 
 ## Recommended Next Run Matrix
 
-504 is not justified now.
 
 Smallest clean matrix, if a rerun is approved after this design is reviewed:
 
@@ -185,8 +184,6 @@ If only full-video oracle static control fails:
 
 ## Decision
 
-Next run: small monotonic-only clean blocked confirmation, not 504.
+Next run: small monotonic-only clean blocked confirmation.
 
 Exact next matrix size: `45 rows` total, or `40 residual trainings` excluding frozen AR only.
-
-504 justified now: no.

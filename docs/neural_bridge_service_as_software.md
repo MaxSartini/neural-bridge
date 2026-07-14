@@ -233,18 +233,16 @@ Proven:
 Open:
 
 - exact continuous-value/trajectory forecasting
-- fully confirmed blocked continuous future-movement generalization (the Phase 7 blocked run was a strong aggregate near-pass but missed its locked `5/5` group gate at `4/5`)
 - broad all-target/all-dataset temporal prediction
 - individual-level prediction
 - medical or diagnostic use
 - full multimodal proof unless separately validated
-- 504
 
 Precise claim wording:
 
-> Bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap target/head, and controlled grouped continuous future-movement ranking/lift is proven by the deterministic eval-mode lane and independently strengthened by the Phase 7 washout-target checkpoint ensemble. Exact continuous values, fully confirmed blocked continuous generalization, label-free client deployment, and all-target/all-dataset temporal prediction remain open.
+> Bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap target/head, controlled grouped continuous future-movement ranking/lift is independently strengthened by the Phase 7 checkpoint ensemble, and a prospectively locked 299-video confirmation proves cached-feature inference without observed arousal input. Exact continuous values, end-to-end raw-video runtime, external transfer, and broad universal prediction remain open.
 
-Deployment boundary: the current strongest residual benchmark uses observed current/past arousal in its AR context. That is valid for the controlled benchmark, but it is not yet a raw-video-only client pipeline. The product path therefore requires a separately validated video-only student or cold-start/self-rollout bridge before describing the benchmark accuracy as directly available on unlabeled client video.
+Deployment boundary: Phase 7 remains an observed-arousal-assisted research ceiling. The locked deployment bridge removes observed arousal at inference and validates cached-feature operation on AGAIN; end-to-end raw-video generation/runtime and external client validity remain separate milestones.
 
 ## Why The Technical Result Supports The Business
 

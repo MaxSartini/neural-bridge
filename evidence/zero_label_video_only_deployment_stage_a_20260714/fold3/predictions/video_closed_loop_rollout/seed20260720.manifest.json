@@ -1,0 +1,19 @@
+{
+  "all_finite": true,
+  "cross_video_state_carry": 0,
+  "current_arousal_used_in_training_loss_only": true,
+  "delta_initialization": 0.0,
+  "hard_outcome_used_in_state_loss": false,
+  "initial_state": "training_arousal_median",
+  "labels_loaded_by_predictor": false,
+  "prediction_digest": "ceb8f4a4cbd3fb646f27afba0a1b9701",
+  "prediction_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_deployment_stage_a_20260714/fold3/predictions/video_closed_loop_rollout/seed20260720.parquet",
+  "prediction_rows": 56950,
+  "prediction_sealed_before_label_join": true,
+  "prediction_sha256": "738a848f84ed828e846de751187498a6624f518e80b7ffa2a1bae4e6a904d21c",
+  "prior_sources_digest": "10fded749e6e35281feb00b8508e0f7a",
+  "state_checkpoint_sha256": "c18118e82901b6e131dd49f9fabec58060e85d97443f28890258dab03ff011c1",
+  "state_reset_per_video": true,
+  "teacher_forced_state_reads": 0,
+  "teacher_forcing_ratio": 0.0
+}

@@ -72,4 +72,4 @@ This would have been a new Phase 6 result, not an extension or reinterpretation 
 
 ## Claim Boundary
 
-Even a full pass supports only a stronger controlled selected-head result for the same target and protocols. It does not prove exact continuous arousal values, blocked continuous generalization, universal emotion prediction, or a historical 504 design.
+Even a full pass supports only a stronger controlled selected-head result for the same target and protocols. It does not prove exact continuous arousal values, blocked continuous generalization, universal emotion prediction, or a historical.

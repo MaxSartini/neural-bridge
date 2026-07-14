@@ -550,7 +550,7 @@ def write_report(path: Path, output_root: Path, pca_root: Path, gates: dict[str,
 
 Output root: `{output_root}`
 
-This is a grouped-video compatibility check for the confirmed blocked binary washout-gap short temporal conv residual. It uses the same 10 seeds as the blocked confirmation across all 5 grouped-video folds. It does not run 504, continuous targets, extra targets, extra architectures, V-JEPA/TRIBE, or claim changes.
+This is a grouped-video compatibility check for the confirmed blocked binary washout-gap short temporal conv residual. It uses the same 10 seeds as the blocked confirmation across all 5 grouped-video folds. It does not run continuous targets, extra targets, extra architectures, V-JEPA/TRIBE, or claim changes.
 
 ## Scope
 
@@ -589,7 +589,7 @@ This is a grouped-video compatibility check for the confirmed blocked binary was
 - Failed gates: `{gates['failed_gates']}`
 - Recommendation: `{gates['recommendation']}`
 
-This report is a compatibility check, not a 504 run and not a broad claim change. Strict broad temporal generalization remains subject to review and any later explicitly approved confirmation.
+This report is a compatibility check,  and not a broad claim change. Strict broad temporal generalization remains subject to review and any later explicitly approved confirmation.
 """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
@@ -802,7 +802,6 @@ def main() -> int:
             "residual_control_rows": 350,
             "ar_baseline_generation": {"reused": 0, "newly_trained": len(ar_manifest)},
             "no_continuous": True,
-            "no_504": True,
             "no_extra_targets": True,
             "no_extra_architectures": True,
             "no_vjepa_tribe_rerun": True,

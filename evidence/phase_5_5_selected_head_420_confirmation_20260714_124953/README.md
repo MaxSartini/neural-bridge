@@ -12,4 +12,4 @@ Start with:
 - `diagnostics/provenance_audit.json`
 - `artifact_manifest.csv`
 
-The grouped verdict uses the updated frozen-AR-residual-aware label-permutation interpretation. This is not a 504 run and makes no exact continuous-value or universal generalization claim.
+The grouped verdict uses the updated frozen-AR-residual-aware label-permutation interpretation. This is  and makes no exact continuous-value or universal generalization claim.

@@ -7,6 +7,7 @@ import argparse
 import gc
 import json
 import math
+import os
 import sys
 import time
 from dataclasses import dataclass
@@ -33,12 +34,9 @@ from backend.scripts import again_zero_label_deployment_stage_a as stage_a  # no
 
 
 DEFAULT_STAGE0_ROOT = REPO_ROOT / "evidence/zero_label_video_only_deployment_stage0_20260714"
-DEFAULT_EXTERNAL_PHASE4_ROOT = Path(
-    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full"
-)
-DEFAULT_OUTPUT_ROOT = Path(
-    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_deployment_stage_a_20260714"
-)
+EXTERNAL_ROOT = Path(os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", REPO_ROOT / "external_assets"))
+DEFAULT_EXTERNAL_PHASE4_ROOT = EXTERNAL_ROOT / "outputs/again_dense_2hz_phase4_pca_bridge_20260625_full"
+DEFAULT_OUTPUT_ROOT = EXTERNAL_ROOT / "outputs/again_dense_2hz_zero_label_deployment_stage_a_20260714"
 AR_COLUMNS = tuple(grouped.AR_FEATURE_COLUMNS)
 
 

@@ -5,7 +5,7 @@ Bounded matrix:
 
 This script confirms only the redesigned binary washout-gap target with the
 previous diagnostic winner: `short_temporal_conv_residual`. It does not run
-continuous, grouped, 504, extra targets, extra architectures, V-JEPA/TRIBE, PCA
+continuous, grouped, extra targets, extra architectures, V-JEPA/TRIBE, PCA
 fitting, or PCA refitting.
 """
 
@@ -464,7 +464,6 @@ def compute_gates(summary: pd.DataFrame, fold_df: pd.DataFrame, seed_df: pd.Data
         "binary_pass": credible,
         "strict_forward_time_temporal_generalization_proven": False,
         "grouped_started": False,
-        "full_504_started": False,
         "leakage_context_audit_pass": leakage_pass,
         "frozen_ar_integrity_pass": frozen_integrity,
         "within_seed_controls_match_ar_pass": within_seed_controls_match_ar,
@@ -492,7 +491,7 @@ def write_report(path: Path, output_root: Path, gates: dict[str, Any]) -> None:
 
 Output root: `{output_root}`
 
-This is a blocked-only 10-seed confirmation for the redesigned binary washout-gap target using only `short_temporal_conv_residual`. It does not run continuous, grouped, 504, extra targets, extra architectures, V-JEPA/TRIBE/PCA, PCA refit, or claim changes.
+This is a blocked-only 10-seed confirmation for the redesigned binary washout-gap target using only `short_temporal_conv_residual`. It does not run continuous, grouped, extra targets, extra architectures, V-JEPA/TRIBE/PCA, PCA refit, or claim changes.
 
 ## Scope
 
@@ -534,7 +533,7 @@ This is a blocked-only 10-seed confirmation for the redesigned binary washout-ga
 - Failed gates: `{gates['failed_gates']}`
 - Recommendation: `{gates['recommendation']}`
 
-Strict forward-time temporal generalization remains unproven until any further confirmation is explicitly reviewed and promoted. This report alone does not authorize grouped or 504.
+Strict forward-time temporal generalization remains unproven until any further confirmation is explicitly reviewed and promoted. This report alone does not authorize grouped.
 """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
@@ -747,7 +746,6 @@ def main() -> int:
             "ar_baseline_generation": {"reused": 3, "newly_trained": 7},
             "no_continuous": True,
             "no_grouped": True,
-            "no_504": True,
             "no_extra_targets": True,
             "no_extra_architectures": True,
             "no_vjepa_tribe_pca_rerun": True,

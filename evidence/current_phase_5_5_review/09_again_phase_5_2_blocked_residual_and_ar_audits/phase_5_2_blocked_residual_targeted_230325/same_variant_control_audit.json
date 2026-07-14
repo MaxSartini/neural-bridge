@@ -202,7 +202,7 @@
   },
   "prior_audit_commit_pushed": true,
   "promotable": false,
-  "recommendation": "do_no_training; audit/refine null-control gate definitions and video-mean/static-control behavior before any 504 confirmation",
+  "recommendation": "do_no_training; audit/refine null-control gate definitions and video-mean/static-control behavior before broad confirmation",
   "same_variant_table": [
     {
       "best_control_pr_auc_within_variant": 0.266166345521889,

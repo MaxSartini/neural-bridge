@@ -6,7 +6,7 @@ It is intentionally bounded:
 
 1 blocked protocol x 1 variant x 1 loss x 5 seeds x 9 controls = 45 rows.
 
-It does not run grouped, does not run 504, does not start secondary targets, and
+It does not run grouped, does not start secondary targets, and
 does not retrain AR. Frozen AR scores are reused when cached; otherwise saved
 AR-only checkpoints are re-forwarded in deterministic eval mode.
 """
@@ -577,7 +577,6 @@ def compute_gates(summary: pd.DataFrame, fold_df: pd.DataFrame, design: dict[str
         "credible_confirmation_pass": credible_pass,
         "strict_forward_time_temporal_generalization_proven": False,
         "grouped_5fold_compatibility_check_justified": bool(weak_pass),
-        "full_504_confirmation_justified": False,
         "recommendation": recommendation,
         "pr_auc": {
             "real_residual": float(real["mean_pr_auc"]),
@@ -606,7 +605,7 @@ def write_report(path: Path, gates: dict[str, Any], output_root: Path) -> None:
 
 Output root: `{output_root}`
 
-This is the clean monotonic-only blocked confirmation specified by `confirmation_design.json` at design commit `0d6ce16`. It runs only `blocked_temporal_70_30`, only `monotonic_do_no_harm_residual`, only `regression_plus_binary`, and five prespecified seeds. It does not run grouped, does not run 504, does not start secondary targets, and does not change claims.
+This is the clean monotonic-only blocked confirmation specified by `confirmation_design.json` at design commit `0d6ce16`. It runs only `blocked_temporal_70_30`, only `monotonic_do_no_harm_residual`, only `regression_plus_binary`, and five prespecified seeds. It does not run grouped, does not start secondary targets, and does not change claims.
 
 ## Confirmation Result
 
@@ -615,7 +614,6 @@ This is the clean monotonic-only blocked confirmation specified by `confirmation
 - Recommendation: `{gates['recommendation']}`
 - Strict forward-time temporal generalization remains unproven: `{not gates['strict_forward_time_temporal_generalization_proven']}`
 - Grouped 5-fold compatibility check justified: `{gates['grouped_5fold_compatibility_check_justified']}`
-- 504 justified: `{gates['full_504_confirmation_justified']}`
 
 ## PR-AUC
 
@@ -660,7 +658,7 @@ The weak pass threshold is `+0.0010` PR-AUC on every primary blocked gate. The c
 
 ## Interpretation
 
-This report is a confirmation result for the blocked residual candidate only. It does not update the canonical grouped claim by itself. If weak confirmation fails, do not run grouped 5-fold compatibility or 504. If weak confirmation passes, grouped 5-fold compatibility may be considered next, but strict forward-time temporal generalization should remain explicitly caveated unless the credible threshold and all control gates are satisfied.
+This report is a confirmation result for the blocked residual candidate only. It does not update the canonical grouped claim by itself. If weak confirmation fails, do not run grouped 5-fold compatibility. If weak confirmation passes, grouped 5-fold compatibility may be considered next, but strict forward-time temporal generalization should remain explicitly caveated unless the credible threshold and all control gates are satisfied.
 """
     path.write_text(report)
 
@@ -870,7 +868,6 @@ def main() -> int:
             "residual_trainings": len(matrix) - len(SEEDS),
             "no_ar_retraining": True,
             "no_grouped": True,
-            "no_504": True,
             "no_secondary_targets": True,
             "no_vjepa_tribe_pca_rerun": True,
             "duration_seconds": time.time() - start,

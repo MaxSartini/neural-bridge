@@ -14,7 +14,6 @@ Scope:
 - fold-safe redesigned PCA256 artifacts only
 - frozen AR baseline floor
 - no grouped run
-- no 504
 - no V-JEPA/TRIBE/PCA rerun
 - no PCA refit
 - no AR retraining
@@ -30,7 +29,7 @@ Key result:
 - Binary washout-gap target passed with `short_temporal_conv_residual`.
 - Continuous AR-residualized target did not pass.
 - Failed gates: `continuous_min_delta_threshold`, `continuous_seed_consistency`.
-- Diagnostic-era recommendation was to avoid grouped or 504 until a binary-only confirmation was reviewed.
+- Diagnostic-era recommendation was to avoid grouped until a binary-only confirmation was reviewed.
 - This diagnostic alone did not prove strict temporal generalization; the later binary-only 10-seed confirmation is the current blocked proof for the redesigned target/head.
 
 This bundle intentionally excludes checkpoints, frozen AR row-score caches, dense cache files, PCA arrays, and the ignored full output root.

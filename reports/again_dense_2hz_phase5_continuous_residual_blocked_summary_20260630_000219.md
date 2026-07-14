@@ -5,13 +5,13 @@
 
 Output root: `outputs/again_dense_2hz_phase5_continuous_residual_blocked_20260630_000219`
 
-This is a targeted continuous future arousal movement residual experiment over frozen AR. It uses only `blocked_temporal_70_30`, only `monotonic_do_no_harm_residual`, five prespecified seeds, and seven controls for a maximum of 35 rows. It does not rerun binary spike confirmation, grouped 5-fold, 504, secondary targets, AR training, V-JEPA/TRIBE, or PCA.
+This is a targeted continuous future arousal movement residual experiment over frozen AR. It uses only `blocked_temporal_70_30`, only `monotonic_do_no_harm_residual`, five prespecified seeds, and seven controls for a maximum of 35 rows. It does not rerun binary spike confirmation, grouped 5-fold, secondary targets, AR training, V-JEPA/TRIBE, or PCA.
 
 ## Result
 
 - Continuous residual pass: `False`
 - Credible continuous pass: `False`
-- Recommendation: `continuous_residual_failed_do_not_run_grouped_or_504`
+- Recommendation: `continuous_residual_failed_do_not_run_grouped`
 - Strict forward-time spike prediction claimed: `False`
 
 ## Continuous Metrics

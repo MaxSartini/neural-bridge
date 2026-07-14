@@ -5,7 +5,7 @@ Bounded matrix:
 
 This script uses the fold-safe PCA artifacts from
 `outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/`.
-It does not run grouped, 504, broad variants, extra targets, AR retraining,
+It does not run grouped, broad variants, extra targets, AR retraining,
 V-JEPA/TRIBE, or PCA refitting.
 """
 
@@ -760,7 +760,6 @@ def compute_gates(summary: pd.DataFrame, fold_df: pd.DataFrame, seed_df: pd.Data
         "continuous_pass": continuous_pass,
         "strict_forward_time_temporal_generalization_proven": False,
         "grouped_started": False,
-        "full_504_started": False,
         "recommendation": recommendation,
         "failed_gates": failed,
         "binary": {
@@ -795,7 +794,7 @@ def write_report(path: Path, output_root: Path, gates: dict[str, Any]) -> None:
 
 Output root: `{output_root}`
 
-This is a bounded blocked-only redesigned target training test. It uses two approved targets, three seeds, seven controls, the fold-safe redesigned-target PCA root, and one residual variant: `monotonic_do_no_harm_residual`. It does not run grouped, 504, broad variants, extra targets, AR retraining, V-JEPA/TRIBE, or PCA refitting.
+This is a bounded blocked-only redesigned target training test. It uses two approved targets, three seeds, seven controls, the fold-safe redesigned-target PCA root, and one residual variant: `monotonic_do_no_harm_residual`. It does not run grouped, broad variants, extra targets, AR retraining, V-JEPA/TRIBE, or PCA refitting.
 
 ## Binary Target
 
@@ -830,7 +829,7 @@ This is a bounded blocked-only redesigned target training test. It uses two appr
 - Failed gates: `{gates['failed_gates']}`
 - Recommendation: `{gates['recommendation']}`
 
-Strict forward-time temporal generalization remains unproven. Do not run grouped or 504 from this result unless the gates pass cleanly and the result is reviewed.
+Strict forward-time temporal generalization remains unproven. Do not run grouped from this result unless the gates pass cleanly and the result is reviewed.
 """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(report, encoding="utf-8")
@@ -1004,7 +1003,6 @@ def main() -> int:
             "matrix_size": len(matrix),
             "no_ar_retraining": True,
             "no_grouped": True,
-            "no_504": True,
             "no_extra_targets": True,
             "no_vjepa_tribe_pca_rerun": True,
             "residual_target_definition": residual_meta,

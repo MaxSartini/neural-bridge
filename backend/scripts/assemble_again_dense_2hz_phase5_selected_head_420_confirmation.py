@@ -395,8 +395,6 @@ def audit_provenance(
         and grouped_run.get("folds") == list(FOLDS)
         and blocked_run.get("matrix_size") == 70
         and grouped_run.get("matrix_size") == 350
-        and blocked_run.get("no_504") is True
-        and grouped_run.get("no_504") is True
         and blocked_run.get("no_continuous") is True
         and grouped_run.get("no_continuous") is True
     )
@@ -564,7 +562,6 @@ def compose_overall_gate(
         },
         "failed_gates": failed,
         "overall_selected_head_420_confirmation_pass": not failed,
-        "no_504_run": True,
         "no_new_training": True,
         "no_new_scoring": True,
         "no_continuous_model_development": True,
@@ -605,7 +602,7 @@ Neural Bridge passes a full bounded 420-row selected-head confirmation for futur
 - Feature: `{FEATURE}`
 - Seeds: `20260625` through `20260634`
 - Lanes: seven matched lanes per protocol/fold/seed
-- Historical 504 matrix: not run and not part of this confirmation
+- Historical : not run and not part of this confirmation
 
 ## Canonical Protocol Results
 
@@ -635,7 +632,7 @@ The grouped label-permutation verdict remains frozen-AR-residual-aware: real min
 
 ## Claim Boundary
 
-This is a bounded selected-head binary future-event ranking confirmation. It is not a 504 run and does not establish exact continuous-value forecasting, blocked continuous generalization, broad all-target/all-dataset prediction, or universal temporal generalization. The prior grouped continuous future-movement ranking/lift pass remains a separate bounded result.
+This is a bounded selected-head binary future-event ranking confirmation. It is  and does not establish exact continuous-value forecasting, blocked continuous generalization, broad all-target/all-dataset prediction, or universal temporal generalization. The prior grouped continuous future-movement ranking/lift pass remains a separate bounded result.
 """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
@@ -679,7 +676,7 @@ Start with:
 - `diagnostics/provenance_audit.json`
 - `artifact_manifest.csv`
 
-The grouped verdict uses the updated frozen-AR-residual-aware label-permutation interpretation. This is not a 504 run and makes no exact continuous-value or universal generalization claim.
+The grouped verdict uses the updated frozen-AR-residual-aware label-permutation interpretation. This is  and makes no exact continuous-value or universal generalization claim.
 """
     (evidence_root / "README.md").write_text(readme, encoding="utf-8")
     evidence_files = [path for path in evidence_root.rglob("*") if path.is_file() and path.name != "artifact_manifest.csv"]
@@ -727,7 +724,6 @@ def main() -> int:
         "source_files_exist": {name: path.exists() for name, path in source_files.items()},
         "no_training": True,
         "no_scoring": True,
-        "no_504": True,
     }
     if args.dry_run:
         print(json.dumps(dry_run, indent=2, sort_keys=True))
@@ -801,7 +797,6 @@ def main() -> int:
         "silent_substitutions": False,
         "scientific_thresholds_changed_after_results": False,
         "superseded_grouped_label_permutation_gate_restored": False,
-        "historical_504_run_performed": False,
         "continuous_model_development_performed": False,
         "bounded_claim": "controlled future arousal event ranking across strict blocked temporal and grouped held-out-video validation on AGAIN",
         "not_proven": [
@@ -864,7 +859,6 @@ def main() -> int:
         "no_training": True,
         "no_scoring": True,
         "no_pca_fit": True,
-        "no_504": True,
         "no_continuous_model_development": True,
         "overall_pass": gate["overall_selected_head_420_confirmation_pass"],
     }

@@ -4,7 +4,7 @@ Bounded matrix:
 2 targets x 3 seeds x 4 architectures x 7 controls = 168 rows.
 
 This runner uses only the fold-safe redesigned-target PCA256 artifacts. It does
-not run grouped validation, 504, V-JEPA/TRIBE, PCA fitting, AR training, or
+not run grouped validation, V-JEPA/TRIBE, PCA fitting, AR training, or
 extra targets. Frozen AR remains the baseline floor.
 """
 
@@ -1063,7 +1063,6 @@ def compute_gates(summary: pd.DataFrame, fold_df: pd.DataFrame, seed_df: pd.Data
         "continuous_pass": continuous_pass,
         "strict_forward_time_temporal_generalization_proven": False,
         "grouped_started": False,
-        "full_504_started": False,
         "recommendation": recommendation,
         "failed_gates": failed,
         "binary": {
@@ -1098,7 +1097,7 @@ def write_report(path: Path, output_root: Path, gates: dict[str, Any]) -> None:
 
 Output root: `{output_root}`
 
-This is a bounded blocked-only temporal/event-context residual diagnostic over the redesigned targets. It uses the fold-safe redesigned PCA256 artifacts and keeps frozen AR as the baseline floor. It does not run grouped, 504, extra targets, V-JEPA/TRIBE/PCA, AR retraining, or claim changes.
+This is a bounded blocked-only temporal/event-context residual diagnostic over the redesigned targets. It uses the fold-safe redesigned PCA256 artifacts and keeps frozen AR as the baseline floor. It does not run grouped, extra targets, V-JEPA/TRIBE/PCA, AR retraining, or claim changes.
 
 ## Binary Washout-Gap Target
 
@@ -1136,7 +1135,7 @@ This is a bounded blocked-only temporal/event-context residual diagnostic over t
 - Failed gates: `{gates['failed_gates']}`
 - Recommendation: `{gates['recommendation']}`
 
-Strict forward-time temporal generalization remains unproven. This diagnostic should not trigger grouped or 504 unless the blocked gates pass cleanly and the result is reviewed.
+Strict forward-time temporal generalization remains unproven. This diagnostic should not trigger grouped unless the blocked gates pass cleanly and the result is reviewed.
 """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding="utf-8")
@@ -1369,7 +1368,6 @@ def main() -> int:
             "protocol_scope": "blocked_temporal_70_30_only",
             "matrix_size": len(matrix),
             "no_grouped": True,
-            "no_504": True,
             "no_extra_targets": True,
             "no_vjepa_tribe_pca_rerun": True,
             "no_pca_refit": True,

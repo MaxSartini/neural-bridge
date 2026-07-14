@@ -1,0 +1,18 @@
+{
+  "labels_loaded_by_predictor": false,
+  "member_seeds": [
+    20260721,
+    20260722,
+    20260723
+  ],
+  "prediction_digest": "0ae49a52f16afac8d912b7b6975acad3",
+  "prediction_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/no_video_supervised_temporal/ensemble_20260721_20260722_20260723.parquet",
+  "prediction_rows": 73093,
+  "prediction_sealed_before_label_join": true,
+  "prediction_sha256": "a0c1966ce19b4adc9b8ea12a986d1ae8cf82737fe2ece7f42e548e3037739731",
+  "weights": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ]
+}

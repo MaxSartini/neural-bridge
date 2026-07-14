@@ -2,7 +2,7 @@
 
 Output root: `outputs/again_dense_2hz_phase5_redesigned_target_blocked_20260630_010721`
 
-This is a bounded blocked-only redesigned target training test. It uses two approved targets, three seeds, seven controls, the fold-safe redesigned-target PCA root, and one residual variant: `monotonic_do_no_harm_residual`. It does not run grouped, 504, broad variants, extra targets, AR retraining, V-JEPA/TRIBE, or PCA refitting.
+This is a bounded blocked-only redesigned target training test. It uses two approved targets, three seeds, seven controls, the fold-safe redesigned-target PCA root, and one residual variant: `monotonic_do_no_harm_residual`. It does not run grouped, broad variants, extra targets, AR retraining, V-JEPA/TRIBE, or PCA refitting.
 
 ## Binary Target
 
@@ -35,6 +35,6 @@ This is a bounded blocked-only redesigned target training test. It uses two appr
 - `checkpoint_restore_pass`: `True`
 - `eval_mode_scoring_pass`: `True`
 - Failed gates: `['binary_min_delta_threshold', 'binary_seed_consistency', 'continuous_min_delta_threshold', 'continuous_spearman_delta', 'continuous_seed_consistency', 'continuous_binary_do_no_harm']`
-- Recommendation: `redesigned_target_blocked_failed_do_not_run_grouped_or_504`
+- Recommendation: `redesigned_target_blocked_failed_do_not_run_grouped`
 
-Strict forward-time temporal generalization remains unproven. Do not run grouped or 504 from this result unless the gates pass cleanly and the result is reviewed.
+Strict forward-time temporal generalization remains unproven. Do not run grouped from this result unless the gates pass cleanly and the result is reviewed.

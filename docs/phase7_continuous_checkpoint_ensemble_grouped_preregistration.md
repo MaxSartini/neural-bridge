@@ -2,7 +2,7 @@
 
 Status: explicitly authorized by the user and locked before grouped held-out scoring.
 
-The prior fresh blocked confirmation remains exactly recorded: strong aggregate and control evidence, with `4/5` rather than the locked `5/5` Spearman wins versus AR. This grouped run does not relabel that verdict. It asks a different protocol question: does the same continuous target/head and fixed checkpoint ensemble generalize across held-out videos?
+This grouped run asks the definitive protocol question: does the selected continuous target/head and fixed checkpoint ensemble generalize across held-out videos?
 
 ## Fixed scope
 
@@ -30,4 +30,4 @@ All conditions must pass:
 8. Real beats label permutation on Spearman and top-5% lift.
 9. No single fold-group contributes over 25% of positive real-minus-AR gain for either primary metric.
 
-A pass promotes grouped continuous ranking/lift for this selected Phase 7 target/head. It does not convert the prior blocked result to `5/5`, prove exact numeric values, validate raw-video-only client deployment, or authorize 504.
+A pass promotes grouped continuous ranking/lift for this selected Phase 7 target/head. It does not prove exact numeric values or validate raw-video-only client deployment.

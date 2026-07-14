@@ -122,7 +122,6 @@ Historical benchmark reports inside milestone folders preserve their original wo
 
 ## Phase Map
 
-- `00_current_claim_and_review_entrypoint/` - current-facing repo orientation and claim boundary.
 - `01_veatic_v2_foundation/` - VEATIC-124 v2 foundation evidence.
 - `02_again_phase_0_inventory_dense_cache/` - AGAIN dense-cache inventory and substrate evidence.
 - `03_again_phase_1_label_alignment/` - true 2 Hz label alignment evidence.
@@ -140,6 +139,6 @@ Historical benchmark reports inside milestone folders preserve their original wo
 
 ## Scope Boundaries
 
-This dossier is tracked evidence only. It does not include checkpoints, tensors, `.npy`, `.npz`, dense caches, V-JEPA/TRIBE assets, or full heavy output roots. No training, PCA generation, 504 run, or benchmark rerun was performed to create this documentation pack.
+This dossier is tracked evidence only. It does not include checkpoints, tensors, `.npy`, `.npz`, dense caches, V-JEPA/TRIBE assets, or full heavy output roots. No training, PCA generation, or benchmark rerun was performed to create this documentation pack.
 
 Correct claim: Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN plus controlled grouped continuous future-movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Exact continuous values, blocked continuous generalization, and broad all-target/all-dataset temporal prediction remain open.

@@ -1,0 +1,45 @@
+{
+  "accelerator": "mlx",
+  "candidate_params": {
+    "alpha_cap": 0.08,
+    "alpha_initial_logit": -3.0,
+    "gate_bias": 4.0,
+    "hidden": 96,
+    "lambda_binary": 0.8,
+    "learning_rate": 0.0002796515604869101,
+    "max_epochs": 60,
+    "patience": 8,
+    "weight_decay": 0.00015731894101489417
+  },
+  "canonical_rows_reused": 10,
+  "duration_seconds": 778.511513710022,
+  "fresh_original_rows_trained": 5,
+  "fresh_seeds": [
+    20260635,
+    20260636,
+    20260637,
+    20260638,
+    20260639
+  ],
+  "lanes_per_seed": 8,
+  "rows": 120,
+  "schema_version": "again_dense_2hz_phase6_trial4_blocked_15seed_v1",
+  "seed_20260627_retained": true,
+  "seeds": [
+    20260625,
+    20260626,
+    20260627,
+    20260628,
+    20260629,
+    20260630,
+    20260631,
+    20260632,
+    20260633,
+    20260634,
+    20260635,
+    20260636,
+    20260637,
+    20260638,
+    20260639
+  ]
+}

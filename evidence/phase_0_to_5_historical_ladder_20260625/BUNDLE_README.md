@@ -6,7 +6,7 @@ This lightweight bundle packages review evidence for Neural Bridge from VEATIC t
 
 This bundle is a historical evidence snapshot through `2026-06-25`. It remains valid as foundational evidence, but the current repo-level story is now the paired VEATIC + AGAIN Phase 5.5 evidence ladder documented in `../../docs/neural_bridge_phase5_5_evidence_ladder.md`.
 
-VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal. Later AGAIN work replicated and extended it at scale with dense 995-video V-JEPA 2.1 / TRIBE v2 features, frozen-AR residual repair, a redesigned washout-gap binary target, a 10-seed blocked temporal confirmation, and a repaired grouped-video compatibility verdict. No 504 run is contained in this bundle or promoted by this note.
+VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal. Later AGAIN work replicated and extended it at scale with dense 995-video V-JEPA 2.1 / TRIBE v2 features, frozen-AR residual repair, a redesigned washout-gap binary target, a 10-seed blocked temporal confirmation, and a repaired grouped-video compatibility verdict.  is contained in this bundle or promoted by this note.
 
 ## Phase Map
 

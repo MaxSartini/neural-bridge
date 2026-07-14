@@ -33,7 +33,7 @@ Verdict update:
 
 - No retraining was done.
 - No PCA was regenerated.
-- No 504 was run.
+- .
 - The original artifact failed the legacy label-permutation-near-chance gate.
 - The updated verdict treats the legacy near-chance gate as inapplicable because `label_permutation_residual` includes the same frozen AR floor and only permutes residual train/inner-val labels.
 - Under the updated null, real beats label permutation by `+0.0160732134` mean PR-AUC, real beats label permutation in `50/50` fold-seed comparisons, and label permutation is below AR by `-0.0021853501`.

@@ -120,7 +120,7 @@ AGAIN has since progressed beyond cache readiness and raw-cortical Phase 3 diagn
 - Frozen-AR residual design: grouped frozen AR `0.2246816187`, best real residual `0.2383409298`, best matched residual control `0.2248361805`, delta vs AR `+0.0136593110`, delta vs control `+0.0135047493`.
 - Phase 7 grouped continuous confirmation: `420/420`, real/AR/best-control Spearman `0.2603011121` / `0.2405371348` / `0.2402523335`, real/AR/best-control top-5% lift `0.0975979581` / `0.0895663763` / `0.0897088493`, all `15/15` fold-groups positive on both metrics, failed gates `[]`.
 
-Current claim: bounded strict forward-time binary future-event ranking is proven, and controlled grouped continuous future-movement ranking/lift is independently confirmed by Phase 7 for the selected washout target/head. The separate Phase 7 blocked continuous run was a strong `4/5` near-pass. Exact values and label-free raw-video deployment are not yet claimed. No 504 run has been performed or promoted.
+Current claim: bounded strict forward-time binary future-event ranking is proven, controlled grouped continuous future-movement ranking/lift is independently confirmed by Phase 7 for the selected washout target/head, and the locked direct-supervised lane validates cached-feature inference with no observed arousal input. Calibrated exact values, end-to-end raw-video runtime, and external transfer are not yet claimed.
 
 ## Local Audit Notes
 

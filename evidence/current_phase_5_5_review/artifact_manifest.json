@@ -1,93 +1,5 @@
 [
   {
-    "milestone": "Current orientation",
-    "role": "report_or_documentation",
-    "source_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/AGENTS.md",
-    "review_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/AGENTS.md",
-    "size_bytes": 9492,
-    "sha256": "8b74560a2a8af85c12f8afe359e15ef51d7a6534f42f80b142b1f95b693aa211"
-  },
-  {
-    "milestone": "Current orientation",
-    "role": "review_index",
-    "source_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/README.md",
-    "review_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/README.md",
-    "size_bytes": 12076,
-    "sha256": "c1b9deb6b9a9863a3b39f96568811c5a0b2765469e16526146454c83ee562eb9"
-  },
-  {
-    "milestone": "Current orientation",
-    "role": "report_or_documentation",
-    "source_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/REQUIREMENTS.md",
-    "review_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/REQUIREMENTS.md",
-    "size_bytes": 10302,
-    "sha256": "605fe37dfa70f7baaa0775cb637cd9dc02f2b2fc7364596461cfb6c8e050e172"
-  },
-  {
-    "milestone": "Current orientation",
-    "role": "report_or_documentation",
-    "source_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/ROADMAP.md",
-    "review_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/ROADMAP.md",
-    "size_bytes": 4021,
-    "sha256": "2b717f2e3063ed79186a0386bb4a4b09927d2f862cc3a5c59a0cbd40527a30bb"
-  },
-  {
-    "milestone": "Current orientation",
-    "role": "review_index",
-    "source_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/README.md",
-    "review_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/README.md",
-    "size_bytes": 3730,
-    "sha256": "1eb9349b6a6bcd6b5397c3b8c2c1725e7ce323b0d313058855ad2dbdc4550627"
-  },
-  {
-    "milestone": "Current orientation",
-    "role": "report_or_documentation",
-    "source_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/again_dense_h100_cache.md",
-    "review_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/again_dense_h100_cache.md",
-    "size_bytes": 8361,
-    "sha256": "132f1bbd27a075329305acc40a8275d6754f685bc4b507905d7f24e700de70de"
-  },
-  {
-    "milestone": "Current orientation",
-    "role": "evidence_table_or_manifest",
-    "source_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/current_claim_status.json",
-    "review_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/current_claim_status.json",
-    "size_bytes": 11720,
-    "sha256": "fa959875b65b7705bc31cea51ba82e07559eadff27b177136f3267e95b1ded9c"
-  },
-  {
-    "milestone": "Current orientation",
-    "role": "report_or_documentation",
-    "source_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/current_project_state.md",
-    "review_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/current_project_state.md",
-    "size_bytes": 10868,
-    "sha256": "113d4718012b37c608e21305edf9c9fc56031f361391efc7696754c1115ce493"
-  },
-  {
-    "milestone": "Current orientation",
-    "role": "report_or_documentation",
-    "source_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/neural_bridge_phase5_5_evidence_ladder.md",
-    "review_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/neural_bridge_phase5_5_evidence_ladder.md",
-    "size_bytes": 13725,
-    "sha256": "a5a973724f0f57ee4ec01df39f596c73299bb455434df5333a2b82aa2a7dcaea"
-  },
-  {
-    "milestone": "Current orientation",
-    "role": "report_or_documentation",
-    "source_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/veatic_v2_evidence_freeze.md",
-    "review_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/veatic_v2_evidence_freeze.md",
-    "size_bytes": 5224,
-    "sha256": "86eb6c48051a1014e616d2bb309401a5176222c8b2737e45d12ac4945e73369b"
-  },
-  {
-    "milestone": "Current orientation",
-    "role": "report_or_documentation",
-    "source_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/veatic_v2_evidence_summary.md",
-    "review_path": "evidence/current_phase_5_5_review/00_current_claim_and_review_entrypoint/docs/veatic_v2_evidence_summary.md",
-    "size_bytes": 7622,
-    "sha256": "c7fe56880bf483bbb5269c859a3fd5ff641354c172d29375bc98908ed8b6f0bc"
-  },
-  {
     "milestone": "VEATIC v2 foundation",
     "role": "review_index",
     "source_path": "evidence/current_phase_5_5_review/01_veatic_v2_foundation/README.md",
@@ -2276,8 +2188,8 @@
     "role": "review_index",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_ar_decomposition_20260630_001424/README.md",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_ar_decomposition_20260630_001424/README.md",
-    "size_bytes": 889,
-    "sha256": "ff6100656ed2af6c43479ef78efcfc53bcd32de080651adcf1bda52bf2372c94"
+    "size_bytes": 884,
+    "sha256": "261423cc7b95a228a1b610936b2d73a15730fa646bb2d728ee6b3d2caa481b4a"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
@@ -2444,8 +2356,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_clean_confirm_20260629_234349/manifests/run_manifest.json",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_clean_confirm_20260629_234349/manifests/run_manifest.json",
-    "size_bytes": 1211,
-    "sha256": "4c1ca37a697bec029213733ce959d17a38f65122c2ed70b2f9c3b6f738912699"
+    "size_bytes": 1193,
+    "sha256": "0442c6a6b59215f8ba0727e3a5056599403474b17d4d8f3e4cc90bc994d70c5d"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
@@ -2484,8 +2396,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_clean_confirm_20260629_234349/promotion/blocked_residual_clean_confirm_adversarial_verdict.json",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_clean_confirm_20260629_234349/promotion/blocked_residual_clean_confirm_adversarial_verdict.json",
-    "size_bytes": 3421,
-    "sha256": "c92099a84116009ed6dbf7e958dcf6c3476e111de94713bed4791531e031d73e"
+    "size_bytes": 3377,
+    "sha256": "26709d7fd76e0b0a158cc4e91ab2bc62e6b39022f6ef4d56bb7f5e0f86923c0f"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
@@ -2508,8 +2420,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_clean_confirm_20260629_234349/promotion/blocked_residual_clean_confirm_gates.json",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_clean_confirm_20260629_234349/promotion/blocked_residual_clean_confirm_gates.json",
-    "size_bytes": 3421,
-    "sha256": "c92099a84116009ed6dbf7e958dcf6c3476e111de94713bed4791531e031d73e"
+    "size_bytes": 3377,
+    "sha256": "26709d7fd76e0b0a158cc4e91ab2bc62e6b39022f6ef4d56bb7f5e0f86923c0f"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
@@ -2524,24 +2436,24 @@
     "role": "report_or_documentation",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_clean_confirm_20260629_234349/reports/again_dense_2hz_phase5_blocked_residual_clean_confirm_20260629_234349.md",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_clean_confirm_20260629_234349/reports/again_dense_2hz_phase5_blocked_residual_clean_confirm_20260629_234349.md",
-    "size_bytes": 3106,
-    "sha256": "4645ee0f80813237e8ed7ac278ce959c1e051d0507e3674f638446bc14462187"
+    "size_bytes": 3078,
+    "sha256": "27de91a32ab7df93f6504f8536c2d894f9d44bf8a476bfbb3ba4269a7098c553"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
     "role": "review_index",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_targeted_230325/README.md",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_targeted_230325/README.md",
-    "size_bytes": 1696,
-    "sha256": "24efd67945e3a5dc97a882655fea00f44e82c342a23fce6812ee7e3fd393914e"
+    "size_bytes": 1644,
+    "sha256": "0e677596600e0b078c65c04a8924f6757fae679aa17f46ca207f68da2e27e15b"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
     "role": "report_or_documentation",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_targeted_230325/again_dense_2hz_phase5_blocked_residual_targeted_summary_230325.md",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_targeted_230325/again_dense_2hz_phase5_blocked_residual_targeted_summary_230325.md",
-    "size_bytes": 2488,
-    "sha256": "b4aa930dc4284b4a4e483a1bfb32c695d1d65df4f7343e046d5e8f78033cff8e"
+    "size_bytes": 2466,
+    "sha256": "0f74db97e79adc750ccecc8d9b05f062deaf8bdb9faf3a4dbd8900736e1edcb7"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
@@ -2596,8 +2508,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_targeted_230325/confirmation_design.json",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_targeted_230325/confirmation_design.json",
-    "size_bytes": 6873,
-    "sha256": "9e1dd7a867a5d4809a1bf73dd2d50902c479b00862a04fdd6ed93f3e551a42b6"
+    "size_bytes": 6823,
+    "sha256": "1dd700391ddaad7cc322289d312f798490312c8f225b9cba85dedd4a809352db"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
@@ -2620,8 +2532,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_targeted_230325/same_variant_control_audit.json",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_blocked_residual_targeted_230325/same_variant_control_audit.json",
-    "size_bytes": 18674,
-    "sha256": "8b70c5f97db1ea4419c79b6e09601a3623304739c344e05b53208bac8939d81e"
+    "size_bytes": 18672,
+    "sha256": "372ed3fc90e9351af89fd86376881ed88919b09c9e3bb52bf6e1a95b0ac441a4"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
@@ -2756,8 +2668,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_continuous_residual_blocked_20260630_000219/manifests/run_manifest.json",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_continuous_residual_blocked_20260630_000219/manifests/run_manifest.json",
-    "size_bytes": 1094,
-    "sha256": "89db6d2118a54d183e757ce1667b56b6696efd10779447612f9adfa790d67aba"
+    "size_bytes": 1076,
+    "sha256": "b6c708dd78ee2606daf22c181b9e5cda0755b3183c4b0606fa92e10fe6bae272"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
@@ -2796,8 +2708,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_continuous_residual_blocked_20260630_000219/promotion/continuous_residual_blocked_adversarial_verdict.json",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_continuous_residual_blocked_20260630_000219/promotion/continuous_residual_blocked_adversarial_verdict.json",
-    "size_bytes": 2916,
-    "sha256": "7780d15ebc373645a864a99b2a78854b4557bc2673021aafd2f74b364ad156db"
+    "size_bytes": 2887,
+    "sha256": "5707badf7f04550fc53a3e0c01b46ba22867a28a76b7ef6cc26b22c99df20de2"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
@@ -2820,8 +2732,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_continuous_residual_blocked_20260630_000219/promotion/continuous_residual_blocked_gates.json",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_continuous_residual_blocked_20260630_000219/promotion/continuous_residual_blocked_gates.json",
-    "size_bytes": 2916,
-    "sha256": "7780d15ebc373645a864a99b2a78854b4557bc2673021aafd2f74b364ad156db"
+    "size_bytes": 2887,
+    "sha256": "5707badf7f04550fc53a3e0c01b46ba22867a28a76b7ef6cc26b22c99df20de2"
   },
   {
     "milestone": "AGAIN Phase 5.2 blocked residual and AR audits",
@@ -2836,8 +2748,8 @@
     "role": "report_or_documentation",
     "source_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_continuous_residual_blocked_20260630_000219/reports/again_dense_2hz_phase5_continuous_residual_blocked_summary_20260630_000219.md",
     "review_path": "evidence/current_phase_5_5_review/09_again_phase_5_2_blocked_residual_and_ar_audits/phase_5_2_continuous_residual_blocked_20260630_000219/reports/again_dense_2hz_phase5_continuous_residual_blocked_summary_20260630_000219.md",
-    "size_bytes": 1871,
-    "sha256": "020b91912ca71fc62d1cda78fc8933f4afa9450977bc12ea1fea5d83590e1ca7"
+    "size_bytes": 1866,
+    "sha256": "ce887260ebdbfc3e08627a74583ee60eb8ac34052a28456d6c85ad659bd53aee"
   },
   {
     "milestone": "AGAIN Phase 5.3 target redesign and fold-safe PCA",
@@ -2948,8 +2860,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_blocked_20260630_010721/manifests/run_manifest.json",
     "review_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_blocked_20260630_010721/manifests/run_manifest.json",
-    "size_bytes": 3245,
-    "sha256": "46d053734f2ddb87a321c58dd896ddae311b220f6dc752cd2a9c802b9ff11ef4"
+    "size_bytes": 3227,
+    "sha256": "fcc801588312bf038eadf439ac581ebef1d517b6e70b7261332d1a963c1ad8f4"
   },
   {
     "milestone": "AGAIN Phase 5.3 target redesign and fold-safe PCA",
@@ -2988,8 +2900,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_blocked_20260630_010721/promotion/redesigned_target_blocked_adversarial_verdict.json",
     "review_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_blocked_20260630_010721/promotion/redesigned_target_blocked_adversarial_verdict.json",
-    "size_bytes": 2615,
-    "sha256": "0ec5e5a13d70cf762fe94b52c8b7de9807d5eb568255b317f5990b5752be0c94"
+    "size_bytes": 2586,
+    "sha256": "f7a7402cc472ad6c638b9fd5bc3f17136c5e13f7c77cdb839e4dee60d964da2a"
   },
   {
     "milestone": "AGAIN Phase 5.3 target redesign and fold-safe PCA",
@@ -3012,8 +2924,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_blocked_20260630_010721/promotion/redesigned_target_blocked_gates.json",
     "review_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_blocked_20260630_010721/promotion/redesigned_target_blocked_gates.json",
-    "size_bytes": 2615,
-    "sha256": "0ec5e5a13d70cf762fe94b52c8b7de9807d5eb568255b317f5990b5752be0c94"
+    "size_bytes": 2586,
+    "sha256": "f7a7402cc472ad6c638b9fd5bc3f17136c5e13f7c77cdb839e4dee60d964da2a"
   },
   {
     "milestone": "AGAIN Phase 5.3 target redesign and fold-safe PCA",
@@ -3028,8 +2940,8 @@
     "role": "report_or_documentation",
     "source_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_blocked_20260630_010721/reports/again_dense_2hz_phase5_redesigned_target_blocked_summary_20260630_010721.md",
     "review_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_blocked_20260630_010721/reports/again_dense_2hz_phase5_redesigned_target_blocked_summary_20260630_010721.md",
-    "size_bytes": 1853,
-    "sha256": "67e8b4dfd715f4b1018515f9c9c61554587c9d4bf12c2b973ec2b9b671a69e1f"
+    "size_bytes": 1841,
+    "sha256": "6f0dc97ce60828cd02d3f52f2588a86bb50c595c9224cecb84bbdebbcd176614"
   },
   {
     "milestone": "AGAIN Phase 5.3 target redesign and fold-safe PCA",
@@ -3116,8 +3028,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_foldsafe_pca_20260630_005312/manifests/redesigned_pca_manifest.json",
     "review_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_foldsafe_pca_20260630_005312/manifests/redesigned_pca_manifest.json",
-    "size_bytes": 7429,
-    "sha256": "1ae03f468ade907369e538eb4aecebcd9f85e2ed3e32932df3b65273d3ee2cea"
+    "size_bytes": 7411,
+    "sha256": "eb77ec5ef391e800d83d896dab02359db47b30a99b11a4533b017704cf93af8e"
   },
   {
     "milestone": "AGAIN Phase 5.3 target redesign and fold-safe PCA",
@@ -3140,8 +3052,8 @@
     "role": "report_or_documentation",
     "source_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_foldsafe_pca_20260630_005312/reports/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312.md",
     "review_path": "evidence/current_phase_5_5_review/10_again_phase_5_3_target_redesign_and_foldsafe_pca/phase_5_3_redesigned_target_foldsafe_pca_20260630_005312/reports/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312.md",
-    "size_bytes": 2160,
-    "sha256": "425e9c084a447548e10fb0c128ebb0b91c8927d7a016f4e8d056ec034b98d3c4"
+    "size_bytes": 2153,
+    "sha256": "32663fce9058aa99a2e42691498ab00ed0822802b6e10190fd7c81cbc6d46fda"
   },
   {
     "milestone": "AGAIN Phase 5.3 target redesign and fold-safe PCA",
@@ -3260,8 +3172,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/11_again_phase_5_4_temporal_residual_architecture_diagnostic/manifests/run_manifest.json",
     "review_path": "evidence/current_phase_5_5_review/11_again_phase_5_4_temporal_residual_architecture_diagnostic/manifests/run_manifest.json",
-    "size_bytes": 1789,
-    "sha256": "1a23c5bf074e9cc204e3cb57d74039487daae5c3319a81309235189c6d977352"
+    "size_bytes": 1771,
+    "sha256": "90193a9545cbd4b1e16c61ce27ad38376055d802e395a6da324e9edf8399d645"
   },
   {
     "milestone": "AGAIN Phase 5.4 temporal residual architecture diagnostic",
@@ -3308,8 +3220,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/11_again_phase_5_4_temporal_residual_architecture_diagnostic/promotion/temporal_residual_blocked_adversarial_verdict.json",
     "review_path": "evidence/current_phase_5_5_review/11_again_phase_5_4_temporal_residual_architecture_diagnostic/promotion/temporal_residual_blocked_adversarial_verdict.json",
-    "size_bytes": 2741,
-    "sha256": "9ce4bc751a58bbf949ebd141229fa5e6d096a9176abe9c4a0fcedf3f7c7ddf57"
+    "size_bytes": 2712,
+    "sha256": "7d6d652c44dcae716f1936d787c1386b3706fd966d808c9469634c7ee293a4cc"
   },
   {
     "milestone": "AGAIN Phase 5.4 temporal residual architecture diagnostic",
@@ -3340,24 +3252,24 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/11_again_phase_5_4_temporal_residual_architecture_diagnostic/promotion/temporal_residual_blocked_gates.json",
     "review_path": "evidence/current_phase_5_5_review/11_again_phase_5_4_temporal_residual_architecture_diagnostic/promotion/temporal_residual_blocked_gates.json",
-    "size_bytes": 2741,
-    "sha256": "9ce4bc751a58bbf949ebd141229fa5e6d096a9176abe9c4a0fcedf3f7c7ddf57"
+    "size_bytes": 2712,
+    "sha256": "7d6d652c44dcae716f1936d787c1386b3706fd966d808c9469634c7ee293a4cc"
   },
   {
     "milestone": "AGAIN Phase 5.4 temporal residual architecture diagnostic",
     "role": "report_or_documentation",
     "source_path": "evidence/current_phase_5_5_review/11_again_phase_5_4_temporal_residual_architecture_diagnostic/reports/again_dense_2hz_phase5_temporal_residual_blocked_summary_20260630_020557.md",
     "review_path": "evidence/current_phase_5_5_review/11_again_phase_5_4_temporal_residual_architecture_diagnostic/reports/again_dense_2hz_phase5_temporal_residual_blocked_summary_20260630_020557.md",
-    "size_bytes": 1868,
-    "sha256": "9df44fa7cd5cc74d6c636a2f3cb4b6beaf6f003fb43bf2a954d212744c352351"
+    "size_bytes": 1856,
+    "sha256": "313f6a7d85acc98763537e4aab66f64e3f7d02377170ec8f37d113bd8c440fac"
   },
   {
     "milestone": "AGAIN Phase 5.4 temporal residual architecture diagnostic",
     "role": "report_or_documentation",
     "source_path": "evidence/current_phase_5_5_review/11_again_phase_5_4_temporal_residual_architecture_diagnostic/reports/again_dense_2hz_phase5_temporal_residual_design_20260630_013925.md",
     "review_path": "evidence/current_phase_5_5_review/11_again_phase_5_4_temporal_residual_architecture_diagnostic/reports/again_dense_2hz_phase5_temporal_residual_design_20260630_013925.md",
-    "size_bytes": 13473,
-    "sha256": "69769c5d51096b82c5f4e5618b0a564457ceecb4bb8f195b615e8a8e0ca5841b"
+    "size_bytes": 13436,
+    "sha256": "ac8761eb1334425d24ff4c307a4da42f97738c68569e83e5534d0f358da4ff7c"
   },
   {
     "milestone": "AGAIN Phase 5.5 binary blocked confirmation",
@@ -3444,8 +3356,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/12_again_phase_5_5_binary_blocked_confirmation/manifests/run_manifest.json",
     "review_path": "evidence/current_phase_5_5_review/12_again_phase_5_5_binary_blocked_confirmation/manifests/run_manifest.json",
-    "size_bytes": 1928,
-    "sha256": "d65562d75ebbdf4f501c0cb0d11e67d2883d344af23ee291806ede65e47ded23"
+    "size_bytes": 1910,
+    "sha256": "48bb3c483bd09c0773ec67485e12bac1b5ecfcf582b5c806297425c88e8e50a8"
   },
   {
     "milestone": "AGAIN Phase 5.5 binary blocked confirmation",
@@ -3484,8 +3396,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/12_again_phase_5_5_binary_blocked_confirmation/promotion/temporal_residual_binary_big_confirm_adversarial_verdict.json",
     "review_path": "evidence/current_phase_5_5_review/12_again_phase_5_5_binary_blocked_confirmation/promotion/temporal_residual_binary_big_confirm_adversarial_verdict.json",
-    "size_bytes": 2371,
-    "sha256": "43e24db3876d61d95acacefe08a9ab982b4f8ff7b174f7c52413da8314d9b0bd"
+    "size_bytes": 2342,
+    "sha256": "fd90dd86418fbe4eae1684628a7661ec669beec65315bdc3dd105a7d9b2691ea"
   },
   {
     "milestone": "AGAIN Phase 5.5 binary blocked confirmation",
@@ -3508,24 +3420,24 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/12_again_phase_5_5_binary_blocked_confirmation/promotion/temporal_residual_binary_big_confirm_gates.json",
     "review_path": "evidence/current_phase_5_5_review/12_again_phase_5_5_binary_blocked_confirmation/promotion/temporal_residual_binary_big_confirm_gates.json",
-    "size_bytes": 2371,
-    "sha256": "43e24db3876d61d95acacefe08a9ab982b4f8ff7b174f7c52413da8314d9b0bd"
+    "size_bytes": 2342,
+    "sha256": "fd90dd86418fbe4eae1684628a7661ec669beec65315bdc3dd105a7d9b2691ea"
   },
   {
     "milestone": "AGAIN Phase 5.5 binary blocked confirmation",
     "role": "report_or_documentation",
     "source_path": "evidence/current_phase_5_5_review/12_again_phase_5_5_binary_blocked_confirmation/reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md",
     "review_path": "evidence/current_phase_5_5_review/12_again_phase_5_5_binary_blocked_confirmation/reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md",
-    "size_bytes": 2090,
-    "sha256": "b42a7231402f9f01e2ab68162fd631e2f5a9b9b9feb559b87f5bba9104f35a63"
+    "size_bytes": 2078,
+    "sha256": "fc4a01fd0b2ccfc3186512a6241def4f838cf6a29eb548c049422a012809eb81"
   },
   {
     "milestone": "AGAIN Phase 5.5 grouped compatibility",
     "role": "review_index",
     "source_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/README.md",
     "review_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/README.md",
-    "size_bytes": 824,
-    "sha256": "0b31cb01ae9b185a4340a6b5111542b625457442c9987599f53026c81fe2d261"
+    "size_bytes": 811,
+    "sha256": "e83458dd224af202c14e905d37b34c14ba8d69656a83d18a6c9028201ddd04d8"
   },
   {
     "milestone": "AGAIN Phase 5.5 grouped compatibility",
@@ -3748,8 +3660,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/manifests/run_manifest.json",
     "review_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/manifests/run_manifest.json",
-    "size_bytes": 1998,
-    "sha256": "8f7dc84670c51da0cde16f7720a0e0cdee564d3b0a7eb75d88558e14d28a96af"
+    "size_bytes": 1980,
+    "sha256": "2158ae6796e5f5ba4f8422d52d3dfca3721181ebf858ded750d5ecf0a3ade547"
   },
   {
     "milestone": "AGAIN Phase 5.5 grouped compatibility",
@@ -3812,8 +3724,8 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/promotion/temporal_residual_grouped_compat_updated_adversarial_verdict.json",
     "review_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/promotion/temporal_residual_grouped_compat_updated_adversarial_verdict.json",
-    "size_bytes": 3297,
-    "sha256": "3bd8c40ba6c5ff3ec5c19f8eeba3d6726040afc94fd80b2637693251b083fa4e"
+    "size_bytes": 3275,
+    "sha256": "57b514fecf8024c5e710c145b284b6fecf548906e9c76435a5d5ae86adb5e6bb"
   },
   {
     "milestone": "AGAIN Phase 5.5 grouped compatibility",
@@ -3828,48 +3740,48 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/promotion/temporal_residual_grouped_compat_updated_gates.json",
     "review_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/promotion/temporal_residual_grouped_compat_updated_gates.json",
-    "size_bytes": 3297,
-    "sha256": "3bd8c40ba6c5ff3ec5c19f8eeba3d6726040afc94fd80b2637693251b083fa4e"
+    "size_bytes": 3275,
+    "sha256": "57b514fecf8024c5e710c145b284b6fecf548906e9c76435a5d5ae86adb5e6bb"
   },
   {
     "milestone": "AGAIN Phase 5.5 grouped compatibility",
     "role": "report_or_documentation",
     "source_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520.md",
     "review_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520.md",
-    "size_bytes": 2082,
-    "sha256": "e0477580002203f4f877fa6e1fffe62a540f400b0b9827404236a3765d353f34"
+    "size_bytes": 2064,
+    "sha256": "ea104f975a2529f8b7ddbda0f6fc9b9c5f5bbaff8e92ea683cb3fe7692fc95cf"
   },
   {
     "milestone": "AGAIN Phase 5.5 grouped compatibility",
     "role": "report_or_documentation",
     "source_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md",
     "review_path": "evidence/current_phase_5_5_review/13_again_phase_5_5_grouped_compatibility/reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md",
-    "size_bytes": 2620,
-    "sha256": "a96f0ab142da519b176ae75f49304493d7df4b9c843090df9eac1255d5c15b4d"
+    "size_bytes": 2600,
+    "sha256": "1d955fde7a36e325d86a7160ed0e8cc0fa559ed833b35719ddb91f80e73932b5"
   },
   {
     "milestone": "Executable validation and code index",
     "role": "review_index",
     "source_path": "evidence/current_phase_5_5_review/14_executable_validation_and_code/README.md",
     "review_path": "evidence/current_phase_5_5_review/14_executable_validation_and_code/README.md",
-    "size_bytes": 1084,
-    "sha256": "b58fe52c8f7a151be795a53308cbb4e8a975ac393706c7cb356318117c4e6cd1"
+    "size_bytes": 1075,
+    "sha256": "6c03765f954c79d00d4ba114d2d4a340bab8288ce8b12781b5776617a36e3e09"
   },
   {
     "milestone": "Executable validation and code index",
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv",
     "review_path": "evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv",
-    "size_bytes": 21628,
-    "sha256": "86b1056e6aac3f607b9623dbad1248d56925f8abe88e444f1aa0672a1c18dfd7"
+    "size_bytes": 22469,
+    "sha256": "90944ea5c9b4667f7fb4aa308204bdc3e8257a869a3d00de21f448b7a5718067"
   },
   {
     "milestone": "Executable validation and code index",
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.json",
     "review_path": "evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.json",
-    "size_bytes": 34585,
-    "sha256": "f1e1fedae61d30efaa70e062fe4a764ca5c010de571a9d8964682f620d53b88f"
+    "size_bytes": 35902,
+    "sha256": "e12f4334ca665b070499f6caa379f00a578926fc4bd5e4de00750c3a669f6c9b"
   },
   {
     "milestone": "Executable validation and code index",
@@ -3884,40 +3796,40 @@
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/CLAIM_LEDGER.csv",
     "review_path": "evidence/current_phase_5_5_review/CLAIM_LEDGER.csv",
-    "size_bytes": 7788,
-    "sha256": "b8cf489b344e109a53270e006b7212fef84fd1bb767c4b1a41cbbdd68f855625"
+    "size_bytes": 7743,
+    "sha256": "58f44a0673532537d90ccf59e19ccd7e886ec69eef93a4fe9dbe351355d8a9b2"
   },
   {
     "milestone": "Review dossier index",
     "role": "evidence_table_or_manifest",
     "source_path": "evidence/current_phase_5_5_review/CLAIM_LEDGER.json",
     "review_path": "evidence/current_phase_5_5_review/CLAIM_LEDGER.json",
-    "size_bytes": 9018,
-    "sha256": "b184a6750f97c27ae05135bfb28696f57a0235dfbdd081da12c9ec07aae51bf0"
+    "size_bytes": 8973,
+    "sha256": "0803d30a447caf7d17382bc72b9ad499d7aec0c992e054a83b7a63be8b77ce7f"
   },
   {
     "milestone": "Review dossier index",
     "role": "review_index",
     "source_path": "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",
     "review_path": "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",
-    "size_bytes": 8288,
-    "sha256": "04c9a8e936b8de8d0aaabc8e07cb6288905ad538c84f244e573dbabd583e31da"
+    "size_bytes": 9734,
+    "sha256": "5cae307b5919b49d1908105ee33cfd0890f9fcfaa6905dbab943f5cc6bec443a"
   },
   {
     "milestone": "Review dossier index",
     "role": "review_index",
     "source_path": "evidence/current_phase_5_5_review/DEFINITIONS_AND_PROCESS.md",
     "review_path": "evidence/current_phase_5_5_review/DEFINITIONS_AND_PROCESS.md",
-    "size_bytes": 4107,
-    "sha256": "968d3c5b798dc0683faec8eb3495d5bc63b3a929756bb4d8e4ce4ebdedaf483c"
+    "size_bytes": 4086,
+    "sha256": "8f7d6c6774ceb75a273bbe1721864a2ef1e9527d3a09c6a4be61575cd328fa8f"
   },
   {
     "milestone": "Review dossier index",
     "role": "review_index",
     "source_path": "evidence/current_phase_5_5_review/README.md",
     "review_path": "evidence/current_phase_5_5_review/README.md",
-    "size_bytes": 7863,
-    "sha256": "134094f072446e05953da4ab58f19ef1a880b652d14bdb0a7ac72d13e3526012"
+    "size_bytes": 8701,
+    "sha256": "0376446edd319630356a97b8a6b8114408ec20fdf9702dbc298628176204ae7f"
   },
   {
     "milestone": "Review dossier index",

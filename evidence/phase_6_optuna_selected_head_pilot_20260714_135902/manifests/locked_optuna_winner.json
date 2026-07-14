@@ -1,0 +1,15 @@
+{
+  "heldout_scored_during_study": false,
+  "inner_val_delta_vs_frozen_ar_pr_auc": 0.017383643255950598,
+  "params": {
+    "alpha_cap": 0.16,
+    "alpha_initial_logit": -3.0,
+    "gate_bias": 5.0,
+    "hidden": 64,
+    "lambda_binary": 0.8,
+    "learning_rate": 0.00010528366155183298,
+    "weight_decay": 0.00020452569809101856
+  },
+  "study_name": "again-phase6-selected-head-pilot",
+  "trial_number": 15
+}

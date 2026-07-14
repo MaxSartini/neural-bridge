@@ -50,6 +50,6 @@ Passing this gate authorizes a fresh exact-value confirmation. It is not itself 
 
 - Retain every fixed seed and report every failed gate.
 - Do not change gates, controls, groups, weights, parameters, or target after scoring.
-- Do not run grouped follow-up, 504, re-encoding, PCA fitting, or additional targets from this diagnostic.
+- Do not run grouped follow-up, re-encoding, PCA fitting, or additional targets from this diagnostic.
 - Do not call a failed diagnostic a pass because a subset of metrics is favorable.
 - If the diagnostic fails, any Optuna or loss redesign requires a new preregistration; this result may motivate but may not tune that search.

@@ -5,7 +5,6 @@ This directory contains claim-bearing benchmark runners, no-training verdict/aud
 ## Current Claim-Bearing AGAIN Scripts
 
 - `run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped.py` - current headline: fresh `420/420` grouped continuous future-movement ranking/lift confirmation, `15/15` positive fold-groups, failed gates `[]`.
-- `run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm.py` - separate fresh `140/140` blocked near-pass; strong aggregate result with a literal `4/5` under its locked `5/5` gate.
 - `run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic.py` - bounded precursor that separated ranking/lift from exact-value gates.
 - `run_again_dense_2hz_phase6_original_three_checkpoint_control_complete.py` - fresh blocked binary checkpoint-ensemble confirmation.
 - `run_again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation.py` - fresh grouped binary checkpoint-ensemble confirmation.

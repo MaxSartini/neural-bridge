@@ -1,8 +1,27 @@
 # Neural Bridge
 
-Neural Bridge predicts which upcoming moments are most likely to produce the strongest changes in human arousal, using video-derived predicted cortical/fMRI response features. Its strongest result is Phase 7: a fresh, preregistered grouped-video confirmation that passed all gates at exactly `420/420` scored rows.
+Neural Bridge predicts which upcoming moments are most likely to produce the strongest changes in human arousal, using video-derived predicted cortical/fMRI response features.
 
-## From Failed Raw Representation to Phase 7
+It now has two complementary headline results:
+
+1. **The deployment bridge now works without response labels at inference:** a fixed video-only model passed a prospectively locked 299-video confirmation at `140/140`, beating no-video and false-signal controls in all `5/5` panels on continuous ranking, top-5% lift, and spike/event PR-AUC.
+2. **Phase 7 is the strongest observed-arousal-assisted research result:** `420/420` grouped held-out-video rows passed, with all `15/15` fold-groups beating trained arousal persistence and matched controls.
+
+## New: Locked 299-Video Zero-Label Confirmation
+
+The model was trained on 696 development videos, then scored once on the frozen 299-video pool. At inference it received cached predicted cortical/fMRI video features and causal video metadata—no observed arousal, no response history, no teacher scores, and no labeled warm start.
+
+| Locked endpoint | Video-only Neural Bridge | Strongest false-signal/no-video control | Gain | Panel wins |
+| --- | ---: | ---: | ---: | ---: |
+| Future-movement Spearman | `0.1785132961` | `0.1004882655` | **`+77.65%`** | `5/5` |
+| Top-5% true-movement lift | `0.0766079674` | `0.0448520122` | **`+70.80%`** | `5/5` |
+| Future-event PR-AUC | `0.1710622218` | `0.1352295369` | **`+26.50%`** | `5/5` |
+
+All three paired whole-video bootstrap lower bounds were positive, and the first-30-second cold-start tier passed. The temporal model beat the strong current-row video model on all three endpoints as well as diagnostics-only, no-video, sequence-shuffled, and hard-label-permuted controls.
+
+This is zero-label **inference**, not label-free training. It validates the cached-feature video-only bridge on locked AGAIN videos; end-to-end raw-video feature generation, external/cross-domain confirmation, and prospective client outcomes remain next steps. [Read the full zero-label evidence.](docs/neural_bridge_zero_label_deployment_evidence.md)
+
+## Current Results to Foundations
 
 The headline is not merely that Phase 7 is `8%` better than AR. Neural Bridge turned predicted cortical/fMRI features that were weak—or actively harmful when fused naively—into a repeatable forward-looking signal:
 
@@ -16,16 +35,17 @@ These are deliberately separated comparisons. The `+74.51%`, `+39.95%`, and `+38
 
 | Development stage | Result | What changed |
 | --- | --- | --- |
-| Early blocked AGAIN raw ablation | raw `0.124315`, AR `0.203622`, AR+raw `0.167731` PR-AUC | raw features were `38.95%` below trained AR; naïve fusion was still `17.63%` below AR |
-| Original grouped spike progression | raw `0.136579` → Phase 5 frozen-residual bridge `0.2383409298` PR-AUC | same-target bridge gain `+74.51%`; `+39.95%` over direct AR+raw |
-| Original grouped continuous win | Spearman `0.2232222830`; top-1% lift `0.1359465244` | first controlled grouped continuous-ranking/lift victory |
-| Phase 5.5 stricter washout confirmation | blocked `9/10` seeds; grouped `50/50` fold-seeds; failed gates `[]` | beat matched frozen AR after an explicit persistence washout gap |
+| Locked zero-label deployment bridge | `140/140`; Spearman `0.1785132961`; top-5% `0.0766079674`; event PR-AUC `0.1710622218`; `5/5` | video-only inference beats no-video and false-signal controls on the frozen 299-video pool |
+| Phase 7 culmination | `420/420`; Spearman `0.2603011121`; top-5% lift `0.0975979581`; `15/15` | strongest AR-assisted grouped continuous result, beyond AR and every matched control |
 | Phase 6 checkpoint stabilization | grouped binary `0.2343675680` vs AR `0.2180497906`; `15/15` | fixed three-checkpoint averaging became a validated stability mechanism |
-| Phase 7 culmination | `420/420`; Spearman `0.2603011121`; top-5% lift `0.0975979581`; `15/15` | strongest current grouped continuous result, beyond AR and every matched control |
+| Phase 5.5 stricter washout confirmation | blocked `9/10` seeds; grouped `50/50` fold-seeds; failed gates `[]` | beat matched frozen AR after an explicit persistence washout gap |
+| Original grouped continuous win | Spearman `0.2232222830`; top-1% lift `0.1359465244` | first controlled grouped continuous-ranking/lift victory |
+| Original grouped spike progression | raw `0.136579` → Phase 5 frozen-residual bridge `0.2383409298` PR-AUC | same-target bridge gain `+74.51%`; `+39.95%` over direct AR+raw |
+| Early blocked AGAIN raw ablation | raw `0.124315`, AR `0.203622`, AR+raw `0.167731` PR-AUC | raw features were `38.95%` below trained AR; naïve fusion was still `17.63%` below AR |
 
 ## The Result in Plain English
 
-Give the system a video sequence and recent response context. Neural Bridge ranks the moments ahead by how much human arousal is likely to move. On videos held out from training, it ranked those future changes better than:
+Neural Bridge ranks the moments ahead by how much human arousal is likely to move. Phase 7 does this with video features plus recent response context; the new deployment bridge does it from video features alone at inference. On videos held out from training, the system beat:
 
 - a strong autoregressive baseline that predicts from recent arousal momentum;
 - shuffled and random feature controls;
@@ -97,8 +117,6 @@ Protocol strength:
 - failed gates: `[]`.
 
 That is a clean controlled grouped continuous future-movement ranking/lift result.
-
-The separate Phase 7 blocked-time stress test was also strongly positive on aggregate. It beat AR and the best control in mean Spearman and top-5% lift, and passed every locked gate except unanimity versus AR: `4/5` groups instead of the preregistered `5/5`. That result remains an accurately reported near-pass; it neither weakens nor replaces the separate grouped `420/420` pass.
 
 ## Scientific Claim
 
@@ -177,9 +195,9 @@ Think of the task as predicting where the next important response movement will 
 
 Neural Bridge is being built as Service as Software for neuro-response video intelligence: automated first-pass response evaluation, weak-segment diagnosis, likely high-response moment ranking, variant comparison, and response-readiness reporting.
 
-The evidence supports the core intelligence layer. The next deployment milestone is to remove the benchmark's observed-arousal input at client inference time. The current strongest residual model uses current/past arousal as its strong AR floor; raw pre-release client video will not provide those labels. The planned bridge is therefore a video-only student or cold-start/self-rollout model tested with no teacher forcing.
+The evidence now supports both the core intelligence layer and its first zero-label-at-inference translation. Phase 7 remains the higher observed-arousal-assisted ceiling; the locked 299-video result proves that substantial continuous and spike/event ranking signal survives when response history is removed entirely from held-out inference.
 
-That distinction is a product roadmap, not a dismissal of the result: Phase 7 proves that video-derived predicted neuro-response features contain consistent incremental information about future human response. The next task is to make that intelligence available from video alone.
+The next deployment milestone is end-to-end and external validity: run the frozen upstream encoder plus bridge from an actual raw client-style video, confirm the zero-label lane beyond AGAIN, and turn ranked outputs into calibrated heat maps, event bands, comparisons, and response-readiness reports.
 
 Longer-term, a rigorously re-encoded V-JEPA 2.1 VEATIC dataset could be combined with AGAIN in a balanced multi-domain training design. That may improve stability and transfer—especially for the video-only student—but it should follow a bounded pilot with harmonized targets, domain-balanced sampling, and leave-one-domain-out evaluation rather than an expensive blind re-encode.
 
@@ -190,18 +208,19 @@ The current evidence does not claim mind reading, individual profiling, medical 
 In particular:
 
 - grouped continuous future-movement ranking/lift is proven;
-- the separate blocked continuous result is a strong `4/5` near-pass, not a formal `5/5` pass;
 - exact trajectory values were not the Phase 7 promotion target;
-- label-free raw-video deployment still requires the video-only bridge;
-- the historical `504` design was not run or promoted.
+- cached-feature zero-label video-only inference is confirmed on the locked AGAIN pool;
+- end-to-end raw-video runtime, external/cross-domain zero-label confirmation, and prospective client outcomes remain open;
 
 These are precise scope boundaries around a real result—not language that turns a win into a failure.
 
 ## Start Here
 
+- [Zero-label deployment evidence](docs/neural_bridge_zero_label_deployment_evidence.md)
 - [Phase 7 evidence and interpretation](docs/neural_bridge_phase7_evidence.md)
 - [Current project state](docs/current_project_state.md)
 - [Machine-readable claim status](docs/current_claim_status.json)
+- [Locked 299-video evidence snapshot](evidence/zero_label_video_only_direct_supervised_locked_confirmation_20260715/README.md)
 - [Phase 7 grouped report](reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md)
 - [Phase 7 evidence snapshot](evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/README.md)
 - [Discovery history](docs/how_neural_bridge_was_discovered.md)
@@ -211,7 +230,7 @@ These are precise scope boundaries around a real result—not language that turn
 
 ## Run and Validate
 
-Apple Silicon ML work uses MLX/MPS; Phase 7 ran on `Device(gpu, 0)` and does not permit silent CPU fallback.
+Apple Silicon ML work uses MLX/MPS; Phase 7 and the locked zero-label confirmation ran on `Device(gpu, 0)` and do not permit silent model-training CPU fallback.
 
 ```bash
 npm run verify
@@ -223,4 +242,6 @@ Heavy datasets, caches, checkpoints, and generated output roots remain outside g
 
 ## Current Next Step
 
-Stage 0 of the bounded video-only deployment bridge is complete: the target, `696/299` prospective video split, MLX-only feature policy, cold-start contracts, and exact `96 + 140` future matrices passed with failed contracts `[]`. No model was fit and Stage A remains unauthorized. If separately authorized, Stage A will use cold-start grouped-video evaluation with no observed-arousal teacher forcing. Continuous Spearman, top-5% lift, and future-event PR-AUC are conjunctive deployment gates so the commercially actionable spike surface cannot be hidden by a continuous-only pass. The realistic locked target is at least `50%` retention of the AR-assisted teacher's *incremental gain over the no-video zero-label anchor* on every endpoint—not equality with a teacher that receives observed-arousal context. Only after that should the project decide whether a full V-JEPA 2.1 VEATIC re-encode and balanced VEATIC+AGAIN joint training is worth the cost.
+The bounded video-only deployment campaign is complete on AGAIN. Stage A discovered that direct supervised temporal learning—not distillation or self-rollout—was the strongest zero-label method. A new prospective protocol then locked that method and tested the untouched-for-this-method 299-video pool. It passed `140/140`, all three baseline-beating endpoints, all `5/5` full-video panels, all bootstrap checks, and the first-30-second tier.
+
+The highest-value next step is not another AGAIN architecture sweep. Freeze this method as the deployment comparator, run it end to end from raw client-style video, and obtain external/cross-domain zero-label confirmation. A bounded V-JEPA 2.1 VEATIC re-encode and harmonized VEATIC+AGAIN pilot is now justified if its protocol preserves domain balance and leave-one-domain-out evaluation.

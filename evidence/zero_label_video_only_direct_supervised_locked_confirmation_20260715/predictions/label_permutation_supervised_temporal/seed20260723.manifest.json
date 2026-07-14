@@ -1,0 +1,15 @@
+{
+  "best_epoch": 2,
+  "best_validation_loss": 0.010986905544996262,
+  "checkpoint_sha256": "fce12b948e780284617b16e4dbd6ee2d3898dc158d0f5331ea88c44693aae684",
+  "hard_outcome_used_in_training_loss_only": false,
+  "labels_loaded_by_predictor": false,
+  "observed_response_inputs_at_inference": false,
+  "prediction_digest": "50f51257d55db4bf64ff8391c0611526",
+  "prediction_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/label_permutation_supervised_temporal/seed20260723.parquet",
+  "prediction_rows": 73093,
+  "prediction_sealed_before_label_join": true,
+  "prediction_sha256": "4e0d4cc5525e49a5aa9fa527180809dde9a30ac5e2c4d794c90732f188a9758d",
+  "whole_video_hard_target_permutation": true,
+  "whole_video_sequence_shuffle": false
+}

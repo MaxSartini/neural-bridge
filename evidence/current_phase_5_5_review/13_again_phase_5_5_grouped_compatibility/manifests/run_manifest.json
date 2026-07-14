@@ -27,7 +27,6 @@
   ],
   "grouped_pca_root": "outputs/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520/foldsafe_grouped_pca",
   "matrix_size": 350,
-  "no_504": true,
   "no_continuous": true,
   "no_extra_architectures": true,
   "no_extra_targets": true,

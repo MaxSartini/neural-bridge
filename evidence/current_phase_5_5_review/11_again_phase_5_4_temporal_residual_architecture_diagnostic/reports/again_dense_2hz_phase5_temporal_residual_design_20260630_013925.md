@@ -2,7 +2,7 @@
 
 Timestamp: `20260630_013925`
 
-This is a design report only. No training, implementation, grouped validation, 504 confirmation, V-JEPA/TRIBE rerun, PCA refit, or claim change is authorized by this report.
+This is a design report only. No training, implementation, grouped validation, V-JEPA/TRIBE rerun, PCA refit, or claim change is authorized by this report.
 
 ## Goal
 
@@ -16,7 +16,6 @@ Scope:
   - `residual_future_max_delta_rows_4_10`
 - Feature source: fold-safe redesigned PCA256 artifacts under `outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/`
 - No grouped run
-- No 504
 - No V-JEPA/TRIBE/PCA rerun
 - Frozen AR remains the baseline floor
 
@@ -165,7 +164,7 @@ Recommended execution order:
 1. Run the 42-row `delta_feature_mlp_residual` smoke-confirmation matrix.
 2. If it fails by a wide margin or controls dominate, stop.
 3. If it is positive but below threshold, run the full 168-row comparison.
-4. Do not run grouped or 504 from any result until blocked gates pass cleanly.
+4. Do not run grouped from any result until blocked gates pass cleanly.
 
 ## Controls
 
@@ -317,7 +316,7 @@ Task:
 Implement and run the bounded blocked-only temporal/event-context residual diagnostic.
 
 Do not run grouped.
-Do not run 504.
+Do not run .
 Do not rerun V-JEPA/TRIBE/PCA.
 Do not refit PCA.
 Do not change claims.

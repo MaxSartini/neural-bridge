@@ -75,4 +75,4 @@ No gross leakage is suspected. The video-mean control deliberately uses train+te
 
 The diagnostic remains valid as directional evidence that `monotonic_do_no_harm_residual` can produce a tiny positive blocked delta over frozen AR. It remains non-promotable because the margin is practically/statistically meaningless and the static-control gate fails in the same variant.
 
-Recommended next action: do not run the 504 confirmation and do not train new variants yet. First refine/audit the null-control gate definitions, especially label-permutation checkpoint selection and the video-mean oracle/static control, then decide whether a cleaner confirmation is warranted.
+Recommended next action: do not run the and do not train new variants yet. First refine/audit the null-control gate definitions, especially label-permutation checkpoint selection and the video-mean oracle/static control, then decide whether a cleaner confirmation is warranted.

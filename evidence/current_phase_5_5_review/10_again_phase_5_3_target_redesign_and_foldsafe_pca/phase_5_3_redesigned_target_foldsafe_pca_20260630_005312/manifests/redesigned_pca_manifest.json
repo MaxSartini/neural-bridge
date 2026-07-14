@@ -6,7 +6,6 @@
   "created_at": "2026-06-30T00:55:34.416399+00:00",
   "dense_root": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz",
   "feature_family": "temporal_mean_2s",
-  "no_504": true,
   "no_dense_cache_modification": true,
   "no_global_pca": true,
   "no_grouped": true,

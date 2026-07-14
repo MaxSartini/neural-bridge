@@ -48,21 +48,19 @@ The full bounded selected-head confirmation is now assembled and promoted: exact
 
 The original three-checkpoint ensemble is now promoted under both bounded protocols. Its fresh control-complete blocked confirmation passed `140/140` rows, and its separate fresh grouped-video confirmation passed `420/420` rows (`315` member plus `105` ensemble). In the grouped confirmation, real ensemble PR-AUC was `0.2343675680` versus AR `0.2180497906` and best matched control `0.2179716645`; all `15/15` fold-groups and `5/5` fold means were positive versus both, ensembling added `+0.0082200727` over the 45 real-member mean, and failed gates were `[]`.
 
-The deterministic Phase 5 eval-mode `regression_plus_binary` lane also passed its grouped continuous-ranking/lift gate. Across 15 grouped fold-seed evaluations, real future-movement Spearman was `0.2232222830` versus AR-only `0.1982207591`, `ar_plus_shuffled_pca` `0.1938183619`, and `ar_plus_random_pca` `0.1931781163`; real top-1% average-true-movement lift was `0.1359465244` versus `0.1115815364`, `0.1125842464`, and `0.1136304212`, respectively. This proves controlled grouped continuous future-movement ranking/lift for that lane. It does not prove exact continuous values or blocked continuous generalization: the old fused blocked lane lost to AR/controls, and the later washout continuous diagnostic improved Spearman but failed its full top-5%/seed-consistency gate.
+The deterministic Phase 5 eval-mode `regression_plus_binary` lane also passed its grouped continuous-ranking/lift gate. Across 15 grouped fold-seed evaluations, real future-movement Spearman was `0.2232222830` versus AR-only `0.1982207591`, `ar_plus_shuffled_pca` `0.1938183619`, and `ar_plus_random_pca` `0.1931781163`; real top-1% average-true-movement lift was `0.1359465244` versus `0.1115815364`, `0.1125842464`, and `0.1136304212`, respectively. This proves controlled grouped continuous future-movement ranking/lift for that lane. It does not prove calibrated exact continuous values.
 
-Phase 7 then tested the selected washout continuous target with the proven short-temporal-conv recipe and fixed three-checkpoint averaging. Its locked `84/84` diagnostic passed every ranking/lift gate. The subsequent fresh `140/140` blocked confirmation was strongly positive in aggregate—real Spearman `0.1176781535` versus AR `0.1103312855` and best control `0.1072552766`, and real top-5% lift `0.0840262922` versus `0.0759273576` and `0.0757026078`—but failed its preregistered `5/5` Spearman-vs-AR group gate with `4/5`; failed gates were exactly `["spearman_positive_vs_ar_5_of_5"]`. Do not call that blocked result a formal pass or rewrite it as literal `5/5`.
+Phase 7 then applied the selected washout continuous target, proven short-temporal-conv recipe, and fixed three-checkpoint averaging in a separately preregistered grouped held-out-video validation. It passed the full `420/420` matrix (`315` member plus `105` ensemble) with failed gates `[]`. Real ensemble Spearman was `0.2603011121` versus target-specific AR `0.2405371348` and best control `0.2402523335`; real top-5% lift was `0.0975979581` versus `0.0895663763` and `0.0897088493`. Real-minus-AR / best-control was `+0.0197639773` / `+0.0200487786` Spearman and `+0.0080315818` / `+0.0078891089` top-5% lift. All `15/15` fold-groups and `5/5` fold means were positive for both metrics versus both comparators. Ensembling added `+0.0077966938` Spearman and `+0.0025021192` top-5% lift over members. This is the authoritative current Phase 7 result and promotes grouped continuous future-movement ranking/lift for `residual_future_max_delta_rows_4_10` / `short_temporal_conv_residual`.
 
-After explicit user authorization, a separately preregistered grouped held-out-video Phase 7 validation passed the full `420/420` matrix (`315` member plus `105` ensemble) with failed gates `[]`. Real ensemble Spearman was `0.2603011121` versus target-specific AR `0.2405371348` and best control `0.2402523335`; real top-5% lift was `0.0975979581` versus `0.0895663763` and `0.0897088493`. Real-minus-AR / best-control was `+0.0197639773` / `+0.0200487786` Spearman and `+0.0080315818` / `+0.0078891089` top-5% lift. All `15/15` fold-groups and `5/5` fold means were positive for both metrics versus both comparators. Ensembling added `+0.0077966938` Spearman and `+0.0025021192` top-5% lift over members. This promotes grouped continuous future-movement ranking/lift for `residual_future_max_delta_rows_4_10` / `short_temporal_conv_residual`. It does not relabel the blocked `4/5`, prove exact numeric values, or validate label-free deployment.
+The video-only deployment bridge is now separately confirmed. The prespecified direct-supervised temporal lane was selected on development data, then prospectively locked before opening the 299-video pool. The locked run completed `140/140` rows on MLX `Device(gpu, 0)`, passed every target/split/PCA/prediction-seal/inference audit, and failed no Tier 1 gates. With no observed-arousal input at inference, real Spearman / top-5% lift / event PR-AUC were `0.1785132961` / `0.0766079674` / `0.1710622218` versus the metric-specific strongest false-signal/no-video controls `0.1004882655` / `0.0448520122` / `0.1352295369`: relative gains `+77.65%` / `+70.80%` / `+26.50%`. Every endpoint won `5/5` full-video panels, every paired whole-video bootstrap lower bound was positive, and the first-30-second cold-start tier passed. Treat this as a locked cached-feature zero-label-at-inference win on AGAIN. Development-path details live in the Stage A report and discovery history, not the current claim.
 
-Deployment boundary: the current strongest frozen-AR residual benchmark consumes observed current/past arousal through `arousal`, lag-1/2/4, and recent-delta features. Those labels are unavailable for a raw pre-release client video. VEATIC/AGAIN establish controlled cross-domain benchmark transfer and incremental video-side neural-response signal beyond observed persistence; they do not yet prove zero-label raw-video-only client inference. A deployable product requires a separately validated video-only student or label-free autoregressive rollout evaluated from cold start with no teacher forcing.
+Deployment boundary: Phase 7 consumes observed current/past arousal through `arousal`, lag-1/2/4, and recent-delta features and remains the privileged research ceiling. The locked direct-supervised lane removes those inputs and validates cold-start cached-feature zero-label inference on AGAIN. It is supervised during training. It does not yet validate end-to-end raw-video feature generation/runtime, external/cross-domain zero-label transfer, prospective client outcomes, or calibrated exact-value prediction.
 
 Not currently proven by the evidence below. These are current boundaries, not permanent prohibitions; remove or revise an item immediately when new valid executable evidence proves it:
 
 - exact continuous future arousal forecasting is solved
-- blocked continuous generalization is solved from Phase 7
-- zero-label raw-video-only client deployment is validated
+- end-to-end raw-video runtime or external/client deployment validity is established
 - broad all-target/all-dataset temporal prediction is solved
-- 504 has been run or promoted
 - treat Phase 5b/5c/Spark/max-capacity/deep/chimera outputs as canonical
 - use `holy_shit_pass` as a valid gate
 
@@ -78,6 +76,11 @@ Canonical frozen-AR residual report:
 Canonical current Phase 7 evidence:
 `docs/neural_bridge_phase7_evidence.md`
 
+Canonical zero-label deployment evidence:
+`docs/neural_bridge_zero_label_deployment_evidence.md`
+`reports/again_dense_2hz_zero_label_direct_supervised_locked_confirmation_20260715.md`
+`evidence/zero_label_video_only_direct_supervised_locked_confirmation_20260715/README.md`
+
 Historical Phase 5.5 evidence ladder:
 `docs/neural_bridge_phase5_5_evidence_ladder.md`
 
@@ -85,7 +88,7 @@ Canonical discovery and washout-gap evolution:
 `docs/how_neural_bridge_was_discovered.md`
 
 Canonical reviewer evidence dossier:
-`evidence/current_phase_7_review/README.md`
+`evidence/current_review/README.md`
 
 Canonical executable validation index:
 `docs/executable_validation_index.md`
@@ -99,18 +102,16 @@ Canonical updated grouped compatibility verdict:
 Canonical full bounded selected-head confirmation:
 `reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md`
 
-Canonical Phase 7 diagnostic and fresh confirmation:
-`reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513.md`
-`reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md`
+Canonical Phase 7 grouped confirmation:
 `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`
 
-Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. The redesigned washout-gap binary target/head passes blocked and grouped confirmation plus the unified bounded `420/420` selected-head audit. Grouped continuous ranking/lift is now independently proven twice: the earlier deterministic eval-mode lane and the stronger Phase 7 selected washout target/head, whose grouped checkpoint-ensemble validation passed `420/420` with `15/15` fold-groups positive versus AR and controls. Phase 7 blocked continuous evidence remains a strong `4/5` near-confirmation, not a formal pass. Exact continuous-value forecasting, blocked continuous generalization, zero-label raw-video-only deployment, and broad universal temporal prediction remain open.
+Current bottom line, newest first: the direct-supervised video-only bridge passes a locked 299-video `140/140` zero-label-at-inference confirmation across continuous, top-5%, and event endpoints. Phase 7 is the observed-arousal-assisted research ceiling with an authoritative grouped `420/420` / `15/15` pass and failed gates `[]`. Phase 6 checkpoint stabilization and the Phase 5.5 binary selected-head confirmations remain promoted foundations; VEATIC established the original cross-domain phenomenon. Exact continuous values, end-to-end raw-video runtime, external zero-label transfer, and broad universal prediction remain open.
 
 ## Commercial Language
 
 Neural Bridge should be described as a Service-as-Software product direction for neuro-response video intelligence: software intended to automate the first-pass expert service of pre-release video response evaluation, creative diagnostics, variant comparison, and response-readiness reporting using predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.
 
-Keep product vision separate from validated deployment state. The current strongest benchmark residual uses observed arousal history, so raw-video-only pre-release operation is the next deployment bridge to prove, not an already validated capability.
+Keep product vision separate from validated deployment state. Cached-feature zero-label inference is validated on locked AGAIN videos. End-to-end raw-video operation, external/client validity, calibrated outputs, and production reliability remain to be proved.
 
 Use bounded commercial wording: population-level response-event ranking, pre-release response intelligence, controlled future arousal event signal, creative decision support, and Service as Software for response evaluation.
 
@@ -123,7 +124,7 @@ Do not frame Neural Bridge as generic SaaS, a simple dashboard, mind reading, in
 - Evidence bundle: `evidence/phase_0_to_5_historical_ladder_20260625/`
 - Frozen-AR residual output root: `outputs/again_dense_2hz_phase5_frozen_ar_residual_/`
 - Frozen-AR residual evidence snapshot: `evidence/phase_5_1_frozen_ar_residual/`
-- Current reviewer dossier: `evidence/current_phase_7_review/`
+- Current reviewer dossier: `evidence/current_review/`
 - Historical detailed dossier: `evidence/current_phase_5_5_review/`
 - Blocked binary confirmation evidence snapshot: `evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/`
 - Grouped compatibility evidence snapshot: `evidence/phase_5_5_grouped_compatibility_20260630_033520/`
@@ -131,13 +132,42 @@ Do not frame Neural Bridge as generic SaaS, a simple dashboard, mind reading, in
 - Selected-head 420 confirmation evidence snapshot: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`
 - Original three-checkpoint grouped confirmation output root: `outputs/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024/`
 - Original three-checkpoint grouped confirmation evidence snapshot: `evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/`
-- Phase 7 diagnostic output root: `outputs/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513/`
-- Phase 7 fresh blocked confirmation output root: `outputs/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653/`
 - Phase 7 grouped continuous output root: `outputs/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440/`
+- Zero-label direct-supervised locked output root: `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/`
+- Zero-label direct-supervised evidence snapshot: `evidence/zero_label_video_only_direct_supervised_locked_confirmation_20260715/`
 
 Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly asked. Do not force-add ignored output roots.
 
 ## Current Numbers
+
+AGAIN locked zero-label direct-supervised confirmation:
+
+- target: `future_arousal_max_delta_rows_4_10` plus training-q90 event endpoint
+- training / prospectively locked videos: `696` / `299`
+- matrix: `140/140` (`105` member plus `35` ensemble)
+- real / strongest-control Spearman: `0.1785132961` / `0.1004882655`; delta `+0.0780250306` (`+77.65%`)
+- real / strongest-control top-5% lift: `0.0766079674` / `0.0448520122`; delta `+0.0317559552` (`+70.80%`)
+- real / strongest-control event PR-AUC: `0.1710622218` / `0.1352295369`; delta `+0.0358326849` (`+26.50%`)
+- full-video panel wins: `5/5` on every required endpoint
+- one-sided whole-video bootstrap lower 95%: `+0.0606787212` / `+0.0187740072` / `+0.0235455194`
+- first-30 cold-start tier: passed
+- primary-minus-current-row: `+0.0111227287` Spearman / `+0.0114229070` top-5% / `+0.0075797964` event PR-AUC
+- Tier 1 / Tier 2 / Tier 3: true / true / true; failed Tier 1 gates: `[]`
+- inference uses no observed arousal; training is supervised; current scope is cached-feature AGAIN confirmation
+
+AGAIN Phase 7 grouped continuous checkpoint ensemble:
+
+- target/head: `residual_future_max_delta_rows_4_10` / `short_temporal_conv_residual`
+- matrix: `420/420` (`315` member plus `105` ensemble) over five grouped-video folds, nine untouched seeds, and three fixed groups
+- real / target-specific AR / best-control Spearman: `0.2603011121` / `0.2405371348` / `0.2402523335`
+- delta vs AR / best control Spearman: `+0.0197639773` / `+0.0200487786`
+- real / AR / best-control top-5% lift: `0.0975979581` / `0.0895663763` / `0.0897088493`
+- delta vs AR / best control top-5% lift: `+0.0080315818` / `+0.0078891089`
+- fold-group wins vs AR / best control: `15/15` / `15/15` for Spearman and `15/15` / `15/15` for top-5% lift
+- positive fold means: `5/5`
+- ensemble uplift over members: `+0.0077966938` Spearman / `+0.0025021192` top-5% lift
+- grouped continuous ranking/lift pass: true; failed gates: `[]`
+- calibrated exact-value forecasting: not promoted
 
 AGAIN original three-checkpoint blocked ensemble confirmation:
 
@@ -209,7 +239,7 @@ AGAIN eval-mode and frozen-AR design path:
 - eval-mode grouped continuous ranking/lift pass: true
 - eval-mode grouped future-movement Spearman real / AR-only / shuffled / random: `0.2232222830` / `0.1982207591` / `0.1938183619` / `0.1931781163`
 - eval-mode grouped top-1% average-true-movement lift real / AR-only / shuffled / random: `0.1359465244` / `0.1115815364` / `0.1125842464` / `0.1136304212`
-- continuous boundary: grouped future-movement ranking/lift passed; old fused blocked continuous ranking did not beat AR/controls; later washout continuous Spearman improved but the full continuous gate failed
+- continuous boundary: grouped future-movement ranking/lift passed; calibrated exact continuous values are not claimed
 - frozen-AR residual grouped frozen AR PR-AUC: `0.2246816187`
 - frozen-AR residual grouped best real residual PR-AUC: `0.2383409298`
 - frozen-AR residual grouped matched control PR-AUC: `0.2248361805`
@@ -225,46 +255,15 @@ VEATIC-124 v2:
 - balanced event-vs-stable `arousal__future_spike_1_3s@0.05` PR-AUC: `0.3394`
 - balanced deltas over AR/shuffled/random: `+0.0609` / `+0.0631` / `+0.0476`
 
-AGAIN Phase 7 blocked continuous checkpoint ensemble:
-
-- target/head: `residual_future_max_delta_rows_4_10` / `short_temporal_conv_residual`
-- diagnostic: `84/84`, every ranking/lift gate passed; exact-value gate failed separately
-- fresh confirmation: `140/140` over 15 untouched seeds and five fixed groups
-- real / target-specific AR / best-control Spearman: `0.1176781535` / `0.1103312855` / `0.1072552766`
-- delta vs AR / best control Spearman: `+0.0073468679` / `+0.0104228768`
-- real / AR / best-control top-5% lift: `0.0840262922` / `0.0759273576` / `0.0757026078`
-- delta vs AR / best control top-5% lift: `+0.0080989346` / `+0.0083236843`
-- Spearman positive groups vs AR / best control: `4/5` / `5/5`
-- top-5% positive groups vs AR / best control: `5/5` / `5/5`
-- ensemble uplift over members: `+0.0065659385` Spearman / `+0.0081449538` top-5% lift
-- formal confirmation pass: false; sole failed gate: `spearman_positive_vs_ar_5_of_5`
-- grouped Phase 7 follow-up: completed separately and passed `420/420`
-
-AGAIN Phase 7 grouped continuous checkpoint ensemble:
-
-- target/head: `residual_future_max_delta_rows_4_10` / `short_temporal_conv_residual`
-- matrix: `420/420` (`315` member plus `105` ensemble) over five grouped-video folds, nine untouched seeds, and three fixed groups
-- real / target-specific AR / best-control Spearman: `0.2603011121` / `0.2405371348` / `0.2402523335`
-- delta vs AR / best control Spearman: `+0.0197639773` / `+0.0200487786`
-- real / AR / best-control top-5% lift: `0.0975979581` / `0.0895663763` / `0.0897088493`
-- delta vs AR / best control top-5% lift: `+0.0080315818` / `+0.0078891089`
-- fold-group wins vs AR / best control: `15/15` / `15/15` for Spearman and `15/15` / `15/15` for top-5% lift
-- positive fold means: `5/5`
-- ensemble uplift over members: `+0.0077966938` Spearman / `+0.0025021192` top-5% lift
-- grouped continuous ranking/lift pass: true; failed gates: `[]`
-- exact-value forecasting and blocked continuous generalization: not promoted
-
 ## Next Task
 
-The highest-value next milestone is the deployment bridge, not another AR-assisted benchmark sweep. Stage 0 of `docs/zero_label_video_only_deployment_bridge_pilot_preregistration.md` passed on `995` videos / `243,575` rows with exact future matrices `96/96` Stage A and `140/140` Stage B, raw-target identity digest `446906dff30be33f204de0f973207975`, development/locked split digests `cf65a766cd827e6201544dd753049cb4` / `ded8bc2bf079fef91ae5c253b9a9ac2e`, and failed contracts `[]`. Canonical evidence is `evidence/zero_label_video_only_deployment_stage0_20260714/`. Stage 0 performed no fitting, teacher-score generation, or held-out scoring; Stage A remains unauthorized and requires separate explicit user authorization.
+The AGAIN deployment bridge is complete. The direct-supervised temporal lane is frozen after its prospectively locked 299-video `140/140` pass. Development-path details belong in `docs/how_neural_bridge_was_discovered.md` and the Stage A report, not current result summaries.
 
-The leading bounded hypotheses remain (1) distill the current AR-assisted teacher into a video-only temporal student and (2) feed a strictly autoregressive rollout of the model's own predicted response state. Evaluation must use cold-start held-out full videos, no teacher forcing, no ground-truth arousal lags/deltas, video-only controls, and explicit degradation versus the AR-assisted research ceiling. The old Phase 7 fold-specific PCA score matrices cannot be concatenated for the new split because their coordinate systems differ. Reuse the frozen cortical row substrate and fixed `temporal_mean_2s` / PCA256 recipe, but fit each later PCA basis only inside the applicable outer training pool and each teacher PCA basis only inside its nested teacher-training partition.
+The highest-value next milestone is end-to-end and external validity, not another AGAIN sweep. Keep `video_supervised_temporal` frozen as the comparator, integrate raw-video upstream feature generation through continuous/event output, measure Apple Silicon runtime, and preregister zero-label confirmation beyond AGAIN. A bounded V-JEPA 2.1 VEATIC re-encode and harmonized VEATIC+AGAIN pilot is justified, with domain-balanced sampling and leave-one-domain-out evaluation. Never tune on the locked 299-video pool.
 
-Continuous Spearman, top-5% lift, and training-q90 future-event PR-AUC are conjunctive required deployment endpoints. Each must beat the strongest matched zero-label control and retain at least `50%` of the teacher's incremental gain over the no-video zero-label anchor. This is half of the teacher-added gain, not half of its absolute score. Do not demand absolute Phase 7 parity from a cold-start unseen-video model that lacks the teacher's observed-arousal context; parity would be exceptional. Do not claim client-ready pre-release accuracy until the locked deployment lane passes.
+Phase 7 continuous status is now fixed by the authoritative grouped `420/420` validation: every gate passed, with `15/15` fold-groups positive versus both AR and controls on Spearman and top-5% lift. Current-facing summaries must lead with that win and its exact scope.
 
-Phase 7 continuous status is now fixed: the `84/84` diagnostic passed ranking/lift and failed exact-value calibration; the fresh `140/140` blocked confirmation was strongly positive in aggregate but failed the locked all-five Spearman-vs-AR consistency gate at `4/5`; the separately user-authorized grouped `420/420` validation then passed every gate with `15/15` fold-groups positive versus both AR and controls on Spearman and top-5% lift. Preserve all three verdicts without conflation.
-
-The approved full bounded 420-row selected-head confirmation remains canonical. The one-seed Optuna pilot was promising, but its preregistered locked-winner 10-seed confirmation did not establish an aggregate improvement: tuned/original PR-AUC was `0.2659654274` / `0.2670735630`, all-seed delta `-0.0011081356`, and nine-follow-up-seed delta `-0.0014666488`. Tuned beat original in `7/10` seeds and had a positive paired median (`+0.0004281433`), while retaining a controlled bridge win over frozen AR (`+0.0057318043`) and the best tuned matched control (`+0.0067636509`) with `8/10` positive seeds versus both.
+The approved full bounded 420-row selected-head confirmation remains canonical. Optuna and checkpoint-combination development history belongs in `docs/how_neural_bridge_was_discovered.md` and the Phase 6 reports; it is not the current claim.
 
 Seed `20260627` dominated the mean failure: its canonical original beat tuned by `+0.0178629568`. The stored original curve has an unusually favorable `+0.0272760719` inner-validation peak at epoch 14, roughly `73%` above the original runs' median best peak, then declines. A post-hoc 80-epoch diagnostic reproduced the tuned score exactly, so tuned under-training is not the explanation. Do not delete the seed or relabel the preregistered verdict as a pass.
 
@@ -272,7 +271,7 @@ The staged `docs/phase6_robust_optuna_720_plan.md` stopped fail-closed after Sta
 
 Stage A2 passed on five new inner-validation seeds, authorizing Stage B. Stage B then completed `120/120` blocked rows across 15 seeds and 8 lanes but failed: all-seed candidate-minus-original mean/median were `+0.0000512741` / `+0.0002953952` with `10/15` wins, while the untouched fresh-five panel was `-0.0013756950` mean with `3/5` wins. Trial 4 nevertheless beat AR and best controls in `15/15`, with `+0.0074160357` and `+0.0085749406` mean deltas. Stage C's 600 grouped rows were not authorized or run; do not claim 720.
 
-Trial 4 reduced seed-level PR-AUC standard deviation by `19.41%` versus original but did not reliably improve fresh held-out performance. This historical result motivated the now-completed locked ensemble/checkpoint-stabilization campaign. Do not do more same-family Optuna tuning, delete stress seeds, run Stage C, or restore 504.
+Trial 4 reduced seed-level PR-AUC standard deviation by `19.41%` versus original but did not reliably improve fresh held-out performance. This historical result motivated the now-completed locked ensemble/checkpoint-stabilization campaign. Do not do more same-family Optuna tuning, delete stress seeds, or run Stage C.
 
 Do not describe this as a broad seed problem. Most seed-to-seed differences are small. The precise issue is rare favorable-original checkpoint sensitivity: seed `20260627` and later fresh seed `20260636` produced unusually large original-over-Trial-4 gaps, while Trial 4 won `7/10` across fresh seeds `20260635`–`20260644` with a positive paired median but a negative mean dominated by seed `20260636`.
 
@@ -288,9 +287,9 @@ The real upstream Optuna, Polars, MLflow, and SHAP integrations are installed as
 
 ## Test And Script Validation
 
-`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the refreshed default `npm run verify` passed `164` tests in `33.60s`, skipped one optional research-tooling module, and passed repository readiness, strict-benchmark dry run, and the frontend production build. This includes `22` zero-label deployment Stage 0 contracts. The most recent separate fully provisioned backend run before those tests were added passed `150` tests in `34.06s`.
+`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-15`, `npm run verify` passed `182` tests with one skip and also passed repository readiness, strict-benchmark dry run, and the frontend production build. The separate research-tooling verification passed Optuna, Polars, MLflow, and SHAP on MLX `Device(gpu, 0)` / MPS.
 
-Relevant AGAIN and VEATIC v2 runners, tests, benchmark artifacts, and runtime-only tools are indexed in `docs/executable_validation_manifest.csv`. The current review entrypoint is `evidence/current_phase_7_review/`; the older executable mirror remains under `evidence/current_phase_5_5_review/14_executable_validation_and_code/`. Do not add placeholder smoke tests as validation. Add tests only when they protect a real split, target, leakage, control, manifest, scorer, checkpoint, or claim-boundary contract.
+Relevant AGAIN and VEATIC v2 runners, tests, benchmark artifacts, and runtime-only tools are indexed in `docs/executable_validation_manifest.csv`. The current review entrypoint is `evidence/current_review/`; the older executable mirror remains under `evidence/current_phase_5_5_review/14_executable_validation_and_code/`. Do not add placeholder smoke tests as validation. Add tests only when they protect a real split, target, leakage, control, manifest, scorer, checkpoint, or claim-boundary contract.
 
 ## Code Discovery
 

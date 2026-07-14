@@ -1,8 +1,9 @@
 # Zero-label video-only deployment-bridge pilot preregistration
 
-Status: preregistered planning-only on `2026-07-14`. Stage 0 permits manifests,
-dry runs, and contract tests only. No model fitting, teacher-score generation,
-held-out scoring, or claim promotion is authorized by this document.
+Status: preregistered on `2026-07-14`; Stage 0 and the separately authorized
+Stage A development screen are complete. Stage B remains unauthorized. The
+historical authorization boundaries below record what was locked before each
+stage and are preserved rather than rewritten after seeing results.
 
 Stage 0 execution record on `2026-07-14`: the real `995`-video / `243,575`-row
 substrate passed all target, split, feature-policy, cold-start, event-support,
@@ -10,7 +11,21 @@ and matrix contracts. The exact dry-run matrices are `96/96` for Stage A and
 `140/140` for Stage B; failed contracts were `[]`. Evidence is frozen in
 `evidence/zero_label_video_only_deployment_stage0_20260714/`. No model was fit,
 no teacher scores were generated, no held-out predictions were scored, and
-Stage A remains unauthorized.
+Stage A was not authorized by Stage 0 itself.
+
+Stage A execution record on `2026-07-14`: after separate explicit user
+authorization, the signed implementation at commit `ace7a75` completed the
+exact `96/96` development matrix on MLX GPU/MPS with audit pass `true`. H1
+distillation and H2 self-rollout both failed the conjunctive continuation gate;
+there is no locked winner and Stage B remains unauthorized. The prespecified
+`video_supervised_temporal` active control nevertheless produced the strongest
+zero-label development result: `0.1574784207` Spearman, `0.0611083563` top-5%
+lift, and `0.1461871599` event PR-AUC, beating the no-video anchor in `3/3`
+folds on every endpoint. It retained `35.59%` / `21.25%` / `27.01%` of the
+teacher-added gain, below the locked `50%` gates. Because it was a control, it
+is not retroactively promoted; it is the prospectively selected next modeling
+hypothesis. Canonical evidence is
+`evidence/zero_label_video_only_deployment_stage_a_20260714/`.
 
 Pre-implementation amendment on `2026-07-14`: before Stage 0 implementation,
 model fitting, teacher-score generation, or held-out scoring, training-q90 event
@@ -391,7 +406,7 @@ tests. It must not create checkpoints or score models.
   failure stops the stage regardless of favorable metrics.
 - A failed Stage A or B does not weaken the canonical Phase 7 AR-assisted or
   binary evidence; it closes only this preregistered deployment candidate.
-- No result here authorizes same-family Optuna, 504, VEATIC re-encoding, joint
+- No result here authorizes same-family Optuna, VEATIC re-encoding, joint
   training, additional targets, or an architecture zoo.
 
 If Stage B passes, the strongest permitted statement is:

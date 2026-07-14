@@ -2,7 +2,7 @@
 
 Output root: `outputs/again_dense_2hz_phase5_blocked_residual_clean_confirm_20260629_234349`
 
-This is the clean monotonic-only blocked confirmation specified by `confirmation_design.json` at design commit `0d6ce16`. It runs only `blocked_temporal_70_30`, only `monotonic_do_no_harm_residual`, only `regression_plus_binary`, and five prespecified seeds. It does not run grouped, does not run 504, does not start secondary targets, and does not change claims.
+This is the clean monotonic-only blocked confirmation specified by `confirmation_design.json` at design commit `0d6ce16`. It runs only `blocked_temporal_70_30`, only `monotonic_do_no_harm_residual`, only `regression_plus_binary`, and five prespecified seeds. It does not run grouped, does not start secondary targets, and does not change claims.
 
 ## Confirmation Result
 
@@ -11,7 +11,7 @@ This is the clean monotonic-only blocked confirmation specified by `confirmation
 - Recommendation: `clean_confirmation_failed_do_not_run_grouped_or_504`
 - Strict forward-time temporal generalization remains unproven: `True`
 - Grouped 5-fold compatibility check justified: `False`
-- 504 justified: `False`
+-  justified: `False`
 
 ## PR-AUC
 
@@ -56,4 +56,4 @@ The weak pass threshold is `+0.0010` PR-AUC on every primary blocked gate. The c
 
 ## Interpretation
 
-This report is a confirmation result for the blocked residual candidate only. It does not update the canonical grouped claim by itself. If weak confirmation fails, do not run grouped 5-fold compatibility or 504. If weak confirmation passes, grouped 5-fold compatibility may be considered next, but strict forward-time temporal generalization should remain explicitly caveated unless the credible threshold and all control gates are satisfied.
+This report is a confirmation result for the blocked residual candidate only. It does not update the canonical grouped claim by itself. If weak confirmation fails, do not run grouped 5-fold compatibility. If weak confirmation passes, grouped 5-fold compatibility may be considered next, but strict forward-time temporal generalization should remain explicitly caveated unless the credible threshold and all control gates are satisfied.

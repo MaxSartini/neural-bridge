@@ -23,7 +23,6 @@
   "eval_mode_scoring_pass": true,
   "feature": "temporal_mean_2s_then_pca256",
   "frozen_ar_integrity_pass": true,
-  "full_504_confirmation_justified": false,
   "full_video_oracle_promotability_blocking": false,
   "full_video_oracle_warning": false,
   "grouped_5fold_compatibility_check_justified": false,

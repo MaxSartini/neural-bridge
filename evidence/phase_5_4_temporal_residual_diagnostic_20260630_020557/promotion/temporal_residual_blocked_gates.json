@@ -51,7 +51,6 @@
     "continuous_seed_consistency"
   ],
   "frozen_ar_integrity_pass": true,
-  "full_504_started": false,
   "grouped_started": false,
   "leakage_context_audit_pass": true,
   "matrix_rows_actual": 168,

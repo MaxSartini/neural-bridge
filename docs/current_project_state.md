@@ -1,10 +1,12 @@
 # Current Project State
 
-Last updated: 2026-07-14
+Last updated: 2026-07-15
 
 ## Headline
 
-Phase 7 is the strongest current Neural Bridge result. Its separately preregistered grouped held-out-video continuous confirmation passed exactly `420/420` scored rows with failed gates `[]`. Neural Bridge beat target-specific AR and the best matched controls on both future-movement Spearman and top-5% lift in all `15/15` fold-groups and all `5/5` fold means.
+The newest result is the locked deployment bridge. A fixed direct-supervised temporal video-only model trained on the 696-video development pool and passed a prospectively locked 299-video confirmation at exactly `140/140` rows. With no observed arousal or response history at inference, it reached Spearman `0.1785132961`, top-5% lift `0.0766079674`, and event PR-AUC `0.1710622218`. Relative to the strongest matched false-signal/no-video control for each metric, those are gains of `+77.65%`, `+70.80%`, and `+26.50%`, with `5/5` full-video panel wins on all three and positive paired whole-video bootstrap lower bounds. The first-30-second tier also passed.
+
+Phase 7 remains the strongest observed-arousal-assisted research result. Its separately preregistered grouped held-out-video continuous confirmation passed exactly `420/420` scored rows with failed gates `[]`. Neural Bridge beat target-specific AR and the best matched controls on both future-movement Spearman and top-5% lift in all `15/15` fold-groups and all `5/5` fold means.
 
 Plainly: on unseen videos, Neural Bridge is better than recent-response momentum and false-signal controls at identifying where the largest upcoming human-arousal movements will occur.
 
@@ -24,7 +26,17 @@ Phase 7 independently confirms the continuous claim for `residual_future_max_del
 
 This is not generic video embedding performance. Raw predicted cortical/fMRI features alone were weak on AGAIN and could damage AR when attached directly. The signal became useful through the Neural Bridge design: fold-safe representation construction, frozen-AR residual learning, future-target redesign, temporal/event context, matched controls, strict held-out evaluation, and checkpoint stabilization.
 
-## Phase 7 Numbers
+## Locked Zero-Label Deployment Numbers
+
+| Metric | Neural Bridge | Strongest control | Relative gain | Panel wins |
+| --- | ---: | ---: | ---: | ---: |
+| Spearman | `0.1785132961` | `0.1004882655` | `+77.65%` | `5/5` |
+| Top-5% lift | `0.0766079674` | `0.0448520122` | `+70.80%` | `5/5` |
+| Event PR-AUC | `0.1710622218` | `0.1352295369` | `+26.50%` | `5/5` |
+
+The `140/140` matrix, prediction-before-label seal, cold-start tier, MLX accelerator audit, and all Tier 1 gates passed.
+
+## Phase 7 Research-Ceiling Numbers
 
 | Metric | Neural Bridge | AR | Best control | Delta vs AR | Delta vs control |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -42,21 +54,21 @@ This is not generic video embedding performance. Raw predicted cortical/fMRI fea
 - accelerator: MLX `Device(gpu, 0)`;
 - failed gates: `[]`.
 
-The separate Phase 7 blocked confirmation was positive on aggregate and passed every gate except the locked unanimity requirement: Spearman beat AR in `4/5` rather than `5/5` groups. It remains a strong near-pass and is not rewritten as a formal blocked pass.
-
 Terminology: AR-only is a trained model using current/lagged arousal and recent deltas; frozen AR is its target/fold/seed-specific fixed prediction reused identically under all residual lanes; AR-plus-raw is direct feature concatenation; Neural Bridge learns a causal, fold-safe residual correction over frozen AR. This matched construction is why the Phase 7 lift represents new video-side signal rather than a weaker baseline.
 
 ## Evidence Ladder
 
-1. VEATIC-124 v2 established controlled future arousal event/spike ranking on edited affective video.
-2. AGAIN scaled the work to `995` cleaned gameplay videos and `243,575` aligned 2 Hz feature rows using official V-JEPA 2.1 ViT-G and TRIBE v2.
-3. Raw cortical-feature controls showed that upstream features alone were not sufficient.
-4. Frozen-AR residual learning and the washout-gap target established the successful design path.
-5. Phase 5.5 confirmed the selected binary target/head under blocked and grouped protocols.
-6. Phase 6 established checkpoint stabilization and passed fresh control-complete binary ensemble confirmations.
-7. Phase 7 applied the stabilized method to continuous future movement and passed the fresh grouped `420/420` confirmation with perfect fold-group directional consistency.
+1. Locked zero-label deployment: `140/140` on 299 held-out videos, all three endpoint tiers passed without observed arousal at inference.
+2. Phase 7: grouped continuous `420/420`, `15/15` fold-group wins, failed gates `[]`.
+3. Phase 6: checkpoint stabilization and fresh control-complete binary ensemble confirmations.
+4. Phase 5.5: selected binary target/head passed blocked and grouped protocols.
+5. Phase 5: learned residual bridge established controlled grouped event and continuous ranking/lift.
+6. AGAIN substrate: `995` cleaned gameplay videos and `243,575` aligned 2 Hz feature rows using V-JEPA 2.1 ViT-G and TRIBE v2.
+7. VEATIC-124 v2: foundational controlled future-arousal event/spike ranking on edited affective video.
 
 The result now spans edited film/TV/documentary/home-video affect content through VEATIC and scaled gameplay/interactive media through AGAIN. That is cross-domain evidence, while the strongest Phase 7 metric values are specifically from AGAIN.
+
+The zero-label deployment result is currently AGAIN-specific. VEATIC remains cross-domain support for the underlying bridge phenomenon, not yet an independent zero-label deployment confirmation.
 
 ## Binary Evidence Remains Strong
 
@@ -75,9 +87,9 @@ Phase 7 is the headline because it advances the harder continuous future-movemen
 
 Neural Bridge is a Service-as-Software product direction for neuro-response video intelligence: first-pass response evaluation, high-response moment ranking, weak-segment diagnosis, variant comparison, and response-readiness reporting.
 
-The current benchmark proves that video-derived predicted neuro-response features add consistent forward-looking information beyond observed arousal persistence. The next deployment milestone is a video-only student or cold-start/self-rollout bridge, because the strongest residual benchmark currently consumes observed current/past arousal that a raw client video will not provide.
+Phase 7 proves that video-derived predicted neuro-response features add consistent forward-looking information beyond observed arousal persistence. The locked 299-video confirmation now proves that useful signal also survives in a cold-start video-only lane with no response labels at inference.
 
-This is the difference between scientific capability and product packaging: Phase 7 proves the capability; the next experiment removes the deployment-time response-label dependency.
+The remaining product boundary is end-to-end and external validity, not the existence of a zero-label signal. The confirmed lane currently consumes cached upstream features. It still needs raw-video feature generation/runtime integration, external or prospective client-style confirmation, calibration, and an evidence-traceable reporting surface.
 
 ## Precise Boundaries
 
@@ -86,10 +98,8 @@ Do not claim:
 - mind reading or individual profiling;
 - medical or diagnostic inference;
 - exact continuous trajectory values are solved;
-- the blocked Phase 7 result was literal `5/5`;
-- raw-video-only client deployment is already validated;
+- end-to-end raw-video client runtime or external/client outcome validity is already validated;
 - universal emotion prediction or guaranteed campaign outcomes;
-- the obsolete `504` matrix was run or promoted.
 
 Do state plainly:
 
@@ -99,12 +109,16 @@ Do state plainly:
 - checkpoint averaging materially improved the result;
 - the bridge, not raw predicted cortical features alone, creates the usable signal;
 - VEATIC and AGAIN provide meaningful cross-domain evidence.
+- cached-feature zero-label inference is confirmed on the prospectively locked 299-video AGAIN pool;
 
 ## Canonical Entry Points
 
 - `README.md`
+- `docs/neural_bridge_zero_label_deployment_evidence.md`
 - `docs/neural_bridge_phase7_evidence.md`
 - `docs/current_claim_status.json`
+- `reports/again_dense_2hz_zero_label_direct_supervised_locked_confirmation_20260715.md`
+- `evidence/zero_label_video_only_direct_supervised_locked_confirmation_20260715/README.md`
 - `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`
 - `evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/README.md`
 - `docs/how_neural_bridge_was_discovered.md`
@@ -116,14 +130,11 @@ Historical Phase 5/5.5 and Phase 6 reports remain valid evidence for the develop
 
 ## Current Next Work
 
-1. Follow `docs/zero_label_video_only_deployment_bridge_pilot_preregistration.md`.
-2. Stage 0 passed on `995` videos / `243,575` rows with failed contracts `[]`; canonical evidence is `evidence/zero_label_video_only_deployment_stage0_20260714/`. It performed no fitting, teacher generation, held-out scoring, or claim promotion.
-3. The raw future-movement target identity is now frozen at digest `446906dff30be33f204de0f973207975`; the `696/299` development/locked split digests are `cf65a766cd827e6201544dd753049cb4` / `ded8bc2bf079fef91ae5c253b9a9ac2e`.
-4. Old Phase 7 fold-specific PCA score matrices must not be concatenated across the new split. Keep the fixed `temporal_mean_2s` / PCA256 recipe, but fit each basis only inside the applicable outer training pool and each teacher basis inside its nested teacher-training partition.
-5. Treat continuous Spearman, top-5% lift, and training-q90 event PR-AUC as jointly required deployment endpoints: all must beat zero-label controls and retain at least `50%` of the teacher's incremental gain over the no-video anchor. This does not demand equality with the privileged Phase 7 AR-assisted teacher.
-6. Stage A (`96/96`) remains unauthorized; Stage B (`140/140`) requires a second later authorization. Both require cold-start inference with no observed-arousal teacher forcing.
-7. If the bridge later passes, consider a bounded V-JEPA 2.1 VEATIC re-encode pilot and balanced VEATIC+AGAIN joint-training study with harmonized targets and leave-one-domain-out evaluation.
-8. Do not resume same-family Optuna, recreate 504, or launch an architecture zoo without a new locked hypothesis.
+1. Treat `video_supervised_temporal` as the frozen zero-label deployment comparator. Its locked 299-video result passed all three tiers; do not reopen model selection on that pool.
+2. Build and time the end-to-end raw-video path from upstream feature generation through ranked continuous/event outputs without changing the confirmed prediction recipe.
+3. Preregister an external/cross-domain zero-label confirmation. A bounded V-JEPA 2.1 VEATIC re-encode and harmonized VEATIC+AGAIN pilot is justified, with domain-balanced sampling and leave-one-domain-out evaluation.
+4. Keep Phase 7 as the observed-arousal-assisted research ceiling and the locked direct-supervised lane as the deployable cached-feature comparator. Do not demand Phase 7 parity from the zero-label model.
+5. Do not resume same-family Optuna or launch an architecture zoo without a new locked hypothesis.
 
 ## Validation and Handoff
 

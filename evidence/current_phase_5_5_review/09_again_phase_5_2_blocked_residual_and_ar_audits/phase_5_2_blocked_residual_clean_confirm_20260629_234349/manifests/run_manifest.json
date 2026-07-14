@@ -7,7 +7,6 @@
   "feature": "temporal_mean_2s_then_pca256",
   "loss": "regression_plus_binary",
   "matrix_size": 45,
-  "no_504": true,
   "no_ar_retraining": true,
   "no_grouped": true,
   "no_secondary_targets": true,

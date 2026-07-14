@@ -69,5 +69,5 @@ All must pass:
 
 Failure stops before matched semantic controls or grouped evaluation. Passing
 authorizes only a separately frozen control-complete blocked confirmation. This
-experiment cannot change the canonical 420, revive 504/720, or support exact
+experiment cannot change the canonical 420 or support exact
 continuous forecasting.

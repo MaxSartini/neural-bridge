@@ -1,0 +1,16 @@
+{
+  "locked_before_fresh_seed_evaluation": true,
+  "params": {
+    "alpha_cap": 0.08,
+    "alpha_initial_logit": -3.0,
+    "gate_bias": 4.0,
+    "hidden": 96,
+    "lambda_binary": 0.8,
+    "learning_rate": 0.0002796515604869101,
+    "max_epochs": 60,
+    "patience": 8,
+    "weight_decay": 0.00015731894101489417
+  },
+  "source_stage": "posthoc_seed27_exclusion_sensitivity",
+  "source_trial": 4
+}

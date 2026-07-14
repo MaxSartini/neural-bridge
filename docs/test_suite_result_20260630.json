@@ -6,5 +6,5 @@
   "tests_failed": 0,
   "duration_seconds": 5.64,
   "underlying_command": "python3 -m pytest -q tests",
-  "notes": "Deterministic contract suite only; no training, V-JEPA/TRIBE rerun, PCA refit, grouped rerun, or 504."
+ "notes": "Deterministic contract suite only; no training, V-JEPA/TRIBE rerun, PCA refit, grouped rerun."
 }

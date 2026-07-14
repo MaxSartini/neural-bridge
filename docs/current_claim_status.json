@@ -1,6 +1,6 @@
 {
-  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.",
-  "headline_result": "Phase 7 passed a fresh 420/420 grouped held-out-video continuous checkpoint-ensemble confirmation with all 15/15 fold-groups and 5/5 fold means positive versus target-specific AR and matched controls on Spearman and top-5% lift; failed gates were empty.",
+  "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, and prospectively locked cached-feature zero-label-at-inference continuous/event ranking on AGAIN from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.",
+  "headline_result": "Phase 7 passed a fresh 420/420 grouped AR-assisted confirmation with all 15/15 fold-groups positive; separately, the fixed direct-supervised video-only lane passed a prospectively locked 299-video, 140/140 zero-label-at-inference confirmation with 5/5 full-video panel wins on Spearman, top-5% lift, and event PR-AUC.",
   "headline_magnitude": "Within the original grouped AGAIN spike target, Neural Bridge raised raw cortical PR-AUC from 0.136579 to 0.2383409298 (+74.51%) and finished 39.95% above direct AR-plus-raw. Versus the original validated continuous bridge, Phase 7 improves Spearman 16.61%, top-5% lift 23.59%, top-1% lift 14.52%, and the top-5% margin beyond AR 98.92%.",
   "value_interpretation": {
     "phase7_relative_lift_vs_ar_spearman_percent": 8.22,
@@ -92,50 +92,53 @@
     "The full bounded AGAIN selected-head confirmation passes at exactly 420/420 scored rows: 70/70 blocked plus 350/350 grouped, with all 420 rows reused, zero reruns, and no failed gates.",
     "The original three-checkpoint ensemble passes separate fresh control-complete blocked and grouped-video confirmations for the selected AGAIN target/head: 140/140 blocked rows and 420/420 grouped rows, both with no failed gates.",
     "Controlled grouped held-out-video continuous future-arousal movement ranking/lift is proven on AGAIN for the deterministic Phase 5 eval-mode regression_plus_binary lane against AR-only and matched shuffled/random controls.",
-    "The separately preregistered Phase 7 washout-target checkpoint ensemble independently passed grouped continuous future-movement ranking/lift at exactly 420/420 rows, with all 15/15 fold-groups and 5/5 fold means positive versus AR and matched controls."
+    "The separately preregistered Phase 7 washout-target checkpoint ensemble independently passed grouped continuous future-movement ranking/lift at exactly 420/420 rows, with all 15/15 fold-groups and 5/5 fold means positive versus AR and matched controls.",
+    "The fixed direct-supervised temporal video-only lane passed a prospectively locked 299-video AGAIN confirmation at exactly 140/140 rows with no observed arousal at inference, 5/5 panel wins on Spearman, top-5% lift, and event PR-AUC, positive whole-video bootstrap lower bounds, and no failed Tier 1 gates."
   ],
   "open": [
     "Exact continuous-value/trajectory forecasting remains open.",
-    "Fully confirmed blocked continuous future-movement generalization remains open: the separate Phase 7 blocked run was a strong aggregate near-pass but missed its locked 5/5 Spearman-vs-AR group gate at 4/5.",
-    "Direct label-free client-video deployment remains open because the current strongest residual benchmark consumes observed current/past arousal context.",
+    "End-to-end raw-video runtime remains open: the locked zero-label inference pass currently consumes cached upstream features.",
+    "External/cross-domain zero-label confirmation and prospective client outcomes remain open.",
     "Broad all-target/all-dataset temporal prediction remains open.",
-    "No 504 run has been performed or promoted.",
-    "Grouped compatibility is not itself a 504 run.",
     "The updated grouped verdict is a no-training verdict update from existing artifacts, not a rerun."
   ],
   "next_task": {
-    "status": "deployment_bridge_stage0_complete_stage_a_unauthorized",
-    "plan": "docs/zero_label_video_only_deployment_bridge_pilot_preregistration.md",
-    "objective": "Stage 0 is complete. Preserve the frozen target/split/feature-policy contracts and await separate explicit authorization before any Stage A fitting or scoring.",
-    "stage0_evidence": "evidence/zero_label_video_only_deployment_stage0_20260714/",
-    "stage0_pass": true,
-    "stage0_failed_contracts": [],
-    "stage0_dataset_rows": 243575,
-    "stage0_dataset_videos": 995,
-    "stage0_target_identity_digest": "446906dff30be33f204de0f973207975",
-    "stage0_development_split_digest": "cf65a766cd827e6201544dd753049cb4",
-    "stage0_locked_split_digest": "ded8bc2bf079fef91ae5c253b9a9ac2e",
-    "stage_a_authorized": false,
-    "expected_rows": {
-      "stage_a_member": 72,
-      "stage_a_ensemble": 24,
-      "stage_a_total": 96,
-      "stage_b_member": 105,
-      "stage_b_ensemble": 35,
-      "stage_b_total": 140
-    },
-    "reuse_policy": "Reuse the frozen dense predicted cortical/fMRI row cache, fixed temporal_mean_2s/PCA256 recipe, 53 video-only diagnostics, and fixed Phase 7 teacher recipe. Do not concatenate old fold-specific PCA score matrices because their coordinate systems differ. Fit each later PCA basis only inside the applicable outer training pool and each nested teacher PCA basis only inside its teacher-training partition. The canonical Phase 7 snapshot has no reusable row-level teacher cache/checkpoints, so later teacher targets require new split-local provenance; held-out teacher scores remain ceiling-only.",
-    "required_deployment_endpoints": [
-      "pooled_continuous_spearman",
-      "top_5_percent_true_future_movement_lift",
-      "training_q90_future_event_pr_auc"
-    ],
-    "teacher_retention_boundary": "Every required endpoint must beat its strongest zero-label control and retain at least 50% of the matched Phase 7 teacher's incremental gain over the no-video zero-label anchor. This is not 50% of the raw metric and does not require absolute parity with the observed-arousal-assisted teacher.",
-    "target_identity_boundary": "Resolved in Stage 0: the pilot locks future_arousal_max_delta_rows_4_10 and its matching mask/row digests, not the residual target name. The frozen target identity digest is 446906dff30be33f204de0f973207975.",
-    "historical_504_boundary": "The literal 504 matrix was an older 3-seed x 4-variant x 7-lane development design across one blocked split and five grouped folds. It is not the current task and is not 420 current rows plus 84 missing rows.",
-    "stop_boundary": "Stage 0 is complete but does not authorize training. Stage A and Stage B each require separate later authorization. Do not reinterpret the blocked 4/5 near-pass, claim exact continuous values, equate the AR-assisted ceiling with label-free client deployment, call the prospectively locked AGAIN subset historically untouched, restore 504, or widen this into a deployment-bridge sweep."
+    "status": "again_zero_label_locked_confirmation_complete_all_tiers_passed",
+    "plan": "docs/zero_label_video_only_direct_supervised_locked_confirmation_preregistration.md",
+    "objective": "Freeze the confirmed direct-supervised temporal lane as the deployment comparator, integrate raw-video upstream feature generation, and preregister external/cross-domain zero-label confirmation without tuning on the locked 299-video pool.",
+    "evidence": "evidence/zero_label_video_only_direct_supervised_locked_confirmation_20260715/",
+    "report": "reports/again_dense_2hz_zero_label_direct_supervised_locked_confirmation_20260715.md",
+    "locked_confirmation_pass": true,
+    "rows": "140/140",
+    "development_videos": 696,
+    "locked_videos": 299,
+    "target_identity_digest": "446906dff30be33f204de0f973207975",
+    "development_split_digest": "cf65a766cd827e6201544dd753049cb4",
+    "locked_split_digest": "ded8bc2bf079fef91ae5c253b9a9ac2e",
+    "historical_stage_a_boundary": "The direct-supervised active control was prospectively selected under a new locked protocol and passed the 299-video baseline-beating confirmation. Development-path details remain in the discovery and Stage A records.",
+    "teacher_boundary": "Phase 7 remains the observed-arousal-assisted ceiling, not a zero-label pass threshold. Teacher-added-gain retention was report-only in the locked confirmation.",
+    "stop_boundary": "Do not tune or select again on the locked 299-video pool, claim exact continuous values, equate cached-feature confirmation with end-to-end raw-video/client validity, or widen into an architecture zoo."
   },
   "canonical_numbers": {
+    "again_zero_label_direct_supervised_locked_confirmation": {
+      "training_videos": 696,
+      "locked_videos": 299,
+      "matrix_rows": 140,
+      "real_spearman": 0.17851329607186234,
+      "strongest_control_spearman": 0.10048826550028964,
+      "spearman_relative_gain_percent": 77.6459123690893,
+      "real_top5_lift": 0.07660796739452227,
+      "strongest_control_top5_lift": 0.04485201218855254,
+      "top5_relative_gain_percent": 70.80162885997504,
+      "real_event_pr_auc": 0.1710622217648612,
+      "strongest_control_event_pr_auc": 0.13522953687345857,
+      "event_relative_gain_percent": 26.497676262052988,
+      "panel_wins_all_full_video_endpoints": "5/5",
+      "tier1_pass": true,
+      "tier2_pass": true,
+      "tier3_pass": true,
+      "failed_tier1_gates": []
+    },
     "again_original_three_checkpoint_blocked_confirmation": {
       "target": "future_arousal_max_delta_rows_4_10_train_q90",
       "architecture": "short_temporal_conv_residual",
@@ -189,7 +192,6 @@
       "updated_grouped_compatibility_pass": true,
       "overall_selected_head_420_confirmation_pass": true,
       "failed_gates": [],
-      "no_504_run": true,
       "no_new_training": true,
       "no_new_scoring": true
     },
@@ -212,7 +214,7 @@
         "ar_plus_shuffled_pca": 0.1125842464,
         "ar_plus_random_pca": 0.1136304212
       },
-      "boundary": "Controlled grouped continuous future-movement ranking/lift passed; exact continuous values and blocked continuous generalization remain open."
+      "boundary": "Controlled grouped continuous future-movement ranking/lift passed; calibrated exact continuous values are not claimed."
     },
     "again_phase7_grouped_continuous_checkpoint_ensemble": {
       "target": "residual_future_max_delta_rows_4_10",
@@ -247,7 +249,7 @@
         "shuffled_pca_residual": 0.2398151737,
         "label_permutation_residual": 0.2360263012
       },
-      "boundary": "Promoted only for grouped held-out-video continuous future-movement ranking/lift on the selected target/head. The separate blocked run remains a literal 4/5 near-pass; exact values and label-free deployment are not proven."
+      "boundary": "Promoted for grouped held-out-video continuous future-movement ranking/lift on the selected target/head. The separate locked deployment confirmation proves cached-feature inference without observed arousal; exact-value calibration and end-to-end raw-video validity remain separate."
     },
     "again_blocked_binary_big_confirmation": {
       "target": "future_arousal_max_delta_rows_4_10_train_q90",
@@ -291,7 +293,6 @@
       "no_retraining": true,
       "no_pca_generation": true,
       "no_grouped_rerun": true,
-      "no_504": true,
       "updated_grouped_compatibility_pass": true,
       "failed_updated_gates": [],
       "relative_lift_vs_ar_frozen_percent": 6.39,
@@ -319,11 +320,16 @@
     }
   },
   "canonical_reports": [
+    "docs/neural_bridge_zero_label_deployment_evidence.md",
+    "reports/again_dense_2hz_zero_label_direct_supervised_locked_confirmation_20260715.md",
+    "evidence/zero_label_video_only_direct_supervised_locked_confirmation_20260715/README.md",
     "docs/neural_bridge_phase7_evidence.md",
-    "docs/neural_bridge_phase5_5_evidence_ladder.md",
-    "docs/how_neural_bridge_was_discovered.md",
-    "docs/neural_bridge_service_as_software.md",
+    "reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md",
+    "evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/README.md",
     "docs/current_project_state.md",
+    "docs/neural_bridge_service_as_software.md",
+    "docs/how_neural_bridge_was_discovered.md",
+    "docs/neural_bridge_phase5_5_evidence_ladder.md",
     "docs/veatic_v2_evidence_summary.md",
     "docs/again_dense_h100_cache.md",
     "reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md",
@@ -337,12 +343,10 @@
     "reports/again_dense_2hz_phase6_original_three_checkpoint_control_complete_20260714_160001.md",
     "reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md",
     "reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513.md",
-    "reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md",
-    "reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md",
     "reports/README.md",
-    "evidence/current_phase_7_review/README.md",
-    "evidence/current_phase_7_review/CLAIM_LEDGER.md",
-    "evidence/current_phase_7_review/REVIEWER_CHECKLIST.md",
+    "evidence/current_review/README.md",
+    "evidence/current_review/CLAIM_LEDGER.md",
+    "evidence/current_review/REVIEWER_CHECKLIST.md",
     "evidence/current_phase_5_5_review/README.md",
     "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",
     "evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/README.md",
@@ -350,11 +354,10 @@
     "evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/README.md",
     "evidence/phase_6_original_three_checkpoint_control_complete_20260714_160001/README.md",
     "evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/README.md",
-    "evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/README.md",
     "docs/executable_validation_index.md",
     "docs/executable_validation_manifest.csv",
     "docs/executable_validation_manifest.json",
-    "docs/test_suite_result_20260714.json",
+    "docs/test_suite_result_20260715.json",
     "evidence/current_phase_5_5_review/14_executable_validation_and_code/README.md",
     "evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv",
     "evidence/current_phase_5_5_review/14_executable_validation_and_code/test_suite_result_20260630.json"
@@ -362,23 +365,21 @@
   "claim_update_policy": "Claim boundaries describe the current evidence state, not permanent bans. A new valid executable pass supersedes stale cautious wording and must be promoted and stated plainly after canonical files are updated; a failed gate remains a failure until new valid evidence changes it.",
   "not_currently_proven": [
     "mind reading",
-    "blocked continuous future-movement generalization is solved",
     "universal emotion prediction",
-    "504 proven",
     "exact continuous arousal forecasting is solved",
     "broad all-target/all-dataset temporal prediction is solved",
     "treat Phase 5b/5c/Spark/max-capacity/deep/chimera outputs as canonical",
     "use holy_shit_pass as a valid gate"
   ],
-  "last_updated": "2026-07-14",
+  "last_updated": "2026-07-15",
   "review_evidence_dossier": {
-    "path": "evidence/current_phase_7_review/",
+    "path": "evidence/current_review/",
     "phase7_grouped_confirmation": "evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/",
     "selected_head_420_confirmation": "evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/",
-    "claim_ledger": "evidence/current_phase_7_review/CLAIM_LEDGER.md",
+    "claim_ledger": "evidence/current_review/CLAIM_LEDGER.md",
     "historical_artifact_manifest": "evidence/current_phase_5_5_review/artifact_manifest.csv",
     "definitions_and_process": "evidence/current_phase_5_5_review/DEFINITIONS_AND_PROCESS.md",
-    "reviewer_checklist": "evidence/current_phase_7_review/REVIEWER_CHECKLIST.md"
+    "reviewer_checklist": "evidence/current_review/REVIEWER_CHECKLIST.md"
   },
   "executable_validation": {
     "deterministic_test_command": "python3 -m pytest -q tests",
@@ -400,7 +401,7 @@
     "policy": "Only deterministic contract tests, claim-bearing runners, no-training verdict/audit scripts, and documented runtime tools are indexed. Runtime probes are not claim-bearing benchmark evidence."
   },
   "commercial_model": "service_as_software",
-  "commercial_summary": "Neural Bridge is being built to convert pre-release video response evaluation from a slow human service into scalable software. Phase 7 proves the core controlled future-response ranking intelligence; the next video-only deployment bridge removes the current benchmark's observed-arousal input before raw client-video operation is claimed.",
+  "commercial_summary": "Neural Bridge is being built to convert pre-release video response evaluation from a slow human service into scalable software. Phase 7 proves the strongest AR-assisted future-response intelligence, and the locked 299-video confirmation proves that substantial continuous and spike/event ranking signal survives without observed arousal at inference. End-to-end raw-video runtime and external/client validity remain next.",
   "primary_wedge": "pre-release creative response intelligence for video",
   "buyer_personas": [
     "ad agencies",
