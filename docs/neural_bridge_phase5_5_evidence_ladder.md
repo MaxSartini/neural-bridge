@@ -252,7 +252,7 @@ The original grouped artifact failed the legacy label-permutation-near-chance ga
 ## Executable Validation
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
-- Latest fully provisioned local result: `118 passed in 14.62s` on `2026-07-14`; repository readiness and the locked Optuna confirmation/diagnostic contracts passed
+- Latest fully provisioned local result: `124 passed in 20.55s` on `2026-07-14`; repository readiness and the Phase 6 robust/stress-seed contracts passed
 - Repo readiness audit: `npm run audit:repo`
 - Latest local audit result: `repo_readiness pass controlled_evidence_items=206`
 - Executable validation index: `docs/executable_validation_index.md`
@@ -299,4 +299,4 @@ Neural Bridge demonstrates controlled future human arousal event-ranking across 
 
 ## Next Work
 
-The approved bounded 420-row selected-head confirmation in `docs/phase5_selected_head_420_confirmation_plan.md` remains complete and promoted. A later one-seed Optuna pilot was promising, but its preregistered locked-winner 10-seed confirmation failed to improve aggregate PR-AUC and does not change this evidence ladder. Future Optuna work must use multi-seed inner-validation development and a distinct reserved evaluation protocol. The historical literal 504 matrix remains obsolete and must not be recreated or padded. Do not widen claims into exact continuous values, blocked continuous generalization, or universal prediction; grouped continuous future-movement ranking/lift remains separately supported.
+The approved bounded 420-row selected-head confirmation in `docs/phase5_selected_head_420_confirmation_plan.md` remains complete and promoted. The later one-seed Optuna winner failed its locked 10-seed confirmation. A robust multi-seed rescue reached a preregistered 15-seed blocked Stage B, where trial 4 remained a strong controlled bridge and was `19.41%` less variable, but failed the untouched fresh-five improvement gate; grouped Stage C was therefore not run. Seed `20260627` remains present and reported as a predesignated stress seed, never deleted. The next bounded modeling hypothesis is locked ensembling/checkpoint stabilization, not more same-family Optuna. The historical literal 504 matrix remains obsolete and must not be recreated or padded. Do not widen claims into exact continuous values, blocked continuous generalization, or universal prediction; grouped continuous future-movement ranking/lift remains separately supported.

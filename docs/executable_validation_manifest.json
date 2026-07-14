@@ -73,6 +73,42 @@
   },
   {
     "family": "AGAIN",
+    "phase": "Phase 6 robust optimization",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase6_robust_multiseed_optuna.py",
+    "canonical_status": "exploratory_inner_validation_only",
+    "reviewer_role": "Runs the preregistered multi-seed Optuna Stage A without reading blocked or grouped held-out scores.",
+    "validation_or_evidence": "evidence/phase_6_robust_multiseed_optuna_20260714_143646/"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 6 robust optimization",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase6_trial4_fresh_seed_validation.py",
+    "canonical_status": "exploratory_fresh_inner_validation",
+    "reviewer_role": "Validates the sensitivity-selected trial 4 on five fresh inner-validation seeds before any Stage B scoring.",
+    "validation_or_evidence": "reports/again_dense_2hz_phase6_trial4_fresh_seed_validation_20260714_145120.md"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 6 robust optimization",
+    "item_type": "script",
+    "path": "backend/scripts/run_again_dense_2hz_phase6_trial4_blocked_15seed.py",
+    "canonical_status": "exploratory_blocked_confirmation",
+    "reviewer_role": "Runs the locked trial-4 candidate and seven matched lanes over 15 blocked seeds; Stage B failed and Stage C remained closed.",
+    "validation_or_evidence": "reports/again_dense_2hz_phase6_trial4_blocked_15seed_20260714_145637.md"
+  },
+  {
+    "family": "AGAIN",
+    "phase": "Phase 6 robust optimization",
+    "item_type": "test",
+    "path": "tests/test_again_phase6_robust_multiseed_optuna.py",
+    "canonical_status": "deterministic_contract_test",
+    "reviewer_role": "Protects held-out exclusion, fresh-seed separation, MLX enforcement, stress-seed retention, Stage B gates, and fail-closed Stage C authorization.",
+    "validation_or_evidence": "python3 -m pytest -q tests/test_again_phase6_robust_multiseed_optuna.py"
+  },
+  {
+    "family": "AGAIN",
     "phase": "Phase 5.5",
     "item_type": "script",
     "path": "backend/scripts/assemble_again_dense_2hz_phase5_selected_head_420_confirmation.py",

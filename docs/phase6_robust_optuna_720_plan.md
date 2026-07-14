@@ -2,11 +2,13 @@
 
 ## Status
 
-Stopped fail-closed at Stage A on `2026-07-14`. The 24-trial MLX study completed in `532.38 s` without reading blocked held-out or grouped test scores. Best trial 22 stayed close to the canonical original configuration and won `4/5` reserved inner-validation seed comparisons, but its mean delta improvement was only `+0.0000082124` and its worst-seed/lower-quartile robust objective was worse by `-0.0004650065`. It therefore failed the prespecified `+0.001` robust-objective gain gate.
+Completed through Stage B and stopped fail-closed before Stage C on `2026-07-14`. The original 24-trial MLX Stage A study completed in `532.38 s` without reading blocked held-out or grouped test scores. Best trial 22 stayed close to the canonical original configuration and won `4/5` reserved inner-validation seed comparisons, but its mean delta improvement was only `+0.0000082124` and its worst-seed/lower-quartile robust objective was worse by `-0.0004650065`. It therefore failed the original prespecified `+0.001` robust-objective gain gate.
 
 Stages B and C were not authorized or run by the original gate. A post-hoc development sensitivity excluding the known seed-`20260627` favorable-original outlier changed the preferred configuration to trial 4. Fixed trial 4 then beat the original on all `5/5` original reserved inner-validation seeds and improved the robust objective by `+0.0048272773`. Because its selection was post hoc, that result cannot rescue Stage A directly.
 
 The explicit Stage A2 rescue passed. Locked trial 4 beat original on `4/5` entirely new inner-validation seeds, improved mean delta-vs-AR by `+0.0021797542`, and improved the robust objective by `+0.0049870786`; failed gates were `[]`. No blocked held-out or grouped score was read. Stage B is authorized. Seed `20260627` remains in the later 15-seed held-out matrix as a predesignated stress-test; it is not deleted.
+
+Stage B completed `120/120` rows in `778.51 s` on MLX and failed the preregistered fresh-seed/dominance gates. Candidate-minus-original was `+0.0000512741` on all-seed mean, `+0.0002953952` on all-seed median, and positive in `10/15`; the stable-14 panel passed with `+0.0003639768` mean and `10/14` wins. The untouched fresh-five panel had positive median but negative mean (`-0.0013756950`) and only `3/5` wins, dominated by a favorable original seed-`20260636` result. Candidate still beat AR and best matched controls in `15/15`, with mean deltas `+0.0074160357` and `+0.0085749406`. Stage B pass was false, so Stage C's `600` grouped rows were not run.
 
 ## Purpose
 
@@ -66,7 +68,7 @@ Score 5 folds x 15 seeds x 8 lanes = `600` rows under the same lane definitions 
 - grouped: `600` rows
 - total: `720` rows
 
-This would have been a new Phase 6 result, not an extension or reinterpretation of the canonical 420. Stage A failed, so the campaign stopped and is recorded as a valid negative result.
+This would have been a new Phase 6 result, not an extension or reinterpretation of the canonical 420. Stage B failed, so the campaign stopped at `120` new blocked rows and is recorded as a valid negative result; do not claim 720.
 
 ## Claim Boundary
 

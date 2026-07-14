@@ -5,8 +5,8 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 ## Best Validation First
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
-- Fully provisioned result: `118 passed in 14.62s` on `2026-07-14`
-- Default `npm run verify` result: `110 passed, 1 skipped in 11.25s` on `2026-07-14`
+- Fully provisioned result: `124 passed in 20.55s` on `2026-07-14`
+- Default `npm run verify` result: `116 passed, 1 skipped in 16.00s` on `2026-07-14`
 - Repo evidence/orientation audit: `npm run audit:repo`
 - Latest local result: `repo_readiness pass controlled_evidence_items=206` on `2026-07-14`
 - Full `npm run verify`, VEATIC frozen-evidence verification, strict-benchmark dry run, and frontend production build: pass on `2026-07-14`
@@ -16,6 +16,9 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 
 | Phase | Script | Role |
 | --- | --- | --- |
+| AGAIN Phase 6 robust optimization | `backend/scripts/run_again_dense_2hz_phase6_robust_multiseed_optuna.py` | Multi-seed, inner-validation-only Stage A; no blocked/grouped held-out read. |
+| AGAIN Phase 6 fresh-seed validation | `backend/scripts/run_again_dense_2hz_phase6_trial4_fresh_seed_validation.py` | Tests sensitivity-selected trial 4 on five fresh inner-validation seeds before held-out scoring. |
+| AGAIN Phase 6 blocked confirmation | `backend/scripts/run_again_dense_2hz_phase6_trial4_blocked_15seed.py` | Locked 15-seed x 8-lane Stage B; failed fresh-five and dominance gates, so grouped Stage C stayed closed. |
 | AGAIN Phase 6 confirmation | `backend/scripts/run_again_dense_2hz_phase6_optuna_locked_10seed_confirm.py` | Applies one checksum-pinned winner unchanged across the canonical 10 blocked seeds; exploratory and not promoted. |
 | AGAIN Phase 6 diagnostic | `backend/scripts/run_again_dense_2hz_phase6_seed27_convergence_diagnostic.py` | Explicitly post-hoc convergence audit for the seed-20260627 outlier; cannot change the locked verdict. |
 | AGAIN Phase 6 pilot | `backend/scripts/run_again_dense_2hz_phase6_optuna_selected_head_pilot.py` | Exploratory one-seed Optuna calibration around the exact selected target/head; MLX-required and winner locked before held-out scoring. |
@@ -44,6 +47,7 @@ Key coverage:
 - AGAIN selected-head confirmation contracts: `test_again_selected_head_420_confirmation.py` protects the exact 420-key matrix, lane normalization, semantic controls, frozen checksum policy, and overall gate composition.
 - AGAIN Optuna pilot contracts: `test_again_phase6_optuna_selected_head_pilot.py` protects fixed scope, held-out exclusion, baseline enqueueing, dry-run schema, and the follow-up gate.
 - AGAIN locked Optuna confirmation contracts: `test_again_phase6_optuna_locked_10seed_confirm.py` protects checksum pins, exact 10 x 7 scope, preregistered gates, canonical reuse, and the post-hoc diagnostic boundary.
+- AGAIN robust Optuna contracts: `test_again_phase6_robust_multiseed_optuna.py` protects held-out exclusion, fresh-seed separation, MLX enforcement, explicit retention of seed `20260627`, Stage B gates, and fail-closed Stage C authorization.
 - VEATIC v2 benchmark contracts: `test_veatic_strict_benchmark_contract.py`, `test_veatic_raw_representation_contract.py`
 - Frozen tensor/trained-head contracts: `test_veatic_frozen_tensor_adapter.py`, `test_veatic_frozen_tensor_trained_heads.py`
 - Runtime/cache contracts: `test_veatic_tribe_cache_runtime.py`, `test_mlx_vjepa21_cortical.py`
@@ -56,6 +60,9 @@ Key coverage:
 - Current consolidated selected-head evidence: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`.
 - Exploratory Optuna pilot evidence: `evidence/phase_6_optuna_selected_head_pilot_20260714_135902/`.
 - Exploratory locked-winner confirmation evidence: `evidence/phase_6_optuna_locked_10seed_confirmation_20260714_141457/`.
+- Exploratory robust multi-seed Stage A evidence: `evidence/phase_6_robust_multiseed_optuna_20260714_143646/`.
+- Exploratory fresh-seed Stage A2 evidence: `evidence/phase_6_trial4_fresh_seed_validation_20260714_145120/`.
+- Exploratory blocked Stage B evidence: `evidence/phase_6_trial4_blocked_15seed_20260714_145637/`.
 - Heavy output roots under `outputs/`, dense cache files, checkpoints, tensors, `.npy`, `.npz`, and model assets remain outside git unless explicitly documented as tiny metadata.
 
 ## Non-Claim Runtime Probes
