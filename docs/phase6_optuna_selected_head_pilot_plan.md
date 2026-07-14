@@ -1,5 +1,11 @@
 # Phase 6 Optuna Selected-Head Pilot Plan
 
+## Status
+
+Completed on `2026-07-14` in `126.26 s` on MLX `Device(gpu, 0)`. The original configuration reproduced its canonical held-out PR-AUC exactly (`0.2697372519`). The locked Optuna winner reached `0.2718557352`, a gain of `+0.0021184833` over the original and `+0.0081646445` over both frozen AR and the best matched control. The pilot passed its prespecified promising-follow-up gate. This remains one-seed exploratory evidence and does not change the canonical 420-row claim.
+
+Canonical pilot report: `reports/again_dense_2hz_phase6_optuna_selected_head_pilot_20260714_135902.md`
+
 ## Purpose
 
 Measure Optuna's marginal value on the exact proven AGAIN selected-head setup before approving a larger model-development campaign.
@@ -43,3 +49,7 @@ The pilot is promising only when tuned real exceeds the fresh original, frozen A
 - Do not change the canonical claim or evidence bundle.
 - A positive result authorizes only a bounded multi-seed Optuna follow-up.
 - A negative result means Optuna did not add enough value in this narrow search; it does not invalidate the existing 420 result.
+
+## Approved Interpretation
+
+The pilot answers the narrow question positively: Optuna added measurable value to the already-selected method without changing the target, architecture family, feature substrate, split, or controls. The next defensible experiment is a locked-configuration, 10-seed blocked confirmation against the existing original rows, frozen AR, and matched controls. Do not launch a new search per seed, grouped rerun, architecture zoo, or broad Phase 6 campaign until that confirmation is reviewed.

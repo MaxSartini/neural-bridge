@@ -43,7 +43,6 @@ Open:
 
 - Continuous exact arousal forecasting.
 - Broad all-target/all-dataset temporal prediction.
-- 504-scale confirmation. No 504 has been run or promoted.
 - Full multimodal text+audio+video TRIBE coverage.
 
 ## Completed Foundations
@@ -59,14 +58,17 @@ Open:
 - AGAIN temporal/event-context residual diagnostic.
 - AGAIN 10-seed blocked binary confirmation.
 - AGAIN updated grouped-video compatibility verdict.
+- Full bounded selected-head consolidation: `420/420` audited rows (`70/70` blocked plus `350/350` grouped), with no reruns required.
+- One-seed, 16-trial Optuna selected-head pilot on MLX: exact original reproduction at `0.2697372519`, tuned result `0.2718557352`, and `+0.0081646445` vs frozen AR/best control. This is exploratory, not promoted.
 
 ## Next Work
 
-1. Review the Phase 5.5 evidence ladder and decide whether a 504/broader compatibility confirmation is justified.
-2. If 504 is approved, define it explicitly before running anything: target, head, controls, gates, seed/fold matrix, and promotion language.
+1. Run one locked-winner 10-seed blocked confirmation of the Optuna configuration against the existing canonical original rows, frozen AR, and the same matched controls.
+2. Do not optimize separately per seed. Decide whether the locked improvement replicates before authorizing grouped confirmation or any broader search.
 3. Keep continuous arousal work separate from the confirmed binary event-ranking claim.
-4. Do not restart broad secondary-head or all-target sweeps without a narrow diagnostic reason.
-5. Keep full multimodal TRIBE as a separate pilot until audio/text-bearing inputs and local model access are resolved.
+4. Do not restart broad secondary-head, all-target, or architecture-zoo sweeps without a narrow diagnostic reason.
+5. Treat the historical literal 504 matrix as obsolete; do not recreate it or invent rows to reach 504.
+6. Keep full multimodal TRIBE as a separate pilot until audio/text-bearing inputs and local model access are resolved.
 
 ## Repo Hygiene Rules
 
