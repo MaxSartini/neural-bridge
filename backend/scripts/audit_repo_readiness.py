@@ -167,7 +167,7 @@ def audit_orientation_content(errors: list[str]) -> None:
         "REQUIREMENTS.md": ["video-dominant", "TRIBE_TEXT_ENCODER_LOCAL_DIR", "Llama-3.2-3B"],
         "ROADMAP.md": ["Best Current Result", "Phase 5.5 evidence ladder", "504", "evidence/"],
         "docs/current_project_state.md": ["future_arousal_max_delta_rows_4_10_train_q90", "short_temporal_conv_residual", "raw_cortical_only", "Exact continuous-value forecasting and blocked continuous generalization remain open", "grouped continuous future-movement ranking/lift", "Executable Validation"],
-        "docs/neural_bridge_phase5_5_evidence_ladder.md": ["Best AGAIN Results", "Raw Predicted Cortical/FMRI Features Alone Fail Badly", "Continuous Future-Movement Ranking Result", "Grouped Compatibility Block", "Forbidden Claim Wording", "Executable Validation"],
+        "docs/neural_bridge_phase5_5_evidence_ladder.md": ["Best AGAIN Results", "Raw Predicted Cortical/FMRI Features Alone Fail Badly", "Continuous Future-Movement Ranking Result", "Grouped Compatibility Block", "Current Evidence Boundaries", "Executable Validation"],
         "docs/how_neural_bridge_was_discovered.md": ["three bounded victories", "continuous_ranking_lift_pass", "Washout-Gap Targets Changed The Scientific Question", "+0.0055230967"],
         "reports/README.md": ["Current Claim-Bearing Reports", "Superseded And Historical Reports", "grouped continuous-ranking/lift pass"],
         "reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520.md": ["SUPERSEDED VERDICT", "UPDATED_VERDICT"],

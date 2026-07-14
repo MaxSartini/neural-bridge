@@ -250,7 +250,8 @@
     "evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv",
     "evidence/current_phase_5_5_review/14_executable_validation_and_code/test_suite_result_20260630.json"
   ],
-  "do_not_claim": [
+  "claim_update_policy": "Claim boundaries describe the current evidence state, not permanent bans. A new valid executable pass supersedes stale cautious wording and must be promoted and stated plainly after canonical files are updated; a failed gate remains a failure until new valid evidence changes it.",
+  "not_currently_proven": [
     "mind reading",
     "blocked continuous future-movement generalization is solved",
     "universal emotion prediction",

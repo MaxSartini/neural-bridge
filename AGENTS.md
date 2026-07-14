@@ -6,6 +6,7 @@
 - Do not use prior chat memory, Claude/VS Code state, old plans, compacted context, or Spark-era outputs as authority.
 - `codebase-memory-mcp` is for code navigation only, not benchmark authority.
 - Keep context use compact. Do not dump full reports, logs, or generated metadata unless asked.
+- Claim boundaries are evidence-state markers, not permanent bans. When a new valid executable result passes its gates, update the canonical files and state the win plainly; never call a passed result a failure merely because older documentation was cautious. Likewise, do not promote a failed gate without new valid evidence. Current executable evidence outranks stale wording in either direction.
 
 ## Continuity And Context Efficiency
 
@@ -39,7 +40,7 @@ The original three-checkpoint ensemble is now promoted under both bounded protoc
 
 The deterministic Phase 5 eval-mode `regression_plus_binary` lane also passed its grouped continuous-ranking/lift gate. Across 15 grouped fold-seed evaluations, real future-movement Spearman was `0.2232222830` versus AR-only `0.1982207591`, `ar_plus_shuffled_pca` `0.1938183619`, and `ar_plus_random_pca` `0.1931781163`; real top-1% average-true-movement lift was `0.1359465244` versus `0.1115815364`, `0.1125842464`, and `0.1136304212`, respectively. This proves controlled grouped continuous future-movement ranking/lift for that lane. It does not prove exact continuous values or blocked continuous generalization: the old fused blocked lane lost to AR/controls, and the later washout continuous diagnostic improved Spearman but failed its full top-5%/seed-consistency gate.
 
-Do not claim:
+Not currently proven by the evidence below. These are current boundaries, not permanent prohibitions; remove or revise an item immediately when new valid executable evidence proves it:
 
 - exact continuous future arousal forecasting is solved
 - broad all-target/all-dataset temporal prediction is solved

@@ -1,5 +1,10 @@
 # Neural Bridge
 
+Claim boundaries here track the current executable evidence; they are not
+permanent bans on future progress. When a new valid result passes its gates, the
+canonical documentation is updated and the win is stated directly rather than
+being hidden by older cautious wording.
+
 Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.
 
 ## Best Results First

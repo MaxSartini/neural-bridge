@@ -1,5 +1,10 @@
 # Claim Ledger
 
+Ledger caveats describe the evidence available at that milestone. They are not
+permanent prohibitions: a later valid executable pass supersedes stale caution
+after its canonical promotion. A passed result must not be described as a
+failure merely because an older ledger entry predates it.
+
 Each current-facing claim below is paired with the numbers and evidence files that support it.
 
 ## C1: canonical_current_claim

@@ -4,6 +4,11 @@ Last updated: 2026-07-14
 
 ## Current Claim
 
+Claim boundaries in this document are evidence-state markers, not permanent
+bans. New valid executable passes supersede stale cautious wording and must be
+promoted plainly; failed gates remain failures unless new valid evidence changes
+them.
+
 Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.
 
 VEATIC-124 v2 established the original controlled future arousal spike/event-ranking result. AGAIN replicated, scaled, validated, and strengthened it using 995 videos, 2 Hz dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.

@@ -265,7 +265,12 @@ These tests protect deterministic contracts over split construction, target wind
 
 Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data. VEATIC-124 v2 established the original controlled future arousal event-ranking signal; AGAIN replicated and extended it at scale. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`, grouped compatibility for the same target/head is proven under the updated verdict, and the deterministic eval-mode lane separately beats AR-only and matched controls on grouped continuous future-movement ranking/lift. Exact continuous values and blocked continuous generalization remain open. Raw predicted cortical/fMRI features alone fail badly on AGAIN; the claim is the Neural Bridge pipeline, not raw predicted cortical/fMRI features by themselves.
 
-## Forbidden Claim Wording
+## Current Evidence Boundaries
+
+These are not permanent banned phrases. They describe what the present evidence
+does not yet prove. If a later valid executable result passes the relevant
+gates, update this list and the canonical claim immediately and report the win
+plainly. Never suppress a new pass because an older document was cautious.
 
 - mind reading
 - exact continuous arousal forecasting is solved
