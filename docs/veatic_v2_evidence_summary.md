@@ -13,7 +13,7 @@ The claim remains bounded: this is event/spike ranking and temporal-context evid
 
 After the v2 evidence freeze, a raw cortical representation audit, tensor export, and MPS trained-head benchmark were completed without re-encoding videos. These do not replace the v2 claim; they define and test the post-v2 model-head layer on top of it.
 
-Current cross-dataset framing: VEATIC is foundational, not obsolete. AGAIN is now the scaled confirmation/current main result, extending the VEATIC signal with dense 995-video V-JEPA 2.1 / TRIBE v2 features, frozen-AR residual design, blocked washout-gap confirmation, and updated grouped-video compatibility. AGAIN also shows why Neural Bridge matters: raw predicted cortical/fMRI features alone fail badly under blocked validation before the bridge stack is applied. See `docs/neural_bridge_phase5_5_evidence_ladder.md`.
+Current cross-dataset framing: VEATIC is foundational, not obsolete. AGAIN is the scaled confirmation/current main benchmark, extending the VEATIC signal with dense 995-video V-JEPA 2.1 / TRIBE v2 features, frozen-AR residual design, blocked washout-gap confirmation, checkpoint stabilization, and the Phase 7 grouped continuous `420/420` pass. AGAIN also shows why Neural Bridge matters: raw predicted cortical/fMRI features alone fail badly under blocked validation before the bridge stack is applied. See `docs/neural_bridge_phase7_evidence.md`.
 
 ## Proven Or Supported Hypotheses
 

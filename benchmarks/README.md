@@ -12,7 +12,10 @@ Current AGAIN evidence is organized under:
 
 - `reports/`
 - `evidence/phase_*`
-- `evidence/current_phase_5_5_review/`
+- `evidence/current_phase_7_review/`
+- `evidence/current_phase_5_5_review/` for the detailed historical ladder
+
+The current strongest result is the Phase 7 grouped continuous checkpoint ensemble: `420/420`, `15/15` positive fold-groups versus AR and controls on both primary metrics, failed gates `[]`.
 
 Heavy AGAIN output roots remain under ignored `outputs/` directories and are not force-added to git.
 

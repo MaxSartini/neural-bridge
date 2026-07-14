@@ -4,7 +4,9 @@ This directory contains lightweight tracked evidence snapshots. Full heavy outpu
 
 ## Start Here
 
-- `current_phase_5_5_review/` - reviewer-facing evidence dossier with best results first, claim ledger, artifact manifest, definitions/process, VEATIC v2 foundation files, and AGAIN Phase 0-5.5 milestone evidence.
+- `current_phase_7_review/` - current reviewer entry point with the Phase 7 grouped continuous win first, current claim ledger, review checklist, and links to the full historical dossier.
+- `phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/` - checksum-anchored snapshot for the fresh `420/420`, `15/15` grouped continuous confirmation.
+- `current_phase_5_5_review/` - preserved historical dossier containing the detailed VEATIC-through-Phase-5.5 evidence ladder and executable artifacts.
 
 ## Phase-Numbered Bundles
 
@@ -22,7 +24,11 @@ This directory contains lightweight tracked evidence snapshots. Full heavy outpu
 - `phase_5_4_temporal_residual_diagnostic_20260630_020557/` - temporal/event-context residual diagnostic that selected `short_temporal_conv_residual` for binary confirmation.
 - `phase_5_5_binary_blocked_confirmation_20260630_025437/` - matched seed-specific 10-seed blocked binary confirmation for the current bounded AGAIN proof.
 - `phase_5_5_grouped_compatibility_20260630_033520/` - repaired grouped-video compatibility evidence for the confirmed AGAIN washout-gap target/head.
+- `phase_5_5_selected_head_420_confirmation_20260714_124953/` - unified selected-head binary confirmation.
+- `phase_6_original_three_checkpoint_control_complete_20260714_160001/` - fresh blocked binary checkpoint-ensemble confirmation.
+- `phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/` - fresh grouped binary checkpoint-ensemble confirmation.
+- `phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/` - current strongest grouped continuous future-movement ranking/lift evidence.
 
 ## Current Claim
 
-The canonical current story lives in `../docs/neural_bridge_phase5_5_evidence_ladder.md`, `../docs/current_claim_status.json`, and `current_phase_5_5_review/CLAIM_LEDGER.md`. Evidence bundles preserve supporting artifacts; they are not a substitute for the current claim boundary.
+The canonical current story lives in `../README.md`, `../docs/neural_bridge_phase7_evidence.md`, `../docs/current_claim_status.json`, and `current_phase_7_review/CLAIM_LEDGER.md`. The Phase 5.5 dossier remains the detailed historical foundation, not the current performance ceiling.

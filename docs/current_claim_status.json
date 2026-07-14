@@ -1,5 +1,48 @@
 {
   "canonical_claim": "Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.",
+  "headline_result": "Phase 7 passed a fresh 420/420 grouped held-out-video continuous checkpoint-ensemble confirmation with all 15/15 fold-groups and 5/5 fold means positive versus target-specific AR and matched controls on Spearman and top-5% lift; failed gates were empty.",
+  "value_interpretation": {
+    "phase7_relative_lift_vs_ar_spearman_percent": 8.22,
+    "phase7_relative_lift_vs_ar_top5_percent": 8.97,
+    "interpretation": "These are last-mile lifts over a trained target-specific persistence model that already captures the dominant easy signal, not total-system value. The developmental transformation is from raw cortical features having negative incremental value to the real bridge adding positive signal in all 15/15 grouped fold-groups.",
+    "earlier_same_target_raw_cortical_vs_ar_percent": -38.95,
+    "earlier_same_target_ar_plus_raw_vs_ar_percent": -17.63,
+    "original_validated_continuous_to_phase7": {
+      "spearman_percent_increase": 16.61,
+      "top5_lift_percent_increase": 23.59,
+      "top1_lift_percent_increase": 14.52,
+      "top5_margin_over_ar_percent_increase": 98.92
+    },
+    "original_again_grouped_spike_progression": {
+      "raw_cortical_pr_auc": 0.136579,
+      "ar_only_pr_auc": 0.147251,
+      "ar_plus_raw_pr_auc": 0.170299,
+      "phase4_bridge_pr_auc": 0.1716,
+      "phase5_evalmode_bridge_pr_auc": 0.2300639382,
+      "phase5_frozen_ar_residual_pr_auc": 0.2383409298,
+      "frozen_residual_vs_raw_percent": 74.51,
+      "frozen_residual_vs_ar_plus_raw_percent": 39.95
+    },
+    "phase7_supporting_event_from_continuous": {
+      "real_pr_auc": 0.2231895329,
+      "ar_pr_auc": 0.2088047413,
+      "strongest_control_pr_auc": 0.209609068,
+      "relative_lift_vs_ar_percent": 6.89,
+      "relative_lift_vs_control_percent": 6.48,
+      "positive_fold_groups_vs_ar_and_control": "15/15",
+      "status": "supporting secondary metric, not a primary Phase 7 promotion gate"
+    },
+    "cross_task_warning": "The early PR-AUC ablation and Phase 7 continuous metrics use different targets and metrics; do not divide them into one cross-task percentage. Whole-generation comparisons must be labeled separately from matched within-protocol claims."
+  },
+  "baseline_definitions": {
+    "ar_only": "Standalone trained target-specific persistence model using observed current arousal, lag-1/2/4 arousal, and recent deltas.",
+    "trained_ar": "AR fit for the exact target, split, fold, and seed with checkpoint selection on training-side inner validation.",
+    "frozen_ar": "The trained AR checkpoint's predictions fixed before residual/control training and reused identically beneath every real and matched-control lane.",
+    "raw_cortical_only": "Simple model over a deterministic projection of upstream predicted cortical/fMRI features without the Neural Bridge stack.",
+    "ar_plus_raw_cortical": "Direct concatenation of AR context and raw cortical projection; it tested whether brute-force feature addition was sufficient.",
+    "neural_bridge_residual": "Correction learned over frozen AR using fold-safe neuro-response PCA, causal temporal/event context, and the selected future target/head.",
+    "phase7_checkpoint_ensemble": "Equal-weight average of three independently trained, prespecified Neural Bridge residual checkpoints."
+  },
   "datasets": {
     "VEATIC-124 v2": {
       "role": "foundational evidence",
@@ -46,28 +89,30 @@
     "Grouped held-out-video compatibility for the same AGAIN target/head is proven under the updated frozen-AR-residual-aware verdict.",
     "The full bounded AGAIN selected-head confirmation passes at exactly 420/420 scored rows: 70/70 blocked plus 350/350 grouped, with all 420 rows reused, zero reruns, and no failed gates.",
     "The original three-checkpoint ensemble passes separate fresh control-complete blocked and grouped-video confirmations for the selected AGAIN target/head: 140/140 blocked rows and 420/420 grouped rows, both with no failed gates.",
-    "Controlled grouped held-out-video continuous future-arousal movement ranking/lift is proven on AGAIN for the deterministic Phase 5 eval-mode regression_plus_binary lane against AR-only and matched shuffled/random controls."
+    "Controlled grouped held-out-video continuous future-arousal movement ranking/lift is proven on AGAIN for the deterministic Phase 5 eval-mode regression_plus_binary lane against AR-only and matched shuffled/random controls.",
+    "The separately preregistered Phase 7 washout-target checkpoint ensemble independently passed grouped continuous future-movement ranking/lift at exactly 420/420 rows, with all 15/15 fold-groups and 5/5 fold means positive versus AR and matched controls."
   ],
   "open": [
     "Exact continuous-value/trajectory forecasting remains open.",
-    "Blocked continuous future-movement generalization remains open.",
+    "Fully confirmed blocked continuous future-movement generalization remains open: the separate Phase 7 blocked run was a strong aggregate near-pass but missed its locked 5/5 Spearman-vs-AR group gate at 4/5.",
+    "Direct label-free client-video deployment remains open because the current strongest residual benchmark consumes observed current/past arousal context.",
     "Broad all-target/all-dataset temporal prediction remains open.",
     "No 504 run has been performed or promoted.",
     "Grouped compatibility is not itself a 504 run.",
     "The updated grouped verdict is a no-training verdict update from existing artifacts, not a rerun."
   ],
   "next_task": {
-    "status": "completed_promoted",
-    "plan": "docs/phase6_original_three_checkpoint_grouped_confirmation_plan.md",
-    "objective": "Completed fresh control-complete grouped-video confirmation of the promoted original three-checkpoint ensemble for future_arousal_max_delta_rows_4_10_train_q90 with short_temporal_conv_residual.",
+    "status": "deployment_bridge_pending",
+    "plan": "docs/phase7_continuous_checkpoint_ensemble_grouped_preregistration.md",
+    "objective": "Phase 7 grouped continuous checkpoint-ensemble confirmation completed and promoted; next bounded hypothesis is a video-only student or cold-start/self-rollout bridge that removes observed arousal context from client inference.",
     "expected_rows": {
       "member": 315,
       "ensemble": 105,
       "total": 420
     },
-    "reuse_policy": "All model/AR scores were freshly trained for the nine untouched seeds in each grouped fold; only the previously audited fold-safe grouped PCA substrate was reused.",
+    "reuse_policy": "The Phase 7 grouped run freshly trained model and target-specific AR lanes for nine untouched seeds in each grouped fold; only the previously audited fold-safe grouped PCA substrate was reused.",
     "historical_504_boundary": "The literal 504 matrix was an older 3-seed x 4-variant x 7-lane development design across one blocked split and five grouped folds. It is not the current task and is not 420 current rows plus 84 missing rows.",
-    "stop_boundary": "Task complete. No follow-on modeling sweep is authorized without a new explicit plan; do not restore obsolete variants, invent rows to reach 504, resume same-family Optuna, or widen continuous/generalization claims."
+    "stop_boundary": "Do not reinterpret the blocked 4/5 near-pass, claim exact continuous values, equate benchmark teacher-forced AR context with label-free client deployment, restore 504, or begin a deployment-bridge sweep without a locked protocol."
   },
   "canonical_numbers": {
     "again_original_three_checkpoint_blocked_confirmation": {
@@ -148,6 +193,41 @@
       },
       "boundary": "Controlled grouped continuous future-movement ranking/lift passed; exact continuous values and blocked continuous generalization remain open."
     },
+    "again_phase7_grouped_continuous_checkpoint_ensemble": {
+      "target": "residual_future_max_delta_rows_4_10",
+      "protocol": "grouped_video",
+      "architecture": "short_temporal_conv_residual",
+      "rows": "420/420",
+      "member_rows": 315,
+      "ensemble_rows": 105,
+      "real_spearman": 0.2603011121,
+      "target_specific_ar_spearman": 0.2405371348,
+      "best_control_spearman": 0.2402523335,
+      "real_minus_ar_spearman": 0.0197639773,
+      "real_minus_best_control_spearman": 0.0200487786,
+      "real_top5_lift": 0.0975979581,
+      "ar_top5_lift": 0.0895663763,
+      "best_control_top5_lift": 0.0897088493,
+      "real_minus_ar_top5_lift": 0.0080315818,
+      "real_minus_best_control_top5_lift": 0.0078891089,
+      "positive_fold_groups_vs_ar_and_controls": "15/15",
+      "positive_fold_means": "5/5",
+      "ensemble_spearman_uplift": 0.0077966938,
+      "ensemble_top5_uplift": 0.0025021192,
+      "grouped_continuous_ranking_lift_pass": true,
+      "exact_continuous_value_forecasting_proven": false,
+      "failed_gates": [],
+      "ensemble_lane_spearman": {
+        "real_residual": 0.2603011121,
+        "frozen_ar_only": 0.2405371348,
+        "diagnostics_only_residual": 0.2402752332,
+        "train_only_video_mean_residual": 0.2402523335,
+        "random_pca_residual": 0.2399851718,
+        "shuffled_pca_residual": 0.2398151737,
+        "label_permutation_residual": 0.2360263012
+      },
+      "boundary": "Promoted only for grouped held-out-video continuous future-movement ranking/lift on the selected target/head. The separate blocked run remains a literal 4/5 near-pass; exact values and label-free deployment are not proven."
+    },
     "again_blocked_binary_big_confirmation": {
       "target": "future_arousal_max_delta_rows_4_10_train_q90",
       "protocol": "blocked_temporal_70_30",
@@ -207,7 +287,7 @@
       "grouped_raw_cortical_only_pr_auc": 0.136579,
       "grouped_ar_only_pr_auc": 0.147251,
       "grouped_ar_plus_raw_cortical_pr_auc": 0.170299,
-      "interpretation": "raw predicted cortical/fMRI features alone are commercially useless on the blocked AGAIN target; Neural Bridge Phase 5.5 is +0.1427585630 PR-AUC higher than raw-cortical-only, a +114.84% relative lift",
+      "interpretation": "raw predicted cortical/fMRI features alone were insufficient on the blocked AGAIN target; the Neural Bridge pipeline raised PR-AUC by +0.1427585630 over raw-cortical-only, a +114.84% relative lift, showing that the bridge creates the usable controlled signal",
       "phase_5_5_blocked_real_pr_auc": 0.267073563,
       "phase_5_5_lift_over_raw_cortical_relative_percent": 114.84,
       "phase_5_5_lift_over_ar_plus_raw_relative_percent": 59.23,
@@ -218,6 +298,7 @@
     }
   },
   "canonical_reports": [
+    "docs/neural_bridge_phase7_evidence.md",
     "docs/neural_bridge_phase5_5_evidence_ladder.md",
     "docs/how_neural_bridge_was_discovered.md",
     "docs/neural_bridge_service_as_software.md",
@@ -234,7 +315,13 @@
     "reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md",
     "reports/again_dense_2hz_phase6_original_three_checkpoint_control_complete_20260714_160001.md",
     "reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md",
+    "reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513.md",
+    "reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md",
+    "reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md",
     "reports/README.md",
+    "evidence/current_phase_7_review/README.md",
+    "evidence/current_phase_7_review/CLAIM_LEDGER.md",
+    "evidence/current_phase_7_review/REVIEWER_CHECKLIST.md",
     "evidence/current_phase_5_5_review/README.md",
     "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",
     "evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/README.md",
@@ -242,6 +329,7 @@
     "evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/README.md",
     "evidence/phase_6_original_three_checkpoint_control_complete_20260714_160001/README.md",
     "evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/README.md",
+    "evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/README.md",
     "docs/executable_validation_index.md",
     "docs/executable_validation_manifest.csv",
     "docs/executable_validation_manifest.json",
@@ -263,12 +351,13 @@
   ],
   "last_updated": "2026-07-14",
   "review_evidence_dossier": {
-    "path": "evidence/current_phase_5_5_review/",
+    "path": "evidence/current_phase_7_review/",
+    "phase7_grouped_confirmation": "evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/",
     "selected_head_420_confirmation": "evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/",
-    "claim_ledger": "evidence/current_phase_5_5_review/CLAIM_LEDGER.md",
-    "artifact_manifest": "evidence/current_phase_5_5_review/artifact_manifest.csv",
+    "claim_ledger": "evidence/current_phase_7_review/CLAIM_LEDGER.md",
+    "historical_artifact_manifest": "evidence/current_phase_5_5_review/artifact_manifest.csv",
     "definitions_and_process": "evidence/current_phase_5_5_review/DEFINITIONS_AND_PROCESS.md",
-    "reviewer_checklist": "evidence/current_phase_5_5_review/REVIEWER_CHECKLIST.md"
+    "reviewer_checklist": "evidence/current_phase_7_review/REVIEWER_CHECKLIST.md"
   },
   "executable_validation": {
     "deterministic_test_command": "python3 -m pytest -q tests",
@@ -276,12 +365,12 @@
     "latest_local_result": {
       "date": "2026-07-14",
       "result": "pass",
-      "tests_passed": 130,
+      "tests_passed": 142,
       "tests_failed": 0,
       "tests_skipped": 1,
-      "duration_seconds": 21.92,
-      "fully_provisioned_tests_passed": 138,
-      "fully_provisioned_duration_seconds": 27.45
+      "duration_seconds": 30.38,
+      "fully_provisioned_tests_passed": 150,
+      "fully_provisioned_duration_seconds": 34.06
     },
     "repo_audit_command": "npm run audit:repo",
     "repo_audit_latest_local_result": "repo_readiness pass controlled_evidence_items=206",
@@ -290,7 +379,7 @@
     "policy": "Only deterministic contract tests, claim-bearing runners, no-training verdict/audit scripts, and documented runtime tools are indexed. Runtime probes are not claim-bearing benchmark evidence."
   },
   "commercial_model": "service_as_software",
-  "commercial_summary": "Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software: submit video or variants, use predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data to rank future response-event moments, flag weak segments, compare cuts, and produce response-readiness reports before audience data exists.",
+  "commercial_summary": "Neural Bridge is being built to convert pre-release video response evaluation from a slow human service into scalable software. Phase 7 proves the core controlled future-response ranking intelligence; the next video-only deployment bridge removes the current benchmark's observed-arousal input before raw client-video operation is claimed.",
   "primary_wedge": "pre-release creative response intelligence for video",
   "buyer_personas": [
     "ad agencies",

@@ -2,191 +2,131 @@
 
 Last updated: 2026-07-14
 
-## Current Claim
+## Headline
 
-Claim boundaries in this document are evidence-state markers, not permanent
-bans. New valid executable passes supersede stale cautious wording and must be
-promoted plainly; failed gates remain failures unless new valid evidence changes
-them.
+Phase 7 is the strongest current Neural Bridge result. Its separately preregistered grouped held-out-video continuous confirmation passed exactly `420/420` scored rows with failed gates `[]`. Neural Bridge beat target-specific AR and the best matched controls on both future-movement Spearman and top-5% lift in all `15/15` fold-groups and all `5/5` fold means.
 
-Canonical claim: Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.
+Plainly: on unseen videos, Neural Bridge is better than recent-response momentum and false-signal controls at identifying where the largest upcoming human-arousal movements will occur.
 
-VEATIC-124 v2 established the original controlled future arousal spike/event-ranking result. AGAIN replicated, scaled, validated, and strengthened it using 995 videos, 2 Hz dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
+The `8.22%` Spearman and `8.97%` top-5% relative lifts are the difficult final increment over a trained persistence model that already captures most easy short-horizon signal. They are not the total value created. On the early same-target ablation, raw cortical-only was `38.95%` below trained AR, and directly adding raw cortical features remained `17.63%` below AR. Phase 7 turns that former negative contribution into a positive correction in every fold-group.
 
-The neuro-response features are frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data. The claim is that these predicted neuro-response video features improve controlled future event ranking; they are not generic video embeddings, direct viewer neural measurements, or evidence of solved continuous forecasting.
+Compared with the original validated grouped continuous bridge, Phase 7 increases Spearman by `16.61%` (`0.2232222830` → `0.2603011121`), top-5% lift by `23.59%` (`0.0789694843` → `0.0975979581`), and top-1% lift by `14.52%` (`0.1359465244` → `0.1556892559`). Its top-5% margin over AR nearly doubled: `+98.92%` larger than the original bridge margin.
 
-Raw predicted cortical/fMRI features alone fail badly on AGAIN. On the original Phase 3 target `arousal_spike_rows_2_6_train_q90`, blocked `raw_cortical_only` PR-AUC was `0.124315` versus AR-only `0.203622`, and direct `AR_plus_raw_cortical` was only `0.167731`. Grouped `raw_cortical_only` was `0.136579` versus AR-only `0.147251`. The current success comes from Neural Bridge, not raw predicted cortical/fMRI features by themselves.
+Spike/event progression is also substantial. Within the original grouped target, raw cortical-only `0.136579` grew to the frozen-AR residual bridge at `0.2383409298`: `+74.51%`. That bridge was `+39.95%` above direct AR-plus-raw. The later fresh grouped redesigned-target binary ensemble reached `0.2343675680` versus AR `0.2180497906`, positive `15/15`; its margin over AR is `17.50%` larger than the earlier promoted single-model margin. Phase 7's continuous predictions additionally rank the corresponding event at `0.2231895329` PR-AUC vs AR `0.2088047413`, positive `15/15`, as supporting evidence.
 
-The AR beat is the headline technical hurdle. AR means recent/past arousal, and it is deliberately strong because human arousal is persistent. The confirmed blocked result beats the matched seed-specific frozen AR floor by `+0.0068399399` PR-AUC (`+2.63%` relative lift) and the best matched control by `+0.0077366579` PR-AUC (`+2.98%` relative lift), with `9/10` positive seeds vs both. Grouped compatibility beats the matched fold/seed-specific AR/frozen floor by `+0.0138878634` PR-AUC (`+6.39%` relative lift) and the best matched control by `+0.0139621972` PR-AUC (`+6.42%` relative lift), with `50/50` fold-seed positives vs the best matched control.
+## Canonical Scientific Claim
 
-Terminology: `AR-only baseline` means a standalone autoregressive comparison lane. `Frozen AR` means a seed- or fold-specific AR-only score/logit fixed before residual/control training and reused identically across real and matched controls inside that seed/fold. A frozen AR score can be reused from an existing compatible AR checkpoint/score or newly trained for that exact seed/fold when missing; the important constraint is matching, not whether the AR checkpoint was old or newly generated.
+Neural Bridge demonstrates controlled future human-arousal event ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, using frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain-response data.
 
-Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is proven under the updated frozen-AR-residual-aware verdict. The deterministic Phase 5 eval-mode `regression_plus_binary` lane separately passed controlled grouped continuous future-movement ranking/lift against AR-only and matched shuffled/random controls.
+Phase 7 independently confirms the continuous claim for `residual_future_max_delta_rows_4_10` with `short_temporal_conv_residual` and fixed three-checkpoint averaging.
 
-The unified bounded selected-head artifact passes at exactly `420/420` rows (`70/70` blocked plus `350/350` grouped). All `420` rows were reused after provenance and integrity audit, no slice required rerunning, and the overall failed-gate list is `[]`.
+This is not generic video embedding performance. Raw predicted cortical/fMRI features alone were weak on AGAIN and could damage AR when attached directly. The signal became useful through the Neural Bridge design: fold-safe representation construction, frozen-AR residual learning, future-target redesign, temporal/event context, matched controls, strict held-out evaluation, and checkpoint stabilization.
 
-Exact continuous-value forecasting and blocked continuous generalization remain open. This does not erase the grouped continuous-ranking/lift pass or the strong Phase 7 aggregate blocked near-confirmation. Zero-label raw-video-only deployment is also open: the strongest current residual benchmark consumes observed current/past arousal features that will not exist for an unlabelled client video. Broad all-target/all-dataset temporal prediction remains open. No 504 run has been promoted.
+## Phase 7 Numbers
 
-## Do Not Claim
+| Metric | Neural Bridge | AR | Best control | Delta vs AR | Delta vs control |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Spearman | `0.2603011121` | `0.2405371348` | `0.2402523335` | `+0.0197639773` | `+0.0200487786` |
+| Top-5% lift | `0.0975979581` | `0.0895663763` | `0.0897088493` | `+0.0080315818` | `+0.0078891089` |
 
-- mind reading
-- exact continuous future arousal forecasting is solved
-- universal emotion prediction
-- broad all-target/all-dataset temporal prediction is solved
-- 504 has been run or promoted
-- treat Phase 5b/5c/Spark/max-capacity/deep/chimera outputs as canonical
-- use `holy_shit_pass` as a valid gate
+- matrix: `420/420` (`315` member + `105` ensemble);
+- held-out-video folds: five;
+- untouched seeds: nine;
+- fixed checkpoint groups: three;
+- wins versus AR: `15/15` Spearman and `15/15` top-5%;
+- wins versus best matched controls: `15/15` and `15/15`;
+- positive fold means: `5/5`;
+- ensemble uplift: `+0.0077966938` Spearman and `+0.0025021192` top-5%;
+- accelerator: MLX `Device(gpu, 0)`;
+- failed gates: `[]`.
 
-## Evidence Summary
+The separate Phase 7 blocked confirmation was positive on aggregate and passed every gate except the locked unanimity requirement: Spearman beat AR in `4/5` rather than `5/5` groups. It remains a strong near-pass and is not rewritten as a formal blocked pass.
 
-- VEATIC is foundational, not obsolete: it established the original controlled future arousal event/spike-ranking signal.
-- AGAIN is the scaled confirmation and current main result: it replicated and extended the signal with dense V-JEPA 2.1 / TRIBE v2 features over 995 videos.
-- VEATIC is the edited affect-video side: 124 Hollywood movie, documentary, reality-TV, and home-video clips with continuous valence/arousal annotation.
-- AGAIN is the gaming/interactive-media side: 1,116 raw / 995 cleaned gameplay videos from 124 participants playing 9 games across 3 genres, with more than 37 hours of annotated video/logs.
-- The original AGAIN fused head passed grouped eval-mode controls but failed blocked AR/control checks; that failure motivated the frozen-AR residual design.
-- Frozen-AR residual design strengthened grouped evidence and reduced blocked harm by making AR the baseline floor.
-- The redesigned washout-gap binary target plus short temporal conv residual passed a matched 10-seed blocked temporal confirmation.
-- The same target/head passed grouped-video compatibility under the updated frozen-AR-residual-aware label permutation verdict.
-- The full selected-head matrix is consolidated and promoted at `420/420`, with `420` reused rows, `0` reruns, and all provenance/integrity gates passing.
-- Grouped continuous future-movement ranking/lift passed in the deterministic eval-mode lane: real beat AR-only and matched shuffled/random controls on future-movement Spearman and top-1% average-true-movement lift across 15 grouped fold-seed evaluations.
-- Continuous evidence is protocol-bounded: the old fused blocked lane lost to AR/controls, while the later washout continuous diagnostic improved Spearman but failed its full top-5%/seed-consistency gate. Do not promote this as exact-value or blocked continuous forecasting.
-- Phase 7's `84/84` diagnostic passed every ranking/lift gate. Its fresh `140/140` confirmation was strongly positive in aggregate but missed the locked all-five Spearman-vs-AR gate (`4/5`); all five groups beat the best matched control on Spearman and both AR/control on top-5% lift. Formal blocked continuous promotion and grouped follow-up remain disallowed.
-- Deployment is not yet label-free. Current AR-assisted evidence uses observed arousal, lag-1/2/4 arousal, and recent deltas. A video-only student or self-rollout must pass cold-start held-out-video evaluation before client-video accuracy is claimed.
-- Raw predicted cortical/fMRI features alone are a negative-control lesson: they are weak under blocked validation and can damage AR if bolted on directly.
-- The neuro-response angle is central: Neural Bridge starts from predicted cortical/fMRI response features generated from video by upstream brain-response models, then tests whether that predicted brain-response layer improves future human arousal event ranking under controls.
-- Beating AR is a big deal: the current result does not merely follow arousal persistence; it beats the matched frozen AR floor and the best matched controls.
+Terminology: AR-only is a trained model using current/lagged arousal and recent deltas; frozen AR is its target/fold/seed-specific fixed prediction reused identically under all residual lanes; AR-plus-raw is direct feature concatenation; Neural Bridge learns a causal, fold-safe residual correction over frozen AR. This matched construction is why the Phase 7 lift represents new video-side signal rather than a weaker baseline.
 
-## Commercial Interpretation
+## Evidence Ladder
 
-Neural Bridge is a Service-as-Software product direction for video response intelligence: submit video or variants, extract bridge features, rank future response-event moments, flag weak segments, compare cuts, and produce a response-readiness report. The current benchmark validates the scientific bridge under observed response history; the raw-video-only pre-release workflow remains the next deployment milestone.
+1. VEATIC-124 v2 established controlled future arousal event/spike ranking on edited affective video.
+2. AGAIN scaled the work to `995` cleaned gameplay videos and `243,575` aligned 2 Hz feature rows using official V-JEPA 2.1 ViT-G and TRIBE v2.
+3. Raw cortical-feature controls showed that upstream features alone were not sufficient.
+4. Frozen-AR residual learning and the washout-gap target established the successful design path.
+5. Phase 5.5 confirmed the selected binary target/head under blocked and grouped protocols.
+6. Phase 6 established checkpoint stabilization and passed fresh control-complete binary ensemble confirmations.
+7. Phase 7 applied the stabilized method to continuous future movement and passed the fresh grouped `420/420` confirmation with perfect fold-group directional consistency.
 
-The business model is automated expert analysis, not generic SaaS. The customer wants the service outcome a specialist team would normally deliver: evaluate this ad, diagnose this trailer, compare these cuts, find likely response moments, and decide what to test or ship. See `docs/neural_bridge_service_as_software.md`.
+The result now spans edited film/TV/documentary/home-video affect content through VEATIC and scaled gameplay/interactive media through AGAIN. That is cross-domain evidence, while the strongest Phase 7 metric values are specifically from AGAIN.
 
-## Canonical Numbers
+## Binary Evidence Remains Strong
 
-AGAIN blocked temporal binary confirmation:
+The selected binary event-ranking head `future_arousal_max_delta_rows_4_10_train_q90` / `short_temporal_conv_residual` remains promoted:
 
-- target: `future_arousal_max_delta_rows_4_10_train_q90`
-- protocol: `blocked_temporal_70_30`
-- architecture: `short_temporal_conv_residual`
-- real PR-AUC: `0.2670735630`
-- matched seed-specific frozen AR PR-AUC: `0.2602336231`
-- best matched control: `random_pca_residual`, PR-AUC `0.2593369051`
-- delta vs frozen AR: `+0.0068399399`
-- delta vs best matched control: `+0.0077366579`
-- raw PR-AUC deltas: `+0.0068399399` over matched frozen AR (`+2.63%` relative lift), `+0.0077366579` over best matched control (`+2.98%` relative lift)
-- seeds positive vs frozen AR: `9/10`
-- seeds positive vs best matched control: `9/10`
-- weak / credible / strong confirmation: true
-- failed gates: `[]`
+- canonical blocked real / AR / best-control PR-AUC: `0.2670735630` / `0.2602336231` / `0.2593369051`;
+- blocked deltas: `+0.0068399399` / `+0.0077366579`, with `9/10` positive seeds;
+- updated grouped real / AR / best-control: `0.2313831909` / `0.2174953276` / `0.2174209937`, with `50/50` positives versus best control;
+- unified selected-head audit: `420/420`, failed gates `[]`;
+- fresh Phase 6 original-ensemble blocked confirmation: `140/140`, `5/5` positive groups;
+- fresh Phase 6 original-ensemble grouped confirmation: `420/420`, `15/15` positive fold-groups.
 
-AGAIN grouped compatibility updated verdict:
+Phase 7 is the headline because it advances the harder continuous future-movement ranking/lift line; it builds on rather than replaces the binary proof.
 
-- target: `future_arousal_max_delta_rows_4_10_train_q90`
-- protocol: `grouped_video`
-- architecture: `short_temporal_conv_residual`
-- rows: `350/350`
-- real PR-AUC: `0.2313831909`
-- matched fold/seed-specific AR/frozen PR-AUC: `0.2174953276`
-- best matched control: `train_only_video_mean_residual`, PR-AUC `0.2174209937`
-- delta vs AR/frozen: `+0.0138878634`
-- delta vs best matched control: `+0.0139621972`
-- fold-seed positives vs best matched control: `50/50`
-- label permutation PR-AUC: `0.2153099775`
-- real minus label permutation: `+0.0160732134`
-- label permutation minus AR: `-0.0021853501`
-- fold-seed positives vs label permutation: `50/50`
-- updated grouped compatibility pass: true
-- failed updated gates: `[]`
-- verdict update only: no retraining, no PCA generation, no grouped rerun, no 504
+## Product Interpretation
 
-AGAIN raw predicted cortical/fMRI features alone:
+Neural Bridge is a Service-as-Software product direction for neuro-response video intelligence: first-pass response evaluation, high-response moment ranking, weak-segment diagnosis, variant comparison, and response-readiness reporting.
 
-- original Phase 3 target: `arousal_spike_rows_2_6_train_q90`
-- blocked `raw_cortical_only` PR-AUC: `0.124315`
-- blocked AR-only PR-AUC: `0.203622`
-- blocked `AR_plus_raw_cortical` PR-AUC: `0.167731`
-- current Phase 5.5 blocked real PR-AUC: `0.2670735630`
-- raw-to-Phase-5.5 gain: `+0.1427585630` PR-AUC (`+114.84%` relative lift; `2.15x` the raw-only predicted cortical/fMRI baseline)
-- direct-AR-plus-raw-to-Phase-5.5 gain: `+0.0993425630` PR-AUC (`+59.23%` relative lift)
-- grouped `raw_cortical_only` PR-AUC: `0.136579`
-- grouped AR-only PR-AUC: `0.147251`
-- grouped `AR_plus_raw_cortical` PR-AUC: `0.170299`
-- conclusion: raw predicted cortical/fMRI features alone are not the result; Neural Bridge makes the predicted cortical/fMRI signal generated from video by upstream brain-response models usable.
+The current benchmark proves that video-derived predicted neuro-response features add consistent forward-looking information beyond observed arousal persistence. The next deployment milestone is a video-only student or cold-start/self-rollout bridge, because the strongest residual benchmark currently consumes observed current/past arousal that a raw client video will not provide.
 
-VEATIC-124 v2:
+This is the difference between scientific capability and product packaging: Phase 7 proves the capability; the next experiment removes the deployment-time response-label dependency.
 
-- strongest blocked full-frame spike row: `cortical_pca64_delta` / `arousal__future_spike_1_3s`
-- PR-AUC: `0.2536`
-- AR: `0.1969`
-- shuffled: `0.1840`
-- random: `0.1944`
-- balanced event-vs-stable target `arousal__future_spike_1_3s@0.05`: `cortical_pca64_delta` PR-AUC `0.3394`
-- balanced deltas: `+0.0609` over AR, `+0.0631` over shuffled, `+0.0476` over random
+## Precise Boundaries
 
-AGAIN dense cache:
+Do not claim:
 
-- `995/995` videos complete
-- `243,575` video feature rows generated from video by upstream models trained on brain cortical response data
-- frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data
-- `2 Hz`, `256 px`, float16
-- official V-JEPA 2.1 ViT-G
-- TRIBE v2 cache-only postpass
-- labels aligned at true 2 Hz
+- mind reading or individual profiling;
+- medical or diagnostic inference;
+- exact continuous trajectory values are solved;
+- the blocked Phase 7 result was literal `5/5`;
+- raw-video-only client deployment is already validated;
+- universal emotion prediction or guaranteed campaign outcomes;
+- the obsolete `504` matrix was run or promoted.
 
-AGAIN Phase 5 eval-mode correction:
+Do state plainly:
 
-- grouped real PR-AUC: `0.2300639382`
-- grouped best matched control: `0.2042740689`
-- grouped delta vs best matched control: `+0.0257898694`
-- grouped AR-only: `0.2246816187`
-- grouped fold-seed positive: `15/15`
-- grouped continuous ranking/lift pass: true
-- grouped future-movement Spearman real / AR-only / shuffled / random: `0.2232222830` / `0.1982207591` / `0.1938183619` / `0.1931781163`
-- grouped top-1% average-true-movement lift real / AR-only / shuffled / random: `0.1359465244` / `0.1115815364` / `0.1125842464` / `0.1136304212`
-- blocked caveat: old fused lane lost to AR/control under blocked validation
+- grouped continuous future-movement ranking/lift is proven;
+- Phase 7 is an independent, fresh, all-gates-passed grouped confirmation;
+- every Phase 7 fold-group beat AR and matched controls;
+- checkpoint averaging materially improved the result;
+- the bridge, not raw predicted cortical features alone, creates the usable signal;
+- VEATIC and AGAIN provide meaningful cross-domain evidence.
 
-AGAIN frozen-AR residual design:
+## Canonical Entry Points
 
-- grouped frozen AR PR-AUC: `0.2246816187`
-- grouped best real residual PR-AUC: `0.2383409298`
-- grouped best matched residual control PR-AUC: `0.2248361805`
-- grouped delta vs frozen AR: `+0.0136593110`
-- grouped delta vs best matched control: `+0.0135047493`
-- blocked do-no-harm passed, but the older frozen-AR residual design did not yet beat AR/control under blocked temporal validation
+- `README.md`
+- `docs/neural_bridge_phase7_evidence.md`
+- `docs/current_claim_status.json`
+- `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`
+- `evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/README.md`
+- `docs/how_neural_bridge_was_discovered.md`
+- `docs/neural_bridge_service_as_software.md`
+- `docs/executable_validation_index.md`
+- `reports/README.md`
 
-## Canonical Artifacts
+Historical Phase 5/5.5 and Phase 6 reports remain valid evidence for the development ladder. They are not the current ceiling.
 
-- Phase 5.5 evidence ladder: `docs/neural_bridge_phase5_5_evidence_ladder.md`
-- Service-as-Software commercial thesis: `docs/neural_bridge_service_as_software.md`
-- Machine-readable status: `docs/current_claim_status.json`
-- Executable validation index: `docs/executable_validation_index.md`
-- Executable validation manifest: `docs/executable_validation_manifest.csv`, `docs/executable_validation_manifest.json`
-- Latest deterministic validation result: `docs/test_suite_result_20260714.json`
-- Reviewer evidence dossier: `evidence/current_phase_5_5_review/README.md`
-- Claim ledger and artifact manifest: `evidence/current_phase_5_5_review/CLAIM_LEDGER.md`, `evidence/current_phase_5_5_review/artifact_manifest.csv`
-- VEATIC summary: `docs/veatic_v2_evidence_summary.md`
-- AGAIN dense cache handoff: `docs/again_dense_h100_cache.md`
-- Canonical adversarial review: `docs/reviews/neural_bridge_phase5_adversarial_review_20260625.html`
-- Eval-mode correction report: `reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md`
-- Frozen-AR residual report: `reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md`
-- Blocked binary confirmation report: `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
-- Updated grouped compatibility verdict: `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
-- Full selected-head confirmation: `reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md`
-- Full selected-head evidence: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`
-- Dense root: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`
-- Phase 4 root: `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/`
+## Current Next Work
 
-Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly asked. Heavy output roots remain ignored.
+1. Freeze a bounded video-only deployment-bridge protocol using the Phase 7 model as teacher.
+2. Evaluate from cold start on held-out videos with no observed-arousal teacher forcing.
+3. Compare against video-only, static-video, self-rollout, and persistence controls.
+4. If the bridge is promising, run a bounded V-JEPA 2.1 VEATIC re-encode pilot and balanced VEATIC+AGAIN joint-training study with harmonized targets and leave-one-domain-out evaluation.
+5. Do not resume same-family Optuna, recreate 504, or launch an architecture zoo without a new locked hypothesis.
 
-## Executable Validation
+## Validation and Handoff
 
-- Full deterministic suite: `python3 -m pytest -q tests`
-- Latest local result: fully provisioned backend `138 passed in 27.45s`; default `npm run verify` `130 passed, 1 skipped in 21.92s`; repository audit, strict benchmark dry run, and frontend build passed on `2026-07-14`
-- `npm test` runs the full suite.
-- Executable crosswalk: `evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv`
-- Repo audit: `npm run audit:repo`
+Run before handoff:
 
-## Next Work
+```bash
+npm run verify
+npm run audit:repo
+```
 
-The approved bounded 420-row selected-head confirmation remains canonical. Trial 4 did not replace it. The original three-checkpoint ensemble subsequently passed a fresh control-complete blocked confirmation on `140/140` rows: real `0.2668905`, AR `0.2597236`, best control `0.2589302`, with `5/5` groups positive versus both. Its separate fresh grouped-video confirmation also passed `420/420` rows: real `0.2343676`, AR `0.2180498`, best control `0.2179717`, `15/15` fold-groups and `5/5` fold means positive versus both, and `+0.0082201` uplift over its member mean. These add promoted bounded ensemble evidence without rewriting the canonical selected-head 420. The next modeling step requires a new explicit plan; do not resume same-family Optuna, 504, or continuous development by default.
+ML work must use MLX/MPS and fail closed rather than silently falling back to CPU. Heavy outputs remain ignored; claim-bearing summaries and checksum anchors are tracked.

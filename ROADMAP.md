@@ -1,85 +1,86 @@
 # Neural Bridge Roadmap
 
-This roadmap starts from the current Phase 5.5 evidence ladder: VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal, and AGAIN replicated, scaled, validated, and strengthened it with dense V-JEPA 2.1 / TRIBE v2 features, frozen-AR residual design, blocked washout-gap confirmation, and updated grouped-video compatibility.
+Phase 7 is the current performance frontier. The project has moved from “does the neuro-response bridge work?” to “how do we deploy the proven signal from video alone and extend its generalization?”
 
-## Best Current Result
+## Current King: Phase 7
 
-AGAIN now has a bounded strict forward-time future-event ranking result:
+The fresh grouped held-out-video continuous confirmation passed `420/420` rows with failed gates `[]`:
 
-- target: `future_arousal_max_delta_rows_4_10_train_q90`
-- protocol: `blocked_temporal_70_30`
-- architecture: `short_temporal_conv_residual`
-- real PR-AUC: `0.2670735630`
-- frozen AR PR-AUC: `0.2602336231`
-- best control: `random_pca_residual`, PR-AUC `0.2593369051`
-- delta vs frozen AR: `+0.0068399399`
-- delta vs best control: `+0.0077366579`
-- seeds positive vs AR: `9/10`
-- seeds positive vs best control: `9/10`
-- weak / credible / strong confirmation: true
-- failed gates: `[]`
+- real / AR / best-control Spearman: `0.2603011121` / `0.2405371348` / `0.2402523335`;
+- delta versus AR / best control: `+0.0197639773` / `+0.0200487786`;
+- real / AR / best-control top-5% lift: `0.0975979581` / `0.0895663763` / `0.0897088493`;
+- delta versus AR / best control: `+0.0080315818` / `+0.0078891089`;
+- wins versus both comparators on both metrics: `15/15` fold-groups;
+- positive fold means: `5/5`;
+- checkpoint-ensemble uplift: `+0.0077966938` Spearman and `+0.0025021192` top-5%.
 
-The same target/head also passed updated grouped-video compatibility:
+This proves controlled grouped continuous future-arousal movement ranking/lift for the selected washout target/head. The separate blocked test was a strong aggregate `4/5` near-pass under a locked `5/5` gate and remains reported exactly that way.
 
-- protocol: `grouped_video`
-- rows: `350/350`
-- real PR-AUC: `0.2313831909`
-- AR/frozen PR-AUC: `0.2174953276`
-- best matched control: `train_only_video_mean_residual`, PR-AUC `0.2174209937`
-- delta vs AR/frozen: `+0.0138878634`
-- delta vs best matched control: `+0.0139621972`
-- fold-seed positives vs best control: `50/50`
-- updated grouped compatibility pass: true
+## What Has Been Established
 
-## Current Claim Boundary
+- VEATIC established the original future arousal event-ranking signal on edited affective media.
+- AGAIN replicated and strengthened the result at scale on `995` cleaned gameplay videos.
+- Raw predicted cortical/fMRI features alone are insufficient; the Neural Bridge design creates the usable signal.
+- The selected binary target/head passes blocked and grouped controls, the unified selected-head `420/420` audit, and fresh Phase 6 checkpoint-ensemble confirmations.
+- The Phase 7 washout continuous target/head passes fresh grouped continuous confirmation against target-specific AR and full matched controls.
+- Fixed checkpoint averaging is a real stabilizer, not a cosmetic change.
+- The effect is not dependent on a single favorable seed or fold.
 
-Proven:
+## Milestone 1: Video-Only Deployment Bridge
 
-- Controlled future human arousal event-ranking from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data across VEATIC and AGAIN.
-- Bounded strict forward-time future-event ranking on AGAIN for the redesigned washout-gap binary target/head.
-- Grouped held-out-video compatibility for the same AGAIN target/head under the updated frozen-AR-residual-aware verdict.
+Goal: preserve as much of the Phase 7 teacher signal as possible when no observed arousal history is available.
 
-Open:
+Required protocol:
 
-- Continuous exact arousal forecasting.
-- Broad all-target/all-dataset temporal prediction.
-- Full multimodal text+audio+video TRIBE coverage.
+1. freeze a small number of deployment hypotheses before held-out scoring;
+2. train a video-only student, cold-start self-rollout, or both from the Phase 7 teacher;
+3. prohibit observed-arousal teacher forcing at evaluation;
+4. use held-out-video folds and a true cold-start window;
+5. compare against video-only, train-only video mean, self-rollout persistence, shuffled, random, and label-permutation controls;
+6. keep ranking/lift and exact-value gates separate;
+7. run on MLX/MPS with no CPU fallback.
 
-## Completed Foundations
+Success means the core response-ranking intelligence becomes usable on raw pre-release client video.
 
-- VEATIC-124 v2 strict evidence suite and protected snapshot.
-- VEATIC raw-representation audit and frozen tensor contract.
-- VEATIC trained-head layer over frozen tensors.
-- Dense AGAIN H100 V-JEPA 2.1 / TRIBE v2 cache: `995/995` videos, `243,575` video feature rows generated from video by upstream models trained on brain cortical response data, true `2 Hz` labels.
-- AGAIN Phase 3 raw predicted cortical/fMRI feature-only negative-control result: blocked `raw_cortical_only` PR-AUC `0.124315` vs AR-only `0.203622`, proving raw predicted cortical/fMRI features alone are not the win.
-- AGAIN Phase 5 eval-mode correction.
-- AGAIN frozen-AR residual design.
-- AGAIN blocked AR decomposition and target redesign audits.
-- AGAIN temporal/event-context residual diagnostic.
-- AGAIN 10-seed blocked binary confirmation.
-- AGAIN updated grouped-video compatibility verdict.
-- Full bounded selected-head consolidation: `420/420` audited rows (`70/70` blocked plus `350/350` grouped), with no reruns required.
-- One-seed, 16-trial Optuna selected-head pilot on MLX: exact original reproduction at `0.2697372519`, tuned result `0.2718557352`, and `+0.0081646445` vs frozen AR/best control. This is exploratory, not promoted.
-- Locked-winner 10-seed Optuna confirmation: tuned beat original in `7/10` seeds but failed the preregistered aggregate-improvement gate (`-0.0011081356` mean delta). It retained positive controlled deltas versus AR and controls. Seed `20260627` was an unusually favorable canonical-original peak, but remains part of the failed verdict.
-- Robust multi-seed Optuna Stage A: 24 trials across five development seeds, checked on five reserved inner-validation seeds. Best candidate won `4/5` but was effectively tied on mean and worse on the robust objective; the planned 720-row held-out campaign stopped before Stage B.
-- Fresh-seed rescue selected trial 4 and passed inner-only Stage A2, but the 15-seed/8-lane blocked Stage B failed the untouched fresh-five held-out gate after `120/120` rows. Trial 4 was more stable and strongly controlled, but not reliably better; grouped Stage C was not run.
-- Fixed 50/50 original/Trial-4 fresh-five pilot: `20/20` blocked rows, positive versus original in `5/5` and AR in `5/5`, but only `+0.0001625` over Trial 4 and `7.21%` worse seed variability. Failed; no control-complete follow-up.
-- Fresh-15 three-checkpoint retraining: `60/60` rows. Trial 4 averaging stabilized strongly but lost to the matched original ensemble; original ensemble PR-AUC `0.2717155`, `+0.0116782` over AR. Promising comparator, not promoted.
-- Fresh original three-checkpoint control-complete blocked confirmation: `140/140`, pass, real `0.2668905`, AR `0.2597236`, best control `0.2589302`, `5/5` positive versus both.
-- Fresh original three-checkpoint grouped-video confirmation: `420/420`, pass, real `0.2343676`, AR `0.2180498`, best control `0.2179717`, `15/15` fold-groups and `5/5` fold means positive versus both; `+0.0082201` over the 45 real-member mean.
+## Milestone 2: Cross-Domain Training Pilot
 
-## Next Work
+VEATIC currently uses an older, less comprehensive encoding setup than AGAIN. A V-JEPA 2.1 re-encode and balanced joint training may improve stability and domain transfer, especially for the video-only student.
 
-1. Treat same-family hyperparameter tuning as saturated; the canonical original remains the supported single configuration.
-2. Treat the original three-checkpoint ensemble as promoted for the selected target/head under both bounded blocked and grouped-video protocols; preserve the single-model and ensemble results separately.
-3. Keep continuous arousal work separate from the confirmed binary event-ranking claim.
-4. Do not restart broad secondary-head, all-target, or architecture-zoo sweeps without a narrow diagnostic reason.
-5. Treat the historical literal 504 matrix as obsolete; do not recreate it or invent rows to reach 504.
-6. Keep full multimodal TRIBE as a separate pilot until audio/text-bearing inputs and local model access are resolved.
+Do not begin with a full expensive re-encode. First run a bounded pilot that answers whether the investment is justified:
 
-## Repo Hygiene Rules
+- harmonize future windows, row rate, labels, masks, and target definitions;
+- use domain-balanced sampling so AGAIN does not swamp VEATIC;
+- use a shared trunk with domain-specific calibration heads if needed;
+- include leave-VEATIC-out and leave-AGAIN-out evaluation;
+- compare joint training against domain-specific Phase 7-quality baselines;
+- preregister the minimum useful gain and stability criteria.
 
-- Keep tracked evidence snapshots under `evidence/`.
-- Keep current-facing narrative under `README.md`, `docs/current_project_state.md`, and `docs/neural_bridge_phase5_5_evidence_ladder.md`.
-- Keep heavyweight outputs, checkpoints, arrays, dense caches, model weights, videos, and external datasets out of git.
-- Preserve historical reports as historical artifacts; add supersession notes only when a file is current-facing.
+If the pilot transfers positively, scale the VEATIC 2.1 re-encode. If not, retain VEATIC as independent external validation rather than forcing joint training.
+
+## Milestone 3: Product Evaluation Surface
+
+After a video-only bridge passes:
+
+- convert ranked future movement into response heat maps and event bands;
+- expose confidence and calibration rather than false precision;
+- support cut-versus-cut comparison and weak-segment diagnostics;
+- generate a response-readiness report with traceable model/evidence metadata;
+- validate on prospective client-style videos before commercial accuracy claims.
+
+## Research Rules
+
+- Phase 7 is the current headline; Phase 5.5 and Phase 6 are its evidence foundation.
+- Do not resume broad same-family Optuna tuning; it has already been tested and bounded.
+- Do not delete or hide difficult seeds.
+- Do not recreate the obsolete `504` matrix.
+- Do not combine ranking/lift and exact-value claims after the fact.
+- Do not launch all-target or architecture-zoo sweeps without a narrow preregistered hypothesis.
+- Preserve matched AR and controls; beating weak controls alone is not enough.
+
+## Repository Rules
+
+- Keep current authority in `README.md`, `docs/neural_bridge_phase7_evidence.md`, `docs/current_project_state.md`, and `docs/current_claim_status.json`.
+- Preserve historical reports and evidence snapshots as the scientific record.
+- Track lightweight claim-bearing reports, manifests, and checksum anchors.
+- Keep dense caches, tensors, model weights, checkpoints, and heavy generated outputs outside git.
+- Refresh both code knowledge graphs and MemPalace only after canonical files are validated and repositories are clean.

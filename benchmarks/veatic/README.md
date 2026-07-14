@@ -4,7 +4,7 @@ This folder is the tracked VEATIC-124 v2 benchmark evidence mirror.
 
 ## Current Role
 
-VEATIC-124 v2 is the foundational half of the current Neural Bridge evidence ladder. It established the original controlled future arousal spike/event-ranking signal. AGAIN Phase 5.5 is now the scaled confirmation/current main result.
+VEATIC-124 v2 is the foundational half of the current Neural Bridge evidence ladder. It established the original controlled future arousal spike/event-ranking signal. AGAIN is the scaled confirmation, and its Phase 7 grouped continuous checkpoint ensemble is now the strongest current result.
 
 ## Headline Numbers
 
@@ -27,4 +27,4 @@ VEATIC-124 v2 is the foundational half of the current Neural Bridge evidence lad
 
 ## Boundary
 
-These artifacts support event/spike ranking. They do not claim continuous exact arousal forecasting, universal emotion prediction, or AGAIN Phase 5.5 confirmation by themselves.
+These artifacts support event/spike ranking and independent cross-domain grounding. They do not by themselves contain the later AGAIN Phase 7 confirmation or claim exact arousal trajectories.

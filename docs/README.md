@@ -1,56 +1,62 @@
-# Neural Bridge Docs
+# Neural Bridge Documentation
 
-Current-facing documentation:
+## Read This First
 
-- `neural_bridge_phase5_5_evidence_ladder.md` - canonical VEATIC + AGAIN evidence ladder and current claim wording.
-- `neural_bridge_service_as_software.md` - commercial thesis: Service as Software for pre-release video response intelligence.
-- `current_claim_status.json` - machine-readable current claim, proven/open boundaries, and canonical artifact pointers.
-- `executable_validation_index.md` - current AGAIN/VEATIC v2 scripts, tests, benchmark artifacts, and validation commands.
-- `executable_validation_manifest.csv` / `executable_validation_manifest.json` - machine-readable executable crosswalk for reviewers.
-- `current_project_state.md` - short operating snapshot for the cleaned repo.
-- `phase5_selected_head_420_confirmation_plan.md` - approved next-task contract for consolidating the existing 70 blocked and 350 grouped rows into one audited selected-head confirmation.
-- `veatic_v2_evidence_summary.md` - foundational VEATIC-124 v2 scientific evidence.
-- `external_assets_manifest.md` - source-versus-external asset boundary.
-- `veatic_v2_evidence_freeze.md` - frozen v2 evidence bundle, checksums, and no-reencode verifier.
-- `veatic_raw_representation_audit.md` - post-v2 raw representation audit and tensor-contract recommendation.
-- `again_dense_h100_cache.md` - dense 995-video AGAIN H100 V-JEPA 2.1 / TRIBE v2 cache handoff and current scaled evidence status.
-- `PROJECT_MEMORY.md` - current memory pointer and handoff policy.
-- `../AGENTS.md` - Codex/fresh-session operating contract.
+Phase 7 is the current headline result. Start with:
 
-Current evidence framing:
+1. `../README.md` — plain-language and scientific overview.
+2. `neural_bridge_phase7_evidence.md` — full Phase 7 interpretation and numbers.
+3. `current_project_state.md` — compact operating handoff and next task.
+4. `current_claim_status.json` — machine-readable claim ledger.
+5. `../reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md` — claim-bearing grouped report.
+6. `../evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/README.md` — checksum-anchored evidence snapshot.
 
-- VEATIC-124 v2 established the original controlled future arousal event-ranking signal.
-- AGAIN replicated, scaled, validated, and strengthened it.
-- Raw predicted cortical/fMRI features alone fail badly on AGAIN; the Neural Bridge pipeline is what makes predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data useful for controlled future event-ranking.
-- The neuro-response angle is central: this is not generic video analytics, but response intelligence from a predicted cortical/fMRI response feature layer generated from video by upstream brain-response models.
-- Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`.
-- Commercially, Neural Bridge is Service as Software: automated first-pass expert response evaluation for video, not generic SaaS or a simple dashboard.
-- Continuous exact arousal forecasting and broad all-target/all-dataset temporal prediction remain open.
-- No 504 run has been performed or promoted.
-- The next task is the bounded 420-row selected-head confirmation; the historical literal 504 matrix was an older three-seed/four-variant development design, not 420 current rows plus 84 missing rows.
+Phase 7 passed a fresh grouped held-out-video `420/420` matrix. Neural Bridge beat target-specific AR and best matched controls on Spearman and top-5% lift in all `15/15` fold-groups and all `5/5` fold means; failed gates were `[]`.
 
-Legacy and implementation entrypoints:
+In ordinary language: the model is consistently better than recent-response momentum and false-signal controls at identifying where the largest upcoming human-arousal movements will occur on unseen videos.
 
-- `backend/scripts/run_veatic_strict_benchmark.py` - consolidated VEATIC-124 strict suite and contract dry-run.
-- `backend/scripts/freeze_veatic_v2_evidence.py` - protected external snapshot and checksum verifier.
-- `backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py` - implemented MPS trained-head benchmark over frozen tensor contracts.
-- `tools/run_h100_tribe_postpass.py` - cache-only TRIBE v2 postpass runner for dense H100 V-JEPA 2.1 caches.
-- `tools/export_veatic_raw_representation_tensors.py` - verified export for model-ready post-v2 tensor contracts.
-- `backend/scripts/audit_repo_readiness.py` - heavyweight-artifact and orientation-file audit.
+## Current Authority
 
-Detailed evidence artifacts live outside this folder:
+- `neural_bridge_phase7_evidence.md` — current scientific evidence narrative.
+- `current_project_state.md` — current state, boundaries, and deployment next step.
+- `current_claim_status.json` — structured facts and canonical artifact pointers.
+- `neural_bridge_service_as_software.md` — commercial meaning and product path.
+- `executable_validation_index.md` — scripts, tests, evidence, and validation commands.
+- `executable_validation_manifest.csv` / `.json` — machine-readable executable crosswalk.
+- `PROJECT_MEMORY.md` — minimal fresh-session handoff.
+- `../AGENTS.md` — agent operating contract.
 
-- `how_neural_bridge_was_discovered.md` - the evidence-backed discovery sequence from VEATIC through the grouped continuous pass, frozen AR, washout-gap redesign, blocked confirmation, and grouped compatibility.
+## Evidence History
 
-- `../evidence/current_phase_5_5_review/` - current reviewer-facing dossier with claim ledger, artifact manifest, definitions/process, VEATIC v2 foundation evidence, and AGAIN Phase 0-5.5 milestone evidence.
-- `../evidence/current_phase_5_5_review/14_executable_validation_and_code/` - executable validation manifest and latest deterministic test-suite result.
-- `../evidence/phase_5_5_binary_blocked_confirmation_20260630_025437/`
-- `../evidence/phase_5_5_grouped_compatibility_20260630_033520/`
-- `benchmarks/veatic/veatic_124_*`
-- `outputs/veatic_124_temporal_*`
-- `outputs/veatic_124_raw_representation_tensor_export_v1/`
-- Google Drive `NeuralBridge_H100_AGAIN_tribe_v2_postpass_float16_256_2hz`
-- `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
-- `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
+- `how_neural_bridge_was_discovered.md` — full discovery sequence from VEATIC through Phase 7.
+- `neural_bridge_phase5_5_evidence_ladder.md` — historical Phase 5.5 ladder, now superseded as the current ceiling by Phase 7.
+- `phase5_selected_head_420_confirmation_plan.md` — completed binary selected-head consolidation protocol.
+- `phase6_original_three_checkpoint_grouped_confirmation_plan.md` — completed checkpoint-stabilization confirmation protocol.
+- `phase7_continuous_checkpoint_ensemble_preregistration.md` — completed Phase 7 diagnostic protocol.
+- `phase7_continuous_checkpoint_ensemble_blocked_confirmation_preregistration.md` — completed blocked near-pass protocol.
+- `phase7_continuous_checkpoint_ensemble_grouped_preregistration.md` — completed grouped pass protocol.
+- `veatic_v2_evidence_summary.md` — foundational VEATIC evidence.
+- `again_dense_h100_cache.md` — AGAIN dense substrate handoff.
 
-This folder is the current Neural Bridge handoff.
+Historical evidence is preserved because it shows the failures, controls, and design changes that produced the current result. It should not be mistaken for the current performance ceiling.
+
+## Current Claim
+
+Neural Bridge demonstrates controlled future human-arousal event ranking across VEATIC and AGAIN and controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN. Phase 7 independently confirms the continuous result with fixed checkpoint averaging and perfect `15/15` fold-group directional consistency against AR and matched controls.
+
+Exact trajectory values, a formal blocked Phase 7 continuous pass, and label-free raw-video deployment are not yet claimed. The grouped ranking/lift win is nevertheless complete and claim-bearing.
+
+## Next Task
+
+The next bounded research task is a video-only deployment bridge: distill or roll out the Phase 7 signal without observed-arousal inputs, then evaluate from cold start on held-out videos with no teacher forcing.
+
+A V-JEPA 2.1 VEATIC re-encode and balanced VEATIC+AGAIN joint-training pilot is a strong later option, particularly for cross-domain stability of the video-only student. It should be gated by a smaller harmonized pilot before full re-encoding.
+
+## Validation
+
+```bash
+npm run verify
+npm run audit:repo
+```
+
+MLX/MPS is the reference accelerator path. Heavy output roots, caches, checkpoints, arrays, datasets, and model weights remain outside git.

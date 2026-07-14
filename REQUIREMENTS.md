@@ -241,7 +241,7 @@ Run trained heads only when intentionally refreshing the post-v2 trained-head be
 python3 backend/scripts/run_veatic_frozen_tensor_trained_heads_benchmark.py
 ```
 
-Run dense AGAIN benchmarking from the audited H100 TRIBE bundle and `labels_aligned_2hz.parquet` only when intentionally extending the current Phase 5.5 evidence ladder. The H100 postpass itself did not run PCA, bridge training, spike/delta benchmarking, or promotion gates; the current promoted evidence comes from the later tracked Phase 5/5.5 reports.
+Run dense AGAIN benchmarking from the audited H100 TRIBE bundle and `labels_aligned_2hz.parquet` only when intentionally extending the current Phase 7 evidence line. The H100 postpass itself did not run PCA, bridge training, spike/delta benchmarking, or promotion gates; the current promoted evidence comes from the later tracked Phase 5.5, Phase 6, and Phase 7 reports.
 
 ## Current Evidence Entry Points
 
@@ -250,11 +250,13 @@ Fresh sessions should read these first:
 - `README.md`
 - `ROADMAP.md`
 - `docs/current_project_state.md`
-- `docs/neural_bridge_phase5_5_evidence_ladder.md`
+- `docs/neural_bridge_phase7_evidence.md`
+- `docs/neural_bridge_phase5_5_evidence_ladder.md` for historical detail
 - `docs/how_neural_bridge_was_discovered.md`
 - `docs/current_claim_status.json`
 - `reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`
 - `reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`
+- `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`
 - `reports/README.md`
 - `docs/veatic_v2_evidence_summary.md`
 - `docs/veatic_v2_evidence_freeze.md`

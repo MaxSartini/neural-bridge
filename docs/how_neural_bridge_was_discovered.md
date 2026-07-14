@@ -2,6 +2,8 @@
 
 Neural Bridge was not a single model win. It emerged from failures, corrections, target redesigns, and controlled confirmations. The invention is the combination of predicted neuro-response features, fold-safe compression, a matched frozen-AR floor, future-event target design, temporal residual learning, controls, and validation discipline.
 
+The current culmination is Phase 7: a fresh grouped continuous future-movement checkpoint-ensemble confirmation that passed `420/420`, won all `15/15` fold-groups versus AR and matched controls on both primary metrics, and failed no gates.
+
 ## 1. VEATIC Established The Phenomenon
 
 VEATIC-124 v2 showed that cortical-prediction-derived video features could rank future arousal spikes beyond AR and matched controls. The strongest blocked full-frame spike result reached PR-AUC `0.2536` versus AR `0.1969`, shuffled `0.1840`, and random `0.1944`. The balanced event-vs-stable result reached `0.3394`, beating AR by `+0.0609`.
@@ -46,12 +48,23 @@ The original grouped report appeared to fail because it used a raw-prevalence la
 
 The redesigned washout continuous diagnostic improved Spearman by `+0.0055230967` versus frozen AR, but missed its top-5% lift and seed-consistency gates. That diagnostic did not fully pass. It also does not erase the earlier grouped continuous-ranking/lift pass, because the protocols and claims differ.
 
+## 10. Phase 6 Stabilized the Model
+
+Fresh three-checkpoint averaging materially improved the original recipe over its member mean and passed separate blocked (`140/140`) and grouped (`420/420`) binary control-complete confirmations. This established that independent-checkpoint averaging is a real stability mechanism.
+
+## 11. Phase 7 Won the Grouped Continuous Test
+
+Phase 7 applied the proven temporal residual recipe and checkpoint stabilization to `residual_future_max_delta_rows_4_10`. Its fresh grouped confirmation reached Spearman `0.2603011121` versus AR `0.2405371348` and best control `0.2402523335`; top-5% lift was `0.0975979581` versus `0.0895663763` and `0.0897088493`. All `15/15` fold-groups and `5/5` fold means were positive on both metrics, and failed gates were `[]`.
+
+The separate blocked confirmation was a strong aggregate `4/5` near-pass under a locked `5/5` gate. The grouped result is independently claim-bearing and does not need that blocked verdict to be rewritten.
+
 ## Current Result
 
-Neural Bridge now has three bounded victories:
+Neural Bridge now has four bounded victories:
 
 1. Controlled future arousal event/spike ranking across VEATIC and AGAIN.
 2. Bounded blocked washout-gap future-event ranking on AGAIN, beyond frozen AR and controls.
 3. Controlled grouped continuous future-movement ranking/lift on AGAIN.
+4. A fresh Phase 7 grouped continuous confirmation for the selected washout target/head, with perfect `15/15` fold-group directional consistency and checkpoint-ensemble uplift.
 
-Exact continuous values, blocked continuous generalization, broad all-target/all-dataset temporal prediction, and 504 confirmation remain open.
+The next milestone is label-free deployment from video alone. Exact continuous values, a formal Phase 7 blocked continuous pass, broad all-target/all-dataset temporal prediction, and 504 confirmation are not claimed.

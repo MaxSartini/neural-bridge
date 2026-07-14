@@ -5,8 +5,8 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 ## Best Validation First
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
-- Fully provisioned result: `138 passed in 27.45s` on `2026-07-14`
-- Default `npm run verify` result: `130 passed, 1 skipped in 21.92s` on `2026-07-14`
+- Fully provisioned result: `150 passed in 34.06s` on `2026-07-14`
+- Default `npm run verify` result: `142 passed, 1 skipped in 30.38s` on `2026-07-14`
 - Repo evidence/orientation audit: `npm run audit:repo`
 - Latest local result: `repo_readiness pass controlled_evidence_items=206` on `2026-07-14`
 - Full `npm run verify`, VEATIC frozen-evidence verification, strict-benchmark dry run, and frontend production build: pass on `2026-07-14`
@@ -16,6 +16,9 @@ This file maps the claim-bearing Neural Bridge code to the tests, benchmark arti
 
 | Phase | Script | Role |
 | --- | --- | --- |
+| AGAIN Phase 7 grouped continuous checkpoint ensemble | `backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped.py` | Claim-bearing fresh `420/420` grouped-video confirmation of continuous future-movement ranking/lift; all 15 fold-groups beat AR and matched controls on Spearman and top-5% lift. |
+| AGAIN Phase 7 blocked continuous checkpoint ensemble | `backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm.py` | Fresh `140/140` blocked confirmation with strong aggregate lift but a literal 4/5 Spearman-vs-AR group gate; remains an unpromoted near-pass. |
+| AGAIN Phase 7 continuous checkpoint ensemble diagnostic | `backend/scripts/run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic.py` | Initial `84/84` bounded diagnostic that passed ranking/lift gates and kept exact-value gates separate. |
 | AGAIN Phase 6 grouped checkpoint ensemble confirmation | `backend/scripts/run_again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation.py` | Claim-bearing fresh `420/420` grouped-video confirmation of the original three-checkpoint ensemble against fold/seed-matched AR and all controls. |
 | AGAIN Phase 6 checkpoint ensemble confirmation | `backend/scripts/run_again_dense_2hz_phase6_original_three_checkpoint_control_complete.py` | Claim-bearing fresh `140/140` blocked confirmation of the original three-checkpoint ensemble against AR and all matched controls. |
 | AGAIN Phase 6 checkpoint ensemble | `backend/scripts/run_again_dense_2hz_phase6_trial4_three_checkpoint_fresh15.py` | Larger fresh-15 retraining with five fixed three-checkpoint groups; Trial 4 failed against matched original ensembles. |
@@ -56,6 +59,9 @@ Key coverage:
 - AGAIN checkpoint-ensemble contracts: `test_again_phase6_trial4_three_checkpoint_fresh15.py` protects 15 untouched seeds, disjoint fixed groups, exactly three aligned members, no member selection/weight search, and fail-closed audits.
 - AGAIN control-complete ensemble contracts: `test_again_phase6_original_three_checkpoint_control_complete.py` protects untouched seeds, fixed groups, full control scope, exact 140 rows, and fail-closed grouped authorization.
 - AGAIN grouped ensemble contracts: `test_again_phase6_original_three_checkpoint_grouped_confirmation.py` protects the five-fold, nine-seed, three-group, seven-lane, exact 420-row grouped scope and full matched-control set.
+- AGAIN Phase 7 continuous diagnostic contracts: `test_again_phase7_continuous_checkpoint_ensemble_diagnostic.py` protects the target-specific continuous AR baseline, fixed checkpoint groups, MLX enforcement, and separate ranking/lift versus exact-value gates.
+- AGAIN Phase 7 blocked continuous contracts: `test_again_phase7_continuous_checkpoint_ensemble_blocked_confirm.py` protects untouched seeds, exact `140`-row scope, full controls, and the fail-closed 5/5 blocked Spearman gate.
+- AGAIN Phase 7 grouped continuous contracts: `test_again_phase7_continuous_checkpoint_ensemble_grouped.py` protects the five-fold, nine-seed, exact `420`-row scope, audited fold-safe PCA reuse, all matched controls, and the exact-value claim boundary.
 - VEATIC v2 benchmark contracts: `test_veatic_strict_benchmark_contract.py`, `test_veatic_raw_representation_contract.py`
 - Frozen tensor/trained-head contracts: `test_veatic_frozen_tensor_adapter.py`, `test_veatic_frozen_tensor_trained_heads.py`
 - Runtime/cache contracts: `test_veatic_tribe_cache_runtime.py`, `test_mlx_vjepa21_cortical.py`
@@ -64,7 +70,7 @@ Key coverage:
 ## Benchmark Artifacts
 
 - `benchmarks/veatic/` is a tracked VEATIC v2 benchmark evidence mirror.
-- Current AGAIN benchmark evidence lives in `reports/`, `evidence/phase_*`, and `evidence/current_phase_5_5_review/`.
+- Current AGAIN benchmark evidence lives in `reports/`, `evidence/phase_*`, and the Phase 7-first `evidence/current_phase_7_review/`; `evidence/current_phase_5_5_review/` remains the detailed historical dossier.
 - Current consolidated selected-head evidence: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`.
 - Exploratory Optuna pilot evidence: `evidence/phase_6_optuna_selected_head_pilot_20260714_135902/`.
 - Exploratory locked-winner confirmation evidence: `evidence/phase_6_optuna_locked_10seed_confirmation_20260714_141457/`.
@@ -75,6 +81,9 @@ Key coverage:
 - Exploratory three-checkpoint fresh-15 evidence: `evidence/phase_6_trial4_three_checkpoint_fresh15_20260714_154602/`.
 - Promoted blocked three-checkpoint evidence: `evidence/phase_6_original_three_checkpoint_control_complete_20260714_160001/`.
 - Promoted grouped three-checkpoint evidence: `evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/`.
+- Phase 7 continuous diagnostic report: `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513.md`.
+- Phase 7 blocked continuous near-pass report: `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md`.
+- Promoted Phase 7 grouped continuous evidence: `evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/`.
 - Heavy output roots under `outputs/`, dense cache files, checkpoints, tensors, `.npy`, `.npz`, and model assets remain outside git unless explicitly documented as tiny metadata.
 
 ## Non-Claim Runtime Probes
@@ -83,7 +92,8 @@ Runtime probes under `tools/` are for environment, encoder, and throughput check
 
 ## Reviewer Entry Points
 
-- Reviewer executable manifest: `evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv`
+- Current reviewer entrypoint: `evidence/current_phase_7_review/README.md`
+- Historical reviewer executable manifest: `evidence/current_phase_5_5_review/14_executable_validation_and_code/executable_validation_manifest.csv`
 - Machine-readable executable manifest: `docs/executable_validation_manifest.json`
 - Current validation result: `docs/test_suite_result_20260714.json`
 - Frozen reviewer-dossier test record: `evidence/current_phase_5_5_review/14_executable_validation_and_code/test_suite_result_20260630.json`

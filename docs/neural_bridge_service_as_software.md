@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software. It predicts and ranks future human arousal/event moments from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data, allowing creative, media, game, and AI-video teams to understand which parts of a video are likely to matter before audience data exists.
+Neural Bridge is being built to convert pre-release video response evaluation from a slow human service into scalable software. Phase 7 proves the core intelligence: consistent future human-arousal movement ranking beyond trained persistence and matched controls from video-derived predicted cortical/fMRI response features. The next video-only bridge removes observed response context so creative, media, game, and AI-video teams can apply that intelligence before audience data exists.
 
 This is Service as Software for video response intelligence: automated expert response analysis, not merely a dashboard. The customer is not buying a seat in another analytics tool. The customer is buying the outcome a specialist team would normally deliver: evaluate this video, find the likely response moments, flag the weak sections, compare the cuts, and produce a response-readiness report before launch.
 
@@ -10,7 +10,7 @@ The neuro angle is the point. Neural Bridge is not just a visual-content model t
 
 TRIBE v2 is the upstream brain-prediction layer. It is Meta FAIR's TRImodal Brain Encoder v2: a model for predicting high-resolution fMRI/cortical activity from sensory inputs such as video, audio, and language. In the AGAIN dense path, V-JEPA provides video features and TRIBE maps them into predicted cortical-response features. Neural Bridge does not claim that V-JEPA or TRIBE alone are the moat. They are the frozen upstream substrate.
 
-Neural Bridge is the downstream system that makes that substrate useful: fold-safe feature construction, AR anchoring, future-event target design, temporal/event-context residual learning, matched controls, blocked temporal validation, grouped-video compatibility, and response-intelligence reporting.
+Neural Bridge is the downstream system that makes that substrate useful: fold-safe feature construction, AR anchoring, future-event target design, temporal/event-context residual learning, matched controls, blocked temporal validation, grouped-video compatibility, checkpoint stabilization, and response-intelligence reporting. The current Phase 7 system is `16.61%` above the original validated continuous bridge on Spearman and `23.59%` above it on top-5% lift.
 
 The result is commercially stronger because it is cross-domain. VEATIC covers film, TV/reality, documentary, and home-video emotion content; AGAIN covers interactive gameplay and game-video arousal. Neural Bridge is therefore not only a single-dataset media demo. It is a paired evidence ladder across edited affect video and gaming video.
 
@@ -171,6 +171,12 @@ That distinction matters commercially. A response-readiness report is more valua
 
 Beating AR is the hard scientific and commercial proof point. Recent arousal is already predictive, so AR is a strong persistence baseline. If Neural Bridge only matched AR, it would not be enough. The current AGAIN blocked confirmation beats matched seed-specific frozen AR by `+0.0068399399` PR-AUC (`+2.63%` relative lift) and the best matched control by `+0.0077366579` PR-AUC (`+2.98%` relative lift), with `9/10` positive seeds vs both. Grouped-video compatibility beats matched fold/seed-specific AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) and the best matched control by `+0.0139621972` PR-AUC (`+6.42%` relative lift), with `50/50` fold-seeds positive vs the best matched control. That is the evidence that the system is ranking future response events beyond simple arousal momentum and beyond matched controls.
 
+Phase 7 makes the value clearer. Its grouped continuous ensemble beats target-specific AR by `8.22%` on Spearman and `8.97%` on top-5% lift, with `15/15` fold-groups positive on both. Those are not total-system percentages; they are the residual gain after a trained AR model has already absorbed the dominant persistence signal. The commercial value lies in the hard remainder: where video-derived neuro-response information changes what the persistence model would otherwise predict.
+
+Against the original validated grouped continuous Neural Bridge, the current Phase 7 system is `16.61%` higher on future-movement Spearman, `23.59%` higher on top-5% true-movement lift, and `14.52%` higher on top-1% lift. More importantly for triage, the top-5% margin added beyond AR is `98.92%` larger—Phase 7 nearly doubles the useful high-priority signal the bridge contributes above persistence.
+
+The spike/event system shows the same progression. On the original grouped AGAIN spike target, the frozen-AR residual bridge reached `0.2383409298` PR-AUC—`74.51%` above raw cortical-only and `39.95%` above direct AR-plus-raw. The later fresh grouped binary ensemble beat its matched AR in `15/15` fold-groups, and its margin over AR was `17.50%` larger than the earlier promoted single-model margin. Phase 7's continuous output still carries event-ranking signal (`0.2231895329` PR-AUC vs AR `0.2088047413`, `15/15` positive) even though continuous ranking/lift was its primary gate.
+
 The distinction matters. An `AR-only baseline` is a standalone autoregressive comparison model/lane. A `frozen AR` floor is the matched seed/fold-specific AR score fixed before residual/control training; all real and control lanes in that seed/fold use the same frozen AR score. A frozen AR floor can be reused from a compatible existing AR checkpoint/score or newly trained for the exact seed/fold when missing. The claim is not "we beat some unrelated AR number"; it is "we beat the matched frozen AR floor and the best matched controls."
 
 ## Scientific Core
@@ -204,11 +210,11 @@ The achievement is that Neural Bridge survived this control discipline across VE
 
 ## The Night-And-Day Bridge Effect
 
-Raw predicted cortical/fMRI features by themselves were not enough. On the early AGAIN blocked spike target, `raw_cortical_only` scored `0.124315` PR-AUC, while direct `AR_plus_raw_cortical` reached only `0.167731`. The current Phase 5.5 blocked confirmation reaches `0.2670735630` PR-AUC.
+Raw predicted cortical/fMRI features by themselves were not enough. On the early AGAIN blocked spike target, trained AR scored `0.203622` PR-AUC, `raw_cortical_only` scored `0.124315` (`38.95%` below AR), and direct `AR_plus_raw_cortical` reached only `0.167731` (`17.63%` below AR). Adding the raw features made the trained baseline worse.
 
-That is not a tiny improvement hidden behind decimals. Phase 5.5 is `+0.1427585630` PR-AUC over raw predicted cortical/fMRI features alone (`+114.84%` relative lift; `2.15x` the raw-cortical-only score). It is `+0.0993425630` PR-AUC over direct `AR_plus_raw_cortical` (`+59.23%` relative lift).
+The later bridge results reverse that relationship: the binary bridge passes blocked and grouped confirmation, and Phase 7's continuous bridge beats its trained/frozen AR floor and matched controls in every grouped fold-group. Because the early ablation and Phase 7 use different targets and metrics, they should not be collapsed into one misleading percentage. The meaningful transformation is from negative incremental value to universally positive held-out-video incremental value.
 
-This is the core lesson: raw predicted cortical/fMRI features are commercially useless on their own for the blocked AGAIN target. Neural Bridge is what makes the neuro-response signal usable: fold-safe compression, AR anchoring, future-event target design, temporal/event context, and adversarial controls.
+This is the core lesson: upstream predicted cortical/fMRI features were not a product by themselves. Neural Bridge is what makes the neuro-response signal usable: fold-safe compression, AR anchoring, future-target design, temporal/event context, residual learning, checkpoint stabilization, and adversarial controls.
 
 ## What Was Proven
 
@@ -218,14 +224,14 @@ Proven:
 - VEATIC future arousal event/spike ranking beyond AR and controls
 - AGAIN bounded strict forward-time future-event ranking for the redesigned washout-gap target/head
 - AGAIN grouped-video compatibility for the same target/head
-- AGAIN controlled grouped continuous future-arousal movement ranking/lift beyond AR-only and matched shuffled/random controls in the deterministic eval-mode lane
+- AGAIN controlled grouped continuous future-arousal movement ranking/lift beyond AR-only and matched controls in both the deterministic Phase 5 eval-mode lane and the separately preregistered Phase 7 washout-target checkpoint ensemble (`420/420`, `15/15` positive fold-groups)
 - evidence that predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data contain future human-response event signal beyond AR and matched controls
 - evidence that the bridge beats the strong AR persistence baseline, not just weak controls
 
 Open:
 
 - exact continuous-value/trajectory forecasting
-- blocked continuous future-movement generalization
+- fully confirmed blocked continuous future-movement generalization (the Phase 7 blocked run was a strong aggregate near-pass but missed its locked `5/5` group gate at `4/5`)
 - broad all-target/all-dataset temporal prediction
 - individual-level prediction
 - medical or diagnostic use
@@ -234,7 +240,9 @@ Open:
 
 Precise claim wording:
 
-> Bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap target/head, and controlled grouped continuous future-movement ranking/lift is proven for the deterministic eval-mode lane. Exact continuous values, blocked continuous generalization, and all-target/all-dataset temporal prediction remain open.
+> Bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap target/head, and controlled grouped continuous future-movement ranking/lift is proven by the deterministic eval-mode lane and independently strengthened by the Phase 7 washout-target checkpoint ensemble. Exact continuous values, fully confirmed blocked continuous generalization, label-free client deployment, and all-target/all-dataset temporal prediction remain open.
+
+Deployment boundary: the current strongest residual benchmark uses observed current/past arousal in its AR context. That is valid for the controlled benchmark, but it is not yet a raw-video-only client pipeline. The product path therefore requires a separately validated video-only student or cold-start/self-rollout bridge before describing the benchmark accuracy as directly available on unlabeled client video.
 
 ## Why The Technical Result Supports The Business
 

@@ -118,8 +118,9 @@ AGAIN has since progressed beyond cache readiness and raw-cortical Phase 3 diagn
 - Updated grouped compatibility: same target/head, real PR-AUC `0.2313831909`, AR/frozen `0.2174953276`, best matched control `0.2174209937`, fold-seed positives vs best control `50/50`, updated grouped compatibility pass true.
 - Phase 5 eval-mode correction: grouped real PR-AUC `0.2300639382`, best matched control `0.2042740689`, delta `+0.0257898694`, fold-seed positive `15/15`; grouped continuous future-movement ranking/lift also passed, with real Spearman `0.2232222830` vs AR-only `0.1982207591`, shuffled `0.1938183619`, and random `0.1931781163`.
 - Frozen-AR residual design: grouped frozen AR `0.2246816187`, best real residual `0.2383409298`, best matched residual control `0.2248361805`, delta vs AR `+0.0136593110`, delta vs control `+0.0135047493`.
+- Phase 7 grouped continuous confirmation: `420/420`, real/AR/best-control Spearman `0.2603011121` / `0.2405371348` / `0.2402523335`, real/AR/best-control top-5% lift `0.0975979581` / `0.0895663763` / `0.0897088493`, all `15/15` fold-groups positive on both metrics, failed gates `[]`.
 
-Current claim boundary: bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap target/head, and controlled grouped continuous future-movement ranking/lift is proven for the deterministic eval-mode lane. Exact continuous values, blocked continuous generalization, and broad all-target/all-dataset temporal prediction remain open. No 504 run has been performed or promoted.
+Current claim: bounded strict forward-time binary future-event ranking is proven, and controlled grouped continuous future-movement ranking/lift is independently confirmed by Phase 7 for the selected washout target/head. The separate Phase 7 blocked continuous run was a strong `4/5` near-pass. Exact values and label-free raw-video deployment are not yet claimed. No 504 run has been performed or promoted.
 
 ## Local Audit Notes
 

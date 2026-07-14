@@ -4,6 +4,11 @@ This directory contains claim-bearing benchmark runners, no-training verdict/aud
 
 ## Current Claim-Bearing AGAIN Scripts
 
+- `run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped.py` - current headline: fresh `420/420` grouped continuous future-movement ranking/lift confirmation, `15/15` positive fold-groups, failed gates `[]`.
+- `run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm.py` - separate fresh `140/140` blocked near-pass; strong aggregate result with a literal `4/5` under its locked `5/5` gate.
+- `run_again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic.py` - bounded precursor that separated ranking/lift from exact-value gates.
+- `run_again_dense_2hz_phase6_original_three_checkpoint_control_complete.py` - fresh blocked binary checkpoint-ensemble confirmation.
+- `run_again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation.py` - fresh grouped binary checkpoint-ensemble confirmation.
 - `run_again_dense_2hz_phase5_temporal_residual_binary_big_confirm.py` - Phase 5.5 matched seed-specific 10-seed blocked binary confirmation.
 - `summarize_again_dense_2hz_phase5_temporal_residual_binary_big_confirm.py` - summary helper for the blocked binary confirmation.
 - `run_again_dense_2hz_phase5_temporal_residual_grouped_compat.py` - Phase 5.5 grouped-video compatibility run.
@@ -32,3 +37,5 @@ This directory contains claim-bearing benchmark runners, no-training verdict/aud
 ## Policy
 
 Do not run a benchmark script just to satisfy documentation. Claims must be backed by completed reports and evidence bundles. Heavy outputs, checkpoints, arrays, dense caches, and model assets stay outside git unless a user explicitly approves a small metadata snapshot.
+
+Current interpretation lives in `../../docs/neural_bridge_phase7_evidence.md`; Phase 5.5 scripts remain claim-bearing foundations, not the present performance ceiling.

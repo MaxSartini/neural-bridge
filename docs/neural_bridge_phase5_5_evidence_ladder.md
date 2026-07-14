@@ -1,5 +1,7 @@
 # Neural Bridge Phase 5.5 Evidence Ladder
 
+Historical foundation: this document preserves the Phase 5.5 evidence state and has been extended with later context, but Phase 7 is now the current headline and canonical performance summary. Read `docs/neural_bridge_phase7_evidence.md` first.
+
 Neural Bridge now has a paired cross-dataset evidence ladder: VEATIC-124 v2 established the original controlled future arousal spike/event-ranking signal, and AGAIN replicated, scaled, validated, and strengthened it with dense V-JEPA 2.1 / TRIBE v2 features, controlled grouped continuous future-movement ranking/lift, frozen-AR residuals, a redesigned washout-gap future arousal event target, blocked temporal confirmation, and grouped-video compatibility.
 
 The bounded selected-head result is now consolidated into one `420/420` confirmation artifact: `70/70` blocked temporal rows plus `350/350` grouped held-out-video rows. All rows were reused after provenance and checksum audit, no rerun was required, and all overall gates passed.
@@ -54,12 +56,14 @@ The deterministic eval-mode correction preserved more than binary event-ranking.
 - grouped comparisons: `15` fold-seed evaluations
 - stored grouped continuous-ranking/lift gate: `true`
 
-This establishes controlled grouped continuous future-movement ranking/lift. It is narrower than exact continuous forecasting. The old fused blocked lane did not beat AR/controls on continuous ranking, and the later redesigned washout continuous diagnostic improved Spearman (`+0.0055230967` vs frozen AR) but missed its top-5% lift and seed-consistency gates. The result must therefore be described as grouped continuous ranking/lift, not exact-value or blocked continuous forecasting.
+This establishes controlled grouped continuous future-movement ranking/lift. Phase 7 then independently strengthened that claim for the washout-gap continuous target `residual_future_max_delta_rows_4_10` with the selected `short_temporal_conv_residual` head and fixed three-checkpoint ensembles. Its separately preregistered grouped confirmation completed exactly `420/420` rows: real Spearman was `0.2603011121` versus target-specific AR `0.2405371348` and best matched control `0.2402523335`; real top-5% lift was `0.0975979581` versus AR `0.0895663763` and best control `0.0897088493`. All `15/15` fold-groups and all `5/5` fold means were positive, and failed gates were `[]`.
+
+The Phase 7 blocked confirmation remains a distinct near-pass rather than a promoted blocked result: it was positive on aggregate and passed every gate except the locked `5/5` group Spearman-vs-AR requirement (`4/5`). The grouped pass does not rewrite that verdict. Both Phase 7 protocols explicitly leave `exact_continuous_value_forecasting_proven: false`; MAE/RMSE are descriptive diagnostics, not post-hoc promotion gates.
 
 ## What Remains Open
 
 - Exact continuous-value/trajectory forecasting remains open.
-- Blocked continuous future-movement generalization remains open.
+- Fully confirmed blocked continuous future-movement generalization remains open; the Phase 7 blocked run was a literal `4/5` near-pass while the separate grouped-video confirmation passed.
 - Broad all-target/all-dataset temporal prediction remains open.
 - No 504 run has been performed or promoted.
 - Grouped compatibility is not itself a 504 result.
@@ -252,7 +256,7 @@ The original grouped artifact failed the legacy label-permutation-near-chance ga
 ## Executable Validation
 
 - Full deterministic test suite: `python3 -m pytest -q tests`
-- Latest fully provisioned local result: `138 passed in 27.45s` on `2026-07-14`; repository readiness and the blocked/grouped ensemble contracts passed
+- Latest fully provisioned local result: `150 passed in 34.06s` on `2026-07-14`
 - Repo readiness audit: `npm run audit:repo`
 - Latest local audit result: `repo_readiness pass controlled_evidence_items=206`
 - Executable validation index: `docs/executable_validation_index.md`
@@ -263,7 +267,7 @@ These tests protect deterministic contracts over split construction, target wind
 
 ## Correct Claim Wording
 
-Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data. VEATIC-124 v2 established the original controlled future arousal event-ranking signal; AGAIN replicated and extended it at scale. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`, grouped compatibility for the same target/head is proven under the updated verdict, and the deterministic eval-mode lane separately beats AR-only and matched controls on grouped continuous future-movement ranking/lift. Exact continuous values and blocked continuous generalization remain open. Raw predicted cortical/fMRI features alone fail badly on AGAIN; the claim is the Neural Bridge pipeline, not raw predicted cortical/fMRI features by themselves.
+Neural Bridge demonstrates controlled future human arousal event-ranking across VEATIC and AGAIN, plus controlled grouped held-out-video continuous future-arousal movement ranking/lift on AGAIN, from frozen predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data. VEATIC-124 v2 established the original controlled future arousal event-ranking signal; AGAIN replicated and extended it at scale. Bounded strict forward-time future-event ranking is proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`, grouped compatibility for the same target/head is proven under the updated verdict, and grouped continuous future-movement ranking/lift is independently supported by both the deterministic Phase 5 eval-mode lane and the Phase 7 washout-target checkpoint ensemble. Exact continuous values and fully confirmed blocked continuous generalization remain open. Raw predicted cortical/fMRI features alone fail badly on AGAIN; the claim is the Neural Bridge pipeline, not raw predicted cortical/fMRI features by themselves.
 
 ## Current Evidence Boundaries
 
@@ -307,4 +311,4 @@ plainly. Never suppress a new pass because an older document was cautious.
 
 ## Next Work
 
-The approved bounded 420-row selected-head confirmation remains complete and promoted. The one-seed Optuna winner and robust Trial-4 rescue did not replace it. The subsequent original three-checkpoint ensemble passed separate fresh blocked (`140/140`) and grouped-video (`420/420`) control-complete confirmations, so checkpoint stabilization is now promoted for the selected target/head under both bounded protocols. No further modeling sweep is authorized without a new explicit plan. Seed `20260627` remains present and reported, never deleted. The historical literal 504 matrix remains obsolete and must not be recreated or padded. Do not widen claims into exact continuous values, blocked continuous generalization, or universal prediction; grouped continuous future-movement ranking/lift remains separately supported.
+The approved bounded 420-row selected-head binary confirmation remains complete and promoted. The one-seed Optuna winner and robust Trial-4 rescue did not replace it. The subsequent original three-checkpoint ensemble passed separate fresh blocked (`140/140`) and grouped-video (`420/420`) binary control-complete confirmations. Phase 7 then promoted checkpoint-stabilized grouped continuous future-movement ranking/lift for `residual_future_max_delta_rows_4_10` after a fresh `420/420` grouped pass; its separate blocked result remains a literal `4/5` near-pass. The next scientific bottleneck is deployment validity: the current strongest residual benchmark consumes observed current/past arousal, so a video-only student or cold-start self-rollout protocol must be validated before claiming label-free client-video operation. Seed `20260627` remains present and reported, never deleted. The historical literal 504 matrix remains obsolete and must not be recreated or padded. Do not widen claims into exact continuous values or universal prediction.
