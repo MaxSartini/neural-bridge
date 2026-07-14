@@ -25,7 +25,7 @@ Bounded strict forward-time future-event ranking is proven on AGAIN for `future_
 
 The unified bounded selected-head artifact passes at exactly `420/420` rows (`70/70` blocked plus `350/350` grouped). All `420` rows were reused after provenance and integrity audit, no slice required rerunning, and the overall failed-gate list is `[]`.
 
-Exact continuous-value forecasting and blocked continuous generalization remain open. This does not erase the grouped continuous-ranking/lift pass. Broad all-target/all-dataset temporal prediction remains open. No 504 run has been promoted.
+Exact continuous-value forecasting and blocked continuous generalization remain open. This does not erase the grouped continuous-ranking/lift pass or the strong Phase 7 aggregate blocked near-confirmation. Zero-label raw-video-only deployment is also open: the strongest current residual benchmark consumes observed current/past arousal features that will not exist for an unlabelled client video. Broad all-target/all-dataset temporal prediction remains open. No 504 run has been promoted.
 
 ## Do Not Claim
 
@@ -50,13 +50,15 @@ Exact continuous-value forecasting and blocked continuous generalization remain 
 - The full selected-head matrix is consolidated and promoted at `420/420`, with `420` reused rows, `0` reruns, and all provenance/integrity gates passing.
 - Grouped continuous future-movement ranking/lift passed in the deterministic eval-mode lane: real beat AR-only and matched shuffled/random controls on future-movement Spearman and top-1% average-true-movement lift across 15 grouped fold-seed evaluations.
 - Continuous evidence is protocol-bounded: the old fused blocked lane lost to AR/controls, while the later washout continuous diagnostic improved Spearman but failed its full top-5%/seed-consistency gate. Do not promote this as exact-value or blocked continuous forecasting.
+- Phase 7's `84/84` diagnostic passed every ranking/lift gate. Its fresh `140/140` confirmation was strongly positive in aggregate but missed the locked all-five Spearman-vs-AR gate (`4/5`); all five groups beat the best matched control on Spearman and both AR/control on top-5% lift. Formal blocked continuous promotion and grouped follow-up remain disallowed.
+- Deployment is not yet label-free. Current AR-assisted evidence uses observed arousal, lag-1/2/4 arousal, and recent deltas. A video-only student or self-rollout must pass cold-start held-out-video evaluation before client-video accuracy is claimed.
 - Raw predicted cortical/fMRI features alone are a negative-control lesson: they are weak under blocked validation and can damage AR if bolted on directly.
 - The neuro-response angle is central: Neural Bridge starts from predicted cortical/fMRI response features generated from video by upstream brain-response models, then tests whether that predicted brain-response layer improves future human arousal event ranking under controls.
 - Beating AR is a big deal: the current result does not merely follow arousal persistence; it beats the matched frozen AR floor and the best matched controls.
 
 ## Commercial Interpretation
 
-Neural Bridge is Service as Software for video response intelligence. It converts pre-release video response evaluation from a slow human service into scalable software: submit video or variants, extract bridge features, rank future response-event moments, flag weak segments, compare cuts, and produce a response-readiness report before audience data exists.
+Neural Bridge is a Service-as-Software product direction for video response intelligence: submit video or variants, extract bridge features, rank future response-event moments, flag weak segments, compare cuts, and produce a response-readiness report. The current benchmark validates the scientific bridge under observed response history; the raw-video-only pre-release workflow remains the next deployment milestone.
 
 The business model is automated expert analysis, not generic SaaS. The customer wants the service outcome a specialist team would normally deliver: evaluate this ad, diagnose this trailer, compare these cuts, find likely response moments, and decide what to test or ship. See `docs/neural_bridge_service_as_software.md`.
 

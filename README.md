@@ -17,6 +17,8 @@ The unified bounded selected-head confirmation now passes at exactly `420/420` r
 
 AGAIN also has a controlled grouped continuous future-movement ranking/lift result from the deterministic eval-mode `regression_plus_binary` lane. Across 15 grouped fold-seed evaluations, real future-movement Spearman was `0.2232222830` vs AR-only `0.1982207591`, `ar_plus_shuffled_pca` `0.1938183619`, and `ar_plus_random_pca` `0.1931781163`. Real top-1% average-true-movement lift was `0.1359465244` vs `0.1115815364`, `0.1125842464`, and `0.1136304212`, respectively; the stored `continuous_ranking_lift_pass` is `true`. This is a grouped continuous-ranking result, not exact-value forecasting and not a blocked continuous pass.
 
+Phase 7 added strong blocked washout continuous evidence without clearing its final locked consistency gate. The fresh `140/140` confirmation reached real/AR/best-control Spearman `0.1176781535` / `0.1103312855` / `0.1072552766` and top-5% lift `0.0840262922` / `0.0759273576` / `0.0757026078`. It passed every aggregate, control, top-k, ensemble, audit, and stability gate, but Spearman beat AR in `4/5` rather than the preregistered `5/5` groups. The formal blocked continuous verdict is therefore not promoted; grouped follow-up was not authorized.
+
 Beating AR is the hard part. AR is the recent/past-arousal baseline, and arousal persistence is already powerful; a model that cannot beat AR is mostly rediscovering momentum. The current AGAIN blocked result clears that frozen AR floor by `+0.0068399399` PR-AUC, a `+2.63%` relative lift across 10 matched seeds, and the grouped compatibility result clears AR/frozen by `+0.0138878634` PR-AUC (`+6.39%` relative lift) across `50/50` fold-seeds. That is the central scientific win.
 
 Terminology matters here. `AR-only baseline` means a standalone autoregressive comparison lane trained/evaluated as its own baseline. `Frozen AR` means the seed- or fold-specific AR-only score/logit is fixed first and then reused as the residual floor; it may be reused from an existing compatible AR checkpoint/score or newly trained for that exact seed/fold when missing. In frozen-AR residual experiments, every real and control lane inside the same seed/fold must use the identical frozen AR score. The headline claim requires beating both that matched frozen AR floor and the best matched control.
@@ -55,9 +57,9 @@ That means the evidence is not a single narrow demo. It spans film, TV/reality, 
 
 ## Commercial Thesis
 
-Neural Bridge is Service as Software for video response intelligence. It automates the first-pass expert service of pre-release response evaluation: scoring videos, ranking future response moments, comparing variants, and producing response diagnostics before audience data exists.
+Neural Bridge is a Service-as-Software product direction for video response intelligence. Its intended service is pre-release response evaluation: scoring videos, ranking future response moments, comparing variants, and producing response diagnostics before audience data exists.
 
-The business outcome is not "upload video, get chart." It is: upload video, receive the kind of response intelligence report a specialist team would produce, but faster, cheaper, and at far greater scale. Neural Bridge converts pre-release video response evaluation from a slow human service into scalable software.
+The business outcome is not "upload video, get chart." It is: upload video, receive the kind of response intelligence report a specialist team would produce, but faster, cheaper, and at far greater scale. That raw-video-only product workflow is not yet validated: the strongest current residual benchmark consumes observed current/past arousal, which a client video will not provide. A video-only student or label-free autoregressive rollout must pass cold-start held-out-video tests before deployment accuracy is claimed.
 
 Commercial interpretation: [docs/neural_bridge_service_as_software.md](docs/neural_bridge_service_as_software.md)
 
@@ -73,7 +75,7 @@ Raw predicted cortical/fMRI features alone fail badly on AGAIN. On the original 
 
 Bounded strict forward-time future-event ranking is now proven on AGAIN for `future_arousal_max_delta_rows_4_10_train_q90` with `short_temporal_conv_residual`. Grouped held-out-video compatibility for the same target/head is also proven under the updated frozen-AR-residual-aware verdict. Separately, the deterministic eval-mode `regression_plus_binary` lane passed controlled grouped continuous future-movement ranking/lift against AR-only and matched shuffled/random controls.
 
-Exact continuous-value forecasting and blocked continuous generalization remain open; this boundary must not be misread as erasing the grouped continuous-ranking/lift pass. Broad all-target/all-dataset temporal prediction remains open. No 504 run has been promoted.
+Exact continuous-value forecasting and blocked continuous generalization remain open; this boundary must not be misread as erasing the grouped continuous-ranking/lift pass or the strong Phase 7 aggregate near-confirmation. Zero-label raw-video-only deployment also remains open because the current strongest residual uses observed arousal history. Broad all-target/all-dataset temporal prediction remains open. No 504 run has been promoted.
 
 ## Canonical Evidence
 
@@ -194,7 +196,7 @@ VEATIC-124 v2 foundational evidence:
 
 ## Claim Boundaries
 
-Do not claim mind reading, exact continuous-value forecasting is solved, blocked continuous generalization is solved, universal emotion prediction, or 504-proven generalization. Do not describe the continuous path as wholly failed: grouped continuous future-movement ranking/lift passed under eval-mode scoring and matched controls.
+Do not claim mind reading, exact continuous-value forecasting is solved, blocked continuous generalization is solved, zero-label client-video deployment is validated, universal emotion prediction, or 504-proven generalization. Do not describe the continuous path as wholly failed: grouped continuous future-movement ranking/lift passed under eval-mode scoring and matched controls, and Phase 7 produced a strong aggregate blocked near-confirmation with one failed all-groups gate.
 
 Correct wording: bounded strict forward-time future-event ranking is proven on AGAIN for the redesigned washout-gap target/head, and controlled grouped continuous future-movement ranking/lift is proven for the deterministic Phase 5 eval-mode lane; exact continuous values, blocked continuous generalization, and all-target/all-dataset temporal generalization remain open.
 
@@ -206,7 +208,7 @@ The current deterministic validation command is:
 python3 -m pytest -q tests
 ```
 
-Latest results on `2026-07-14`: the fully provisioned backend passed `138` tests, including the blocked and grouped control-complete checkpoint-ensemble contracts. The default `npm run verify` environment passed `130` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
+Latest results on `2026-07-14`: the fully provisioned backend passed `146` tests, including Phase 7 continuous diagnostic/confirmation contracts and the blocked/grouped binary checkpoint-ensemble contracts. The earlier default `npm run verify` environment passed `130` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
 
 Future experiment infrastructure now uses the real upstream Optuna, Polars, MLflow, and SHAP packages behind leakage/provenance and Apple-accelerator contracts. Optuna objectives must attest MLX/MPS execution, MLflow records the verified accelerator and full run provenance, Polars hands numeric query results directly to MLX, and official SHAP sends model prediction batches through MLX. Setup, exact device boundaries, and the end-to-end verifier are documented in [docs/research_tooling_integrations.md](docs/research_tooling_integrations.md). These integrations are exploratory tooling and do not alter the canonical 420-row result.
 

@@ -40,9 +40,15 @@ The original three-checkpoint ensemble is now promoted under both bounded protoc
 
 The deterministic Phase 5 eval-mode `regression_plus_binary` lane also passed its grouped continuous-ranking/lift gate. Across 15 grouped fold-seed evaluations, real future-movement Spearman was `0.2232222830` versus AR-only `0.1982207591`, `ar_plus_shuffled_pca` `0.1938183619`, and `ar_plus_random_pca` `0.1931781163`; real top-1% average-true-movement lift was `0.1359465244` versus `0.1115815364`, `0.1125842464`, and `0.1136304212`, respectively. This proves controlled grouped continuous future-movement ranking/lift for that lane. It does not prove exact continuous values or blocked continuous generalization: the old fused blocked lane lost to AR/controls, and the later washout continuous diagnostic improved Spearman but failed its full top-5%/seed-consistency gate.
 
+Phase 7 then tested the selected washout continuous target with the proven short-temporal-conv recipe and fixed three-checkpoint averaging. Its locked `84/84` diagnostic passed every ranking/lift gate: real ensemble Spearman was `0.1226309621` versus target-specific frozen AR `0.1180749764` and best matched control `0.1167953465`; real top-5% lift was `0.0828780504` versus `0.0767870865` and `0.0768766425`. The separate exact-value gate failed on MAE/RMSE/bias and was never allowed to veto ranking/lift. The subsequent fresh `140/140` confirmation was strongly positive in aggregate—real Spearman `0.1176781535` versus AR `0.1103312855` and best control `0.1072552766`, and real top-5% lift `0.0840262922` versus `0.0759273576` and `0.0757026078`—but failed its preregistered `5/5` Spearman-vs-AR group gate with `4/5`; failed gates were exactly `["spearman_positive_vs_ar_5_of_5"]`. It passed `5/5` versus the best control for Spearman and `5/5` versus both comparators for top-5% lift. Do not call this a formal blocked continuous pass, erase the strong aggregate evidence, change the locked gate, or run grouped follow-up from this result.
+
+Deployment boundary: the current strongest frozen-AR residual benchmark consumes observed current/past arousal through `arousal`, lag-1/2/4, and recent-delta features. Those labels are unavailable for a raw pre-release client video. VEATIC/AGAIN establish controlled cross-domain benchmark transfer and incremental video-side neural-response signal beyond observed persistence; they do not yet prove zero-label raw-video-only client inference. A deployable product requires a separately validated video-only student or label-free autoregressive rollout evaluated from cold start with no teacher forcing.
+
 Not currently proven by the evidence below. These are current boundaries, not permanent prohibitions; remove or revise an item immediately when new valid executable evidence proves it:
 
 - exact continuous future arousal forecasting is solved
+- blocked continuous generalization is solved from Phase 7
+- zero-label raw-video-only client deployment is validated
 - broad all-target/all-dataset temporal prediction is solved
 - 504 has been run or promoted
 - treat Phase 5b/5c/Spark/max-capacity/deep/chimera outputs as canonical
@@ -78,11 +84,17 @@ Canonical updated grouped compatibility verdict:
 Canonical full bounded selected-head confirmation:
 `reports/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953.md`
 
-Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. Raw predicted cortical/fMRI features alone were weak; the Neural Bridge pipeline makes the difference. The old fused AGAIN lane passed grouped event and continuous future-movement ranking/lift controls but failed blocked AR/control checks; frozen-AR residual and temporal/event-context residual designs established the current design path. The redesigned washout-gap target/head beats the strong AR persistence baseline, passes blocked temporal confirmation and updated grouped-video compatibility, and now passes the unified bounded `420/420` selected-head confirmation audit. Exact continuous-value forecasting, blocked continuous generalization, and broad universal temporal prediction remain open; do not erase the grouped continuous-ranking/lift pass when stating those boundaries.
+Canonical Phase 7 diagnostic and fresh confirmation:
+`reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513.md`
+`reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653.md`
+
+Current bottom line: VEATIC is foundational, and AGAIN is now the scaled confirmation/current main result. Raw predicted cortical/fMRI features alone were weak; the Neural Bridge pipeline makes the difference. The redesigned washout-gap binary target/head beats the strong AR persistence baseline, passes blocked temporal confirmation and updated grouped-video compatibility, and passes the unified bounded `420/420` selected-head audit. Grouped continuous ranking/lift remains proven. Phase 7 added strong blocked washout continuous ranking/lift evidence but missed formal confirmation on one locked `5/5` consistency gate. Exact continuous-value forecasting, blocked continuous generalization, zero-label raw-video-only deployment, and broad universal temporal prediction remain open.
 
 ## Commercial Language
 
-Neural Bridge should be described as Service as Software for neuro-response video intelligence: software that automates the first-pass expert service of pre-release video response evaluation, creative diagnostics, variant comparison, and response-readiness reporting using predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.
+Neural Bridge should be described as a Service-as-Software product direction for neuro-response video intelligence: software intended to automate the first-pass expert service of pre-release video response evaluation, creative diagnostics, variant comparison, and response-readiness reporting using predicted cortical/fMRI response features generated from video by upstream models trained on brain cortical response data.
+
+Keep product vision separate from validated deployment state. The current strongest benchmark residual uses observed arousal history, so raw-video-only pre-release operation is the next deployment bridge to prove, not an already validated capability.
 
 Use bounded commercial wording: population-level response-event ranking, pre-release response intelligence, controlled future arousal event signal, creative decision support, and Service as Software for response evaluation.
 
@@ -102,6 +114,8 @@ Do not frame Neural Bridge as generic SaaS, a simple dashboard, mind reading, in
 - Selected-head 420 confirmation evidence snapshot: `evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/`
 - Original three-checkpoint grouped confirmation output root: `outputs/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024/`
 - Original three-checkpoint grouped confirmation evidence snapshot: `evidence/phase_6_original_three_checkpoint_grouped_confirmation_20260714_163024/`
+- Phase 7 diagnostic output root: `outputs/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513/`
+- Phase 7 fresh blocked confirmation output root: `outputs/again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_20260714_175653/`
 
 Do not touch dense cache files, Phase 4 outputs, original Phase 5 output roots, or evidence bundle contents unless explicitly asked. Do not force-add ignored output roots.
 
@@ -193,7 +207,26 @@ VEATIC-124 v2:
 - balanced event-vs-stable `arousal__future_spike_1_3s@0.05` PR-AUC: `0.3394`
 - balanced deltas over AR/shuffled/random: `+0.0609` / `+0.0631` / `+0.0476`
 
+AGAIN Phase 7 blocked continuous checkpoint ensemble:
+
+- target/head: `residual_future_max_delta_rows_4_10` / `short_temporal_conv_residual`
+- diagnostic: `84/84`, every ranking/lift gate passed; exact-value gate failed separately
+- fresh confirmation: `140/140` over 15 untouched seeds and five fixed groups
+- real / target-specific AR / best-control Spearman: `0.1176781535` / `0.1103312855` / `0.1072552766`
+- delta vs AR / best control Spearman: `+0.0073468679` / `+0.0104228768`
+- real / AR / best-control top-5% lift: `0.0840262922` / `0.0759273576` / `0.0757026078`
+- delta vs AR / best control top-5% lift: `+0.0080989346` / `+0.0083236843`
+- Spearman positive groups vs AR / best control: `4/5` / `5/5`
+- top-5% positive groups vs AR / best control: `5/5` / `5/5`
+- ensemble uplift over members: `+0.0065659385` Spearman / `+0.0081449538` top-5% lift
+- formal confirmation pass: false; sole failed gate: `spearman_positive_vs_ar_5_of_5`
+- grouped Phase 7 follow-up authorized: false
+
 ## Next Task
+
+The highest-value next milestone is the deployment bridge, not another AR-assisted benchmark sweep. Preregister a zero-label video-only lane that starts from the same frozen predicted cortical/fMRI feature cache but forbids observed arousal inputs at every inference row. The leading bounded hypotheses are (1) distill the current AR-assisted teacher into a video-only temporal student and (2) feed a strictly autoregressive rollout of the model's own predicted response state. Evaluation must use cold-start held-out full videos, no teacher forcing, no ground-truth arousal lags/deltas, video-only controls, and explicit degradation versus the AR-assisted research ceiling. Do not claim client-ready pre-release accuracy until that lane passes.
+
+Phase 7 continuous status is now fixed: the `84/84` diagnostic passed ranking/lift and failed exact-value calibration; the fresh `140/140` confirmation was strongly positive in aggregate but failed the locked all-five Spearman-vs-AR consistency gate at `4/5`. Grouped Phase 7 follow-up is not authorized. Any new continuous attempt requires a new hypothesis rather than changing the gate or deleting group 1.
 
 The approved full bounded 420-row selected-head confirmation remains canonical. The one-seed Optuna pilot was promising, but its preregistered locked-winner 10-seed confirmation did not establish an aggregate improvement: tuned/original PR-AUC was `0.2659654274` / `0.2670735630`, all-seed delta `-0.0011081356`, and nine-follow-up-seed delta `-0.0014666488`. Tuned beat original in `7/10` seeds and had a positive paired median (`+0.0004281433`), while retaining a controlled bridge win over frozen AR (`+0.0057318043`) and the best tuned matched control (`+0.0067636509`) with `8/10` positive seeds versus both.
 
@@ -203,7 +236,7 @@ The staged `docs/phase6_robust_optuna_720_plan.md` stopped fail-closed after Sta
 
 Stage A2 passed on five new inner-validation seeds, authorizing Stage B. Stage B then completed `120/120` blocked rows across 15 seeds and 8 lanes but failed: all-seed candidate-minus-original mean/median were `+0.0000512741` / `+0.0002953952` with `10/15` wins, while the untouched fresh-five panel was `-0.0013756950` mean with `3/5` wins. Trial 4 nevertheless beat AR and best controls in `15/15`, with `+0.0074160357` and `+0.0085749406` mean deltas. Stage C's 600 grouped rows were not authorized or run; do not claim 720.
 
-Trial 4 reduced seed-level PR-AUC standard deviation by `19.41%` versus original but did not reliably improve fresh held-out performance. The next bounded modeling hypothesis should be a locked ensemble or checkpoint-stabilization method that addresses complementary favorable original/candidate seed behavior. Do not do more same-family Optuna tuning, delete stress seeds, run Stage C, restore 504, or begin continuous development without a new explicit plan.
+Trial 4 reduced seed-level PR-AUC standard deviation by `19.41%` versus original but did not reliably improve fresh held-out performance. This historical result motivated the now-completed locked ensemble/checkpoint-stabilization campaign. Do not do more same-family Optuna tuning, delete stress seeds, run Stage C, or restore 504.
 
 Do not describe this as a broad seed problem. Most seed-to-seed differences are small. The precise issue is rare favorable-original checkpoint sensitivity: seed `20260627` and later fresh seed `20260636` produced unusually large original-over-Trial-4 gaps, while Trial 4 won `7/10` across fresh seeds `20260635`–`20260644` with a positive paired median but a negative mean dominated by seed `20260636`.
 
@@ -219,7 +252,7 @@ The real upstream Optuna, Polars, MLflow, and SHAP integrations are installed as
 
 ## Test And Script Validation
 
-`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the fully provisioned backend environment passed `138` tests, including the blocked and grouped control-complete checkpoint-ensemble contracts. The default `npm run verify` environment passed `130` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
+`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-14`, the fully provisioned backend environment passed `146` tests, including the Phase 7 diagnostic and fresh-confirmation contracts plus the blocked and grouped binary checkpoint-ensemble contracts. The earlier default `npm run verify` environment passed `130` tests and skipped one optional research-tooling module; repository readiness, strict-benchmark dry run, and frontend production build passed.
 
 Relevant AGAIN and VEATIC v2 runners, tests, benchmark artifacts, and runtime-only tools are indexed in `docs/executable_validation_manifest.csv` and mirrored under `evidence/current_phase_5_5_review/14_executable_validation_and_code/`. Do not add placeholder smoke tests as validation. Add tests only when they protect a real split, target, leakage, control, manifest, scorer, checkpoint, or claim-boundary contract.
 
