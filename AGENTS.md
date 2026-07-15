@@ -117,6 +117,12 @@ Use bounded commercial wording: population-level response-event ranking, pre-rel
 
 Do not frame Neural Bridge as generic SaaS, a simple dashboard, mind reading, individual profiling, medical inference, exact continuous arousal solved, universal emotion prediction, guaranteed campaign outcomes, or a replacement for editors/researchers.
 
+## Project Ownership And Dependency Boundary
+
+Neural Bridge is sole-founder work. Treat the Neural Bridge-specific ideas, target and washout design, bridge architecture, implementation, experiments, controls, training and evaluation procedures, trained heads, derived caches, evidence packages, reporting logic, and product surfaces built across VEATIC and AGAIN as the founder's work. Do not attribute that IP to the benchmark datasets or to the upstream encoders.
+
+V-JEPA, TRIBE, and the source datasets are third-party upstream dependencies or research inputs governed by their own licenses and terms. They are replaceable inputs to Neural Bridge, not the commercial output and not part of the product payload. VEATIC and AGAIN are used for training, benchmarking, and evidence; the eventual product does not ship those source datasets. Generated caches and post-encoder artifacts created by the Neural Bridge project are project assets, subject to any applicable upstream and dataset terms.
+
 ## Canonical Artifacts
 
 - Dense root: `.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/`

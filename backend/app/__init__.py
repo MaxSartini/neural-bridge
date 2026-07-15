@@ -57,8 +57,9 @@ def create_app(config_class=None):
         return response
 
     # Register blueprints
-    from .api import neuro_viewer_bp
+    from .api import neural_bridge_results_bp, neuro_viewer_bp
     app.register_blueprint(neuro_viewer_bp, url_prefix='/api/neuro-viewer')
+    app.register_blueprint(neural_bridge_results_bp, url_prefix='/api/neural-bridge/v1')
 
     # Health check
     @app.route('/health')

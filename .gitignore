@@ -79,6 +79,7 @@ benchmarks/results/
 # Generated benchmark output. Curated lightweight evidence reports may be
 # force-added when they are part of the documented v2 evidence bundle.
 outputs/
+output/
 reports/*.csv
 reports/*.jsonl
 reports/*.parquet
@@ -95,6 +96,8 @@ mydoc/
 mytest/
 
 # Local agent/tooling caches
+.agents/
+skills-lock.json
 .cache/
 .tools/
 .codebase-memory/

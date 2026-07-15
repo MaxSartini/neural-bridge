@@ -1,986 +1,2157 @@
 <template>
-  <div class="neuro-page">
-    <header class="neuro-header">
-      <div>
-        <div class="brand-mark">NEURAL BRIDGE</div>
-        <p class="eyebrow">TRIBE v2 predicted BOLD proxy viewer</p>
-        <h1>Neural Response Monitor</h1>
+  <a class="skip-link" href="#analysis-workspace">Skip to analysis workspace</a>
+
+  <div class="analyst-page">
+    <header class="app-header">
+      <div class="brand-block">
+        <RouterLink class="brand-mark" to="/evidence-dashboard">NEURAL BRIDGE</RouterLink>
+        <div>
+          <p class="eyebrow">Playback-synchronized response intelligence</p>
+          <h1>Analyst workspace</h1>
+        </div>
       </div>
-      <div class="header-stats">
-        <div class="stat-card">
-          <span>{{ progress.complete }}</span>
-          <label>cached</label>
-        </div>
-        <div class="stat-card">
-          <span>{{ progress.total_seen }}</span>
-          <label>seen</label>
-        </div>
-        <div class="stat-card">
-          <span>{{ selectedVideoId || 'none' }}</span>
-          <label>video</label>
-        </div>
+
+      <div class="header-actions" aria-label="Analysis exports">
+        <span class="mode-badge">Zero-label inference</span>
+        <a
+          v-if="selectedAnalysisId"
+          class="action-link"
+          :href="jsonReportUrl"
+          download
+        >
+          Export JSON
+        </a>
+        <a
+          v-if="selectedAnalysisId"
+          class="action-link"
+          :href="predictionsCsvUrl"
+          download
+        >
+          Export CSV
+        </a>
       </div>
     </header>
 
-    <main class="neuro-grid">
-      <aside class="video-list">
-        <div class="panel-title">
-          <span>Cache</span>
-          <button @click="refreshAll">refresh</button>
-        </div>
-        <button
-          v-for="video in videos"
-          :key="video.video_id"
-          class="video-item"
-          :class="{ active: selectedVideoId === video.video_id, disabled: !video.complete }"
-          :disabled="!video.complete"
-          @click="selectVideo(video.video_id)"
-        >
-          <span class="video-id">#{{ video.video_id }}</span>
-          <span class="video-meta">{{ formatSeconds(video.duration_seconds) }} · {{ video.manifest_rows || '?' }} windows</span>
-          <span class="video-state">{{ video.complete ? 'ready' : 'running' }}</span>
-        </button>
-      </aside>
+    <p class="live-status" aria-live="polite">{{ liveStatus }}</p>
 
-      <section class="brain-stage">
-        <div class="stage-toolbar">
+    <section v-if="inventoryLoading" class="state-panel" aria-busy="true">
+      <span class="loading-orbit" aria-hidden="true"></span>
+      <div>
+        <h2>Loading analyses</h2>
+        <p>Reading the Neural Bridge v1 analysis inventory.</p>
+      </div>
+    </section>
+
+    <section v-else-if="inventoryError" class="state-panel error-state" role="alert">
+      <div>
+        <p class="eyebrow">Inventory unavailable</p>
+        <h2>Analyses could not be loaded</h2>
+        <p>{{ inventoryError }}</p>
+      </div>
+      <button type="button" @click="loadAnalyses">Retry</button>
+    </section>
+
+    <section v-else-if="!analyses.length" class="state-panel empty-state">
+      <div>
+        <p class="eyebrow">No completed runs</p>
+        <h2>No Neural Bridge analyses are available yet</h2>
+        <p>The workspace will populate when the v1 API publishes an analysis resource.</p>
+      </div>
+      <button type="button" @click="loadAnalyses">Refresh inventory</button>
+    </section>
+
+    <div v-else class="analyst-layout">
+      <aside class="asset-rail" aria-labelledby="asset-heading">
+        <div class="rail-heading">
           <div>
-            <p class="eyebrow">window {{ currentIndex + 1 }} / {{ timepoints }}</p>
-            <h2>{{ selectedVideoId ? `Stimulus ${selectedVideoId}` : 'Select a cached stimulus' }}</h2>
+            <p class="eyebrow">Analysis library</p>
+            <h2 id="asset-heading">Assets</h2>
           </div>
-          <div class="controls">
-            <button @click="togglePlayback">{{ playing ? 'pause' : 'play' }}</button>
-            <button @click="step(-1)">-1</button>
-            <button @click="step(1)">+1</button>
-            <select v-model="speedMs">
-              <option :value="900">slow</option>
-              <option :value="450">normal</option>
-              <option :value="180">fast</option>
-            </select>
-          </div>
+          <button type="button" class="quiet-button" @click="loadAnalyses" aria-label="Refresh analysis library">
+            Refresh
+          </button>
         </div>
 
-        <div class="brain-card">
-          <div class="activation-legend">
-            <span>deactivation</span>
-            <i></i>
-            <span>high predicted response</span>
-          </div>
-          <canvas ref="meshCanvas" class="mesh-canvas" :class="{ visible: surfaceReady }" />
-          <div v-if="surfaceLoading" class="mesh-loading">loading fsaverage5 mesh...</div>
-          <svg
-            v-if="!surfaceReady"
-            class="brain-svg"
-            viewBox="0 0 100 100"
-            role="img"
-            aria-label="Animated cortical activation map"
-          >
-            <defs>
-              <radialGradient id="hemiGlow" cx="50%" cy="50%" r="65%">
-                <stop offset="0%" stop-color="#1d3d3a" />
-                <stop offset="100%" stop-color="#07110f" />
-              </radialGradient>
-              <filter id="softGlow">
-                <feGaussianBlur stdDeviation="1.8" result="blur" />
-                <feMerge>
-                  <feMergeNode in="blur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-
-            <path class="hemi" d="M47 11 C25 10 11 27 12 50 C13 75 29 90 48 88 C43 75 42 64 45 51 C42 38 42 25 47 11Z" />
-            <path class="hemi" d="M53 11 C75 10 89 27 88 50 C87 75 71 90 52 88 C57 75 58 64 55 51 C58 38 58 25 53 11Z" />
-            <path class="fold" d="M24 31 C33 26 39 31 45 37" />
-            <path class="fold" d="M18 53 C29 48 38 52 45 61" />
-            <path class="fold" d="M76 31 C67 26 61 31 55 37" />
-            <path class="fold" d="M82 53 C71 48 62 52 55 61" />
-            <circle
-              v-for="region in visibleCorticalRegions"
-              :key="region.id"
-              class="region-dot cortical-dot"
-              :cx="region.position.x"
-              :cy="region.position.y"
-              :r="dotRadius(region)"
-              :fill="regionColor(region)"
-              :opacity="dotOpacity(region)"
-            >
-              <title>{{ region.label }} · {{ activationLabel(region) }}</title>
-            </circle>
-
-          </svg>
-
-          <div class="trace-strip">
-            <div
-              v-for="(value, index) in globalTrace"
-              :key="index"
-              class="trace-bar"
-              :class="{ current: index === currentIndex }"
-              :style="{ height: `${12 + value * 88}%` }"
-              @click="seekToIndex(index)"
-            />
-          </div>
-        </div>
-      </section>
-
-      <aside class="side-panel">
-        <div class="stimulus-card">
-          <video
-            v-if="selectedVideoId"
-            ref="stimulusVideo"
-            :src="mediaUrl"
-            controls
-            muted
-            playsinline
-            @timeupdate="syncIndexFromVideo"
-            @seeked="syncIndexFromVideo"
-            @play="playing = true"
-            @pause="playing = false"
+        <label class="search-field">
+          <span>Search analyses</span>
+          <input
+            v-model.trim="searchQuery"
+            type="search"
+            placeholder="ID, file, or dataset"
+            autocomplete="off"
           />
-          <div v-if="selectedVideoId" class="sync-chip">video-synced · {{ currentTimestampLabel }}</div>
-          <div v-else class="empty-video">No video selected</div>
+        </label>
+
+        <div class="asset-count">{{ filteredAnalyses.length }} of {{ analyses.length }}</div>
+
+        <div v-if="filteredAnalyses.length" class="asset-list">
+          <button
+            v-for="analysis in filteredAnalyses"
+            :key="analysis.analysis_id"
+            type="button"
+            class="asset-item"
+            :class="{ active: selectedAnalysisId === analysis.analysis_id }"
+            :aria-pressed="selectedAnalysisId === analysis.analysis_id"
+            @click="selectAnalysis(analysis.analysis_id)"
+          >
+            <span class="asset-status">
+              <i aria-hidden="true"></i>
+              {{ analysis.status || 'ready' }}
+            </span>
+            <strong>{{ analysisTitle(analysis) }}</strong>
+            <span>{{ analysisSubtitle(analysis) }}</span>
+            <small>{{ formatDuration(analysis.video?.duration_seconds) }} · {{ analysis.analysis_id }}</small>
+          </button>
         </div>
 
-        <div class="metric-card">
-          <h3>Global response</h3>
-          <div class="metric-row" v-for="metric in globalMetrics" :key="metric.label">
-            <span>{{ metric.label }}</span>
-            <strong>{{ metric.value }}</strong>
-          </div>
-        </div>
-
-        <div class="roi-card">
-          <h3>Top live regions</h3>
-          <div v-for="region in topLiveRegions" :key="region.id" class="roi-row">
-            <span>{{ cleanLabel(region.label) }}</span>
-            <div class="roi-meter">
-              <i :style="{ width: `${regionMagnitude(region) * 100}%`, background: regionColor(region) }" />
-            </div>
-          </div>
+        <div v-else class="rail-empty">
+          <strong>No matches</strong>
+          <span>Try a broader search term.</span>
         </div>
       </aside>
-    </main>
+
+      <main id="analysis-workspace" class="workspace" tabindex="-1">
+        <section v-if="!selectedAnalysisId" class="state-panel compact-state">
+          <div>
+            <p class="eyebrow">Ready</p>
+            <h2>Select an analysis</h2>
+            <p>Choose an asset to open synchronized playback and future-movement ranking.</p>
+          </div>
+        </section>
+
+        <template v-else>
+          <section class="playback-panel" aria-labelledby="playback-heading">
+            <div class="section-heading playback-heading">
+              <div>
+                <p class="eyebrow">Selected analysis</p>
+                <h2 id="playback-heading">{{ selectedAnalysisTitle }}</h2>
+                <p class="analysis-id">{{ selectedAnalysisId }}</p>
+              </div>
+              <div class="contract-badges">
+            <span>{{ timeline?.schema_version || 'neural_bridge.timeline.v1' }}</span>
+                <span>+2s to +5s target</span>
+              </div>
+            </div>
+
+            <div class="video-shell" :class="{ loading: timelineLoading || !videoReady }">
+              <video
+                :key="selectedAnalysisId"
+                ref="stimulusVideo"
+                :src="mediaUrl"
+                controls
+                playsinline
+                preload="metadata"
+                :aria-label="`Stimulus playback for ${selectedAnalysisTitle}`"
+                @loadedmetadata="onVideoLoaded"
+                @canplay="onVideoCanPlay"
+                @timeupdate="syncFromVideo"
+                @seeked="syncFromVideo"
+                @play="onVideoPlay"
+                @pause="onVideoPause"
+                @ended="onVideoPause"
+                @error="onVideoError"
+              >
+                Your browser does not support HTML video playback.
+              </video>
+
+              <div v-if="timelineLoading" class="video-overlay" aria-busy="true">
+                <span class="loading-orbit" aria-hidden="true"></span>
+                <strong>Loading synchronized predictions</strong>
+              </div>
+              <div v-else-if="videoError" class="video-overlay error-overlay" role="alert">
+                <strong>Media unavailable</strong>
+                <span>{{ videoError }}</span>
+              </div>
+            </div>
+
+            <div class="transport" aria-label="Playback controls">
+              <button type="button" class="primary-control" :disabled="!videoReady" @click="togglePlayback">
+                {{ playing ? 'Pause' : 'Play' }}
+              </button>
+              <button type="button" :disabled="!timestamps.length" @click="stepIndex(-1)">Previous row</button>
+              <button type="button" :disabled="!timestamps.length" @click="stepIndex(1)">Next row</button>
+              <span class="transport-time">{{ formatTime(currentTime) }} / {{ formatTime(mediaDuration) }}</span>
+              <label class="rate-control">
+                <span>Playback rate</span>
+                <select v-model.number="playbackRate" :disabled="!videoReady" @change="applyPlaybackRate">
+                  <option :value="0.5">0.5×</option>
+                  <option :value="0.75">0.75×</option>
+                  <option :value="1">1×</option>
+                  <option :value="1.25">1.25×</option>
+                  <option :value="1.5">1.5×</option>
+                  <option :value="2">2×</option>
+                </select>
+              </label>
+            </div>
+
+            <p class="keyboard-hint">
+              Keyboard: <kbd>Space</kbd> play/pause, <kbd>←</kbd>/<kbd>→</kbd> step prediction rows.
+            </p>
+          </section>
+
+          <section v-if="timelineError" class="state-panel error-state compact-state" role="alert">
+            <div>
+              <p class="eyebrow">Timeline unavailable</p>
+              <h2>Synchronized predictions could not be loaded</h2>
+              <p>{{ timelineError }}</p>
+            </div>
+            <button type="button" @click="loadTimeline(selectedAnalysisId)">Retry</button>
+          </section>
+
+          <template v-else-if="timeline">
+            <section class="moment-strip" aria-label="Current prediction row">
+              <article class="moment-card primary-moment">
+                <span>Future-movement rank</span>
+                <strong>{{ formatPercentile(currentPoint.percentile) }}</strong>
+                <small>Within this video, not an exact arousal level</small>
+              </article>
+              <article class="moment-card">
+                <span>Model score</span>
+                <strong>{{ formatScore(currentPoint.score) }}</strong>
+                <small>Ranking signal at {{ formatTime(currentPoint.timestamp) }}</small>
+              </article>
+              <article class="moment-card">
+                <span>Forecast window</span>
+                <strong>{{ formatTime(forecastWindow.start) }}–{{ formatTime(forecastWindow.end) }}</strong>
+                <small>Current row +2s through +5s</small>
+              </article>
+              <article class="moment-card quality-card" :class="{ warning: currentPoint.coldStart || currentPoint.tailHorizon }">
+                <span>Row quality</span>
+                <strong>{{ currentQualityLabel }}</strong>
+                <small>{{ currentQualityDetail }}</small>
+              </article>
+            </section>
+
+            <div v-if="currentPoint.tailHorizon" class="tail-warning" role="status">
+              <strong>Tail-horizon warning.</strong>
+              This row’s +5s target extends beyond available media; treat the ranking as incomplete.
+            </div>
+
+            <section class="timeline-panel" aria-labelledby="timeline-heading">
+              <div class="section-heading timeline-heading">
+                <div>
+                  <p class="eyebrow">Playback-synchronized output</p>
+                  <h2 id="timeline-heading">Ranked future arousal movement</h2>
+                </div>
+                <div class="timeline-legend" aria-label="Timeline legend">
+                  <span><i class="legend-line"></i> Within-video percentile</span>
+                  <span><i class="legend-band"></i> Member-rank spread</span>
+                  <span><i class="legend-event"></i> Provisional event</span>
+                </div>
+              </div>
+
+              <p class="chart-note">
+                Higher percentiles identify stronger relative future movement within this asset. The orange member band is diagnostic only and is <strong>not calibrated uncertainty</strong>.
+              </p>
+
+              <div class="chart-wrap">
+                <svg
+                  class="rank-chart"
+                  viewBox="0 0 1000 280"
+                  role="img"
+                  aria-labelledby="rank-chart-title rank-chart-desc"
+                  @click="seekFromChart"
+                >
+                  <title id="rank-chart-title">Within-video future-movement percentile over playback time</title>
+                  <desc id="rank-chart-desc">
+                    A synchronized percentile line with upstream cold-start shading from zero to four seconds, provisional event markers, the active plus-two-to-plus-five-second forecast window, a tail-horizon warning region, and diagnostic member-rank spread.
+                  </desc>
+                  <defs>
+                    <linearGradient id="rankFill" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#ffb347" stop-opacity="0.34" />
+                      <stop offset="100%" stop-color="#ff7130" stop-opacity="0.02" />
+                    </linearGradient>
+                    <pattern id="coldHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+                      <rect width="9" height="9" fill="#0a2323" fill-opacity="0.85" />
+                      <line x1="0" y1="0" x2="0" y2="9" stroke="#59d7ca" stroke-opacity="0.3" stroke-width="3" />
+                    </pattern>
+                    <pattern id="tailHatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)">
+                      <rect width="9" height="9" fill="#2b1510" fill-opacity="0.8" />
+                      <line x1="0" y1="0" x2="0" y2="9" stroke="#ff8154" stroke-opacity="0.32" stroke-width="3" />
+                    </pattern>
+                  </defs>
+
+                  <g class="chart-grid" aria-hidden="true">
+                    <template v-for="tick in percentileTicks" :key="tick">
+                      <line :x1="chart.left" :x2="chart.right" :y1="chartY(tick)" :y2="chartY(tick)" />
+                      <text :x="chart.left - 10" :y="chartY(tick) + 4">{{ tick }}</text>
+                    </template>
+                  </g>
+
+                  <rect
+                    class="cold-region"
+                    :x="chartX(chartStart)"
+                    :y="chart.top"
+                    :width="Math.max(0, chartX(Math.min(4, chartEnd)) - chartX(chartStart))"
+                    :height="chart.plotHeight"
+                    fill="url(#coldHatch)"
+                  />
+                  <text v-if="chartEnd > 1" class="region-label" :x="chartX(chartStart) + 8" :y="chart.top + 16">0–4s upstream cold start</text>
+
+                  <rect
+                    class="tail-region"
+                    :x="chartX(tailRegionStart)"
+                    :y="chart.top"
+                    :width="Math.max(0, chartX(chartEnd) - chartX(tailRegionStart))"
+                    :height="chart.plotHeight"
+                    fill="url(#tailHatch)"
+                  />
+
+                  <rect
+                    class="forecast-region"
+                    :x="chartX(clampedForecastWindow.start)"
+                    :y="chart.top"
+                    :width="Math.max(2, chartX(clampedForecastWindow.end) - chartX(clampedForecastWindow.start))"
+                    :height="chart.plotHeight"
+                  />
+
+                  <path v-if="memberBandPath" class="member-band" :d="memberBandPath" />
+                  <path v-if="percentileAreaPath" class="percentile-area" :d="percentileAreaPath" />
+                  <path v-if="percentileLinePath" class="percentile-line" :d="percentileLinePath" />
+
+                  <g class="event-markers" aria-hidden="true">
+                    <g v-for="event in eventItems" :key="event.id">
+                      <line :x1="chartX(event.timestamp)" :x2="chartX(event.timestamp)" :y1="chart.top" :y2="chart.bottom" />
+                      <path :d="eventTriangle(event.timestamp)" />
+                    </g>
+                  </g>
+
+                  <line
+                    class="playhead"
+                    :x1="chartX(currentPoint.timestamp)"
+                    :x2="chartX(currentPoint.timestamp)"
+                    :y1="chart.top - 4"
+                    :y2="chart.bottom + 7"
+                  />
+                  <circle
+                    class="current-dot"
+                    :cx="chartX(currentPoint.timestamp)"
+                    :cy="chartY(currentPoint.percentile)"
+                    r="6"
+                  />
+
+                  <g class="time-axis" aria-hidden="true">
+                    <template v-for="tick in timeTicks" :key="tick">
+                      <line :x1="chartX(tick)" :x2="chartX(tick)" :y1="chart.bottom" :y2="chart.bottom + 6" />
+                      <text :x="chartX(tick)" :y="chart.bottom + 24">{{ formatTime(tick) }}</text>
+                    </template>
+                  </g>
+                </svg>
+              </div>
+
+              <label class="timeline-scrubber">
+                <span>Prediction row {{ currentIndex + 1 }} of {{ timestamps.length }}</span>
+                <input
+                  type="range"
+                  min="0"
+                  :max="Math.max(0, timestamps.length - 1)"
+                  step="1"
+                  :value="currentIndex"
+                  :disabled="!timestamps.length"
+                  @input="scrubToIndex"
+                />
+                <output>{{ formatTime(currentPoint.timestamp) }}</output>
+              </label>
+
+              <div v-if="eventItems.length" class="event-list" aria-label="Provisional event markers">
+                <span class="event-policy">{{ eventPolicyText }}</span>
+                <button
+                  v-for="event in eventItems"
+                  :key="`button-${event.id}`"
+                  type="button"
+                  @click="seekToTime(event.timestamp)"
+                >
+                  Provisional · {{ formatTime(event.timestamp) }}
+                </button>
+              </div>
+            </section>
+
+            <section class="evidence-panel" aria-labelledby="evidence-heading">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Evidence boundary</p>
+                  <h2 id="evidence-heading">Reference evidence is not run validation</h2>
+                </div>
+              </div>
+
+              <div class="evidence-grid">
+                <article>
+                  <span class="scope-label validated">Model-validation reference</span>
+                  <h3>{{ evidenceTitle(modelValidationEvidence, 'Locked model evidence') }}</h3>
+                  <p>{{ evidenceSummary(modelValidationEvidence, 'The model-level reference describes validation performed elsewhere under its stored protocol.') }}</p>
+                </article>
+                <article>
+                  <span class="scope-label unvalidated">This analysis run · unvalidated</span>
+                  <h3>{{ evidenceTitle(runLevelEvidence, 'Run-level inference output') }}</h3>
+                  <p>{{ evidenceSummary(runLevelEvidence, 'This individual asset is an inference result, not a new held-out validation or client-outcome study.') }}</p>
+                </article>
+                <article>
+                  <span class="scope-label implementation">Implementation</span>
+                  <h3>{{ evidenceTitle(implementationEvidence, 'Runtime provenance') }}</h3>
+                  <p>{{ evidenceSummary(implementationEvidence, 'Implementation metadata identifies the producing pipeline; it does not expand the validated claim.') }}</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="unsupported-panel" aria-labelledby="unsupported-heading">
+              <div>
+                <p class="eyebrow">Unsupported outputs</p>
+                <h2 id="unsupported-heading">Do not infer beyond the contract</h2>
+              </div>
+              <ul>
+                <li v-for="item in unsupportedOutputItems" :key="item.key">
+                  <strong>{{ item.label }}</strong>
+                  <span>Unsupported</span>
+                  <small>{{ item.reason }}</small>
+                </li>
+              </ul>
+            </section>
+          </template>
+        </template>
+      </main>
+
+      <aside v-if="timeline" class="inspector" aria-labelledby="inspector-heading">
+        <div class="inspector-heading">
+          <p class="eyebrow">Moment inspector</p>
+          <h2 id="inspector-heading">{{ formatTime(currentPoint.timestamp) }}</h2>
+        </div>
+
+        <section class="inspector-section current-diagnostic">
+          <h3>Member diagnostic</h3>
+          <template v-if="currentMemberDiagnostic.available">
+            <div class="diagnostic-value">
+              <span>{{ formatScore(currentMemberDiagnostic.min) }}</span>
+              <i aria-hidden="true"></i>
+              <span>{{ formatScore(currentMemberDiagnostic.max) }}</span>
+            </div>
+            <p>Member score range {{ formatScore(currentMemberDiagnostic.spread) }}.</p>
+          </template>
+          <p v-else>No member diagnostics were returned.</p>
+          <small>Diagnostic only · not calibrated uncertainty.</small>
+        </section>
+
+        <section class="inspector-section">
+          <h3>Top ranked moments</h3>
+          <ol v-if="topMoments.length" class="top-moments">
+            <li v-for="moment in topMoments" :key="moment.index">
+              <button type="button" @click="seekToIndex(moment.index)">
+                <span>
+                  <strong>{{ formatTime(moment.timestamp) }}</strong>
+                  <small>Forecast {{ formatTime(moment.timestamp + 2) }}–{{ formatTime(moment.timestamp + 5) }}</small>
+                </span>
+                <span class="moment-rank">{{ formatPercentile(moment.percentile) }}</span>
+                <span v-if="moment.coldStart" class="flag cold-flag">Cold start · provisional</span>
+                <span v-if="moment.tailHorizon" class="flag tail-flag">Tail horizon</span>
+              </button>
+            </li>
+          </ol>
+          <p v-else>No ranked moments were returned.</p>
+        </section>
+
+        <section class="inspector-section target-contract">
+          <h3>Target contract</h3>
+          <dl>
+            <div>
+              <dt>Output</dt>
+              <dd>{{ targetLabel }}</dd>
+            </div>
+            <div>
+              <dt>Forecast</dt>
+              <dd>+2s through +5s</dd>
+            </div>
+            <div>
+              <dt>Ranking</dt>
+              <dd>Within-video percentile</dd>
+            </div>
+            <div>
+              <dt>Cold start</dt>
+              <dd>0–4.0s upstream context</dd>
+            </div>
+          </dl>
+        </section>
+      </aside>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import * as THREE from 'three'
+import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import {
-  getNeuroViewerProgress,
-  getNeuroViewerSurface,
-  getNeuroViewerTimeline,
-  listNeuroViewerVideos,
-  neuroViewerMediaUrl
-} from '../api/neuroViewer'
+  getNeuralBridgeTimeline,
+  listNeuralBridgeAnalyses,
+  neuralBridgeJsonReportUrl,
+  neuralBridgeMediaUrl,
+  neuralBridgePredictionsCsvUrl
+} from '../api/neuralBridge'
 
-const progress = ref({ complete: 0, total_seen: 0, videos: [] })
-const videos = ref([])
-const selectedVideoId = ref(null)
+const FORECAST_MIN_SECONDS = 2
+const FORECAST_MAX_SECONDS = 5
+const UPSTREAM_COLD_START_SECONDS = 4
+
+const chart = Object.freeze({
+  width: 1000,
+  height: 280,
+  left: 52,
+  right: 982,
+  top: 24,
+  bottom: 240,
+  plotWidth: 930,
+  plotHeight: 216
+})
+
+const percentileTicks = [0, 25, 50, 75, 100]
+
+const analyses = ref([])
+const inventoryLoading = ref(true)
+const inventoryError = ref('')
+const searchQuery = ref('')
+const selectedAnalysisId = ref('')
 const timeline = ref(null)
-const surface = ref(null)
-const surfaceReady = ref(false)
-const surfaceLoading = ref(false)
-const meshCanvas = ref(null)
+const timelineLoading = ref(false)
+const timelineError = ref('')
 const stimulusVideo = ref(null)
+const videoReady = ref(false)
+const videoError = ref('')
+const playbackNotice = ref('')
 const currentIndex = ref(0)
+const currentTime = ref(0)
+const mediaDurationFromVideo = ref(0)
 const playing = ref(false)
-const speedMs = ref(450)
-let playTimer = null
-let refreshTimer = null
-let renderer = null
-let scene = null
-let camera = null
-let brainMesh = null
-let animationFrame = null
-let dragState = null
+const playbackRate = ref(1)
 
-const timepoints = computed(() => timeline.value?.timepoints || 0)
-const corticalRegions = computed(() => timeline.value?.regions?.cortical || [])
-const visibleCorticalRegions = computed(() => corticalRegions.value.slice(0, 36))
-const globalTrace = computed(() => timeline.value?.global_traces?.mean_abs || [])
-const mediaUrl = computed(() => selectedVideoId.value ? neuroViewerMediaUrl(selectedVideoId.value) : '')
-const currentTimestampLabel = computed(() => {
-  const timestamps = timeline.value?.timestamps_seconds || surface.value?.timestamps_seconds || []
-  const seconds = timestamps[currentIndex.value] ?? currentIndex.value
-  return `${Number(seconds || 0).toFixed(1)}s`
+let timelineRequest = null
+let timelineRequestId = 0
+let videoFrameId = null
+let animationFrameId = null
+
+const unwrapResponse = response => response?.data ?? response
+
+const filteredAnalyses = computed(() => {
+  const query = searchQuery.value.toLowerCase()
+  if (!query) return analyses.value
+  return analyses.value.filter(analysis => JSON.stringify(analysis).toLowerCase().includes(query))
 })
 
-const globalMetrics = computed(() => {
-  const summary = timeline.value?.summary || {}
-  return [
-    ['mean activation', summary.mean_activation_proxy],
-    ['temporal variance', summary.temporal_variance_proxy],
-    ['peak response', summary.peak_response_proxy],
-    ['retention', summary.segment_quality?.retention_ratio]
-  ].map(([label, value]) => ({ label, value: value === undefined || value === null ? 'n/a' : Number(value).toFixed(3) }))
+const selectedAnalysis = computed(() => {
+  return analyses.value.find(analysis => analysis.analysis_id === selectedAnalysisId.value) || null
 })
 
-const topLiveRegions = computed(() => {
-  return corticalRegions.value
-    .map(region => ({ ...region, live: regionMagnitude(region) }))
-    .sort((a, b) => b.live - a.live)
-    .slice(0, 10)
+const selectedAnalysisTitle = computed(() => {
+  return selectedAnalysis.value ? analysisTitle(selectedAnalysis.value) : 'Analysis'
 })
 
-const refreshAll = async () => {
-  const [progressRes, videosRes] = await Promise.all([
-    getNeuroViewerProgress(),
-    listNeuroViewerVideos()
-  ])
-  progress.value = progressRes.data || progressRes
-  videos.value = videosRes.data || videosRes
-  if (!selectedVideoId.value) {
-    const firstReady = videos.value.find(video => video.complete)
-    if (firstReady) await selectVideo(firstReady.video_id)
-  }
-}
+const mediaUrl = computed(() => {
+  return selectedAnalysisId.value ? neuralBridgeMediaUrl(selectedAnalysisId.value) : ''
+})
 
-const selectVideo = async (videoId) => {
-  selectedVideoId.value = String(videoId)
-  currentIndex.value = 0
-  playing.value = false
-  surfaceReady.value = false
-  surface.value = null
-  const response = await getNeuroViewerTimeline(videoId, 44)
-  timeline.value = response.data || response
-  await loadSurface(videoId)
-  await nextTick()
-  seekToIndex(0, false)
-}
+const jsonReportUrl = computed(() => {
+  return selectedAnalysisId.value ? neuralBridgeJsonReportUrl(selectedAnalysisId.value) : ''
+})
 
-const regionValue = (region) => {
-  return Number(region.trace?.[currentIndex.value] || 0)
-}
+const predictionsCsvUrl = computed(() => {
+  return selectedAnalysisId.value ? neuralBridgePredictionsCsvUrl(selectedAnalysisId.value) : ''
+})
 
-const regionMagnitude = (region) => {
-  return Math.abs(regionValue(region))
-}
+const timestamps = computed(() => {
+  const values = timeline.value?.grid?.timestamps_seconds
+  return Array.isArray(values) ? values.map(Number).filter(Number.isFinite) : []
+})
 
-const regionColor = (region) => {
-  const [r, g, b] = activationToColor(regionValue(region), 0.45).map(channel => Math.round(channel * 255))
-  return `rgb(${r}, ${g}, ${b})`
-}
+const movementScores = computed(() => {
+  return numericSeries(timeline.value?.series?.future_arousal_movement_score?.values)
+})
 
-const dotRadius = (region) => {
-  return 1.1 + regionMagnitude(region) * 4.0
-}
-
-const dotOpacity = (region) => {
-  return 0.28 + regionMagnitude(region) * 0.72
-}
-
-const activationLabel = (region) => {
-  return regionValue(region).toFixed(3)
-}
-
-const cleanLabel = (label) => {
-  return String(label || '').replace(/^L:/, 'L ').replace(/^R:/, 'R ').replace(/_/g, ' ')
-}
-
-const loadSurface = async (videoId) => {
-  surfaceLoading.value = true
-  try {
-    const response = await getNeuroViewerSurface(videoId, 1)
-    surface.value = response.data || response
-    await nextTick()
-    buildSurfaceScene()
-  } finally {
-    surfaceLoading.value = false
-  }
-}
-
-const lerp = (a, b, t) => a + (b - a) * t
-
-const colorRamp = (stops, t) => {
-  const value = Math.max(0, Math.min(1, t))
-  const scaled = value * (stops.length - 1)
-  const index = Math.min(stops.length - 2, Math.floor(scaled))
-  const local = scaled - index
-  return [
-    lerp(stops[index][0], stops[index + 1][0], local),
-    lerp(stops[index][1], stops[index + 1][1], local),
-    lerp(stops[index][2], stops[index + 1][2], local)
-  ]
-}
-
-const mixColor = (a, b, t) => {
-  const value = Math.max(0, Math.min(1, t))
-  return [
-    lerp(a[0], b[0], value),
-    lerp(a[1], b[1], value),
-    lerp(a[2], b[2], value)
-  ]
-}
-
-const activationToColor = (value, background = 0.5) => {
-  const signed = Math.max(-1, Math.min(1, Number(value || 0)))
-  const magnitude = Math.abs(signed)
-  const sulcal = 0.13 + Number(background || 0) * 0.16
-  const cortexBase = [sulcal * 0.62, sulcal * 0.92, sulcal * 0.82]
-  const hot = colorRamp(
-    [
-      [0.17, 0.04, 0.02],
-      [0.58, 0.02, 0.01],
-      [1.0, 0.22, 0.01],
-      [1.0, 0.73, 0.06],
-      [1.0, 0.98, 0.76]
-    ],
-    magnitude
-  )
-  const cold = colorRamp(
-    [
-      [0.03, 0.06, 0.14],
-      [0.04, 0.16, 0.46],
-      [0.0, 0.55, 0.95],
-      [0.46, 0.92, 1.0]
-    ],
-    magnitude
-  )
-  const target = signed >= 0 ? hot : cold
-  const boost = Math.min(1, 0.18 + magnitude * 1.12)
-  return mixColor(cortexBase, target, boost)
-}
-
-const disposeSurfaceScene = () => {
-  if (animationFrame) cancelAnimationFrame(animationFrame)
-  animationFrame = null
-  if (brainMesh) {
-    brainMesh.geometry?.dispose()
-    brainMesh.material?.dispose()
-  }
-  if (renderer) renderer.dispose()
-  renderer = null
-  scene = null
-  camera = null
-  brainMesh = null
-  surfaceReady.value = false
-}
-
-const buildSurfaceScene = () => {
-  if (!meshCanvas.value || !surface.value?.surface?.coords?.length) return
-  disposeSurfaceScene()
-
-  const canvas = meshCanvas.value
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
-  scene = new THREE.Scene()
-  scene.fog = new THREE.FogExp2(0x06100f, 0.035)
-  camera = new THREE.PerspectiveCamera(34, 1, 0.01, 100)
-  camera.position.set(0, 0, 4.2)
-  scene.add(new THREE.AmbientLight(0x8fffe1, 0.62))
-  const keyLight = new THREE.DirectionalLight(0xffc46b, 1.35)
-  keyLight.position.set(2.2, 1.6, 3.5)
-  scene.add(keyLight)
-  const rimLight = new THREE.DirectionalLight(0x4de2ff, 1.15)
-  rimLight.position.set(-2.5, -1.2, 2.8)
-  scene.add(rimLight)
-
-  const coords = surface.value.surface.coords
-  const faces = surface.value.surface.faces
-  const background = surface.value.surface.background || []
-  const positions = new Float32Array(coords.length * 3)
-  const colors = new Float32Array(coords.length * 3)
-  for (let i = 0; i < coords.length; i++) {
-    positions[i * 3] = coords[i][0]
-    positions[i * 3 + 1] = coords[i][1]
-    positions[i * 3 + 2] = coords[i][2]
-    const color = activationToColor(0, background[i])
-    colors[i * 3] = color[0]
-    colors[i * 3 + 1] = color[1]
-    colors[i * 3 + 2] = color[2]
-  }
-
-  const indices = new Uint32Array(faces.length * 3)
-  for (let i = 0; i < faces.length; i++) {
-    indices[i * 3] = faces[i][0]
-    indices[i * 3 + 1] = faces[i][1]
-    indices[i * 3 + 2] = faces[i][2]
-  }
-
-  const geometry = new THREE.BufferGeometry()
-  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
-  geometry.setIndex(new THREE.BufferAttribute(indices, 1))
-  geometry.computeVertexNormals()
-
-  const material = new THREE.MeshStandardMaterial({
-    vertexColors: true,
-    side: THREE.DoubleSide,
-    transparent: true,
-    opacity: 0.98,
-    roughness: 0.42,
-    metalness: 0.05,
-    emissive: new THREE.Color(0x061d18),
-    emissiveIntensity: 0.18
+const percentileValues = computed(() => {
+  return numericSeries(timeline.value?.series?.within_video_percentile?.values).map(value => {
+    const percent = value <= 1 ? value * 100 : value
+    return clamp(percent, 0, 100)
   })
-  brainMesh = new THREE.Mesh(geometry, material)
-  brainMesh.rotation.x = -0.18
-  brainMesh.rotation.y = 0.22
-  scene.add(brainMesh)
+})
 
-  canvas.onpointerdown = event => {
-    dragState = { x: event.clientX, y: event.clientY, rx: brainMesh.rotation.x, ry: brainMesh.rotation.y }
-    canvas.setPointerCapture(event.pointerId)
-  }
-  canvas.onpointermove = event => {
-    if (!dragState) return
-    brainMesh.rotation.y = dragState.ry + (event.clientX - dragState.x) * 0.008
-    brainMesh.rotation.x = dragState.rx + (event.clientY - dragState.y) * 0.008
-  }
-  canvas.onpointerup = () => {
-    dragState = null
-  }
+const memberSeries = computed(() => {
+  const members = timeline.value?.diagnostics?.member_scores
+  if (!members || typeof members !== 'object' || Array.isArray(members)) return []
+  return Object.entries(members)
+    .map(([memberId, values]) => ({
+      id: memberId,
+      values: numericSeries(values)
+    }))
+    .filter(member => member.values.length)
+})
 
-  surfaceReady.value = true
-  resizeSurface()
-  updateSurfaceColors()
-  animateSurface()
-}
-
-const resizeSurface = () => {
-  if (!renderer || !camera || !meshCanvas.value) return
-  const rect = meshCanvas.value.getBoundingClientRect()
-  const width = Math.max(320, Math.floor(rect.width))
-  const height = Math.max(320, Math.floor(rect.height))
-  renderer.setSize(width, height, false)
-  camera.aspect = width / height
-  camera.updateProjectionMatrix()
-}
-
-const updateSurfaceColors = () => {
-  if (!brainMesh || !surface.value?.activity?.length) return
-  const activity = surface.value.activity[Math.min(currentIndex.value, surface.value.activity.length - 1)] || []
-  const background = surface.value.surface.background || []
-  const colorAttr = brainMesh.geometry.getAttribute('color')
-  for (let i = 0; i < colorAttr.count; i++) {
-    const color = activationToColor(activity[i] || 0, background[i])
-    colorAttr.setXYZ(i, color[0], color[1], color[2])
-  }
-  colorAttr.needsUpdate = true
-}
-
-const animateSurface = () => {
-  if (!renderer || !scene || !camera) return
-  if (brainMesh && !dragState) brainMesh.rotation.y += 0.002
-  renderer.render(scene, camera)
-  animationFrame = requestAnimationFrame(animateSurface)
-}
-
-const formatSeconds = (value) => {
-  if (!value && value !== 0) return '?'
-  return `${Number(value).toFixed(1)}s`
-}
-
-const indexFromSeconds = (seconds) => {
-  if (!timepoints.value) return 0
-  const timestamps = timeline.value?.timestamps_seconds || surface.value?.timestamps_seconds || []
-  if (!timestamps.length) {
-    return Math.max(0, Math.min(timepoints.value - 1, Math.floor(Number(seconds || 0))))
-  }
-  const value = Number(seconds || 0)
-  let bestIndex = 0
-  let bestDistance = Infinity
-  timestamps.forEach((timestamp, index) => {
-    const distance = Math.abs(Number(timestamp) - value)
-    if (distance < bestDistance) {
-      bestDistance = distance
-      bestIndex = index
+const memberRankBand = computed(() => {
+  if (!memberSeries.value.length || !timestamps.value.length) return []
+  const ranks = memberSeries.value.map(member => rankAsPercentiles(member.values))
+  return timestamps.value.map((timestamp, index) => {
+    const values = ranks.map(series => series[index]).filter(Number.isFinite)
+    return {
+      timestamp,
+      min: values.length ? Math.min(...values) : 0,
+      max: values.length ? Math.max(...values) : 0
     }
   })
-  return Math.max(0, Math.min(timepoints.value - 1, bestIndex))
+})
+
+const chartStart = computed(() => 0)
+const chartEnd = computed(() => {
+  const lastTimestamp = timestamps.value[timestamps.value.length - 1] ?? 0
+  return Math.max(lastTimestamp, mediaDuration.value, chartStart.value + 1)
+})
+
+const mediaDuration = computed(() => {
+  const fromAnalysis = Number(selectedAnalysis.value?.video?.duration_seconds)
+  if (Number.isFinite(mediaDurationFromVideo.value) && mediaDurationFromVideo.value > 0) return mediaDurationFromVideo.value
+  if (Number.isFinite(fromAnalysis) && fromAnalysis > 0) return fromAnalysis
+  return timestamps.value[timestamps.value.length - 1] ?? 0
+})
+
+const forecastWindow = computed(() => ({
+  start: currentPoint.value.timestamp + FORECAST_MIN_SECONDS,
+  end: currentPoint.value.timestamp + FORECAST_MAX_SECONDS
+}))
+
+const clampedForecastWindow = computed(() => ({
+  start: clamp(forecastWindow.value.start, chartStart.value, chartEnd.value),
+  end: clamp(forecastWindow.value.end, chartStart.value, chartEnd.value)
+}))
+
+const tailRegionStart = computed(() => Math.max(chartStart.value, chartEnd.value - FORECAST_MAX_SECONDS))
+
+const fullUpstreamWindowContext = computed(() => {
+  return qualityArray('full_upstream_window_context')
+})
+
+const fullForecastWindowInMedia = computed(() => {
+  return qualityArray('full_forecast_window_in_media')
+})
+
+const currentPoint = computed(() => {
+  const index = clamp(currentIndex.value, 0, Math.max(0, timestamps.value.length - 1))
+  const timestamp = timestamps.value[index] ?? 0
+  return {
+    index,
+    timestamp,
+    score: movementScores.value[index],
+    percentile: percentileValues.value[index] ?? 0,
+    coldStart: isColdStart(index, timestamp),
+    tailHorizon: isTailHorizon(index, timestamp)
+  }
+})
+
+const currentQualityLabel = computed(() => {
+  if (currentPoint.value.coldStart) return 'Cold start · provisional'
+  if (currentPoint.value.tailHorizon) return 'Incomplete horizon'
+  return 'Full context'
+})
+
+const currentQualityDetail = computed(() => {
+  if (currentPoint.value.coldStart) return 'Upstream V-JEPA window is not yet fully populated.'
+  if (currentPoint.value.tailHorizon) return 'The target horizon extends past the media tail.'
+  return 'Full upstream context and forecast horizon are available.'
+})
+
+const currentMemberDiagnostic = computed(() => {
+  const values = memberSeries.value
+    .map(member => member.values[currentPoint.value.index])
+    .filter(Number.isFinite)
+  if (!values.length) return { available: false, min: 0, max: 0, spread: 0 }
+  const min = Math.min(...values)
+  const max = Math.max(...values)
+  return { available: true, min, max, spread: max - min }
+})
+
+const percentileLinePath = computed(() => {
+  return linePath(percentileValues.value, value => chartY(value))
+})
+
+const percentileAreaPath = computed(() => {
+  if (!percentileLinePath.value) return ''
+  const lastIndex = Math.min(percentileValues.value.length, timestamps.value.length) - 1
+  if (lastIndex < 0) return ''
+  return `${percentileLinePath.value} L ${chartX(timestamps.value[lastIndex])} ${chart.bottom} L ${chartX(timestamps.value[0])} ${chart.bottom} Z`
+})
+
+const memberBandPath = computed(() => {
+  if (!memberRankBand.value.length) return ''
+  const upper = memberRankBand.value
+    .map((point, index) => `${index ? 'L' : 'M'} ${chartX(point.timestamp)} ${chartY(point.max)}`)
+    .join(' ')
+  const lower = [...memberRankBand.value]
+    .reverse()
+    .map(point => `L ${chartX(point.timestamp)} ${chartY(point.min)}`)
+    .join(' ')
+  return `${upper} ${lower} Z`
+})
+
+const eventItems = computed(() => {
+  const items = timeline.value?.events?.items
+  if (!Array.isArray(items)) return []
+  return items
+    .map((item, index) => {
+      const itemIndex = Number(item?.row_index)
+      const timestamp = Number.isFinite(Number(item?.anchor_time_seconds))
+        ? Number(item.anchor_time_seconds)
+        : timestamps.value[itemIndex]
+      return {
+        ...item,
+        id: item?.event_id || `${index}-${timestamp}`,
+        timestamp: Number(timestamp)
+      }
+    })
+    .filter(item => Number.isFinite(item.timestamp))
+})
+
+const eventPolicyText = computed(() => {
+  const policy = timeline.value?.events?.policy
+  if (typeof policy === 'string') return policy
+  if (policy?.provisional) {
+    const threshold = Number(policy.percentile)
+    const label = Number.isFinite(threshold) ? `top ${((1 - threshold) * 100).toFixed(0)}%` : 'high-rank'
+    return `Provisional ${label} within-video markers; not observed outcomes.`
+  }
+  return 'Provisional markers from the stored event policy; not observed outcomes.'
+})
+
+const topMoments = computed(() => {
+  const candidates = percentileValues.value
+    .map((percentile, index) => ({
+      index,
+      percentile,
+      timestamp: timestamps.value[index]
+    }))
+    .filter(item => Number.isFinite(item.percentile) && Number.isFinite(item.timestamp))
+    .sort((a, b) => b.percentile - a.percentile)
+
+  const selected = []
+  for (const candidate of candidates) {
+    if (selected.some(item => Math.abs(item.timestamp - candidate.timestamp) < FORECAST_MIN_SECONDS)) continue
+    selected.push({
+      ...candidate,
+      coldStart: isColdStart(candidate.index, candidate.timestamp),
+      tailHorizon: isTailHorizon(candidate.index, candidate.timestamp)
+    })
+    if (selected.length === 5) break
+  }
+  return selected
+})
+
+const timeTicks = computed(() => {
+  const count = 5
+  const span = chartEnd.value - chartStart.value
+  return Array.from({ length: count }, (_, index) => chartStart.value + (span * index) / (count - 1))
+})
+
+const targetLabel = computed(() => {
+  const target = timeline.value?.target
+  if (typeof target === 'string') return target
+  return target?.id || 'Future arousal movement ranking'
+})
+
+const modelValidationEvidence = computed(() => timeline.value?.evidence_scopes?.model_validation_reference)
+const runLevelEvidence = computed(() => timeline.value?.evidence_scopes?.run_level_validation)
+const implementationEvidence = computed(() => timeline.value?.evidence_scopes?.implementation_reproduction)
+
+const unsupportedOutputItems = computed(() => {
+  const outputs = timeline.value?.unsupported_outputs || {}
+  return [
+    {
+      key: 'arousal_dropoff',
+      label: 'Drop-off prediction',
+      reason: unsupportedReason(outputs, 'arousal_dropoff', 'No validated drop-off output is produced by this contract.')
+    },
+    {
+      key: 'valence',
+      label: 'Valence',
+      reason: unsupportedReason(outputs, 'valence', 'Positive-versus-negative emotional valence is not inferred.')
+    },
+    {
+      key: 'exact_arousal_level',
+      label: 'Exact arousal level',
+      reason: unsupportedReason(outputs, 'exact_arousal_level', 'The output is a relative movement ranking, not a calibrated exact level.')
+    }
+  ]
+})
+
+const liveStatus = computed(() => {
+  if (inventoryLoading.value) return 'Loading analysis inventory.'
+  if (timelineLoading.value) return `Loading analysis ${selectedAnalysisId.value}.`
+  if (timelineError.value) return 'Timeline loading failed.'
+  if (playbackNotice.value) return playbackNotice.value
+  if (timeline.value) return `Analysis ${selectedAnalysisId.value} ready at ${formatTime(currentPoint.value.timestamp)}.`
+  return `${analyses.value.length} analyses available.`
+})
+
+function clamp(value, minimum, maximum) {
+  return Math.min(maximum, Math.max(minimum, Number(value) || 0))
 }
 
-const seekToIndex = (index, keepPlaying = playing.value) => {
-  if (!timepoints.value) return
-  const targetIndex = Math.max(0, Math.min(timepoints.value - 1, index))
-  currentIndex.value = targetIndex
+function numericSeries(values) {
+  if (!Array.isArray(values)) return []
+  return values.map(value => Number(value))
+}
+
+function analysisTitle(analysis) {
+  return analysis.video?.display_name || analysis.analysis_id
+}
+
+function analysisSubtitle(analysis) {
+  const dataset = analysis.source?.dataset_id || 'Unknown dataset'
+  const modalities = Array.isArray(analysis.inference?.modalities_used)
+    ? analysis.inference.modalities_used.join(' + ')
+    : 'modalities not recorded'
+  return `${dataset} · ${modalities}`
+}
+
+function formatDuration(value) {
+  const seconds = Number(value)
+  return Number.isFinite(seconds) ? formatTime(seconds) : 'duration unknown'
+}
+
+function formatTime(value) {
+  const seconds = Math.max(0, Number(value) || 0)
+  const minutes = Math.floor(seconds / 60)
+  const remainder = seconds - minutes * 60
+  return `${minutes}:${remainder.toFixed(1).padStart(4, '0')}`
+}
+
+function formatPercentile(value) {
+  const number = Number(value)
+  return Number.isFinite(number) ? `P${number.toFixed(1)}` : 'n/a'
+}
+
+function formatScore(value) {
+  const number = Number(value)
+  if (!Number.isFinite(number)) return 'n/a'
+  return `${number >= 0 ? '+' : ''}${number.toFixed(4)}`
+}
+
+function errorMessage(error, fallback) {
+  return error?.response?.data?.error?.message || error?.message || fallback
+}
+
+function qualityArray(key) {
+  const value = timeline.value?.row_quality?.[key]
+  if (Array.isArray(value)) return value
+  return Array.isArray(value?.values) ? value.values : []
+}
+
+function isColdStart(index, timestamp) {
+  if (Number(timestamp) < UPSTREAM_COLD_START_SECONDS) return true
+  const quality = fullUpstreamWindowContext.value
+  return quality.length > index ? quality[index] !== true : false
+}
+
+function isTailHorizon(_index, timestamp) {
+  const index = Number(_index)
+  const quality = fullForecastWindowInMedia.value
+  if (quality.length > index) return quality[index] !== true
+  return Number(timestamp) + FORECAST_MAX_SECONDS > chartEnd.value + 1e-6
+}
+
+function rankAsPercentiles(values) {
+  const finite = values.filter(Number.isFinite).sort((a, b) => a - b)
+  if (finite.length < 2) return values.map(() => 50)
+  return values.map(value => {
+    if (!Number.isFinite(value)) return NaN
+    let low = 0
+    let high = finite.length
+    while (low < high) {
+      const middle = Math.floor((low + high) / 2)
+      if (finite[middle] <= value) low = middle + 1
+      else high = middle
+    }
+    return ((low - 1) / (finite.length - 1)) * 100
+  })
+}
+
+function chartX(timestamp) {
+  const span = Math.max(0.001, chartEnd.value - chartStart.value)
+  const ratio = clamp((Number(timestamp) - chartStart.value) / span, 0, 1)
+  return chart.left + ratio * chart.plotWidth
+}
+
+function chartY(percentile) {
+  const value = clamp(percentile, 0, 100)
+  return chart.top + (1 - value / 100) * chart.plotHeight
+}
+
+function linePath(values, yForValue) {
+  const points = []
+  const count = Math.min(values.length, timestamps.value.length)
+  for (let index = 0; index < count; index += 1) {
+    const value = Number(values[index])
+    if (!Number.isFinite(value)) continue
+    points.push(`${points.length ? 'L' : 'M'} ${chartX(timestamps.value[index])} ${yForValue(value)}`)
+  }
+  return points.join(' ')
+}
+
+function eventTriangle(timestamp) {
+  const x = chartX(timestamp)
+  return `M ${x - 5} ${chart.top - 2} L ${x + 5} ${chart.top - 2} L ${x} ${chart.top + 7} Z`
+}
+
+function evidenceTitle(scope, fallback) {
+  if (!scope) return fallback
+  if (typeof scope === 'string') return fallback
+  return scope.evidence_id || scope.validation_status || scope.status || fallback
+}
+
+function evidenceSummary(scope, fallback) {
+  if (!scope) return fallback
+  if (typeof scope === 'string') return scope
+  if (scope.applicability_note) return scope.applicability_note
+  if (scope.evidence_scope === 'this_analysis') {
+    return `External validity: ${scope.external_validity || 'not recorded'}. Controls run: ${scope.controls_run ? 'yes' : 'no'}.`
+  }
+  if (scope.validates) {
+    return `${scope.validates}. This does not validate external predictive validity or new-video correctness.`
+  }
+  return fallback
+}
+
+function unsupportedReason(outputs, key, fallback) {
+  const value = Array.isArray(outputs)
+    ? outputs.find(item => item?.key === key)
+    : outputs?.[key]
+  if (typeof value === 'string') return value
+  return value?.reason || value?.description || fallback
+}
+
+async function loadAnalyses() {
+  inventoryLoading.value = true
+  inventoryError.value = ''
+  try {
+    const items = []
+    let cursor = null
+    do {
+      const response = await listNeuralBridgeAnalyses({ params: cursor ? { cursor } : {} })
+      const payload = unwrapResponse(response)
+      if (!Array.isArray(payload?.items)) throw new Error('The analyses endpoint did not return an items array.')
+      items.push(...payload.items)
+      cursor = payload.next_cursor || null
+    } while (cursor)
+    analyses.value = items.filter(item => item?.analysis_id)
+    if (selectedAnalysisId.value && analyses.value.some(item => item.analysis_id === selectedAnalysisId.value)) return
+    const first = analyses.value[0]
+    if (first) await selectAnalysis(first.analysis_id)
+  } catch (error) {
+    inventoryError.value = errorMessage(error, 'Unknown inventory error.')
+  } finally {
+    inventoryLoading.value = false
+  }
+}
+
+async function selectAnalysis(analysisId) {
+  if (!analysisId) return
+  stopVideoClock()
+  stimulusVideo.value?.pause()
+  selectedAnalysisId.value = String(analysisId)
+  currentIndex.value = 0
+  currentTime.value = 0
+  mediaDurationFromVideo.value = 0
+  videoReady.value = false
+  videoError.value = ''
+  playbackNotice.value = ''
+  await loadTimeline(selectedAnalysisId.value)
+}
+
+async function loadTimeline(analysisId) {
+  timelineRequest?.abort()
+  timelineRequest = new AbortController()
+  const requestId = ++timelineRequestId
+  timelineLoading.value = true
+  timelineError.value = ''
+  timeline.value = null
+  try {
+    const response = await getNeuralBridgeTimeline(analysisId, { signal: timelineRequest.signal })
+    if (requestId !== timelineRequestId) return
+    const payload = unwrapResponse(response)
+    const grid = payload?.grid?.timestamps_seconds
+    const percentile = payload?.series?.within_video_percentile?.values
+    const score = payload?.series?.future_arousal_movement_score?.values
+    if (!Array.isArray(grid) || !Array.isArray(percentile) || !Array.isArray(score)) {
+      throw new Error('Timeline does not satisfy the neural_bridge.timeline.v1 series contract.')
+    }
+    timeline.value = {
+      ...payload,
+      schema_version: response?.schema_version || 'neural_bridge.timeline.v1'
+    }
+    await nextTick()
+    stimulusVideo.value?.load()
+  } catch (error) {
+    if (error?.name === 'CanceledError' || error?.name === 'AbortError') return
+    timelineError.value = errorMessage(error, 'Unknown timeline error.')
+  } finally {
+    if (requestId === timelineRequestId) timelineLoading.value = false
+  }
+}
+
+function onVideoLoaded() {
   const video = stimulusVideo.value
   if (!video) return
-  const timestamps = timeline.value?.timestamps_seconds || surface.value?.timestamps_seconds || []
-  const targetTime = Number(timestamps[targetIndex] ?? targetIndex)
-  if (Number.isFinite(targetTime) && Math.abs(video.currentTime - targetTime) > 0.25) {
-    video.currentTime = targetTime
-  }
-  if (keepPlaying && video.paused) {
-    video.play().catch(() => {
+  mediaDurationFromVideo.value = Number(video.duration) || 0
+  video.playbackRate = playbackRate.value
+  syncFromVideo()
+}
+
+function onVideoCanPlay() {
+  videoReady.value = true
+  videoError.value = ''
+  applyPlaybackRate()
+}
+
+function onVideoError() {
+  videoReady.value = false
+  videoError.value = 'The analysis media endpoint could not provide playable video.'
+  stopVideoClock()
+}
+
+function applyPlaybackRate() {
+  if (stimulusVideo.value) stimulusVideo.value.playbackRate = Number(playbackRate.value)
+}
+
+function togglePlayback() {
+  const video = stimulusVideo.value
+  if (!video || !videoReady.value) return
+  if (video.paused) {
+    video.play().catch(error => {
       playing.value = false
+      playbackNotice.value = error?.name === 'NotAllowedError'
+        ? 'Playback was blocked until a direct media gesture; use the native video control to start.'
+        : 'Playback could not start. The media source remains available.'
     })
+  } else {
+    video.pause()
   }
 }
 
-const syncIndexFromVideo = () => {
-  const video = stimulusVideo.value
-  if (!video || !timepoints.value) return
-  currentIndex.value = indexFromSeconds(video.currentTime)
+function onVideoPlay() {
+  playing.value = true
+  playbackNotice.value = ''
+  startVideoClock()
 }
 
-const step = (direction) => {
-  if (!timepoints.value) return
-  seekToIndex((currentIndex.value + direction + timepoints.value) % timepoints.value, false)
+function onVideoPause() {
+  playing.value = false
+  syncFromVideo()
+  stopVideoClock()
 }
 
-const togglePlayback = () => {
+function startVideoClock() {
+  stopVideoClock()
   const video = stimulusVideo.value
-  if (video) {
-    if (video.paused) {
-      video.play().catch(() => {
-        playing.value = false
-      })
-    } else {
-      video.pause()
+  if (!video || video.paused) return
+
+  if (typeof video.requestVideoFrameCallback === 'function') {
+    const tick = (_now, metadata) => {
+      syncToTime(metadata?.mediaTime ?? video.currentTime)
+      if (!video.paused) videoFrameId = video.requestVideoFrameCallback(tick)
     }
+    videoFrameId = video.requestVideoFrameCallback(tick)
     return
   }
-  playing.value = !playing.value
+
+  const tick = () => {
+    syncFromVideo()
+    if (!video.paused) animationFrameId = requestAnimationFrame(tick)
+  }
+  animationFrameId = requestAnimationFrame(tick)
 }
 
-const restartPlayback = () => {
-  if (playTimer) clearInterval(playTimer)
-  playTimer = setInterval(() => {
-    const video = stimulusVideo.value
-    if (video && !video.paused) {
-      syncIndexFromVideo()
-      return
-    }
-    if (!video && playing.value && timepoints.value > 0) step(1)
-  }, Number(speedMs.value))
+function stopVideoClock() {
+  const video = stimulusVideo.value
+  if (videoFrameId !== null && video && typeof video.cancelVideoFrameCallback === 'function') {
+    video.cancelVideoFrameCallback(videoFrameId)
+  }
+  if (animationFrameId !== null) cancelAnimationFrame(animationFrameId)
+  videoFrameId = null
+  animationFrameId = null
 }
 
-watch(speedMs, restartPlayback)
-watch(currentIndex, updateSurfaceColors)
+function syncFromVideo() {
+  if (!stimulusVideo.value) return
+  syncToTime(stimulusVideo.value.currentTime)
+}
 
-onMounted(async () => {
-  await refreshAll()
-  restartPlayback()
-  refreshTimer = setInterval(refreshAll, 8000)
+function syncToTime(seconds) {
+  currentTime.value = Number(seconds) || 0
+  currentIndex.value = nearestTimestampIndex(currentTime.value)
+}
+
+function nearestTimestampIndex(seconds) {
+  const values = timestamps.value
+  if (!values.length) return 0
+  if (seconds <= values[0]) return 0
+  if (seconds >= values[values.length - 1]) return values.length - 1
+  let low = 0
+  let high = values.length - 1
+  while (low <= high) {
+    const middle = Math.floor((low + high) / 2)
+    if (values[middle] < seconds) low = middle + 1
+    else high = middle - 1
+  }
+  const before = Math.max(0, low - 1)
+  const after = Math.min(values.length - 1, low)
+  return Math.abs(values[before] - seconds) <= Math.abs(values[after] - seconds) ? before : after
+}
+
+function seekToIndex(index) {
+  const safeIndex = clamp(index, 0, Math.max(0, timestamps.value.length - 1))
+  seekToTime(timestamps.value[safeIndex] ?? 0)
+}
+
+function seekToTime(seconds) {
+  const time = clamp(seconds, 0, Math.max(mediaDuration.value, chartEnd.value))
+  currentTime.value = time
+  currentIndex.value = nearestTimestampIndex(time)
+  if (stimulusVideo.value && Number.isFinite(time)) stimulusVideo.value.currentTime = time
+}
+
+function stepIndex(direction) {
+  seekToIndex(currentIndex.value + Number(direction))
+}
+
+function scrubToIndex(event) {
+  seekToIndex(Number(event.target.value))
+}
+
+function seekFromChart(event) {
+  const bounds = event.currentTarget.getBoundingClientRect()
+  const viewX = ((event.clientX - bounds.left) / Math.max(1, bounds.width)) * chart.width
+  const ratio = clamp((viewX - chart.left) / chart.plotWidth, 0, 1)
+  seekToTime(chartStart.value + ratio * (chartEnd.value - chartStart.value))
+}
+
+function handleKeyboardShortcut(event) {
+  if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.altKey) return
+  const target = event.target
+  const tag = target?.tagName?.toLowerCase()
+  if (target?.isContentEditable || ['input', 'select', 'textarea', 'button', 'a', 'video'].includes(tag)) return
+  if (event.code === 'Space') {
+    event.preventDefault()
+    togglePlayback()
+  } else if (event.key === 'ArrowLeft') {
+    event.preventDefault()
+    stepIndex(-1)
+  } else if (event.key === 'ArrowRight') {
+    event.preventDefault()
+    stepIndex(1)
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyboardShortcut)
+  loadAnalyses()
 })
 
 onUnmounted(() => {
-  if (playTimer) clearInterval(playTimer)
-  if (refreshTimer) clearInterval(refreshTimer)
-  window.removeEventListener('resize', resizeSurface)
-  disposeSurfaceScene()
+  timelineRequest?.abort()
+  stopVideoClock()
+  window.removeEventListener('keydown', handleKeyboardShortcut)
 })
-
-window.addEventListener('resize', resizeSurface)
 </script>
 
 <style scoped>
-.neuro-page {
+.analyst-page {
+  --bg-deep: #030908;
+  --bg-panel: rgba(7, 19, 18, 0.92);
+  --bg-raised: rgba(16, 31, 29, 0.9);
+  --border: rgba(220, 247, 235, 0.14);
+  --border-strong: rgba(255, 190, 104, 0.42);
+  --text: #edf8f2;
+  --muted: #a9c9bd;
+  --teal: #67dfc7;
+  --teal-deep: #123c38;
+  --orange: #ffad55;
+  --orange-hot: #ff7130;
+  --danger: #ff8d6e;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 18% 10%, rgba(0, 238, 255, 0.22), transparent 25%),
-    radial-gradient(circle at 78% 14%, rgba(255, 103, 0, 0.25), transparent 28%),
-    radial-gradient(circle at 50% 95%, rgba(35, 255, 151, 0.14), transparent 38%),
-    linear-gradient(135deg, #030908 0%, #081715 45%, #160b06 100%);
-  color: #e8f7ef;
+  padding: 20px;
+  color: var(--text);
   font-family: 'Space Grotesk', 'JetBrains Mono', sans-serif;
-  padding: 26px;
+  background:
+    radial-gradient(circle at 9% 3%, rgba(37, 198, 177, 0.16), transparent 24%),
+    radial-gradient(circle at 92% 0%, rgba(255, 121, 47, 0.17), transparent 23%),
+    linear-gradient(145deg, #030908 0%, #081311 48%, #160c08 100%);
 }
 
-.neuro-header {
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 10px;
+  left: 10px;
+  padding: 10px 14px;
+  color: #07110f;
+  background: #fff2d7;
+  transform: translateY(-160%);
+  transition: transform 120ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.analyst-page :focus-visible {
+  outline: 3px solid #fff0c8;
+  outline-offset: 3px;
+}
+
+.app-header {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  align-items: flex-start;
-  margin-bottom: 24px;
+  gap: 20px;
+  max-width: 1880px;
+  margin: 0 auto 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  background: rgba(4, 13, 12, 0.78);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+}
+
+.brand-block,
+.header-actions,
+.rail-heading,
+.section-heading,
+.transport,
+.timeline-legend,
+.contract-badges {
+  display: flex;
+  align-items: center;
+}
+
+.brand-block {
+  gap: 14px;
 }
 
 .brand-mark,
-.controls button,
-.controls select,
-.panel-title button {
-  border: 1px solid rgba(255, 198, 107, 0.32);
-  background: linear-gradient(135deg, rgba(255, 117, 31, 0.16), rgba(54, 224, 255, 0.08));
-  color: #e8f7ef;
-  padding: 9px 13px;
-  text-transform: uppercase;
+.action-link,
+.mode-badge,
+.contract-badges span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  border: 1px solid var(--border-strong);
+  color: #fff0d8;
+  background: rgba(255, 122, 48, 0.1);
+  padding: 8px 11px;
+  font-weight: 800;
+  font-size: 0.74rem;
   letter-spacing: 0.08em;
-  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
-.brand-mark {
-  cursor: default;
-  font-weight: 800;
+.mode-badge {
+  border-color: rgba(103, 223, 199, 0.35);
+  color: #aff6e8;
+  background: rgba(35, 188, 164, 0.1);
+}
+
+.header-actions {
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .eyebrow {
-  color: #83d6b7;
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
+  margin: 0 0 4px;
+  color: #83dbc7;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
-  margin: 12px 0 5px;
 }
 
 h1,
 h2,
-h3 {
-  margin: 0;
-  letter-spacing: -0.04em;
+h3,
+p {
+  margin-top: 0;
 }
 
 h1 {
-  font-size: clamp(2.4rem, 5vw, 5.4rem);
-  line-height: 0.92;
+  margin-bottom: 0;
+  font-size: clamp(1.35rem, 2.4vw, 2.15rem);
+  line-height: 1;
 }
 
-.header-stats {
-  display: flex;
-  gap: 12px;
+h2 {
+  margin-bottom: 0;
+  font-size: clamp(1.12rem, 1.8vw, 1.55rem);
+  line-height: 1.1;
 }
 
-.stat-card,
-.video-list,
-.brain-card,
-.stimulus-card,
-.metric-card,
-.roi-card {
-  background:
-    linear-gradient(145deg, rgba(6, 18, 17, 0.82), rgba(20, 10, 6, 0.62)),
-    radial-gradient(circle at top left, rgba(255, 126, 33, 0.1), transparent 42%);
-  border: 1px solid rgba(238, 255, 232, 0.15);
-  box-shadow:
-    0 20px 70px rgba(0, 0, 0, 0.34),
-    inset 0 0 60px rgba(30, 255, 190, 0.035);
-  backdrop-filter: blur(18px);
+h3 {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
 }
 
-.stat-card {
-  min-width: 98px;
-  padding: 14px;
+.live-status {
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
-.stat-card span {
-  display: block;
-  font-size: 1.5rem;
-  font-weight: 800;
-}
-
-.stat-card label {
-  color: #83d6b7;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-}
-
-.neuro-grid {
+.analyst-layout {
   display: grid;
-  grid-template-columns: 250px minmax(420px, 1fr) 330px;
-  gap: 18px;
-  align-items: stretch;
+  grid-template-columns: 250px minmax(560px, 1fr) 310px;
+  gap: 14px;
+  max-width: 1880px;
+  margin: 0 auto;
+  align-items: start;
 }
 
-.video-list,
-.side-panel {
-  min-height: 72vh;
+.asset-rail,
+.playback-panel,
+.timeline-panel,
+.evidence-panel,
+.unsupported-panel,
+.inspector,
+.state-panel {
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(145deg, rgba(6, 18, 17, 0.94), rgba(18, 12, 9, 0.88)),
+    radial-gradient(circle at top left, rgba(65, 230, 198, 0.06), transparent 42%);
+  box-shadow: 0 20px 64px rgba(0, 0, 0, 0.3);
 }
 
-.video-list {
-  padding: 14px;
+.asset-rail,
+.inspector {
+  position: sticky;
+  top: 14px;
+  max-height: calc(100vh - 28px);
   overflow: auto;
 }
 
-.panel-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-  color: #83d6b7;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.video-item {
-  width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.04);
-  color: inherit;
-  padding: 12px;
-  margin-bottom: 8px;
-  text-align: left;
-  display: grid;
-  gap: 5px;
-  cursor: pointer;
-}
-
-.video-item.active {
-  border-color: #ffb84c;
-  background:
-    linear-gradient(90deg, rgba(255, 116, 22, 0.22), rgba(0, 229, 255, 0.08));
-  box-shadow: 0 0 22px rgba(255, 110, 24, 0.14);
-}
-
-.video-item.disabled {
-  opacity: 0.42;
-  cursor: not-allowed;
-}
-
-.video-id {
-  font-weight: 900;
-}
-
-.video-meta,
-.video-state {
-  color: #aac7bc;
-  font-size: 0.76rem;
-}
-
-.brain-stage {
-  min-width: 0;
-}
-
-.stage-toolbar {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: flex-end;
-  margin-bottom: 14px;
-}
-
-.controls {
-  display: flex;
-  gap: 8px;
-}
-
-.brain-card {
-  position: relative;
-  min-height: 72vh;
-  padding: 16px;
-  display: grid;
-  grid-template-rows: minmax(420px, 1fr) 70px;
-  overflow: hidden;
-}
-
-.brain-card::before {
-  content: '';
-  position: absolute;
-  inset: 5%;
-  background:
-    radial-gradient(circle at 50% 42%, rgba(255, 205, 84, 0.22), transparent 20%),
-    radial-gradient(circle at 36% 50%, rgba(0, 229, 255, 0.16), transparent 34%),
-    radial-gradient(circle at 64% 52%, rgba(255, 70, 8, 0.18), transparent 38%);
-  filter: blur(34px);
-}
-
-.brain-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: radial-gradient(circle at center, black 0%, transparent 78%);
-  opacity: 0.45;
-}
-
-.activation-legend {
-  position: absolute;
-  z-index: 5;
-  right: 18px;
-  top: 18px;
-  display: grid;
-  grid-template-columns: auto 130px auto;
-  gap: 9px;
-  align-items: center;
-  padding: 9px 11px;
-  background: rgba(2, 8, 8, 0.58);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #dffbef;
-  font-size: 0.66rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  backdrop-filter: blur(12px);
-}
-
-.activation-legend i {
-  display: block;
-  height: 9px;
-  border-radius: 99px;
-  background: linear-gradient(90deg, #05173f 0%, #0099ff 20%, #241008 43%, #e21a00 60%, #ff9b00 78%, #fff4b8 100%);
-  box-shadow: 0 0 16px rgba(255, 132, 0, 0.32);
-}
-
-.mesh-canvas {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  min-height: 420px;
-  opacity: 0;
-  transition: opacity 220ms ease;
-  cursor: grab;
-  filter:
-    drop-shadow(0 0 22px rgba(255, 111, 0, 0.2))
-    drop-shadow(0 0 34px rgba(0, 219, 255, 0.12));
-}
-
-.mesh-canvas.visible {
-  opacity: 1;
-}
-
-.mesh-canvas:active {
-  cursor: grabbing;
-}
-
-.mesh-loading {
-  position: absolute;
-  z-index: 4;
-  top: 22px;
-  left: 22px;
-  color: #ffcf7d;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.72rem;
-}
-
-.brain-svg {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.hemi {
-  fill: url(#hemiGlow);
-  stroke: rgba(255, 197, 103, 0.3);
-  stroke-width: 0.7;
-}
-
-.fold {
-  fill: none;
-  stroke: rgba(191, 240, 218, 0.2);
-  stroke-width: 0.5;
-}
-
-.region-dot {
-  filter: url(#softGlow);
-  transition: r 160ms linear, opacity 160ms linear, fill 160ms linear;
-  mix-blend-mode: screen;
-}
-
-.trace-strip {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  gap: 2px;
-  align-items: end;
-  border-top: 1px solid rgba(255, 205, 112, 0.16);
-  padding-top: 14px;
-}
-
-.trace-bar {
-  flex: 1;
-  min-width: 3px;
-  background: linear-gradient(to top, #04265b 0%, #00a6ff 20%, #eb2500 62%, #ffc847 100%);
-  opacity: 0.52;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(255, 96, 14, 0.12);
-}
-
-.trace-bar.current {
-  opacity: 1;
-  box-shadow:
-    0 0 16px #ff8c1a,
-    0 0 28px rgba(255, 210, 104, 0.45);
-}
-
-.side-panel {
-  display: grid;
-  grid-template-rows: auto auto 1fr;
-  gap: 14px;
-}
-
-.stimulus-card,
-.metric-card,
-.roi-card {
+.asset-rail {
   padding: 14px;
 }
 
-.stimulus-card video,
-.empty-video {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #020605;
-  object-fit: contain;
+.rail-heading,
+.section-heading {
+  justify-content: space-between;
+  gap: 14px;
 }
 
-.sync-chip {
-  margin-top: 10px;
-  display: inline-flex;
-  padding: 7px 9px;
-  border: 1px solid rgba(255, 205, 112, 0.22);
-  background: rgba(255, 132, 0, 0.1);
-  color: #ffd58c;
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.quiet-button,
+.transport button,
+.event-list button,
+.state-panel button {
+  min-height: 40px;
+  border: 1px solid rgba(255, 196, 112, 0.28);
+  color: var(--text);
+  background: rgba(255, 132, 66, 0.08);
+  padding: 8px 12px;
+  cursor: pointer;
 }
 
-.empty-video {
+button:disabled,
+select:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+}
+
+.search-field {
   display: grid;
-  place-items: center;
-  color: #83d6b7;
+  gap: 6px;
+  margin: 16px 0 7px;
+  color: var(--muted);
+  font-size: 0.75rem;
 }
 
-.metric-card h3,
-.roi-card h3 {
+.search-field input,
+.rate-control select {
+  min-height: 42px;
+  border: 1px solid rgba(212, 241, 229, 0.2);
+  border-radius: 0;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.27);
+  padding: 9px 10px;
+}
+
+.asset-count {
+  margin-bottom: 10px;
+  color: #8eb6aa;
+  font-size: 0.7rem;
+}
+
+.asset-list {
+  display: grid;
+  gap: 8px;
+}
+
+.asset-item {
+  display: grid;
+  gap: 5px;
+  width: 100%;
+  min-height: 104px;
+  padding: 11px;
+  border: 1px solid rgba(224, 247, 238, 0.1);
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.025);
+  text-align: left;
+  cursor: pointer;
+}
+
+.asset-item:hover {
+  border-color: rgba(103, 223, 199, 0.32);
+  background: rgba(103, 223, 199, 0.06);
+}
+
+.asset-item.active {
+  border-color: rgba(255, 179, 86, 0.62);
+  background: linear-gradient(100deg, rgba(255, 113, 48, 0.16), rgba(65, 218, 197, 0.06));
+  box-shadow: inset 3px 0 #ffae55;
+}
+
+.asset-item > span,
+.asset-item small {
+  color: var(--muted);
+  font-size: 0.7rem;
+  overflow-wrap: anywhere;
+}
+
+.asset-item strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.asset-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.asset-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 10px rgba(103, 223, 199, 0.55);
+}
+
+.rail-empty {
+  display: grid;
+  gap: 5px;
+  padding: 20px 10px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.workspace {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+
+.playback-panel,
+.timeline-panel,
+.evidence-panel,
+.unsupported-panel {
+  padding: 16px;
+}
+
+.playback-heading {
+  align-items: flex-start;
   margin-bottom: 13px;
 }
 
-.metric-row {
+.analysis-id {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  overflow-wrap: anywhere;
+}
+
+.contract-badges {
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.contract-badges span {
+  min-height: 30px;
+  padding: 5px 8px;
+  font-size: 0.62rem;
+}
+
+.video-shell {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgba(230, 250, 241, 0.12);
+  background: #010403;
+}
+
+.video-shell video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #010403;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  color: #dff9ee;
+  background: rgba(2, 8, 7, 0.78);
+  backdrop-filter: blur(8px);
+}
+
+.error-overlay {
+  color: #ffd7cc;
+}
+
+.loading-orbit {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  border: 3px solid rgba(103, 223, 199, 0.2);
+  border-top-color: var(--teal);
+  border-radius: 50%;
+  animation: spin 780ms linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.transport {
+  gap: 8px;
+  margin-top: 11px;
+  flex-wrap: wrap;
+}
+
+.transport .primary-control {
+  border-color: rgba(255, 182, 89, 0.58);
+  color: #17100a;
+  background: linear-gradient(135deg, #ffc46f, #ff8d43);
+  font-weight: 900;
+}
+
+.transport-time {
+  margin-left: auto;
+  color: #d7eee5;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+}
+
+.rate-control {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.rate-control select {
+  min-height: 40px;
+}
+
+.keyboard-hint {
+  margin: 9px 0 0;
+  color: #91b8ad;
+  font-size: 0.68rem;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 24px;
+  padding: 2px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f5eee2;
+  background: rgba(255, 255, 255, 0.06);
+  text-align: center;
+}
+
+.moment-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.moment-card {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: var(--bg-panel);
+}
+
+.moment-card > span,
+.moment-card small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.moment-card > span {
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.moment-card strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff2df;
+  font-size: 1.25rem;
+}
+
+.primary-moment {
+  border-color: rgba(255, 179, 86, 0.5);
+  background: linear-gradient(145deg, rgba(255, 117, 44, 0.16), rgba(13, 35, 31, 0.92));
+}
+
+.quality-card.warning {
+  border-color: rgba(255, 126, 83, 0.52);
+  background: rgba(111, 40, 21, 0.18);
+}
+
+.tail-warning {
+  padding: 11px 14px;
+  border: 1px solid rgba(255, 126, 83, 0.48);
+  color: #ffd8cb;
+  background: rgba(104, 32, 17, 0.22);
+  font-size: 0.82rem;
+}
+
+.timeline-heading {
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.timeline-legend {
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 0.66rem;
+}
+
+.timeline-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.timeline-legend i {
+  display: inline-block;
+  width: 22px;
+}
+
+.legend-line {
+  height: 3px;
+  background: #ffae55;
+}
+
+.legend-band {
+  height: 9px;
+  background: rgba(75, 221, 200, 0.25);
+  border: 1px solid rgba(75, 221, 200, 0.5);
+}
+
+.legend-event {
+  height: 11px;
+  border-left: 2px dashed #ff8154;
+}
+
+.chart-note {
+  margin-bottom: 8px;
+  color: #b7d2c8;
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.chart-wrap {
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 5, 5, 0.42);
+}
+
+.rank-chart {
+  display: block;
+  width: 100%;
+  min-width: 620px;
+  height: auto;
+  cursor: crosshair;
+}
+
+.chart-grid line {
+  stroke: rgba(223, 247, 237, 0.1);
+  stroke-width: 1;
+}
+
+.chart-grid text,
+.time-axis text,
+.region-label {
+  fill: #98bdb2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+
+.chart-grid text {
+  text-anchor: end;
+}
+
+.time-axis line {
+  stroke: rgba(223, 247, 237, 0.28);
+}
+
+.time-axis text {
+  text-anchor: middle;
+}
+
+.region-label {
+  fill: #b5eee3;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.forecast-region {
+  fill: rgba(255, 181, 86, 0.09);
+  stroke: rgba(255, 181, 86, 0.5);
+  stroke-width: 1;
+  stroke-dasharray: 5 4;
+}
+
+.member-band {
+  fill: rgba(82, 220, 199, 0.18);
+  stroke: rgba(82, 220, 199, 0.34);
+  stroke-width: 1;
+}
+
+.percentile-area {
+  fill: url(#rankFill);
+}
+
+.percentile-line {
+  fill: none;
+  stroke: #ffb25b;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 5px rgba(255, 141, 64, 0.36));
+}
+
+.event-markers line {
+  stroke: #ff8154;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+
+.event-markers path {
+  fill: #ff8154;
+}
+
+.playhead {
+  stroke: #f4fff9;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
+}
+
+.current-dot {
+  fill: #fff8df;
+  stroke: #ff7a35;
+  stroke-width: 3;
+}
+
+.timeline-scrubber {
+  display: grid;
+  grid-template-columns: auto minmax(120px, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  margin-top: 11px;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.timeline-scrubber input {
+  width: 100%;
+  accent-color: #ff9b4a;
+}
+
+.timeline-scrubber output {
+  color: #fff0d8;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.event-list {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  margin-top: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.event-list button {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 6px 9px;
+  color: #ffd9cb;
+  border-color: rgba(255, 129, 84, 0.32);
+}
+
+.event-policy {
+  flex: 0 0 180px;
+  color: var(--muted);
+  font-size: 0.65rem;
+  line-height: 1.35;
+}
+
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.evidence-grid article {
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.evidence-grid h3 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.evidence-grid p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.scope-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 4px 6px;
+  border: 1px solid currentColor;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.scope-label.validated { color: #72e4cd; }
+.scope-label.unvalidated { color: #ffb066; }
+.scope-label.implementation { color: #b8cfc6; }
+
+.unsupported-panel {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.38fr) 1fr;
+  gap: 20px;
+}
+
+.unsupported-panel ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.unsupported-panel li {
+  display: grid;
+  gap: 5px;
+  padding: 11px;
+  border: 1px solid rgba(255, 139, 103, 0.24);
+  background: rgba(100, 35, 20, 0.12);
+}
+
+.unsupported-panel li span {
+  color: #ffb397;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+}
+
+.unsupported-panel li small {
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.inspector {
+  display: grid;
+  align-content: start;
+  gap: 0;
+}
+
+.inspector-heading,
+.inspector-section {
+  padding: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.inspector-section:last-child {
+  border-bottom: 0;
+}
+
+.inspector-section > p {
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.current-diagnostic small {
+  display: block;
+  margin-top: 7px;
+  color: #ffcb91;
+  font-size: 0.66rem;
+}
+
+.diagnostic-value {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 7px;
+  align-items: center;
+  color: #eafff8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+}
+
+.diagnostic-value i {
+  height: 7px;
+  background: linear-gradient(90deg, rgba(78, 218, 197, 0.4), #ffab58);
+}
+
+.top-moments {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.top-moments button {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 8px;
+  width: 100%;
+  min-height: 56px;
+  padding: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.025);
+  text-align: left;
+  cursor: pointer;
+}
+
+.top-moments button:hover {
+  border-color: rgba(255, 179, 86, 0.4);
+  background: rgba(255, 133, 61, 0.07);
+}
+
+.top-moments small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+}
+
+.moment-rank {
+  color: #ffd59b;
+  font-weight: 900;
+}
+
+.flag {
+  grid-column: 1 / -1;
+  display: inline-flex;
+  justify-self: start;
+  padding: 3px 5px;
+  border: 1px solid currentColor;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cold-flag { color: #85e0d1; }
+.tail-flag { color: #ff9c7b; }
+
+.target-contract dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.target-contract dl div {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  color: #b8d4ca;
+  gap: 12px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-.metric-row strong {
-  color: #fff3df;
+.target-contract dt {
+  color: var(--muted);
 }
 
-.roi-row {
-  display: grid;
-  grid-template-columns: 1fr 92px;
-  gap: 10px;
+.target-contract dd {
+  margin: 0;
+  text-align: right;
+}
+
+.state-panel {
+  display: flex;
   align-items: center;
-  padding: 7px 0;
-  font-size: 0.82rem;
-  color: #d7eee5;
+  justify-content: center;
+  gap: 18px;
+  max-width: 1880px;
+  min-height: 54vh;
+  margin: 0 auto;
+  padding: 28px;
+  text-align: center;
 }
 
-.roi-meter {
-  height: 7px;
-  background: linear-gradient(90deg, rgba(0, 118, 255, 0.18), rgba(255, 89, 0, 0.12));
-  overflow: hidden;
+.state-panel p {
+  max-width: 620px;
+  margin: 8px auto 0;
+  color: var(--muted);
 }
 
-.roi-meter i {
-  display: block;
-  height: 100%;
-  box-shadow: 0 0 12px currentColor;
+.compact-state {
+  min-height: 220px;
 }
 
-@media (max-width: 1100px) {
-  .neuro-grid {
+.error-state {
+  border-color: rgba(255, 126, 83, 0.4);
+}
+
+@media (max-width: 1280px) {
+  .analyst-layout {
+    grid-template-columns: 220px minmax(520px, 1fr);
+  }
+
+  .inspector {
+    position: static;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-height: none;
+  }
+
+  .inspector-heading,
+  .inspector-section {
+    border-right: 1px solid var(--border);
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .analyst-page {
+    padding: 10px;
+  }
+
+  .app-header,
+  .brand-block {
+    align-items: flex-start;
+  }
+
+  .app-header {
+    display: grid;
+  }
+
+  .header-actions {
+    justify-content: flex-start;
+  }
+
+  .analyst-layout {
     grid-template-columns: 1fr;
   }
 
-  .video-list,
-  .side-panel {
-    min-height: auto;
+  .asset-rail {
+    position: static;
+    max-height: none;
   }
 
-  .brain-card {
-    min-height: 62vh;
+  .asset-list {
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   }
 
-  .neuro-header,
-  .stage-toolbar {
-    flex-direction: column;
-    align-items: stretch;
+  .moment-strip,
+  .evidence-grid,
+  .unsupported-panel ul,
+  .inspector {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .unsupported-panel {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .brand-block {
+    display: grid;
+  }
+
+  .playback-heading,
+  .timeline-heading {
+    display: grid;
+  }
+
+  .contract-badges,
+  .timeline-legend {
+    justify-content: flex-start;
+  }
+
+  .moment-strip,
+  .evidence-grid,
+  .unsupported-panel ul,
+  .inspector {
+    grid-template-columns: 1fr;
+  }
+
+  .transport-time {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .timeline-scrubber {
+    grid-template-columns: 1fr auto;
+  }
+
+  .timeline-scrubber input {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .inspector-heading,
+  .inspector-section {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 </style>

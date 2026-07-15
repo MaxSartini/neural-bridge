@@ -317,6 +317,25 @@ class MlxVjepa21Encoder(nn.Module):
     def _token_mean(x: mx.array) -> mx.array:
         return mx.mean(x.astype(mx.float32), axis=1)
 
+    @staticmethod
+    def _state_summaries(
+        state: mx.array,
+        *,
+        batch: int,
+        temporal: int,
+        spatial_tokens: int,
+    ) -> tuple[mx.array, mx.array, mx.array]:
+        """Reduce one hidden state using the dense-cache temporal contract."""
+        shaped = mx.reshape(
+            state.astype(mx.float32),
+            (batch, temporal, spatial_tokens, state.shape[-1]),
+        )
+        temporal_mean = mx.mean(shaped, axis=2)
+        centered = shaped - temporal_mean[:, :, None, :]
+        temporal_std = mx.sqrt(mx.mean(mx.square(centered), axis=2))
+        token_mean = mx.mean(temporal_mean, axis=1)
+        return token_mean, temporal_mean, temporal_std
+
     def selected_token_mean_states(self, video_bcthw: mx.array, selected: list[int]) -> mx.array:
         selected_set = set(selected)
         captured: dict[int, mx.array] = {}
@@ -342,6 +361,51 @@ class MlxVjepa21Encoder(nn.Module):
         if missing:
             raise ValueError(f"selected hidden-state indices out of range or not captured: {missing}")
         return mx.stack([captured[index] for index in selected], axis=1)[:, :, None, :]
+
+    def selected_states_with_temporal_stats(
+        self,
+        video_bcthw: mx.array,
+        selected: list[int],
+    ) -> tuple[mx.array, mx.array, mx.array]:
+        """Return token means plus per-tubelet spatial mean/std summaries."""
+        selected_set = set(selected)
+        captured: dict[int, tuple[mx.array, mx.array, mx.array]] = {}
+        batch, _channels, frames, height, width = video_bcthw.shape
+        if height % self.config.patch_size or width % self.config.patch_size:
+            raise ValueError(
+                f"input size {(height, width)} must be divisible by patch size {self.config.patch_size}"
+            )
+        temporal = frames // self.config.tubelet_size
+        h_patches = height // self.config.patch_size
+        w_patches = width // self.config.patch_size
+        spatial_tokens = h_patches * w_patches
+        hidden = self.patch_embed(video_bcthw)
+        if self.config.modality_embedding:
+            hidden = hidden + mx.broadcast_to(self.video_mod_embed, (batch, 1, self.config.hidden_size))
+        if 0 in selected_set:
+            captured[0] = self._state_summaries(
+                hidden,
+                batch=batch,
+                temporal=temporal,
+                spatial_tokens=spatial_tokens,
+            )
+        for index, block in enumerate(self.blocks, start=1):
+            hidden = block(hidden, temporal=temporal, h_patches=h_patches, w_patches=w_patches)
+            if index in selected_set:
+                state = self.norms_block[-1](hidden) if index == len(self.blocks) else hidden
+                captured[index] = self._state_summaries(
+                    state,
+                    batch=batch,
+                    temporal=temporal,
+                    spatial_tokens=spatial_tokens,
+                )
+        missing = [index for index in selected if index not in captured]
+        if missing:
+            raise ValueError(f"selected hidden-state indices out of range or not captured: {missing}")
+        token_means = mx.stack([captured[index][0] for index in selected], axis=1)[:, :, None, :]
+        temporal_means = mx.stack([captured[index][1] for index in selected], axis=1)
+        temporal_stds = mx.stack([captured[index][2] for index in selected], axis=1)
+        return token_means, temporal_means, temporal_stds
 
 
 def _mlx_array_with_dtype(array: np.ndarray, dtype_name: str) -> mx.array:
@@ -370,6 +434,10 @@ class MlxVjepa21FeatureModel:
         self.compile_encoder = bool(compile_encoder)
         self.input_dtype = input_dtype
         self._compiled_selected_state_fns: dict[tuple[int, ...], tp.Callable[[mx.array], mx.array]] = {}
+        self._compiled_temporal_state_fns: dict[
+            tuple[int, ...],
+            tp.Callable[[mx.array], tuple[mx.array, mx.array, mx.array]],
+        ] = {}
         self.encoder = MlxVjepa21Encoder(self.config)
         weights = mx.load(str(root / "model.safetensors"))
         self.encoder.load_weights(list(weights.items()), strict=True)
@@ -393,6 +461,41 @@ class MlxVjepa21FeatureModel:
             states = self.encoder.selected_token_mean_states(video, selected_indices)
         mx.eval(states)
         return np.asarray(states.astype(mx.float32))
+
+    def predict_hidden_states_with_temporal_stats(
+        self,
+        images: np.ndarray,
+        selected_indices: list[int],
+    ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+        """Encode windows and preserve compactable temporal diagnostics."""
+        batch = _preprocess_video_batch(images, self.image_size)
+        video = _mlx_array_with_dtype(batch, self.input_dtype)
+        if self.compile_encoder:
+            selected_key = tuple(int(index) for index in selected_indices)
+            forward = self._compiled_temporal_state_fns.get(selected_key)
+            if forward is None:
+                def temporal_forward(
+                    video_batch: mx.array,
+                ) -> tuple[mx.array, mx.array, mx.array]:
+                    return self.encoder.selected_states_with_temporal_stats(
+                        video_batch,
+                        list(selected_key),
+                    )
+
+                forward = mx.compile(temporal_forward)
+                self._compiled_temporal_state_fns[selected_key] = forward
+            states, temporal_mean, temporal_std = forward(video)
+        else:
+            states, temporal_mean, temporal_std = self.encoder.selected_states_with_temporal_stats(
+                video,
+                selected_indices,
+            )
+        mx.eval(states, temporal_mean, temporal_std)
+        return (
+            np.asarray(states.astype(mx.float32)),
+            np.asarray(temporal_mean.astype(mx.float32)),
+            np.asarray(temporal_std.astype(mx.float32)),
+        )
 
 
 class MlxVjepa21Video(MlxVjepa2Video):

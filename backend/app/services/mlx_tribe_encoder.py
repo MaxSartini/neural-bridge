@@ -61,7 +61,18 @@ class MlxTribeEncoder:
         self.head_dim = self.hidden // self.heads
         self.mx_dtype = _mx_dtype_for_name(self.dtype)
 
-    def predict(self, features: Dict[str, np.ndarray]) -> np.ndarray:
+    def predict(
+        self,
+        features: Dict[str, np.ndarray],
+        *,
+        pool_outputs: bool = True,
+    ) -> np.ndarray:
+        """Predict cortical rows, optionally preserving the input time grid.
+
+        ``pool_outputs=True`` retains the released TRIBE demo behavior.  Dense
+        Neural Bridge inference uses ``False`` so one cortical prediction is
+        retained for every upstream 2 Hz feature row.
+        """
         x = self._aggregate_features(features)
         x = x + self.weights["time_pos_embed"][:, : x.shape[1]]
         for index in range(int(self.config["depth"]) * 2):
@@ -77,7 +88,8 @@ class MlxTribeEncoder:
         predictor = self.weights["predictor.weights"][0]
         bias = self.weights["predictor.bias"][0]
         x = mx.einsum("btc,co->bot", x, predictor) + bias[None, :, None]
-        x = self._adaptive_avg_pool_1d(x, int(self.config["n_output_timesteps"]))
+        if pool_outputs:
+            x = self._adaptive_avg_pool_1d(x, int(self.config["n_output_timesteps"]))
         mx.eval(x)
         return np.asarray(x, dtype=np.float32)
 

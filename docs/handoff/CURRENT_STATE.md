@@ -1,7 +1,7 @@
 # Neural Bridge Current-State Handoff
 
 Updated: 2026-07-15
-Branch: `main`
+Branch: `agent/bridge-viewer-mlx-handoff`
 
 ## Current Result
 
@@ -31,9 +31,20 @@ Current files and executable evidence override historical memory:
 - `docs/current_claim_status.json`
 - `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`
 
-Validation is green: `182 passed, 1 skipped` under `npm run verify`, repository audit, production build, and real Optuna/Polars/MLflow/SHAP research-tooling verification on MLX `Device(gpu, 0)` / MPS.
+Validation is green: `196 passed, 1 skipped` under `npm run verify`, repository audit, strict-benchmark dry run, production build, and real Optuna/Polars/MLflow/SHAP research-tooling verification on MLX `Device(gpu, 0)` / MPS.
 
 Both codebase-memory projects are ready: internal repo and external SSD heavy-artifact workspace.
+
+## Ownership And Asset Boundary
+
+Neural Bridge is sole-founder work. The founder conceived and created the Neural Bridge ideas, target and washout design, bridge architecture, implementation, experiments, controls, training/evaluation procedures, trained heads, derived caches, evidence, reports, and product code across the VEATIC and AGAIN programmes. V-JEPA, TRIBE, and the VEATIC/AGAIN source datasets are third-party upstream dependencies or research inputs; they are replaceable, are not the Neural Bridge commercial output, and the source datasets are not shipped with the product.
+
+Keep the two AGAIN H100 cache layers distinct:
+
+- approximately `1 TB` in the founder's Google Drive workspace is the dense V-JEPA 2.1 cache generated from all `995` AGAIN videos;
+- approximately `38.7 GiB` / `40 GB` locally is the downstream TRIBE/predicted-cortical postpass used by Neural Bridge.
+
+Generated caches and downstream artifacts created by the project are Neural Bridge project assets, subject to applicable upstream and dataset terms. Private valuation material is not canonical project state and must not be committed or mined into MemPalace.
 
 ## Next Task
 
