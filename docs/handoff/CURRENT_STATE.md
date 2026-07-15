@@ -1,7 +1,7 @@
 # Neural Bridge Current-State Handoff
 
 Updated: 2026-07-15
-Branch: `agent/bridge-viewer-mlx-handoff`
+Branch: `main`
 
 ## Current Result
 
