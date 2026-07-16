@@ -1,6 +1,6 @@
 # Neural Bridge Current-State Handoff
 
-Updated: 2026-07-15
+Updated: 2026-07-16
 Branch: `main`
 
 ## Current Result
@@ -47,6 +47,29 @@ Keep the two AGAIN H100 cache layers distinct:
 Generated caches and downstream artifacts created by the project are Neural Bridge project assets, subject to applicable upstream and dataset terms. Private valuation material is not canonical project state and must not be committed or mined into MemPalace.
 
 ## Next Task
+
+### Active VEATIC H100 run
+
+The bounded VEATIC V-JEPA 2.1 CUDA run is active on Vast instance `45030709`
+(two H100 SXM GPUs, bid `$2.20/hr`, all-in rate `$2.2555555556/hr`). The run
+uses the fixed compact contract: 2 Hz rows, 256 px, 16 Hz decode, 64-frame
+causal windows, float16 V-JEPA 2.1 ViT-G features, and two disjoint whole-video
+shards of `62/62` videos (`10,336/10,321` planned rows). It does not encode
+AGAIN and does not run TRIBE.
+
+At the last live monitor checkpoint, `62/124` VEATIC video folders were
+complete locally and `59/124` had committed Drive uploads. Four locked upload
+workers are active; each completed folder is uploaded with its manifest,
+verification, and commit marker. The active SSH lifeline is intentionally kept
+open and must not be killed.
+
+The instance-side run required two compatibility fixes: unwrapping the
+provenance-wrapped checkpoint's nested `state_dict`, and casting RoPE-promoted
+attention query/key tensors to the float16 value dtype for CUDA SDPA. These
+runtime fixes are active on the instance; the current run is not yet canonical
+evidence until all videos and uploads complete. The base repo's MLX compact
+diagnostics implementation and single-video VEATIC benchmark tooling remain
+the reproducible local path for follow-up validation.
 
 The bounded AGAIN deployment campaign is complete and passed all three locked tiers at `140/140`. Keep the direct-supervised method frozen and move outward: integrate raw-video feature generation, validate latency and output packaging, and preregister an external/cross-domain zero-label confirmation. A bounded V-JEPA 2.1 VEATIC re-encode plus harmonized VEATIC+AGAIN pilot is justified, but must retain domain balance and leave-one-domain-out evaluation. Do not reopen the 299 pool for tuning. Development trials belong in `docs/how_neural_bridge_was_discovered.md` and the Stage A report.
 

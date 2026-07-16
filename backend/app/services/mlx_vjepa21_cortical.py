@@ -336,6 +336,25 @@ class MlxVjepa21Encoder(nn.Module):
         token_mean = mx.mean(temporal_mean, axis=1)
         return token_mean, temporal_mean, temporal_std
 
+    @staticmethod
+    def _compact_temporal_diagnostics(temporal_stds: mx.array) -> mx.array:
+        """Reduce ``[batch,state,tubelet,feature]`` stds to the canonical 53 columns."""
+        if temporal_stds.ndim != 4:
+            raise ValueError(
+                "expected temporal stds with shape [batch,state,tubelet,feature], "
+                f"got {temporal_stds.shape}"
+            )
+        # The H100 cache stored full temporal stds as float16. Its postpass then
+        # reduced float32 views, persisted the state summaries as float16, and
+        # the benchmark loader restored those summaries to float32. Preserve
+        # that quantization order without materializing the full arrays on CPU.
+        cached_std = temporal_stds.astype(mx.float16).astype(mx.float32)
+        global_std = mx.mean(cached_std, axis=(1, 2, 3))[:, None]
+        by_state = mx.mean(cached_std, axis=(2, 3)).astype(mx.float16).astype(mx.float32)
+        by_state_token = mx.mean(cached_std, axis=3).astype(mx.float16).astype(mx.float32)
+        by_token = mx.mean(by_state_token, axis=1)
+        return mx.concatenate((global_std, by_state, by_token), axis=1)
+
     def selected_token_mean_states(self, video_bcthw: mx.array, selected: list[int]) -> mx.array:
         selected_set = set(selected)
         captured: dict[int, mx.array] = {}
@@ -407,6 +426,51 @@ class MlxVjepa21Encoder(nn.Module):
         temporal_stds = mx.stack([captured[index][2] for index in selected], axis=1)
         return token_means, temporal_means, temporal_stds
 
+    def selected_states_with_compact_temporal_diagnostics(
+        self,
+        video_bcthw: mx.array,
+        selected: list[int],
+    ) -> tuple[mx.array, mx.array]:
+        """Return selected token means and only the diagnostics consumed downstream."""
+        selected_set = set(selected)
+        captured: dict[int, tuple[mx.array, mx.array]] = {}
+        batch, _channels, frames, height, width = video_bcthw.shape
+        if height % self.config.patch_size or width % self.config.patch_size:
+            raise ValueError(
+                f"input size {(height, width)} must be divisible by patch size {self.config.patch_size}"
+            )
+        temporal = frames // self.config.tubelet_size
+        h_patches = height // self.config.patch_size
+        w_patches = width // self.config.patch_size
+        spatial_tokens = h_patches * w_patches
+        hidden = self.patch_embed(video_bcthw)
+        if self.config.modality_embedding:
+            hidden = hidden + mx.broadcast_to(self.video_mod_embed, (batch, 1, self.config.hidden_size))
+
+        def capture(index: int, state: mx.array) -> None:
+            token_mean, _temporal_mean, temporal_std = self._state_summaries(
+                state,
+                batch=batch,
+                temporal=temporal,
+                spatial_tokens=spatial_tokens,
+            )
+            captured[index] = (token_mean, temporal_std)
+
+        if 0 in selected_set:
+            capture(0, hidden)
+        for index, block in enumerate(self.blocks, start=1):
+            hidden = block(hidden, temporal=temporal, h_patches=h_patches, w_patches=w_patches)
+            if index in selected_set:
+                state = self.norms_block[-1](hidden) if index == len(self.blocks) else hidden
+                capture(index, state)
+        missing = [index for index in selected if index not in captured]
+        if missing:
+            raise ValueError(f"selected hidden-state indices out of range or not captured: {missing}")
+        token_means = mx.stack([captured[index][0] for index in selected], axis=1)[:, :, None, :]
+        temporal_stds = mx.stack([captured[index][1] for index in selected], axis=1)
+        diagnostics = self._compact_temporal_diagnostics(temporal_stds)
+        return token_means, diagnostics
+
 
 def _mlx_array_with_dtype(array: np.ndarray, dtype_name: str) -> mx.array:
     if dtype_name == "float16":
@@ -437,6 +501,10 @@ class MlxVjepa21FeatureModel:
         self._compiled_temporal_state_fns: dict[
             tuple[int, ...],
             tp.Callable[[mx.array], tuple[mx.array, mx.array, mx.array]],
+        ] = {}
+        self._compiled_compact_temporal_state_fns: dict[
+            tuple[int, ...],
+            tp.Callable[[mx.array], tuple[mx.array, mx.array]],
         ] = {}
         self.encoder = MlxVjepa21Encoder(self.config)
         weights = mx.load(str(root / "model.safetensors"))
@@ -495,6 +563,38 @@ class MlxVjepa21FeatureModel:
             np.asarray(states.astype(mx.float32)),
             np.asarray(temporal_mean.astype(mx.float32)),
             np.asarray(temporal_std.astype(mx.float32)),
+        )
+
+    def predict_hidden_states_with_compact_temporal_diagnostics(
+        self,
+        images: np.ndarray,
+        selected_indices: list[int],
+    ) -> tuple[np.ndarray, np.ndarray]:
+        """Encode windows and transfer only selected states plus canonical diagnostics."""
+        batch = _preprocess_video_batch(images, self.image_size)
+        video = _mlx_array_with_dtype(batch, self.input_dtype)
+        if self.compile_encoder:
+            selected_key = tuple(int(index) for index in selected_indices)
+            forward = self._compiled_compact_temporal_state_fns.get(selected_key)
+            if forward is None:
+                def compact_forward(video_batch: mx.array) -> tuple[mx.array, mx.array]:
+                    return self.encoder.selected_states_with_compact_temporal_diagnostics(
+                        video_batch,
+                        list(selected_key),
+                    )
+
+                forward = mx.compile(compact_forward)
+                self._compiled_compact_temporal_state_fns[selected_key] = forward
+            states, diagnostics = forward(video)
+        else:
+            states, diagnostics = self.encoder.selected_states_with_compact_temporal_diagnostics(
+                video,
+                selected_indices,
+            )
+        mx.eval(states, diagnostics)
+        return (
+            np.asarray(states.astype(mx.float32)),
+            np.asarray(diagnostics.astype(mx.float32)),
         )
 
 
