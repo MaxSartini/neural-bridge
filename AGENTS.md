@@ -20,6 +20,7 @@
 ## Tools and implementation
 
 - Use `codebase-memory-mcp` graph search and call tracing first for code discovery; use `rg`/`rg --files` for literals, configs, scripts, and non-code files or when graph results are insufficient.
+- Use `$neural-bridge-app` as the single router for Mac app product, design, Swift/SwiftUI, HIG, accessibility, Figma, testing, performance, and shipping work; load only its task-relevant expert references.
 - Prefix shell work with `rtk` where supported. Use `apply_patch` for edits, preserve unrelated dirty-worktree changes, and avoid destructive Git commands.
 - Prefer existing scripts, cached PCA/features, and sealed compatible artifacts when provenance proves reuse is safe. Never reuse merely because names or dimensions match.
 - For substantive code changes, run the smallest relevant tests first, then `npm run verify` before handoff. Refresh internal and external codebase-memory indexes only after substantive code changes.
