@@ -22,6 +22,7 @@ GRAPH_DB = WORKSPACE / ".codegraph" / "codegraph.db"
 EXTERNAL_ROOT = Path(
     os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", WORKSPACE / "external")
 ).resolve()
+HOOK_GUARD = CODEX_HOME / "tools" / "context_mode_hook_guard.py"
 
 GRAPH_SUFFIXES = {
     ".astro", ".c", ".cc", ".cfc", ".cfm", ".cfs", ".cob", ".cpp",
@@ -224,6 +225,16 @@ def audit_desktop_config(errors: list[str]) -> dict[str, object]:
         "serve", "--mcp", "--path", str(WORKSPACE)
     ]:
         errors.append("CodeGraph desktop MCP is not pinned to unified workspace")
+    if servers.get("codegraph", {}).get("env", {}).get("CODEGRAPH_MCP_TOOLS") != "explore,search,node":
+        errors.append("CodeGraph exact search/source tools are not enabled")
+    extra_servers = sorted(
+        name
+        for name, settings in servers.items()
+        if settings.get("enabled") is not False
+        and name not in {"codegraph", "context-mode"}
+    )
+    if extra_servers:
+        errors.append(f"non-coding MCP servers are enabled by default: {extra_servers}")
     if "codebase-memory-mcp" in servers:
         errors.append("retired codebase-memory MCP is still registered")
 
@@ -233,8 +244,26 @@ def audit_desktop_config(errors: list[str]) -> dict[str, object]:
     ponytail = plugins.get("ponytail@ponytail", {})
     if ponytail.get("enabled") is not True:
         errors.append("Ponytail is not enabled for the desktop app")
+    extra_plugins = sorted(
+        name
+        for name, settings in plugins.items()
+        if settings.get("enabled") is True and name != "ponytail@ponytail"
+    )
+    if extra_plugins:
+        errors.append(f"non-coding plugins are enabled by default: {extra_plugins}")
     if not list((CODEX_HOME / "plugins" / "cache" / "ponytail" / "ponytail").glob("*/skills/ponytail/SKILL.md")):
         errors.append("Ponytail desktop skill bundle is unavailable")
+    else:
+        ponytail_skill = max(
+            (CODEX_HOME / "plugins" / "cache" / "ponytail" / "ponytail").glob("*/skills/ponytail/SKILL.md")
+        ).read_text(encoding="utf-8")
+        for required_text in (
+            "Maximize the requested result and quality",
+            "Reuse only after checking semantic, provenance",
+            "Code without proportionate verification is unfinished",
+        ):
+            if required_text not in ponytail_skill:
+                errors.append(f"Ponytail outcome guard is missing: {required_text}")
 
     hooks = json.loads((CODEX_HOME / "hooks.json").read_text(encoding="utf-8"))
     missing_hooks = REQUIRED_HOOKS - set(hooks.get("hooks", {}))
@@ -243,11 +272,42 @@ def audit_desktop_config(errors: list[str]) -> dict[str, object]:
     for event, action in CONTEXT_HOOK_ACTIONS.items():
         expected = f"context-mode hook codex {action}"
         commands = hook_commands(hooks, event)
-        if not any(command.endswith(expected) for command in commands):
+        correctly_wired = any(command.endswith(expected) for command in commands)
+        if event == "SessionStart":
+            correctly_wired = any(
+                command == f"/usr/bin/python3 {HOOK_GUARD} sessionstart"
+                for command in commands
+            )
+        if not correctly_wired:
             errors.append(f"Context-Mode desktop hook is miswired: {event}")
         for command in commands:
             if not command_exists(command):
                 errors.append(f"desktop hook command is unavailable: {event}: {command}")
+    guard_probe = subprocess.run(
+        ["/usr/bin/python3", str(HOOK_GUARD), "--self-test"],
+        text=True,
+        capture_output=True,
+        timeout=10,
+        check=False,
+    )
+    if guard_probe.returncode or not guard_probe.stdout.startswith("PASS "):
+        errors.append("Context-Mode SessionStart injection guard failed")
+
+    for project_root in (ROOT, EXTERNAL_ROOT):
+        if not (project_root / ".codegraph" / "codegraph.db").is_file():
+            errors.append(f"real-root CodeGraph index is unavailable: {project_root}")
+    source_probe = subprocess.run(
+        [
+            "codegraph", "node", "--path", str(ROOT), "--file",
+            "tools/audit_codex_desktop_workflow.py", "--offset", "200", "--limit", "2",
+        ],
+        text=True,
+        capture_output=True,
+        timeout=10,
+        check=False,
+    )
+    if source_probe.returncode or "def audit_desktop_config(" not in source_probe.stdout:
+        errors.append("real-root CodeGraph exact source probe failed")
     pretool_matchers = [
         group.get("matcher", "") for group in hooks.get("hooks", {}).get("PreToolUse", [])
     ]
@@ -320,6 +380,9 @@ def audit_desktop_config(errors: list[str]) -> dict[str, object]:
             errors.append(f"instruction file exceeds {max_lines} lines: {path}")
         if path in {CODEX_HOME / "AGENTS.md", ROOT / "AGENTS.md"} and "20-line" not in instruction_text:
             errors.append(f"instruction file lacks discovery output budget: {path}")
+        foreign_hosts = {"Claude", "Gemini", "Cursor", "Copilot", "OpenCode", "Qwen", "Kimi"}
+        if foreign_hosts.intersection(instruction_text.split()):
+            errors.append(f"Codex instruction file references another agent host: {path}")
 
     return {
         "enabled_plugins": sorted(

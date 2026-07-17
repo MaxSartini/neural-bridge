@@ -2,7 +2,7 @@
 
 ## Authority
 
-- Start clean chats with `docs/handoff/CURRENT_STATE.md` and `docs/tokless_agent_workflow.md`. For benchmark decisions, read only canonical artifacts linked by current state.
+- Start clean tasks by querying indexed `docs/handoff/CURRENT_STATE.md` for current result, constraints, and exact next action. Read full file only if index is stale/missing. Read `docs/tokless_agent_workflow.md` only when maintaining this workflow. For benchmark decisions, read only canonical artifacts linked by current state.
 - Current files and new executable evidence outrank chat, memory, and stale reports. Recall only 3–5 targeted prior results, then verify.
 - Keep context compact. Never dump full logs, reports, matrices, metadata, or historical transcripts unless asked.
 - Discovery output has a 20-line/3-KB cap unless explicitly requested. Search canonical references first; broad matches must be counted/aggregated off-window, then return only verdict and at most 3 exact source snippets.
@@ -19,10 +19,10 @@
 ## Execution
 
 - Supported host: Codex desktop app for macOS. Route supported shell commands through Rust Token Killer (`rtk`); use `rtk proxy` only for exact raw output.
-- For code work, query unified CodeGraph first: `$HOME/.codex/workspaces/neural-bridge-unified`. Use `rg` for literals/configs/non-code only when graph is insufficient.
+- For code work, use `$HOME/.codex/workspaces/neural-bridge-unified` with CodeGraph `explore` for cross-repo flow/blast radius. For exact source, use `search`, then `node` on current repo root or the real root resolved from unified `external`. Use `rg` only for literals/config/non-code after graph failure.
 - Use `$neural-bridge-app` only for Mac app product/design/Swift work; load only relevant references.
 - Prefer sealed compatible caches/features/PCA only when provenance proves safe reuse.
-- Smallest relevant tests first; then `npm run verify` for substantive code changes. Run `rtk summary codegraph sync "$HOME/.codex/workspaces/neural-bridge-unified"` after substantive code changes; never return its raw progress stream.
+- Smallest relevant tests first; then `npm run verify` for substantive code changes. Keep unified, internal, and external CodeGraph indexes synced; never return raw progress streams.
 
 ## Handoff
 
