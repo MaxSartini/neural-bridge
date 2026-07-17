@@ -578,7 +578,7 @@ def evaluate_search_trial(
         extra={f"param.{key}": value for key, value in params.items()},
     )
     with MLflowRun(
-        tracking_uri=(context.args.output_root / "mlruns").resolve().as_uri(),
+        tracking_uri=f"sqlite:///{(context.args.output_root / 'mlflow.db').resolve()}",
         experiment_name="veatic21-event-optuna-stabilization",
         run_name=f"trial-{trial.number:04d}",
         provenance=provenance,
