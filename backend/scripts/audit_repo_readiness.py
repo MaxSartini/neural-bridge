@@ -186,7 +186,7 @@ def audit_stale_terms(files: list[Path], errors: list[str], warnings: list[str])
 def audit_orientation_content(errors: list[str]) -> None:
     checks = {
         "README.md": ["Current Results to Foundations", "+77.65%", "+70.80%", "+26.50%", "+74.51%", "+39.95%", "+16.61%", "+23.59%", "+14.52%", "+98.92%", "Phase 7: Strongest Current Evidence", "residual_future_max_delta_rows_4_10", "short_temporal_conv_residual", "Why “8% Better” Understates the Result", "Original AGAIN spike/event results", "15/15", "neural_bridge_zero_label_deployment_evidence.md", "Run and Validate"],
-        "AGENTS.md": ["Codex Mac desktop app", "CURRENT_STATE.md", "CodeGraph", "Context-Mode", "rtk", "neural-bridge-unified"],
+        "AGENTS.md": ["Codex desktop app for macOS", "CURRENT_STATE.md", "CodeGraph", "Context-Mode", "Rust Token Killer", "`rtk`", "neural-bridge-unified"],
         "REQUIREMENTS.md": ["video-dominant", "TRIBE_TEXT_ENCODER_LOCAL_DIR", "Llama-3.2-3B"],
         "ROADMAP.md": ["Current Deployment Win: Locked Zero-Label Bridge", "Research Ceiling: Phase 7", "Cross-Domain Training Pilot", "evidence"],
         "docs/current_project_state.md": ["The newest result is the locked deployment bridge", "Phase 7 remains the strongest observed-arousal-assisted research result", "residual_future_max_delta_rows_4_10", "short_temporal_conv_residual", "16.61%", "+74.51%", "+39.95%", "+98.92%", "Precise Boundaries", "Validation and Handoff"],

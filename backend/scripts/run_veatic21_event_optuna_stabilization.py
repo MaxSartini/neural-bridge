@@ -117,7 +117,11 @@ def git_commit() -> str:
 
 def external_root() -> Path:
     value = os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT")
-    return Path(value) if value else Path("/Volumes/onn. Drive/Neural Bridge")
+    return (
+        Path(value)
+        if value
+        else Path.home() / ".codex/workspaces/neural-bridge-unified/external"
+    )
 
 
 def build_parser() -> argparse.ArgumentParser:

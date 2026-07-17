@@ -4,13 +4,13 @@ Updated: 2026-07-17
 
 ## Active stack
 
-The Codex Mac desktop app uses one Tokless-managed efficiency stack across Neural Bridge. Command-line tools below are agent-run implementation details and diagnostics; the user is never expected to launch Codex CLI.
+The Codex desktop app for macOS uses one Tokless-managed efficiency stack across Neural Bridge. Command-line tools below are agent-run implementation details and diagnostics; the user is never expected to launch Codex CLI.
 
 - Tokless `0.2.6`: installer and update coordinator.
 - Karpathy Guidelines: always-on principles plus the installed `karpathy-guidelines` skill.
 - Caveman `1.9.1`: installed Codex skills plus terse, technically complete response guidance.
 - Ponytail `4.8.4`: enabled Codex plugin, lifecycle hooks, skills, and minimal-build discipline.
-- RTK `0.43.0`: shell-output compression. Prefix supported shell commands with `rtk`; use `rtk proxy` when exact raw output is required.
+- Rust Token Killer (RTK) `0.43.0`: shell-output compression. Prefix supported shell commands with `rtk`; use `rtk proxy` when exact raw output is required.
 - CodeGraph `1.4.1`: local source graph and first-line code discovery.
 - Context-Mode `1.0.169`: off-window processing for large files and outputs, searchable content, session capture, and compaction restoration.
 
@@ -76,22 +76,22 @@ The machine-local `npm run audit:codex-desktop` gate verifies desktop configurat
 Tokless `0.2.6` deliberately installs only Context-Mode's `PreToolUse` hook and treats the complete upstream lifecycle hook set as a doctor failure. Neural Bridge needs the complete set. After any Tokless update, repair and verify in this order:
 
 ```bash
-tokless update --agents codex --yes
-context-mode upgrade
-codegraph sync "$HOME/.codex/workspaces/neural-bridge-unified"
-context-mode doctor
-codegraph status "$HOME/.codex/workspaces/neural-bridge-unified"
-codex plugin list
+rtk proxy tokless update --agents codex --yes
+rtk proxy context-mode upgrade
+rtk proxy codegraph sync "$HOME/.codex/workspaces/neural-bridge-unified"
+rtk proxy context-mode doctor
+rtk proxy codegraph status "$HOME/.codex/workspaces/neural-bridge-unified"
 rtk gain
-npm run audit:codex-desktop
+rtk npm run audit:codex-desktop
 ```
 
 Expected configuration:
 
 - `features.hooks = true` and `features.plugin_hooks = true`.
-- `mcp_servers.context-mode` and `mcp_servers.codegraph` enabled.
+- `mcp_servers.context-mode` and `mcp_servers.codegraph` enabled; Context-Mode MCP pins `CONTEXT_MODE_PLATFORM=codex` so tools and hooks share `~/.codex/context-mode` storage.
+- CodeGraph MCP pinned with `--path "$HOME/.codex/workspaces/neural-bridge-unified"`; its `internal` and `external` symlinks resolve to both complete Neural Bridge roots.
 - Context-Mode `PreToolUse`, `PostToolUse`, `SessionStart`, `PreCompact`, `UserPromptSubmit`, and `Stop` hooks present.
 - Ponytail installed and enabled; Caveman and Karpathy skill directories present.
 - MemPalace disabled and no `codebase-memory-mcp` MCP registration.
 
-The pre-migration Codex files are backed up under `$HOME/.codex/backups/`. After installation or configuration changes, fully quit and reopen the Codex Mac app so its MCP servers, skills, plugins, and hooks reload. No Codex CLI session is part of the user workflow.
+The pre-migration Codex files are backed up under `$HOME/.codex/backups/`. After installation or configuration changes, fully quit and reopen the Codex desktop app for macOS so its MCP servers, skills, plugins, and hooks reload. No Codex CLI session is part of the user workflow.
