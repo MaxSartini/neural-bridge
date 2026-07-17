@@ -9,7 +9,7 @@ The newest result is the locked zero-label deployment win. The fixed direct-supe
 
 Phase 7 remains the observed-arousal-assisted research ceiling. Its fresh grouped continuous checkpoint ensemble passed `420/420` with failed gates `[]`, `15/15` fold-group wins, and `5/5` positive fold means versus target-specific AR and matched controls on Spearman and top-5% lift.
 
-No VEATIC 2.1 retraining result is promoted yet. The corrected full-dense arousal-event inner-discovery tranche is complete and identifies `delta_pca64_short_conv` as the unanimous `5/5` recipe winner, but the Neural Bridge lost to matched AR by `-2.23%` (`0.3014044849` versus `0.3082785856`) and won only `10/45` paired cells. This is development evidence only; outer-test confirmation remains closed.
+No VEATIC 2.1 retraining result is promoted yet. The newest inner-only AGAIN-method-parity study completed `270/270` members plus `90/90` fixed three-checkpoint ensembles with every artifact gate passed. Its `temporal_mean_2s_pca256_again_clean_joint` ensemble beat equally ensembled AR by `+0.0056797035` PR-AUC (`0.3183913271` versus `0.3127116235`, `+1.82%` relative), won `11/15` panels, and had `4/5` positive outer means, so the ensemble itself passed its locked credibility gate. Individual checkpoints remained unstable and lost by `-0.0081819231` on mean with only `21/45` strict wins and `1/5` positive outer means. Because the preregistration required both member and ensemble credibility, `any_credible_recipe` is `false`; outer-test confirmation remains closed.
 
 - Spearman real / AR / best control: `0.2603011121` / `0.2405371348` / `0.2402523335`.
 - Top-5% lift real / AR / best control: `0.0975979581` / `0.0895663763` / `0.0897088493`.
@@ -33,8 +33,10 @@ Current files and executable evidence override historical memory:
 - `docs/current_claim_status.json`
 - `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`
 - `reports/veatic21_arousal_event_first_six_recipe_inner_discovery_20260717.md`
+- `docs/veatic21_again_parity_arousal_event_preregistration_20260717.md`
+- `reports/veatic21_again_parity_inner_discovery_20260717.md`
 
-Current change validation is green. `npm run verify` passed the readiness audit with `526` controlled evidence items, Python compilation, `391` tests with one skip, the strict VEATIC benchmark dry run, and the frontend production build.
+Current change validation is green. `npm run verify` passed the readiness audit with `526` controlled evidence items, Python compilation, `397` tests with one skip, the strict VEATIC benchmark dry run, and the frontend production build.
 
 Both codebase-memory projects are ready: internal repo and external SSD heavy-artifact workspace.
 
@@ -101,14 +103,28 @@ The corrected schedule gave every recipe the same fair chance: batch size `1,024
 
 The earlier run at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_endstate_20260717` remains only a historical under-training diagnostic. Its batch-8,192/epoch-80/BCE-selection scores are superseded by the corrected run.
 
+### No-harm and AGAIN-method-parity follow-ups
+
+The no-harm port at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_endstate_noharm_port_20260717` completed `270/270` rows and reduced the best recipe's deficit from `-0.0068741007` to `-0.0026761898`: real `0.3020023440` versus AR `0.3046785338`, or `-0.88%`. Zero correction activated in `39/270` cells; the corresponding previously forced residuals averaged `-0.05319` versus AR. This established that exact AR fallback was necessary but not sufficient.
+
+The subsequent AGAIN-method-parity inner study is the authoritative newest VEATIC development result. It ran from commit `e54f20e` at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_again_parity_inner_discovery_20260717` with identity `cab3b6d7f67a348e680798012ced523cb498cb2c551b2f6388ca833fb0376732`. It added a freshly trained VEATIC-only dual-output AR, joint continuous/event residual loss, exact additive AR floors, alpha penalty, clean versus enriched inputs, PCA128 candidates, and fixed three-checkpoint averaging. No AGAIN data or fitted artifact was reused.
+
+The complete `270` member plus `90` ensemble matrix and independent audit passed every provenance, PCA, quality, label, zero-event, eval-mode, and outer-test-closure check. The best temporal-clean ensemble achieved `+0.0056797035` over AR (`+1.82%`), `11/15` panel wins, positive median `+0.0060286143`, and `4/5` positive outer means. Its members lost by `-0.0081819231` with `21/45` wins, so the combined preregistered gate failed. The delta-PCA64 clean ensemble was runner-up at `+0.0018407640`, `10/15` wins, and `3/5` positive outer means.
+
+This failure is numerical, not contractual and not caused by a training ceiling. Residual best epochs reached `613`, residual curves `713`, AR best epochs `646`, and AR curves `746`; no run reached the `5,000` fail-safe. Only `18/270` residuals selected exact zero correction. The selected ensemble added `+0.0178332856` over its unstable member mean.
+
+The preflight confirmed exactly `124` VEATIC videos and `20,657` rows. It excluded `923` unusable causal-window rows under the locked black/high-duplicate mask. Across 15 panels, 95 of 496 repeated video-panel appearances had zero events; no fabricated per-video zero score was inserted, and their valid negatives remained in pooled PR-AUC. A new TRIBE cache is not required.
+
+Post-completion continuous diagnostics are exploratory only. The event-winning temporal-clean ensemble lost continuous Spearman by `-0.0123756758` and top-5% lift by `-0.0014342785` versus AR. The event-losing temporal-enriched ensemble showed small but inconsistent positive continuous deltas (`+0.0016688840` Spearman, `+0.0011831303` top-5%). Do not force one recipe across event and continuous targets.
+
 Repository verification after the corrected-depth integration passed on 2026-07-17: readiness passed with `526` controlled evidence items, the deterministic suite passed `391` tests with one skip, the strict-benchmark dry run passed, and the frontend production build passed.
 
 Next actions, in order:
 
-1. Stay on arousal event ranking and preregister a new inner-only residual-learning branch around the unanimous `delta_pca64_short_conv` representation/head. Separate cortical residual learning from correction admission: learn against frozen-AR errors, then fit a train-only bounded correction coefficient/gate that may choose zero when harmful.
-2. Keep matched frozen AR as the hurdle and retain `delta_pca256_short_conv` plus the current-row PCA256 MLP as bounded comparators. Treat checkpoint averaging only as a declared stabilization candidate, never a post-hoc rescue.
-3. Require a fixed method to beat AR broadly across inner fold-seed cells before transferring it. All work remains development evidence; do not open outer-test videos.
-4. Transfer the proven event-stage mechanism into continuous arousal development and determine on inner folds whether the same method carries over or a separate continuous recipe is better. Do not force a shared winner.
+1. Stay inner-only and preregister a fresh checkpoint-stabilization stage. Treat the fixed ensemble as the candidate model and use fresh seeds; never relabel the completed combined gate as a pass.
+2. Compare clean `temporal_mean_2s_pca256` five-checkpoint averaging against clean `temporal_mean_2s_pca128`, the clean `delta_pca64` runner-up, and clean `delta_pca256`. Use equally ensembled target-specific AR and the same pooled quality/zero-event contract.
+3. Require broad fresh panel/fold consistency and positive ensemble uplift before any outer confirmation. Do not use Optuna until a structural family reproduces; then allow only a narrow inner-only search with fresh-seed validation.
+4. Store continuous metrics as locked secondary diagnostics during event stabilization, but do not let them alter the event verdict. After the event ensemble is robust, run target-specific continuous discovery and do not force the event winner to transfer.
 5. Adapt the strongest proven mechanism to valence rise, valence drop, absolute movement, and derived direction. A shared or multitask candidate is allowed only as an explicit inner-discovery recipe and must beat endpoint-specific alternatives without weakening them.
 6. Freeze target/protocol-specific methods, then run and report privileged outer-test confirmation with exact grouped continuous/event gates, valence direction, contribution caps, ensemble uplift, and whole-video bootstrap. Promote only completed executable evidence.
 7. After privileged VEATIC is settled, complete the response-free zero-label tier, derive fixed epochs, and retrain/export selected models from scratch on all `124` videos. Do not report in-sample final-fit metrics as confirmation.
