@@ -16,7 +16,7 @@ The newest authoritative inner-only study is `reports/veatic21_again_parity_inne
 - Its individual checkpoints were unstable: real `0.3005580415` versus AR `0.3087399646`; delta `-0.0081819231`, `21/45` wins, and `1/5` positive outer-fold means.
 - The ensemble passed its own credibility gate, but the preregistered combined member-plus-ensemble gate failed. `any_credible_recipe: false`; this is an honest partial numerical win, not a promotion or contract failure.
 - Runner-up `delta_pca64_again_clean_joint`: ensemble delta `+0.0018407640`, `10/15` wins, `3/5` positive outer-fold means.
-- Training was fair and overfit-protected: batch `1024`, minimum eligible epoch `50`, patience `100`, max `5000` runaway fail-safe; no run reached the ceiling. Residual best epochs reached `613`, AR best epochs `646`; only `18/270` residual cells selected exact zero correction.
+- Training was fair and overfit-protected: batch `1024`, checkpoint selection from epoch `1`, no early stop before epoch `50`, patience `100`, max `5000` runaway fail-safe; no run reached the ceiling. Residual best epochs reached `613`, AR best epochs `646`; only `18/270` residual cells selected exact zero correction.
 - Exploratory continuous diagnostic: the event-winning ensemble lost Spearman by `-0.0123756758` and top-5% lift by `-0.0014342785` versus AR. Do not force one recipe across event, continuous, and valence.
 
 The prior no-harm port reduced the corrected six-recipe deficit from `-0.0068741007` to `-0.0026761898`; the parity ensemble then crossed AR. These are system-generation comparisons, not isolated ablations.

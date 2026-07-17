@@ -95,6 +95,18 @@ class TrainingSettings:
 
 
 @dataclass(frozen=True)
+class ResidualHyperparameters:
+    hidden: int = RESIDUAL_HIDDEN
+    alpha_initial_logit: float = -4.0
+    alpha_cap: float = 0.12
+    gate_bias: float = 4.0
+    lambda_binary: float = LAMBDA_BINARY
+
+
+DEFAULT_RESIDUAL_HYPERPARAMETERS = ResidualHyperparameters()
+
+
+@dataclass(frozen=True)
 class DualScores:
     train_event_logit: np.ndarray
     train_continuous: np.ndarray
@@ -492,16 +504,20 @@ def _ar_factory() -> Any:
     )
 
 
-def _residual_factory(input_dim: int, pca_width: int) -> Any:
+def _residual_factory(
+    input_dim: int,
+    pca_width: int,
+    hyperparameters: ResidualHyperparameters = DEFAULT_RESIDUAL_HYPERPARAMETERS,
+) -> Any:
     return again_temporal.TemporalResidualHead(
         input_dim,
         "short_temporal_conv_residual",
-        hidden=RESIDUAL_HIDDEN,
+        hidden=hyperparameters.hidden,
         sequence_window=5,
         sequence_channels=int(pca_width),
-        alpha_initial_logit=-4.0,
-        alpha_cap=0.12,
-        gate_bias=4.0,
+        alpha_initial_logit=hyperparameters.alpha_initial_logit,
+        alpha_cap=hyperparameters.alpha_cap,
+        gate_bias=hyperparameters.gate_bias,
     )
 
 
@@ -641,10 +657,11 @@ def _train_residual_model(
     seed: int,
     epochs: int,
     settings: TrainingSettings,
+    hyperparameters: ResidualHyperparameters,
     checkpoint: Path,
 ) -> tuple[Any | None, list[dict[str, Any]], int, bool]:
     base.mx.random.seed(int(seed))
-    model = _residual_factory(x.shape[1], pca_width)
+    model = _residual_factory(x.shape[1], pca_width, hyperparameters)
     _ = model(
         base.mx.array(x[: min(2, len(x))], dtype=base.mx.float32),
         base.mx.array(ar_logit[: min(2, len(x))], dtype=base.mx.float32),
@@ -661,7 +678,7 @@ def _train_residual_model(
         bce = base.mx.mean(
             base.nn.losses.binary_cross_entropy(out[:, 1:2], yb, with_logits=True)
         )
-        return reg + LAMBDA_BINARY * bce + ALPHA_PENALTY * base.mx.mean(
+        return reg + hyperparameters.lambda_binary * bce + ALPHA_PENALTY * base.mx.mean(
             model_obj.alpha_value() * model_obj.alpha_value()
         )
 
@@ -736,7 +753,7 @@ def _train_residual_model(
         return None, curves, 0, True
     if best_epoch < 1 or not checkpoint.is_file():
         raise ParityDiscoveryError("dual-task residual training produced no checkpoint")
-    restored = _residual_factory(x.shape[1], pca_width)
+    restored = _residual_factory(x.shape[1], pca_width, hyperparameters)
     _ = restored(
         base.mx.array(x[: min(2, len(x))], dtype=base.mx.float32),
         base.mx.array(ar_logit[: min(2, len(x))], dtype=base.mx.float32),
@@ -955,6 +972,7 @@ def fit_dual_residual(
     output_root: Path,
     identity_base: Mapping[str, Any],
     settings: TrainingSettings,
+    hyperparameters: ResidualHyperparameters = DEFAULT_RESIDUAL_HYPERPARAMETERS,
 ) -> DualScores:
     identity = {
         **dict(identity_base),
@@ -972,6 +990,8 @@ def fit_dual_residual(
         "ar_is_additive_floor_not_network_input": True,
         "alpha_penalty": ALPHA_PENALTY,
     }
+    if hyperparameters != DEFAULT_RESIDUAL_HYPERPARAMETERS:
+        identity["residual_hyperparameters"] = asdict(hyperparameters)
     scores_path = output_root / "predictions.npz"
     manifest_path = output_root / "predictions.json"
     cached = _load_score_bundle(scores_path, manifest_path, identity)
@@ -995,6 +1015,7 @@ def fit_dual_residual(
         seed=seed,
         epochs=settings.max_epochs,
         settings=settings,
+        hyperparameters=hyperparameters,
         checkpoint=selection_checkpoint,
     )
     eligible = np.flatnonzero(valid).astype(np.int64)
@@ -1030,6 +1051,7 @@ def fit_dual_residual(
             seed=seed,
             epochs=best_epoch,
             settings=settings,
+            hyperparameters=hyperparameters,
             checkpoint=final_checkpoint,
         )
         if final is None:
