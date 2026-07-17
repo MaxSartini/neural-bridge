@@ -261,13 +261,27 @@ VEATIC-124 v2:
 - balanced event-vs-stable `arousal__future_spike_1_3s@0.05` PR-AUC: `0.3394`
 - balanced deltas over AR/shuffled/random: `+0.0609` / `+0.0631` / `+0.0476`
 
+VEATIC 2.1 corrected-depth arousal-event inner discovery:
+
+- scope: full-dense inner-only development, `270/270` rows = five outer partitions × three inner folds × six recipes × three seeds
+- matrix execution/audit: passed; outer-test scores used: false; explicitly nonpromotable: true; confirmation authorized: false
+- `canonical_gates_passed: false` is expected because no confirmation stage ran; it is not the numerical verdict
+- unanimous recipe winner: `delta_pca64_short_conv`, selected `5/5` outer panels
+- real / matched freshly trained frozen AR PR-AUC: `0.3014044849` / `0.3082785856`
+- delta vs AR: `-0.0068741007` (`-2.23%` relative); paired median delta `-0.0059385296`
+- paired positives vs AR: `10/45`; outer-panel mean positives: `0/5`
+- training: batch `1,024`, minimum epoch `50`, patience `100`, 5,000-epoch runaway fail-safe, binary checkpoint selection by inner-validation PR-AUC
+- cap hits: `0`; video best epoch range `50`–`734`; AR best epoch range `50`–`945`
+- interpretation: execution passed and recipe selection was decisive, but Neural Bridge lost to AR; arousal spike/event is not cracked
+- boundary: fresh VEATIC PCA/AR/heads/thresholds only; no fitted AGAIN models and no raw-cortical direct concatenation
+
 ## Next Task
 
 The AGAIN deployment bridge is complete. The direct-supervised temporal lane is frozen after its prospectively locked 299-video `140/140` pass. Development-path details belong in `docs/how_neural_bridge_was_discovered.md` and the Stage A report, not current result summaries.
 
 The highest-value next milestone is the bounded VEATIC 2.1 programme itself, before either the combined cross-domain model or another zero-label campaign. Follow a sequential inner-only discovery ladder unless executable inner-validation evidence supports one shared method without compromise: first crack the arousal train-q90 spike/event problem, transfer the resulting target/head/feature/training insight into continuous arousal, then adapt the proven mechanism to valence rise/drop/absolute movement and derived direction. Do not force one recipe across these endpoints; selections remain target/protocol specific. A shared or multitask candidate may enter only as a preregistered inner-discovery recipe and must earn its place before any outer-test confirmation. Zero-label VEATIC remains a later deployment bonus and must not drive the immediate recipe or claim priority. Only after the privileged VEATIC result is complete should the project start the harmonized VEATIC+AGAIN pilot with domain-balanced sampling and leave-one-domain-out evaluation. Keep `video_supervised_temporal` frozen as the AGAIN comparator and never tune on the locked 299-video pool.
 
-The first bounded arousal-event inner-discovery tranche is complete: `270/270` rows, no outer-test scores, explicitly nonpromotable, and confirmation unauthorized. All `5/5` per-outer selections used a short temporal convolution, but the global fixed leader `temporal_mean_2s_pca64_short_conv` scored `0.2979001001` versus matched frozen AR `0.2984364723` (`-0.0005363722`, positive `19/45`). The optimistically selected per-outer panel was only `+0.0012429328` and positive `21/45`. Post-run audit found a depth/selection defect: `116/270` checkpoints hit the epoch-80 cap, `67/270` selected epoch 1, batch size 8,192 yielded only roughly two updates per epoch, and binary checkpoints minimized validation BCE instead of maximizing PR-AUC. Treat those scores as an under-training diagnostic, not a fair final six-recipe verdict. Do not open outer confirmation or start continuous. Rerun all six recipes inner-only with a high runaway-only ceiling, minimum warm-up, patience-based stopping, smaller batches, and PR-AUC checkpoint selection; reuse compatible PCA/features but retrain AR and heads under the new identity. Exact report: `reports/veatic21_arousal_event_first_six_recipe_inner_discovery_20260717.md`.
+The authoritative corrected-depth arousal-event inner discovery is complete: `270/270` full-dense rows, no outer-test scores, explicitly nonpromotable, and confirmation unauthorized. Matrix execution and audit passed; `canonical_gates_passed: false` is expected because that summary field is sourced only from a confirmation stage, which this bounded discovery scope deliberately did not run. Numerically, Neural Bridge lost to AR. `delta_pca64_short_conv` won the six-recipe comparison in all `5/5` outer development panels, but scored `0.3014044849` versus matched freshly trained frozen AR `0.3082785856`: `-0.0068741007` absolute, `-2.23%` relative, paired median `-0.0059385296`, positive only `10/45`, and negative on mean in all five panels. This was a real frozen-AR residual bridge using fresh VEATIC fits, not raw-cortical concatenation and not fitted AGAIN models. No run hit the 5,000-epoch fail-safe; video best epochs ranged `50`–`734` and AR ranged `50`–`945`, so more epochs is not the next fix. The residual scale remained near-closed around `0.00310`, and `203/270` video checkpoints selected the first eligible epoch. Do not open outer confirmation or start continuous. Preregister a focused inner-only two-stage residual-learning branch around `delta_pca64_short_conv`: learn the cortical head explicitly against frozen-AR errors with an open learning path, then fit a train-only bounded correction coefficient that may choose zero. Keep AR, delta PCA256, current-row PCA256, and the current joint-gate method as bounded comparators. Exact report: `reports/veatic21_arousal_event_first_six_recipe_inner_discovery_20260717.md`.
 
 Phase 7 continuous status is now fixed by the authoritative grouped `420/420` validation: every gate passed, with `15/15` fold-groups positive versus both AR and controls on Spearman and top-5% lift. Current-facing summaries must lead with that win and its exact scope.
 
@@ -295,7 +309,7 @@ The real upstream Optuna, Polars, MLflow, and SHAP integrations are installed as
 
 ## Test And Script Validation
 
-`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-17`, `npm run verify` passed `386` tests with one skip and also passed repository readiness, strict-benchmark dry run, and the frontend production build. The separate research-tooling verification passed Optuna, Polars, MLflow, and SHAP on MLX `Device(gpu, 0)` / MPS.
+`npm test` runs the deterministic contract suite: `python3 -m pytest -q tests`. On `2026-07-17`, `npm run verify` passed `391` tests with one skip and also passed repository readiness, strict-benchmark dry run, and the frontend production build. The separate research-tooling verification passed Optuna, Polars, MLflow, and SHAP on MLX `Device(gpu, 0)` / MPS.
 
 Relevant AGAIN and VEATIC v2 runners, tests, benchmark artifacts, and runtime-only tools are indexed in `docs/executable_validation_manifest.csv`. The current review entrypoint is `evidence/current_review/`; the older executable mirror remains under `evidence/current_phase_5_5_review/14_executable_validation_and_code/`. Do not add placeholder smoke tests as validation. Add tests only when they protect a real split, target, leakage, control, manifest, scorer, checkpoint, or claim-boundary contract.
 

@@ -9,7 +9,7 @@ The newest result is the locked zero-label deployment win. The fixed direct-supe
 
 Phase 7 remains the observed-arousal-assisted research ceiling. Its fresh grouped continuous checkpoint ensemble passed `420/420` with failed gates `[]`, `15/15` fold-group wins, and `5/5` positive fold means versus target-specific AR and matched controls on Spearman and top-5% lift.
 
-No VEATIC 2.1 retraining result is promoted yet. The first bounded arousal-event inner-discovery tranche is now complete, but it is development evidence only and did not robustly crack AR. Outer-test confirmation remains closed.
+No VEATIC 2.1 retraining result is promoted yet. The corrected full-dense arousal-event inner-discovery tranche is complete and identifies `delta_pca64_short_conv` as the unanimous `5/5` recipe winner, but the Neural Bridge lost to matched AR by `-2.23%` (`0.3014044849` versus `0.3082785856`) and won only `10/45` paired cells. This is development evidence only; outer-test confirmation remains closed.
 
 - Spearman real / AR / best control: `0.2603011121` / `0.2405371348` / `0.2402523335`.
 - Top-5% lift real / AR / best control: `0.0975979581` / `0.0895663763` / `0.0897088493`.
@@ -34,7 +34,7 @@ Current files and executable evidence override historical memory:
 - `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`
 - `reports/veatic21_arousal_event_first_six_recipe_inner_discovery_20260717.md`
 
-Current change validation is green. `npm run verify` passed the readiness audit with `526` controlled evidence items, Python compilation, `390` tests with one skip, the strict VEATIC benchmark dry run, and the frontend production build.
+Current change validation is green. `npm run verify` passed the readiness audit with `526` controlled evidence items, Python compilation, `391` tests with one skip, the strict VEATIC benchmark dry run, and the frontend production build.
 
 Both codebase-memory projects are ready: internal repo and external SSD heavy-artifact workspace.
 
@@ -89,23 +89,30 @@ These smoke scores and one-epoch recipe choices are engineering checks only. The
 
 ### Arousal event-first inner discovery
 
-The first real-cache event-first discovery tranche completed and independently resumed/audited on 2026-07-17 at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_endstate_20260717`. It used the shared scientific run identity `38ef99d8d164930c7bf151018dff6f1205762e46147d9661ee1ec547375f93b8`, scored exactly `270/270` inner-validation rows, used no outer-test scores, is explicitly nonpromotable, and cannot authorize confirmation. Its reusable PCA and other derived artifacts live at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_endstate_shared_derived_20260717`.
+The authoritative corrected-depth event-first discovery completed and independently resumed/audited on 2026-07-17 at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_endstate_depth_corrected_20260717`. It used run identity `b6e914aabc280a8b3f2ee1baf6d1cfbb0040ddfe9080728586898d9d0eb6ecf1`, scored exactly `270/270` full-dense inner-validation rows, used no outer-test scores, is explicitly nonpromotable, and cannot authorize confirmation. The `270` rows are five outer partitions × three inner folds × six recipes × three seeds. All `124` videos and all `20,657` 2 Hz rows participate according to grouped fold ownership; the eight-row/video synthetic executor fixture was never used for scientific training.
 
-All `5/5` per-outer selections chose a short temporal convolution. Temporal-mean won `3/5`, delta won `2/5`, PCA-64 won `3/5`, and PCA-256 won `2/5`; neither MLP won. The global fixed leader was `temporal_mean_2s_pca64_short_conv` at `0.2979001001` mean PR-AUC versus matched frozen AR `0.2984364723`, a delta of `-0.0005363722`, positive only `19/45`. The optimistically per-outer-selected panel reached `0.2996794050`, `+0.0012429328` over AR, but was positive only `21/45` with a paired median delta effectively zero. It is selection-set performance, not a fresh validation estimate.
+Keep three verdicts separate. Matrix execution/audit passed. Promotion is contractually unavailable because this is inner-only discovery. Numerically, the best Neural Bridge recipe lost to AR. `canonical_gates_passed: false` is mechanically expected because the runner only sets that field from a completed confirmation stage, which this scope deliberately did not run; it is not the source of the numerical verdict.
 
-Training dynamics expose a protocol defect: `116/270` checkpoints selected the epoch-80 cap, `67/270` selected epoch 1, and effective residual scale stayed near initialization at roughly `0.00234`–`0.00243` against a `0.12` cap. With batch size 8,192, 80 epochs supplied only roughly 160 optimizer updates on a typical inner training set, and binary checkpoints were selected by validation BCE rather than the registered PR-AUC endpoint. The first scores are therefore a useful under-training diagnostic, not a fair final verdict on the six recipes. Do not open outer confirmation or transfer into continuous yet. The exact report is `reports/veatic21_arousal_event_first_six_recipe_inner_discovery_20260717.md`.
+All `5/5` outer selections unanimously chose `delta_pca64_short_conv`. Across its `45` fold-seed cells, it scored `0.3014044849` mean PR-AUC versus matched freshly trained frozen AR `0.3082785856`: `-0.0068741007` absolute and `-2.23%` relative, paired median `-0.0059385296`, positive only `10/45`. Its mean delta was negative in all five outer panels. The other five recipes were worse. This is a clear inner-discovery loss to AR, not a tie and not a hidden contract pass.
 
-Repository verification after the scoped artifact integration passed on 2026-07-17: readiness passed with `526` controlled evidence items, the deterministic suite passed `390` tests with one skip, the strict-benchmark dry run passed, and the frontend production build passed.
+This was Neural Bridge rather than direct raw-cortical concatenation: every lane used a fresh VEATIC AR baseline plus a separate bounded residual correction from causal PCA-compressed predicted-cortical features. No fitted AGAIN PCA, AR, head, threshold, or weight was reused. The proven AGAIN short-convolution family entered only as an architecture prior and was retrained from scratch on VEATIC folds.
+
+The corrected schedule gave every recipe the same fair chance: batch size `1,024`, minimum checkpoint-eligible epoch `50`, patience `100`, a 5,000-epoch runaway fail-safe, true BCE-with-logits training, and checkpoint selection by held-out inner-validation PR-AUC. No run hit the ceiling. Video best epochs ranged `50`–`734`; AR ranged `50`–`945` with median `104`. Proper training improved AR from the flawed diagnostic's `0.2984364723` to `0.3082785856` (`+3.30%`), exposing the true hurdle. The exact report is `reports/veatic21_arousal_event_first_six_recipe_inner_discovery_20260717.md`.
+
+The earlier run at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_endstate_20260717` remains only a historical under-training diagnostic. Its batch-8,192/epoch-80/BCE-selection scores are superseded by the corrected run.
+
+Repository verification after the corrected-depth integration passed on 2026-07-17: readiness passed with `526` controlled evidence items, the deterministic suite passed `391` tests with one skip, the strict-benchmark dry run passed, and the frontend production build passed.
 
 Next actions, in order:
 
-1. Rerun all six recipes inner-only under the corrected depth protocol: 5,000-epoch runaway-only ceiling, minimum 50 checkpoint-eligible epochs, patience 100, batch size 1,024, and binary checkpoint selection by inner-validation PR-AUC. Reuse compatible PCA/features, but retrain AR and heads under the new settings/model identity.
-2. Require a fixed arousal-event method to beat matched frozen AR broadly across inner fold-seed cells before transferring it. If corrected depth still leaves the residual scale nearly closed, preregister a separate gating/optimization branch. Treat all such work as bounded development evidence—not an outer-test win.
-3. Transfer the event-stage mechanism into continuous arousal development and determine on inner folds whether the same method carries over or a separate continuous recipe is better. Do not force a shared winner.
-4. Adapt the strongest proven mechanism to valence rise, valence drop, absolute movement, and derived direction. A shared or multitask candidate is allowed only as an explicit inner-discovery recipe and must beat endpoint-specific alternatives without weakening them.
-5. Freeze target/protocol-specific methods, then run and report privileged outer-test confirmation with exact grouped continuous/event gates, valence direction, contribution caps, ensemble uplift, and whole-video bootstrap. Promote only completed executable evidence.
-6. After privileged VEATIC is settled, complete the response-free zero-label tier, derive fixed epochs, and retrain/export selected models from scratch on all `124` videos. Do not report in-sample final-fit metrics as confirmation.
-7. Only after VEATIC spike/event, continuous arousal, and valence are as strong as the locked protocol can support, start the domain-balanced VEATIC+AGAIN combined programme and leave-one-domain-out evaluation. Keep the locked AGAIN 299-video pool closed to tuning.
+1. Stay on arousal event ranking and preregister a new inner-only residual-learning branch around the unanimous `delta_pca64_short_conv` representation/head. Separate cortical residual learning from correction admission: learn against frozen-AR errors, then fit a train-only bounded correction coefficient/gate that may choose zero when harmful.
+2. Keep matched frozen AR as the hurdle and retain `delta_pca256_short_conv` plus the current-row PCA256 MLP as bounded comparators. Treat checkpoint averaging only as a declared stabilization candidate, never a post-hoc rescue.
+3. Require a fixed method to beat AR broadly across inner fold-seed cells before transferring it. All work remains development evidence; do not open outer-test videos.
+4. Transfer the proven event-stage mechanism into continuous arousal development and determine on inner folds whether the same method carries over or a separate continuous recipe is better. Do not force a shared winner.
+5. Adapt the strongest proven mechanism to valence rise, valence drop, absolute movement, and derived direction. A shared or multitask candidate is allowed only as an explicit inner-discovery recipe and must beat endpoint-specific alternatives without weakening them.
+6. Freeze target/protocol-specific methods, then run and report privileged outer-test confirmation with exact grouped continuous/event gates, valence direction, contribution caps, ensemble uplift, and whole-video bootstrap. Promote only completed executable evidence.
+7. After privileged VEATIC is settled, complete the response-free zero-label tier, derive fixed epochs, and retrain/export selected models from scratch on all `124` videos. Do not report in-sample final-fit metrics as confirmation.
+8. Only after VEATIC spike/event, continuous arousal, and valence are as strong as the locked protocol can support, start the domain-balanced VEATIC+AGAIN combined programme and leave-one-domain-out evaluation. Keep the locked AGAIN 299-video pool closed to tuning.
 
 ## Fast Handoff Rule
 
