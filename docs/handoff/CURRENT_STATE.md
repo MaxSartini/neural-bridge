@@ -9,39 +9,42 @@ Finish the privileged VEATIC 2.1 programme before combined VEATIC+AGAIN training
 
 ## Active VEATIC result
 
-The newest authoritative inner-only study is `reports/veatic21_again_parity_inner_discovery_20260717.md`, produced at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_again_parity_inner_discovery_20260717` from commit `e54f20e` with run identity `cab3b6d7f67a348e680798012ced523cb498cb2c551b2f6388ca833fb0376732`.
+The newest authoritative inner-only study is `reports/veatic21_event_optuna_stabilization_20260717.md`, produced at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_event_optuna_stabilization_20260717` with run identity `4b34b06bd2a1fa95975ac88a0bf797a28ebbe1956628dc250f515264dd3249bb`.
 
-- Matrix/audit: exactly `270/270` member rows plus `90/90` fixed three-checkpoint ensemble rows; all provenance, PCA, quality, label, zero-event, eval-mode, and outer-closure checks passed.
-- Best ensemble: `temporal_mean_2s_pca256_again_clean_joint`, PR-AUC `0.3183913271` versus equally ensembled AR `0.3127116235`; delta `+0.0056797035` (`+1.82%`), `11/15` panel wins, positive median `+0.0060286143`, and `4/5` positive outer-fold means.
-- Its individual checkpoints were unstable: real `0.3005580415` versus AR `0.3087399646`; delta `-0.0081819231`, `21/45` wins, and `1/5` positive outer-fold means.
-- The ensemble passed its own credibility gate, but the preregistered combined member-plus-ensemble gate failed. `any_credible_recipe: false`; this is an honest partial numerical win, not a promotion or contract failure.
-- Runner-up `delta_pca64_again_clean_joint`: ensemble delta `+0.0018407640`, `10/15` wins, `3/5` positive outer-fold means.
-- Training was fair and overfit-protected: batch `1024`, checkpoint selection from epoch `1`, no early stop before epoch `50`, patience `100`, max `5000` runaway fail-safe; no run reached the ceiling. Residual best epochs reached `613`, AR best epochs `646`; only `18/270` residual cells selected exact zero correction.
-- Exploratory continuous diagnostic: the event-winning ensemble lost Spearman by `-0.0123756758` and top-5% lift by `-0.0014342785` versus AR. Do not force one recipe across event, continuous, and valence.
+Its stored execution commit `e1b0d9f` is immutable provenance, not the current repository authority. The current executor reproduced all audit checks and exact primary metrics from the stored showdown rows; later executor changes affected only default external-root resolution.
 
-The prior no-harm port reduced the corrected six-recipe deficit from `-0.0068741007` to `-0.0026761898`; the parity ensemble then crossed AR. These are system-generation comparisons, not isolated ablations.
+- Search completed exactly `50` trials and froze trial `26` before the showdown. Its search objective was `0.0095972467`; parameters were hidden `48`, learning rate `0.0001494773`, weight decay `0.0003062954`, alpha cap `0.04`, alpha initial logit `-4`, gate bias `6`, and binary-loss weight `1.0`.
+- The fresh-seed showdown completed exactly `150/150` member rows and `30/30` five-member ensemble rows. All finite-metric, matrix, frozen-AR-sharing, label-digest, zero-event, and outer-closure audits passed; outer-test scores used: `false`.
+- Primary held-back 10 panels: tuned minus original mean `-0.0052929689`, median `-0.0002183180`, `5/10` wins, and only `2/5` positive outer means. The tuned candidate was also more variable than original (`0.0195276406` versus `0.0130045156`).
+- Against AR on those same panels, tuned gained `+0.0039664034` with `8/10` wins, while original gained `+0.0092593724` with `9/10` wins. Original therefore remained the stronger ensemble.
+- Across all 15 panels, tuned minus original was `-0.0022893491`; tuned versus AR was `+0.0043983825`, while original versus AR was `+0.0066877316`. Individual members of both lanes still lost to AR on average; the useful signal remained ensemble-dependent.
+- Promotion gates failed. Trial `26` is rejected, the original parity ensemble remains the incumbent inner-only configuration, and no outer confirmation is authorized.
+
+The preceding parity study remains the incumbent source: `temporal_mean_2s_pca256_again_clean_joint` ensemble PR-AUC `0.3183913271` versus AR `0.3127116235`, delta `+0.0056797035`, but unstable individual checkpoints and failed combined member-plus-ensemble gates. The Optuna result now shows that tuning the transferred AGAIN head does not solve that instability.
 
 ## Locked substrate and invariants
 
 - VEATIC has exactly `124` videos and `20,657` dense 2 Hz rows. Fresh compact caches: `$NEURAL_BRIDGE_EXTERNAL_ROOT/cache/veatic_h100_vjepa21_compact_20260716` and `$NEURAL_BRIDGE_EXTERNAL_ROOT/cache/veatic_h100_tribe_v2_mlx_compact_20260716`.
 - Apply the locked black/high-duplicate mask consistently: `923` unusable causal-window rows excluded. Across the 15 panels, `95/496` repeated video-panel appearances had zero events; keep their valid negatives in pooled PR-AUC and never fabricate per-video zero scores.
 - Use only fresh VEATIC 2.1 fold-safe PCA, labels, AR models, heads, and weights. AGAIN methods may enter as architecture/training priors only; do not reuse fitted AGAIN data or artifacts.
-- The three numerical executor integrations and restart/audit contracts are implemented and smoke-tested. Canonical training has not started; no new TRIBE cache is required.
+- For learned heads, checkpoints are eligible from epoch `1`; early stopping is forbidden before epoch `50`, with patience `100` and maximum epoch `5000`. Epoch `50` is a minimum training depth, not a checkpoint-selection cutoff.
+- The Optuna execution is complete; the next VEATIC-specific discovery programme has not started. No new TRIBE cache is required.
 - Preserve the locked AGAIN 299-video pool. `video_supervised_temporal` remains the frozen AGAIN comparator.
 
 ## Next executable decision
 
-Preregister a bounded inner-only Optuna stabilization study on the clean temporal-mean-2s PCA256 event family. Keep target/window, quality and zero-event policies, dual frozen AR, full-dense training, overfit protection, and equal checkpoint averaging fixed.
+**Build a new VEATIC-2.1 system from fresh 2.1 data, using end-of-AGAIN scientific rigor.**
 
-Tune only residual-learning parameters such as learning rate, hidden width, binary-loss weight, alpha cap/init, gate bias, weight decay, and possibly batch size. Optimize a robustness objective rather than peak mean PR-AUC: reward mean/median delta and broad panel wins; penalize variance and bad worst-fold behavior.
-
-Generate candidates on a strict subset of inner panels, freeze exactly one candidate before held-back scoring, then run a fresh-seed tuned-versus-original-versus-AR showdown using equal five-checkpoint ensembles across all 15 inner panels. The tuned model must beat both AR and the untuned original with positive mean/median, broad panel and fold consistency, no worse variability, and positive ensemble uplift. Outer tests stay unopened. Historical AGAIN Optuna results show why fresh-seed comparison is mandatory.
-
-If tuning fails, retain the original ensemble and compare clean temporal PCA128, delta PCA256, and delta PCA64 structural candidates before further hyperparameter search. After event stabilization, start separate continuous discovery; then valence.
+- OG VEATIC contributes hypotheses only: temporal change may matter more than raw state, simple heads deserve a baseline, and event/spike should be solved before continuous. It contributes no fitted PCA, tensors, labels, models, thresholds, checkpoints, or exact recipe. Linear ridge is a freshly retrained sanity baseline only; PCA64/128 and temporal windows are candidate priors, not inherited truths.
+- Use fresh VEATIC-2.1 V-JEPA/TRIBE features, all eligible dense 2 Hz rows, the current quality mask and zero-event policy, stronger target-specific frozen AR, fold-safe feature fitting, and fresh multiscale causal representations selected on VEATIC 2.1.
+- Require matched shuffled, random, video-mean, diagnostic, and label-permutation controls. Keep held-out-video and blocked-temporal evidence distinct.
+- Separate discovery, candidate freeze, fresh confirmation, and outer closure. Declare checkpoint ensembles prospectively, confirm event before continuous specialization, and use Optuna only after the VEATIC-specific target/representation/head family is established.
 
 ## Canonical references
 
-- Current VEATIC report: `reports/veatic21_again_parity_inner_discovery_20260717.md`
+- Incumbent parity report: `reports/veatic21_again_parity_inner_discovery_20260717.md`
+- Optuna stabilization report: `reports/veatic21_event_optuna_stabilization_20260717.md`
+- Optuna preregistration: `docs/veatic21_event_optuna_stabilization_preregistration_20260717.md`
 - VEATIC parity preregistration: `docs/veatic21_again_parity_arousal_event_preregistration_20260717.md`
 - Discovery history and AGAIN method evolution: `docs/how_neural_bridge_was_discovered.md`
 - Current Phase 7 evidence: `docs/neural_bridge_phase7_evidence.md`
@@ -55,4 +58,4 @@ Phase 7 grouped continuous remains the observed-arousal-assisted research ceilin
 
 ## Validation and handoff
 
-Latest repository verification passed readiness, compilation, `397` tests with one skip, strict VEATIC benchmark dry-run, and frontend production build. For routine handoff, update this file only after canonical evidence is validated, index this file and `docs/tokless_agent_workflow.md` into Context-Mode, verify one top-3 search result, and keep the repository clean.
+Latest repository verification passed readiness, compilation, `400` tests with one skip, strict VEATIC benchmark dry-run, and frontend production build. For routine handoff, update this file only after canonical evidence is validated, index this file and `docs/tokless_agent_workflow.md` into Context-Mode, verify one top-3 search result, and keep the repository clean.
