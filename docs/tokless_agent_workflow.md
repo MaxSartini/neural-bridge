@@ -89,6 +89,7 @@ Expected configuration:
 
 - `features.hooks = true` and `features.plugin_hooks = true`.
 - `mcp_servers.context-mode` and `mcp_servers.codegraph` enabled; Context-Mode MCP pins `CONTEXT_MODE_PLATFORM=codex` so tools and hooks share `~/.codex/context-mode` storage.
+- `~/.codex/settings.json` grants Context-Mode `Read($NEURAL_BRIDGE_EXTERNAL_ROOT/**)` (stored with the resolved machine-local root) so every external Neural Bridge file is available without opening unrelated paths.
 - CodeGraph MCP pinned with `--path "$HOME/.codex/workspaces/neural-bridge-unified"`; its `internal` and `external` symlinks resolve to both complete Neural Bridge roots.
 - Context-Mode `PreToolUse`, `PostToolUse`, `SessionStart`, `PreCompact`, `UserPromptSubmit`, and `Stop` hooks present.
 - Ponytail installed and enabled; Caveman and Karpathy skill directories present.

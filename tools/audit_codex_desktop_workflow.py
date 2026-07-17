@@ -211,6 +211,15 @@ def audit_desktop_config(errors: list[str]) -> dict[str, object]:
             errors.append(f"Codex desktop MCP command is unavailable: {required}")
     if servers.get("context-mode", {}).get("env", {}).get("CONTEXT_MODE_PLATFORM") != "codex":
         errors.append("Context-Mode desktop MCP is not pinned to Codex storage")
+
+    codex_settings_path = CODEX_HOME / "settings.json"
+    try:
+        codex_settings = json.loads(codex_settings_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        codex_settings = {}
+    external_read_rule = f"Read({EXTERNAL_ROOT}/**)"
+    if external_read_rule not in codex_settings.get("permissions", {}).get("allow", []):
+        errors.append("Context-Mode cannot read the complete external Neural Bridge root")
     if servers.get("codegraph", {}).get("args") != [
         "serve", "--mcp", "--path", str(WORKSPACE)
     ]:
@@ -315,6 +324,7 @@ def audit_desktop_config(errors: list[str]) -> dict[str, object]:
         "enabled_mcp_servers": sorted(
             name for name, settings in servers.items() if settings.get("enabled") is not False
         ),
+        "external_context_read_rule": external_read_rule,
         "runtime_hooks": [
             {
                 "event": hook.get("eventName"),
