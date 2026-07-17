@@ -2,7 +2,7 @@
 
 ## Authority
 
-- Start clean tasks by querying indexed `docs/handoff/CURRENT_STATE.md` for current result, constraints, and exact next action. Read full file only if index is stale/missing. Read `docs/tokless_agent_workflow.md` only when maintaining this workflow. For benchmark decisions, read only canonical artifacts linked by current state.
+- Start clean tasks with exactly one `ctx_search`: query `current result constraints exact next action`, `source: "neural-bridge-handoff"`, `limit: 3`. Read `docs/handoff/CURRENT_STATE.md` only when that result is missing or stale. Read `docs/tokless_agent_workflow.md` only when maintaining this workflow. For benchmark decisions, read only canonical artifacts linked by current state.
 - Current files and new executable evidence outrank chat, memory, and stale reports. Recall only 3–5 targeted prior results, then verify.
 - Keep context compact. Never dump full logs, reports, matrices, metadata, or historical transcripts unless asked.
 - Discovery output has a 20-line/3-KB cap unless explicitly requested. Search canonical references first; broad matches must be counted/aggregated off-window, then return only verdict and at most 3 exact source snippets.

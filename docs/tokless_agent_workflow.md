@@ -31,14 +31,14 @@ Discovery has a hard default response budget: 20 lines or 3 KB. Do not run broad
 There are two continuity paths:
 
 - Resuming a Codex thread restores Context-Mode's compact session snapshot automatically.
-- Starting a genuinely new chat reads `AGENTS.md`, `docs/handoff/CURRENT_STATE.md`, and this workflow document. Those durable files are also indexed into Context-Mode under the repository project identity, so the agent can retrieve a small prior detail without replaying the old transcript.
+- A genuinely new task reads only its applicable `AGENTS.md`, then makes one `ctx_search` for `current result constraints exact next action` with `source: "neural-bridge-handoff"` and `limit: 3`. Read the handoff file only if that indexed result is missing or stale; do not read this workflow unless maintaining it.
 
-Before ending work, update the canonical handoff when project state changed, then run:
+Before ending work, update the canonical handoff when project state changed, then use the Codex Context-Mode tools:
 
-```bash
-context-mode index docs/handoff/CURRENT_STATE.md --project "$PWD" --source neural-bridge-handoff
-context-mode index docs/tokless_agent_workflow.md --project "$PWD" --source neural-bridge-workflow
-context-mode search --project "$PWD" --limit 3 "current result exact next action"
+```text
+ctx_index(path: "docs/handoff/CURRENT_STATE.md", source: "neural-bridge-handoff")
+ctx_index(path: "docs/tokless_agent_workflow.md", source: "neural-bridge-workflow")
+ctx_search(queries: ["current result constraints exact next action"], source: "neural-bridge-handoff", limit: 3)
 ```
 
 This deliberately replaces broad MemPalace recall. A clean chat gets the exact current state and targeted searchable knowledge, not an uncontrolled dump of prior conversation.

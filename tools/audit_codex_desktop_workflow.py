@@ -15,8 +15,38 @@ from collections import Counter
 from pathlib import Path
 
 
+def running_commands() -> set[str]:
+    result = subprocess.run(
+        ["/bin/ps", "-axo", "comm="],
+        text=True,
+        capture_output=True,
+        timeout=10,
+        check=False,
+    )
+    return {line.strip() for line in result.stdout.splitlines() if line.strip()}
+
+
+def detect_desktop_app() -> Path:
+    override = os.environ.get("CODEX_DESKTOP_APP")
+    if override:
+        return Path(override).expanduser().resolve()
+    commands = running_commands()
+    for name in ("ChatGPT", "Codex"):
+        candidate = Path(f"/Applications/{name}.app")
+        if str(candidate / "Contents" / "MacOS" / name) in commands:
+            return candidate
+    for name in ("ChatGPT", "Codex"):
+        candidate = Path(f"/Applications/{name}.app")
+        if candidate.is_dir():
+            return candidate
+    return Path("/Applications/ChatGPT.app")
+
+
 ROOT = Path(__file__).resolve().parents[1]
 CODEX_HOME = Path(os.environ.get("CODEX_HOME", Path.home() / ".codex"))
+DESKTOP_APP = detect_desktop_app()
+DESKTOP_EXECUTABLE = DESKTOP_APP / "Contents" / "MacOS" / DESKTOP_APP.stem
+DESKTOP_CODEX = DESKTOP_APP / "Contents" / "Resources" / "codex"
 WORKSPACE = CODEX_HOME / "workspaces" / "neural-bridge-unified"
 GRAPH_DB = WORKSPACE / ".codegraph" / "codegraph.db"
 EXTERNAL_ROOT = Path(
@@ -51,6 +81,13 @@ REQUIRED_HOOKS = {
     "PreToolUse", "PostToolUse", "SessionStart", "PreCompact",
     "UserPromptSubmit", "PermissionRequest", "Stop",
 }
+EXPECTED_ENABLED_PLUGINS = {
+    "browser@openai-bundled",
+    "chrome@openai-bundled",
+    "computer-use@openai-bundled",
+    "ponytail@ponytail",
+}
+EXPECTED_ENABLED_MCP_SERVERS = {"codegraph", "context-mode", "node_repl"}
 REQUIRED_FORMAT_TOOLS = {
     "codegraph", "context-mode", "duckdb", "ffprobe", "file", "jq", "rg",
     "rtk", "sqlite3", "yq",
@@ -91,6 +128,57 @@ def graph_files() -> tuple[set[str], list[str]]:
         return paths, errors
     finally:
         connection.close()
+
+
+def real_root_graph(project_root: Path) -> dict[str, object]:
+    """Validate one real repository index without relying on a named smoke file."""
+    database = project_root / ".codegraph" / "codegraph.db"
+    connection = sqlite3.connect(database)
+    try:
+        if connection.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
+            raise RuntimeError(f"CodeGraph database integrity check failed: {database}")
+        rows = list(
+            connection.execute(
+                "SELECT path, node_count, errors FROM files ORDER BY node_count DESC, path"
+            )
+        )
+    finally:
+        connection.close()
+
+    paths = {path for path, _, _ in rows}
+    missing = sorted(path for path in paths if not (project_root / path).is_file())
+    parser_errors = [path for path, _, detail in rows if detail not in (None, "[]")]
+    areas = Counter(path.split("/", 1)[0] for path in paths)
+    probe_path = next(
+        (path for path, nodes, _ in rows if nodes and (project_root / path).is_file()),
+        None,
+    )
+    source_readable = False
+    if probe_path:
+        probe = subprocess.run(
+            [
+                "codegraph", "node", "--path", str(project_root), "--file", probe_path,
+                "--offset", "1", "--limit", "1",
+            ],
+            text=True,
+            capture_output=True,
+            timeout=10,
+            check=False,
+        )
+        output = f"{probe.stdout}\n{probe.stderr}".lower()
+        source_readable = (
+            probe.returncode == 0
+            and bool(probe.stdout.strip())
+            and "could not read from disk" not in output
+        )
+    return {
+        "paths": paths,
+        "files": len(paths),
+        "areas": dict(sorted(areas.items())),
+        "missing_on_disk": missing,
+        "parser_errors": parser_errors,
+        "source_readable": source_readable,
+    }
 
 
 def owned_graph_sources() -> set[str]:
@@ -152,7 +240,7 @@ def command_exists(command: str) -> bool:
 
 def discovered_hooks() -> list[dict[str, object]]:
     process = subprocess.Popen(
-        [shutil.which("codex") or "codex", "app-server", "--stdio"],
+        [str(DESKTOP_CODEX), "app-server", "--stdio"],
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.DEVNULL,
@@ -198,13 +286,17 @@ def discovered_hooks() -> list[dict[str, object]]:
 
 
 def audit_desktop_config(errors: list[str]) -> dict[str, object]:
+    if not DESKTOP_APP.is_dir() or not os.access(DESKTOP_CODEX, os.X_OK):
+        errors.append(f"Codex desktop runtime is unavailable: {DESKTOP_APP}")
+    if str(DESKTOP_EXECUTABLE) not in running_commands():
+        errors.append(f"Codex desktop app is not running: {DESKTOP_EXECUTABLE}")
     config = tomllib.loads((CODEX_HOME / "config.toml").read_text(encoding="utf-8"))
     features = config.get("features", {})
     if not features.get("hooks") or not features.get("plugin_hooks"):
         errors.append("Codex desktop hook feature flags are not both enabled")
 
     servers = config.get("mcp_servers", {})
-    for required in ("codegraph", "context-mode"):
+    for required in EXPECTED_ENABLED_MCP_SERVERS:
         server = servers.get(required)
         if not server or server.get("enabled") is False:
             errors.append(f"Codex desktop MCP is missing or disabled: {required}")
@@ -227,14 +319,16 @@ def audit_desktop_config(errors: list[str]) -> dict[str, object]:
         errors.append("CodeGraph desktop MCP is not pinned to unified workspace")
     if servers.get("codegraph", {}).get("env", {}).get("CODEGRAPH_MCP_TOOLS") != "explore,search,node":
         errors.append("CodeGraph exact search/source tools are not enabled")
-    extra_servers = sorted(
+    enabled_servers = {
         name
         for name, settings in servers.items()
         if settings.get("enabled") is not False
-        and name not in {"codegraph", "context-mode"}
-    )
-    if extra_servers:
-        errors.append(f"non-coding MCP servers are enabled by default: {extra_servers}")
+    }
+    if enabled_servers != EXPECTED_ENABLED_MCP_SERVERS:
+        errors.append(
+            "enabled MCP servers differ from intentional coding set: "
+            f"{sorted(enabled_servers)}"
+        )
     if "codebase-memory-mcp" in servers:
         errors.append("retired codebase-memory MCP is still registered")
 
@@ -244,13 +338,36 @@ def audit_desktop_config(errors: list[str]) -> dict[str, object]:
     ponytail = plugins.get("ponytail@ponytail", {})
     if ponytail.get("enabled") is not True:
         errors.append("Ponytail is not enabled for the desktop app")
-    extra_plugins = sorted(
+    enabled_plugins = {
         name
         for name, settings in plugins.items()
-        if settings.get("enabled") is True and name != "ponytail@ponytail"
+        if settings.get("enabled") is True
+    }
+    if enabled_plugins != EXPECTED_ENABLED_PLUGINS:
+        errors.append(
+            "enabled desktop plugins differ from intentional set: "
+            f"{sorted(enabled_plugins)}"
+        )
+    plugin_probe = subprocess.run(
+        [str(DESKTOP_CODEX), "plugin", "list", "--json"],
+        text=True,
+        capture_output=True,
+        timeout=10,
+        check=False,
     )
-    if extra_plugins:
-        errors.append(f"non-coding plugins are enabled by default: {extra_plugins}")
+    try:
+        runtime_plugins = {
+            item["pluginId"]
+            for item in json.loads(plugin_probe.stdout)["installed"]
+            if item.get("enabled")
+        }
+    except (json.JSONDecodeError, KeyError, TypeError):
+        runtime_plugins = set()
+    if plugin_probe.returncode or runtime_plugins != EXPECTED_ENABLED_PLUGINS:
+        errors.append(
+            "Codex runtime plugin set differs from intentional set: "
+            f"{sorted(runtime_plugins)}"
+        )
     if not list((CODEX_HOME / "plugins" / "cache" / "ponytail" / "ponytail").glob("*/skills/ponytail/SKILL.md")):
         errors.append("Ponytail desktop skill bundle is unavailable")
     else:
@@ -292,22 +409,28 @@ def audit_desktop_config(errors: list[str]) -> dict[str, object]:
     )
     if guard_probe.returncode or not guard_probe.stdout.startswith("PASS "):
         errors.append("Context-Mode SessionStart injection guard failed")
-
-    for project_root in (ROOT, EXTERNAL_ROOT):
-        if not (project_root / ".codegraph" / "codegraph.db").is_file():
-            errors.append(f"real-root CodeGraph index is unavailable: {project_root}")
-    source_probe = subprocess.run(
-        [
-            "codegraph", "node", "--path", str(ROOT), "--file",
-            "tools/audit_codex_desktop_workflow.py", "--offset", "200", "--limit", "2",
-        ],
+    fresh_guard_probe = subprocess.run(
+        ["/usr/bin/python3", str(HOOK_GUARD), "sessionstart"],
+        input=json.dumps({"source": "clear"}),
         text=True,
         capture_output=True,
         timeout=10,
         check=False,
     )
-    if source_probe.returncode or "def audit_desktop_config(" not in source_probe.stdout:
-        errors.append("real-root CodeGraph exact source probe failed")
+    try:
+        fresh_context = json.loads(fresh_guard_probe.stdout)[
+            "hookSpecificOutput"
+        ]["additionalContext"]
+    except (json.JSONDecodeError, KeyError, TypeError):
+        fresh_context = ""
+    if (
+        fresh_guard_probe.returncode
+        or not fresh_context
+        or len(fresh_guard_probe.stdout.encode()) > 2_048
+        or len(fresh_context.encode()) > 1_024
+    ):
+        errors.append("Context-Mode fresh-task injection exceeds compact byte budget")
+
     pretool_matchers = [
         group.get("matcher", "") for group in hooks.get("hooks", {}).get("PreToolUse", [])
     ]
@@ -357,6 +480,18 @@ def audit_desktop_config(errors: list[str]) -> dict[str, object]:
         ]
         if untrusted:
             errors.append(f"Codex desktop hooks require review: {untrusted}")
+        runtime_session_start = {
+            hook.get("command")
+            for hook in runtime_hooks
+            if hook.get("eventName") == "sessionStart" and hook.get("enabled")
+        }
+        if f"/usr/bin/python3 {HOOK_GUARD} sessionstart" not in runtime_session_start:
+            errors.append("Codex runtime is not using the guarded SessionStart hook")
+        if not any(
+            "ponytail-activate.js" in str(command)
+            for command in runtime_session_start
+        ):
+            errors.append("Codex runtime Ponytail SessionStart hook is missing")
 
     for skill in ("karpathy-guidelines", "caveman"):
         if not (CODEX_HOME / "skills" / skill / "SKILL.md").is_file():
@@ -453,9 +588,37 @@ def main() -> int:
         if indexed_roots != {"internal", "external"}:
             errors.append(f"unified CodeGraph roots are incomplete: {sorted(indexed_roots)}")
 
+    real_graphs: dict[str, dict[str, object]] = {}
+    for root_name, project_root in expected_roots.items():
+        database = project_root / ".codegraph" / "codegraph.db"
+        if not database.is_file():
+            errors.append(f"real-root CodeGraph index is unavailable: {project_root}")
+            continue
+        try:
+            real_graphs[root_name] = real_root_graph(project_root)
+        except (RuntimeError, sqlite3.DatabaseError, subprocess.SubprocessError) as exc:
+            errors.append(str(exc))
+            continue
+        summary = real_graphs[root_name]
+        if summary["missing_on_disk"]:
+            errors.append(f"real-root CodeGraph has missing files: {project_root}")
+        if summary["parser_errors"]:
+            errors.append(f"real-root CodeGraph has parser errors: {project_root}")
+        if not summary["source_readable"]:
+            errors.append(f"real-root CodeGraph cannot serve exact source: {project_root}")
+        real_paths = {f"{root_name}/{path}" for path in summary["paths"]}
+        unified_paths = {path for path in graph if path.startswith(f"{root_name}/")}
+        if real_paths != unified_paths:
+            errors.append(f"unified and real-root CodeGraph indexes differ: {root_name}")
+
     desktop = audit_desktop_config(errors)
     report = {
-        "host": "Codex desktop app for macOS",
+        "runtime": {
+            "app_bundle": str(DESKTOP_APP),
+            "app_executable": str(DESKTOP_EXECUTABLE),
+            "codex_binary": str(DESKTOP_CODEX),
+            "project_root": str(ROOT),
+        },
         "unified_workspace": str(WORKSPACE),
         "unified_roots": {
             "internal": str((WORKSPACE / "internal").resolve()),
@@ -488,6 +651,10 @@ def main() -> int:
         },
         "graph_total_files": len(graph),
         "graph_parser_errors": len(graph_errors),
+        "real_root_graphs": {
+            name: {key: value for key, value in summary.items() if key != "paths"}
+            for name, summary in real_graphs.items()
+        },
         "inventory": inventory() if WORKSPACE.exists() else {},
         "desktop": desktop,
         "errors": errors,
@@ -497,15 +664,23 @@ def main() -> int:
     else:
         runtime_hooks = desktop["runtime_hooks"]
         output = {
-            "host": report["host"],
+            "runtime": report["runtime"],
             "unified_roots": report["unified_roots"],
             "graph": {
                 **report["owned_graph_coverage"],
                 "files_by_root": report["graph_files_by_root"],
+                "real_root_indexes": {
+                    name: {
+                        "files": summary["files"],
+                        "areas": len(summary["areas"]),
+                        "source_readable": summary["source_readable"],
+                    }
+                    for name, summary in real_graphs.items()
+                },
                 "parser_errors": report["graph_parser_errors"],
             },
             "desktop": {
-                "enabled_plugins": len(desktop["enabled_plugins"]),
+                "enabled_plugins": desktop["enabled_plugins"],
                 "enabled_mcp_servers": desktop["enabled_mcp_servers"],
                 "runtime_hooks": len(runtime_hooks),
                 "trusted_runtime_hooks": sum(
@@ -516,7 +691,14 @@ def main() -> int:
             },
             "errors": errors,
         }
-    print(json.dumps(output, indent=2))
+    verbose = "--verbose" in sys.argv[1:]
+    print(
+        json.dumps(
+            output,
+            indent=2 if verbose else None,
+            separators=None if verbose else (",", ":"),
+        )
+    )
     return 1 if errors else 0
 
 
