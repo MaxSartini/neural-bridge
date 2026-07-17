@@ -1,7 +1,7 @@
 # Neural Bridge Current-State Handoff
 
 Updated: 2026-07-17  
-Branch: `codex/veatic21-retraining-foundation`
+Branch: `main`
 
 ## Current objective
 
@@ -55,4 +55,4 @@ Phase 7 grouped continuous remains the observed-arousal-assisted research ceilin
 
 ## Validation and handoff
 
-Latest repository verification passed readiness, compilation, `397` tests with one skip, strict VEATIC benchmark dry-run, and frontend production build. For routine handoff, update this file only after canonical evidence is validated, mine only `docs/handoff/` into the `neural_bridge` MemPalace wing, verify one top-3 recall, and keep both repositories clean.
+Latest repository verification passed readiness, compilation, `397` tests with one skip, strict VEATIC benchmark dry-run, and frontend production build. For routine handoff, update this file only after canonical evidence is validated, index this file and `docs/tokless_agent_workflow.md` into Context-Mode, verify one top-3 search result, and keep the repository clean.

@@ -100,4 +100,4 @@ mytest/
 skills-lock.json
 .cache/
 .tools/
-.codebase-memory/
+.codegraph/

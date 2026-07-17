@@ -1,10 +1,13 @@
 # Neural Bridge Agent Contract
 
+The supported host is the Codex Mac desktop app. Agents may use bundled command-line diagnostics internally, but must not require the user to launch Codex CLI or perform routine terminal setup.
+
 ## Authority and context
 
 - Current repository files, executable artifacts, and the current user prompt are authoritative. New valid executable evidence outranks stale wording; never promote a failed gate without new passing evidence.
+- At the start of a new chat, read `docs/handoff/CURRENT_STATE.md` and `docs/tokless_agent_workflow.md`, then use Context-Mode search only when a targeted prior detail is needed. Resumed chats restore their compact session snapshot automatically; clean chats start from these durable files rather than replaying the old transcript.
 - For benchmark status, continuation, or experiment decisions, read `docs/handoff/CURRENT_STATE.md` and only the canonical artifacts it links. Do not preload historical reports for routine work.
-- Prior chat state, old plans, editor state, MemPalace, and generated summaries are navigation aids only. When history is needed, recall the smallest relevant set, normally 3–5 results, then verify against current files.
+- Prior chat state, old plans, editor state, Context-Mode session memory, and generated summaries are navigation aids only. When history is needed, recall the smallest relevant set, normally 3–5 results, then verify against current files.
 - Keep context compact: use targeted snippets and summaries; do not dump full reports, logs, matrices, or metadata unless asked.
 
 ## Project integrity
@@ -19,14 +22,14 @@
 
 ## Tools and implementation
 
-- Use `codebase-memory-mcp` graph search and call tracing first for code discovery; use `rg`/`rg --files` for literals, configs, scripts, and non-code files or when graph results are insufficient.
+- Treat CodeGraph as the code contact list, not an optional diagnostic. Before code work, query the relevant symbol, flow, callers, and blast radius; after substantive edits, sync the graph and re-check the affected path before handoff. For Neural Bridge, always target `$HOME/.codex/workspaces/neural-bridge-unified`, which spans the internal checkout and external H100/work volume. Use `rg`/`rg --files` for literals, configs, scripts, non-code files, or when CodeGraph is insufficient.
 - Use `$neural-bridge-app` as the single router for Mac app product, design, Swift/SwiftUI, HIG, accessibility, Figma, testing, performance, and shipping work; load only its task-relevant expert references.
-- Prefix shell work with `rtk` where supported. Use `apply_patch` for edits, preserve unrelated dirty-worktree changes, and avoid destructive Git commands.
+- Route supported shell discovery, implementation checks, tests, builds, diffs, status, and handoff commands through `rtk`. Use `rtk proxy` only when exact raw output is required. Use `apply_patch` for edits, preserve unrelated dirty-worktree changes, and avoid destructive Git commands.
 - Prefer existing scripts, cached PCA/features, and sealed compatible artifacts when provenance proves reuse is safe. Never reuse merely because names or dimensions match.
-- For substantive code changes, run the smallest relevant tests first, then `npm run verify` before handoff. Refresh internal and external codebase-memory indexes only after substantive code changes.
+- For substantive code changes, run the smallest relevant tests first, then `npm run verify` before handoff. Run `codegraph sync "$HOME/.codex/workspaces/neural-bridge-unified"` after substantive code changes.
 
 ## Handoff
 
 - Update canonical evidence first, validate it, then update `docs/handoff/CURRENT_STATE.md` with only the current result, active constraints, exact next action, and links to detailed history.
-- For routine handoff, mine only `docs/handoff/` into the `neural_bridge` MemPalace wing and verify one top-3 recall. Never remine the full project unless explicitly authorized.
+- Let Context-Mode capture session and compaction state automatically. Before handoff, index `docs/handoff/CURRENT_STATE.md` and `docs/tokless_agent_workflow.md` into the project knowledge base, then verify one top-3 search result. Never index the full project by default.
 - Commit validated repository changes on the active branch and finish with a clean worktree. Documentation-only work does not require codebase reindexing.

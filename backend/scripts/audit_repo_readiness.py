@@ -47,6 +47,18 @@ FORBIDDEN_PATTERNS = {
     "old checkout path": re.compile(r"MiroFish-Offline"),
 }
 
+RETIRED_AGENT_WORKFLOW_PATTERNS = {
+    "retired MemPalace workflow": re.compile(r"\b(?:MemPalace|Mem Palace)\b", re.IGNORECASE),
+    "retired codebase-memory workflow": re.compile(
+        r"\b(?:codebase-memory(?:-mcp)?|codebase_memory)\b", re.IGNORECASE
+    ),
+}
+
+AGENT_WORKFLOW_MIGRATION_RECORDS = {
+    "docs/tokless_agent_workflow.md",
+    "tools/audit_codex_desktop_workflow.py",
+}
+
 CONTROLLED_EVIDENCE_PATTERNS = {
     "retained disabled non-cortical metadata": re.compile(r"\bsubcortical\b", re.IGNORECASE),
 }
@@ -147,7 +159,9 @@ def audit_stale_terms(files: list[Path], errors: list[str], warnings: list[str])
         for label, pattern in FORBIDDEN_PATTERNS.items():
             for match in pattern.finditer(text):
                 line = text.count("\n", 0, match.start()) + 1
-                if label.startswith("machine-specific") and rel.startswith("evidence/"):
+                if label.startswith("machine-specific") and (
+                    rel.startswith("evidence/") or rel.startswith("reports/")
+                ):
                     warnings.append(f"historical evidence provenance: {rel}:{line}")
                 else:
                     errors.append(f"{label}: {rel}:{line}")
@@ -158,12 +172,21 @@ def audit_stale_terms(files: list[Path], errors: list[str], warnings: list[str])
                     warnings.append(f"{label}: {rel}:{line}")
                 else:
                     errors.append(f"retired active-reference term: {rel}:{line}")
+        if (
+            rel not in AGENT_WORKFLOW_MIGRATION_RECORDS
+            and not rel.startswith("evidence/")
+            and path.name not in {".codexignore", ".gitignore"}
+        ):
+            for label, pattern in RETIRED_AGENT_WORKFLOW_PATTERNS.items():
+                for match in pattern.finditer(text):
+                    line = text.count("\n", 0, match.start()) + 1
+                    errors.append(f"{label}: {rel}:{line}")
 
 
 def audit_orientation_content(errors: list[str]) -> None:
     checks = {
         "README.md": ["Current Results to Foundations", "+77.65%", "+70.80%", "+26.50%", "+74.51%", "+39.95%", "+16.61%", "+23.59%", "+14.52%", "+98.92%", "Phase 7: Strongest Current Evidence", "residual_future_max_delta_rows_4_10", "short_temporal_conv_residual", "Why “8% Better” Understates the Result", "Original AGAIN spike/event results", "15/15", "neural_bridge_zero_label_deployment_evidence.md", "Run and Validate"],
-        "AGENTS.md": ["residual_future_max_delta_rows_4_10", "short_temporal_conv_residual", "+16.61%", "+74.51%", "15/15", "current_review", "Test And Script Validation"],
+        "AGENTS.md": ["Codex Mac desktop app", "CURRENT_STATE.md", "CodeGraph", "Context-Mode", "rtk", "neural-bridge-unified"],
         "REQUIREMENTS.md": ["video-dominant", "TRIBE_TEXT_ENCODER_LOCAL_DIR", "Llama-3.2-3B"],
         "ROADMAP.md": ["Current Deployment Win: Locked Zero-Label Bridge", "Research Ceiling: Phase 7", "Cross-Domain Training Pilot", "evidence"],
         "docs/current_project_state.md": ["The newest result is the locked deployment bridge", "Phase 7 remains the strongest observed-arousal-assisted research result", "residual_future_max_delta_rows_4_10", "short_temporal_conv_residual", "16.61%", "+74.51%", "+39.95%", "+98.92%", "Precise Boundaries", "Validation and Handoff"],

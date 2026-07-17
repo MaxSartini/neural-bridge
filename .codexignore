@@ -1,7 +1,7 @@
 # Neural Bridge Codex context ignore rules
 #
 # Purpose: keep Codex away from huge generated payloads during broad discovery
-# while leaving source, docs, tests, reports, and codebase-memory indexes visible.
+# while leaving source, docs, tests, reports, and workflow guidance visible.
 
 # OS/editor noise
 .DS_Store
@@ -95,13 +95,6 @@ vjepa21_hidden_states.npz
 video_pooled_features.npz
 tribe_v2_cortical_predictions.npz
 cortical_prediction_rows_fp16.npy
-
-# Keep codebase-memory assets/indexes available to Codex and MCP.
-!.codebase-memory/
-!.codebase-memory/**
-!.tools/
-!.tools/codebase-memory-mcp/
-!.tools/codebase-memory-mcp/**
 
 # Keep lightweight project knowledge visible.
 !AGENTS.md

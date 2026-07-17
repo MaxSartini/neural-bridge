@@ -80,4 +80,4 @@ Now that the video-only bridge has passed:
 - Preserve historical reports and evidence snapshots as the scientific record.
 - Track lightweight claim-bearing reports, manifests, and checksum anchors.
 - Keep dense caches, tensors, model weights, checkpoints, and heavy generated outputs outside git.
-- Refresh both code knowledge graphs and MemPalace only after canonical files are validated and repositories are clean.
+- Sync the unified CodeGraph and refresh the compact Context-Mode handoff index only after canonical files are validated and the repository is clean.

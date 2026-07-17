@@ -12,6 +12,7 @@
     "frontend": "npm --prefix frontend run dev",
     "build": "npm --prefix frontend run build",
     "audit:repo": "python3 backend/scripts/audit_repo_readiness.py",
+    "audit:codex-desktop": "python3 tools/audit_codex_desktop_workflow.py",
     "evidence:freeze": "python3 backend/scripts/freeze_veatic_v2_evidence.py --create-snapshot",
     "evidence:verify": "python3 backend/scripts/freeze_veatic_v2_evidence.py --verify",
     "test": "python3 -m pytest -q tests",
