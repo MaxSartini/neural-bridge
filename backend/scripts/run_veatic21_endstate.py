@@ -13,6 +13,9 @@ The runner has four useful modes:
     Run the exact six-recipe, three-seed nested selection matrix.  Every score
     comes from one of the three inner validation folds and the outer test fold
     is sealed out of PCA, normalizer, AR, threshold, and model selection.
+    ``--discovery-scope arousal_event_first`` bounds this to the 270-row
+    privileged arousal-event matrix and writes a development-only selection
+    artifact that cannot authorize confirmation.
 
 ``--stage confirmation``
     Lock the per-outer-fold winner and run the exact 1,680 privileged
@@ -75,7 +78,13 @@ RUN_SCHEMA_VERSION = "veatic21_endstate_runner_v1"
 PREDICTION_SCHEMA_VERSION = "veatic21_endstate_prediction_shard_v1"
 FINAL_EXPORT_SCHEMA_VERSION = "veatic21_endstate_all124_export_v1"
 SMOKE_SELECTION_SCHEMA_VERSION = "veatic21_nonpromotable_smoke_selection_v1"
+DEVELOPMENT_SELECTION_SCHEMA_VERSION = "veatic21_inner_discovery_scope_v1"
 STAGES = ("discovery", "confirmation", "final", "all")
+DISCOVERY_SCOPE_FULL = "full"
+DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST = "arousal_event_first"
+DISCOVERY_SCOPES = (DISCOVERY_SCOPE_FULL, DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST)
+AROUSAL_EVENT_TARGET = endstate.PRIMARY_TARGETS[0].name
+AROUSAL_EVENT_PROTOCOL = discovery.PRIVILEGED_BINARY
 DISCOVERY_PROTOCOLS = (
     discovery.PRIVILEGED_CONTINUOUS,
     discovery.PRIVILEGED_BINARY,
@@ -88,9 +97,11 @@ ENSEMBLE_KIND = "ensemble"
 MAX_PCA_WIDTH = 256
 INNER_FOLD_COUNT = 3
 DEFAULT_BOOTSTRAP_RESAMPLES = 5_000
-DEFAULT_MAX_EPOCHS = 80
-DEFAULT_PATIENCE = 12
-DEFAULT_BATCH_SIZE = 8192
+DEFAULT_MAX_EPOCHS = 5_000
+DEFAULT_MIN_EPOCHS = 50
+DEFAULT_PATIENCE = 100
+DEFAULT_BATCH_SIZE = 1_024
+DEFAULT_SELECTION_MIN_DELTA = 1e-6
 DEFAULT_LEARNING_RATE = 2e-4
 DEFAULT_WEIGHT_DECAY = 1e-4
 
@@ -181,15 +192,28 @@ def build_parser() -> argparse.ArgumentParser:
         default=compact.DEFAULT_IDENTITY_MANIFEST,
     )
     parser.add_argument("--stage", choices=STAGES, default="all")
+    parser.add_argument(
+        "--discovery-scope",
+        choices=DISCOVERY_SCOPES,
+        default=DISCOVERY_SCOPE_FULL,
+        help=(
+            "Bound discovery scheduling without changing the scientific run identity. "
+            "The arousal_event_first scope is inner-only and cannot authorize confirmation."
+        ),
+    )
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--audit-only", action="store_true")
     parser.add_argument("--smoke", action="store_true")
     parser.add_argument("--skip-checksums", action="store_true")
     parser.add_argument("--max-epochs", type=int, default=DEFAULT_MAX_EPOCHS)
+    parser.add_argument("--min-epochs", type=int, default=DEFAULT_MIN_EPOCHS)
     parser.add_argument("--patience", type=int, default=DEFAULT_PATIENCE)
     parser.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE)
     parser.add_argument("--learning-rate", type=float, default=DEFAULT_LEARNING_RATE)
     parser.add_argument("--weight-decay", type=float, default=DEFAULT_WEIGHT_DECAY)
+    parser.add_argument(
+        "--selection-min-delta", type=float, default=DEFAULT_SELECTION_MIN_DELTA
+    )
     parser.add_argument(
         "--bootstrap-resamples", type=int, default=DEFAULT_BOOTSTRAP_RESAMPLES
     )
@@ -199,18 +223,39 @@ def build_parser() -> argparse.ArgumentParser:
 def validate_cli_args(args: argparse.Namespace) -> None:
     if args.max_epochs < 1:
         raise EndStateRunError("--max-epochs must be positive")
-    if args.patience < 1 or args.patience > args.max_epochs:
-        raise EndStateRunError("--patience must be in [1, max-epochs]")
+    if args.min_epochs < 1 or args.min_epochs > args.max_epochs:
+        raise EndStateRunError("--min-epochs must be in [1, max-epochs]")
+    if args.patience < 1 or args.min_epochs + args.patience > args.max_epochs:
+        raise EndStateRunError(
+            "--patience must be positive and min-epochs + patience must not exceed max-epochs"
+        )
     if args.batch_size < 1:
         raise EndStateRunError("--batch-size must be positive")
     if not math.isfinite(args.learning_rate) or args.learning_rate <= 0:
         raise EndStateRunError("--learning-rate must be finite and positive")
     if not math.isfinite(args.weight_decay) or args.weight_decay < 0:
         raise EndStateRunError("--weight-decay must be finite and non-negative")
+    if (
+        not math.isfinite(args.selection_min_delta)
+        or args.selection_min_delta < 0
+    ):
+        raise EndStateRunError(
+            "--selection-min-delta must be finite and non-negative"
+        )
     if args.bootstrap_resamples < 100:
         raise EndStateRunError("--bootstrap-resamples must be at least 100")
     if args.audit_only and args.dry_run:
         raise EndStateRunError("--audit-only and --dry-run are mutually exclusive")
+    scope = str(getattr(args, "discovery_scope", DISCOVERY_SCOPE_FULL))
+    if scope != DISCOVERY_SCOPE_FULL:
+        if args.stage != "discovery":
+            raise EndStateRunError(
+                "a bounded --discovery-scope requires --stage discovery"
+            )
+        if args.smoke:
+            raise EndStateRunError(
+                "--discovery-scope arousal_event_first and --smoke are mutually exclusive"
+            )
 
 
 @dataclass(frozen=True)
@@ -456,10 +501,19 @@ def build_plan(seal: DatasetSeal) -> discovery.NestedDiscoveryPlan:
 def scientific_settings(args: argparse.Namespace) -> dict[str, Any]:
     return {
         "max_epochs": int(args.max_epochs),
+        "max_epochs_role": "runaway_fail_safe_only",
+        "min_epochs": int(args.min_epochs),
         "patience": int(args.patience),
         "batch_size": int(args.batch_size),
         "learning_rate": float(args.learning_rate),
         "weight_decay": float(args.weight_decay),
+        "checkpoint_selection_policy": {
+            "binary": "maximize_inner_validation_pr_auc",
+            "continuous": "minimize_inner_validation_loss",
+            "selection_min_delta": float(args.selection_min_delta),
+            "minimum_checkpoint_epoch": int(args.min_epochs),
+            "early_stopping_controls_training_end": True,
+        },
         "huber_delta": 1.0,
         "huber_delta_source": "veatic21_modeling_locked_default",
         "residual_do_no_harm_gate": True,
@@ -668,7 +722,11 @@ class MatrixCell:
 
 
 def _selection_recipe(
-    selections: discovery.DiscoverySelectionArtifact | SmokeSelectionArtifact,
+    selections: (
+        discovery.DiscoverySelectionArtifact
+        | SmokeSelectionArtifact
+        | DevelopmentDiscoverySelectionArtifact
+    ),
     *,
     target: str,
     endpoint: str,
@@ -718,11 +776,19 @@ def _cell(
 
 
 def build_confirmation_matrix(
-    selections: discovery.DiscoverySelectionArtifact | SmokeSelectionArtifact,
+    selections: (
+        discovery.DiscoverySelectionArtifact
+        | SmokeSelectionArtifact
+        | DevelopmentDiscoverySelectionArtifact
+    ),
     plan: discovery.NestedDiscoveryPlan,
     *,
     smoke: bool = False,
 ) -> tuple[MatrixCell, ...]:
+    if isinstance(selections, DevelopmentDiscoverySelectionArtifact):
+        raise EndStateRunError(
+            "a development discovery scope cannot authorize confirmation"
+        )
     if isinstance(selections, SmokeSelectionArtifact):
         if not smoke:
             raise EndStateRunError("smoke selection cannot expand a canonical matrix")
@@ -1341,6 +1407,9 @@ def write_plan_artifacts(
         "created_at": utc_now(),
         "run_identity": identity.manifest(),
         "stage_requested": args.stage,
+        "discovery_scope": str(
+            getattr(args, "discovery_scope", DISCOVERY_SCOPE_FULL)
+        ),
         "dry_run": bool(args.dry_run),
         "audit_only": bool(args.audit_only),
         "smoke": bool(args.smoke),
@@ -1351,6 +1420,16 @@ def write_plan_artifacts(
         "endstate_contract": endstate.contract_manifest(),
         "settings": scientific_settings(args),
         "discovery_expected_rows": discovery_expected_rows(plan),
+        "scheduled_discovery_rows": (
+            len(arousal_event_first_expected_score_keys(plan))
+            if getattr(args, "discovery_scope", DISCOVERY_SCOPE_FULL)
+            == DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST
+            else (
+                len(smoke_expected_score_keys(plan))
+                if args.smoke
+                else discovery_expected_rows(plan)
+            )
+        ),
         "confirmation_expected_rows": endstate.SCORED_ROWS.grand_total,
         "stage_order": ["discovery", "confirmation", "final"],
     }
@@ -1417,6 +1496,76 @@ def _smoke_selection_path(output_root: Path) -> Path:
 
 def _smoke_score_rows_path(output_root: Path) -> Path:
     return Path(output_root) / "discovery" / "smoke_score_rows.json"
+
+
+def _development_scope_root(output_root: Path) -> Path:
+    return (
+        Path(output_root)
+        / "discovery"
+        / "development_scopes"
+        / DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST
+    )
+
+
+def _development_selection_path(output_root: Path) -> Path:
+    return _development_scope_root(output_root) / "selection_artifact.json"
+
+
+def _development_score_rows_path(output_root: Path) -> Path:
+    return _development_scope_root(output_root) / "score_rows.json"
+
+
+@dataclass(frozen=True)
+class DevelopmentDiscoverySelectionArtifact:
+    """Inner-only bounded discovery result that cannot authorize confirmation."""
+
+    schema_version: str
+    plan_digest: str
+    discovery_scope: str
+    target: str
+    protocol: str
+    outer_folds: tuple[int, ...]
+    discovery_seeds: tuple[int, ...]
+    score_digest: str
+    score_rows: int
+    selections: tuple[discovery.OuterRecipeSelection, ...]
+    ownership_audit_digest: str
+    outer_test_scores_used: bool
+    explicitly_nonpromotable: bool
+    confirmation_authorized: bool
+    contract_amendment_authorized: bool
+    artifact_digest: str
+
+    def manifest(self, *, include_digest: bool = True) -> dict[str, Any]:
+        payload = {
+            "schema_version": self.schema_version,
+            "plan_digest": self.plan_digest,
+            "discovery_scope": self.discovery_scope,
+            "target": self.target,
+            "protocol": self.protocol,
+            "outer_folds": list(self.outer_folds),
+            "discovery_seeds": list(self.discovery_seeds),
+            "score_digest": self.score_digest,
+            "score_rows": self.score_rows,
+            "selections": [item.manifest() for item in self.selections],
+            "ownership_audit_digest": self.ownership_audit_digest,
+            "outer_test_scores_used": self.outer_test_scores_used,
+            "explicitly_nonpromotable": self.explicitly_nonpromotable,
+            "confirmation_authorized": self.confirmation_authorized,
+            "contract_amendment_authorized": self.contract_amendment_authorized,
+        }
+        if include_digest:
+            payload["artifact_digest"] = self.artifact_digest
+        return payload
+
+    def selection(
+        self, target: str, protocol: str, outer_fold: int
+    ) -> discovery.OuterRecipeSelection:
+        key = (str(target), str(protocol), int(outer_fold))
+        for item in self.selections:
+            if (item.target, item.protocol, item.outer_fold) == key:
+                return item
+        raise EndStateRunError(f"no bounded development recipe selection for {key}")
 
 
 @dataclass(frozen=True)
@@ -1759,6 +1908,393 @@ def load_and_verify_smoke_selection(
     return artifact
 
 
+def arousal_event_first_expected_score_keys(
+    plan: discovery.NestedDiscoveryPlan,
+) -> frozenset[tuple[str, str, int, str, int, int]]:
+    """Return the exact 270 inner-only keys in the first discovery tranche."""
+
+    if AROUSAL_EVENT_TARGET not in plan.targets:
+        raise EndStateRunError("the locked arousal event target is absent from the plan")
+    if AROUSAL_EVENT_PROTOCOL not in plan.protocols:
+        raise EndStateRunError("the privileged binary protocol is absent from the plan")
+    return frozenset(
+        (
+            AROUSAL_EVENT_TARGET,
+            AROUSAL_EVENT_PROTOCOL,
+            outer.outer_fold,
+            recipe.name,
+            inner.fold,
+            seed,
+        )
+        for outer in plan.outer_folds
+        for recipe in plan.recipes
+        for inner in outer.inner_folds
+        for seed in plan.discovery_seeds
+    )
+
+
+def audit_arousal_event_first_score_matrix(
+    plan: discovery.NestedDiscoveryPlan,
+    score_rows: Iterable[discovery.DiscoveryScoreRow],
+) -> tuple[dict[str, Any], tuple[discovery.DiscoveryScoreRow, ...]]:
+    rows = tuple(sorted(score_rows, key=lambda row: row.key))
+    expected = arousal_event_first_expected_score_keys(plan)
+    counts = Counter(row.key for row in rows)
+    observed = set(counts)
+    ownership_failures: list[tuple[str, str, int, str, int, int]] = []
+    scope_failures: list[tuple[str, str, int, str, int, int]] = []
+    metric_failures: list[tuple[str, str, int, str, int, int]] = []
+    for row in rows:
+        if row.key not in expected:
+            continue
+        inner = plan.inner(row.outer_fold, row.inner_fold)
+        if (
+            row.fit_videos != inner.train_videos
+            or row.validation_videos != inner.validation_videos
+            or row.ownership_digest != inner.digest
+        ):
+            ownership_failures.append(row.key)
+        if row.score_scope != discovery.INNER_VALIDATION_SCOPE:
+            scope_failures.append(row.key)
+        if not set(discovery.required_metrics(row.protocol)).issubset(row.metric_map()):
+            metric_failures.append(row.key)
+    missing = tuple(sorted(expected - observed))
+    unexpected = tuple(sorted(observed - expected))
+    duplicates = tuple(sorted(key for key, count in counts.items() if count != 1))
+    score_digest = canonical_digest([row.manifest() for row in rows])
+    passed = not (
+        missing
+        or unexpected
+        or duplicates
+        or ownership_failures
+        or scope_failures
+        or metric_failures
+    )
+    audit = {
+        "schema_version": "veatic21_arousal_event_first_score_audit_v1",
+        "discovery_scope": DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST,
+        "target": AROUSAL_EVENT_TARGET,
+        "protocol": AROUSAL_EVENT_PROTOCOL,
+        "expected_rows": len(expected),
+        "observed_rows": len(rows),
+        "missing_keys": [list(key) for key in missing],
+        "unexpected_keys": [list(key) for key in unexpected],
+        "duplicate_keys": [list(key) for key in duplicates],
+        "ownership_failures": [list(key) for key in ownership_failures],
+        "scope_failures": [list(key) for key in scope_failures],
+        "metric_failures": [list(key) for key in metric_failures],
+        "score_digest": score_digest,
+        "outer_test_scores_used": False,
+        "explicitly_nonpromotable": True,
+        "confirmation_authorized": False,
+        "passed": passed,
+    }
+    return audit, rows
+
+
+def _development_recipe_aggregate(
+    *,
+    recipe: discovery.RecipeSpec,
+    rows: Sequence[discovery.DiscoveryScoreRow],
+    inner_folds: Sequence[int],
+) -> discovery.RecipeAggregate:
+    def rounded(value: float) -> float:
+        return round(float(value), 12)
+
+    def mean(values: Sequence[float]) -> float:
+        return rounded(math.fsum(values) / len(values))
+
+    values: list[discovery.AggregateValue] = []
+    for metric in discovery.required_metrics(AROUSAL_EVENT_PROTOCOL):
+        vector = [float(row.metric_map()[metric]) for row in rows]
+        fold_means = [
+            mean(
+                [
+                    float(row.metric_map()[metric])
+                    for row in rows
+                    if row.inner_fold == inner_fold
+                ]
+            )
+            for inner_fold in inner_folds
+        ]
+        values.extend(
+            (
+                discovery.AggregateValue(f"mean_{metric}", mean(vector)),
+                discovery.AggregateValue(
+                    f"median_{metric}", rounded(statistics.median(vector))
+                ),
+                discovery.AggregateValue(
+                    f"worst_inner_fold_mean_{metric}", min(fold_means)
+                ),
+            )
+        )
+    payload = {
+        "recipe": recipe.name,
+        "recipe_order": recipe.order,
+        "complexity_score": recipe.complexity_score,
+        "score_rows": len(rows),
+        "rank_values": [asdict(value) for value in values],
+        "input_rows": [row.manifest() for row in sorted(rows, key=lambda row: row.key)],
+    }
+    return discovery.RecipeAggregate(
+        recipe=recipe.name,
+        recipe_order=recipe.order,
+        complexity_score=recipe.complexity_score,
+        score_rows=len(rows),
+        rank_values=tuple(values),
+        aggregate_digest=canonical_digest(payload),
+    )
+
+
+def select_arousal_event_first_recipes(
+    plan: discovery.NestedDiscoveryPlan,
+    score_rows: Iterable[discovery.DiscoveryScoreRow],
+) -> DevelopmentDiscoverySelectionArtifact:
+    audit, rows = audit_arousal_event_first_score_matrix(plan, score_rows)
+    if not audit["passed"]:
+        raise EndStateRunError(
+            "arousal-event-first discovery returned an invalid score matrix"
+        )
+    ownership = discovery.audit_nested_ownership(plan)
+    if not ownership.passed:
+        raise EndStateRunError("nested ownership failed before bounded selection")
+    selections: list[discovery.OuterRecipeSelection] = []
+    for outer in plan.outer_folds:
+        subset = tuple(row for row in rows if row.outer_fold == outer.outer_fold)
+        leaderboard = tuple(
+            sorted(
+                (
+                    _development_recipe_aggregate(
+                        recipe=recipe,
+                        rows=tuple(
+                            row for row in subset if row.recipe == recipe.name
+                        ),
+                        inner_folds=tuple(inner.fold for inner in outer.inner_folds),
+                    )
+                    for recipe in plan.recipes
+                ),
+                key=lambda item: tuple(-value for value in item.rank_vector())
+                + (item.complexity_score, item.recipe_order, item.recipe),
+            )
+        )
+        input_digest = canonical_digest([row.manifest() for row in subset])
+        selection_payload = {
+            "target": AROUSAL_EVENT_TARGET,
+            "protocol": AROUSAL_EVENT_PROTOCOL,
+            "outer_fold": outer.outer_fold,
+            "selected_recipe": leaderboard[0].recipe,
+            "leaderboard": [item.manifest() for item in leaderboard],
+            "input_score_digest": input_digest,
+            "outer_test_scores_used": False,
+        }
+        selections.append(
+            discovery.OuterRecipeSelection(
+                target=AROUSAL_EVENT_TARGET,
+                protocol=AROUSAL_EVENT_PROTOCOL,
+                outer_fold=outer.outer_fold,
+                selected_recipe=leaderboard[0].recipe,
+                leaderboard=leaderboard,
+                input_score_digest=input_digest,
+                outer_test_scores_used=False,
+                digest=canonical_digest(selection_payload),
+            )
+        )
+    payload = {
+        "schema_version": DEVELOPMENT_SELECTION_SCHEMA_VERSION,
+        "plan_digest": plan.digest,
+        "discovery_scope": DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST,
+        "target": AROUSAL_EVENT_TARGET,
+        "protocol": AROUSAL_EVENT_PROTOCOL,
+        "outer_folds": [outer.outer_fold for outer in plan.outer_folds],
+        "discovery_seeds": list(plan.discovery_seeds),
+        "score_digest": audit["score_digest"],
+        "score_rows": len(rows),
+        "selections": [item.manifest() for item in selections],
+        "ownership_audit_digest": ownership.digest,
+        "outer_test_scores_used": False,
+        "explicitly_nonpromotable": True,
+        "confirmation_authorized": False,
+        "contract_amendment_authorized": False,
+    }
+    artifact = DevelopmentDiscoverySelectionArtifact(
+        schema_version=DEVELOPMENT_SELECTION_SCHEMA_VERSION,
+        plan_digest=plan.digest,
+        discovery_scope=DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST,
+        target=AROUSAL_EVENT_TARGET,
+        protocol=AROUSAL_EVENT_PROTOCOL,
+        outer_folds=tuple(outer.outer_fold for outer in plan.outer_folds),
+        discovery_seeds=tuple(plan.discovery_seeds),
+        score_digest=audit["score_digest"],
+        score_rows=len(rows),
+        selections=tuple(selections),
+        ownership_audit_digest=ownership.digest,
+        outer_test_scores_used=False,
+        explicitly_nonpromotable=True,
+        confirmation_authorized=False,
+        contract_amendment_authorized=False,
+        artifact_digest=canonical_digest(payload),
+    )
+    verify_arousal_event_first_selection_artifact(artifact, plan)
+    return artifact
+
+
+def _load_outer_recipe_selections(
+    items: Iterable[Mapping[str, Any]],
+) -> tuple[discovery.OuterRecipeSelection, ...]:
+    selections: list[discovery.OuterRecipeSelection] = []
+    for item in items:
+        leaderboard = tuple(
+            discovery.RecipeAggregate(
+                recipe=str(entry["recipe"]),
+                recipe_order=int(entry["recipe_order"]),
+                complexity_score=int(entry["complexity_score"]),
+                score_rows=int(entry["score_rows"]),
+                rank_values=tuple(
+                    discovery.AggregateValue(
+                        name=str(value["name"]), value=float(value["value"])
+                    )
+                    for value in entry["rank_values"]
+                ),
+                aggregate_digest=str(entry["aggregate_digest"]),
+            )
+            for entry in item["leaderboard"]
+        )
+        selections.append(
+            discovery.OuterRecipeSelection(
+                target=str(item["target"]),
+                protocol=str(item["protocol"]),
+                outer_fold=int(item["outer_fold"]),
+                selected_recipe=str(item["selected_recipe"]),
+                leaderboard=leaderboard,
+                input_score_digest=str(item["input_score_digest"]),
+                outer_test_scores_used=bool(item["outer_test_scores_used"]),
+                digest=str(item["digest"]),
+            )
+        )
+    return tuple(selections)
+
+
+def _load_discovery_score_rows(path: Path) -> tuple[discovery.DiscoveryScoreRow, ...]:
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(payload, list):
+        raise EndStateRunError("bounded discovery score rows are not a JSON list")
+    return tuple(
+        discovery.DiscoveryScoreRow(
+            target=str(item["target"]),
+            protocol=str(item["protocol"]),
+            outer_fold=int(item["outer_fold"]),
+            recipe=str(item["recipe"]),
+            inner_fold=int(item["inner_fold"]),
+            seed=int(item["seed"]),
+            score_scope=str(item["score_scope"]),
+            fit_videos=tuple(map(str, item["fit_videos"])),
+            validation_videos=tuple(map(str, item["validation_videos"])),
+            ownership_digest=str(item["ownership_digest"]),
+            metrics=tuple(
+                discovery.MetricValue(
+                    name=str(metric["name"]), value=float(metric["value"])
+                )
+                for metric in item["metrics"]
+            ),
+        )
+        for item in payload
+    )
+
+
+def _load_arousal_event_first_selection_artifact(
+    path: Path,
+) -> DevelopmentDiscoverySelectionArtifact:
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    return DevelopmentDiscoverySelectionArtifact(
+        schema_version=str(payload["schema_version"]),
+        plan_digest=str(payload["plan_digest"]),
+        discovery_scope=str(payload["discovery_scope"]),
+        target=str(payload["target"]),
+        protocol=str(payload["protocol"]),
+        outer_folds=tuple(map(int, payload["outer_folds"])),
+        discovery_seeds=tuple(map(int, payload["discovery_seeds"])),
+        score_digest=str(payload["score_digest"]),
+        score_rows=int(payload["score_rows"]),
+        selections=_load_outer_recipe_selections(payload["selections"]),
+        ownership_audit_digest=str(payload["ownership_audit_digest"]),
+        outer_test_scores_used=bool(payload["outer_test_scores_used"]),
+        explicitly_nonpromotable=bool(payload["explicitly_nonpromotable"]),
+        confirmation_authorized=bool(payload["confirmation_authorized"]),
+        contract_amendment_authorized=bool(payload["contract_amendment_authorized"]),
+        artifact_digest=str(payload["artifact_digest"]),
+    )
+
+
+def verify_arousal_event_first_selection_artifact(
+    artifact: DevelopmentDiscoverySelectionArtifact,
+    plan: discovery.NestedDiscoveryPlan,
+) -> None:
+    expected_selection_keys = {
+        (AROUSAL_EVENT_TARGET, AROUSAL_EVENT_PROTOCOL, outer.outer_fold)
+        for outer in plan.outer_folds
+    }
+    observed_selection_keys = {
+        (item.target, item.protocol, item.outer_fold) for item in artifact.selections
+    }
+    recipe_names = {recipe.name for recipe in plan.recipes}
+    expected_recipe_rows = len(plan.discovery_seeds) * plan.inner_fold_count
+    checks = {
+        "schema": artifact.schema_version == DEVELOPMENT_SELECTION_SCHEMA_VERSION,
+        "plan": artifact.plan_digest == plan.digest,
+        "scope": artifact.discovery_scope == DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST,
+        "target": artifact.target == AROUSAL_EVENT_TARGET,
+        "protocol": artifact.protocol == AROUSAL_EVENT_PROTOCOL,
+        "outer_folds": artifact.outer_folds
+        == tuple(outer.outer_fold for outer in plan.outer_folds),
+        "seeds": artifact.discovery_seeds == tuple(plan.discovery_seeds),
+        "row_count": artifact.score_rows
+        == len(arousal_event_first_expected_score_keys(plan)),
+        "selection_keys": observed_selection_keys == expected_selection_keys,
+        "leaderboards": all(
+            {entry.recipe for entry in item.leaderboard} == recipe_names
+            and len(item.leaderboard) == len(recipe_names)
+            and all(entry.score_rows == expected_recipe_rows for entry in item.leaderboard)
+            and item.selected_recipe == item.leaderboard[0].recipe
+            for item in artifact.selections
+        ),
+        "inner_only": artifact.outer_test_scores_used is False
+        and all(not item.outer_test_scores_used for item in artifact.selections),
+        "nonpromotable": artifact.explicitly_nonpromotable is True,
+        "no_confirmation": artifact.confirmation_authorized is False,
+        "no_contract_amendment": artifact.contract_amendment_authorized is False,
+        "ownership": artifact.ownership_audit_digest
+        == discovery.audit_nested_ownership(plan).digest,
+        "digest": artifact.artifact_digest
+        == canonical_digest(artifact.manifest(include_digest=False)),
+    }
+    failed = [name for name, passed in checks.items() if not passed]
+    if failed:
+        raise EndStateRunError(
+            f"arousal-event-first selection artifact failed verification: {failed}"
+        )
+
+
+def load_and_verify_arousal_event_first_selection(
+    output_root: Path,
+    plan: discovery.NestedDiscoveryPlan,
+) -> DevelopmentDiscoverySelectionArtifact:
+    selection_path = _development_selection_path(output_root)
+    score_path = _development_score_rows_path(output_root)
+    if not selection_path.is_file() or not score_path.is_file():
+        raise EndStateRunError(
+            "bounded arousal-event discovery selection or score rows are missing"
+        )
+    artifact = _load_arousal_event_first_selection_artifact(selection_path)
+    verify_arousal_event_first_selection_artifact(artifact, plan)
+    rows = _load_discovery_score_rows(score_path)
+    audit, normalized = audit_arousal_event_first_score_matrix(plan, rows)
+    if not audit["passed"] or audit["score_digest"] != artifact.score_digest:
+        raise EndStateRunError("bounded arousal-event score provenance failed verification")
+    if select_arousal_event_first_recipes(plan, normalized) != artifact:
+        raise EndStateRunError("bounded arousal-event selection is not reproducible")
+    return artifact
+
+
 def load_and_verify_selection(
     output_root: Path, plan: discovery.NestedDiscoveryPlan
 ) -> discovery.DiscoverySelectionArtifact:
@@ -1833,36 +2369,57 @@ def run_discovery_stage(
     API avoids silently falling back to historical AGAIN training code.
     """
 
+    discovery_scope = str(
+        getattr(args, "discovery_scope", DISCOVERY_SCOPE_FULL)
+    )
+    bounded_event_first = discovery_scope == DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST
     selection_path = (
-        _smoke_selection_path(args.output_root)
-        if args.smoke
-        else _selection_path(args.output_root)
+        _development_selection_path(args.output_root)
+        if bounded_event_first
+        else (
+            _smoke_selection_path(args.output_root)
+            if args.smoke
+            else _selection_path(args.output_root)
+        )
     )
     if selection_path.exists():
         artifact = (
-            load_and_verify_smoke_selection(args.output_root, plan)
-            if args.smoke
-            else load_and_verify_selection(args.output_root, plan)
+            load_and_verify_arousal_event_first_selection(args.output_root, plan)
+            if bounded_event_first
+            else (
+                load_and_verify_smoke_selection(args.output_root, plan)
+                if args.smoke
+                else load_and_verify_selection(args.output_root, plan)
+            )
         )
         return {
             "status": "complete",
             "resumed": True,
+            "discovery_scope": discovery_scope,
             "selection_digest": artifact.artifact_digest,
             "score_rows": artifact.score_rows,
-            "explicitly_nonpromotable": bool(args.smoke),
+            "outer_test_scores_used": False,
+            "confirmation_authorized": not (bounded_event_first or args.smoke),
+            "explicitly_nonpromotable": bool(bounded_event_first or args.smoke),
         }
     if args.audit_only:
         raise EndStateRunError("cannot audit discovery before its selection artifact exists")
     if args.dry_run:
         return {
             "status": "planned",
+            "discovery_scope": discovery_scope,
             "expected_score_rows": (
-                len(smoke_expected_score_keys(plan))
-                if args.smoke
-                else discovery_expected_rows(plan)
+                len(arousal_event_first_expected_score_keys(plan))
+                if bounded_event_first
+                else (
+                    len(smoke_expected_score_keys(plan))
+                    if args.smoke
+                    else discovery_expected_rows(plan)
+                )
             ),
             "outer_test_scores_used": False,
-            "explicitly_nonpromotable": bool(args.smoke),
+            "confirmation_authorized": not (bounded_event_first or args.smoke),
+            "explicitly_nonpromotable": bool(bounded_event_first or args.smoke),
         }
     if dataset is None:
         raise EndStateRunError("numerical discovery requires the materialized dense dataset")
@@ -1886,7 +2443,15 @@ def run_discovery_stage(
         pca_slice_policy="leading_components_only",
         serial=True,
     )
-    if args.smoke:
+    if bounded_event_first:
+        audit, normalized = audit_arousal_event_first_score_matrix(plan, score_rows)
+        if not audit["passed"]:
+            raise EndStateRunError(
+                "arousal-event-first discovery returned an invalid score matrix"
+            )
+        artifact = select_arousal_event_first_recipes(plan, normalized)
+        score_path = _development_score_rows_path(args.output_root)
+    elif args.smoke:
         audit, normalized = audit_smoke_score_matrix(plan, score_rows)
         if not audit["passed"]:
             raise EndStateRunError("numerical smoke discovery returned an invalid score matrix")
@@ -1903,9 +2468,12 @@ def run_discovery_stage(
     return {
         "status": "complete",
         "resumed": False,
+        "discovery_scope": discovery_scope,
         "selection_digest": artifact.artifact_digest,
         "score_rows": artifact.score_rows,
-        "explicitly_nonpromotable": bool(args.smoke),
+        "outer_test_scores_used": False,
+        "confirmation_authorized": not (bounded_event_first or args.smoke),
+        "explicitly_nonpromotable": bool(bounded_event_first or args.smoke),
     }
 
 
@@ -2307,6 +2875,9 @@ def run(args: argparse.Namespace) -> Mapping[str, Any]:
         "schema_version": RUN_SCHEMA_VERSION,
         "run_identity_digest": identity.digest,
         "stage_requested": args.stage,
+        "discovery_scope": str(
+            getattr(args, "discovery_scope", DISCOVERY_SCOPE_FULL)
+        ),
         "smoke": bool(args.smoke),
         "promotable": promotable,
         "canonical_gates_passed": canonical_gates_passed,
@@ -2335,8 +2906,14 @@ if __name__ == "__main__":
 
 
 __all__ = [
+    "AROUSAL_EVENT_PROTOCOL",
+    "AROUSAL_EVENT_TARGET",
     "DISCOVERY_PROTOCOLS",
+    "DISCOVERY_SCOPES",
+    "DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST",
+    "DISCOVERY_SCOPE_FULL",
     "DatasetSeal",
+    "DevelopmentDiscoverySelectionArtifact",
     "EndStateRunError",
     "FINAL_EXPORT_SCHEMA_VERSION",
     "GlobalRecipeSelection",
@@ -2350,6 +2927,8 @@ __all__ = [
     "STAGES",
     "assert_no_outer_leakage",
     "assert_zero_label_schema",
+    "arousal_event_first_expected_score_keys",
+    "audit_arousal_event_first_score_matrix",
     "audit_confirmation_matrix",
     "audit_final_export_contract",
     "build_confirmation_matrix",
@@ -2367,11 +2946,13 @@ __all__ = [
     "pca_slice_manifest",
     "prediction_path",
     "scientific_settings",
+    "select_arousal_event_first_recipes",
     "seal_prediction_shard",
     "select_global_recipes",
     "synthetic_dataset_seal",
     "validate_cli_args",
     "validate_dataset_seal",
+    "verify_arousal_event_first_selection_artifact",
     "verify_prediction_shard",
     "write_or_verify_run_identity",
 ]

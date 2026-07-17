@@ -329,7 +329,9 @@ def _training_kwargs(args: Any) -> dict[str, Any]:
     return {
         "batch_size": int(args.batch_size),
         "max_epochs": int(args.max_epochs),
+        "min_epochs": int(args.min_epochs),
         "patience": int(args.patience),
+        "selection_min_delta": float(args.selection_min_delta),
         "learning_rate": float(args.learning_rate),
         "weight_decay": float(args.weight_decay),
     }
@@ -682,7 +684,7 @@ def execute_nested_discovery(
     pca_slice_policy: str,
     serial: bool,
 ) -> Sequence[discovery.DiscoveryScoreRow]:
-    """Execute the exact nested matrix, or its explicitly bounded smoke slice."""
+    """Execute the exact nested matrix, smoke slice, or locked event-first tranche."""
 
     _require_executor_contract(
         serial=serial,
@@ -693,9 +695,16 @@ def execute_nested_discovery(
         raise Veatic21ExecutionError("nested discovery requires the validated dense dataset")
     modeling = _modeling()
     modeling.require_mlx_gpu()
-    target_names = plan.targets[:1] if bool(args.smoke) else plan.targets
+    discovery_scope = str(getattr(args, "discovery_scope", "full"))
+    event_first = discovery_scope == "arousal_event_first"
+    if event_first and plan.targets[0] != "future_arousal_max_delta_rows_4_10":
+        raise Veatic21ExecutionError("event-first discovery target contract drifted")
+    target_names = plan.targets[:1] if bool(args.smoke) or event_first else plan.targets
     outer_folds = plan.outer_folds[:1] if bool(args.smoke) else plan.outer_folds
     seeds = plan.discovery_seeds[:1] if bool(args.smoke) else plan.discovery_seeds
+    protocols = (
+        (discovery.PRIVILEGED_BINARY,) if event_first else plan.protocols
+    )
     score_rows: list[discovery.DiscoveryScoreRow] = []
 
     for target_name in target_names:
@@ -728,7 +737,7 @@ def execute_nested_discovery(
                         all_target_valid[prepared.test_rows]
                         & dataset.quality_valid[prepared.test_rows]
                     )
-                    for protocol in plan.protocols:
+                    for protocol in protocols:
                         objective = (
                             modeling.BINARY
                             if protocol == discovery.PRIVILEGED_BINARY

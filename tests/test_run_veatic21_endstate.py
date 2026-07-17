@@ -64,6 +64,10 @@ def test_cli_contract_and_full_dry_run(
     assert args.stage == "all"
     assert args.dry_run is True
     assert args.smoke is False
+    assert args.max_epochs == 5_000
+    assert args.min_epochs == 50
+    assert args.patience == 100
+    assert args.batch_size == 1_024
 
     report = compact.Veatic21ValidationReport(
         status="pass",
@@ -92,6 +96,25 @@ def test_cli_contract_and_full_dry_run(
     manifest = json.loads((args.output_root / "run_manifest.json").read_text())
     assert manifest["confirmation_expected_rows"] == 3920
     assert manifest["discovery_expected_rows"] == 3240
+
+
+def test_cli_training_depth_contract_fails_closed(tmp_path: Path) -> None:
+    args = _args(tmp_path, stage="discovery")
+    args.min_epochs = 0
+    with pytest.raises(runner.EndStateRunError, match="min-epochs"):
+        runner.validate_cli_args(args)
+
+    args.min_epochs = 50
+    args.max_epochs = 100
+    args.patience = 51
+    with pytest.raises(runner.EndStateRunError, match=r"min-epochs \+ patience"):
+        runner.validate_cli_args(args)
+
+    args.max_epochs = 5_000
+    args.patience = 100
+    args.selection_min_delta = -1.0
+    with pytest.raises(runner.EndStateRunError, match="selection-min-delta"):
+        runner.validate_cli_args(args)
 
 
 def test_all_124_have_five_outer_and_three_inner_folds_with_no_reserve(
@@ -369,6 +392,146 @@ def _measured_smoke_rows(
                     )
                 )
     return tuple(rows)
+
+
+def _measured_arousal_event_first_rows(
+    plan: discovery.NestedDiscoveryPlan,
+) -> tuple[discovery.DiscoveryScoreRow, ...]:
+    rows: list[discovery.DiscoveryScoreRow] = []
+    for outer in plan.outer_folds:
+        for recipe in plan.recipes:
+            quality = 1.0 - recipe.order * 0.01 + outer.outer_fold * 0.0001
+            for inner in outer.inner_folds:
+                for seed in plan.discovery_seeds:
+                    rows.append(
+                        discovery.make_discovery_score_row(
+                            plan,
+                            target=runner.AROUSAL_EVENT_TARGET,
+                            protocol=runner.AROUSAL_EVENT_PROTOCOL,
+                            outer_fold=outer.outer_fold,
+                            recipe=recipe.name,
+                            inner_fold=inner.fold,
+                            seed=seed,
+                            metrics={discovery.TRAIN_Q90_PR_AUC: quality},
+                        )
+                    )
+    return tuple(rows)
+
+
+def test_arousal_event_first_scope_is_exactly_270_and_identity_reusable(
+    tmp_path: Path,
+    seal: runner.DatasetSeal,
+    plan: discovery.NestedDiscoveryPlan,
+) -> None:
+    args = _args(tmp_path, stage="discovery")
+    full_identity = runner.build_run_identity(args=args, seal=seal, plan=plan)
+    args.discovery_scope = runner.DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST
+    runner.validate_cli_args(args)
+    scoped_identity = runner.build_run_identity(args=args, seal=seal, plan=plan)
+    assert scoped_identity == full_identity
+    assert len(runner.arousal_event_first_expected_score_keys(plan)) == 270
+
+    planned = runner.run_discovery_stage(
+        args=args,
+        plan=plan,
+        identity=scoped_identity,
+        dataset=None,
+    )
+    assert planned == {
+        "status": "planned",
+        "discovery_scope": runner.DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST,
+        "expected_score_rows": 270,
+        "outer_test_scores_used": False,
+        "confirmation_authorized": False,
+        "explicitly_nonpromotable": True,
+    }
+
+
+def test_arousal_event_first_scope_rejects_stage_expansion_and_smoke(
+    tmp_path: Path,
+) -> None:
+    args = _args(tmp_path, stage="all")
+    args.discovery_scope = runner.DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST
+    with pytest.raises(runner.EndStateRunError, match="requires --stage discovery"):
+        runner.validate_cli_args(args)
+
+    args.stage = "discovery"
+    args.smoke = True
+    with pytest.raises(runner.EndStateRunError, match="mutually exclusive"):
+        runner.validate_cli_args(args)
+
+
+def test_arousal_event_first_artifact_is_restart_safe_and_cannot_confirm(
+    tmp_path: Path,
+    plan: discovery.NestedDiscoveryPlan,
+) -> None:
+    rows = _measured_arousal_event_first_rows(plan)
+    audit, normalized = runner.audit_arousal_event_first_score_matrix(plan, rows)
+    assert audit["passed"] is True
+    assert audit["expected_rows"] == audit["observed_rows"] == 270
+    missing_audit, _ = runner.audit_arousal_event_first_score_matrix(plan, rows[:-1])
+    assert missing_audit["passed"] is False
+    assert len(missing_audit["missing_keys"]) == 1
+
+    artifact = runner.select_arousal_event_first_recipes(plan, normalized)
+    runner.verify_arousal_event_first_selection_artifact(artifact, plan)
+    assert artifact.score_rows == 270
+    assert len(artifact.selections) == 5
+    assert artifact.outer_test_scores_used is False
+    assert artifact.explicitly_nonpromotable is True
+    assert artifact.confirmation_authorized is False
+    assert artifact.contract_amendment_authorized is False
+    with pytest.raises(runner.EndStateRunError, match="cannot authorize confirmation"):
+        runner.build_confirmation_matrix(artifact, plan)
+
+    runner.atomic_json(runner._development_score_rows_path(tmp_path), [
+        row.manifest() for row in normalized
+    ])
+    runner.atomic_json(runner._development_selection_path(tmp_path), artifact.manifest())
+    loaded = runner.load_and_verify_arousal_event_first_selection(tmp_path, plan)
+    assert loaded == artifact
+
+
+def test_numerical_arousal_event_first_stage_writes_only_development_selection(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    seal: runner.DatasetSeal,
+    plan: discovery.NestedDiscoveryPlan,
+) -> None:
+    args = _args(tmp_path, stage="discovery", dry_run=False)
+    args.discovery_scope = runner.DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST
+    identity = runner.build_run_identity(args=args, seal=seal, plan=plan)
+    rows = _measured_arousal_event_first_rows(plan)
+
+    from backend.scripts import veatic21_modeling as modeling
+
+    def fake_executor(**kwargs):
+        assert kwargs["args"].discovery_scope == runner.DISCOVERY_SCOPE_AROUSAL_EVENT_FIRST
+        assert kwargs["serial"] is True
+        return rows
+
+    monkeypatch.setattr(modeling, "execute_veatic21_nested_discovery", fake_executor)
+    result = runner.run_discovery_stage(
+        args=args,
+        plan=plan,
+        identity=identity,
+        dataset=object(),
+    )
+    assert result["status"] == "complete"
+    assert result["resumed"] is False
+    assert result["score_rows"] == 270
+    assert result["confirmation_authorized"] is False
+    assert runner._development_selection_path(tmp_path / "output").is_file()
+    assert not runner._selection_path(tmp_path / "output").exists()
+
+    resumed = runner.run_discovery_stage(
+        args=args,
+        plan=plan,
+        identity=identity,
+        dataset=None,
+    )
+    assert resumed["resumed"] is True
+    assert resumed["score_rows"] == 270
 
 
 def test_measured_smoke_selection_is_separate_and_nonpromotable(

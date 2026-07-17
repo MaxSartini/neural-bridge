@@ -9,7 +9,7 @@ The newest result is the locked zero-label deployment win. The fixed direct-supe
 
 Phase 7 remains the observed-arousal-assisted research ceiling. Its fresh grouped continuous checkpoint ensemble passed `420/420` with failed gates `[]`, `15/15` fold-group wins, and `5/5` positive fold means versus target-specific AR and matched controls on Spearman and top-5% lift.
 
-No VEATIC 2.1 retraining result is promoted yet. The new VEATIC work described below is a validated execution foundation and real-cache dry plan, not a completed discovery or confirmation result.
+No VEATIC 2.1 retraining result is promoted yet. The first bounded arousal-event inner-discovery tranche is now complete, but it is development evidence only and did not robustly crack AR. Outer-test confirmation remains closed.
 
 - Spearman real / AR / best control: `0.2603011121` / `0.2405371348` / `0.2402523335`.
 - Top-5% lift real / AR / best control: `0.0975979581` / `0.0895663763` / `0.0897088493`.
@@ -32,8 +32,9 @@ Current files and executable evidence override historical memory:
 - `docs/current_project_state.md`
 - `docs/current_claim_status.json`
 - `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`
+- `reports/veatic21_arousal_event_first_six_recipe_inner_discovery_20260717.md`
 
-Current change validation is green except for an unrelated pre-existing repository-readiness audit: `381 passed, 1 skipped`, Python compilation passed, the strict VEATIC benchmark dry run passed, and the frontend production build passed. `npm run verify` stops before those stages because three unchanged tools still contain machine-specific SSD defaults: `tools/benchmark_veatic_vjepa21_only_one_video.py`, `tools/compare_again_vjepa21_compact_one_video.py`, and `tools/run_single_video_neural_bridge_mlx.py`.
+Current change validation is green. `npm run verify` passed the readiness audit with `526` controlled evidence items, Python compilation, `390` tests with one skip, the strict VEATIC benchmark dry run, and the frontend production build.
 
 Both codebase-memory projects are ready: internal repo and external SSD heavy-artifact workspace.
 
@@ -86,12 +87,20 @@ The full-checksum, real-cache, one-target/one-outer-fold/one-seed smoke complete
 
 These smoke scores and one-epoch recipe choices are engineering checks only. They are not VEATIC performance evidence, do not freeze a canonical recipe, and do not authorize any claim update. Canonical training has not started.
 
-Repository verification after the executor integration passed on 2026-07-17: readiness passed with `526` controlled evidence items, the deterministic suite passed `386` tests with one skip, the strict-benchmark dry run passed, and the frontend production build passed.
+### Arousal event-first inner discovery
+
+The first real-cache event-first discovery tranche completed and independently resumed/audited on 2026-07-17 at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_endstate_20260717`. It used the shared scientific run identity `38ef99d8d164930c7bf151018dff6f1205762e46147d9661ee1ec547375f93b8`, scored exactly `270/270` inner-validation rows, used no outer-test scores, is explicitly nonpromotable, and cannot authorize confirmation. Its reusable PCA and other derived artifacts live at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_endstate_shared_derived_20260717`.
+
+All `5/5` per-outer selections chose a short temporal convolution. Temporal-mean won `3/5`, delta won `2/5`, PCA-64 won `3/5`, and PCA-256 won `2/5`; neither MLP won. The global fixed leader was `temporal_mean_2s_pca64_short_conv` at `0.2979001001` mean PR-AUC versus matched frozen AR `0.2984364723`, a delta of `-0.0005363722`, positive only `19/45`. The optimistically per-outer-selected panel reached `0.2996794050`, `+0.0012429328` over AR, but was positive only `21/45` with a paired median delta effectively zero. It is selection-set performance, not a fresh validation estimate.
+
+Training dynamics expose a protocol defect: `116/270` checkpoints selected the epoch-80 cap, `67/270` selected epoch 1, and effective residual scale stayed near initialization at roughly `0.00234`–`0.00243` against a `0.12` cap. With batch size 8,192, 80 epochs supplied only roughly 160 optimizer updates on a typical inner training set, and binary checkpoints were selected by validation BCE rather than the registered PR-AUC endpoint. The first scores are therefore a useful under-training diagnostic, not a fair final verdict on the six recipes. Do not open outer confirmation or transfer into continuous yet. The exact report is `reports/veatic21_arousal_event_first_six_recipe_inner_discovery_20260717.md`.
+
+Repository verification after the scoped artifact integration passed on 2026-07-17: readiness passed with `526` controlled evidence items, the deterministic suite passed `390` tests with one skip, the strict-benchmark dry run passed, and the frontend production build passed.
 
 Next actions, in order:
 
-1. Before canonical execution, preregister the sequential inner-only discovery ladder. The existing six-recipe grid is a bounded baseline selection matrix, not proof that it contains the best method. Any added event-first, transfer, or shared/multitask recipe must change the contract and plan digest before outer-test predictions are opened.
-2. Crack the privileged arousal train-q90 spike/event endpoint first using inner-validation data only. Treat the resulting target geometry, feature family, temporal head, loss/weighting, and checkpoint behavior as bounded development evidence—not as an outer-test win.
+1. Rerun all six recipes inner-only under the corrected depth protocol: 5,000-epoch runaway-only ceiling, minimum 50 checkpoint-eligible epochs, patience 100, batch size 1,024, and binary checkpoint selection by inner-validation PR-AUC. Reuse compatible PCA/features, but retrain AR and heads under the new settings/model identity.
+2. Require a fixed arousal-event method to beat matched frozen AR broadly across inner fold-seed cells before transferring it. If corrected depth still leaves the residual scale nearly closed, preregister a separate gating/optimization branch. Treat all such work as bounded development evidence—not an outer-test win.
 3. Transfer the event-stage mechanism into continuous arousal development and determine on inner folds whether the same method carries over or a separate continuous recipe is better. Do not force a shared winner.
 4. Adapt the strongest proven mechanism to valence rise, valence drop, absolute movement, and derived direction. A shared or multitask candidate is allowed only as an explicit inner-discovery recipe and must beat endpoint-specific alternatives without weakening them.
 5. Freeze target/protocol-specific methods, then run and report privileged outer-test confirmation with exact grouped continuous/event gates, valence direction, contribution caps, ensemble uplift, and whole-video bootstrap. Promote only completed executable evidence.

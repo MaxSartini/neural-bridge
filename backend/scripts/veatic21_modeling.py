@@ -19,11 +19,12 @@ from pathlib import Path
 from typing import Any, Mapping, Sequence
 
 import numpy as np
+from sklearn.metrics import average_precision_score
 
 from backend.scripts import run_again_dense_2hz_phase5_learned_heads as mlx_base
 
 
-SCHEMA_VERSION = "veatic21_mlx_modeling_v1"
+SCHEMA_VERSION = "veatic21_mlx_modeling_v2"
 WINDOW_ROWS = 5
 ALLOWED_PCA_WIDTHS = (64, 128, 256)
 VIDEO_HEADS = (
@@ -40,6 +41,11 @@ DEFAULT_HIDDEN = 64
 DEFAULT_LEARNING_RATE = 2e-4
 DEFAULT_WEIGHT_DECAY = 1e-4
 DEFAULT_GRAD_CLIP = 1.0
+DEFAULT_MAX_EPOCHS = 5_000
+DEFAULT_MIN_EPOCHS = 50
+DEFAULT_PATIENCE = 100
+DEFAULT_BATCH_SIZE = 1_024
+DEFAULT_SELECTION_MIN_DELTA = 1e-6
 DEFAULT_RESIDUAL_ALPHA_CAP = 0.12
 DEFAULT_RESIDUAL_ALPHA_INITIAL_LOGIT = -4.0
 DEFAULT_RESIDUAL_GATE_BIAS = 4.0
@@ -144,6 +150,9 @@ class ModelResult:
     artifact_digest: str
     best_epoch: int
     best_validation_loss: float
+    selection_metric: str
+    best_selection_value: float
+    optimizer_steps: int
     curves: tuple[Mapping[str, Any], ...]
     cache_hit: bool
     device: str
@@ -354,6 +363,18 @@ def _numpy_loss(objective: str, prediction: np.ndarray, target: np.ndarray) -> f
     return float(np.mean(np.maximum(logits, 0.0) - logits * labels + np.log1p(np.exp(-np.abs(logits)))))
 
 
+def _binary_pr_auc(logits: np.ndarray, target: np.ndarray) -> float:
+    labels = np.asarray(target, dtype=np.float32)
+    if labels.ndim != 1 or len(labels) < 2 or np.unique(labels).size != 2:
+        raise Veatic21ModelingError(
+            "binary PR-AUC checkpoint selection requires both validation classes"
+        )
+    value = float(average_precision_score(labels, _sigmoid(np.asarray(logits))))
+    if not math.isfinite(value):
+        raise Veatic21ModelingError("binary PR-AUC checkpoint selection was non-finite")
+    return value
+
+
 def _sigmoid(values: np.ndarray) -> np.ndarray:
     x = np.asarray(values, dtype=np.float64)
     out = np.empty_like(x)
@@ -374,13 +395,23 @@ def _train_loop(
     validation_rows: np.ndarray | None,
     seed: int,
     epochs: int,
+    min_epochs: int,
     patience: int | None,
     batch_size: int,
     checkpoint_path: Path,
     learning_rate: float,
     weight_decay: float,
     grad_clip: float,
-) -> tuple[Veatic21ScalarHead, tuple[Mapping[str, Any], ...], int, float]:
+    selection_min_delta: float,
+) -> tuple[
+    Veatic21ScalarHead,
+    tuple[Mapping[str, Any], ...],
+    int,
+    float,
+    str,
+    float,
+    int,
+]:
     mlx_base.mx.random.seed(int(seed))
     model = Veatic21ScalarHead(spec)
     optimizer = mlx_base.optim.AdamW(
@@ -404,9 +435,19 @@ def _train_loop(
 
     loss_and_grad = mlx_base.nn.value_and_grad(model, loss_fn)
     checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
+    if int(min_epochs) < 1 or int(min_epochs) > int(epochs):
+        raise Veatic21ModelingError("min_epochs must be in [1, epochs]")
+    if not math.isfinite(selection_min_delta) or float(selection_min_delta) < 0:
+        raise Veatic21ModelingError("selection_min_delta must be finite and non-negative")
+    selection_metric = (
+        "validation_pr_auc" if spec.objective == BINARY else "validation_loss"
+    )
     best_loss = math.inf
+    best_selection_value = -math.inf if spec.objective == BINARY else math.inf
     best_epoch = 0
     stale = 0
+    optimizer_steps = 0
+    best_optimizer_steps = 0
     curves: list[Mapping[str, Any]] = []
     for epoch in range(1, int(epochs) + 1):
         if hasattr(model, "train"):
@@ -433,33 +474,63 @@ def _train_loop(
             optimizer.update(model, gradients)
             mlx_base.mx.eval(loss, model.parameters(), optimizer.state)
             losses.append(float(np.asarray(loss)))
+            optimizer_steps += 1
         if validation_rows is None:
             validation_loss = float(np.mean(losses)) if losses else math.inf
+            selection_value = validation_loss
         else:
             correction = _predict(model, x[validation_rows], batch_size=batch_size)
+            validation_prediction = correction + offset[validation_rows]
             validation_loss = _numpy_loss(
                 spec.objective,
-                correction + offset[validation_rows],
+                validation_prediction,
                 target[validation_rows],
+            )
+            selection_value = (
+                _binary_pr_auc(validation_prediction, target[validation_rows])
+                if spec.objective == BINARY
+                else validation_loss
             )
         curves.append(
             {
                 "epoch": epoch,
+                "optimizer_steps": optimizer_steps,
                 "train_loss": float(np.mean(losses)) if losses else math.nan,
                 "validation_loss": validation_loss,
+                "selection_metric": selection_metric,
+                "selection_value": selection_value,
+                "checkpoint_eligible": validation_rows is None
+                or epoch >= int(min_epochs),
             }
         )
         if validation_rows is None:
             best_epoch = epoch
             best_loss = validation_loss
-        elif math.isfinite(validation_loss) and validation_loss < best_loss:
-            model.save_weights(str(checkpoint_path))
-            best_epoch = epoch
-            best_loss = validation_loss
-            stale = 0
-        else:
-            stale += 1
-        if validation_rows is not None and patience is not None and stale >= int(patience):
+            best_selection_value = selection_value
+            best_optimizer_steps = optimizer_steps
+        elif epoch >= int(min_epochs):
+            improved = (
+                selection_value
+                > best_selection_value + float(selection_min_delta)
+                if spec.objective == BINARY
+                else selection_value
+                < best_selection_value - float(selection_min_delta)
+            )
+            if math.isfinite(selection_value) and improved:
+                model.save_weights(str(checkpoint_path))
+                best_epoch = epoch
+                best_loss = validation_loss
+                best_selection_value = selection_value
+                best_optimizer_steps = optimizer_steps
+                stale = 0
+            else:
+                stale += 1
+        if (
+            validation_rows is not None
+            and epoch >= int(min_epochs)
+            and patience is not None
+            and stale >= int(patience)
+        ):
             break
     if validation_rows is None:
         model.save_weights(str(checkpoint_path))
@@ -470,7 +541,15 @@ def _train_loop(
     restored.load_weights(str(checkpoint_path))
     if hasattr(restored, "eval"):
         restored.eval()
-    return restored, tuple(curves), int(best_epoch), float(best_loss)
+    return (
+        restored,
+        tuple(curves),
+        int(best_epoch),
+        float(best_loss),
+        selection_metric,
+        float(best_selection_value),
+        int(best_optimizer_steps),
+    )
 
 
 def _paths(checkpoint_path: Path) -> tuple[Path, Path]:
@@ -497,9 +576,11 @@ def train_scalar_model(
     frozen_train_offset: np.ndarray | None = None,
     frozen_test_offset: np.ndarray | None = None,
     refit_after_selection: bool = False,
-    batch_size: int = 8192,
-    max_epochs: int = 80,
-    patience: int = 12,
+    batch_size: int = DEFAULT_BATCH_SIZE,
+    max_epochs: int = DEFAULT_MAX_EPOCHS,
+    min_epochs: int = DEFAULT_MIN_EPOCHS,
+    patience: int = DEFAULT_PATIENCE,
+    selection_min_delta: float = DEFAULT_SELECTION_MIN_DELTA,
     learning_rate: float = DEFAULT_LEARNING_RATE,
     weight_decay: float = DEFAULT_WEIGHT_DECAY,
     grad_clip: float = DEFAULT_GRAD_CLIP,
@@ -507,6 +588,16 @@ def train_scalar_model(
     """Select an epoch on explicit inner ownership and optionally refit all rows."""
 
     device = require_mlx_gpu()
+    if int(max_epochs) < 1:
+        raise Veatic21ModelingError("max_epochs must be positive")
+    if int(min_epochs) < 1 or int(min_epochs) > int(max_epochs):
+        raise Veatic21ModelingError("min_epochs must be in [1, max_epochs]")
+    if int(patience) < 1:
+        raise Veatic21ModelingError("patience must be positive")
+    if not math.isfinite(selection_min_delta) or float(selection_min_delta) < 0:
+        raise Veatic21ModelingError(
+            "selection_min_delta must be finite and non-negative"
+        )
     x_train, x_test, target, mask, train_offset, test_offset = _validate_arrays(
         train_x=train_x,
         test_x=test_x,
@@ -542,7 +633,14 @@ def train_scalar_model(
         "refit_after_selection": bool(refit_after_selection),
         "batch_size": int(batch_size),
         "max_epochs": int(max_epochs),
+        "min_epochs": int(min_epochs),
         "patience": int(patience),
+        "selection_metric": (
+            "validation_pr_auc" if spec.objective == BINARY else "validation_loss"
+        ),
+        "selection_min_delta": float(selection_min_delta),
+        "max_epochs_role": "runaway_fail_safe_only",
+        "early_stopping_controls_training_end": True,
         "learning_rate": float(learning_rate),
         "weight_decay": float(weight_decay),
         "grad_clip": float(grad_clip),
@@ -593,6 +691,9 @@ def train_scalar_model(
             artifact_digest=artifact_digest,
             best_epoch=int(manifest["best_epoch"]),
             best_validation_loss=float(manifest["best_validation_loss"]),
+            selection_metric=str(manifest["selection_metric"]),
+            best_selection_value=float(manifest["best_selection_value"]),
+            optimizer_steps=int(manifest["optimizer_steps"]),
             curves=curves,
             cache_hit=True,
             device=str(manifest["device"]),
@@ -608,7 +709,15 @@ def train_scalar_model(
     selection_checkpoint = Path(checkpoint_path).with_name(
         Path(checkpoint_path).stem + "__selection.npz"
     )
-    _selected, curves, best_epoch, best_loss = _train_loop(
+    (
+        _selected,
+        curves,
+        best_epoch,
+        best_loss,
+        selection_metric,
+        best_selection_value,
+        optimizer_steps,
+    ) = _train_loop(
         spec=spec,
         x=selection_input,
         target=target,
@@ -617,12 +726,14 @@ def train_scalar_model(
         validation_rows=inner_val,
         seed=int(seed),
         epochs=int(max_epochs),
+        min_epochs=int(min_epochs),
         patience=int(patience),
         batch_size=int(batch_size),
         checkpoint_path=selection_checkpoint,
         learning_rate=float(learning_rate),
         weight_decay=float(weight_decay),
         grad_clip=float(grad_clip),
+        selection_min_delta=float(selection_min_delta),
     )
     if refit_after_selection:
         final_state = fit_standardization(x_train, eligible)
@@ -634,7 +745,15 @@ def train_scalar_model(
         model_test = _model_input(
             test_std, test_offset, condition_on_offset=spec.condition_on_frozen_offset
         )
-        model, refit_curves, _refit_epoch, _refit_loss = _train_loop(
+        (
+            model,
+            refit_curves,
+            _refit_epoch,
+            _refit_loss,
+            _refit_selection_metric,
+            _refit_selection_value,
+            _refit_optimizer_steps,
+        ) = _train_loop(
             spec=spec,
             x=model_train,
             target=target,
@@ -643,12 +762,14 @@ def train_scalar_model(
             validation_rows=None,
             seed=int(seed),
             epochs=int(best_epoch),
+            min_epochs=1,
             patience=None,
             batch_size=int(batch_size),
             checkpoint_path=Path(checkpoint_path),
             learning_rate=float(learning_rate),
             weight_decay=float(weight_decay),
             grad_clip=float(grad_clip),
+            selection_min_delta=0.0,
         )
         curves = tuple(curves) + tuple(
             {**row, "phase": "all_outer_train_refit"} for row in refit_curves
@@ -688,6 +809,9 @@ def train_scalar_model(
         "normalization_sha256": file_sha256(normalization_path),
         "best_epoch": int(best_epoch),
         "best_validation_loss": float(best_loss),
+        "selection_metric": selection_metric,
+        "best_selection_value": float(best_selection_value),
+        "optimizer_steps": int(optimizer_steps),
         "curves": list(curves),
         "device": device,
         "eval_mode_restored": True,
@@ -709,6 +833,9 @@ def train_scalar_model(
         artifact_digest=artifact_digest,
         best_epoch=int(best_epoch),
         best_validation_loss=float(best_loss),
+        selection_metric=selection_metric,
+        best_selection_value=float(best_selection_value),
+        optimizer_steps=int(optimizer_steps),
         curves=tuple(curves),
         cache_hit=False,
         device=device,
@@ -823,6 +950,9 @@ def refit_scalar_model_fixed_epochs(
             artifact_digest=artifact_digest,
             best_epoch=int(epochs),
             best_validation_loss=math.nan,
+            selection_metric="fixed_epoch_refit",
+            best_selection_value=math.nan,
+            optimizer_steps=int(manifest["optimizer_steps"]),
             curves=curves,
             cache_hit=True,
             device=str(manifest["device"]),
@@ -833,7 +963,15 @@ def refit_scalar_model_fixed_epochs(
     model_input = _model_input(
         standardized, offset, condition_on_offset=spec.condition_on_frozen_offset
     )
-    model, curves, _last_epoch, _last_loss = _train_loop(
+    (
+        model,
+        curves,
+        _last_epoch,
+        _last_loss,
+        _selection_metric,
+        _selection_value,
+        optimizer_steps,
+    ) = _train_loop(
         spec=spec,
         x=model_input,
         target=target,
@@ -842,12 +980,14 @@ def refit_scalar_model_fixed_epochs(
         validation_rows=None,
         seed=int(seed),
         epochs=int(epochs),
+        min_epochs=1,
         patience=None,
         batch_size=int(batch_size),
         checkpoint_path=Path(checkpoint_path),
         learning_rate=float(learning_rate),
         weight_decay=float(weight_decay),
         grad_clip=float(grad_clip),
+        selection_min_delta=0.0,
     )
     correction = _predict(model, model_input, batch_size=batch_size)
     prediction = correction + offset
@@ -862,6 +1002,9 @@ def refit_scalar_model_fixed_epochs(
         "normalization_sha256": file_sha256(normalization_path),
         "best_epoch": int(epochs),
         "best_validation_loss": None,
+        "selection_metric": "fixed_epoch_refit",
+        "best_selection_value": None,
+        "optimizer_steps": int(optimizer_steps),
         "curves": list(curves),
         "device": device,
         "eval_mode_restored": True,
@@ -884,6 +1027,9 @@ def refit_scalar_model_fixed_epochs(
         artifact_digest=artifact_digest,
         best_epoch=int(epochs),
         best_validation_loss=math.nan,
+        selection_metric="fixed_epoch_refit",
+        best_selection_value=math.nan,
+        optimizer_steps=int(optimizer_steps),
         curves=tuple(curves),
         cache_hit=False,
         device=device,

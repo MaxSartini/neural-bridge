@@ -77,6 +77,7 @@ def test_continuous_training_resume_and_identity(tmp_path) -> None:
         refit_after_selection=True,
         batch_size=32,
         max_epochs=3,
+        min_epochs=2,
         patience=3,
     )
     first = modeling.train_scalar_model(**kwargs)
@@ -84,6 +85,9 @@ def test_continuous_training_resume_and_identity(tmp_path) -> None:
     assert first.train_prediction.shape == (48,)
     assert first.test_prediction.shape == (12,)
     assert first.best_epoch in (1, 2, 3)
+    assert first.best_epoch >= 2
+    assert first.selection_metric == "validation_loss"
+    assert first.optimizer_steps >= 1
     assert np.isfinite(first.train_prediction).all()
     resumed = modeling.train_scalar_model(**kwargs)
     assert resumed.cache_hit is True
@@ -123,10 +127,14 @@ def test_binary_bce_with_frozen_logit_offset(tmp_path) -> None:
         frozen_test_offset=offset_test,
         batch_size=32,
         max_epochs=2,
+        min_epochs=2,
         patience=2,
     )
     assert result.train_probability is not None
     assert result.test_probability is not None
+    assert result.best_epoch == 2
+    assert result.selection_metric == "validation_pr_auc"
+    assert 0.0 <= result.best_selection_value <= 1.0
     assert np.all((result.test_probability >= 0) & (result.test_probability <= 1))
     np.testing.assert_allclose(
         result.train_prediction, result.train_correction + offset_train, atol=1e-6
@@ -152,6 +160,7 @@ def test_overlap_and_offset_contracts_fail_closed(tmp_path) -> None:
         checkpoint_path=tmp_path / "bad.npz",
         artifact_identity={"x": 1},
         max_epochs=1,
+        min_epochs=1,
         patience=1,
     )
     with pytest.raises(modeling.Veatic21ModelingError, match="overlap"):
@@ -297,7 +306,9 @@ def test_all124_executor_bounded_synthetic_smoke_has_no_scores(
         output_root=tmp_path,
         batch_size=512,
         max_epochs=1,
+        min_epochs=1,
         patience=1,
+        selection_min_delta=0.0,
         learning_rate=modeling.DEFAULT_LEARNING_RATE,
         weight_decay=modeling.DEFAULT_WEIGHT_DECAY,
     )
