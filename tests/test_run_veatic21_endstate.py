@@ -203,6 +203,11 @@ def test_zero_label_schema_and_teacher_sealing_order(
         runner.assert_zero_label_schema(("observed_arousal_lag1",))
 
     cells = runner.build_confirmation_matrix(selections, plan)
+    first_zero = next(
+        index for index, cell in enumerate(cells) if cell.endpoint == runner.ZERO_ENDPOINT
+    )
+    assert all(cell.endpoint != runner.ZERO_ENDPOINT for cell in cells[:first_zero])
+    assert all(cell.endpoint == runner.ZERO_ENDPOINT for cell in cells[first_zero:])
     for target in plan.targets:
         for outer in plan.outer_folds:
             zero = [
@@ -330,3 +335,161 @@ def test_smoke_is_noncanonical_but_keeps_all_matched_lanes(
     assert len({cell.lane for cell in cells if cell.endpoint == "privileged_continuous"}) == 7
     assert len({cell.lane for cell in cells if cell.endpoint == "privileged_binary"}) == 7
     assert len({cell.lane for cell in cells if cell.endpoint == runner.ZERO_ENDPOINT}) == 7
+
+
+def _measured_smoke_rows(
+    plan: discovery.NestedDiscoveryPlan,
+) -> tuple[discovery.DiscoveryScoreRow, ...]:
+    target = plan.targets[0]
+    outer = plan.outer_folds[0]
+    seed = plan.discovery_seeds[0]
+    rows: list[discovery.DiscoveryScoreRow] = []
+    for protocol in plan.protocols:
+        for recipe in plan.recipes:
+            quality = 1.0 - recipe.order * 0.01
+            for inner in outer.inner_folds:
+                metrics = (
+                    {
+                        discovery.SPEARMAN: quality,
+                        discovery.TOP5_LIFT: quality / 10.0,
+                    }
+                    if protocol != discovery.PRIVILEGED_BINARY
+                    else {discovery.TRAIN_Q90_PR_AUC: quality}
+                )
+                rows.append(
+                    discovery.make_discovery_score_row(
+                        plan,
+                        target=target,
+                        protocol=protocol,
+                        outer_fold=outer.outer_fold,
+                        recipe=recipe.name,
+                        inner_fold=inner.fold,
+                        seed=seed,
+                        metrics=metrics,
+                    )
+                )
+    return tuple(rows)
+
+
+def test_measured_smoke_selection_is_separate_and_nonpromotable(
+    tmp_path: Path,
+    plan: discovery.NestedDiscoveryPlan,
+) -> None:
+    rows = _measured_smoke_rows(plan)
+    assert len(rows) == len(runner.smoke_expected_score_keys(plan)) == 54
+    artifact = runner.select_smoke_recipes(plan, rows)
+    runner.verify_smoke_selection_artifact(artifact, plan)
+    assert artifact.explicitly_nonpromotable is True
+    assert artifact.score_rows == 54
+    assert len(artifact.selections) == 3
+    cells = runner.build_confirmation_matrix(artifact, plan, smoke=True)
+    assert len(cells) == 42
+    with pytest.raises(runner.EndStateRunError, match="cannot expand a canonical"):
+        runner.build_confirmation_matrix(artifact, plan, smoke=False)
+
+    path = runner._smoke_selection_path(tmp_path)
+    runner.atomic_json(path, artifact.manifest())
+    loaded = runner.load_and_verify_smoke_selection(tmp_path, plan)
+    assert loaded == artifact
+
+
+def test_smoke_all_runs_discovery_and_confirmation_but_never_final(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    args = _args(tmp_path, stage="all", dry_run=False)
+    args.smoke = True
+    report = compact.Veatic21ValidationReport(
+        status="pass",
+        video_ids=tuple(_row_counts()),
+        video_count=124,
+        total_rows=compact.EXPECTED_TOTAL_ROWS,
+        row_hz=2.0,
+        prediction_width=compact.PREDICTION_WIDTH,
+        row_plan_sha256=compact.ROW_PLAN_SHA256,
+        model_sha256=compact.MODEL_SHA256,
+        dataset_fingerprint_sha256="e" * 64,
+        row_counts=_row_counts(),
+    )
+
+    class FakeCache:
+        def validate(self) -> compact.Veatic21ValidationReport:
+            return report
+
+    dataset = object()
+    observed: list[str] = []
+    monkeypatch.setattr(runner, "_canonical_cache", lambda _args: FakeCache())
+    monkeypatch.setattr(runner, "materialize_dense_dataset", lambda **_kwargs: dataset)
+
+    def fake_discovery(**kwargs):
+        assert kwargs["dataset"] is dataset
+        observed.append("discovery")
+        return {"status": "complete", "explicitly_nonpromotable": True}
+
+    def fake_confirmation(**kwargs):
+        assert kwargs["dataset"] is dataset
+        observed.append("confirmation")
+        return {"status": "complete", "canonical_gates_passed": False}
+
+    monkeypatch.setattr(runner, "run_discovery_stage", fake_discovery)
+    monkeypatch.setattr(runner, "run_confirmation_stage", fake_confirmation)
+    monkeypatch.setattr(
+        runner,
+        "run_final_stage",
+        lambda **_kwargs: pytest.fail("smoke must not execute all-124 refit"),
+    )
+    summary = runner.run(args)
+    assert observed == ["discovery", "confirmation"]
+    assert "final" not in summary["results"]
+    assert summary["promotable"] is False
+
+
+def test_best_epoch_provenance_is_sealed_and_resumable(
+    tmp_path: Path,
+    plan: discovery.NestedDiscoveryPlan,
+    selections: discovery.DiscoverySelectionArtifact,
+) -> None:
+    cells = runner.build_confirmation_matrix(selections, plan, smoke=True)
+    real_lanes = {
+        discovery.PRIVILEGED_CONTINUOUS: "real_residual",
+        discovery.PRIVILEGED_BINARY: "real_residual",
+        discovery.ZERO_LABEL_CONTINUOUS: "video_supervised_temporal",
+    }
+    members = [
+        cell
+        for cell in cells
+        if cell.row_kind == runner.MEMBER_KIND and cell.lane == real_lanes[cell.endpoint]
+    ]
+    for cell in members:
+        recipe_order = next(
+            recipe.order for recipe in plan.recipes if recipe.name == cell.recipe
+        )
+        runner.seal_prediction_shard(
+            path=runner.prediction_path(tmp_path, cell),
+            cell=cell,
+            row_indices=np.arange(4),
+            video_ids=np.asarray(["0", "0", "1", "1"]),
+            y_true=np.asarray([0.0, 0.2, 0.4, 0.6]),
+            prediction=np.asarray([0.1, 0.2, 0.3, 0.5]),
+            event_threshold=0.45,
+            checkpoint=None,
+            run_identity_digest="smoke-run",
+            extra_provenance={"best_epoch": 3, "recipe_order": recipe_order},
+        )
+    first = runner.collect_best_epoch_provenance(
+        output_root=tmp_path,
+        cells=cells,
+        run_identity_digest="smoke-run",
+        smoke=True,
+        write=True,
+    )
+    second = runner.collect_best_epoch_provenance(
+        output_root=tmp_path,
+        cells=cells,
+        run_identity_digest="smoke-run",
+        smoke=True,
+        write=False,
+    )
+    assert first == second
+    assert first["explicitly_nonpromotable"] is True
+    assert len(first["rows"]) == 3

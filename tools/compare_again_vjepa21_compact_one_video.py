@@ -8,6 +8,7 @@ import gc
 import hashlib
 import json
 import math
+import os
 import subprocess
 import sys
 import time
@@ -42,7 +43,9 @@ EXPECTED_CORTICAL = 20_484
 
 
 def parse_args() -> argparse.Namespace:
-    external = Path("/Volumes/onn. Drive/Neural Bridge")
+    external = Path(
+        os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(REPO_ROOT))
+    ).expanduser()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--video", type=Path, required=True)
     parser.add_argument("--reference-dense", type=Path, required=True)

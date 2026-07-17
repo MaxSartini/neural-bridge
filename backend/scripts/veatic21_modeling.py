@@ -890,6 +890,30 @@ def refit_scalar_model_fixed_epochs(
     )
 
 
+def execute_veatic21_nested_discovery(**kwargs: Any) -> Sequence[Any]:
+    """Run the locked numerical discovery executor without a legacy fallback."""
+
+    from backend.scripts.veatic21_execution import execute_nested_discovery
+
+    return execute_nested_discovery(**kwargs)
+
+
+def execute_veatic21_confirmation_cell(**kwargs: Any) -> Mapping[str, Any]:
+    """Run one locked confirmation cell and return arrays for runner sealing."""
+
+    from backend.scripts.veatic21_execution import execute_confirmation_cell
+
+    return execute_confirmation_cell(**kwargs)
+
+
+def execute_veatic21_all124_refit(**kwargs: Any) -> Mapping[str, Any]:
+    """Run the fresh all-124 refit executor without scoring training rows."""
+
+    from backend.scripts.veatic21_execution import execute_all124_refit
+
+    return execute_all124_refit(**kwargs)
+
+
 __all__ = [
     "ALLOWED_HEADS",
     "ALLOWED_OBJECTIVES",
@@ -905,6 +929,9 @@ __all__ = [
     "Veatic21ScalarHead",
     "array_digest",
     "canonical_digest",
+    "execute_veatic21_all124_refit",
+    "execute_veatic21_confirmation_cell",
+    "execute_veatic21_nested_discovery",
     "fit_standardization",
     "refit_scalar_model_fixed_epochs",
     "require_mlx_gpu",

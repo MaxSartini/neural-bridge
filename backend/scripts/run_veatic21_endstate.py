@@ -43,6 +43,7 @@ import hashlib
 import json
 import math
 import os
+import statistics
 import sys
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass
@@ -73,6 +74,7 @@ from backend.scripts import run_veatic21_distilled_development as distilled  # n
 RUN_SCHEMA_VERSION = "veatic21_endstate_runner_v1"
 PREDICTION_SCHEMA_VERSION = "veatic21_endstate_prediction_shard_v1"
 FINAL_EXPORT_SCHEMA_VERSION = "veatic21_endstate_all124_export_v1"
+SMOKE_SELECTION_SCHEMA_VERSION = "veatic21_nonpromotable_smoke_selection_v1"
 STAGES = ("discovery", "confirmation", "final", "all")
 DISCOVERY_PROTOCOLS = (
     discovery.PRIVILEGED_CONTINUOUS,
@@ -666,7 +668,7 @@ class MatrixCell:
 
 
 def _selection_recipe(
-    selections: discovery.DiscoverySelectionArtifact,
+    selections: discovery.DiscoverySelectionArtifact | SmokeSelectionArtifact,
     *,
     target: str,
     endpoint: str,
@@ -716,12 +718,17 @@ def _cell(
 
 
 def build_confirmation_matrix(
-    selections: discovery.DiscoverySelectionArtifact,
+    selections: discovery.DiscoverySelectionArtifact | SmokeSelectionArtifact,
     plan: discovery.NestedDiscoveryPlan,
     *,
     smoke: bool = False,
 ) -> tuple[MatrixCell, ...]:
-    discovery.verify_selection_artifact(selections, plan=plan)
+    if isinstance(selections, SmokeSelectionArtifact):
+        if not smoke:
+            raise EndStateRunError("smoke selection cannot expand a canonical matrix")
+        verify_smoke_selection_artifact(selections, plan)
+    else:
+        discovery.verify_selection_artifact(selections, plan=plan)
     targets_to_run = plan.targets[:1] if smoke else plan.targets
     outer_to_run = plan.outer_folds[:1] if smoke else plan.outer_folds
     privileged_seeds = (
@@ -817,6 +824,15 @@ def build_confirmation_matrix(
                             recipe=recipe,
                         )
                     )
+    # Privileged VEATIC is the immediate scientific priority.  Keep every
+    # zero-label cell in the locked matrix, but seal it only after all
+    # privileged continuous and true-BCE cells have completed.
+    endpoint_order = {
+        discovery.PRIVILEGED_CONTINUOUS: 0,
+        discovery.PRIVILEGED_BINARY: 1,
+        discovery.ZERO_LABEL_CONTINUOUS: 2,
+    }
+    cells.sort(key=lambda cell: endpoint_order[cell.endpoint])
     audit_confirmation_matrix(cells, plan=plan, smoke=smoke)
     return tuple(cells)
 
@@ -1395,6 +1411,354 @@ def _score_rows_path(output_root: Path) -> Path:
     return Path(output_root) / "discovery" / "score_rows.json"
 
 
+def _smoke_selection_path(output_root: Path) -> Path:
+    return Path(output_root) / "discovery" / "smoke_selection_artifact.json"
+
+
+def _smoke_score_rows_path(output_root: Path) -> Path:
+    return Path(output_root) / "discovery" / "smoke_score_rows.json"
+
+
+@dataclass(frozen=True)
+class SmokeSelectionArtifact:
+    """Measured one-target/one-fold selection that can never become canonical."""
+
+    schema_version: str
+    plan_digest: str
+    target: str
+    outer_fold: int
+    discovery_seed: int
+    score_digest: str
+    score_rows: int
+    selections: tuple[discovery.OuterRecipeSelection, ...]
+    ownership_audit_digest: str
+    outer_test_scores_used: bool
+    explicitly_nonpromotable: bool
+    artifact_digest: str
+
+    def manifest(self, *, include_digest: bool = True) -> dict[str, Any]:
+        payload = {
+            "schema_version": self.schema_version,
+            "plan_digest": self.plan_digest,
+            "target": self.target,
+            "outer_fold": self.outer_fold,
+            "discovery_seed": self.discovery_seed,
+            "score_digest": self.score_digest,
+            "score_rows": self.score_rows,
+            "selections": [item.manifest() for item in self.selections],
+            "ownership_audit_digest": self.ownership_audit_digest,
+            "outer_test_scores_used": self.outer_test_scores_used,
+            "explicitly_nonpromotable": self.explicitly_nonpromotable,
+        }
+        if include_digest:
+            payload["artifact_digest"] = self.artifact_digest
+        return payload
+
+    def selection(
+        self, target: str, protocol: str, outer_fold: int
+    ) -> discovery.OuterRecipeSelection:
+        key = (str(target), str(protocol), int(outer_fold))
+        for item in self.selections:
+            if (item.target, item.protocol, item.outer_fold) == key:
+                return item
+        raise EndStateRunError(f"no smoke recipe selection for {key}")
+
+
+def smoke_expected_score_keys(
+    plan: discovery.NestedDiscoveryPlan,
+) -> frozenset[tuple[str, str, int, str, int, int]]:
+    target = plan.targets[0]
+    outer = plan.outer_folds[0]
+    seed = plan.discovery_seeds[0]
+    return frozenset(
+        (
+            target,
+            protocol,
+            outer.outer_fold,
+            recipe.name,
+            inner.fold,
+            seed,
+        )
+        for protocol in plan.protocols
+        for recipe in plan.recipes
+        for inner in outer.inner_folds
+    )
+
+
+def audit_smoke_score_matrix(
+    plan: discovery.NestedDiscoveryPlan,
+    score_rows: Iterable[discovery.DiscoveryScoreRow],
+) -> tuple[dict[str, Any], tuple[discovery.DiscoveryScoreRow, ...]]:
+    rows = tuple(sorted(score_rows, key=lambda row: row.key))
+    expected = smoke_expected_score_keys(plan)
+    counts = Counter(row.key for row in rows)
+    observed = set(counts)
+    ownership_failures: list[tuple[str, str, int, str, int, int]] = []
+    metric_failures: list[tuple[str, str, int, str, int, int]] = []
+    for row in rows:
+        if row.key not in expected:
+            continue
+        inner = plan.inner(row.outer_fold, row.inner_fold)
+        if (
+            row.score_scope != discovery.INNER_VALIDATION_SCOPE
+            or row.fit_videos != inner.train_videos
+            or row.validation_videos != inner.validation_videos
+            or row.ownership_digest != inner.digest
+        ):
+            ownership_failures.append(row.key)
+        if not set(discovery.required_metrics(row.protocol)).issubset(row.metric_map()):
+            metric_failures.append(row.key)
+    missing = tuple(sorted(expected - observed))
+    unexpected = tuple(sorted(observed - expected))
+    duplicates = tuple(sorted(key for key, count in counts.items() if count != 1))
+    score_digest = canonical_digest([row.manifest() for row in rows])
+    audit = {
+        "schema_version": "veatic21_nonpromotable_smoke_score_audit_v1",
+        "expected_rows": len(expected),
+        "observed_rows": len(rows),
+        "missing_keys": [list(key) for key in missing],
+        "unexpected_keys": [list(key) for key in unexpected],
+        "duplicate_keys": [list(key) for key in duplicates],
+        "ownership_failures": [list(key) for key in ownership_failures],
+        "metric_failures": [list(key) for key in metric_failures],
+        "score_digest": score_digest,
+        "explicitly_nonpromotable": True,
+        "passed": not (
+            missing
+            or unexpected
+            or duplicates
+            or ownership_failures
+            or metric_failures
+        ),
+    }
+    return audit, rows
+
+
+def _smoke_recipe_aggregate(
+    *,
+    recipe: discovery.RecipeSpec,
+    protocol: str,
+    rows: Sequence[discovery.DiscoveryScoreRow],
+    inner_folds: Sequence[int],
+) -> discovery.RecipeAggregate:
+    values: list[discovery.AggregateValue] = []
+    for metric in discovery.required_metrics(protocol):
+        vector = [float(row.metric_map()[metric]) for row in rows]
+        fold_means = [
+            float(
+                np.mean(
+                    [
+                        row.metric_map()[metric]
+                        for row in rows
+                        if row.inner_fold == inner_fold
+                    ]
+                )
+            )
+            for inner_fold in inner_folds
+        ]
+        values.extend(
+            (
+                discovery.AggregateValue(f"mean_{metric}", round(float(np.mean(vector)), 12)),
+                discovery.AggregateValue(
+                    f"median_{metric}", round(float(statistics.median(vector)), 12)
+                ),
+                discovery.AggregateValue(
+                    f"worst_inner_fold_mean_{metric}", round(min(fold_means), 12)
+                ),
+            )
+        )
+    payload = {
+        "recipe": recipe.name,
+        "recipe_order": recipe.order,
+        "complexity_score": recipe.complexity_score,
+        "score_rows": len(rows),
+        "rank_values": [asdict(value) for value in values],
+        "input_rows": [row.manifest() for row in rows],
+        "smoke_only": True,
+    }
+    return discovery.RecipeAggregate(
+        recipe=recipe.name,
+        recipe_order=recipe.order,
+        complexity_score=recipe.complexity_score,
+        score_rows=len(rows),
+        rank_values=tuple(values),
+        aggregate_digest=canonical_digest(payload),
+    )
+
+
+def select_smoke_recipes(
+    plan: discovery.NestedDiscoveryPlan,
+    score_rows: Iterable[discovery.DiscoveryScoreRow],
+) -> SmokeSelectionArtifact:
+    audit, rows = audit_smoke_score_matrix(plan, score_rows)
+    if not audit["passed"]:
+        raise EndStateRunError("numerical smoke discovery returned an invalid score matrix")
+    target = plan.targets[0]
+    outer = plan.outer_folds[0]
+    selections: list[discovery.OuterRecipeSelection] = []
+    for protocol in plan.protocols:
+        subset = tuple(row for row in rows if row.protocol == protocol)
+        leaderboard = tuple(
+            sorted(
+                (
+                    _smoke_recipe_aggregate(
+                        recipe=recipe,
+                        protocol=protocol,
+                        rows=tuple(row for row in subset if row.recipe == recipe.name),
+                        inner_folds=tuple(inner.fold for inner in outer.inner_folds),
+                    )
+                    for recipe in plan.recipes
+                ),
+                key=lambda item: tuple(-value for value in item.rank_vector())
+                + (item.complexity_score, item.recipe_order, item.recipe),
+            )
+        )
+        input_digest = canonical_digest([row.manifest() for row in subset])
+        selection_payload = {
+            "target": target,
+            "protocol": protocol,
+            "outer_fold": outer.outer_fold,
+            "selected_recipe": leaderboard[0].recipe,
+            "leaderboard": [item.manifest() for item in leaderboard],
+            "input_score_digest": input_digest,
+            "outer_test_scores_used": False,
+        }
+        selections.append(
+            discovery.OuterRecipeSelection(
+                target=target,
+                protocol=protocol,
+                outer_fold=outer.outer_fold,
+                selected_recipe=leaderboard[0].recipe,
+                leaderboard=leaderboard,
+                input_score_digest=input_digest,
+                outer_test_scores_used=False,
+                digest=canonical_digest(selection_payload),
+            )
+        )
+    ownership = discovery.audit_nested_ownership(plan)
+    payload = {
+        "schema_version": SMOKE_SELECTION_SCHEMA_VERSION,
+        "plan_digest": plan.digest,
+        "target": target,
+        "outer_fold": outer.outer_fold,
+        "discovery_seed": plan.discovery_seeds[0],
+        "score_digest": audit["score_digest"],
+        "score_rows": len(rows),
+        "selections": [item.manifest() for item in selections],
+        "ownership_audit_digest": ownership.digest,
+        "outer_test_scores_used": False,
+        "explicitly_nonpromotable": True,
+    }
+    return SmokeSelectionArtifact(
+        schema_version=SMOKE_SELECTION_SCHEMA_VERSION,
+        plan_digest=plan.digest,
+        target=target,
+        outer_fold=outer.outer_fold,
+        discovery_seed=plan.discovery_seeds[0],
+        score_digest=audit["score_digest"],
+        score_rows=len(rows),
+        selections=tuple(selections),
+        ownership_audit_digest=ownership.digest,
+        outer_test_scores_used=False,
+        explicitly_nonpromotable=True,
+        artifact_digest=canonical_digest(payload),
+    )
+
+
+def _load_smoke_selection_artifact(path: Path) -> SmokeSelectionArtifact:
+    payload = json.loads(Path(path).read_text(encoding="utf-8"))
+    selections: list[discovery.OuterRecipeSelection] = []
+    for item in payload["selections"]:
+        leaderboard = tuple(
+            discovery.RecipeAggregate(
+                recipe=str(entry["recipe"]),
+                recipe_order=int(entry["recipe_order"]),
+                complexity_score=int(entry["complexity_score"]),
+                score_rows=int(entry["score_rows"]),
+                rank_values=tuple(
+                    discovery.AggregateValue(
+                        name=str(value["name"]), value=float(value["value"])
+                    )
+                    for value in entry["rank_values"]
+                ),
+                aggregate_digest=str(entry["aggregate_digest"]),
+            )
+            for entry in item["leaderboard"]
+        )
+        selections.append(
+            discovery.OuterRecipeSelection(
+                target=str(item["target"]),
+                protocol=str(item["protocol"]),
+                outer_fold=int(item["outer_fold"]),
+                selected_recipe=str(item["selected_recipe"]),
+                leaderboard=leaderboard,
+                input_score_digest=str(item["input_score_digest"]),
+                outer_test_scores_used=bool(item["outer_test_scores_used"]),
+                digest=str(item["digest"]),
+            )
+        )
+    return SmokeSelectionArtifact(
+        schema_version=str(payload["schema_version"]),
+        plan_digest=str(payload["plan_digest"]),
+        target=str(payload["target"]),
+        outer_fold=int(payload["outer_fold"]),
+        discovery_seed=int(payload["discovery_seed"]),
+        score_digest=str(payload["score_digest"]),
+        score_rows=int(payload["score_rows"]),
+        selections=tuple(selections),
+        ownership_audit_digest=str(payload["ownership_audit_digest"]),
+        outer_test_scores_used=bool(payload["outer_test_scores_used"]),
+        explicitly_nonpromotable=bool(payload["explicitly_nonpromotable"]),
+        artifact_digest=str(payload["artifact_digest"]),
+    )
+
+
+def verify_smoke_selection_artifact(
+    artifact: SmokeSelectionArtifact, plan: discovery.NestedDiscoveryPlan
+) -> None:
+    expected_keys = {
+        (plan.targets[0], protocol, plan.outer_folds[0].outer_fold)
+        for protocol in plan.protocols
+    }
+    observed_keys = {
+        (item.target, item.protocol, item.outer_fold) for item in artifact.selections
+    }
+    payload = artifact.manifest(include_digest=False)
+    checks = {
+        "schema": artifact.schema_version == SMOKE_SELECTION_SCHEMA_VERSION,
+        "plan": artifact.plan_digest == plan.digest,
+        "target": artifact.target == plan.targets[0],
+        "outer_fold": artifact.outer_fold == plan.outer_folds[0].outer_fold,
+        "seed": artifact.discovery_seed == plan.discovery_seeds[0],
+        "row_count": artifact.score_rows == len(smoke_expected_score_keys(plan)),
+        "selection_keys": observed_keys == expected_keys,
+        "recipes": all(
+            item.selected_recipe in {recipe.name for recipe in plan.recipes}
+            for item in artifact.selections
+        ),
+        "inner_only": artifact.outer_test_scores_used is False
+        and all(not item.outer_test_scores_used for item in artifact.selections),
+        "nonpromotable": artifact.explicitly_nonpromotable is True,
+        "ownership": artifact.ownership_audit_digest
+        == discovery.audit_nested_ownership(plan).digest,
+        "digest": artifact.artifact_digest == canonical_digest(payload),
+    }
+    failed = [name for name, passed in checks.items() if not passed]
+    if failed:
+        raise EndStateRunError(f"smoke selection artifact failed verification: {failed}")
+
+
+def load_and_verify_smoke_selection(
+    output_root: Path, plan: discovery.NestedDiscoveryPlan
+) -> SmokeSelectionArtifact:
+    path = _smoke_selection_path(output_root)
+    if not path.is_file():
+        raise EndStateRunError("nonpromotable smoke discovery selection is missing")
+    artifact = _load_smoke_selection_artifact(path)
+    verify_smoke_selection_artifact(artifact, plan)
+    return artifact
+
+
 def load_and_verify_selection(
     output_root: Path, plan: discovery.NestedDiscoveryPlan
 ) -> discovery.DiscoverySelectionArtifact:
@@ -1460,6 +1824,7 @@ def run_discovery_stage(
     args: argparse.Namespace,
     plan: discovery.NestedDiscoveryPlan,
     identity: RunIdentity,
+    dataset: DenseDataset | None = None,
 ) -> Mapping[str, Any]:
     """Run or audit nested discovery.
 
@@ -1468,23 +1833,39 @@ def run_discovery_stage(
     API avoids silently falling back to historical AGAIN training code.
     """
 
-    selection_path = _selection_path(args.output_root)
+    selection_path = (
+        _smoke_selection_path(args.output_root)
+        if args.smoke
+        else _selection_path(args.output_root)
+    )
     if selection_path.exists():
-        artifact = load_and_verify_selection(args.output_root, plan)
+        artifact = (
+            load_and_verify_smoke_selection(args.output_root, plan)
+            if args.smoke
+            else load_and_verify_selection(args.output_root, plan)
+        )
         return {
             "status": "complete",
             "resumed": True,
             "selection_digest": artifact.artifact_digest,
             "score_rows": artifact.score_rows,
+            "explicitly_nonpromotable": bool(args.smoke),
         }
     if args.audit_only:
         raise EndStateRunError("cannot audit discovery before its selection artifact exists")
     if args.dry_run:
         return {
             "status": "planned",
-            "expected_score_rows": discovery_expected_rows(plan),
+            "expected_score_rows": (
+                len(smoke_expected_score_keys(plan))
+                if args.smoke
+                else discovery_expected_rows(plan)
+            ),
             "outer_test_scores_used": False,
+            "explicitly_nonpromotable": bool(args.smoke),
         }
+    if dataset is None:
+        raise EndStateRunError("numerical discovery requires the materialized dense dataset")
     try:
         from backend.scripts import veatic21_modeling as modeling
     except ImportError as exc:
@@ -1498,23 +1879,33 @@ def run_discovery_stage(
     score_rows = executor(
         args=args,
         plan=plan,
+        dataset=dataset,
         run_identity_digest=identity.digest,
         output_root=Path(args.output_root) / "discovery",
         pca_parent_width=MAX_PCA_WIDTH,
         pca_slice_policy="leading_components_only",
         serial=True,
     )
-    audit, normalized = discovery.audit_score_matrix(plan, score_rows)
-    if not audit.passed:
-        raise EndStateRunError("numerical discovery returned an invalid score matrix")
-    artifact = discovery.select_nested_recipes(plan, normalized)
-    atomic_json(_score_rows_path(args.output_root), [row.manifest() for row in normalized])
+    if args.smoke:
+        audit, normalized = audit_smoke_score_matrix(plan, score_rows)
+        if not audit["passed"]:
+            raise EndStateRunError("numerical smoke discovery returned an invalid score matrix")
+        artifact = select_smoke_recipes(plan, normalized)
+        score_path = _smoke_score_rows_path(args.output_root)
+    else:
+        audit, normalized = discovery.audit_score_matrix(plan, score_rows)
+        if not audit.passed:
+            raise EndStateRunError("numerical discovery returned an invalid score matrix")
+        artifact = discovery.select_nested_recipes(plan, normalized)
+        score_path = _score_rows_path(args.output_root)
+    atomic_json(score_path, [row.manifest() for row in normalized])
     atomic_json(selection_path, artifact.manifest())
     return {
         "status": "complete",
         "resumed": False,
         "selection_digest": artifact.artifact_digest,
         "score_rows": artifact.score_rows,
+        "explicitly_nonpromotable": bool(args.smoke),
     }
 
 
@@ -1523,12 +1914,18 @@ def run_confirmation_stage(
     args: argparse.Namespace,
     plan: discovery.NestedDiscoveryPlan,
     identity: RunIdentity,
+    dataset: DenseDataset | None = None,
 ) -> Mapping[str, Any]:
-    selections = (
-        dry_run_selection(plan)
-        if args.dry_run and not _selection_path(args.output_root).is_file()
-        else load_and_verify_selection(args.output_root, plan)
-    )
+    if args.dry_run and not (
+        _smoke_selection_path(args.output_root).is_file()
+        if args.smoke
+        else _selection_path(args.output_root).is_file()
+    ):
+        selections = dry_run_selection(plan)
+    elif args.smoke:
+        selections = load_and_verify_smoke_selection(args.output_root, plan)
+    else:
+        selections = load_and_verify_selection(args.output_root, plan)
     cells = build_confirmation_matrix(selections, plan, smoke=bool(args.smoke))
     audit = audit_confirmation_matrix(cells, plan=plan, smoke=bool(args.smoke))
     atomic_json(
@@ -1550,7 +1947,19 @@ def run_confirmation_stage(
     if args.audit_only:
         if not preflight["passed"]:
             raise EndStateRunError("confirmation audit found an incomplete matrix")
-        return {"status": "complete", "matrix": preflight, "resumed": True}
+        epoch_provenance = collect_best_epoch_provenance(
+            output_root=Path(args.output_root),
+            cells=cells,
+            run_identity_digest=identity.digest,
+            smoke=bool(args.smoke),
+            write=False,
+        )
+        return {
+            "status": "complete",
+            "matrix": preflight,
+            "best_epochs": epoch_provenance,
+            "resumed": True,
+        }
     if args.dry_run:
         return {
             "status": "planned",
@@ -1558,7 +1967,21 @@ def run_confirmation_stage(
             "matrix_digest": audit.digest,
         }
     if preflight["passed"]:
-        return {"status": "complete", "matrix": preflight, "resumed": True}
+        epoch_provenance = collect_best_epoch_provenance(
+            output_root=Path(args.output_root),
+            cells=cells,
+            run_identity_digest=identity.digest,
+            smoke=bool(args.smoke),
+            write=True,
+        )
+        return {
+            "status": "complete",
+            "matrix": preflight,
+            "best_epochs": epoch_provenance,
+            "resumed": True,
+        }
+    if dataset is None:
+        raise EndStateRunError("numerical confirmation requires the materialized dense dataset")
     try:
         from backend.scripts import veatic21_modeling as modeling
     except ImportError as exc:
@@ -1584,6 +2007,7 @@ def run_confirmation_stage(
             plan=plan,
             selection=selections,
             cell=cell,
+            dataset=dataset,
             run_identity_digest=identity.digest,
             output_root=Path(args.output_root),
             serial=True,
@@ -1611,7 +2035,91 @@ def run_confirmation_stage(
         require_complete=True,
     )
     atomic_json(Path(args.output_root) / "confirmation" / "matrix_audit.json", completed)
-    return {"status": "complete", "matrix": completed, "resumed": False}
+    epoch_provenance = collect_best_epoch_provenance(
+        output_root=Path(args.output_root),
+        cells=cells,
+        run_identity_digest=identity.digest,
+        smoke=bool(args.smoke),
+        write=True,
+    )
+    return {
+        "status": "complete",
+        "matrix": completed,
+        "best_epochs": epoch_provenance,
+        "resumed": False,
+    }
+
+
+def collect_best_epoch_provenance(
+    *,
+    output_root: Path,
+    cells: Sequence[MatrixCell],
+    run_identity_digest: str,
+    smoke: bool,
+    write: bool,
+) -> Mapping[str, Any]:
+    """Seal real-lane member epochs used by the later all-video refit."""
+
+    real_lanes = {
+        discovery.PRIVILEGED_CONTINUOUS: "real_residual",
+        discovery.PRIVILEGED_BINARY: "real_residual",
+        discovery.ZERO_LABEL_CONTINUOUS: "video_supervised_temporal",
+    }
+    grouped: dict[tuple[str, str, int, str], list[int]] = defaultdict(list)
+    for cell in cells:
+        if cell.row_kind != MEMBER_KIND or cell.lane != real_lanes[cell.endpoint]:
+            continue
+        manifest = verify_prediction_shard(
+            prediction_path(output_root, cell),
+            cell=cell,
+            run_identity_digest=run_identity_digest,
+        )
+        provenance = manifest.get("extra_provenance")
+        if not isinstance(provenance, Mapping):
+            raise EndStateRunError("real member prediction lacks training provenance")
+        epoch = provenance.get("best_epoch")
+        recipe_order = provenance.get("recipe_order")
+        if not isinstance(epoch, int) or epoch < 1 or not isinstance(recipe_order, int):
+            raise EndStateRunError("real member prediction lacks valid best-epoch provenance")
+        grouped[(cell.target, cell.endpoint, recipe_order, cell.recipe)].append(epoch)
+    rows = [
+        {
+            "target": target,
+            "protocol": protocol,
+            "recipe_order": recipe_order,
+            "recipe": recipe,
+            "best_epochs": sorted(values),
+            "best_epochs_digest": canonical_digest(sorted(values)),
+        }
+        for (target, protocol, recipe_order, recipe), values in sorted(grouped.items())
+    ]
+    if not rows:
+        raise EndStateRunError("confirmation produced no real-lane best epochs")
+    payload_without_digest = {
+        "schema_version": "veatic21_confirmation_best_epochs_v1",
+        "run_identity_digest": run_identity_digest,
+        "smoke": bool(smoke),
+        "explicitly_nonpromotable": bool(smoke),
+        "rows": rows,
+    }
+    payload = {
+        **payload_without_digest,
+        "artifact_digest": canonical_digest(payload_without_digest),
+    }
+    path = (
+        Path(output_root) / "confirmation" / "smoke_best_epochs.json"
+        if smoke
+        else Path(output_root) / "confirmation" / "best_epochs.json"
+    )
+    if path.exists():
+        observed = json.loads(path.read_text(encoding="utf-8"))
+        if observed != payload:
+            raise EndStateRunError("confirmation best-epoch provenance drift")
+    elif write:
+        atomic_json(path, payload)
+    else:
+        raise EndStateRunError("confirmation best-epoch provenance is missing")
+    return payload
 
 
 def _load_best_epochs(output_root: Path) -> dict[tuple[str, str, Any], tuple[int, ...]]:
@@ -1634,7 +2142,12 @@ def run_final_stage(
     args: argparse.Namespace,
     plan: discovery.NestedDiscoveryPlan,
     identity: RunIdentity,
+    dataset: DenseDataset | None = None,
 ) -> Mapping[str, Any]:
+    if args.smoke and not args.dry_run:
+        raise EndStateRunError(
+            "--smoke cannot execute the all-124 final refit; test that executor through its bounded contract tests"
+        )
     if args.dry_run:
         selections = (
             dry_run_selection(plan)
@@ -1675,6 +2188,8 @@ def run_final_stage(
         return {"status": "complete", "resumed": True, "completion": completion}
     if args.audit_only:
         raise EndStateRunError("final export has not completed")
+    if dataset is None:
+        raise EndStateRunError("final refit requires the materialized dense dataset")
     try:
         from backend.scripts import veatic21_modeling as modeling
     except ImportError as exc:
@@ -1689,6 +2204,7 @@ def run_final_stage(
         args=args,
         plan=plan,
         export_contract=export_contract,
+        dataset=dataset,
         output_root=Path(args.output_root) / "final",
         serial=True,
         pca_parent_width=MAX_PCA_WIDTH,
@@ -1744,19 +2260,37 @@ def run(args: argparse.Namespace) -> Mapping[str, Any]:
         identity=identity,
         args=args,
     )
-    stages = ("discovery", "confirmation", "final") if args.stage == "all" else (args.stage,)
+    if args.smoke and args.stage == "final" and not args.dry_run:
+        raise EndStateRunError("a smoke run cannot execute the all-124 final refit")
+    stages = (
+        (("discovery", "confirmation") if args.smoke else ("discovery", "confirmation", "final"))
+        if args.stage == "all"
+        else (args.stage,)
+    )
+    dataset = None
+    if not args.dry_run and not args.audit_only:
+        shared_root = Path(
+            args.shared_derived_root or (Path(args.output_root) / "derived")
+        )
+        dataset = materialize_dense_dataset(
+            cache=cache,
+            seal=seal,
+            shared_root=shared_root,
+        )
     results: dict[str, Any] = {}
     for stage in stages:
         if stage == "discovery":
             results[stage] = run_discovery_stage(
-                args=args, plan=plan, identity=identity
+                args=args, plan=plan, identity=identity, dataset=dataset
             )
         elif stage == "confirmation":
             results[stage] = run_confirmation_stage(
-                args=args, plan=plan, identity=identity
+                args=args, plan=plan, identity=identity, dataset=dataset
             )
         elif stage == "final":
-            results[stage] = run_final_stage(args=args, plan=plan, identity=identity)
+            results[stage] = run_final_stage(
+                args=args, plan=plan, identity=identity, dataset=dataset
+            )
         else:  # pragma: no cover - argparse prevents this path
             raise EndStateRunError(f"unknown stage {stage}")
     canonical_gates_passed = bool(

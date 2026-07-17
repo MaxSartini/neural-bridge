@@ -8,6 +8,7 @@ import gc
 import hashlib
 import json
 import math
+import os
 import subprocess
 import sys
 import time
@@ -33,13 +34,16 @@ FRAMES_PER_CLIP = 64
 
 
 def parse_args() -> argparse.Namespace:
+    external = Path(
+        os.environ.get("NEURAL_BRIDGE_EXTERNAL_ROOT", str(REPO_ROOT))
+    ).expanduser()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--video", type=Path, required=True)
     parser.add_argument("--output-root", type=Path, required=True)
     parser.add_argument(
         "--weights-dir",
         type=Path,
-        default=Path("/Volumes/onn. Drive/Neural Bridge/models/vjepa21_mlx/vitg"),
+        default=external / "models/vjepa21_mlx/vitg",
     )
     return parser.parse_args()
 

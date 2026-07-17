@@ -52,8 +52,8 @@ Generated caches and downstream artifacts created by the project are Neural Brid
 
 The bounded H100 encoding run is complete and the Vast instance has been terminated. The authoritative compact local substrates are:
 
-- V-JEPA 2.1: `/Volumes/onn. Drive/Neural Bridge/cache/veatic_h100_vjepa21_compact_20260716`, `124/124` videos, approximately `1.0 GiB`.
-- TRIBE v2: `/Volumes/onn. Drive/Neural Bridge/cache/veatic_h100_tribe_v2_mlx_compact_20260716`, `124/124` videos, approximately `827 MiB`.
+- V-JEPA 2.1: `$NEURAL_BRIDGE_EXTERNAL_ROOT/cache/veatic_h100_vjepa21_compact_20260716`, `124/124` videos, approximately `1.0 GiB`.
+- TRIBE v2: `$NEURAL_BRIDGE_EXTERNAL_ROOT/cache/veatic_h100_tribe_v2_mlx_compact_20260716`, `124/124` videos, approximately `827 MiB`.
 - Exact dense contract: `20,657` rows at `2 Hz`, prediction width `20,484`, model SHA-256 `ded8a1375bf118a74230ba6f2baef924e2cdbd508870fcddc7dd950293ba156a`, row-plan SHA-256 `81a7491ab7653eb15dafc93ea9f31cd80a336bab614e6bec182b465f51e803b1`, and full dataset seal `c010f6a7b0438163bdf747c08e96688c8108c866e9882a0177627c5195240fe5`.
 
 The new VEATIC 2.1 code is a full fresh-retraining foundation. It treats old VEATIC as historical identity only and re-fits every PCA, normalizer, target-specific neural AR, train-q90 threshold, temporal head, binary head, matched control, and final model from the compact 2 Hz substrate. It transfers the strongest AGAIN methods as bounded priors without reusing fitted AGAIN artifacts or blindly fixing AGAIN's winning configuration.
@@ -71,18 +71,32 @@ Implemented and tested contracts include:
 
 The full-checksum real-cache dry run passed on 2026-07-17. It reported `promotable: false`, `canonical_gates_passed: false`, no outer-test selection use, exactly `3,920` planned confirmation rows, and `12` target/protocol global selections for final refit. This is the correct dry-run state, not evidence of model performance.
 
-### Immediate blocker and next execution
+### Numerical executors and smoke status
 
-The numerical discovery/confirmation/final executor wiring is not complete. `backend/scripts/run_veatic21_endstate.py` currently builds and audits the full plan but still expects three missing numerical entry points from `veatic21_modeling`: `execute_veatic21_nested_discovery`, `execute_veatic21_confirmation_cell`, and `execute_veatic21_all124_refit`. Starting the canonical run before those connections exist would stop at the executor boundary.
+The three numerical executor integrations are now implemented. `backend/scripts/veatic21_modeling.py` exposes `execute_veatic21_nested_discovery`, `execute_veatic21_confirmation_cell`, and `execute_veatic21_all124_refit`; their numerical implementation lives in `backend/scripts/veatic21_execution.py`. The end-state runner now materializes the validated dense substrate once, passes it into each executor, seals predictions and best-epoch provenance, and resumes only after checksum/identity verification. Control artifacts retain compact mappings, parameters, and digests; full per-cell control matrices are not persisted.
+
+The full-checksum, real-cache, one-target/one-outer-fold/one-seed smoke completed on 2026-07-17 at `$NEURAL_BRIDGE_EXTERNAL_ROOT/outputs/veatic21_executor_smoke_20260717` with run identity `80c27436f592b5b49d64adb0ef4d2d24be3a79ee83a291c83dd6bfd95fa71357`:
+
+- discovery completed exactly `54/54` measured inner-validation rows: one target × one outer fold × three protocols × six recipes × three inner folds × one discovery seed;
+- confirmation completed and sealed exactly `42/42` rows with `0` missing and `0` invalid: all continuous residual, true-BCE event, zero-label, matched-control, and fixed-ensemble lanes for the smoke slice;
+- a second confirmation invocation resumed without retraining, and a separate `--audit-only` invocation passed against the same matrix and best-epoch digests;
+- smoke selection is stored only as `smoke_selection_artifact.json`, is marked `explicitly_nonpromotable: true`, and cannot expand a canonical matrix; no canonical `selection_artifact.json` was created;
+- `--stage all --smoke` stops after discovery and confirmation. It cannot run the all-124 refit;
+- the final executor separately passed bounded synthetic contract smokes for both zero-label and privileged refit paths, including fresh neural-AR stacking, checkpoint export/resume, artifact indexing, and `in_sample_metrics_reported: false`.
+
+These smoke scores and one-epoch recipe choices are engineering checks only. They are not VEATIC performance evidence, do not freeze a canonical recipe, and do not authorize any claim update. Canonical training has not started.
+
+Repository verification after the executor integration passed on 2026-07-17: readiness passed with `526` controlled evidence items, the deterministic suite passed `386` tests with one skip, the strict-benchmark dry run passed, and the frontend production build passed.
 
 Next actions, in order:
 
-1. Connect the end-state runner directly to the validated dense substrate, PCA, feature, control, neural-AR, continuous/BCE, prediction-sealing, and reporting modules. Do not persist full per-cell control matrices; persist compact mappings/parameters/digests and regenerate controls deterministically.
-2. Run one target/fold/seed end-to-end smoke through discovery, confirmation, prediction sealing, resume, and audit. It is explicitly non-promotable.
-3. Run the full nested discovery and freeze winners independently for each target/protocol using inner-validation data only.
-4. Run the exact `3,920`-row confirmation, valence-direction evaluation, and whole-video bootstrap. Promote only gates supported by completed executable evidence.
-5. Derive fixed epochs from the completed folds and retrain/export the selected privileged and zero-label ensembles from scratch on all `124` videos. Do not report in-sample final-fit metrics as confirmation.
-6. Only after VEATIC 2.1 is complete, start the domain-balanced VEATIC+AGAIN combined programme and leave-one-domain-out evaluation. Keep the locked AGAIN 299-video pool closed to tuning.
+1. Before canonical execution, preregister the sequential inner-only discovery ladder. The existing six-recipe grid is a bounded baseline selection matrix, not proof that it contains the best method. Any added event-first, transfer, or shared/multitask recipe must change the contract and plan digest before outer-test predictions are opened.
+2. Crack the privileged arousal train-q90 spike/event endpoint first using inner-validation data only. Treat the resulting target geometry, feature family, temporal head, loss/weighting, and checkpoint behavior as bounded development evidence—not as an outer-test win.
+3. Transfer the event-stage mechanism into continuous arousal development and determine on inner folds whether the same method carries over or a separate continuous recipe is better. Do not force a shared winner.
+4. Adapt the strongest proven mechanism to valence rise, valence drop, absolute movement, and derived direction. A shared or multitask candidate is allowed only as an explicit inner-discovery recipe and must beat endpoint-specific alternatives without weakening them.
+5. Freeze target/protocol-specific methods, then run and report privileged outer-test confirmation with exact grouped continuous/event gates, valence direction, contribution caps, ensemble uplift, and whole-video bootstrap. Promote only completed executable evidence.
+6. After privileged VEATIC is settled, complete the response-free zero-label tier, derive fixed epochs, and retrain/export selected models from scratch on all `124` videos. Do not report in-sample final-fit metrics as confirmation.
+7. Only after VEATIC spike/event, continuous arousal, and valence are as strong as the locked protocol can support, start the domain-balanced VEATIC+AGAIN combined programme and leave-one-domain-out evaluation. Keep the locked AGAIN 299-video pool closed to tuning.
 
 ## Fast Handoff Rule
 

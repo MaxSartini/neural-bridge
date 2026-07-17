@@ -1,11 +1,18 @@
 from __future__ import annotations
 
 from dataclasses import replace
+import json
+from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 import pytest
 
 from backend.scripts import veatic21_modeling as modeling
+from backend.scripts import veatic21_execution as execution
+from backend.scripts import run_veatic21_endstate as runner
+from backend.scripts import veatic21_discovery as discovery
+from backend.scripts import veatic21_features as feature_contract
 
 
 def test_model_spec_contracts() -> None:
@@ -193,3 +200,157 @@ def test_fixed_epoch_all_data_refit_is_exact_and_resumable(tmp_path) -> None:
     assert resumed.cache_hit is True
     np.testing.assert_allclose(result.train_prediction, resumed.train_prediction, atol=1e-6)
 
+
+def test_public_numerical_executor_entrypoints_delegate(monkeypatch) -> None:
+    monkeypatch.setattr(execution, "execute_nested_discovery", lambda **kwargs: (kwargs,))
+    monkeypatch.setattr(execution, "execute_confirmation_cell", lambda **kwargs: kwargs)
+    monkeypatch.setattr(execution, "execute_all124_refit", lambda **kwargs: kwargs)
+    assert modeling.execute_veatic21_nested_discovery(marker="discovery") == (
+        {"marker": "discovery"},
+    )
+    assert modeling.execute_veatic21_confirmation_cell(marker="confirmation") == {
+        "marker": "confirmation"
+    }
+    assert modeling.execute_veatic21_all124_refit(marker="final") == {"marker": "final"}
+
+
+def test_all124_executor_bounded_synthetic_smoke_has_no_scores(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    rows_per_video = 8
+    row_counts = {str(video): rows_per_video for video in range(124)}
+    plan = runner.build_plan(runner.synthetic_dataset_seal(row_counts))
+    rows = sum(row_counts.values())
+    video_id = np.repeat(np.asarray(list(row_counts), dtype=str), rows_per_video)
+    local_row = np.tile(np.arange(rows_per_video, dtype=np.int32), 124)
+    time_seconds = (local_row.astype(np.float32) * 0.5).astype(np.float32)
+    rng = np.random.default_rng(73)
+    pca_scores = rng.normal(size=(rows, 64)).astype(np.float32)
+    diagnostics = rng.normal(size=(rows, feature_contract.DIAGNOSTIC_WIDTH)).astype(
+        np.float32
+    )
+    block = feature_contract.build_veatic21_features(
+        row_idx=np.arange(rows, dtype=np.int64),
+        video_id=video_id,
+        time_seconds=time_seconds,
+        pca_scores=pca_scores,
+        diagnostics=diagnostics,
+        pca_width=64,
+    )
+    target_name = plan.targets[0]
+    target = (0.25 * pca_scores[:, 0] - 0.1 * pca_scores[:, 1]).astype(np.float32)
+    dataset = runner.DenseDataset(
+        row_idx=np.arange(rows, dtype=np.int64),
+        local_row_idx=local_row,
+        video_id=video_id,
+        time_seconds=time_seconds,
+        arousal=np.zeros(rows, dtype=np.float32),
+        valence=np.zeros(rows, dtype=np.float32),
+        quality_valid=np.ones(rows, dtype=bool),
+        diagnostics=diagnostics,
+        cortical=np.zeros((rows, 1), dtype=np.float16),
+        target_values={target_name: target},
+        target_valid={target_name: np.ones(rows, dtype=bool)},
+        dataset_seal_digest="synthetic-noncanonical-seal",
+        artifact_digest="synthetic-noncanonical-dataset",
+    )
+    component = tmp_path / "synthetic_components.npz"
+    metadata = tmp_path / "synthetic_pca.json"
+    component.write_bytes(b"synthetic-pca")
+    metadata.write_text("{}\n", encoding="utf-8")
+    monkeypatch.setattr(
+        execution,
+        "_all_video_features",
+        lambda **_kwargs: (
+            block,
+            {
+                "parent_identity": "synthetic-pca-parent",
+                "component": str(component),
+                "metadata": str(metadata),
+                "slice_width": 64,
+                "fit_all_124": True,
+            },
+        ),
+    )
+    recipe = next(item for item in plan.recipes if item.pca_width == 64)
+    export_contract = {
+        "video_count": 124,
+        "all_video_refit": True,
+        "run_identity_digest": "synthetic-smoke-run",
+        "export_contract_digest": "synthetic-smoke-contract",
+        "fixed_epochs": [
+            {
+                "target": target_name,
+                "protocol": discovery.ZERO_LABEL_CONTINUOUS,
+                "fixed_epoch": 1,
+            }
+        ],
+        "global_selections": [
+            {
+                "target": target_name,
+                "protocol": discovery.ZERO_LABEL_CONTINUOUS,
+                "selected_recipe": recipe.name,
+            }
+        ],
+    }
+    args = SimpleNamespace(
+        output_root=tmp_path,
+        batch_size=512,
+        max_epochs=1,
+        patience=1,
+        learning_rate=modeling.DEFAULT_LEARNING_RATE,
+        weight_decay=modeling.DEFAULT_WEIGHT_DECAY,
+    )
+    kwargs = dict(
+        args=args,
+        plan=plan,
+        export_contract=export_contract,
+        dataset=dataset,
+        output_root=tmp_path / "final",
+        pca_parent_width=256,
+        pca_slice_policy="leading_components_only",
+        serial=True,
+        score_training_rows=False,
+    )
+    first = execution.execute_all124_refit(**kwargs)
+    assert first["artifacts"]
+    assert all(Path(path).is_file() for path in first["artifacts"])
+    index = json.loads((tmp_path / "final" / "model_index.json").read_text())
+    assert index["model_count"] == 3
+    assert index["all_124_refit"] is True
+    assert index["in_sample_metrics_reported"] is False
+    second = execution.execute_all124_refit(**kwargs)
+    assert second == first
+
+    monkeypatch.setattr(execution.endstate, "PRIVILEGED_CONFIRMATION_SEEDS", (20260801,))
+    privileged_contract = {
+        **export_contract,
+        "export_contract_digest": "synthetic-privileged-smoke-contract",
+        "fixed_epochs": [
+            {
+                "target": target_name,
+                "protocol": discovery.PRIVILEGED_CONTINUOUS,
+                "fixed_epoch": 1,
+            }
+        ],
+        "global_selections": [
+            {
+                "target": target_name,
+                "protocol": discovery.PRIVILEGED_CONTINUOUS,
+                "selected_recipe": recipe.name,
+            }
+        ],
+    }
+    privileged = execution.execute_all124_refit(
+        **{
+            **kwargs,
+            "export_contract": privileged_contract,
+            "output_root": tmp_path / "privileged_final",
+        }
+    )
+    assert privileged["artifacts"]
+    privileged_index = json.loads(
+        (tmp_path / "privileged_final" / "model_index.json").read_text()
+    )
+    assert privileged_index["model_count"] == 1
+    assert privileged_index["in_sample_metrics_reported"] is False
