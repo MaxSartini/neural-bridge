@@ -24,7 +24,7 @@ from sklearn.metrics import average_precision_score
 from backend.scripts import run_again_dense_2hz_phase5_learned_heads as mlx_base
 
 
-SCHEMA_VERSION = "veatic21_mlx_modeling_v2"
+SCHEMA_VERSION = "veatic21_mlx_modeling_v3"
 WINDOW_ROWS = 5
 ALLOWED_PCA_WIDTHS = (64, 128, 256)
 VIDEO_HEADS = (
@@ -43,12 +43,14 @@ DEFAULT_WEIGHT_DECAY = 1e-4
 DEFAULT_GRAD_CLIP = 1.0
 DEFAULT_MAX_EPOCHS = 5_000
 DEFAULT_MIN_EPOCHS = 50
+DEFAULT_CHECKPOINT_MIN_EPOCH = 1
 DEFAULT_PATIENCE = 100
 DEFAULT_BATCH_SIZE = 1_024
 DEFAULT_SELECTION_MIN_DELTA = 1e-6
 DEFAULT_RESIDUAL_ALPHA_CAP = 0.12
 DEFAULT_RESIDUAL_ALPHA_INITIAL_LOGIT = -4.0
 DEFAULT_RESIDUAL_GATE_BIAS = 4.0
+RESIDUAL_SELECTION_POLICY = "positive_inner_delta_or_frozen_offset"
 
 
 class Veatic21ModelingError(RuntimeError):
@@ -152,6 +154,8 @@ class ModelResult:
     best_validation_loss: float
     selection_metric: str
     best_selection_value: float
+    baseline_selection_value: float | None
+    residual_suppressed: bool
     optimizer_steps: int
     curves: tuple[Mapping[str, Any], ...]
     cache_hit: bool
@@ -410,6 +414,8 @@ def _train_loop(
     float,
     str,
     float,
+    float | None,
+    bool,
     int,
 ]:
     mlx_base.mx.random.seed(int(seed))
@@ -439,12 +445,37 @@ def _train_loop(
         raise Veatic21ModelingError("min_epochs must be in [1, epochs]")
     if not math.isfinite(selection_min_delta) or float(selection_min_delta) < 0:
         raise Veatic21ModelingError("selection_min_delta must be finite and non-negative")
-    selection_metric = (
-        "validation_pr_auc" if spec.objective == BINARY else "validation_loss"
+    residual_no_harm_selection = bool(
+        validation_rows is not None
+        and spec.objective == BINARY
+        and spec.condition_on_frozen_offset
     )
-    best_loss = math.inf
-    best_selection_value = -math.inf if spec.objective == BINARY else math.inf
+    baseline_selection_value = (
+        _binary_pr_auc(offset[validation_rows], target[validation_rows])
+        if residual_no_harm_selection and validation_rows is not None
+        else None
+    )
+    selection_metric = (
+        "validation_pr_auc_delta_vs_frozen_offset"
+        if residual_no_harm_selection
+        else ("validation_pr_auc" if spec.objective == BINARY else "validation_loss")
+    )
+    best_loss = (
+        _numpy_loss(
+            spec.objective,
+            offset[validation_rows],
+            target[validation_rows],
+        )
+        if residual_no_harm_selection and validation_rows is not None
+        else math.inf
+    )
+    best_selection_value = (
+        0.0
+        if residual_no_harm_selection
+        else (-math.inf if spec.objective == BINARY else math.inf)
+    )
     best_epoch = 0
+    residual_suppressed = residual_no_harm_selection
     stale = 0
     optimizer_steps = 0
     best_optimizer_steps = 0
@@ -475,6 +506,7 @@ def _train_loop(
             mlx_base.mx.eval(loss, model.parameters(), optimizer.state)
             losses.append(float(np.asarray(loss)))
             optimizer_steps += 1
+        absolute_pr_auc: float | None = None
         if validation_rows is None:
             validation_loss = float(np.mean(losses)) if losses else math.inf
             selection_value = validation_loss
@@ -486,11 +518,19 @@ def _train_loop(
                 validation_prediction,
                 target[validation_rows],
             )
-            selection_value = (
-                _binary_pr_auc(validation_prediction, target[validation_rows])
-                if spec.objective == BINARY
-                else validation_loss
-            )
+            if spec.objective == BINARY:
+                absolute_pr_auc = _binary_pr_auc(
+                    validation_prediction, target[validation_rows]
+                )
+                selection_value = (
+                    absolute_pr_auc - float(baseline_selection_value)
+                    if residual_no_harm_selection
+                    and baseline_selection_value is not None
+                    else absolute_pr_auc
+                )
+            else:
+                absolute_pr_auc = None
+                selection_value = validation_loss
         curves.append(
             {
                 "epoch": epoch,
@@ -499,8 +539,15 @@ def _train_loop(
                 "validation_loss": validation_loss,
                 "selection_metric": selection_metric,
                 "selection_value": selection_value,
+                "absolute_validation_pr_auc": absolute_pr_auc,
+                "baseline_selection_value": baseline_selection_value,
+                "residual_suppressed_if_selected_now": bool(
+                    residual_no_harm_selection and selection_value <= 0.0
+                ),
                 "checkpoint_eligible": validation_rows is None
-                or epoch >= int(min_epochs),
+                or epoch >= DEFAULT_CHECKPOINT_MIN_EPOCH,
+                "early_stopping_eligible": validation_rows is not None
+                and epoch >= int(min_epochs),
             }
         )
         if validation_rows is None:
@@ -508,7 +555,7 @@ def _train_loop(
             best_loss = validation_loss
             best_selection_value = selection_value
             best_optimizer_steps = optimizer_steps
-        elif epoch >= int(min_epochs):
+        elif epoch >= DEFAULT_CHECKPOINT_MIN_EPOCH:
             improved = (
                 selection_value
                 > best_selection_value + float(selection_min_delta)
@@ -523,7 +570,8 @@ def _train_loop(
                 best_selection_value = selection_value
                 best_optimizer_steps = optimizer_steps
                 stale = 0
-            else:
+                residual_suppressed = False
+            elif epoch >= int(min_epochs):
                 stale += 1
         if (
             validation_rows is not None
@@ -534,7 +582,16 @@ def _train_loop(
             break
     if validation_rows is None:
         model.save_weights(str(checkpoint_path))
-    if best_epoch < 1 or not checkpoint_path.exists():
+    elif residual_suppressed:
+        # Faithful AGAIN do-no-harm behavior: zero correction is a real
+        # selectable baseline.  Persist a checksum-bearing placeholder model,
+        # but callers must return the untouched frozen offset when this flag is
+        # sealed in the manifest.
+        fallback = Veatic21ScalarHead(spec)
+        _ = fallback(mlx_base.mx.array(x[: min(2, len(x))], dtype=mlx_base.mx.float32))
+        fallback.save_weights(str(checkpoint_path))
+        best_optimizer_steps = 0
+    if (best_epoch < 1 and not residual_suppressed) or not checkpoint_path.exists():
         raise Veatic21ModelingError("training did not produce a valid checkpoint")
     restored = Veatic21ScalarHead(spec)
     _ = restored(mlx_base.mx.array(x[: min(2, len(x))], dtype=mlx_base.mx.float32))
@@ -548,6 +605,12 @@ def _train_loop(
         float(best_loss),
         selection_metric,
         float(best_selection_value),
+        (
+            float(baseline_selection_value)
+            if baseline_selection_value is not None
+            else None
+        ),
+        bool(residual_suppressed),
         int(best_optimizer_steps),
     )
 
@@ -634,9 +697,16 @@ def train_scalar_model(
         "batch_size": int(batch_size),
         "max_epochs": int(max_epochs),
         "min_epochs": int(min_epochs),
+        "min_epochs_role": "early_stopping_floor_only",
+        "checkpoint_min_epoch": DEFAULT_CHECKPOINT_MIN_EPOCH,
         "patience": int(patience),
         "selection_metric": (
-            "validation_pr_auc" if spec.objective == BINARY else "validation_loss"
+            "validation_pr_auc_delta_vs_frozen_offset"
+            if spec.objective == BINARY and spec.condition_on_frozen_offset
+            else ("validation_pr_auc" if spec.objective == BINARY else "validation_loss")
+        ),
+        "residual_selection_policy": (
+            RESIDUAL_SELECTION_POLICY if spec.condition_on_frozen_offset else None
         ),
         "selection_min_delta": float(selection_min_delta),
         "max_epochs_role": "runaway_fail_safe_only",
@@ -669,11 +739,16 @@ def train_scalar_model(
         model_test = _model_input(
             test_std, test_offset, condition_on_offset=spec.condition_on_frozen_offset
         )
-        model = Veatic21ScalarHead(spec)
-        _ = model(mlx_base.mx.array(model_train[:2], dtype=mlx_base.mx.float32))
-        model.load_weights(str(checkpoint_path))
-        correction_train = _predict(model, model_train, batch_size=batch_size)
-        correction_test = _predict(model, model_test, batch_size=batch_size)
+        residual_suppressed = bool(manifest.get("residual_suppressed", False))
+        if residual_suppressed:
+            correction_train = np.zeros(len(model_train), dtype=np.float32)
+            correction_test = np.zeros(len(model_test), dtype=np.float32)
+        else:
+            model = Veatic21ScalarHead(spec)
+            _ = model(mlx_base.mx.array(model_train[:2], dtype=mlx_base.mx.float32))
+            model.load_weights(str(checkpoint_path))
+            correction_train = _predict(model, model_train, batch_size=batch_size)
+            correction_test = _predict(model, model_test, batch_size=batch_size)
         prediction_train = correction_train + train_offset
         prediction_test = correction_test + test_offset
         curves = tuple(manifest.get("curves", ()))
@@ -693,6 +768,12 @@ def train_scalar_model(
             best_validation_loss=float(manifest["best_validation_loss"]),
             selection_metric=str(manifest["selection_metric"]),
             best_selection_value=float(manifest["best_selection_value"]),
+            baseline_selection_value=(
+                float(manifest["baseline_selection_value"])
+                if manifest.get("baseline_selection_value") is not None
+                else None
+            ),
+            residual_suppressed=residual_suppressed,
             optimizer_steps=int(manifest["optimizer_steps"]),
             curves=curves,
             cache_hit=True,
@@ -716,6 +797,8 @@ def train_scalar_model(
         best_loss,
         selection_metric,
         best_selection_value,
+        baseline_selection_value,
+        residual_suppressed,
         optimizer_steps,
     ) = _train_loop(
         spec=spec,
@@ -735,7 +818,7 @@ def train_scalar_model(
         grad_clip=float(grad_clip),
         selection_min_delta=float(selection_min_delta),
     )
-    if refit_after_selection:
+    if refit_after_selection and not residual_suppressed:
         final_state = fit_standardization(x_train, eligible)
         train_std = _apply_standardization(x_train, final_state)
         test_std = _apply_standardization(x_test, final_state)
@@ -752,6 +835,8 @@ def train_scalar_model(
             _refit_loss,
             _refit_selection_metric,
             _refit_selection_value,
+            _refit_baseline_selection_value,
+            _refit_residual_suppressed,
             _refit_optimizer_steps,
         ) = _train_loop(
             spec=spec,
@@ -776,10 +861,22 @@ def train_scalar_model(
         )
         fit_rows_for_state = eligible
     else:
-        final_state = selection_state
-        train_std = selection_train
+        final_state = (
+            fit_standardization(x_train, eligible)
+            if refit_after_selection and residual_suppressed
+            else selection_state
+        )
+        train_std = (
+            _apply_standardization(x_train, final_state)
+            if refit_after_selection and residual_suppressed
+            else selection_train
+        )
         test_std = _apply_standardization(x_test, final_state)
-        model_train = selection_input
+        model_train = _model_input(
+            train_std,
+            train_offset,
+            condition_on_offset=spec.condition_on_frozen_offset,
+        )
         model_test = _model_input(
             test_std, test_offset, condition_on_offset=spec.condition_on_frozen_offset
         )
@@ -787,10 +884,16 @@ def train_scalar_model(
         model = Veatic21ScalarHead(spec)
         _ = model(mlx_base.mx.array(model_train[:2], dtype=mlx_base.mx.float32))
         model.load_weights(str(checkpoint_path))
-        fit_rows_for_state = inner_train
+        fit_rows_for_state = (
+            eligible if refit_after_selection and residual_suppressed else inner_train
+        )
     selection_checkpoint.unlink(missing_ok=True)
-    correction_train = _predict(model, model_train, batch_size=batch_size)
-    correction_test = _predict(model, model_test, batch_size=batch_size)
+    if residual_suppressed:
+        correction_train = np.zeros(len(model_train), dtype=np.float32)
+        correction_test = np.zeros(len(model_test), dtype=np.float32)
+    else:
+        correction_train = _predict(model, model_train, batch_size=batch_size)
+        correction_test = _predict(model, model_test, batch_size=batch_size)
     prediction_train = correction_train + train_offset
     prediction_test = correction_test + test_offset
     normalization_path.parent.mkdir(parents=True, exist_ok=True)
@@ -811,6 +914,11 @@ def train_scalar_model(
         "best_validation_loss": float(best_loss),
         "selection_metric": selection_metric,
         "best_selection_value": float(best_selection_value),
+        "baseline_selection_value": baseline_selection_value,
+        "residual_selection_policy": (
+            RESIDUAL_SELECTION_POLICY if spec.condition_on_frozen_offset else None
+        ),
+        "residual_suppressed": bool(residual_suppressed),
         "optimizer_steps": int(optimizer_steps),
         "curves": list(curves),
         "device": device,
@@ -835,6 +943,8 @@ def train_scalar_model(
         best_validation_loss=float(best_loss),
         selection_metric=selection_metric,
         best_selection_value=float(best_selection_value),
+        baseline_selection_value=baseline_selection_value,
+        residual_suppressed=bool(residual_suppressed),
         optimizer_steps=int(optimizer_steps),
         curves=tuple(curves),
         cache_hit=False,
@@ -952,6 +1062,8 @@ def refit_scalar_model_fixed_epochs(
             best_validation_loss=math.nan,
             selection_metric="fixed_epoch_refit",
             best_selection_value=math.nan,
+            baseline_selection_value=None,
+            residual_suppressed=False,
             optimizer_steps=int(manifest["optimizer_steps"]),
             curves=curves,
             cache_hit=True,
@@ -970,6 +1082,8 @@ def refit_scalar_model_fixed_epochs(
         _last_loss,
         _selection_metric,
         _selection_value,
+        _baseline_selection_value,
+        _residual_suppressed,
         optimizer_steps,
     ) = _train_loop(
         spec=spec,
@@ -1029,6 +1143,8 @@ def refit_scalar_model_fixed_epochs(
         best_validation_loss=math.nan,
         selection_metric="fixed_epoch_refit",
         best_selection_value=math.nan,
+        baseline_selection_value=None,
+        residual_suppressed=False,
         optimizer_steps=int(optimizer_steps),
         curves=tuple(curves),
         cache_hit=False,

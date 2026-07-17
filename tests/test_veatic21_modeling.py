@@ -85,9 +85,11 @@ def test_continuous_training_resume_and_identity(tmp_path) -> None:
     assert first.train_prediction.shape == (48,)
     assert first.test_prediction.shape == (12,)
     assert first.best_epoch in (1, 2, 3)
-    assert first.best_epoch >= 2
     assert first.selection_metric == "validation_loss"
     assert first.optimizer_steps >= 1
+    selection_curves = [row for row in first.curves if "phase" not in row]
+    assert selection_curves[0]["checkpoint_eligible"] is True
+    assert selection_curves[0]["early_stopping_eligible"] is False
     assert np.isfinite(first.train_prediction).all()
     resumed = modeling.train_scalar_model(**kwargs)
     assert resumed.cache_hit is True
@@ -132,13 +134,67 @@ def test_binary_bce_with_frozen_logit_offset(tmp_path) -> None:
     )
     assert result.train_probability is not None
     assert result.test_probability is not None
-    assert result.best_epoch == 2
-    assert result.selection_metric == "validation_pr_auc"
+    assert result.best_epoch in (0, 1, 2)
+    assert result.selection_metric == "validation_pr_auc_delta_vs_frozen_offset"
     assert 0.0 <= result.best_selection_value <= 1.0
+    assert result.baseline_selection_value is not None
+    assert result.residual_suppressed is (result.best_epoch == 0)
     assert np.all((result.test_probability >= 0) & (result.test_probability <= 1))
     np.testing.assert_allclose(
         result.train_prediction, result.train_correction + offset_train, atol=1e-6
     )
+
+
+def test_binary_residual_suppresses_when_frozen_ar_cannot_be_beaten(tmp_path) -> None:
+    rng = np.random.default_rng(2207)
+    train_x = rng.normal(size=(80, 7)).astype(np.float32)
+    test_x = rng.normal(size=(12, 7)).astype(np.float32)
+    target = np.tile(np.asarray([0.0, 1.0], dtype=np.float32), 40)
+    offset_train = np.where(target > 0.5, 10.0, -10.0).astype(np.float32)
+    offset_test = np.linspace(-2.0, 2.0, len(test_x), dtype=np.float32)
+    kwargs = dict(
+        train_x=train_x,
+        test_x=test_x,
+        train_target=target,
+        train_loss_mask=np.ones(len(train_x), dtype=bool),
+        inner_train_idx=np.arange(0, 60, dtype=np.int64),
+        inner_val_idx=np.arange(60, 80, dtype=np.int64),
+        spec=modeling.ModelSpec(
+            head="flat_mlp_residual",
+            objective=modeling.BINARY,
+            input_dim=7,
+            pca_width=64,
+            hidden_dim=16,
+            condition_on_frozen_offset=True,
+        ),
+        seed=457,
+        checkpoint_path=tmp_path / "suppressed.npz",
+        artifact_identity={"endpoint": "binary", "policy": "no-harm"},
+        frozen_train_offset=offset_train,
+        frozen_test_offset=offset_test,
+        refit_after_selection=True,
+        batch_size=32,
+        max_epochs=3,
+        min_epochs=2,
+        patience=2,
+    )
+    result = modeling.train_scalar_model(**kwargs)
+    assert result.residual_suppressed is True
+    assert result.best_epoch == 0
+    assert result.selection_metric == "validation_pr_auc_delta_vs_frozen_offset"
+    assert result.best_selection_value == pytest.approx(0.0)
+    assert result.baseline_selection_value == pytest.approx(1.0)
+    np.testing.assert_array_equal(result.train_correction, np.zeros(len(train_x)))
+    np.testing.assert_array_equal(result.test_correction, np.zeros(len(test_x)))
+    np.testing.assert_array_equal(result.train_prediction, offset_train)
+    np.testing.assert_array_equal(result.test_prediction, offset_test)
+    manifest = json.loads(result.manifest_path.read_text())
+    assert manifest["residual_suppressed"] is True
+    assert manifest["residual_selection_policy"] == modeling.RESIDUAL_SELECTION_POLICY
+    resumed = modeling.train_scalar_model(**kwargs)
+    assert resumed.cache_hit is True
+    assert resumed.residual_suppressed is True
+    np.testing.assert_array_equal(resumed.test_prediction, offset_test)
 
 
 def test_overlap_and_offset_contracts_fail_closed(tmp_path) -> None:

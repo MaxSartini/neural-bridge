@@ -96,6 +96,11 @@ def test_cli_contract_and_full_dry_run(
     manifest = json.loads((args.output_root / "run_manifest.json").read_text())
     assert manifest["confirmation_expected_rows"] == 3920
     assert manifest["discovery_expected_rows"] == 3240
+    policy = manifest["settings"]["checkpoint_selection_policy"]
+    assert policy["checkpoint_eligible_epoch"] == 1
+    assert policy["minimum_training_epochs"] == 50
+    assert policy["binary_residual"] == "positive_inner_delta_or_frozen_offset"
+    assert manifest["settings"]["residual_zero_correction_is_selection_candidate"] is True
 
 
 def test_cli_training_depth_contract_fails_closed(tmp_path: Path) -> None:
