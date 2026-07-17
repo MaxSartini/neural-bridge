@@ -314,8 +314,12 @@ def audit_desktop_config(errors: list[str]) -> dict[str, object]:
     for path, max_lines in instruction_limits.items():
         if not path.is_file():
             errors.append(f"missing instruction file: {path}")
-        elif len(path.read_text(encoding="utf-8").splitlines()) > max_lines:
+            continue
+        instruction_text = path.read_text(encoding="utf-8")
+        if len(instruction_text.splitlines()) > max_lines:
             errors.append(f"instruction file exceeds {max_lines} lines: {path}")
+        if path in {CODEX_HOME / "AGENTS.md", ROOT / "AGENTS.md"} and "20-line" not in instruction_text:
+            errors.append(f"instruction file lacks discovery output budget: {path}")
 
     return {
         "enabled_plugins": sorted(
@@ -425,7 +429,31 @@ def main() -> int:
         "desktop": desktop,
         "errors": errors,
     }
-    print(json.dumps(report, indent=2))
+    if "--verbose" in sys.argv[1:]:
+        output = report
+    else:
+        runtime_hooks = desktop["runtime_hooks"]
+        output = {
+            "host": report["host"],
+            "unified_roots": report["unified_roots"],
+            "graph": {
+                **report["owned_graph_coverage"],
+                "files_by_root": report["graph_files_by_root"],
+                "parser_errors": report["graph_parser_errors"],
+            },
+            "desktop": {
+                "enabled_plugins": len(desktop["enabled_plugins"]),
+                "enabled_mcp_servers": desktop["enabled_mcp_servers"],
+                "runtime_hooks": len(runtime_hooks),
+                "trusted_runtime_hooks": sum(
+                    hook["enabled"] and hook["trust"] == "trusted"
+                    for hook in runtime_hooks
+                ),
+                "external_context_read_rule": desktop["external_context_read_rule"],
+            },
+            "errors": errors,
+        }
+    print(json.dumps(output, indent=2))
     return 1 if errors else 0
 
 

@@ -24,6 +24,8 @@ Project authority and scientific provenance rules in `AGENTS.md` outrank generic
 
 CodeGraph is the always-available contact list for the codebase: look up the target, callers, flow, and blast radius before editing; sync and re-query the affected path after substantive edits. RTK wraps supported shell work throughout discovery, implementation, verification, and handoff so command output is compressed before entering model context.
 
+Discovery has a hard default response budget: 20 lines or 3 KB. Do not run broad content searches and then ask Context-Mode to return their matching sections; indexing oversized `rg` output can still produce oversized search chunks. Count or group candidates first, process raw matches inside the sandbox, and print only the verdict plus at most three exact source snippets. Use `ctx_search(limit: 3)` for indexed recall and keep CodeGraph `maxFiles` at six or fewer unless wider source is explicitly required.
+
 ## New-chat handoff
 
 There are two continuity paths:
@@ -63,7 +65,7 @@ The desktop workflow covers both complete Neural Bridge roots and routes formats
 - NumPy, MATLAB, pickle, safetensors, checkpoints, and model weights use Python metadata loaders or existing provenance-aware audit scripts. Raw arrays and weights never enter chat by default.
 - Video, audio, images, PDFs, archives, and unknown binaries use `ffprobe`, `file`, PDF/image tooling, or archive manifests for metadata-first inspection.
 
-The machine-local `npm run audit:codex-desktop` gate verifies desktop configuration, retired-workflow absence, hooks, skills, format tools, both unified roots, graph parser errors, and whole-root owned-source coverage.
+The machine-local `npm run audit:codex-desktop` gate verifies desktop configuration, retired-workflow absence, hooks, skills, format tools, both unified roots, graph parser errors, and whole-root owned-source coverage. Its default output is compact; use `npm run audit:codex-desktop -- --verbose` only when full inventory is explicitly needed.
 
 ## Replaced components
 
@@ -78,9 +80,9 @@ Tokless `0.2.6` deliberately installs only Context-Mode's `PreToolUse` hook and 
 ```bash
 rtk proxy tokless update --agents codex --yes
 rtk proxy context-mode upgrade
-rtk proxy codegraph sync "$HOME/.codex/workspaces/neural-bridge-unified"
-rtk proxy context-mode doctor
-rtk proxy codegraph status "$HOME/.codex/workspaces/neural-bridge-unified"
+rtk summary codegraph sync "$HOME/.codex/workspaces/neural-bridge-unified"
+rtk summary context-mode doctor
+rtk summary codegraph status "$HOME/.codex/workspaces/neural-bridge-unified"
 rtk gain
 rtk npm run audit:codex-desktop
 ```

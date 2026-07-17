@@ -5,6 +5,7 @@
 - Start clean chats with `docs/handoff/CURRENT_STATE.md` and `docs/tokless_agent_workflow.md`. For benchmark decisions, read only canonical artifacts linked by current state.
 - Current files and new executable evidence outrank chat, memory, and stale reports. Recall only 3–5 targeted prior results, then verify.
 - Keep context compact. Never dump full logs, reports, matrices, metadata, or historical transcripts unless asked.
+- Discovery output has a 20-line/3-KB cap unless explicitly requested. Search canonical references first; broad matches must be counted/aggregated off-window, then return only verdict and at most 3 exact source snippets.
 
 ## Scientific integrity
 
@@ -21,7 +22,7 @@
 - For code work, query unified CodeGraph first: `$HOME/.codex/workspaces/neural-bridge-unified`. Use `rg` for literals/configs/non-code only when graph is insufficient.
 - Use `$neural-bridge-app` only for Mac app product/design/Swift work; load only relevant references.
 - Prefer sealed compatible caches/features/PCA only when provenance proves safe reuse.
-- Smallest relevant tests first; then `npm run verify` for substantive code changes. Run `codegraph sync "$HOME/.codex/workspaces/neural-bridge-unified"` after substantive code changes.
+- Smallest relevant tests first; then `npm run verify` for substantive code changes. Run `rtk summary codegraph sync "$HOME/.codex/workspaces/neural-bridge-unified"` after substantive code changes; never return its raw progress stream.
 
 ## Handoff
 
