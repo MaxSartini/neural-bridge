@@ -2,12 +2,12 @@
 
 Phase 7 cracked a distinct problem from the earlier event/spike result: ranking future arousal movement and identifying its highest-movement tail.
 
-The sequence is part of the claim:
+The claim-bearing result is the grouped held-out-video confirmation:
 
-1. The diagnostic passed ranking/lift but failed exact-value gates.
-2. A fresh blocked-temporal confirmation established the frozen candidate.
-3. Grouped held-out-video closure passed `420/420` comparison rows and `15/15` fold-groups against frozen AR and matched controls.
+1. Grouped held-out-video closure passed `420/420` comparison rows.
+2. Neural Bridge beat frozen AR and matched controls in `15/15` fold-groups.
+3. Spearman improved from `0.2405` to `0.2603` (`+8.22%`), while top-5% lift improved from `0.0896` to `0.0976` (`+8.97%`).
 
-Final grouped Spearman was `0.2603` versus frozen AR `0.2405`. Top-5% lift was `0.0976`, with a `+0.0080` bridge-added margin over AR. This supports ranking and top-tail selection—not exact decimal trajectory prediction.
+This confirms continuous future-movement ranking and top-tail selection on unseen videos. The earlier diagnostic and blocked-temporal work remains separately documented because those protocols answer different questions; neither is used to discount the grouped confirmation.
 
 Each evidence directory contains only its audit, run manifest, compact metrics, rows, and report. Full checkpoints, fold matrices, training curves, and predictions remain in the registered external runs. The canonical engine and checksum-locked replay specs replace the two phase-coupled entrypoints.

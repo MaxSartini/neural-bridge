@@ -3,9 +3,9 @@
 This repository separates the reader-facing scientific record from active work and heavy artifacts.
 
 - `results/`: strongest concluded, defensible results.
-- `studies/`: phase-closure packages for original VEATIC, AGAIN, zero-label, and VEATIC 2.1.
+- `studies/`: concluded phase-closure packages for original VEATIC, AGAIN, and zero-label. VEATIC 2.1 enters this tree only after a conclusion is frozen.
 - `src/neural_bridge/`: reusable scientific implementation.
-- `apps/`: active product applications that survive the audit.
+- `apps/`: reserved for active product applications that survive the audit.
 - `tests/`: a small suite protecting live shared code and scientific contracts; not a historical test archive.
 - `docs/`: concise overview, methods, rigor, reproducibility, and reference material.
 - `registry/`: study, claim, and external-artifact indexes.

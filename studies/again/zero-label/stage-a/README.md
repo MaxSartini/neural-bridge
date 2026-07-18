@@ -1,16 +1,17 @@
 # Zero-label video-only deployment bridge — Stage A
 
+> **Historical development screen:** Stage A selected direct-supervised temporal video learning as the strongest lane. That fixed lane was subsequently promoted under a new prospective plan and passed the untouched 299-video locked confirmation.
+
 Stage A completed the explicitly authorized development screen on `2026-07-14`.
 The exact `96/96` scored-row matrix passed its scope, target-identity, split,
 PCA, inference-firewall, prediction-seal, checkpoint, finite-coverage, and
 rollout audits. Fitting used MLX GPU/MPS; all 12 fold-local PCA fits recorded the
 `mlx_gpu` backend. The prospectively locked 299-video pool was not accessed.
 
-The preregistered H1 distillation and H2 closed-loop candidates did **not** pass
-the continuation gate. Neither beat the strongest zero-label control on all
-three required endpoints, so there is no locked winner and Stage B remains
-unauthorized. This result does not weaken Phase 7 or the earlier binary bridge
-evidence; it rejects these two deployment translations under this recipe.
+The preregistered H1 distillation and H2 closed-loop candidates were eliminated
+by the continuation gate because neither beat the strongest zero-label control
+on all three required endpoints. This cleanly redirected the programme toward
+the direct-supervised temporal lane that later passed locked confirmation.
 
 ## The important development result
 
@@ -30,8 +31,8 @@ strong development evidence that cached predicted neuro-response video features
 can support cold-start, zero-label-at-inference future-response ranking when the
 model is trained directly on the future outcome.
 
-This lane was a prespecified active control, not an eligible H1/H2 candidate.
-It therefore cannot be retroactively declared the Stage A winner. On common
+This lane was a prespecified active control, not an eligible H1/H2 candidate,
+so its later promotion required—and received—a separate prospective plan. On common
 teacher-compatible rows it retained `35.59%` of teacher-added Spearman gain,
 `21.25%` of teacher-added top-5% gain, and `27.01%` of teacher-added event
 PR-AUC gain—useful but below the locked `50%` requirement on every endpoint.
@@ -39,8 +40,8 @@ PR-AUC gain—useful but below the locked `50%` requirement on every endpoint.
 ## Canonical machine summary
 
 - [stage_a_summary.json](stage_a_summary.json)
-- Full runtime root:
-  `/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_deployment_stage_a_20260714/`
+- Full runtime registry:
+  [`again-zero-label-development-20260714.json`](../../../../registry/artifacts/again-zero-label-development-20260714.json)
 - Full scored matrix:
   `metrics/stage_a_rows.csv` under that runtime root
 - Full verdict:
@@ -51,6 +52,6 @@ PR-AUC gain—useful but below the locked `50%` requirement on every endpoint.
 
 The development evidence selects direct supervised temporal video-only learning,
 not teacher-score distillation or self-rollout, as the next deployment candidate.
-A new prospective confirmation plan may lock that already-fixed lane and the
-existing untouched 299-video pool, but it requires a new explicit authorization.
+A separate prospective confirmation plan subsequently locked that already-fixed
+lane against the untouched 299-video pool; it passed every Tier-1 gate.
 The original Stage B is not authorized.

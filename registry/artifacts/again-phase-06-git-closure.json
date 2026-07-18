@@ -4,15 +4,14 @@
   "programme": "again",
   "phase": "phase-06-event-stabilization",
   "path": "studies/again/phase-06-event-stabilization",
-  "files": 46,
-  "size_bytes": 222833,
-  "sha256_tree": "71d1d8d19a219a3b0596e7f6727c0db0ff80b11da91ace35d29777e08f25d854",
+  "files": 36,
+  "size_bytes": 80720,
+  "sha256_tree": "e86ad11094269cd86ed26e5b424d0aaa749ad68de4f66aaa6b4e3fa3e9f5c9d1",
   "contents": {
     "selected_runs": "f591442828021b12d2299874c0690646961b8d2fb14c393b1606d011e7154273",
-    "plans": "c19a21412972d4919fec7adbd44c6f41ad59b143aaf95f768220eac2bce06110",
-    "runners": "6ecfeba575c4cf7a2f3967d6ae4ebca8dbe9b41a95e3c05945aad2e52bf79e6c"
+    "plans": "c19a21412972d4919fec7adbd44c6f41ad59b143aaf95f768220eac2bce06110"
   },
-  "selection": "All ten concluded branches represented by compact result/report/provenance, including rejected Optuna and Trial-4 paths and the winning reference-recipe checkpoint-ensemble confirmations.",
+  "selection": "All ten concluded branches represented by compact result/report/provenance and prospective plans; current execution lives in the canonical shared engine.",
   "claim_boundary": "Checkpoint ensembling stabilized the validated reference recipe; Optuna Trial 4 did not improve it robustly.",
   "external_collection": "runs/again/phase-06-event-stabilization",
   "migrated_at": "2026-07-17T22:10:46Z"

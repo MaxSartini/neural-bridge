@@ -50,14 +50,15 @@ video. On teacher-compatible rows, the video-only model retained `47.32%`,
 `45.08%`, and `45.49%` of the ceiling's added gain over the no-video anchor.
 These retention figures are diagnostic, not pass gates.
 
-## Boundary
+## Confirmed scope and next proof points
 
 This confirms cold-start cached-feature zero-label inference on prospectively
-locked AGAIN videos. It does not yet confirm end-to-end raw-video feature
-generation/runtime, an external dataset, prospective client outcomes, exact
-trajectories, label-free training, or universal emotion prediction.
+locked AGAIN videos. The next independent proof points are end-to-end raw-video
+feature generation/runtime, external-dataset transfer, and prospective client
+outcomes. Exact trajectories, label-free training, and universal emotion
+prediction are outside this study's claim.
 
 Machine summary: `locked_confirmation_summary.json`.
 
-Full runtime root:
-`/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/`.
+Full runtime registry:
+[`again-zero-label-locked-confirmation-20260715.json`](../../../../registry/artifacts/again-zero-label-locked-confirmation-20260715.json).

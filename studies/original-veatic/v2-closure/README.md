@@ -1,6 +1,6 @@
 # Original VEATIC v2 Closure
 
-Historical discovery evidence only. This study established that causal temporal change could improve arousal event/spike ranking, while continuous exact-value prediction remained unresolved.
+Historical discovery evidence only. This study established that causal temporal change could improve arousal event/spike ranking. Its confirmed scope was event ranking; the richer continuous specialization was established later on AGAIN.
 
 - `results/`: finalized 124-video benchmark, controls, alignment audits, manifest, and compact CSV/JSON evidence.
 - `report.md`: contemporary scientific summary and claim boundary.

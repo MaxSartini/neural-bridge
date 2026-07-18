@@ -192,26 +192,22 @@ Phase 7 is the strongest observed-arousal-assisted scientific ceiling. The separ
 
 | Metric family | Canonical source |
 | --- | --- |
-| VEATIC `0.2536` / `0.1969` / `0.1840` / `0.1944` and balanced `0.3394` | [`benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md`](../benchmarks/veatic/veatic_124_confirmatory_benchmark_report_20260616.md) and [`benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md`](../benchmarks/veatic/veatic_124_event_conditioned_retest_20260616.md) |
-| Early AGAIN blocked and grouped raw/AR/AR+raw ablations | [`evidence/current_phase_5_5_review/05_again_phase_3_raw_cortical/README.md`](../evidence/current_phase_5_5_review/05_again_phase_3_raw_cortical/README.md) and its tracked [`promotion_gates.json`](../evidence/current_phase_5_5_review/05_again_phase_3_raw_cortical/outputs/again_dense_2hz_raw_cortical_benchmark_20260625_093733/promotion_gates.json) |
-| Phase 4 grouped bridge reference | [`best_lanes_by_target.json`](../evidence/current_phase_5_5_review/06_again_phase_4_pca_bridge/external_root_phase4_snapshot/promotion/best_lanes_by_target.json) and the tracked [Phase 4 promotion report](../evidence/current_phase_5_5_review/06_again_phase_4_pca_bridge/reports/again_dense_2hz_phase4_pca_promotion_summary_20260625_153419.md) |
-| Original Phase 5 grouped event and continuous ranking/lift | [`reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md`](../reports/again_dense_2hz_phase5_evalmode_rescore_summary_.md) and tracked [`evalmode_summary_metrics.csv`](../evidence/current_phase_5_5_review/07_again_phase_5_0_evalmode_primary/evalmode_rescore_bundle/metrics/evalmode_summary_metrics.csv) |
-| Phase 5 frozen-AR residual `0.2383409298` | [`reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md`](../reports/again_dense_2hz_phase5_frozen_ar_residual_summary_.md) |
-| Phase 5.5 blocked and grouped washout confirmations | [`reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md`](../reports/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437.md) and [`reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md`](../reports/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520_UPDATED_VERDICT.md) |
-| Phase 6 grouped binary ensemble | [`reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md`](../reports/again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_20260714_163024.md) |
-| Phase 7 grouped metrics, controls, event support, and generation comparison | [`reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`](../reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md) and the checksum-anchored evidence snapshot below |
-| Locked zero-label-at-inference deployment confirmation | [`reports/again_dense_2hz_zero_label_direct_supervised_locked_confirmation_20260715.md`](../reports/again_dense_2hz_zero_label_direct_supervised_locked_confirmation_20260715.md) |
+| Original VEATIC event ranking | [VEATIC v2 closure](../../original-veatic/v2-closure/README.md) and [claim report](../../original-veatic/v2-closure/report.md) |
+| Early AGAIN raw/AR/AR+raw ablations | [Phase 3 raw cortical benchmark](../phase-03-raw-cortical/README.md) |
+| Fold-safe PCA bridge | [Phase 4 closure](../phase-04-pca-bridge/README.md) and [compact evidence](../phase-04-pca-bridge/evidence/README.md) |
+| Frozen-AR residual and selected event head | [Phase 5 evidence ladder](../phase-05-learned-bridge/evidence-ladder.md) and [selected-head confirmation](../phase-05-learned-bridge/evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/README.md) |
+| Event stabilization | [Phase 6 closure](../phase-06-event-stabilization/README.md) |
+| Phase 7 grouped metrics and controls | [grouped report](grouped-confirmation/reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md) and [machine result](grouped-confirmation/metrics/result.json) |
+| Locked zero-label-at-inference confirmation | [zero-label report](../zero-label/locked-confirmation/reports/again_dense_2hz_zero_label_direct_supervised_locked_confirmation_20260715.md) and [machine result](../zero-label/locked-confirmation/metrics/locked_confirmation_result.json) |
 
 ## Canonical Evidence
 
-- grouped report: `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md`
-- grouped evidence snapshot: `evidence/phase_7_continuous_checkpoint_ensemble_grouped_20260714_181440/README.md`
-- grouped preregistration: `docs/phase7_continuous_checkpoint_ensemble_grouped_preregistration.md`
-- grouped reproduction: `studies/again/phase-07-continuous/replay/grouped-fold1-seed20260708-real.json` through `python -m neural_bridge.again replay-checkpoint`
-- grouped contract test: `tests/test_again_phase7_continuous_checkpoint_ensemble_grouped.py`
-- diagnostic report: `reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_diagnostic_20260714_174513.md`
-- machine-readable status: `docs/current_claim_status.json`
-- historical discovery ladder: `docs/how_neural_bridge_was_discovered.md`
+- [grouped report](grouped-confirmation/reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md)
+- [grouped machine result](grouped-confirmation/metrics/result.json)
+- [grouped preregistration](preregistration/grouped-confirmation.md)
+- [checksum-locked grouped replay specification](replay/grouped-fold1-seed20260708-real.json)
+- [failed blocked result](blocked-confirmation/metrics/result.json)
+- [diagnostic result](diagnostic/metrics/result.json)
 
 ## Current Bottom Line
 

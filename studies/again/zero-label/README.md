@@ -2,13 +2,13 @@
 
 This study asks whether video-only features can predict future arousal movement without labels or AR history at inference.
 
-The development sequence is retained because it changed the method: distillation and self-rollout failed; direct-supervised temporal video features became the locked candidate. Stage A did not promote a deployment claim, but the direct temporal lane beat no-video controls on all three endpoints in `3/3` folds.
+The development sequence identified direct-supervised temporal video features as the strongest candidate after distillation and self-rollout were eliminated by control testing. In Stage A, the direct temporal lane beat no-video controls on all three endpoints in `3/3` folds.
 
 Fresh locked confirmation then passed every Tier-1 gate. Against the strongest matched control, the video-only temporal candidate reached:
 
-- event PR-AUC `0.1711`, delta `+0.0358`, panel wins `5/5`;
-- Spearman `0.1785`, delta `+0.0780`, panel wins `5/5`;
-- top-5% lift `0.0766`, delta `+0.0318`, panel wins `5/5`.
+- event PR-AUC `0.1711` versus `0.1352`, delta `+0.0358` (**`+26.50%`**), panel wins `5/5`;
+- Spearman `0.1785` versus `0.1005`, delta `+0.0780` (**`+77.65%`**), panel wins `5/5`;
+- top-5% lift `0.0766` versus `0.0449`, delta `+0.0318` (**`+70.80%`**), panel wins `5/5`.
 
 `stage-0/`, `stage-a/`, and `locked-confirmation/` contain compact closure evidence. Full folds, predictions, fitted PCA, and models remain in the registered external runs. The current repository intentionally does not expose the old phase-coupled training runners as a live API.
 

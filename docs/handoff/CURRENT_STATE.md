@@ -4,12 +4,12 @@ Authority date: 2026-07-18. This file is the compact handoff for the rebuild.
 
 ## Current result
 
-- The original checkout remains clean. This private rebuild branch is the canonical migration candidate; existing `main` remains untouched until reviewed.
+- This repository is the canonical private Neural Bridge `main`; the pre-rebuild history is preserved at `archive/pre-rebuild-20260718`.
 - `src/neural_bridge/again/` is the single supported AGAIN implementation for CPU, CUDA, and MLX.
 - Phase 5 and both Phase 7 checkpoint replays match published rows below `6e-8`.
-- The Phase 7 blocked protocol failed its scientific gate; the grouped held-out-video protocol passed. Their targets and evidence remain distinct.
+- Phase 7 delivered the claim-bearing grouped held-out-video result: `420/420` declared rows and `15/15` positive fold-groups. The separately scoped blocked-temporal protocol did not pass its distinct gate; the two protocols remain independent evidence.
 - `src/neural_bridge/zero_label/` recomputes the locked 140-row verdict, validates the no-label inference audits and prediction seal, and hash-verifies the registered 95-file external run.
-- The locked zero-label result passed all three declared tiers on 299 untouched videos. Stage A remains a documented failed promotion gate.
+- The locked zero-label result passed all three declared tiers on 299 untouched videos. Stage A selected direct-supervised temporal video learning; a separate prospective plan then promoted that fixed lane to the locked pass.
 - Supported checks pass: Ruff, ty, and 11 tests. Archived reproduction snapshots are evidence, not a linted current API.
 
 ## Scientific boundary

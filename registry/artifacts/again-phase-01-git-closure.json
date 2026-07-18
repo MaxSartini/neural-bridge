@@ -4,12 +4,11 @@
   "programme": "again",
   "phase": "phase-01-label-alignment",
   "path": "studies/again/phase-01-label-alignment",
-  "files": 6,
-  "size_bytes": 6280,
-  "sha256_tree": "13be7a8ffa83cfa4a4dd0b60c35ce3d0514bb47c40f6fc1410a96fcb39403d71",
+  "files": 5,
+  "size_bytes": 6081,
+  "sha256_tree": "57a0c2cba9c4870abc834400ba8991f590a8dac22129ef5d743e0e312e277b52",
   "contents": {
-    "compact_contract": "95adcf50393b65146c46978914a5c000569241da52e5d1c09914f4a13753df9a",
-    "alignment_entrypoint": "fba62e38e7da1204172d6a8bd4e8eb5c6ee3c4480934354a32e472d7d9100da3"
+    "compact_contract": "95adcf50393b65146c46978914a5c000569241da52e5d1c09914f4a13753df9a"
   },
   "authority": "Saved dense-cache timestamps define 2 Hz alignment; train-fold thresholds never use test labels.",
   "external_collection_registry": "again-phase-01-label-alignment",

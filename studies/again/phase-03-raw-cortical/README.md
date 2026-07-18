@@ -6,4 +6,4 @@ On grouped spike ranking, raw cortical scored PR-AUC `0.1366` versus AR `0.1473`
 
 The evidence therefore says that fixed summaries of the 20,484-vertex representation were inconsistent and often weaker than learned persistence, while still containing useful target-dependent signal. Shuffled, random, timestamp, quality, motion, and luma controls remain part of the comparison.
 
-`evidence/` preserves both preliminary and final compact runs, the final report, and representation metadata. Dense features and raw matrices remain external. Current controls and evaluation live in `src/neural_bridge/again/`; the superseded phase entrypoint is not duplicated.
+`evidence/` preserves both preliminary and final compact runs, the final report, and representation metadata. Dense features and raw matrices remain external. Current controls and evaluation live in `src/neural_bridge/again/`; the historical phase entrypoint is not part of the current API.

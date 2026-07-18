@@ -5,8 +5,8 @@
   "phase": "v2-closure",
   "path": "studies/original-veatic/v2-closure",
   "files": 70,
-  "size_bytes": 38440922,
-  "sha256_tree": "2435b6ef57f8c8964d10cb61f4dc46a480e001930824a1c4c001bdaf3a0c4dde",
+  "size_bytes": 38436492,
+  "sha256_tree": "f5f5c0c9f9db20615709682dfb8c66510f0608de1c81ef0d47c0e5eade333292",
   "contents": {
     "results": {
       "files": 55,
@@ -23,7 +23,7 @@
     }
   },
   "selection": "Final current 124-video v2 compact evidence, core closure runners, and one self-contained scientific contract test. Older repair/device archaeology and application-coupled test variants remain outside this study.",
-  "source_status": "Tracked source files retained until final repository cutover; source and destination hashes match.",
+  "source_status": "Historical strict reproduction source and compact evidence are retained; current shared code lives under src/neural_bridge.",
   "authority": "Historical evidence and hypotheses only; never VEATIC 2.1 fitted or recipe authority.",
   "migrated_at": "2026-07-17T22:02:31Z"
 }

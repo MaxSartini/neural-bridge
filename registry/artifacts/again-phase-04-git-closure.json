@@ -4,21 +4,17 @@
   "programme": "again",
   "phase": "phase-04-pca-bridge",
   "path": "studies/again/phase-04-pca-bridge",
-  "files": 38,
-  "size_bytes": 14132912,
-  "sha256_tree": "e98ba9e26e6ab0e77850f0b367f99cbcb5c8c4e86c619d1042c84ffd25b6574a",
+  "files": 35,
+  "size_bytes": 14042370,
+  "sha256_tree": "e081b01e1fca93532b1b4c43e792dc20d71ea4134dbbfd1894f474cab30941a0",
   "contents": {
     "compact_evidence": {
       "files": 34,
       "sha256_tree": "c989d647782ee4fc319661da80ebde03c392236b37d0f65c82fcaf926ad7d92e"
-    },
-    "phase_owned_runners": {
-      "files": 3,
-      "sha256_tree": "d0da9898cf3b188e27c2a1bc9672ce98c5ad7f13feda7438b246b461efe6a817"
     }
   },
   "selection": "Promoted fold-safe PCA bridge evidence with controls, grouped/blocked distinction, leakage audits, and reports.",
-  "omissions": "Duplicated metric view and full fold-detail table remain in the registered external benchmark core. The application-coupled contract test waits for coherent shared-source migration.",
+  "omissions": "Duplicated metric view and full fold-detail table remain in the registered external benchmark core. Current execution lives in the canonical shared engine.",
   "external_collection_registry": "again-phase-04-pca-bridge",
   "migrated_at": "2026-07-17T22:23:23Z"
 }

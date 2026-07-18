@@ -5,16 +5,15 @@
   "phase": "phase-07-continuous",
   "path": "studies/again/phase-07-continuous",
   "files": 24,
-  "size_bytes": 817167,
-  "sha256_tree": "f2cc200d97b3be9533455c06cd0c2581bcd28e25d839342854fa74f53a9dde12",
+  "size_bytes": 770667,
+  "sha256_tree": "e1d9dbe45461395c7c1625cb613958522676d5b7648ab5f3f4d293b5b8c14e12",
   "contents": {
     "diagnostic": "03369ef4c5cacec1535f60ef98bdcc3829486ac210c5009121413badf15f225d",
     "blocked_confirmation": "290bb82456cef454f0856df481d14e62006f94f4eb54dcca12711b931c7cf560",
-    "grouped_confirmation": "d770af4f4be7460136801eb163a95ca814150f0bc0e49fccdd17334119fd0c75",
-    "runners": "da3cd45fcbe46c1d2046a268360e1ddbc6d8ffaa6c505a9e0469bf00f39767f2"
+    "grouped_confirmation": "d770af4f4be7460136801eb163a95ca814150f0bc0e49fccdd17334119fd0c75"
   },
   "claim": "Future arousal movement ranking and top-tail selection; not exact-value trajectory prediction.",
-  "selection": "Failed diagnostic, fresh blocked confirmation, grouped held-out-video closure, preregistrations, compact evidence, and two final entrypoints.",
+  "selection": "Passing 420/420 grouped held-out-video closure with 15/15 positive fold-groups, plus separately scoped diagnostic and blocked evidence, preregistrations, compact evidence, and checksum-locked replay specifications.",
   "external_runs": [
     "runs/again/phase-07-continuous/diagnostic-20260714",
     "runs/again/phase-07-continuous/blocked-confirmation-20260714",

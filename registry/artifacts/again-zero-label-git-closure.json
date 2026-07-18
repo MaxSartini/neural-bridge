@@ -4,14 +4,14 @@
   "programme": "again-zero-label",
   "path": "studies/again/zero-label",
   "files": 29,
-  "size_bytes": 1213790,
-  "sha256_tree": "b6a7b8fce93ae3fdaa500a05a83e9e4ca31a5bbd4f08ce4b23bb2a92451e306f",
+  "size_bytes": 1214169,
+  "sha256_tree": "eadfc2bf077f65433122f0633835396f1fc398cb19d5b5b126dc86a035fa34f0",
   "contents": {
     "stage_0": "b59f718ae8b8814c535a8e40921ca630684007a8d3a63c7ff2294fbb9aee10d9",
-    "stage_a": "5dd986e056722cdb038bcc14e3bbb57b78797041d853404dda909d8546f5ed90",
-    "locked_confirmation": "124a582c778fe5c78fc144290fb6abe4d4ed9a9a46e56e5f65e3b1e427edc190"
+    "stage_a": "c838554acd8717e6ed7a13aa491a204a6e327fa125ed4e4a4563c8bb59e689ca",
+    "locked_confirmation": "7c4f9c320dab8aecb00b10cd0dec3b3bbab868ead135314f1ef0d91a9fb85fbc"
   },
-  "selection": "Necessary failure-to-win development sequence, locked compact evidence, preregistrations, and no full fold/prediction archive or phase-coupled runners.",
+  "selection": "Development control screens selected direct-supervised temporal video learning, followed by the prospectively locked 299-video pass; compact evidence and preregistrations retained without the full fold/prediction archive.",
   "external_runs": [
     "runs/again/zero-label/development-20260714",
     "runs/again/zero-label/locked-confirmation-20260715"
