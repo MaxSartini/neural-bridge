@@ -1,0 +1,15 @@
+{
+  "controls": [
+    "frozen_ar_only",
+    "real_residual",
+    "shuffled_pca_residual",
+    "random_pca_residual",
+    "label_permutation_residual_permuted_inner_val_selection",
+    "label_permutation_fixed_epoch_audit",
+    "train_only_video_mean_pca_residual",
+    "full_video_video_mean_pca_residual_oracle_warning",
+    "diagnostics_only_residual"
+  ],
+  "loss": "regression_plus_binary",
+  "variant": "monotonic_do_no_harm_residual"
+}

@@ -1,0 +1,32 @@
+{
+  "dense_cache_modified": false,
+  "expected_score_shape": [
+    229024,
+    256
+  ],
+  "fold": 1,
+  "future_leakage_suspected": false,
+  "leakage_audit_pass": true,
+  "no_global_pca": true,
+  "no_test_fit": true,
+  "no_test_rows_used_in_pca_fit": true,
+  "original_pca_artifact_reused": false,
+  "protocol": "blocked_temporal_70_30",
+  "redesigned_test_rows_excluded_from_pca_fit": true,
+  "row_index_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__row_index.csv",
+  "score_shape": [
+    229024,
+    256
+  ],
+  "score_shape_pass": true,
+  "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+  "target_window_overlap": false,
+  "test_idx_digest": "3e0420210fbd993d3113681c7d24556e",
+  "test_rows": 69101,
+  "train_idx_digest": "c86521f8bd3b3a8ef2e9d1d0188eb3d8",
+  "train_rows": 159923,
+  "train_test_row_overlap": false,
+  "transform_idx_digest": "22be7969c98dd9820f6c21958abf2fab",
+  "tribe_encoding_run": false,
+  "vjepa_encoding_run": false
+}

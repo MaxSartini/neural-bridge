@@ -1,0 +1,23 @@
+{
+  "continuous_source": "future_arousal_max_delta_rows_2_6",
+  "created_at": "2026-06-29T23:46:21.435230+00:00",
+  "dense_root": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz",
+  "design_path": "phase_5_2_blocked_residual_targeted_230325/confirmation_design.json",
+  "duration_seconds": 151.73276209831238,
+  "feature": "temporal_mean_2s_then_pca256",
+  "loss": "regression_plus_binary",
+  "matrix_size": 45,
+  "no_ar_retraining": true,
+  "no_grouped": true,
+  "no_secondary_targets": true,
+  "no_vjepa_tribe_pca_rerun": true,
+  "output_root": "outputs/again_dense_2hz_phase5_blocked_residual_clean_confirm_20260629_234349",
+  "phase4_root": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full",
+  "previous_frozen_root": "outputs/again_dense_2hz_phase5_frozen_ar_residual_",
+  "protocol_scope": "blocked_temporal_70_30_only",
+  "residual_trainings": 40,
+  "schema_version": "again_dense_2hz_phase5_blocked_residual_clean_confirm_v1",
+  "source_root": "outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_20260629_171825",
+  "target": "arousal_spike_rows_2_6_train_q90",
+  "variant_scope": "monotonic_do_no_harm_residual"
+}

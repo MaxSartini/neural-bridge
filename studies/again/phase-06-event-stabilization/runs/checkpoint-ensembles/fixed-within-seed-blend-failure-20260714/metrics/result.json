@@ -1,0 +1,59 @@
+{
+  "accelerator_detail": "Device(gpu, 0)",
+  "blend_weights": {
+    "original": 0.5,
+    "trial4": 0.5
+  },
+  "checks": {
+    "audit_pass": true,
+    "ensemble_beats_original_at_least_3_of_5": true,
+    "ensemble_beats_trial4_at_least_3_of_5": true,
+    "ensemble_mean_delta_vs_ar_at_least_0_003": true,
+    "ensemble_mean_exceeds_higher_component_by_0_0005": false,
+    "ensemble_median_exceeds_higher_component_median": false,
+    "ensemble_positive_vs_ar_at_least_4_of_5": true,
+    "ensemble_std_at_least_5pct_below_lower_component_std": false,
+    "exact_five_fresh_seeds": true,
+    "exact_twenty_rows": true,
+    "single_seed_positive_gain_contribution_at_most_0_50": true
+  },
+  "control_complete_confirmation_authorized": false,
+  "duration_seconds": 119.24084782600403,
+  "ensemble_minus_ar": 0.006740730792562932,
+  "ensemble_minus_original": 0.0007602151208881414,
+  "ensemble_minus_stronger_component": 0.00016254624194728118,
+  "ensemble_minus_trial4": 0.00016254624194728118,
+  "ensemble_pr_auc": 0.26555380489348324,
+  "ensemble_std_reduction_vs_lower_component": -0.07209367546560252,
+  "ensemble_wins_vs_ar": 5,
+  "ensemble_wins_vs_original": 5,
+  "ensemble_wins_vs_trial4": 3,
+  "failed_gates": [
+    "ensemble_mean_exceeds_higher_component_by_0_0005",
+    "ensemble_median_exceeds_higher_component_median",
+    "ensemble_std_at_least_5pct_below_lower_component_std"
+  ],
+  "frozen_ar_pr_auc": 0.2588130741009203,
+  "max_positive_seed_contribution": 0.4928702051282016,
+  "original_pr_auc": 0.2647935897725951,
+  "pilot_pass": false,
+  "rows_actual": 20,
+  "rows_expected": 20,
+  "schema_version": "again_dense_2hz_phase6_fixed_blend_fresh5_v1",
+  "seed_pr_auc_std": {
+    "ensemble": 0.0040077527973108405,
+    "original": 0.0037382487081367233,
+    "trial4": 0.003977505274383199
+  },
+  "seeds": [
+    20260640,
+    20260641,
+    20260642,
+    20260643,
+    20260644
+  ],
+  "stronger_component_by_mean": "trial4_real_residual",
+  "trial4_pr_auc": 0.26539125865153596,
+  "viewed_seed_scores_reused": false,
+  "weight_search": false
+}

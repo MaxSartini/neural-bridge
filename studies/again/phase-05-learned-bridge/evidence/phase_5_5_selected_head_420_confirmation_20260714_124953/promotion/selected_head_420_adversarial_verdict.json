@@ -1,0 +1,19 @@
+{
+  "bounded_claim": "controlled future arousal event ranking across strict blocked temporal and grouped held-out-video validation on AGAIN",
+  "continuous_model_development_performed": false,
+  "failed_gates": [],
+  "not_proven": [
+    "exact continuous future arousal values",
+    "blocked continuous generalization",
+    "broad all-target/all-dataset prediction",
+    "universal temporal generalization"
+  ],
+  "overall_selected_head_420_confirmation_pass": true,
+  "rows_rerun": 0,
+  "rows_reused": 420,
+  "schema_version": "again_dense_2hz_phase5_selected_head_420_confirmation_v1",
+  "scientific_thresholds_changed_after_results": false,
+  "silent_substitutions": false,
+  "superseded_grouped_label_permutation_gate_restored": false,
+  "verdict": "pass"
+}

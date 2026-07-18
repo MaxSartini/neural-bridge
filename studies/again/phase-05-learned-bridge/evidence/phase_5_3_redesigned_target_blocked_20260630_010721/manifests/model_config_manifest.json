@@ -1,0 +1,16 @@
+{
+  "controls": [
+    "frozen_ar_only",
+    "real_residual",
+    "shuffled_pca_residual",
+    "random_pca_residual",
+    "label_permutation_residual",
+    "train_only_video_mean_residual",
+    "diagnostics_only_residual"
+  ],
+  "targets": [
+    "future_arousal_max_delta_rows_4_10_train_q90",
+    "residual_future_max_delta_rows_4_10"
+  ],
+  "variant": "monotonic_do_no_harm_residual"
+}

@@ -1,0 +1,19 @@
+{
+  "blocked": {
+    "rows_expected": 70,
+    "rows_rerun": 0,
+    "rows_reused": 70
+  },
+  "grouped": {
+    "rows_expected": 350,
+    "rows_rerun": 0,
+    "rows_reused": 350
+  },
+  "rerun_reason": null,
+  "rerun_required": false,
+  "total": {
+    "rows_expected": 420,
+    "rows_rerun": 0,
+    "rows_reused": 420
+  }
+}

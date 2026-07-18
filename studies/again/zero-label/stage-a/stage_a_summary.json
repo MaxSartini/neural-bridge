@@ -1,0 +1,91 @@
+{
+  "schema_version": "again_dense_2hz_zero_label_deployment_stage_a_snapshot_v1",
+  "date": "2026-07-14",
+  "implementation_commit": "ace7a75",
+  "implementation_freeze_digest": "6b3780bfe1b5fe91b11c77337d06112a",
+  "signed_implementation_digest": "2796d1deb1f47198e51e30c6eea266bd",
+  "target_identity_digest": "446906dff30be33f204de0f973207975",
+  "development_split_digest": "cf65a766cd827e6201544dd753049cb4",
+  "locked_split_digest": "ded8bc2bf079fef91ae5c253b9a9ac2e",
+  "accelerator": "Device(gpu, 0)",
+  "duration_seconds": 825.7267489433289,
+  "matrix": {
+    "expected": 96,
+    "actual": 96,
+    "member_rows": 72,
+    "ensemble_rows": 24,
+    "scope_pass": true,
+    "audit_pass": true
+  },
+  "infrastructure": {
+    "pca_fits": 12,
+    "pca_backend": "mlx_gpu_matmul_numpy_qr_svd",
+    "teacher_members": 36,
+    "prediction_files": 96,
+    "prediction_schema_clean": true,
+    "locked_299_video_pool_accessed": false
+  },
+  "verdict": {
+    "stage_a_pass": false,
+    "locked_winner": null,
+    "stage_b_authorized": false,
+    "failed_gates": [
+      "no_candidate_passed_all_continuation_gates"
+    ],
+    "phase7_ar_assisted_claim_unchanged": true,
+    "deployment_claim_promoted": false
+  },
+  "development_metric_means": {
+    "video_supervised_temporal": {
+      "spearman": 0.15747842072293017,
+      "top5_lift": 0.061108356289100864,
+      "event_pr_auc": 0.14618715985627626
+    },
+    "video_supervised_current_row": {
+      "spearman": 0.14870541862248013,
+      "top5_lift": 0.05851854463812786,
+      "event_pr_auc": 0.14353525872357334
+    },
+    "video_distilled_temporal": {
+      "spearman": 0.09737932641181603,
+      "top5_lift": 0.027307897308416002,
+      "event_pr_auc": 0.10900765556925385
+    },
+    "video_closed_loop_rollout": {
+      "spearman": 0.07567246625210476,
+      "top5_lift": 0.03658633087365742,
+      "event_pr_auc": 0.11526924236533038
+    },
+    "no_video_closed_loop_persistence": {
+      "spearman": 0.09106543701179139,
+      "top5_lift": 0.04959071959193163,
+      "event_pr_auc": 0.11878921312083619
+    },
+    "phase7_ar_assisted_teacher_ceiling": {
+      "spearman": 0.2776408274315488,
+      "top5_lift": 0.09644092398699855,
+      "event_pr_auc": 0.21100119268856818
+    }
+  },
+  "direct_supervised_temporal_vs_no_video": {
+    "spearman_delta": 0.06641298371113878,
+    "spearman_relative_gain_pct": 72.92885851142344,
+    "top5_lift_delta": 0.011517636697169237,
+    "top5_lift_relative_gain_pct": 23.22538731428924,
+    "event_pr_auc_delta": 0.027397946735440062,
+    "event_pr_auc_relative_gain_pct": 23.064338937551504,
+    "fold_wins_spearman": "3/3",
+    "fold_wins_top5_lift": "3/3",
+    "fold_wins_event_pr_auc": "3/3",
+    "first30_fold_wins_all_three_endpoints": "3/3"
+  },
+  "direct_supervised_temporal_teacher_added_gain_retention": {
+    "spearman": 0.35593958189557334,
+    "top5_lift": 0.21246164984009594,
+    "event_pr_auc": 0.27006095333001934,
+    "locked_minimum": 0.5,
+    "all_retention_gates_passed": false
+  },
+  "next_hypothesis": "prospectively_lock_direct_supervised_temporal_video_only_as_the_deployment_candidate",
+  "new_authorization_required": true
+}

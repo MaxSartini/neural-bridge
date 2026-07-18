@@ -1,0 +1,41 @@
+{
+  "expected_files": [
+    "promotion/promotion_gates.json",
+    "promotion/corrected_promotion_gates.json",
+    "promotion/adversarial_verdict.json",
+    "promotion/failure_reasons.json",
+    "diagnostics/checkpoint_restore_audit.json",
+    "diagnostics/training_headroom_audit.json",
+    "diagnostics/adversarial_repair_artifact_completeness_audit.json",
+    "metrics/phase5_summary_metrics.csv",
+    "metrics/phase5_fold_metrics.csv",
+    "metrics/phase5_within_video_metrics.csv",
+    "reports/again_dense_2hz_phase5_primary_repair_matrix_summary_20260629_171825.md"
+  ],
+  "present_files": [
+    "promotion/promotion_gates.json",
+    "promotion/corrected_promotion_gates.json",
+    "promotion/adversarial_verdict.json",
+    "promotion/failure_reasons.json",
+    "diagnostics/checkpoint_restore_audit.json",
+    "diagnostics/training_headroom_audit.json",
+    "diagnostics/adversarial_repair_artifact_completeness_audit.json",
+    "metrics/phase5_summary_metrics.csv",
+    "metrics/phase5_fold_metrics.csv",
+    "metrics/phase5_within_video_metrics.csv",
+    "reports/again_dense_2hz_phase5_primary_repair_matrix_summary_20260629_171825.md"
+  ],
+  "missing_files": [],
+  "files_created_by_this_normalization_pass": [
+    "promotion/corrected_promotion_gates.json",
+    "promotion/adversarial_verdict.json",
+    "diagnostics/training_headroom_audit.json",
+    "diagnostics/adversarial_repair_artifact_completeness_audit.json"
+  ],
+  "files_updated_by_this_normalization_pass": [
+    "promotion/failure_reasons.json",
+    "reports/again_dense_2hz_phase5_primary_repair_matrix_summary_20260629_171825.md"
+  ],
+  "missing_artifact_blocks_interpretation": false,
+  "interpretation_note": "No missing normalized artifact blocks interpretation after this pass. The corrected verdict remains repair_required because grouped matched-control support is positive but blocked matched-control support is negative."
+}

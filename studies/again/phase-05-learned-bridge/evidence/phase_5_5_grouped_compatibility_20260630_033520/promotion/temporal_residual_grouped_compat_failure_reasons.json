@@ -1,0 +1,6 @@
+{
+  "failed_gates": [
+    "label_permutation_not_near_chance"
+  ],
+  "recommendation": "grouped_compatibility_failed_do_not_run_504"
+}

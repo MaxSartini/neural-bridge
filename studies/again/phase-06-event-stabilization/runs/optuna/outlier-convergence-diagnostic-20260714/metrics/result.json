@@ -1,0 +1,30 @@
+{
+  "accelerator": "mlx",
+  "canonical_original_pr_auc": 0.2770178562122585,
+  "claim_bearing": false,
+  "control": "real_residual",
+  "created_at": "2026-07-14T14:26:11.341592+00:00",
+  "extended_best_epoch": 38,
+  "extended_best_inner_val_delta": 0.019807380802850105,
+  "extended_minus_original_pr_auc": -0.017862956824446108,
+  "extended_minus_standard_pr_auc": 0.0,
+  "extended_pr_auc": 0.2591548993878124,
+  "hit_epoch_ceiling": false,
+  "interpretation_boundary": "posthoc convergence diagnostic; cannot change locked 10-seed verdict",
+  "locked_params": {
+    "alpha_cap": 0.16,
+    "alpha_initial_logit": -3.0,
+    "gate_bias": 5.0,
+    "hidden": 64,
+    "lambda_binary": 0.8,
+    "learning_rate": 0.00010528366155183298,
+    "weight_decay": 0.00020452569809101856
+  },
+  "locked_trial": 15,
+  "max_epochs": 80,
+  "patience": 12,
+  "posthoc": true,
+  "seed": 20260627,
+  "standard_40_epoch_best_epoch": 38,
+  "standard_40_epoch_pr_auc": 0.2591548993878124
+}

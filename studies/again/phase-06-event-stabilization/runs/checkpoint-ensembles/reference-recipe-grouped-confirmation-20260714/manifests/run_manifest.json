@@ -1,0 +1,74 @@
+{
+  "accelerator": "mlx",
+  "duration_seconds": 2575.0397276878357,
+  "folds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "grouped_pca_root": "outputs/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520/foldsafe_grouped_pca",
+  "groups": [
+    [
+      20260675,
+      20260676,
+      20260677
+    ],
+    [
+      20260678,
+      20260679,
+      20260680
+    ],
+    [
+      20260681,
+      20260682,
+      20260683
+    ]
+  ],
+  "lanes": [
+    "frozen_ar",
+    "real_residual",
+    "shuffled_pca_residual",
+    "random_pca_residual",
+    "label_permutation_residual",
+    "train_only_video_mean_residual",
+    "diagnostics_only_residual"
+  ],
+  "member_selection": false,
+  "params": {
+    "alpha_cap": 0.12,
+    "alpha_initial_logit": -4.0,
+    "gate_bias": 4.0,
+    "hidden": 64,
+    "lambda_binary": 0.5,
+    "learning_rate": 0.0002,
+    "max_epochs": 40,
+    "patience": 8,
+    "weight_decay": 0.0001
+  },
+  "residual_target_definition": {
+    "policy": "train_only_simple_ar_residualizer_inside_redesigned_blocked_split",
+    "ridge_alpha": 10.0,
+    "test_idx_digest": "1eae8f7205a70dcbe7e25c0bc7d7698f",
+    "test_rows": 68008,
+    "train_idx_digest": "bacd280c4bdc0389ded9dd9cb0b68f66",
+    "train_r2": 0.05854348115418895,
+    "train_rows": 156873
+  },
+  "rows": 420,
+  "schema_version": "again_dense_2hz_phase6_original_three_checkpoint_grouped_confirmation_v1",
+  "seeds": [
+    20260675,
+    20260676,
+    20260677,
+    20260678,
+    20260679,
+    20260680,
+    20260681,
+    20260682,
+    20260683
+  ],
+  "source_root": "outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_20260629_171825",
+  "weight_search": false
+}

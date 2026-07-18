@@ -1,0 +1,55 @@
+{
+  "architecture": "short_temporal_conv_residual",
+  "blocked_rows": 70,
+  "blocked_source_root": "outputs/again_dense_2hz_phase5_temporal_residual_binary_big_confirm_20260630_025437",
+  "created_at": "2026-07-14T13:04:56.376688+00:00",
+  "evidence_root": "evidence/phase_5_5_selected_head_420_confirmation_20260714_124953",
+  "feature": "temporal_mean_2s_then_pca256",
+  "folds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "grouped_rows": 350,
+  "grouped_source_root": "outputs/again_dense_2hz_phase5_temporal_residual_grouped_compat_20260630_033520",
+  "grouped_updated_verdict_root": "evidence/phase_5_5_grouped_compatibility_20260630_033520",
+  "lanes": [
+    "frozen_ar_only",
+    "real_residual",
+    "shuffled_pca_residual",
+    "random_pca_residual",
+    "label_permutation_residual",
+    "train_only_video_mean_residual",
+    "diagnostics_only_residual"
+  ],
+  "matrix_rows_actual": 420,
+  "matrix_rows_expected": 420,
+  "no_continuous_model_development": true,
+  "no_pca_fit": true,
+  "no_scoring": true,
+  "no_training": true,
+  "output_root": "outputs/again_dense_2hz_phase5_selected_head_420_confirmation_20260714_124953",
+  "overall_pass": true,
+  "protocols": [
+    "blocked_temporal_70_30",
+    "grouped_video"
+  ],
+  "rows_rerun": 0,
+  "rows_reused": 420,
+  "schema_version": "again_dense_2hz_phase5_selected_head_420_confirmation_v1",
+  "seeds": [
+    20260625,
+    20260626,
+    20260627,
+    20260628,
+    20260629,
+    20260630,
+    20260631,
+    20260632,
+    20260633,
+    20260634
+  ],
+  "target": "future_arousal_max_delta_rows_4_10_train_q90"
+}

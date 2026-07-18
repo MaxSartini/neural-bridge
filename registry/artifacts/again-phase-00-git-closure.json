@@ -1,0 +1,17 @@
+{
+  "artifact_id": "again-phase-00-git-closure",
+  "classification": "git-study-closure",
+  "programme": "again",
+  "phase": "phase-00-dense-foundation",
+  "path": "studies/again/phase-00-dense-foundation",
+  "files": 17,
+  "size_bytes": 2744475,
+  "sha256_tree": "4364b31f51b4be61dc9ee42bcd715c6ef178384db25e2c46da3d65e6d8ca6e57",
+  "contents": {
+    "contract_audits_and_provenance": "713f8336d84ea56e31142779c878f22a637c239158cc272859c884f652fcb0e0",
+    "dense_tribe_postpass_runner": "817e4ddafa706545fb8619702fdf5327ff4ec013648477e8e6a7b67b2e325c0b"
+  },
+  "authority": "Saved per-video timestamps and row identities are canonical; 0.5-second starts never receive invented zero rows.",
+  "external_collection_registry": "again-phase-00-dense-foundation",
+  "migrated_at": "2026-07-17T22:33:39Z"
+}

@@ -1,0 +1,23 @@
+{
+  "architecture": "short_temporal_conv_residual",
+  "controls": [
+    "real_residual",
+    "shuffled_pca_residual",
+    "random_pca_residual",
+    "label_permutation_residual",
+    "train_only_video_mean_residual",
+    "diagnostics_only_residual"
+  ],
+  "duration_seconds": 126.26276588439941,
+  "git_commit": "fd340067e3212793e964726727920d9dd67d3956",
+  "heldout_scored_during_study": false,
+  "no_420_rerun": true,
+  "no_claim_change": true,
+  "no_grouped": true,
+  "no_vjepa_tribe_pca_rerun": true,
+  "output_root": "outputs/again_dense_2hz_phase6_optuna_selected_head_pilot_20260714_135902",
+  "schema_version": "again_dense_2hz_phase6_optuna_selected_head_pilot_v1",
+  "seed": 20260625,
+  "target": "future_arousal_max_delta_rows_4_10_train_q90",
+  "trials": 16
+}

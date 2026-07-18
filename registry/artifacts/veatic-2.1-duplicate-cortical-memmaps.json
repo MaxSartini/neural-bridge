@@ -1,0 +1,15 @@
+{
+  "classification": "external-delete-after-verify",
+  "canonical_artifact_id": "veatic-2.1-initial-heads-shared-representations-20260717",
+  "canonical_subtree": "cortical_memmap",
+  "sha256_tree": "7c33071df27a0e7b1d2da8cf227759c484928352414c44579469576310b321da",
+  "size_bytes_each": 846276398,
+  "duplicate_count": 2,
+  "quarantine_relative_paths": [
+    "quarantine/duplicate-candidates/veatic-2.1/shared-derived-20260716-cortical-memmap",
+    "quarantine/duplicate-candidates/veatic-2.1/shared-derived-20260717-cortical-memmap"
+  ],
+  "former_paths_now_symlink_to_canonical": true,
+  "deletion_requires_explicit_approval": true,
+  "quarantined_at": "2026-07-17T20:56:32Z"
+}

@@ -1,0 +1,23 @@
+{
+  "artifact_id": "again-phase-02-git-closure",
+  "classification": "git-study-closure",
+  "programme": "again",
+  "phase": "phase-02-ar-baseline",
+  "path": "studies/again/phase-02-ar-baseline",
+  "files": 24,
+  "size_bytes": 118294,
+  "sha256_tree": "a6f918e7cbbe78e8c1b5ddf7df1d27deb3aa5a218a8781ebfec05ff91520a20c",
+  "contents": {
+    "development_and_final_evidence": {
+      "files": 22,
+      "sha256_tree": "1ec1b3abdbccf399000f83f93875a39e2177f14024d70f0656c57a1672d65930"
+    },
+    "phase_entrypoint": {
+      "files": 1,
+      "sha256_tree": "1f6d7706877420154ff3cef34edc91fbe846308902f157cda3446e05869d0299"
+    }
+  },
+  "authority": "Only the final benchmark is canonical; four earlier revisions are development evidence.",
+  "external_collection_registry": "again-phase-02-ar-baseline",
+  "migrated_at": "2026-07-17T22:28:21Z"
+}

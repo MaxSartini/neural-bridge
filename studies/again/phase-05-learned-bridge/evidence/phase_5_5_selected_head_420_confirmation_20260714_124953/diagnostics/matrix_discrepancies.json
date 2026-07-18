@@ -1,0 +1,11 @@
+{
+  "actual_rows": 420,
+  "duplicate_keys": [],
+  "expected_rows": 420,
+  "matrix_completeness_pass": true,
+  "matrix_uniqueness_pass": true,
+  "missing_keys": [],
+  "unexpected_keys": [],
+  "unique_rows": 420,
+  "unknown_source_lanes": []
+}

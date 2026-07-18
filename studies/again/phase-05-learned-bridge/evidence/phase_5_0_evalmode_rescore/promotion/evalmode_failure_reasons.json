@@ -1,0 +1,7 @@
+{
+  "blocked_failure_reason": "blocked real_ar_pca_diag PR-AUC 0.2218656156 is below best matched blocked control ar_plus_random_pca PR-AUC 0.2311845051, and AR-only PR-AUC 0.2654721820 is higher than real.",
+  "blocked_matched_control_pass": false,
+  "full_pass": false,
+  "repair_required": true,
+  "strict_forward_time_temporal_generalization_proven": false
+}

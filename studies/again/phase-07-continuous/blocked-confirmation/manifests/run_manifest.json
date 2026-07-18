@@ -1,0 +1,98 @@
+{
+  "accelerator": "mlx_gpu_mps",
+  "architecture": "short_temporal_conv_residual",
+  "confirmation_scope": "blocked_continuous_ranking_lift_only",
+  "controls": [
+    "frozen_ar_only",
+    "real_residual",
+    "shuffled_pca_residual",
+    "random_pca_residual",
+    "label_permutation_residual",
+    "train_only_video_mean_residual",
+    "diagnostics_only_residual"
+  ],
+  "duration_seconds": 637.1532709598541,
+  "exact_value_promotion_forbidden": true,
+  "foldsafe_pca_root": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312",
+  "groups": [
+    [
+      20260693,
+      20260694,
+      20260695
+    ],
+    [
+      20260696,
+      20260697,
+      20260698
+    ],
+    [
+      20260699,
+      20260700,
+      20260701
+    ],
+    [
+      20260702,
+      20260703,
+      20260704
+    ],
+    [
+      20260705,
+      20260706,
+      20260707
+    ]
+  ],
+  "heldout_hyperparameter_search": false,
+  "heldout_weight_search": false,
+  "member_selection": false,
+  "no_cpu_fallback": true,
+  "no_grouped": true,
+  "no_pca_refit": true,
+  "no_vjepa_tribe_pca_rerun": true,
+  "params": {
+    "alpha_cap": 0.12,
+    "alpha_initial_logit": -4.0,
+    "gate_bias": 4.0,
+    "hidden": 64,
+    "lambda_binary": 0.5,
+    "learning_rate": 0.0002,
+    "max_epochs": 40,
+    "patience": 8,
+    "weight_decay": 0.0001
+  },
+  "primary_controls": [
+    "shuffled_pca_residual",
+    "random_pca_residual",
+    "label_permutation_residual",
+    "train_only_video_mean_residual"
+  ],
+  "residual_target_definition": {
+    "policy": "train_only_simple_ar_residualizer_inside_redesigned_blocked_split",
+    "ridge_alpha": 10.0,
+    "test_idx_digest": "1eae8f7205a70dcbe7e25c0bc7d7698f",
+    "test_rows": 68008,
+    "train_idx_digest": "bacd280c4bdc0389ded9dd9cb0b68f66",
+    "train_r2": 0.05854348115418895,
+    "train_rows": 156873
+  },
+  "rows": 140,
+  "schema_version": "again_dense_2hz_phase7_continuous_checkpoint_ensemble_blocked_confirm_v1",
+  "seeds": [
+    20260693,
+    20260694,
+    20260695,
+    20260696,
+    20260697,
+    20260698,
+    20260699,
+    20260700,
+    20260701,
+    20260702,
+    20260703,
+    20260704,
+    20260705,
+    20260706,
+    20260707
+  ],
+  "source_root": "outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_20260629_171825",
+  "target": "residual_future_max_delta_rows_4_10"
+}

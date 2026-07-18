@@ -1,0 +1,49 @@
+{
+  "absolute_phase7_parity_required": false,
+  "accelerator_for_later_training": "mlx_gpu_mps",
+  "artifact_sha256": {
+    "dry_run_matrix.csv": "1bb3e72902d95e9a88c5cc4fdf806d146870f81442323cfabba5242b501c1803",
+    "feature_policy_manifest.json": "27090b49bc8e70f3f62cef15526dfc72e7712ec3cc7c564bbb4753fdd0c15109",
+    "split_manifest.json": "760b30b73a91a3f51ccd26fbb7a57de35ea73b9ef9579956e48e17f8de9f1e69",
+    "target_identity_manifest.json": "4d810d9d31ab3f147fdfcf723feacf2a846c6a99d05e619af22fb017c6752045"
+  },
+  "authorized": [
+    "manifests",
+    "dry_run_matrix",
+    "contract_tests"
+  ],
+  "dataset_rows": 243575,
+  "dataset_videos": 995,
+  "development_split_digest": "cf65a766cd827e6201544dd753049cb4",
+  "failed_contracts": [],
+  "forbidden": [
+    "model_fitting",
+    "teacher_score_generation",
+    "heldout_prediction_scoring",
+    "stage_a",
+    "stage_b",
+    "claim_promotion"
+  ],
+  "heldout_predictions_scored": false,
+  "locked_split_digest": "ded8bc2bf079fef91ae5c253b9a9ac2e",
+  "model_training_performed": false,
+  "no_cpu_fallback": true,
+  "output_root": "evidence/zero_label_video_only_deployment_stage0_20260714",
+  "preregistration": "docs/zero_label_video_only_deployment_bridge_pilot_preregistration.md",
+  "required_metrics": [
+    "pooled_continuous_spearman",
+    "top_5pct_true_future_movement_lift",
+    "training_q90_future_event_pr_auc"
+  ],
+  "schema_version": "again_dense_2hz_zero_label_deployment_stage0_v1",
+  "stage0_pass": true,
+  "stage_a_authorized": false,
+  "stage_a_expected_rows": 96,
+  "stage_a_matrix_rows": 96,
+  "stage_b_expected_rows": 140,
+  "stage_b_matrix_rows": 140,
+  "status": "stage0_planning_contracts_only",
+  "target_identity_digest": "446906dff30be33f204de0f973207975",
+  "teacher_incremental_gain_retention_minimum": 0.5,
+  "teacher_scores_generated": false
+}

@@ -1,0 +1,10 @@
+{
+  "artifact_id": "veatic-2.1-no-harm-transition-20260717",
+  "classification": "external-study",
+  "external_relative_path": "runs/veatic-2.1/initial-heads/no-harm-transition-20260717",
+  "files": 1853,
+  "size_bytes": 151051844,
+  "sha256_tree": "a35c7d62ed7e3b3e97d2c73d5ef96e89ce2446605fb11f2ecd913faff51b4324",
+  "compatibility_symlink": true,
+  "moved_at": "2026-07-17T20:50:01Z"
+}

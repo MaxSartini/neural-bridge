@@ -1,0 +1,22 @@
+{
+  "artifact_id": "veatic-2.1-foundation-encoding-bundle-20260716",
+  "classification": "external-quarantine",
+  "external_relative_path": "quarantine/veatic-2.1/foundation/encoding-bundle-20260716",
+  "reason": "Select scientifically reusable encoding source and provenance before Git migration; discard hardware and packaging noise only after verification.",
+  "credential_pattern_audit": {
+    "assignment_like_matches": 0,
+    "descriptive_matches": 4
+  },
+  "source": {
+    "files": 19,
+    "size_bytes": 5644848,
+    "sha256_tree": "9e47356e1cc6a97443757f9e21c0c7841cfbc9788eadb079a089235ca5b267c0"
+  },
+  "archive": {
+    "size_bytes": 869931,
+    "sha256_tree": "8bc23a3aca0383bad11bc6776ebb13c92fcae67bff2ab1a7021ee6ea397f8a5f",
+    "checksum_tree": "f9453fa471761204e6a4bfe93beb438873e7ac639cd7d550b27a94baf8ec25b4"
+  },
+  "compatibility_symlinks": true,
+  "moved_at": "2026-07-17T20:54:42Z"
+}

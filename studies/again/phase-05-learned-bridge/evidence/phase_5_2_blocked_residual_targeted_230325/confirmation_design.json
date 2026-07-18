@@ -1,0 +1,120 @@
+{
+  "schema_version": "phase5_blocked_residual_confirmation_design_v1",
+  "source_audit_commit": "70215b0",
+  "design_only": true,
+  "claims_changed": false,
+  "training_run": false,
+  "recommended_next_action": "implement_review_then_run_small_monotonic_only_clean_blocked_confirmation_not_504",
+  "label_permutation_policy": {
+    "meaning": "null residual learner with same features, AR floor, optimizer, seed, split, and budget, but residual target relation broken before checkpoint selection",
+    "training_labels": "permuted_train_labels",
+    "inner_validation_selection_labels": "permuted_inner_val_labels",
+    "test_scoring_labels": "true_heldout_test_labels",
+    "primary_checkpoint_selection": "select_by_permuted_inner_val_pr_auc_delta_vs_frozen_ar",
+    "secondary_audit": "fixed_epoch_or_real_epoch_label_permutation_row",
+    "cleanest_null": "permuted_train_plus_permuted_inner_val_selection_then_true_heldout_scoring",
+    "use_true_inner_val_labels_for_label_permutation_selection": false,
+    "reuse_real_checkpoint_epoch_as_primary_null": false
+  },
+  "video_mean_policy": {
+    "full_video_mean": {
+      "definition": "compute per-video PCA means from train_plus_test_rows",
+      "blocked_temporal_status": "oracle_static_warning_control",
+      "uses_future_or_test_information_under_blocked": true,
+      "promotability_blocking": false,
+      "reported_as": "mechanism_diagnostic"
+    },
+    "train_only_video_mean": {
+      "definition": "compute per-video PCA means from train_rows_only_then_apply_to_test_rows",
+      "blocked_temporal_status": "static_nuisance_control",
+      "uses_future_or_test_information_under_blocked": false,
+      "promotability_blocking": true,
+      "reported_as": "primary_static_control_gate"
+    }
+  },
+  "minimum_delta_thresholds_pr_auc": {
+    "exploratory_positive": 0.0,
+    "weak_pass": 0.001,
+    "credible_pass": 0.003,
+    "strong_pass": 0.005,
+    "recommended_confirmation_minimum": 0.001,
+    "recommended_strong_wording_minimum": 0.003,
+    "tiny_delta_like_0_00007_can_pass": false
+  },
+  "blocked_confirmation_gates": {
+    "same_variant_only": true,
+    "variant": "monotonic_do_no_harm_residual",
+    "protocol": "blocked_temporal_70_30",
+    "frozen_ar_integrity_pass": "required",
+    "checkpoint_restore_pass": "required",
+    "eval_mode_scoring_pass": "required",
+    "real_gt_frozen_ar_pass": "real_minus_frozen_ar_pr_auc >= 0.001",
+    "real_gt_shuffled_random_pass": "real_minus_each_same_variant_shuffled_and_random_pr_auc >= 0.001",
+    "real_gt_label_permutation_pass": "real_minus_clean_label_permutation_pr_auc >= 0.001",
+    "real_gt_train_only_video_mean_pass": "real_minus_train_only_video_mean_pr_auc >= 0.001",
+    "oracle_full_video_mean_warning": "report separately; block headline mechanism language if full_video_mean_minus_real >= 0.001",
+    "seed_consistency_pass": "positive real_vs_frozen_ar and real_vs_each_primary_control in at least 4_of_5 seeds",
+    "confidence_pass": "bootstrap_ci_positive_if_available_else_4_of_5_positive_seeds_and_no_single_seed_over_60_percent_of_mean_delta",
+    "do_no_harm_blocked_pass": "no_seed_real_minus_frozen_ar_below_minus_0_0005_and_mean_delta_nonnegative",
+    "blocked_residual_confirmation_pass": "all_primary_gates_pass_at_weak_threshold_or_better"
+  },
+  "recommended_next_matrix": {
+    "justification": "smallest clean run to test blocked temporal residual behavior after null-control fixes",
+    "target": "arousal_spike_rows_2_6_train_q90",
+    "continuous_source": "future_arousal_max_delta_rows_2_6",
+    "feature": "temporal_mean_2s_then_pca256",
+    "protocols": [
+      "blocked_temporal_70_30"
+    ],
+    "folds": "full_blocked_split",
+    "variants": [
+      "monotonic_do_no_harm_residual"
+    ],
+    "losses": [
+      "regression_plus_binary"
+    ],
+    "seeds": {
+      "count": 5,
+      "include_existing": [
+        20260625,
+        20260626,
+        20260627
+      ],
+      "plus_two_new_prespecified": true
+    },
+    "controls": [
+      "frozen_ar_only",
+      "real_residual",
+      "shuffled_pca_residual",
+      "random_pca_residual",
+      "label_permutation_residual_permuted_inner_val_selection",
+      "label_permutation_fixed_epoch_audit",
+      "train_only_video_mean_pca_residual",
+      "full_video_video_mean_pca_residual_oracle_warning",
+      "diagnostics_only_residual"
+    ],
+    "total_rows_including_frozen_ar": 45,
+    "residual_trainings_excluding_frozen_ar": 40
+  },
+  "grouped_policy": {
+    "run_grouped_next": false,
+    "grouped_fold1_canonical": false,
+    "run_full_5_fold_grouped_only_if_blocked_confirmation_passes": true
+  },
+  "stop_conditions": [
+    "label_permutation_checkpoint_selection_policy_not_implemented",
+    "train_only_and_full_video_video_mean_controls_not_separated",
+    "same_variant_gates_not_encoded",
+    "minimum_delta_thresholds_missing",
+    "frozen_ar_checksum_integrity_fails",
+    "checkpoint_restore_or_eval_mode_scoring_fails",
+    "real_minus_frozen_ar_below_0_001",
+    "real_fails_same_variant_primary_controls_by_0_001",
+    "fewer_than_4_of_5_positive_seeds",
+    "full_video_oracle_static_control_beats_real_by_at_least_0_001"
+  ],
+  "promotion_language_if_passes_weak": "In a targeted blocked-temporal confirmation, the monotonic frozen-AR residual produced a small but consistent PR-AUC gain over frozen AR and clean same-variant residual controls. This supports a targeted blocked residual improvement for the primary arousal spike ranking task, while strict forward-time temporal generalization should still be described with effect size and control caveats unless the gain reaches the credible threshold.",
+  "promotion_language_if_passes_credible": "The monotonic frozen-AR residual adds a blocked-temporal arousal spike ranking improvement beyond frozen AR and clean same-variant null controls, with seed-consistent gains and no do-no-harm violation. This is evidence for blocked residual improvement on the primary task, subject to grouped compatibility checks before broader claim updates.",
+  "non_promotion_language_if_fails": "The bounded diagnostic's tiny positive blocked delta did not survive clean same-variant confirmation gates. Strict forward-time temporal generalization remains unproven. The frozen-AR residual result remains useful as a diagnostic showing reduced blocked harm and a candidate monotonic gate, but it should not be promoted as a blocked temporal improvement.",
+  "non_promotion_language_if_only_full_video_oracle_fails": "The primary train-only static-control gate passed, but full-video oracle static control still matched or exceeded real residual. Treat this as a mechanism warning: the residual may be partly recovering static video-level nuisance structure, so no headline blocked claim should be made without additional mechanism diagnosis."
+}

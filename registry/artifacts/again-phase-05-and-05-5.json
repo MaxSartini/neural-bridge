@@ -1,0 +1,143 @@
+{
+  "artifact_id": "again-phase-05-and-05-5",
+  "classification": "external-study-collection",
+  "compatibility_symlinks": true,
+  "moved_at": "2026-07-17T21:18:10Z",
+  "items": [
+    {
+      "external_path": "derived/again/phase-05-target-redesign/fold-safe-pca-20260630",
+      "phase": "phase-05-target-redesign",
+      "role": "fold-safe-pca-derived-data",
+      "classification": "external-derived",
+      "files": 18,
+      "size_bytes": 10537339913,
+      "sha256_tree": "647df2136022285b4400131e669b965e622f2c52be65149f6db9a52b737ce858"
+    },
+    {
+      "external_path": "runs/again/phase-05-5-event-confirmation/grouped-video-20260630",
+      "phase": "phase-05-5-event-confirmation",
+      "role": "grouped-video-confirmation",
+      "classification": "external-canonical-study",
+      "files": 534,
+      "size_bytes": 1667571063,
+      "sha256_tree": "dc09b87c8d98573dec87f870957381c8884b165036faacce4e8f986123fd30af"
+    },
+    {
+      "external_path": "runs/again/phase-05-learned-bridge/adversarial-repair-20260629",
+      "phase": "phase-05-learned-bridge",
+      "role": "adversarial-repair-run",
+      "classification": "external-study",
+      "files": 761,
+      "size_bytes": 937923452,
+      "sha256_tree": "1becb24e716d50fa0f1ad26836cafff5768bdbd9c43c45fb5eea71a7af1697f7"
+    },
+    {
+      "external_path": "runs/again/phase-05-learned-bridge/adversarial-repair/intermediate-20260629",
+      "phase": "phase-05-learned-bridge",
+      "role": "adversarial-repair-intermediate",
+      "classification": "external-study",
+      "files": 114,
+      "size_bytes": 89640535,
+      "sha256_tree": "fd5a593075f79479319262b1d05fddce694d9f5dd567b16e392ec39b76a0c317"
+    },
+    {
+      "external_path": "runs/again/phase-05-learned-bridge/adversarial-repair/eval-mode-rescore-20260629",
+      "phase": "phase-05-learned-bridge",
+      "role": "eval-mode-rescore",
+      "classification": "external-study",
+      "files": 17,
+      "size_bytes": 108701727,
+      "sha256_tree": "d44815d9699ac8da934bb72967e9c02f3f0b33d35fa559786b8c0fff37af70fc"
+    },
+    {
+      "external_path": "runs/again/phase-05-learned-bridge/frozen-ar-residual-20260629",
+      "phase": "phase-05-learned-bridge",
+      "role": "frozen-ar-residual-run",
+      "classification": "external-canonical-study",
+      "files": 355,
+      "size_bytes": 78894223,
+      "sha256_tree": "4c5cd5a6f5821bdc5df5a632da9b40fa32bfe72ac565740245cd920a8934e8d3"
+    },
+    {
+      "external_path": "runs/again/phase-05-learned-bridge/blocked-residual/targeted-diagnostic-20260629",
+      "phase": "phase-05-learned-bridge",
+      "role": "blocked-targeted-diagnostic",
+      "classification": "external-study",
+      "files": 189,
+      "size_bytes": 33369586,
+      "sha256_tree": "e4f822690134832d778fbdf905402079bfccc46f5fb886d12d48828f67f27d68"
+    },
+    {
+      "external_path": "runs/again/phase-05-learned-bridge/blocked-residual/clean-confirmation-attempt-20260629",
+      "phase": "phase-05-learned-bridge",
+      "role": "blocked-clean-confirmation-attempt",
+      "classification": "external-study",
+      "files": 33,
+      "size_bytes": 11668238,
+      "sha256_tree": "0507f384cd9b325c9795b94f3b902e4a3683dad77ad02e9d227cdc5ee10471c9"
+    },
+    {
+      "external_path": "runs/again/phase-05-learned-bridge/blocked-residual/clean-confirmation-20260629",
+      "phase": "phase-05-learned-bridge",
+      "role": "blocked-clean-confirmation",
+      "classification": "external-study",
+      "files": 79,
+      "size_bytes": 20353125,
+      "sha256_tree": "57f0904f4ae7283b9e809d55e97dcf8dc9da0e9d0de179658525b629c1d9d3c2"
+    },
+    {
+      "external_path": "runs/again/phase-05-learned-bridge/continuous/blocked-diagnostic-20260630",
+      "phase": "phase-05-learned-bridge",
+      "role": "continuous-blocked-diagnostic",
+      "classification": "external-study",
+      "files": 69,
+      "size_bytes": 19213037,
+      "sha256_tree": "6e1c76472e0df55515d29d76e5efd2021f391d74834b9c2f8c0447eee8ed95de"
+    },
+    {
+      "external_path": "runs/again/phase-05-5-event-confirmation/target-redesign/blocked-failure-20260630",
+      "phase": "phase-05-5-event-confirmation",
+      "role": "redesigned-target-blocked-failure",
+      "classification": "external-study",
+      "files": 71,
+      "size_bytes": 22324445,
+      "sha256_tree": "28b1a6aa96463fc53cd3c5a4c58e6e0a955fb3ffb6de184baa0f4b905def4791"
+    },
+    {
+      "external_path": "runs/again/phase-05-5-event-confirmation/temporal-heads/blocked-initial-20260630",
+      "phase": "phase-05-5-event-confirmation",
+      "role": "temporal-head-blocked-initial",
+      "classification": "external-study",
+      "files": 48,
+      "size_bytes": 17730354,
+      "sha256_tree": "f5bc5c0c2e495322e658e07588c779e9b98e928883a17223cf11e47cebfff77d"
+    },
+    {
+      "external_path": "runs/again/phase-05-5-event-confirmation/temporal-heads/blocked-selection-20260630",
+      "phase": "phase-05-5-event-confirmation",
+      "role": "temporal-head-blocked-selection",
+      "classification": "external-study",
+      "files": 169,
+      "size_bytes": 51283770,
+      "sha256_tree": "93a4641b57e28c6f55e58f30b83a2773b049170e86b61eef1cd923b968f9343d"
+    },
+    {
+      "external_path": "runs/again/phase-05-5-event-confirmation/blocked-confirmation-20260630",
+      "phase": "phase-05-5-event-confirmation",
+      "role": "blocked-event-confirmation",
+      "classification": "external-canonical-study",
+      "files": 108,
+      "size_bytes": 50069046,
+      "sha256_tree": "04dea29766e19be94dcfe4df8352bac3702bfb4efd458d2ff72b4f69a755773e"
+    },
+    {
+      "external_path": "runs/again/phase-05-5-event-confirmation/selected-head-420-assembly-20260714",
+      "phase": "phase-05-5-event-confirmation",
+      "role": "selected-head-420-assembly",
+      "classification": "external-canonical-study",
+      "files": 17,
+      "size_bytes": 948137,
+      "sha256_tree": "45e43dc9859642eeddb0fb90f7d0f34c537b148701649c2fedf076a2ae0ac33d"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "cache_only": true,
+  "dtype": "float16",
+  "rows": 243575,
+  "schema_version": "again_dense_2hz_phase4_pca_bridge_v1",
+  "source": "per_video/<video_id>/tribe_v2_cortical_predictions.npz:cortical_prediction",
+  "tribe_encoding_run": false,
+  "vjepa_encoding_run": false,
+  "width": 20484
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": "veatic_124_alignment_lag_audit_v1",
+  "manifest": "benchmarks/veatic/veatic_manifest_124_complete_20260616.jsonl",
+  "cache_dir": "<external-assets-root>/benchmarks/veatic/tribe_cache",
+  "backend_policy": {
+    "pca_backend": "mps_gram",
+    "ridge_backend": "cpu_pinv",
+    "seed": 43,
+    "dtype": "float32 cached features; float64 NumPy metrics"
+  },
+  "outputs": [
+    "veatic_124_alignment_ar_behavior_audit.csv",
+    "veatic_124_alignment_audit_manifest_rows.csv",
+    "veatic_124_alignment_audit_resampled_videos.csv",
+    "veatic_124_alignment_balanced_event_stable_rebuild.csv",
+    "veatic_124_alignment_bootstrap_ci.csv",
+    "veatic_124_alignment_candidate_fixes.csv",
+    "veatic_124_alignment_candidate_fixes.md",
+    "veatic_124_alignment_causal_window_audit.csv",
+    "veatic_124_alignment_causal_window_audit.md",
+    "veatic_124_alignment_confirmatory_rerun.csv",
+    "veatic_124_alignment_controls_after_lag_fix.csv",
+    "veatic_124_alignment_cross_correlation_lag.csv",
+    "veatic_124_alignment_horizon_sweep.csv",
+    "veatic_124_alignment_interpolation_policy_sweep.csv",
+    "veatic_124_alignment_label_smoothing_sensitivity.csv",
+    "veatic_124_alignment_lag_estimates_global.csv",
+    "veatic_124_alignment_lag_estimates_per_video.csv",
+    "veatic_124_alignment_offset_grid.csv",
+    "veatic_124_alignment_offset_grid_summary.md",
+    "veatic_124_alignment_onset_definition_sweep.csv",
+    "veatic_124_alignment_per_video_taxonomy.csv",
+    "veatic_124_alignment_sensitivity_subsets.csv",
+    "veatic_124_alignment_shift_convention.md",
+    "veatic_124_alignment_threshold_policy_sweep.csv",
+    "veatic_124_alignment_top_offset_videos.csv"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "architecture": "short_temporal_conv_residual",
+  "canonical_frozen_ar_retrained": false,
+  "canonical_original_retrained": false,
+  "controls": [
+    "real_residual",
+    "shuffled_pca_residual",
+    "random_pca_residual",
+    "label_permutation_residual",
+    "train_only_video_mean_residual",
+    "diagnostics_only_residual"
+  ],
+  "duration_seconds": 515.8047518730164,
+  "followup_seeds": [
+    20260626,
+    20260627,
+    20260628,
+    20260629,
+    20260630,
+    20260631,
+    20260632,
+    20260633,
+    20260634
+  ],
+  "git_commit": "27f52a858e3a0de61f67389aa8390670adcc5a62",
+  "locked_params": {
+    "alpha_cap": 0.16,
+    "alpha_initial_logit": -3.0,
+    "gate_bias": 5.0,
+    "hidden": 64,
+    "lambda_binary": 0.8,
+    "learning_rate": 0.00010528366155183298,
+    "weight_decay": 0.00020452569809101856
+  },
+  "no_420_rerun": true,
+  "no_504": true,
+  "no_continuous": true,
+  "no_grouped": true,
+  "no_vjepa_tribe_pca_rerun": true,
+  "output_root": "outputs/again_dense_2hz_phase6_optuna_locked_10seed_confirm_20260714_141457",
+  "per_seed_optimization": false,
+  "residual_target_definition": {
+    "policy": "train_only_simple_ar_residualizer_inside_redesigned_blocked_split",
+    "ridge_alpha": 10.0,
+    "test_idx_digest": "1eae8f7205a70dcbe7e25c0bc7d7698f",
+    "test_rows": 68008,
+    "train_idx_digest": "bacd280c4bdc0389ded9dd9cb0b68f66",
+    "train_r2": 0.05854348115418895,
+    "train_rows": 156873
+  },
+  "schema_version": "again_dense_2hz_phase6_optuna_locked_10seed_confirm_v1",
+  "seeds": [
+    20260625,
+    20260626,
+    20260627,
+    20260628,
+    20260629,
+    20260630,
+    20260631,
+    20260632,
+    20260633,
+    20260634
+  ],
+  "target": "future_arousal_max_delta_rows_4_10_train_q90"
+}

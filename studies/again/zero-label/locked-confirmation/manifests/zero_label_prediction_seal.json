@@ -1,0 +1,23 @@
+{
+  "prediction_files": {
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/diagnostics_only_supervised_temporal/seed20260721.parquet": "af91105b031ebadb08c6165c7d269c4ec3e7cbdcde9a13b2ee525d2fd33a1707",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/diagnostics_only_supervised_temporal/seed20260722.parquet": "7a5097bd7f4c86be71ef234a0e0f6f8c214d6aacf9a047b304f31d8fdf1195a6",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/diagnostics_only_supervised_temporal/seed20260723.parquet": "1a215691758874e216d093408a04a0eebd87c2cea35bd7e0dd5126cd22333add",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/label_permutation_supervised_temporal/seed20260721.parquet": "e1828c83acfdba607536c948e26365a669ade3aebf9010238a347075d2dc5bc9",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/label_permutation_supervised_temporal/seed20260722.parquet": "b4dd04274d12e9124e01958e9b691d91fce7c1b2b88f6fb5dafb7ddd3eb27f65",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/label_permutation_supervised_temporal/seed20260723.parquet": "4e0d4cc5525e49a5aa9fa527180809dde9a30ac5e2c4d794c90732f188a9758d",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/no_video_supervised_temporal/seed20260721.parquet": "b37e16a693756ea9caa03cafb821d8067dd2e7defa3be5cce6c787fa63f95196",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/no_video_supervised_temporal/seed20260722.parquet": "cddba513aee6a62532b0f4855e2704144fd2f49aad6bfdfa329c9c42c430008f",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/no_video_supervised_temporal/seed20260723.parquet": "faa2cf022e59be5e8e660fdcb983314ba8e1dc6c0338fb72ed913607687f63ca",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/sequence_shuffled_supervised_temporal/seed20260721.parquet": "eb67ebded0f90397bae59c16636f6b56a3c1501f690fc08b41d1371a0c2b86a1",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/sequence_shuffled_supervised_temporal/seed20260722.parquet": "a208d0ee3e581128366036897b916286f8b0847c358ad2c0d32e4136f0ba2bd6",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/sequence_shuffled_supervised_temporal/seed20260723.parquet": "89d3f6c90bf2480c09dd138878ce6f736dc99bda433729bba7e4f9f8ac0a34f6",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/video_supervised_current_row/seed20260721.parquet": "d24a7fbd1f55fda8edd75622eedfd36c78fa26f7c7f2d79943cb2a54dd6c0109",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/video_supervised_current_row/seed20260722.parquet": "d4d22357dfa5435429010f0caef07f48fd99bd5a040167f6a144002b7a49662e",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/video_supervised_current_row/seed20260723.parquet": "79476433242e88082e23ea84ce549d58aa16d710ced61231831059b84e74174c",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/video_supervised_temporal/seed20260721.parquet": "daba59056004115bca6e8b847ef535efc60046a83743c969462b710878277a09",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/video_supervised_temporal/seed20260722.parquet": "113fc83b02e2c1095a0378156515a69ae89df161062b5a560b696ba11fd845ca",
+    "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715/predictions/video_supervised_temporal/seed20260723.parquet": "5b2de66ce6df43a233883cca07aa211a8dba8abe25c9e4dfaa43a43c38a146ab"
+  },
+  "sealed_before_teacher_ceiling_and_locked_label_join": true
+}

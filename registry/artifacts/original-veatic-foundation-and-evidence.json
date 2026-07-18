@@ -1,0 +1,187 @@
+{
+  "artifact_id": "original-veatic-foundation-and-evidence",
+  "classification": "external-historical-collection",
+  "compatibility_views": {
+    "dataset": "derived/original-veatic/dataset-compatibility",
+    "benchmark": "derived/original-veatic/benchmark-cache-compatibility"
+  },
+  "policy": "Historical evidence and hypotheses only. No fitted tensor, PCA, threshold, model, checkpoint, or exact recipe is VEATIC 2.1 authority.",
+  "items": [
+    {
+      "path": "datasets/original-veatic/videos",
+      "phase": "dataset",
+      "role": "source-videos",
+      "classification": "external-dataset",
+      "files": 128,
+      "size_bytes": 3262187789,
+      "sha256_tree": "1e75692dc3e6a11f822e5a76cf30ef227b16db805a267614bddb2280212315a1"
+    },
+    {
+      "path": "datasets/original-veatic/ratings",
+      "phase": "dataset",
+      "role": "averaged-ratings",
+      "classification": "external-dataset",
+      "files": 248,
+      "size_bytes": 12455920,
+      "sha256_tree": "c160bd741f960364fc475d3905193f4bde9313f675ad1594a893b0b544bea47f"
+    },
+    {
+      "path": "quarantine/original-veatic/download-archive",
+      "phase": "dataset",
+      "role": "download-archive",
+      "classification": "quarantine",
+      "files": 1,
+      "size_bytes": 3218338827,
+      "sha256_tree": "43285319160bd1c283e37a835dff29f706a36269882ed0627c093a2fb30631e0"
+    },
+    {
+      "path": "features/original-veatic/tribe-cache-20260616",
+      "phase": "v2-evidence",
+      "role": "tribe-feature-cache",
+      "classification": "external-feature",
+      "files": 498,
+      "size_bytes": 1719605742,
+      "sha256_tree": "47b6dbdd77ad4647208ec1bdf023e0dbe4c10f8a413628ddbdb4269482faf967"
+    },
+    {
+      "path": "derived/original-veatic/benchmark-cache-compatibility",
+      "phase": "compatibility",
+      "role": "historical-benchmark-path-view",
+      "classification": "external-derived-compatibility",
+      "files": 0,
+      "symlinks": 15,
+      "size_bytes": 0,
+      "sha256_tree": "9ba978cff54a235455c09966d65d8a93155c6ca1ab5c990b9193761f444c9eae",
+      "notes": "Compatibility links only; not a canonical evidence collection."
+    },
+    {
+      "path": "features/original-veatic/tribe-cache-converted-20260621",
+      "phase": "encoder-transition",
+      "role": "converted-tribe-feature-cache",
+      "classification": "external-feature-historical",
+      "files": 11,
+      "size_bytes": 4950699,
+      "sha256_tree": "e3dc60343177da3e772a38cc45e3b00a62c89430f7fbc5ad4e5f5d9ffa7cda1d"
+    },
+    {
+      "path": "features/original-veatic/multimodal-pilot-videos-83-84",
+      "phase": "encoder-transition",
+      "role": "multimodal-pilot-cache",
+      "classification": "external-feature-historical",
+      "files": 3,
+      "size_bytes": 10101,
+      "sha256_tree": "f2a3a34b4fc003b647a4ca55bc59b37c350ef400ba1a62926315e2f7395a4a60"
+    },
+    {
+      "path": "quarantine/original-veatic/encoder-smoke-20260621",
+      "phase": "encoder-transition",
+      "role": "encoder-smoke",
+      "classification": "quarantine",
+      "files": 3,
+      "size_bytes": 1816427,
+      "sha256_tree": "1e7757707460f797f6ae21c70982fe0e6fa3720644411e8505cddce6a1aa141e"
+    },
+    {
+      "path": "quarantine/original-veatic/encoder-logs-20260621",
+      "phase": "encoder-transition",
+      "role": "encoder-development-logs",
+      "classification": "quarantine",
+      "files": 2,
+      "size_bytes": 860,
+      "sha256_tree": "d330f8b4e5df426f30e82fb58a611167fad0433c1390d605a51ab3cc861714ea"
+    },
+    {
+      "path": "derived/original-veatic/raw-representation-v1",
+      "phase": "post-v2",
+      "role": "model-ready-tensors",
+      "classification": "external-derived-historical",
+      "files": 1186,
+      "size_bytes": 1811968933,
+      "sha256_tree": "8b6b4c31c58e618c4db8f2c3af7a2a8e1fcee3cc3d380677631d12ae31617def"
+    },
+    {
+      "path": "sealed/original-veatic/v2-evidence-20260616",
+      "phase": "v2-evidence",
+      "role": "protected-evidence-snapshot",
+      "classification": "protected-external-reference",
+      "files": 466,
+      "size_bytes": 48609204,
+      "sha256_tree": "d306d5283062f7b4cc7eb9920fbaad540cb4cd74a68238eadbddf145154d341d",
+      "notes": "protected-source-retained;canonical-symlink-created"
+    },
+    {
+      "path": "runs/original-veatic/post-v2-raw-representation/primary-20260620",
+      "phase": "post-v2",
+      "role": "raw-representation-primary-audit",
+      "classification": "external-study",
+      "files": 41,
+      "size_bytes": 144698577,
+      "sha256_tree": "f751004e0c1a4096fca2f6d7bac1c47a0bfbf276d18fd8e03a9f4d6e7db8d16c"
+    },
+    {
+      "path": "runs/original-veatic/post-v2-raw-representation/development/resume-smoke",
+      "phase": "post-v2",
+      "role": "resume-smoke",
+      "classification": "external-development",
+      "files": 19,
+      "size_bytes": 4275231,
+      "sha256_tree": "2a77cd69aeaabb03451201939e0df57f3638ebae0a0d59644ba9e1b3aeddb347"
+    },
+    {
+      "path": "runs/original-veatic/post-v2-raw-representation/development/environment-smoke-a",
+      "phase": "post-v2",
+      "role": "environment-smoke",
+      "classification": "external-development",
+      "files": 16,
+      "size_bytes": 204964,
+      "sha256_tree": "b4da5e0ed894163cc13427934db8d4768119dea8dc314607cff9cf63a20d30d4"
+    },
+    {
+      "path": "runs/original-veatic/post-v2-raw-representation/development/environment-smoke-b",
+      "phase": "post-v2",
+      "role": "environment-smoke",
+      "classification": "external-development",
+      "files": 16,
+      "size_bytes": 204495,
+      "sha256_tree": "a9341e064634777430e7c3edbc6548ba78ce3a46e31be4f506bc1250d5aaca3d"
+    },
+    {
+      "path": "runs/original-veatic/v2-evidence/temporal-fairness-20260616",
+      "phase": "v2-evidence",
+      "role": "temporal-fairness-study",
+      "classification": "external-study",
+      "files": 15,
+      "size_bytes": 46635917,
+      "sha256_tree": "782850eaa3363382ed5782fe1340cae78d330709713ee66c9273d137a309457f"
+    },
+    {
+      "path": "runs/original-veatic/v2-evidence/temporal-context-v2-20260616",
+      "phase": "v2-evidence",
+      "role": "temporal-context-v2-study",
+      "classification": "external-study",
+      "files": 10,
+      "size_bytes": 4663767,
+      "sha256_tree": "82dc2d00218c70e0166449eed67498808aa02b98567f2cd4e6bc867352ba7031"
+    },
+    {
+      "path": "quarantine/duplicate-candidates/original-veatic/split-download-archive",
+      "phase": "dataset",
+      "role": "exact-duplicate-split-archive",
+      "classification": "quarantine-deletion-candidate",
+      "files": 7,
+      "size_bytes": 3218338827,
+      "sha256_tree": "6a1e15192085a0d7252ca2a9d803bda01f1d1d552b7488ea4848762b36523031",
+      "notes": "concatenated-sha256=7c314f398cc37767e4313c0d96ead1db32744a2f03fd73d7d2b1132c7c684aca;exact-duplicate-of-download-archive"
+    },
+    {
+      "path": "quarantine/original-veatic/transport-logs/download-archive-upload.log",
+      "phase": "dataset",
+      "role": "transport-log",
+      "classification": "quarantine",
+      "files": 1,
+      "size_bytes": 19424,
+      "sha256_tree": "d06577bf4e325340e93ae54cd8be96de69e2406e8b4f5aa22b1173dd41dc0bc6"
+    }
+  ],
+  "moved_at": "2026-07-17T21:48:48Z"
+}

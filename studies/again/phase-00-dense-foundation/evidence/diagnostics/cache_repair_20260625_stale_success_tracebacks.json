@@ -1,0 +1,1138 @@
+{
+  "created_at_utc": "2026-06-25T08:55:24Z",
+  "bundle_root": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz",
+  "repair": "removed stale traceback.txt files from per-video folders whose final status.json is success",
+  "removed_count": 113,
+  "records": [
+    {
+      "video_id": "10FFF83C-FD48-DCA7-E554-491C3C1E3EC6_fps_518691F4-000D-F921-F825-39045FC36DBA",
+      "removed_path": "per_video/10FFF83C-FD48-DCA7-E554-491C3C1E3EC6_fps_518691F4-000D-F921-F825-39045FC36DBA/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "1FA97947-2FB7-D626-8CD3-2426BEEE97D1_tiny_0E9EF1D3-19E4-5689-8E03-AE5CAB121116",
+      "removed_path": "per_video/1FA97947-2FB7-D626-8CD3-2426BEEE97D1_tiny_0E9EF1D3-19E4-5689-8E03-AE5CAB121116/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "27C12E79-B4DD-AA48-E99E-552C6BAEBA6F_endless_420AC9E3-41C4-3170-D634-06764C15426B",
+      "removed_path": "per_video/27C12E79-B4DD-AA48-E99E-552C6BAEBA6F_endless_420AC9E3-41C4-3170-D634-06764C15426B/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "2C636222-CB43-AB6F-444A-7278047991C7_tiny_AE5C2FAA-41EA-0FE7-6CCB-3F03863F15B9",
+      "removed_path": "per_video/2C636222-CB43-AB6F-444A-7278047991C7_tiny_AE5C2FAA-41EA-0FE7-6CCB-3F03863F15B9/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "35FEE4B0-EF25-110F-8D86-5410FA57646B_gallery_D2973AB6-C303-E10D-7A18-0F57117CE157",
+      "removed_path": "per_video/35FEE4B0-EF25-110F-8D86-5410FA57646B_gallery_D2973AB6-C303-E10D-7A18-0F57117CE157/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "35FEE4B0-EF25-110F-8D86-5410FA57646B_tiny_EADFEBF5-E6FC-BD1B-29C2-075EAB6765A4",
+      "removed_path": "per_video/35FEE4B0-EF25-110F-8D86-5410FA57646B_tiny_EADFEBF5-E6FC-BD1B-29C2-075EAB6765A4/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "37249306-1597-DC6D-3544-6FEDBBF8B848_fps_B1FEDBD0-F414-EA0B-FDD5-CDEF5C68C666",
+      "removed_path": "per_video/37249306-1597-DC6D-3544-6FEDBBF8B848_fps_B1FEDBD0-F414-EA0B-FDD5-CDEF5C68C666/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "37249306-1597-DC6D-3544-6FEDBBF8B848_solid_9A8B3AE1-5F03-2370-6616-E2F66C564B41",
+      "removed_path": "per_video/37249306-1597-DC6D-3544-6FEDBBF8B848_solid_9A8B3AE1-5F03-2370-6616-E2F66C564B41/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "3C54E0F5-9C12-3137-9EC1-39645770F53A_apex_0F9991EF-2203-35F8-4FCA-CF2DC806EC7B",
+      "removed_path": "per_video/3C54E0F5-9C12-3137-9EC1-39645770F53A_apex_0F9991EF-2203-35F8-4FCA-CF2DC806EC7B/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "4690C2DC-C0B5-6C1B-880A-D31C46C8A565_topdown_52D0B28B-66F8-A260-2FFB-1A62EBB79C0F",
+      "removed_path": "per_video/4690C2DC-C0B5-6C1B-880A-D31C46C8A565_topdown_52D0B28B-66F8-A260-2FFB-1A62EBB79C0F/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "46A9A47E-EDE3-2EF4-2F06-E95AF67D57E1_gun_B8788D70-281E-350F-0FC5-F77CFC948089",
+      "removed_path": "per_video/46A9A47E-EDE3-2EF4-2F06-E95AF67D57E1_gun_B8788D70-281E-350F-0FC5-F77CFC948089/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "47494449-E68E-E554-8BB1-ECEEE432E269_apex_B1280799-5520-4357-AEB7-ADF40ED0A6B6",
+      "removed_path": "per_video/47494449-E68E-E554-8BB1-ECEEE432E269_apex_B1280799-5520-4357-AEB7-ADF40ED0A6B6/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "47494449-E68E-E554-8BB1-ECEEE432E269_endless_7D69CA65-0A0A-89E6-1C3F-5F47CB356ED9",
+      "removed_path": "per_video/47494449-E68E-E554-8BB1-ECEEE432E269_endless_7D69CA65-0A0A-89E6-1C3F-5F47CB356ED9/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "48D32E40-ABB9-E3FB-185C-8A5AA0C44CBF_platform_29425E59-8D6A-461E-D5E9-165992CAD144",
+      "removed_path": "per_video/48D32E40-ABB9-E3FB-185C-8A5AA0C44CBF_platform_29425E59-8D6A-461E-D5E9-165992CAD144/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "4BD5749B-A1D2-E6C9-156F-DF107802D3BE_platform_B0B5B1D5-913C-44F6-3DF8-35ED1899CC48",
+      "removed_path": "per_video/4BD5749B-A1D2-E6C9-156F-DF107802D3BE_platform_B0B5B1D5-913C-44F6-3DF8-35ED1899CC48/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "4CAE9D77-C8A8-2EE8-53D0-7C3C6331B2C5_endless_DDDDED52-C911-1D3D-4AE7-9000F6A46E4C",
+      "removed_path": "per_video/4CAE9D77-C8A8-2EE8-53D0-7C3C6331B2C5_endless_DDDDED52-C911-1D3D-4AE7-9000F6A46E4C/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "623D68EC-1C36-4E39-4317-BE7B59F593D2_gun_BF89431A-609C-2A38-06EE-277544AD264B",
+      "removed_path": "per_video/623D68EC-1C36-4E39-4317-BE7B59F593D2_gun_BF89431A-609C-2A38-06EE-277544AD264B/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "62A1F053-1EA8-7433-090E-89D450314F41_gun_A8767ED7-30B9-F8DA-3C6A-6C027D49828E",
+      "removed_path": "per_video/62A1F053-1EA8-7433-090E-89D450314F41_gun_A8767ED7-30B9-F8DA-3C6A-6C027D49828E/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "62A1F053-1EA8-7433-090E-89D450314F41_platform_89CFB866-3E16-AC7C-B13D-DCDDA680E088",
+      "removed_path": "per_video/62A1F053-1EA8-7433-090E-89D450314F41_platform_89CFB866-3E16-AC7C-B13D-DCDDA680E088/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "64A0EC69-0CE2-8405-0FFC-D63A7F55E703_gallery_27E06A38-6233-CE80-5DFE-692139776E65",
+      "removed_path": "per_video/64A0EC69-0CE2-8405-0FFC-D63A7F55E703_gallery_27E06A38-6233-CE80-5DFE-692139776E65/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "66E9719B-D383-AA87-7FAB-D9B4ABE7011C_platform_13480F76-5455-495A-31E7-C839DAD74584",
+      "removed_path": "per_video/66E9719B-D383-AA87-7FAB-D9B4ABE7011C_platform_13480F76-5455-495A-31E7-C839DAD74584/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "66E9719B-D383-AA87-7FAB-D9B4ABE7011C_tiny_1F68522F-FA48-64FE-72F6-1BA2C13E5BE9",
+      "removed_path": "per_video/66E9719B-D383-AA87-7FAB-D9B4ABE7011C_tiny_1F68522F-FA48-64FE-72F6-1BA2C13E5BE9/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "68339CF4-6AFB-7EFB-40EA-238612F8E5A4_endless_1B4BB850-8A65-85E1-875C-148637B13058",
+      "removed_path": "per_video/68339CF4-6AFB-7EFB-40EA-238612F8E5A4_endless_1B4BB850-8A65-85E1-875C-148637B13058/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "68339CF4-6AFB-7EFB-40EA-238612F8E5A4_gallery_A0385120-E519-26DC-CDA3-CB7BA95C02EB",
+      "removed_path": "per_video/68339CF4-6AFB-7EFB-40EA-238612F8E5A4_gallery_A0385120-E519-26DC-CDA3-CB7BA95C02EB/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "6B1E25A6-882B-DDD7-CE4F-4EC17A0906CF_platform_15785D7F-764B-BDD9-9B55-CE1EBB38F99F",
+      "removed_path": "per_video/6B1E25A6-882B-DDD7-CE4F-4EC17A0906CF_platform_15785D7F-764B-BDD9-9B55-CE1EBB38F99F/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "6B1E25A6-882B-DDD7-CE4F-4EC17A0906CF_tiny_BB19419A-5EB5-8942-0385-24ED841C8BA9",
+      "removed_path": "per_video/6B1E25A6-882B-DDD7-CE4F-4EC17A0906CF_tiny_BB19419A-5EB5-8942-0385-24ED841C8BA9/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "6B690AF9-8440-1C43-B353-FA85266AA12C_endless_3ABE159F-6A8A-51F8-D492-6803F42ECC90",
+      "removed_path": "per_video/6B690AF9-8440-1C43-B353-FA85266AA12C_endless_3ABE159F-6A8A-51F8-D492-6803F42ECC90/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "6E42D32E-048C-D829-197E-7950E78F58CB_platform_8037D3A4-9022-705D-073B-5ADD96AFB502",
+      "removed_path": "per_video/6E42D32E-048C-D829-197E-7950E78F58CB_platform_8037D3A4-9022-705D-073B-5ADD96AFB502/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "718078D1-70DB-2916-366D-1119A22DCD7F_gun_DC0DC832-7E7E-E1BF-3EBC-3365AEC0A33D",
+      "removed_path": "per_video/718078D1-70DB-2916-366D-1119A22DCD7F_gun_DC0DC832-7E7E-E1BF-3EBC-3365AEC0A33D/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "718078D1-70DB-2916-366D-1119A22DCD7F_topdown_4D1DF62B-5553-1C4A-B157-276AE842492D",
+      "removed_path": "per_video/718078D1-70DB-2916-366D-1119A22DCD7F_topdown_4D1DF62B-5553-1C4A-B157-276AE842492D/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "72B642AD-2D4A-574F-05EC-EC93C0C52335_tiny_8098F029-5220-8F16-AB08-FFDC30B182E4",
+      "removed_path": "per_video/72B642AD-2D4A-574F-05EC-EC93C0C52335_tiny_8098F029-5220-8F16-AB08-FFDC30B182E4/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "7417E7AB-C723-0958-F8EE-DDA4DED65165_fps_6CE76558-6A62-3F98-BE6C-D5654881A4DC",
+      "removed_path": "per_video/7417E7AB-C723-0958-F8EE-DDA4DED65165_fps_6CE76558-6A62-3F98-BE6C-D5654881A4DC/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "772BA0E9-AC30-CEA6-AA1B-18A0300702AA_apex_E029A104-14CB-D60F-62AD-0EC3C0B933C6",
+      "removed_path": "per_video/772BA0E9-AC30-CEA6-AA1B-18A0300702AA_apex_E029A104-14CB-D60F-62AD-0EC3C0B933C6/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "772BA0E9-AC30-CEA6-AA1B-18A0300702AA_solid_2416BFF6-CF48-44CE-1962-163179454CFB",
+      "removed_path": "per_video/772BA0E9-AC30-CEA6-AA1B-18A0300702AA_solid_2416BFF6-CF48-44CE-1962-163179454CFB/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "77F6B31E-B228-3C6D-A66F-E7E6FDED3587_topdown_86F46D9D-84F0-DB50-5BCD-5F6B1C55FD6D",
+      "removed_path": "per_video/77F6B31E-B228-3C6D-A66F-E7E6FDED3587_topdown_86F46D9D-84F0-DB50-5BCD-5F6B1C55FD6D/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "7B8B31F4-FFC3-7A4E-3EAF-78D5CA8ACB61_gun_ECD99AD1-453A-46B9-A825-FF10E2AD5E34",
+      "removed_path": "per_video/7B8B31F4-FFC3-7A4E-3EAF-78D5CA8ACB61_gun_ECD99AD1-453A-46B9-A825-FF10E2AD5E34/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "7DC9729F-BA27-3831-6078-F8508766396A_tiny_2CD7BA22-7C32-AD5B-BB3B-A84E423D5DD7",
+      "removed_path": "per_video/7DC9729F-BA27-3831-6078-F8508766396A_tiny_2CD7BA22-7C32-AD5B-BB3B-A84E423D5DD7/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "7DC9729F-BA27-3831-6078-F8508766396A_topdown_7B1CE1F9-4836-F478-5942-EB68601BEE92",
+      "removed_path": "per_video/7DC9729F-BA27-3831-6078-F8508766396A_topdown_7B1CE1F9-4836-F478-5942-EB68601BEE92/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "7FB7C50A-30EA-A991-0C04-7FFA681B8803_gallery_F68B4828-7740-EBF8-5ADE-157FA523B9E2",
+      "removed_path": "per_video/7FB7C50A-30EA-A991-0C04-7FFA681B8803_gallery_F68B4828-7740-EBF8-5ADE-157FA523B9E2/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "7FB7C50A-30EA-A991-0C04-7FFA681B8803_gun_456A3D6A-B364-BC20-9B75-09830989C2FA",
+      "removed_path": "per_video/7FB7C50A-30EA-A991-0C04-7FFA681B8803_gun_456A3D6A-B364-BC20-9B75-09830989C2FA/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "7FB7C50A-30EA-A991-0C04-7FFA681B8803_platform_C937719E-CACA-F578-FAC1-0B3ADFC4356E",
+      "removed_path": "per_video/7FB7C50A-30EA-A991-0C04-7FFA681B8803_platform_C937719E-CACA-F578-FAC1-0B3ADFC4356E/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "8322EDEF-4C09-318A-1B7E-56D62A6839AD_gallery_1CF7901C-66A7-2DB3-1148-CCA1BDDAC5AB",
+      "removed_path": "per_video/8322EDEF-4C09-318A-1B7E-56D62A6839AD_gallery_1CF7901C-66A7-2DB3-1148-CCA1BDDAC5AB/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "8322EDEF-4C09-318A-1B7E-56D62A6839AD_tiny_E280517D-5423-61D0-BB49-20C6F940DD24",
+      "removed_path": "per_video/8322EDEF-4C09-318A-1B7E-56D62A6839AD_tiny_E280517D-5423-61D0-BB49-20C6F940DD24/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "85748DC9-A6DA-334D-6422-BF69EE06A98C_tiny_F76863B4-D537-2001-38A7-7D8D57832611",
+      "removed_path": "per_video/85748DC9-A6DA-334D-6422-BF69EE06A98C_tiny_F76863B4-D537-2001-38A7-7D8D57832611/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "85748DC9-A6DA-334D-6422-BF69EE06A98C_topdown_A3E65586-A74D-4972-0F8D-176F2DC7867E",
+      "removed_path": "per_video/85748DC9-A6DA-334D-6422-BF69EE06A98C_topdown_A3E65586-A74D-4972-0F8D-176F2DC7867E/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "862DB2BA-55C9-5794-03BC-FBBA3BEE80C7_solid_44170741-3E03-E0F5-EB41-3B7BF9186A20",
+      "removed_path": "per_video/862DB2BA-55C9-5794-03BC-FBBA3BEE80C7_solid_44170741-3E03-E0F5-EB41-3B7BF9186A20/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "8DD09016-F898-915E-4A5C-727F57619D73_apex_4F9F73A9-80EC-A057-8B07-3675D98851BB",
+      "removed_path": "per_video/8DD09016-F898-915E-4A5C-727F57619D73_apex_4F9F73A9-80EC-A057-8B07-3675D98851BB/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "8DD09016-F898-915E-4A5C-727F57619D73_gun_2E177406-003B-8719-C33A-DEF6AE78950F",
+      "removed_path": "per_video/8DD09016-F898-915E-4A5C-727F57619D73_gun_2E177406-003B-8719-C33A-DEF6AE78950F/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "8DD09016-F898-915E-4A5C-727F57619D73_tiny_5855AC63-F649-7BFC-C6D2-75CD159E34E0",
+      "removed_path": "per_video/8DD09016-F898-915E-4A5C-727F57619D73_tiny_5855AC63-F649-7BFC-C6D2-75CD159E34E0/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "9268F759-54B0-96CC-C0F5-9D8DBAA12073_fps_2E34DF78-EDDE-B9B3-093E-53FD37CFA73E",
+      "removed_path": "per_video/9268F759-54B0-96CC-C0F5-9D8DBAA12073_fps_2E34DF78-EDDE-B9B3-093E-53FD37CFA73E/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "9268F759-54B0-96CC-C0F5-9D8DBAA12073_platform_52EF9554-6FF6-EE67-C411-767C59EF7B65",
+      "removed_path": "per_video/9268F759-54B0-96CC-C0F5-9D8DBAA12073_platform_52EF9554-6FF6-EE67-C411-767C59EF7B65/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "94AA1B20-A5D9-F2B4-FD96-2F20A00FAE89_endless_94422A04-8782-82C7-B2DC-24142F9EF06A",
+      "removed_path": "per_video/94AA1B20-A5D9-F2B4-FD96-2F20A00FAE89_endless_94422A04-8782-82C7-B2DC-24142F9EF06A/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "94AA1B20-A5D9-F2B4-FD96-2F20A00FAE89_gallery_A2FD1DBA-2F70-8FF1-5E50-DD8D3E22289C",
+      "removed_path": "per_video/94AA1B20-A5D9-F2B4-FD96-2F20A00FAE89_gallery_A2FD1DBA-2F70-8FF1-5E50-DD8D3E22289C/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "94AA1B20-A5D9-F2B4-FD96-2F20A00FAE89_gun_09F3CA80-3520-BDCE-254C-DC05CBD3D316",
+      "removed_path": "per_video/94AA1B20-A5D9-F2B4-FD96-2F20A00FAE89_gun_09F3CA80-3520-BDCE-254C-DC05CBD3D316/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "99827717-1B21-7ECC-CAD1-99489F7E19EA_endless_140F41E9-CE37-1CE9-C3D5-3955A7B09905",
+      "removed_path": "per_video/99827717-1B21-7ECC-CAD1-99489F7E19EA_endless_140F41E9-CE37-1CE9-C3D5-3955A7B09905/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "9A80CFF4-085D-6435-BA08-18E6496A8381_endless_A7CEF5AB-9FBD-B3CC-FBA1-436323CEA4A7",
+      "removed_path": "per_video/9A80CFF4-085D-6435-BA08-18E6496A8381_endless_A7CEF5AB-9FBD-B3CC-FBA1-436323CEA4A7/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "A135AF2A-692D-9C83-AB54-34F977E4D14D_fps_80D88BBD-E1F7-36C2-355B-AED98615F6CF",
+      "removed_path": "per_video/A135AF2A-692D-9C83-AB54-34F977E4D14D_fps_80D88BBD-E1F7-36C2-355B-AED98615F6CF/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "A7C426E7-344F-99F4-6E35-453AF3AD9C2C_platform_3F6D6851-A9C7-514F-D446-714A79A3CD75",
+      "removed_path": "per_video/A7C426E7-344F-99F4-6E35-453AF3AD9C2C_platform_3F6D6851-A9C7-514F-D446-714A79A3CD75/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "A7C426E7-344F-99F4-6E35-453AF3AD9C2C_tiny_389F6622-1B16-F99C-5E29-48E95D0E1C65",
+      "removed_path": "per_video/A7C426E7-344F-99F4-6E35-453AF3AD9C2C_tiny_389F6622-1B16-F99C-5E29-48E95D0E1C65/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "B06410CC-D778-33B2-B1FD-A828EE4AF413_endless_A7D013FC-9A39-8BB5-3D87-9D52D47B1C28",
+      "removed_path": "per_video/B06410CC-D778-33B2-B1FD-A828EE4AF413_endless_A7D013FC-9A39-8BB5-3D87-9D52D47B1C28/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "B0AAFE06-91C2-2C6D-4547-7508BB719E45_tiny_E06E0C39-0A21-8C2F-5A50-CA5AE6317779",
+      "removed_path": "per_video/B0AAFE06-91C2-2C6D-4547-7508BB719E45_tiny_E06E0C39-0A21-8C2F-5A50-CA5AE6317779/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "B2EE7EC5-4E5B-EBDD-E0EB-AF758B95C36A_endless_52E9D6E0-E6B6-E720-2C55-F6E0657D73FD",
+      "removed_path": "per_video/B2EE7EC5-4E5B-EBDD-E0EB-AF758B95C36A_endless_52E9D6E0-E6B6-E720-2C55-F6E0657D73FD/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "B3CE5256-6F65-85EB-0078-689BD5CC1B17_gun_03E11C52-B024-0AB7-9745-271975021769",
+      "removed_path": "per_video/B3CE5256-6F65-85EB-0078-689BD5CC1B17_gun_03E11C52-B024-0AB7-9745-271975021769/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "B6EE5F90-8F59-D3CF-C449-59216B28207B_endless_7BCBA398-C733-9D79-BC06-6EF022A09F49",
+      "removed_path": "per_video/B6EE5F90-8F59-D3CF-C449-59216B28207B_endless_7BCBA398-C733-9D79-BC06-6EF022A09F49/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "B6EE5F90-8F59-D3CF-C449-59216B28207B_platform_1D402EEC-7C9D-4130-F890-CD3B7F78E4B0",
+      "removed_path": "per_video/B6EE5F90-8F59-D3CF-C449-59216B28207B_platform_1D402EEC-7C9D-4130-F890-CD3B7F78E4B0/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "B9FD0C60-33D3-E99E-2475-815EAD5C89C2_endless_8E6FEF67-3721-FFDD-43D2-2E21E9BFA1B5",
+      "removed_path": "per_video/B9FD0C60-33D3-E99E-2475-815EAD5C89C2_endless_8E6FEF67-3721-FFDD-43D2-2E21E9BFA1B5/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "B9FD0C60-33D3-E99E-2475-815EAD5C89C2_solid_9F0A1349-EAC9-0714-9911-1DDBC2631352",
+      "removed_path": "per_video/B9FD0C60-33D3-E99E-2475-815EAD5C89C2_solid_9F0A1349-EAC9-0714-9911-1DDBC2631352/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "C0ABDBF6-67EF-EA64-A2D1-42FA92BD5713_platform_A83FB017-FF8B-7E3E-23DE-930BA160F085",
+      "removed_path": "per_video/C0ABDBF6-67EF-EA64-A2D1-42FA92BD5713_platform_A83FB017-FF8B-7E3E-23DE-930BA160F085/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "C24A665A-6B67-FDEA-04A4-C2DA3AF79D51_endless_88A65B32-A017-C99E-F454-69201CFA5AAC",
+      "removed_path": "per_video/C24A665A-6B67-FDEA-04A4-C2DA3AF79D51_endless_88A65B32-A017-C99E-F454-69201CFA5AAC/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "C24A665A-6B67-FDEA-04A4-C2DA3AF79D51_platform_6C979F40-84C7-EA1A-A9AC-6F9CD9077FD8",
+      "removed_path": "per_video/C24A665A-6B67-FDEA-04A4-C2DA3AF79D51_platform_6C979F40-84C7-EA1A-A9AC-6F9CD9077FD8/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "C5DC661F-E2D6-2B65-4765-77C8B81D2488_platform_84D9B943-1BC4-BB7C-B277-12AC78BE771A",
+      "removed_path": "per_video/C5DC661F-E2D6-2B65-4765-77C8B81D2488_platform_84D9B943-1BC4-BB7C-B277-12AC78BE771A/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "C8BB6C15-19FA-A17A-5945-6202803016D7_gallery_E6903657-4B10-4BC0-B45C-B19ADA21361F",
+      "removed_path": "per_video/C8BB6C15-19FA-A17A-5945-6202803016D7_gallery_E6903657-4B10-4BC0-B45C-B19ADA21361F/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "CCA3ABC5-DCCE-0BBE-5327-E65AE52A195D_fps_8C489154-2E94-8470-0977-D74CC0CA50B8",
+      "removed_path": "per_video/CCA3ABC5-DCCE-0BBE-5327-E65AE52A195D_fps_8C489154-2E94-8470-0977-D74CC0CA50B8/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "CCA3ABC5-DCCE-0BBE-5327-E65AE52A195D_gun_E50899F5-6652-1D54-9428-DCE469DED77D",
+      "removed_path": "per_video/CCA3ABC5-DCCE-0BBE-5327-E65AE52A195D_gun_E50899F5-6652-1D54-9428-DCE469DED77D/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "CD5833CD-93D3-318C-371A-18A32DEFC38B_apex_C7F46F5F-46A4-A668-B960-572064A90DDD",
+      "removed_path": "per_video/CD5833CD-93D3-318C-371A-18A32DEFC38B_apex_C7F46F5F-46A4-A668-B960-572064A90DDD/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "D0F7ABC0-F552-63CD-CAC6-6703C39B83CA_endless_536F0792-E386-C985-C5A4-36DDC461F910",
+      "removed_path": "per_video/D0F7ABC0-F552-63CD-CAC6-6703C39B83CA_endless_536F0792-E386-C985-C5A4-36DDC461F910/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "D0F7ABC0-F552-63CD-CAC6-6703C39B83CA_gallery_922666C6-047E-6B4F-F2B2-27F57D460FCD",
+      "removed_path": "per_video/D0F7ABC0-F552-63CD-CAC6-6703C39B83CA_gallery_922666C6-047E-6B4F-F2B2-27F57D460FCD/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "D0F7ABC0-F552-63CD-CAC6-6703C39B83CA_gun_4A103EC8-C4E9-AD69-F6D7-739711DC27D1",
+      "removed_path": "per_video/D0F7ABC0-F552-63CD-CAC6-6703C39B83CA_gun_4A103EC8-C4E9-AD69-F6D7-739711DC27D1/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "D0F7ABC0-F552-63CD-CAC6-6703C39B83CA_tiny_D4745CA6-43DE-1393-F1A0-51447B88AA15",
+      "removed_path": "per_video/D0F7ABC0-F552-63CD-CAC6-6703C39B83CA_tiny_D4745CA6-43DE-1393-F1A0-51447B88AA15/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "D51A5648-0039-8CB1-45CB-C51E5ABA8BCC_apex_079EB7A6-21B9-FF4F-BB38-52EF88FA54E4",
+      "removed_path": "per_video/D51A5648-0039-8CB1-45CB-C51E5ABA8BCC_apex_079EB7A6-21B9-FF4F-BB38-52EF88FA54E4/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "D51A5648-0039-8CB1-45CB-C51E5ABA8BCC_endless_20DA2BA4-407D-D0F3-930B-527FE3FCEC65",
+      "removed_path": "per_video/D51A5648-0039-8CB1-45CB-C51E5ABA8BCC_endless_20DA2BA4-407D-D0F3-930B-527FE3FCEC65/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "D51A5648-0039-8CB1-45CB-C51E5ABA8BCC_tiny_B6F8A9CC-20BD-80EF-6B96-A6A863A092F2",
+      "removed_path": "per_video/D51A5648-0039-8CB1-45CB-C51E5ABA8BCC_tiny_B6F8A9CC-20BD-80EF-6B96-A6A863A092F2/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "D57F474B-B38C-E9AF-73CC-2CF16EED3827_gun_2A4E953F-D95A-29B4-586A-09933EA84B62",
+      "removed_path": "per_video/D57F474B-B38C-E9AF-73CC-2CF16EED3827_gun_2A4E953F-D95A-29B4-586A-09933EA84B62/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "D6D11A63-A131-4E74-041D-6E3BD8EFF8FF_platform_607F86DD-2853-ABAC-E575-61509C51BB1C",
+      "removed_path": "per_video/D6D11A63-A131-4E74-041D-6E3BD8EFF8FF_platform_607F86DD-2853-ABAC-E575-61509C51BB1C/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "D6D11A63-A131-4E74-041D-6E3BD8EFF8FF_tiny_066F1E40-9B18-0A51-5C52-1671D2CAD296",
+      "removed_path": "per_video/D6D11A63-A131-4E74-041D-6E3BD8EFF8FF_tiny_066F1E40-9B18-0A51-5C52-1671D2CAD296/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "D8D27F81-4F83-E10A-448A-735447867552_endless_51CB3691-4C85-036E-19B7-1FCD7715E2A8",
+      "removed_path": "per_video/D8D27F81-4F83-E10A-448A-735447867552_endless_51CB3691-4C85-036E-19B7-1FCD7715E2A8/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DA2856BC-D181-9AF0-DC9A-99A9444D5579_solid_7B04EEB4-BE43-703D-9506-D1C54613F841",
+      "removed_path": "per_video/DA2856BC-D181-9AF0-DC9A-99A9444D5579_solid_7B04EEB4-BE43-703D-9506-D1C54613F841/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DA2856BC-D181-9AF0-DC9A-99A9444D5579_tiny_D3839160-ABEE-6435-6BA9-65D4F26ABC18",
+      "removed_path": "per_video/DA2856BC-D181-9AF0-DC9A-99A9444D5579_tiny_D3839160-ABEE-6435-6BA9-65D4F26ABC18/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DBA0C8C4-AE05-772F-2E53-E6167F8ACB77_platform_A492D814-DF73-1F7D-1823-2CA415225002",
+      "removed_path": "per_video/DBA0C8C4-AE05-772F-2E53-E6167F8ACB77_platform_A492D814-DF73-1F7D-1823-2CA415225002/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DBA0C8C4-AE05-772F-2E53-E6167F8ACB77_tiny_CCA81C5A-8B7B-D4D8-FADA-1145586864FD",
+      "removed_path": "per_video/DBA0C8C4-AE05-772F-2E53-E6167F8ACB77_tiny_CCA81C5A-8B7B-D4D8-FADA-1145586864FD/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DC0BE0E2-B41E-3D73-47C5-5733952512CB_gun_0CF845BB-3351-EFE9-0FF3-508B7B6F55CB",
+      "removed_path": "per_video/DC0BE0E2-B41E-3D73-47C5-5733952512CB_gun_0CF845BB-3351-EFE9-0FF3-508B7B6F55CB/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DCB45A10-FAF5-53E0-AB53-2D42AC9BB090_gallery_059E4DF3-7153-38D0-3966-D8157C89FCEF",
+      "removed_path": "per_video/DCB45A10-FAF5-53E0-AB53-2D42AC9BB090_gallery_059E4DF3-7153-38D0-3966-D8157C89FCEF/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DCB45A10-FAF5-53E0-AB53-2D42AC9BB090_platform_A3C65FC9-6384-9FEE-FFF2-982E9FDBFFED",
+      "removed_path": "per_video/DCB45A10-FAF5-53E0-AB53-2D42AC9BB090_platform_A3C65FC9-6384-9FEE-FFF2-982E9FDBFFED/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DCB45A10-FAF5-53E0-AB53-2D42AC9BB090_tiny_FD3DFA2F-E5F3-7F1C-1AFF-0F7B57506C11",
+      "removed_path": "per_video/DCB45A10-FAF5-53E0-AB53-2D42AC9BB090_tiny_FD3DFA2F-E5F3-7F1C-1AFF-0F7B57506C11/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DD956DE9-DEFB-C0C6-82B4-C639A17D6782_fps_50AEBD3C-B7CB-3B59-9F03-BB74AAC54AD2",
+      "removed_path": "per_video/DD956DE9-DEFB-C0C6-82B4-C639A17D6782_fps_50AEBD3C-B7CB-3B59-9F03-BB74AAC54AD2/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DD956DE9-DEFB-C0C6-82B4-C639A17D6782_solid_9C3D1A44-E267-4865-9CC8-D7DDE6E28435",
+      "removed_path": "per_video/DD956DE9-DEFB-C0C6-82B4-C639A17D6782_solid_9C3D1A44-E267-4865-9CC8-D7DDE6E28435/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DE775A65-68D5-C477-E2F7-BCC1AEF0B850_topdown_CA93D155-E882-EB0F-4F68-AF0B1557C89C",
+      "removed_path": "per_video/DE775A65-68D5-C477-E2F7-BCC1AEF0B850_topdown_CA93D155-E882-EB0F-4F68-AF0B1557C89C/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DF62EF03-DA30-E70A-CA31-03A029C9610A_apex_02FD871D-B2CC-ABF6-2C7A-666F693A3B11",
+      "removed_path": "per_video/DF62EF03-DA30-E70A-CA31-03A029C9610A_apex_02FD871D-B2CC-ABF6-2C7A-666F693A3B11/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DF62EF03-DA30-E70A-CA31-03A029C9610A_gallery_EC07DD07-99AC-BA90-F147-D874DE60A7E8",
+      "removed_path": "per_video/DF62EF03-DA30-E70A-CA31-03A029C9610A_gallery_EC07DD07-99AC-BA90-F147-D874DE60A7E8/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "DF62EF03-DA30-E70A-CA31-03A029C9610A_solid_1148AA21-7F6A-8441-D117-89A817617734",
+      "removed_path": "per_video/DF62EF03-DA30-E70A-CA31-03A029C9610A_solid_1148AA21-7F6A-8441-D117-89A817617734/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "E3489F9E-39E2-47B9-24EF-BAACE1438D00_gun_23D45951-0B3D-A62D-F204-996B7FBD613D",
+      "removed_path": "per_video/E3489F9E-39E2-47B9-24EF-BAACE1438D00_gun_23D45951-0B3D-A62D-F204-996B7FBD613D/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "EA788550-E907-E4AC-EAE4-82CC26723E3B_gallery_E3192BF2-86B3-E64D-C73B-AC8316669893",
+      "removed_path": "per_video/EA788550-E907-E4AC-EAE4-82CC26723E3B_gallery_E3192BF2-86B3-E64D-C73B-AC8316669893/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "EA788550-E907-E4AC-EAE4-82CC26723E3B_gun_888E38E0-7FDD-B485-9D34-6495ABA26639",
+      "removed_path": "per_video/EA788550-E907-E4AC-EAE4-82CC26723E3B_gun_888E38E0-7FDD-B485-9D34-6495ABA26639/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "EC6E2525-212C-1C3A-0B73-74D1B45748E1_gun_E306317F-1CF8-9B2D-2BA8-23367ECB5341",
+      "removed_path": "per_video/EC6E2525-212C-1C3A-0B73-74D1B45748E1_gun_E306317F-1CF8-9B2D-2BA8-23367ECB5341/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "EC6E2525-212C-1C3A-0B73-74D1B45748E1_platform_C585C860-2AE1-0D19-B0C2-481EE19420B0",
+      "removed_path": "per_video/EC6E2525-212C-1C3A-0B73-74D1B45748E1_platform_C585C860-2AE1-0D19-B0C2-481EE19420B0/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "EE62AFCD-B47D-E676-0257-21F92CB612D8_endless_153DC272-2DF8-5CF3-5146-EE8A052C015F",
+      "removed_path": "per_video/EE62AFCD-B47D-E676-0257-21F92CB612D8_endless_153DC272-2DF8-5CF3-5146-EE8A052C015F/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "EE62AFCD-B47D-E676-0257-21F92CB612D8_gun_55D29722-521A-703C-BA71-BAA0710CE39D",
+      "removed_path": "per_video/EE62AFCD-B47D-E676-0257-21F92CB612D8_gun_55D29722-521A-703C-BA71-BAA0710CE39D/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "EE62AFCD-B47D-E676-0257-21F92CB612D8_platform_FC972EF6-716F-356E-1AAE-36A2CDE2FEFA",
+      "removed_path": "per_video/EE62AFCD-B47D-E676-0257-21F92CB612D8_platform_FC972EF6-716F-356E-1AAE-36A2CDE2FEFA/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "F1430977-52AF-4F46-BF92-0A8D736CBD2B_gun_AD251FE3-CFC5-DE66-C3A7-7CE51A877AEB",
+      "removed_path": "per_video/F1430977-52AF-4F46-BF92-0A8D736CBD2B_gun_AD251FE3-CFC5-DE66-C3A7-7CE51A877AEB/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "F1430977-52AF-4F46-BF92-0A8D736CBD2B_topdown_C38B2544-1475-7C61-F4F5-AD3F1C901AE8",
+      "removed_path": "per_video/F1430977-52AF-4F46-BF92-0A8D736CBD2B_topdown_C38B2544-1475-7C61-F4F5-AD3F1C901AE8/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "FC50071B-D2BA-C98B-AC6E-7339010D56DA_apex_C9FC1EC5-81A2-A459-987A-A75BF25FBAC4",
+      "removed_path": "per_video/FC50071B-D2BA-C98B-AC6E-7339010D56DA_apex_C9FC1EC5-81A2-A459-987A-A75BF25FBAC4/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "FC50071B-D2BA-C98B-AC6E-7339010D56DA_gun_D92A882E-0DF7-F499-DC9D-D02380850B51",
+      "removed_path": "per_video/FC50071B-D2BA-C98B-AC6E-7339010D56DA_gun_D92A882E-0DF7-F499-DC9D-D02380850B51/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    },
+    {
+      "video_id": "FFAB0F54-EFF2-FA1A-1892-F9D8ED3C9B31_tiny_B2BB5430-DEF0-BD90-2C74-3DB8B320BBCE",
+      "removed_path": "per_video/FFAB0F54-EFF2-FA1A-1892-F9D8ED3C9B31_tiny_B2BB5430-DEF0-BD90-2C74-3DB8B320BBCE/traceback.txt",
+      "status_json_status": "success",
+      "size_bytes": 746,
+      "sha256": "86eb7267a45fc8c2fda41ee1b816c23ff8bb8131e23efc25e895b0325f68db00",
+      "first_line": "Traceback (most recent call last):",
+      "contains_first_timestamp_validator_error": true,
+      "reason_removed": "stale traceback in final successful video output; final status.json and manifests are authoritative"
+    }
+  ]
+}

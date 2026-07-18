@@ -1,0 +1,89 @@
+{
+  "benchmark": "again_dense_2hz_raw_cortical_vs_ar",
+  "bridge_training_run": false,
+  "dense_root": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz",
+  "feature_lanes": [
+    "AR_only",
+    "raw_cortical_only",
+    "AR_plus_raw_cortical",
+    "temporal_diagnostics_only",
+    "AR_plus_temporal_diagnostics",
+    "AR_plus_raw_cortical_plus_temporal_diagnostics",
+    "shuffled_cortical_control",
+    "shuffled_temporal_diagnostics_control",
+    "random_matched_feature_control",
+    "timestamp_video_time_only_control",
+    "quality_motion_luma_only_control"
+  ],
+  "labeled_rows": 243441,
+  "labels_path": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/labels_aligned_2hz.parquet",
+  "models_trained": true,
+  "pca_run": false,
+  "projection_dim": 256,
+  "promotion_gates": {
+    "gate_scope": "grouped_video_only",
+    "targets": {
+      "arousal_abs_delta_p4rows_train_q90": {
+        "ar_only_pr_auc": 0.11818629166861136,
+        "ar_plus_raw_beats_ar": true,
+        "ar_plus_raw_beats_shuffled": true,
+        "ar_plus_raw_cortical_pr_auc": 0.12729217384217945,
+        "random_matched_pr_auc": 0.1012217381994649,
+        "raw_beats_ar": true,
+        "raw_cortical_pr_auc": 0.12653994993189,
+        "shuffled_cortical_pr_auc": 0.10067843602020894,
+        "strict_ar_plus_raw_promotion_pass": true,
+        "strict_raw_promotion_pass": true
+      },
+      "arousal_delta_p2rows_train_q90": {
+        "ar_only_pr_auc": 0.20840694126020334,
+        "ar_plus_raw_beats_ar": false,
+        "ar_plus_raw_beats_shuffled": true,
+        "ar_plus_raw_cortical_pr_auc": 0.2018566911063044,
+        "random_matched_pr_auc": 0.09882123610076876,
+        "raw_beats_ar": false,
+        "raw_cortical_pr_auc": 0.13264282211170295,
+        "shuffled_cortical_pr_auc": 0.09929392119843133,
+        "strict_ar_plus_raw_promotion_pass": false,
+        "strict_raw_promotion_pass": false
+      },
+      "arousal_spike_rows_2_6_train_q90": {
+        "ar_only_pr_auc": 0.1472512409653282,
+        "ar_plus_raw_beats_ar": true,
+        "ar_plus_raw_beats_shuffled": true,
+        "ar_plus_raw_cortical_pr_auc": 0.17029935987520764,
+        "random_matched_pr_auc": 0.10090682555264038,
+        "raw_beats_ar": false,
+        "raw_cortical_pr_auc": 0.13657919437598573,
+        "shuffled_cortical_pr_auc": 0.10042138429372183,
+        "strict_ar_plus_raw_promotion_pass": true,
+        "strict_raw_promotion_pass": false
+      }
+    }
+  },
+  "raw_cortical_model_lane": "label_free_deterministic_block_summary_not_pca_bridge",
+  "raw_cortical_source": "per_video/<video_id>/tribe_v2_cortical_predictions.npz:cortical_prediction [rows,20484]",
+  "report_path": "reports/again_dense_2hz_raw_cortical_vs_ar_20260625_094242.md",
+  "ridge_alpha_grid": [
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "ridge_alpha_selection": "train_only_inner_validation",
+  "rows": 243575,
+  "schema_version": "again_dense_2hz_benchmark_v1",
+  "targets": [
+    "arousal_spike_rows_2_6_train_q90",
+    "arousal_delta_p2rows_train_q90",
+    "arousal_abs_delta_p4rows_train_q90"
+  ],
+  "temporal_diagnostics_used": true,
+  "tribe_encoding_run": false,
+  "true_2hz_on_2hz": true,
+  "validation_protocols": [
+    "blocked_temporal_70_30",
+    "grouped_video"
+  ],
+  "vjepa_encoding_run": false
+}

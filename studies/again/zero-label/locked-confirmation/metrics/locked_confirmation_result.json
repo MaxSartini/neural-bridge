@@ -1,0 +1,131 @@
+{
+  "accelerator_detail": "Device(gpu, 0)",
+  "audit_pass": true,
+  "development_split_digest": "cf65a766cd827e6201544dd753049cb4",
+  "duration_seconds": 587.1742987632751,
+  "failed_tier1_gates": [],
+  "finite_pass": true,
+  "implementation_freeze_digest": "4329feba3b11bdce76bfeb3cf6ae6fe9",
+  "locked_split_digest": "ded8bc2bf079fef91ae5c253b9a9ac2e",
+  "locked_video_count": 299,
+  "mechanism_results": {
+    "pooled_continuous_spearman": {
+      "primary_minus_current_row": 0.011122728740573712,
+      "primary_minus_diagnostics_only": 0.0780250305715727
+    },
+    "top_5pct_true_future_movement_lift": {
+      "primary_minus_current_row": 0.011422907009429356,
+      "primary_minus_diagnostics_only": 0.03857590996740581
+    },
+    "training_q90_future_event_pr_auc": {
+      "primary_minus_current_row": 0.007579796433557967,
+      "primary_minus_diagnostics_only": 0.03583268489140262
+    }
+  },
+  "metric_results": {
+    "pooled_continuous_spearman": {
+      "aggregate_delta": 0.0780250305715727,
+      "bootstrap_lower_95_one_sided": 0.060678721220981294,
+      "control": 0.10048826550028964,
+      "first30_aggregate_delta": 0.08039903939422377,
+      "first30_panel_deltas": [
+        0.1656266805689895,
+        0.04477402036792094,
+        0.021436731369095824,
+        0.0651469020668593,
+        0.11667734195220887
+      ],
+      "first30_panel_wins": "5/5",
+      "first30_strongest_control": "no_video_supervised_temporal",
+      "label_permutation_delta": 0.1171144660458083,
+      "panel_deltas": [
+        0.10380252673107562,
+        0.07871864787076585,
+        0.052576616040570456,
+        0.08880417249588046,
+        0.06824369550219103
+      ],
+      "panel_median_delta": 0.07871864787076585,
+      "panel_wins": "5/5",
+      "primary": 0.17851329607186234,
+      "shuffled_delta": 0.13190048483629635,
+      "strongest_control": "diagnostics_only_supervised_temporal",
+      "tier1_metric_pass": true,
+      "tier2_metric_pass": true,
+      "tier3_metric_pass": true
+    },
+    "top_5pct_true_future_movement_lift": {
+      "aggregate_delta": 0.03175595520596974,
+      "bootstrap_lower_95_one_sided": 0.01877400722567002,
+      "control": 0.04485201218855254,
+      "first30_aggregate_delta": 0.035057378273178105,
+      "first30_panel_deltas": [
+        0.0027561381353257974,
+        0.06055544020266686,
+        0.048404217861123505,
+        0.0853650556784855,
+        0.007993101860619772
+      ],
+      "first30_panel_wins": "5/5",
+      "first30_strongest_control": "diagnostics_only_supervised_temporal",
+      "label_permutation_delta": 0.053860760219690655,
+      "panel_deltas": [
+        0.041624594394827755,
+        0.0070264744654953415,
+        0.05998619433265294,
+        0.022562150203430387,
+        0.034015489856117895
+      ],
+      "panel_median_delta": 0.034015489856117895,
+      "panel_wins": "5/5",
+      "primary": 0.07660796739452227,
+      "shuffled_delta": 0.05207689693650453,
+      "strongest_control": "no_video_supervised_temporal",
+      "tier1_metric_pass": true,
+      "tier2_metric_pass": true,
+      "tier3_metric_pass": true
+    },
+    "training_q90_future_event_pr_auc": {
+      "aggregate_delta": 0.03583268489140262,
+      "bootstrap_lower_95_one_sided": 0.0235455193560911,
+      "control": 0.13522953687345857,
+      "first30_aggregate_delta": 0.031025014665230333,
+      "first30_panel_deltas": [
+        -0.012885223096448517,
+        0.018304377889861723,
+        0.0718236842526172,
+        0.04950053878561428,
+        0.03289963097279258
+      ],
+      "first30_panel_wins": "4/5",
+      "first30_strongest_control": "diagnostics_only_supervised_temporal",
+      "label_permutation_delta": 0.04772186292515841,
+      "panel_deltas": [
+        0.03006508312666195,
+        0.013099398088667752,
+        0.0663980915355242,
+        0.03538432122018226,
+        0.03667431771257722
+      ],
+      "panel_median_delta": 0.03538432122018226,
+      "panel_wins": "5/5",
+      "primary": 0.1710622217648612,
+      "shuffled_delta": 0.04914315735416849,
+      "strongest_control": "diagnostics_only_supervised_temporal",
+      "tier1_metric_pass": true,
+      "tier2_metric_pass": true,
+      "tier3_metric_pass": true
+    }
+  },
+  "phase7_teacher_is_ceiling_not_threshold": true,
+  "rows_actual": 140,
+  "rows_expected": 140,
+  "schema_version": "again_zero_label_direct_supervised_locked_confirmation_v1",
+  "scope_pass": true,
+  "signed_implementation_digest": "c069959d6d00997925311663aff9ea57",
+  "target_identity_digest": "446906dff30be33f204de0f973207975",
+  "teacher_retention_is_gate": false,
+  "tier1_zero_label_deployment_signal_confirmed": true,
+  "tier2_high_consistency_confirmation": true,
+  "tier3_first30_cold_start_confirmation": true
+}

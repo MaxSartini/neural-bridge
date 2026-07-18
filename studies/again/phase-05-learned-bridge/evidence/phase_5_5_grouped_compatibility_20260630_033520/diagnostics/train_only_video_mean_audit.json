@@ -1,0 +1,405 @@
+{
+  "rows": [
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 1,
+      "seed": 20260625,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 4,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 1,
+      "seed": 20260626,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 4,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 1,
+      "seed": 20260627,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 4,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 1,
+      "seed": 20260628,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 4,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 1,
+      "seed": 20260629,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 4,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 1,
+      "seed": 20260630,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 5,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 1,
+      "seed": 20260631,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 2,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 1,
+      "seed": 20260632,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 3,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 1,
+      "seed": 20260633,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 2,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 1,
+      "seed": 20260634,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 2,
+      "seed": 20260625,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 2,
+      "seed": 20260626,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 2,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 2,
+      "seed": 20260627,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 0,
+      "checkpoint_restored": false,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 2,
+      "seed": 20260628,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 2,
+      "seed": 20260629,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 2,
+      "seed": 20260630,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 2,
+      "seed": 20260631,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 2,
+      "seed": 20260632,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 2,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 2,
+      "seed": 20260633,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 3,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 2,
+      "seed": 20260634,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 3,
+      "seed": 20260625,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 3,
+      "seed": 20260626,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 2,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 3,
+      "seed": 20260627,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 11,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 3,
+      "seed": 20260628,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 3,
+      "seed": 20260629,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 4,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 3,
+      "seed": 20260630,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 3,
+      "seed": 20260631,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 6,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 3,
+      "seed": 20260632,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 3,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 3,
+      "seed": 20260633,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 2,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 3,
+      "seed": 20260634,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 4,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 4,
+      "seed": 20260625,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 3,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 4,
+      "seed": 20260626,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 4,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 4,
+      "seed": 20260627,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 5,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 4,
+      "seed": 20260628,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 6,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 4,
+      "seed": 20260629,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 7,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 4,
+      "seed": 20260630,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 5,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 4,
+      "seed": 20260631,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 6,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 4,
+      "seed": 20260632,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 4,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 4,
+      "seed": 20260633,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 4,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 4,
+      "seed": 20260634,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 4,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 5,
+      "seed": 20260625,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 28,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 5,
+      "seed": 20260626,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 5,
+      "seed": 20260627,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 5,
+      "seed": 20260628,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 5,
+      "seed": 20260629,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 5,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 5,
+      "seed": 20260630,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 1,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 5,
+      "seed": 20260631,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 2,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 5,
+      "seed": 20260632,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 2,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 5,
+      "seed": 20260633,
+      "uses_test_rows_for_mean": false
+    },
+    {
+      "best_epoch": 3,
+      "checkpoint_restored": true,
+      "control_type": "train_only_video_mean_residual",
+      "fold": 5,
+      "seed": 20260634,
+      "uses_test_rows_for_mean": false
+    }
+  ],
+  "train_only_video_mean_primary_static_control": true
+}

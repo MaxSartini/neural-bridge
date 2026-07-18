@@ -1,0 +1,188 @@
+{
+  "audit_pass": true,
+  "audits": [
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "6bc30d64e72d9898b673a9bd03b419da2ac54a854526788ebcc4f5750747f3c3",
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "daba59056004115bca6e8b847ef535efc60046a83743c969462b710878277a09",
+      "seed": 20260721
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "dafd59487a48912fbd73b21b980586d0543e67d6410f78ecbb5dc3227efbc226",
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_current_row",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "d24a7fbd1f55fda8edd75622eedfd36c78fa26f7c7f2d79943cb2a54dd6c0109",
+      "seed": 20260721
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "bd81be54c116345e22135c7db9afb4e06e99e6e24eaccede285290917eee4a1c",
+      "labels_loaded_by_predictor": false,
+      "lane": "diagnostics_only_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "af91105b031ebadb08c6165c7d269c4ec3e7cbdcde9a13b2ee525d2fd33a1707",
+      "seed": 20260721
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "fa523d657a3ee8cf32f7c7b9ad37fa3582a1292905b31779546a8f7cc74074fb",
+      "labels_loaded_by_predictor": false,
+      "lane": "no_video_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "b37e16a693756ea9caa03cafb821d8067dd2e7defa3be5cce6c787fa63f95196",
+      "seed": 20260721
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "b6476eb1b5c38bf023e0620c361dac3033cd866924d6bbcefa721b1eb914dc7e",
+      "labels_loaded_by_predictor": false,
+      "lane": "sequence_shuffled_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "eb67ebded0f90397bae59c16636f6b56a3c1501f690fc08b41d1371a0c2b86a1",
+      "seed": 20260721
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "4abf9de6e760e7d49b945e36ac53033839c886a16d11d53ad76a31484a36c294",
+      "labels_loaded_by_predictor": false,
+      "lane": "label_permutation_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "e1828c83acfdba607536c948e26365a669ade3aebf9010238a347075d2dc5bc9",
+      "seed": 20260721
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "dfe698d8016d9e9f8b1b83b0086ce1bbf634888019ba4a4e72f8e2643978727d",
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "113fc83b02e2c1095a0378156515a69ae89df161062b5a560b696ba11fd845ca",
+      "seed": 20260722
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "16d484edc0f280046ef70c66facba835a78a1fa32b97bf34fdaa1f531deceb58",
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_current_row",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "d4d22357dfa5435429010f0caef07f48fd99bd5a040167f6a144002b7a49662e",
+      "seed": 20260722
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "0870e97bab510274204bec8499b81b75f7495d7c198d09c67ebad26e377cc75b",
+      "labels_loaded_by_predictor": false,
+      "lane": "diagnostics_only_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "7a5097bd7f4c86be71ef234a0e0f6f8c214d6aacf9a047b304f31d8fdf1195a6",
+      "seed": 20260722
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "969c4a72de9d0cbbd5a9cd569d4720f7cd2714badc8cb2a23140275f451dd077",
+      "labels_loaded_by_predictor": false,
+      "lane": "no_video_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "cddba513aee6a62532b0f4855e2704144fd2f49aad6bfdfa329c9c42c430008f",
+      "seed": 20260722
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "9724aba044c89d8ea879550dff4f561607a6d0e5267fde228b00b3fff67f8af1",
+      "labels_loaded_by_predictor": false,
+      "lane": "sequence_shuffled_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "a208d0ee3e581128366036897b916286f8b0847c358ad2c0d32e4136f0ba2bd6",
+      "seed": 20260722
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "40626f3080ef8a97358f7badeb147fb80ef29c9acf4368e7117a510e82ecf60f",
+      "labels_loaded_by_predictor": false,
+      "lane": "label_permutation_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "b4dd04274d12e9124e01958e9b691d91fce7c1b2b88f6fb5dafb7ddd3eb27f65",
+      "seed": 20260722
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "d97632da06c89ca9707de387ebb774c8b4a71cb7d79347ab261fcc17957158fc",
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "5b2de66ce6df43a233883cca07aa211a8dba8abe25c9e4dfaa43a43c38a146ab",
+      "seed": 20260723
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "61f7620f365e5456ef1cfbfb2bc8f3b8037d37068341dcc808c313c772d336b2",
+      "labels_loaded_by_predictor": false,
+      "lane": "video_supervised_current_row",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "79476433242e88082e23ea84ce549d58aa16d710ced61231831059b84e74174c",
+      "seed": 20260723
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "f4af850a02d35c0aa958e672ab1afd1263247849c270652e003e3001e79a51d1",
+      "labels_loaded_by_predictor": false,
+      "lane": "diagnostics_only_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "1a215691758874e216d093408a04a0eebd87c2cea35bd7e0dd5126cd22333add",
+      "seed": 20260723
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "c28c6df3579e947419ef3fa5cf5241cf8703a2763ea93957175997de20e80f66",
+      "labels_loaded_by_predictor": false,
+      "lane": "no_video_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "faa2cf022e59be5e8e660fdcb983314ba8e1dc6c0338fb72ed913607687f63ca",
+      "seed": 20260723
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "f4e51c04159c2d7274c236b10c686337a3d9d41a56c9d66932472104aef48723",
+      "labels_loaded_by_predictor": false,
+      "lane": "sequence_shuffled_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "89d3f6c90bf2480c09dd138878ce6f736dc99bda433729bba7e4f9f8ac0a34f6",
+      "seed": 20260723
+    },
+    {
+      "all_finite": true,
+      "checkpoint_sha256": "fce12b948e780284617b16e4dbd6ee2d3898dc158d0f5331ea88c44693aae684",
+      "labels_loaded_by_predictor": false,
+      "lane": "label_permutation_supervised_temporal",
+      "observed_response_inputs_at_inference": false,
+      "prediction_sha256": "4e0d4cc5525e49a5aa9fa527180809dde9a30ac5e2c4d794c90732f188a9758d",
+      "seed": 20260723
+    },
+    {
+      "all_finite": true,
+      "lane": "phase7_ar_assisted_teacher_ceiling",
+      "opened_after_zero_label_prediction_seal": true,
+      "prediction_sha256": "d8f9e476822b015dd8f1a9b76c6badccb2c471f211e7e0268a83a04d6dbaa3cf",
+      "seed": 20260721
+    },
+    {
+      "all_finite": true,
+      "lane": "phase7_ar_assisted_teacher_ceiling",
+      "opened_after_zero_label_prediction_seal": true,
+      "prediction_sha256": "44e41542a77fc69de215dcfd9574ce6c75479ade5335e70516ae70ad8a0cb400",
+      "seed": 20260722
+    },
+    {
+      "all_finite": true,
+      "lane": "phase7_ar_assisted_teacher_ceiling",
+      "opened_after_zero_label_prediction_seal": true,
+      "prediction_sha256": "20b99a1e04ed8c5fa3278eef89451d115f5a44ed8f08be6c714819b93a0155c8",
+      "seed": 20260723
+    }
+  ]
+}

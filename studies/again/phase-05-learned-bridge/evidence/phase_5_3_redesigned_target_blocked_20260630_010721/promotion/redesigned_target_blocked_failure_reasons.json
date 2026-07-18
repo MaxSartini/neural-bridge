@@ -1,0 +1,11 @@
+{
+  "failed_gates": [
+    "binary_min_delta_threshold",
+    "binary_seed_consistency",
+    "continuous_min_delta_threshold",
+    "continuous_spearman_delta",
+    "continuous_seed_consistency",
+    "continuous_binary_do_no_harm"
+  ],
+  "recommendation": "redesigned_target_blocked_failed_do_not_run_grouped_or_504"
+}

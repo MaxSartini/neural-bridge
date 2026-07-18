@@ -1,0 +1,114 @@
+{
+  "ar_block_columns": [
+    {
+      "column": "arousal",
+      "computed_before_target_without_future_values": true,
+      "overlaps_target_future_rows_2_6": false,
+      "row_offsets": [
+        0
+      ],
+      "second_offsets": [
+        0.0
+      ],
+      "uses_current": true,
+      "uses_future": false,
+      "uses_past": false
+    },
+    {
+      "column": "arousal_lag_1row",
+      "computed_before_target_without_future_values": true,
+      "overlaps_target_future_rows_2_6": false,
+      "row_offsets": [
+        -1
+      ],
+      "second_offsets": [
+        -0.5
+      ],
+      "uses_current": false,
+      "uses_future": false,
+      "uses_past": true
+    },
+    {
+      "column": "arousal_lag_2row",
+      "computed_before_target_without_future_values": true,
+      "overlaps_target_future_rows_2_6": false,
+      "row_offsets": [
+        -2
+      ],
+      "second_offsets": [
+        -1.0
+      ],
+      "uses_current": false,
+      "uses_future": false,
+      "uses_past": true
+    },
+    {
+      "column": "arousal_lag_4row",
+      "computed_before_target_without_future_values": true,
+      "overlaps_target_future_rows_2_6": false,
+      "row_offsets": [
+        -4
+      ],
+      "second_offsets": [
+        -2.0
+      ],
+      "uses_current": false,
+      "uses_future": false,
+      "uses_past": true
+    },
+    {
+      "column": "arousal_delta_prev_1row",
+      "computed_before_target_without_future_values": true,
+      "overlaps_target_future_rows_2_6": false,
+      "row_offsets": [
+        0,
+        -1
+      ],
+      "second_offsets": [
+        0.0,
+        -0.5
+      ],
+      "uses_current": true,
+      "uses_future": false,
+      "uses_past": true
+    },
+    {
+      "column": "arousal_delta_prev_2row",
+      "computed_before_target_without_future_values": true,
+      "overlaps_target_future_rows_2_6": false,
+      "row_offsets": [
+        0,
+        -2
+      ],
+      "second_offsets": [
+        0.0,
+        -1.0
+      ],
+      "uses_current": true,
+      "uses_future": false,
+      "uses_past": true
+    },
+    {
+      "column": "arousal_delta_prev_4row",
+      "computed_before_target_without_future_values": true,
+      "overlaps_target_future_rows_2_6": false,
+      "row_offsets": [
+        0,
+        -4
+      ],
+      "second_offsets": [
+        0.0,
+        -2.0
+      ],
+      "uses_current": true,
+      "uses_future": false,
+      "uses_past": true
+    }
+  ],
+  "ar_block_width": 7,
+  "includes_explicit_time_columns": false,
+  "includes_temporal_diagnostics": false,
+  "model_feature_block": "ar_only_head",
+  "source_code": "backend/scripts/again_dense_2hz_benchmark.py:AR_FEATURE_COLUMNS and add_dense_2hz_targets_and_ar_features",
+  "standardization": "train-only standardize_train_only after feature assembly"
+}

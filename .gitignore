@@ -1,0 +1,17 @@
+# Heavy and machine-local artifacts live behind one external boundary.
+/artifacts
+
+# Migration and local working state.
+/.migration-work
+/.scratch
+/.cache
+
+# Environments, dependencies, and generated builds.
+/.venv
+**/__pycache__
+**/node_modules
+**/dist
+**/build
+
+# Host noise.
+.DS_Store

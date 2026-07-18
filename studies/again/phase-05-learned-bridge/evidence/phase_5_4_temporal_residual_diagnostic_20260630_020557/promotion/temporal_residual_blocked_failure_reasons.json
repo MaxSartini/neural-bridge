@@ -1,0 +1,7 @@
+{
+  "failed_gates": [
+    "continuous_min_delta_threshold",
+    "continuous_seed_consistency"
+  ],
+  "recommendation": "temporal_residual_blocked_failed_do_not_run_grouped_or_504"
+}

@@ -1,0 +1,303 @@
+{
+  "accelerator_detail": "Device(gpu, 0)",
+  "audit_pass": true,
+  "candidate_results": {
+    "video_closed_loop_rollout": {
+      "checks": {
+        "ensemble_event_uplift_positive": true,
+        "ensemble_spearman_uplift_at_least_0_001": true,
+        "ensemble_top5_uplift_positive": true,
+        "h2_cross_video_carry_zero": true,
+        "h2_rollout_finite": true,
+        "h2_teacher_forcing_zero": true,
+        "pooled_continuous_spearman_aggregate_minimum": false,
+        "pooled_continuous_spearman_beats_sequence_shuffled_video": true,
+        "pooled_continuous_spearman_beats_video_label_permutation": false,
+        "pooled_continuous_spearman_first30_aggregate_positive": false,
+        "pooled_continuous_spearman_first30_wins_at_least_2_of_3": false,
+        "pooled_continuous_spearman_max_fold_contribution_at_most_0_60": false,
+        "pooled_continuous_spearman_paired_median_positive": false,
+        "pooled_continuous_spearman_retention_at_least_0_50": false,
+        "pooled_continuous_spearman_wins_3_of_3": false,
+        "top_5pct_true_future_movement_lift_aggregate_minimum": false,
+        "top_5pct_true_future_movement_lift_beats_sequence_shuffled_video": true,
+        "top_5pct_true_future_movement_lift_beats_video_label_permutation": true,
+        "top_5pct_true_future_movement_lift_first30_aggregate_positive": false,
+        "top_5pct_true_future_movement_lift_first30_wins_at_least_2_of_3": false,
+        "top_5pct_true_future_movement_lift_max_fold_contribution_at_most_0_60": false,
+        "top_5pct_true_future_movement_lift_paired_median_positive": false,
+        "top_5pct_true_future_movement_lift_retention_at_least_0_50": false,
+        "top_5pct_true_future_movement_lift_wins_3_of_3": false,
+        "training_q90_future_event_pr_auc_aggregate_minimum": false,
+        "training_q90_future_event_pr_auc_beats_sequence_shuffled_video": true,
+        "training_q90_future_event_pr_auc_beats_video_label_permutation": true,
+        "training_q90_future_event_pr_auc_first30_aggregate_positive": false,
+        "training_q90_future_event_pr_auc_first30_wins_at_least_2_of_3": false,
+        "training_q90_future_event_pr_auc_max_fold_contribution_at_most_0_60": false,
+        "training_q90_future_event_pr_auc_paired_median_positive": false,
+        "training_q90_future_event_pr_auc_retention_at_least_0_50": false,
+        "training_q90_future_event_pr_auc_wins_3_of_3": false
+      },
+      "deltas_by_fold": {
+        "pooled_continuous_spearman": [
+          -0.06596722804375862,
+          -0.09326933228329902,
+          -0.08618130308541862
+        ],
+        "top_5pct_true_future_movement_lift": [
+          -0.026859482197088697,
+          -0.027445681487344276,
+          -0.019260912561897388
+        ],
+        "training_q90_future_event_pr_auc": [
+          -0.02890784159786669,
+          -0.037385936489709254,
+          -0.026459974385261653
+        ]
+      },
+      "ensemble_uplift": {
+        "pooled_continuous_spearman": 0.019038630422730574,
+        "top_5pct_true_future_movement_lift": 0.008083743017732556,
+        "training_q90_future_event_pr_auc": 0.0033109383629378597
+      },
+      "failed_gates": [
+        "pooled_continuous_spearman_aggregate_minimum",
+        "pooled_continuous_spearman_wins_3_of_3",
+        "pooled_continuous_spearman_paired_median_positive",
+        "pooled_continuous_spearman_max_fold_contribution_at_most_0_60",
+        "pooled_continuous_spearman_retention_at_least_0_50",
+        "pooled_continuous_spearman_beats_video_label_permutation",
+        "pooled_continuous_spearman_first30_aggregate_positive",
+        "pooled_continuous_spearman_first30_wins_at_least_2_of_3",
+        "top_5pct_true_future_movement_lift_aggregate_minimum",
+        "top_5pct_true_future_movement_lift_wins_3_of_3",
+        "top_5pct_true_future_movement_lift_paired_median_positive",
+        "top_5pct_true_future_movement_lift_max_fold_contribution_at_most_0_60",
+        "top_5pct_true_future_movement_lift_retention_at_least_0_50",
+        "top_5pct_true_future_movement_lift_first30_aggregate_positive",
+        "top_5pct_true_future_movement_lift_first30_wins_at_least_2_of_3",
+        "training_q90_future_event_pr_auc_aggregate_minimum",
+        "training_q90_future_event_pr_auc_wins_3_of_3",
+        "training_q90_future_event_pr_auc_paired_median_positive",
+        "training_q90_future_event_pr_auc_max_fold_contribution_at_most_0_60",
+        "training_q90_future_event_pr_auc_retention_at_least_0_50",
+        "training_q90_future_event_pr_auc_first30_aggregate_positive",
+        "training_q90_future_event_pr_auc_first30_wins_at_least_2_of_3"
+      ],
+      "first30_deltas_by_fold": {
+        "pooled_continuous_spearman": [
+          -0.09218614630093051,
+          -0.0956600276260754,
+          -0.10531959220244577
+        ],
+        "top_5pct_true_future_movement_lift": [
+          -0.012425018919120859,
+          -0.023806132874630917,
+          -0.046846463807300565
+        ],
+        "training_q90_future_event_pr_auc": [
+          -0.014678340337866802,
+          -0.042417996583077794,
+          -0.025954818287387327
+        ]
+      },
+      "qualified": false,
+      "retention": {
+        "pooled_continuous_spearman": -0.08318624096952654,
+        "top_5pct_true_future_movement_lift": -0.37992158625668765,
+        "training_q90_future_event_pr_auc": -0.08112817823672985
+      }
+    },
+    "video_distilled_temporal": {
+      "checks": {
+        "ensemble_event_uplift_positive": true,
+        "ensemble_spearman_uplift_at_least_0_001": true,
+        "ensemble_top5_uplift_positive": true,
+        "pooled_continuous_spearman_aggregate_minimum": false,
+        "pooled_continuous_spearman_beats_sequence_shuffled_video": true,
+        "pooled_continuous_spearman_beats_video_label_permutation": true,
+        "pooled_continuous_spearman_first30_aggregate_positive": false,
+        "pooled_continuous_spearman_first30_wins_at_least_2_of_3": false,
+        "pooled_continuous_spearman_max_fold_contribution_at_most_0_60": false,
+        "pooled_continuous_spearman_paired_median_positive": false,
+        "pooled_continuous_spearman_retention_at_least_0_50": false,
+        "pooled_continuous_spearman_wins_3_of_3": false,
+        "top_5pct_true_future_movement_lift_aggregate_minimum": false,
+        "top_5pct_true_future_movement_lift_beats_sequence_shuffled_video": false,
+        "top_5pct_true_future_movement_lift_beats_video_label_permutation": false,
+        "top_5pct_true_future_movement_lift_first30_aggregate_positive": false,
+        "top_5pct_true_future_movement_lift_first30_wins_at_least_2_of_3": false,
+        "top_5pct_true_future_movement_lift_max_fold_contribution_at_most_0_60": false,
+        "top_5pct_true_future_movement_lift_paired_median_positive": false,
+        "top_5pct_true_future_movement_lift_retention_at_least_0_50": false,
+        "top_5pct_true_future_movement_lift_wins_3_of_3": false,
+        "training_q90_future_event_pr_auc_aggregate_minimum": false,
+        "training_q90_future_event_pr_auc_beats_sequence_shuffled_video": true,
+        "training_q90_future_event_pr_auc_beats_video_label_permutation": true,
+        "training_q90_future_event_pr_auc_first30_aggregate_positive": false,
+        "training_q90_future_event_pr_auc_first30_wins_at_least_2_of_3": false,
+        "training_q90_future_event_pr_auc_max_fold_contribution_at_most_0_60": false,
+        "training_q90_future_event_pr_auc_paired_median_positive": false,
+        "training_q90_future_event_pr_auc_retention_at_least_0_50": false,
+        "training_q90_future_event_pr_auc_wins_3_of_3": false
+      },
+      "deltas_by_fold": {
+        "pooled_continuous_spearman": [
+          -0.04266923892045431,
+          -0.06884875757901428,
+          -0.06877928643387383
+        ],
+        "top_5pct_true_future_movement_lift": [
+          -0.02630331329662998,
+          -0.035319122715320006,
+          -0.03977894093010461
+        ],
+        "training_q90_future_event_pr_auc": [
+          -0.03283550032826853,
+          -0.04119456607347087,
+          -0.03750844645932788
+        ]
+      },
+      "ensemble_uplift": {
+        "pooled_continuous_spearman": 0.005275318279656355,
+        "top_5pct_true_future_movement_lift": 0.0017900249777814715,
+        "training_q90_future_event_pr_auc": 0.00038165453050741094
+      },
+      "failed_gates": [
+        "pooled_continuous_spearman_aggregate_minimum",
+        "pooled_continuous_spearman_wins_3_of_3",
+        "pooled_continuous_spearman_paired_median_positive",
+        "pooled_continuous_spearman_max_fold_contribution_at_most_0_60",
+        "pooled_continuous_spearman_retention_at_least_0_50",
+        "pooled_continuous_spearman_first30_aggregate_positive",
+        "pooled_continuous_spearman_first30_wins_at_least_2_of_3",
+        "top_5pct_true_future_movement_lift_aggregate_minimum",
+        "top_5pct_true_future_movement_lift_wins_3_of_3",
+        "top_5pct_true_future_movement_lift_paired_median_positive",
+        "top_5pct_true_future_movement_lift_max_fold_contribution_at_most_0_60",
+        "top_5pct_true_future_movement_lift_retention_at_least_0_50",
+        "top_5pct_true_future_movement_lift_beats_sequence_shuffled_video",
+        "top_5pct_true_future_movement_lift_beats_video_label_permutation",
+        "top_5pct_true_future_movement_lift_first30_aggregate_positive",
+        "top_5pct_true_future_movement_lift_first30_wins_at_least_2_of_3",
+        "training_q90_future_event_pr_auc_aggregate_minimum",
+        "training_q90_future_event_pr_auc_wins_3_of_3",
+        "training_q90_future_event_pr_auc_paired_median_positive",
+        "training_q90_future_event_pr_auc_max_fold_contribution_at_most_0_60",
+        "training_q90_future_event_pr_auc_retention_at_least_0_50",
+        "training_q90_future_event_pr_auc_first30_aggregate_positive",
+        "training_q90_future_event_pr_auc_first30_wins_at_least_2_of_3"
+      ],
+      "first30_deltas_by_fold": {
+        "pooled_continuous_spearman": [
+          -0.1240244648160157,
+          -0.0989754783884968,
+          -0.11259030963766335
+        ],
+        "top_5pct_true_future_movement_lift": [
+          -0.024899456325847683,
+          -0.025946980635332295,
+          -0.03919593541776038
+        ],
+        "training_q90_future_event_pr_auc": [
+          -0.02682677961080354,
+          -0.048821846730501814,
+          -0.037570898833190564
+        ]
+      },
+      "qualified": false,
+      "retention": {
+        "pooled_continuous_spearman": 0.037955151198873646,
+        "top_5pct_true_future_movement_lift": -0.5647527250442517,
+        "training_q90_future_event_pr_auc": -0.16254426169325267
+      }
+    }
+  },
+  "compatibility_lane_metric_means": {
+    "pooled_continuous_spearman": {
+      "no_video_closed_loop_persistence": 0.08492515213362932,
+      "phase7_ar_assisted_teacher_ceiling": 0.2759626681825075,
+      "sequence_shuffled_video": 0.05633193810343512,
+      "video_closed_loop_rollout": 0.06903345928936755,
+      "video_distilled_temporal": 0.09217600993992174,
+      "video_label_permutation": 0.07559646343555115,
+      "video_supervised_current_row": 0.14398223057215273,
+      "video_supervised_temporal": 0.15292296572243588
+    },
+    "top_5pct_true_future_movement_lift": {
+      "no_video_closed_loop_persistence": 0.050489749288026874,
+      "phase7_ar_assisted_teacher_ceiling": 0.09759058320422205,
+      "sequence_shuffled_video": 0.026998192478063492,
+      "video_closed_loop_rollout": 0.03259512575257321,
+      "video_distilled_temporal": 0.023889424981998936,
+      "video_label_permutation": 0.02815105809270954,
+      "video_supervised_current_row": 0.056436536388968096,
+      "video_supervised_temporal": 0.06049687017070605
+    },
+    "training_q90_future_event_pr_auc": {
+      "no_video_closed_loop_persistence": 0.12185355861921686,
+      "phase7_ar_assisted_teacher_ceiling": 0.21116301118831005,
+      "sequence_shuffled_video": 0.10389093157966069,
+      "video_closed_loop_rollout": 0.1146080454329667,
+      "video_distilled_temporal": 0.10733681958914504,
+      "video_label_permutation": 0.1058011565148128,
+      "video_supervised_current_row": 0.14212779367489453,
+      "video_supervised_temporal": 0.1459725545214083
+    }
+  },
+  "deployment_claim_promoted": false,
+  "development_split_digest": "cf65a766cd827e6201544dd753049cb4",
+  "duration_seconds": 825.7267489433289,
+  "ensemble_rows": 24,
+  "failed_gates": [
+    "no_candidate_passed_all_continuation_gates"
+  ],
+  "implementation_freeze_digest": "6b3780bfe1b5fe91b11c77337d06112a",
+  "lane_metric_means": {
+    "pooled_continuous_spearman": {
+      "no_video_closed_loop_persistence": 0.09106543701179139,
+      "phase7_ar_assisted_teacher_ceiling": 0.2776408274315488,
+      "sequence_shuffled_video": 0.06299939370731979,
+      "video_closed_loop_rollout": 0.07567246625210476,
+      "video_distilled_temporal": 0.09737932641181603,
+      "video_label_permutation": 0.08182982498835122,
+      "video_supervised_current_row": 0.14870541862248013,
+      "video_supervised_temporal": 0.15747842072293017
+    },
+    "top_5pct_true_future_movement_lift": {
+      "no_video_closed_loop_persistence": 0.04959071959193163,
+      "phase7_ar_assisted_teacher_ceiling": 0.09644092398699855,
+      "sequence_shuffled_video": 0.029962360102959384,
+      "video_closed_loop_rollout": 0.03658633087365742,
+      "video_distilled_temporal": 0.027307897308416002,
+      "video_label_permutation": 0.030215317817750924,
+      "video_supervised_current_row": 0.05851854463812786,
+      "video_supervised_temporal": 0.061108356289100864
+    },
+    "training_q90_future_event_pr_auc": {
+      "no_video_closed_loop_persistence": 0.11878921312083619,
+      "phase7_ar_assisted_teacher_ceiling": 0.21100119268856818,
+      "sequence_shuffled_video": 0.10581157656499059,
+      "video_closed_loop_rollout": 0.11526924236533038,
+      "video_distilled_temporal": 0.10900765556925385,
+      "video_label_permutation": 0.10866474133959318,
+      "video_supervised_current_row": 0.14353525872357334,
+      "video_supervised_temporal": 0.14618715985627626
+    }
+  },
+  "locked_winner": null,
+  "member_rows": 72,
+  "phase7_ar_assisted_claim_unchanged": true,
+  "rows_actual": 96,
+  "rows_expected": 96,
+  "schema_version": "again_dense_2hz_zero_label_deployment_stage_a_v1",
+  "scope_pass": true,
+  "stage_a_pass": false,
+  "stage_b_authorized": false,
+  "strongest_zero_label_control": {
+    "pooled_continuous_spearman": "video_supervised_temporal",
+    "top_5pct_true_future_movement_lift": "video_supervised_temporal",
+    "training_q90_future_event_pr_auc": "video_supervised_temporal"
+  },
+  "target_identity_digest": "446906dff30be33f204de0f973207975"
+}

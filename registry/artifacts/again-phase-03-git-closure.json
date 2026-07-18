@@ -1,0 +1,23 @@
+{
+  "artifact_id": "again-phase-03-git-closure",
+  "classification": "git-study-closure",
+  "programme": "again",
+  "phase": "phase-03-raw-cortical",
+  "path": "studies/again/phase-03-raw-cortical",
+  "files": 16,
+  "size_bytes": 571368,
+  "sha256_tree": "7b54f605716dca4385bff5f2d1da07bd272e025dd3ea3b6035c73770a02dd163",
+  "contents": {
+    "preliminary_and_final_evidence": {
+      "files": 14,
+      "sha256_tree": "d8161691ffa92dd48752b7b8942ca070375bb2a01df25f69bce7554ea2992316"
+    },
+    "phase_entrypoint": {
+      "files": 1,
+      "sha256_tree": "f544cdc14a27696c94d743a3c0210393a55a8e660837648df2519a48b47fc120"
+    }
+  },
+  "claim_boundary": "Raw cortical summaries were target-specific and inconsistent, not universally useless.",
+  "external_collection_registry": "again-phase-03-raw-cortical",
+  "migrated_at": "2026-07-17T22:25:40Z"
+}

@@ -1,0 +1,17 @@
+{
+  "artifact_id": "again-phase-01-git-closure",
+  "classification": "git-study-closure",
+  "programme": "again",
+  "phase": "phase-01-label-alignment",
+  "path": "studies/again/phase-01-label-alignment",
+  "files": 6,
+  "size_bytes": 6280,
+  "sha256_tree": "13be7a8ffa83cfa4a4dd0b60c35ce3d0514bb47c40f6fc1410a96fcb39403d71",
+  "contents": {
+    "compact_contract": "95adcf50393b65146c46978914a5c000569241da52e5d1c09914f4a13753df9a",
+    "alignment_entrypoint": "fba62e38e7da1204172d6a8bd4e8eb5c6ee3c4480934354a32e472d7d9100da3"
+  },
+  "authority": "Saved dense-cache timestamps define 2 Hz alignment; train-fold thresholds never use test labels.",
+  "external_collection_registry": "again-phase-01-label-alignment",
+  "migrated_at": "2026-07-17T22:30:27Z"
+}

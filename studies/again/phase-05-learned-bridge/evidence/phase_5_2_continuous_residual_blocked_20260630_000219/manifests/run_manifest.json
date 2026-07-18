@@ -1,0 +1,21 @@
+{
+  "continuous_source": "future_arousal_max_delta_rows_2_6",
+  "created_at": "2026-06-30T00:03:54.890301+00:00",
+  "dense_root": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz",
+  "duration_seconds": 95.0518319606781,
+  "feature": "temporal_mean_2s_then_pca256",
+  "loss": "continuous_rank_lift_residual",
+  "matrix_size": 35,
+  "no_ar_retraining": true,
+  "no_grouped": true,
+  "no_secondary_targets": true,
+  "no_vjepa_tribe_pca_rerun": true,
+  "output_root": "outputs/again_dense_2hz_phase5_continuous_residual_blocked_20260630_000219",
+  "phase4_root": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full",
+  "previous_frozen_root": "outputs/again_dense_2hz_phase5_frozen_ar_residual_",
+  "protocol_scope": "blocked_temporal_70_30_only",
+  "schema_version": "again_dense_2hz_phase5_continuous_residual_blocked_v1",
+  "source_root": "outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_20260629_171825",
+  "target": "arousal_spike_rows_2_6_train_q90",
+  "variant_scope": "monotonic_do_no_harm_residual"
+}

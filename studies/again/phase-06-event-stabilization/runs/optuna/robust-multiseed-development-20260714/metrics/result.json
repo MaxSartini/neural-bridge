@@ -1,0 +1,89 @@
+{
+  "accelerator": "mlx",
+  "accelerator_detail": "Device(gpu, 0)",
+  "best_development_objective": 0.0166151902400242,
+  "best_params": {
+    "alpha_cap": 0.16,
+    "alpha_initial_logit": -4.0,
+    "gate_bias": 4.0,
+    "hidden": 64,
+    "lambda_binary": 0.5,
+    "learning_rate": 0.00011011146493254943,
+    "max_epochs": 40,
+    "patience": 8,
+    "weight_decay": 0.0002529065003944875
+  },
+  "best_trial": 22,
+  "candidate_validation_deltas": {
+    "20260630": 0.015881036688129124,
+    "20260631": 0.0171766939488337,
+    "20260632": 0.015900272653389835,
+    "20260633": 0.007329259934191257,
+    "20260634": 0.01306736027429431
+  },
+  "created_at": "2026-07-14T14:45:38.471599+00:00",
+  "development_seeds": [
+    20260625,
+    20260626,
+    20260627,
+    20260628,
+    20260629
+  ],
+  "duration_seconds": 532.3815011978149,
+  "grouped_scores_read": false,
+  "heldout_scores_read": false,
+  "next_stage_authorized": false,
+  "original_enqueued_trial_zero": true,
+  "original_params": {
+    "alpha_cap": 0.12,
+    "alpha_initial_logit": -4.0,
+    "gate_bias": 4.0,
+    "hidden": 64,
+    "lambda_binary": 0.5,
+    "learning_rate": 0.0002,
+    "max_epochs": 40,
+    "patience": 8,
+    "weight_decay": 0.0001
+  },
+  "original_validation_deltas": {
+    "20260630": 0.015332740022440922,
+    "20260631": 0.01699336116864103,
+    "20260632": 0.01565918456162327,
+    "20260633": 0.008499329907408787,
+    "20260634": 0.012828945855702323
+  },
+  "schema_version": "again_dense_2hz_phase6_robust_multiseed_optuna_v1",
+  "trial_count": 24,
+  "trials": 24,
+  "validation_gate": {
+    "candidate_mean_delta_vs_ar": 0.013870924699767645,
+    "candidate_robust_objective": 0.011585402574219548,
+    "checks": {
+      "mean_delta_improves": true,
+      "paired_wins_at_least_4_of_5": true,
+      "robust_objective_gain_at_least_0_001": false
+    },
+    "failed_gates": [
+      "robust_objective_gain_at_least_0_001"
+    ],
+    "original_mean_delta_vs_ar": 0.013862712303163266,
+    "original_robust_objective": 0.012050409111871881,
+    "paired_candidate_minus_original": {
+      "20260630": 0.0005482966656882027,
+      "20260631": 0.00018333278019266874,
+      "20260632": 0.00024108809176656698,
+      "20260633": -0.0011700699732175301,
+      "20260634": 0.00023841441859198675
+    },
+    "paired_wins": 4,
+    "robust_objective_gain": -0.0004650065376523328,
+    "stage_a_pass": false
+  },
+  "validation_seeds": [
+    20260630,
+    20260631,
+    20260632,
+    20260633,
+    20260634
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "blocked_best_matched_control_pr_auc": 0.23118450509329044,
+  "blocked_matched_control_delta": -0.009318889524446233,
+  "blocked_real_pr_auc": 0.2218656155688442,
+  "blocked_support": false,
+  "corrected_claim": "Robust cross-video future arousal spike / emotional moment ranking is strengthened under deterministic eval-mode scoring; strict forward-time temporal generalization remains unproven.",
+  "cross_video_ranking_strengthened": true,
+  "eval_mode_scoring": true,
+  "grouped_best_matched_control_pr_auc": 0.20427406886649027,
+  "grouped_matched_control_delta": 0.02578986936067354,
+  "grouped_real_pr_auc": 0.2300639382271638,
+  "grouped_support": true,
+  "recommendation": "repair_required",
+  "strict_forward_time_temporal_generalization_proven": false
+}

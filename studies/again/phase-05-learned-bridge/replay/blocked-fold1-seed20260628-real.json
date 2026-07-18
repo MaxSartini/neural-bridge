@@ -1,0 +1,26 @@
+{
+  "protocol": "blocked_temporal_70_30",
+  "fold": 1,
+  "seed": 20260628,
+  "lane": "real_residual",
+  "split_target": "future_arousal_max_delta_rows_4_10_train_q90",
+  "target_type": "event",
+  "continuous_value_column": "future_arousal_max_delta_rows_4_10",
+  "continuous_transform": "positive_delta",
+  "labels": "labels_aligned_2hz.parquet",
+  "diagnostics": "_derived/temporal_diagnostics_summary_features.npy",
+  "pca_scores": "features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+  "pca_rows": "features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__row_index.csv",
+  "ar_checkpoint": "ar_baseline_checkpoints/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__ar_only__seed20260628__best.npz",
+  "residual_checkpoint": "checkpoints/future_arousal_max_delta_rows_4_10_train_q90__short_temporal_conv_residual__real_residual__seed20260628__best.npz",
+  "evidence_rows": "metrics/temporal_residual_binary_big_confirm_seed_metrics.csv",
+  "expected_sha256": {
+    "labels": "5bc032764e6acb606b1124eba01ff62bb59c95b19cf869a0a884311ff765f8cb",
+    "diagnostics": "d308e47ddf107071a0605c5c89990d63e03fe658b8e505a9a785ebde8785894b",
+    "pca_scores": "6ec0548a00aa532728ac96c3f298234adef4dd33664009f6c63fda8c714039fd",
+    "pca_rows": "a811fa1d27108a66d875efec427a59c51097ff168e52a0931855ff217986d1dc",
+    "ar_checkpoint": "e51585fff155b53cf13d1ad83b1a494bacc34068be9be75e8485ef7aadd98d86",
+    "residual_checkpoint": "983fa7e9d392a2676d99bd49573d08326e13b93dc1e735521862ccfac2946d7b",
+    "evidence_rows": "3b7c3aaf773a762bdd11c04342b41c9e7d44c7b7f868908d3abb95e93bf45a41"
+  }
+}

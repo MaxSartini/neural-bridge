@@ -1,0 +1,66 @@
+{
+  "benchmark": "again_dense_2hz_ar_baseline",
+  "dense_root": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz",
+  "feature_lanes": [
+    "AR_only"
+  ],
+  "labeled_rows": 243441,
+  "labels_path": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/labels_aligned_2hz.parquet",
+  "models_trained": true,
+  "pca_run": false,
+  "promotion_gates": {
+    "gate_scope": "grouped_video_only",
+    "targets": {
+      "arousal_abs_delta_p4rows_train_q90": {
+        "ar_only_pr_auc": 0.11818756151796841,
+        "ar_plus_raw_beats_ar": false,
+        "ar_plus_raw_beats_shuffled": false,
+        "ar_plus_raw_cortical_pr_auc": null,
+        "random_matched_pr_auc": null,
+        "raw_beats_ar": false,
+        "raw_cortical_pr_auc": null,
+        "shuffled_cortical_pr_auc": null,
+        "strict_ar_plus_raw_promotion_pass": false,
+        "strict_raw_promotion_pass": false
+      },
+      "arousal_delta_p2rows_train_q90": {
+        "ar_only_pr_auc": 0.20841135344122055,
+        "ar_plus_raw_beats_ar": false,
+        "ar_plus_raw_beats_shuffled": false,
+        "ar_plus_raw_cortical_pr_auc": null,
+        "random_matched_pr_auc": null,
+        "raw_beats_ar": false,
+        "raw_cortical_pr_auc": null,
+        "shuffled_cortical_pr_auc": null,
+        "strict_ar_plus_raw_promotion_pass": false,
+        "strict_raw_promotion_pass": false
+      },
+      "arousal_spike_rows_2_6_train_q90": {
+        "ar_only_pr_auc": 0.156204234616736,
+        "ar_plus_raw_beats_ar": false,
+        "ar_plus_raw_beats_shuffled": false,
+        "ar_plus_raw_cortical_pr_auc": null,
+        "random_matched_pr_auc": null,
+        "raw_beats_ar": false,
+        "raw_cortical_pr_auc": null,
+        "shuffled_cortical_pr_auc": null,
+        "strict_ar_plus_raw_promotion_pass": false,
+        "strict_raw_promotion_pass": false
+      }
+    }
+  },
+  "rows": 243575,
+  "schema_version": "again_dense_2hz_benchmark_v1",
+  "targets": [
+    "arousal_spike_rows_2_6_train_q90",
+    "arousal_delta_p2rows_train_q90",
+    "arousal_abs_delta_p4rows_train_q90"
+  ],
+  "tribe_encoding_run": false,
+  "true_2hz_on_2hz": true,
+  "validation_protocols": [
+    "blocked_temporal_70_30",
+    "grouped_video"
+  ],
+  "vjepa_encoding_run": false
+}

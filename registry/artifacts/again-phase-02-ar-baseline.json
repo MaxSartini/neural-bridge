@@ -1,0 +1,12 @@
+{
+  "artifact_id": "again-phase-02-ar-baseline",
+  "classification": "external-study-collection",
+  "moved_at": "2026-07-17T21:30:45Z",
+  "items": [
+    {"path": "runs/again/phase-02-ar-baseline/development/initial-20260625-091233", "files": 4, "size_bytes": 17899, "sha256_tree": "e2770651deaf90910a4329959d9dbf5c51d59095ba469bfe757dbf62fcdea9b4"},
+    {"path": "runs/again/phase-02-ar-baseline/development/revision-20260625-092047", "files": 4, "size_bytes": 17914, "sha256_tree": "65c670df5f70c8e7c48f70428ec83cdf64cf983a46cf3af976831c7bc5da8719"},
+    {"path": "runs/again/phase-02-ar-baseline/development/revision-20260625-093304", "files": 4, "size_bytes": 18721, "sha256_tree": "7472510e266115d3b0111aaa14aa04da288bdf41627a14cfb46cd715ce45a26e"},
+    {"path": "runs/again/phase-02-ar-baseline/development/revision-20260625-093345", "files": 4, "size_bytes": 18722, "sha256_tree": "309e14af3d04f0a991c463bb32e88f5ced8994d7606f5ae9435e1bc583acce93"},
+    {"path": "runs/again/phase-02-ar-baseline/final-benchmark-20260625-093714", "files": 4, "size_bytes": 41001, "sha256_tree": "fc3b60a0f658681b3940527d600333088824e22b43cc1bba18496151237d74fa"}
+  ]
+}

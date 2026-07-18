@@ -1,0 +1,245 @@
+{
+  "policy_implemented": true,
+  "rows": [
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 0,
+      "best_inner_val_delta_vs_frozen_ar": 0.0,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 38,
+      "best_inner_val_delta_vs_frozen_ar": 0.00046332497379325543,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 5,
+      "best_inner_val_delta_vs_frozen_ar": 1.887786032654659e-05,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 18,
+      "best_inner_val_delta_vs_frozen_ar": 0.00014840294795939735,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 9,
+      "best_inner_val_delta_vs_frozen_ar": 7.795599279679377e-05,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 2,
+      "best_inner_val_delta_vs_frozen_ar": 1.9830931162118093e-05,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 13,
+      "best_inner_val_delta_vs_frozen_ar": 5.0104173859075174e-05,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 5,
+      "best_inner_val_delta_vs_frozen_ar": 4.8667242392719245e-06,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 27,
+      "best_inner_val_delta_vs_frozen_ar": 0.0002976952841078767,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 13,
+      "best_inner_val_delta_vs_frozen_ar": 9.621329113820853e-05,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 4,
+      "best_inner_val_delta_vs_frozen_ar": 5.811660445304012e-06,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 26,
+      "best_inner_val_delta_vs_frozen_ar": 0.0006672218648708095,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90",
+      "target_type": "binary"
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 5,
+      "best_inner_val_delta_vs_frozen_ar": 0.0033621243201196194,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 10,
+      "best_inner_val_delta_vs_frozen_ar": 0.0037918114103376865,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "architecture": "current_row_mlp_residual",
+      "best_epoch": 7,
+      "best_inner_val_delta_vs_frozen_ar": 0.0013920024211984128,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 24,
+      "best_inner_val_delta_vs_frozen_ar": 0.005014165653847158,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 5,
+      "best_inner_val_delta_vs_frozen_ar": 0.0003175180754624307,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "architecture": "delta_feature_mlp_residual",
+      "best_epoch": 14,
+      "best_inner_val_delta_vs_frozen_ar": 0.001854948466643691,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 10,
+      "best_inner_val_delta_vs_frozen_ar": 0.00044880365021526814,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 9,
+      "best_inner_val_delta_vs_frozen_ar": 0.0025450431276112795,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "architecture": "short_temporal_conv_residual",
+      "best_epoch": 6,
+      "best_inner_val_delta_vs_frozen_ar": 0.0028417834546417,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 5,
+      "best_inner_val_delta_vs_frozen_ar": 9.01506282389164e-05,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 3,
+      "best_inner_val_delta_vs_frozen_ar": 9.313225746154785e-10,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    },
+    {
+      "architecture": "low_ar_confidence_temporal_residual",
+      "best_epoch": 14,
+      "best_inner_val_delta_vs_frozen_ar": 4.656612873077393e-10,
+      "heldout_scoring_policy": "true_heldout_labels_targets",
+      "label_policy": "permuted_train_and_permuted_inner_val_selection",
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10",
+      "target_type": "continuous"
+    }
+  ]
+}

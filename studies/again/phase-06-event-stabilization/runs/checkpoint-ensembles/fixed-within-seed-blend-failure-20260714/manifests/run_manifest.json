@@ -1,0 +1,27 @@
+{
+  "accelerator": "mlx",
+  "blend_weights": {
+    "original": 0.5,
+    "trial4": 0.5
+  },
+  "duration_seconds": 119.24084782600403,
+  "fresh_seeds": [
+    20260640,
+    20260641,
+    20260642,
+    20260643,
+    20260644
+  ],
+  "lanes": [
+    "frozen_ar_only",
+    "original_real_residual",
+    "trial4_real_residual",
+    "fixed_50_50_blend"
+  ],
+  "matched_controls_deferred_until_pilot_pass": true,
+  "plan": "docs/phase6_fixed_blend_fresh5_pilot_plan.md",
+  "rows": 20,
+  "schema_version": "again_dense_2hz_phase6_fixed_blend_fresh5_v1",
+  "viewed_seed_scores_reused": false,
+  "weight_search": false
+}

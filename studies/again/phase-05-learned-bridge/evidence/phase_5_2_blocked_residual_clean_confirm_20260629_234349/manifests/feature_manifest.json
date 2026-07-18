@@ -1,0 +1,965 @@
+{
+  "features": [
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260625,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "shuffled",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260625,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "random",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260625,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual_permuted_inner_val_selection",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260625,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_fixed_epoch_audit",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260625,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_train_only",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "width": 256
+        }
+      ],
+      "control_type": "train_only_video_mean_pca_residual",
+      "dims": {
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260625,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_full_video_oracle",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": true,
+          "width": 256
+        }
+      ],
+      "control_type": "full_video_video_mean_pca_residual_oracle_warning",
+      "dims": {
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260625,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "diagnostics": 53
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260625,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260626,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "shuffled",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260626,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "random",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260626,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual_permuted_inner_val_selection",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260626,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_fixed_epoch_audit",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260626,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_train_only",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "width": 256
+        }
+      ],
+      "control_type": "train_only_video_mean_pca_residual",
+      "dims": {
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260626,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_full_video_oracle",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": true,
+          "width": 256
+        }
+      ],
+      "control_type": "full_video_video_mean_pca_residual_oracle_warning",
+      "dims": {
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260626,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "diagnostics": 53
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260626,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260627,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "shuffled",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260627,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "random",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260627,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual_permuted_inner_val_selection",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260627,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_fixed_epoch_audit",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260627,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_train_only",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "width": 256
+        }
+      ],
+      "control_type": "train_only_video_mean_pca_residual",
+      "dims": {
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260627,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_full_video_oracle",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": true,
+          "width": 256
+        }
+      ],
+      "control_type": "full_video_video_mean_pca_residual_oracle_warning",
+      "dims": {
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260627,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "diagnostics": 53
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260627,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260628,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "shuffled",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260628,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "random",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260628,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual_permuted_inner_val_selection",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260628,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_fixed_epoch_audit",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260628,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_train_only",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "width": 256
+        }
+      ],
+      "control_type": "train_only_video_mean_pca_residual",
+      "dims": {
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260628,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_full_video_oracle",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": true,
+          "width": 256
+        }
+      ],
+      "control_type": "full_video_video_mean_pca_residual_oracle_warning",
+      "dims": {
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260628,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "diagnostics": 53
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260628,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260629,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "shuffled",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260629,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "random",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260629,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual_permuted_inner_val_selection",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260629,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_fixed_epoch_audit",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260629,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_train_only",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "width": 256
+        }
+      ],
+      "control_type": "train_only_video_mean_pca_residual",
+      "dims": {
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260629,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_full_video_oracle",
+          "source_checksum": "d1e35dcf693a95a80ef43aa1414b273c",
+          "source_path": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full/features/arousal_spike_rows_2_6_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": true,
+          "width": 256
+        }
+      ],
+      "control_type": "full_video_video_mean_pca_residual_oracle_warning",
+      "dims": {
+        "pca": 256
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260629,
+      "variant_name": "monotonic_do_no_harm_residual"
+    },
+    {
+      "actual_protocol": "blocked_temporal_70_30",
+      "blocks": [
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "diagnostics": 53
+      },
+      "fold": 1,
+      "reported_protocol": "blocked_temporal_70_30",
+      "seed": 20260629,
+      "variant_name": "monotonic_do_no_harm_residual"
+    }
+  ],
+  "row_count": 40
+}

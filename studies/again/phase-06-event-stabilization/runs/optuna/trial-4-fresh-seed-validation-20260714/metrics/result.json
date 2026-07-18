@@ -1,0 +1,66 @@
+{
+  "accelerator": "mlx",
+  "accelerator_detail": "Device(gpu, 0)",
+  "candidate": "posthoc_sensitivity_trial_4_locked_before_fresh_seed_evaluation",
+  "candidate_deltas": {
+    "20260635": 0.015179268986558997,
+    "20260636": 0.015654661153959054,
+    "20260637": 0.015560522129394516,
+    "20260638": 0.014573592959385595,
+    "20260639": 0.014540412249266638
+  },
+  "created_at": "2026-07-14T14:52:27.578786+00:00",
+  "duration_seconds": 66.98170900344849,
+  "fresh_seeds": [
+    20260635,
+    20260636,
+    20260637,
+    20260638,
+    20260639
+  ],
+  "gate": {
+    "candidate_mean_delta_vs_ar": 0.01510169149571296,
+    "candidate_robust_objective": 0.01606717175389741,
+    "checks": {
+      "mean_delta_improves": true,
+      "paired_wins_at_least_4_of_5": true,
+      "robust_objective_gain_at_least_0_001": true
+    },
+    "failed_gates": [],
+    "original_mean_delta_vs_ar": 0.012921937278102313,
+    "original_robust_objective": 0.011080093185653455,
+    "paired_candidate_minus_original": {
+      "20260635": -0.000773638722377068,
+      "20260636": 0.007178177538930075,
+      "20260637": 7.094574690172384e-05,
+      "20260638": 0.000982189575989334,
+      "20260639": 0.003441096948609168
+    },
+    "paired_wins": 4,
+    "robust_objective_gain": 0.004987078568243956,
+    "stage_a_pass": true
+  },
+  "grouped_scores_read": false,
+  "heldout_scores_read": false,
+  "next_stage_authorized": true,
+  "original_deltas": {
+    "20260635": 0.015952907708936065,
+    "20260636": 0.008476483615028979,
+    "20260637": 0.015489576382492792,
+    "20260638": 0.013591403383396261,
+    "20260639": 0.01109931530065747
+  },
+  "params": {
+    "alpha_cap": 0.08,
+    "alpha_initial_logit": -3.0,
+    "gate_bias": 4.0,
+    "hidden": 96,
+    "lambda_binary": 0.8,
+    "learning_rate": 0.0002796515604869101,
+    "max_epochs": 60,
+    "patience": 8,
+    "weight_decay": 0.00015731894101489417
+  },
+  "schema_version": "again_dense_2hz_phase6_trial4_fresh_seed_validation_v1",
+  "seed_20260627_deleted": false
+}

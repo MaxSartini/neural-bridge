@@ -1,0 +1,76 @@
+{
+  "candidate_inference_labels_loaded": false,
+  "cpu_fallback": false,
+  "dense_cache_mutation": false,
+  "dense_root": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz",
+  "diagnostics": {
+    "metadata_path": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.json",
+    "metadata_sha256": "1f1a02e4f31bb6a85dd115e9e4f970f2b84dd0088b4f3a16e894b29acd3892c6",
+    "npy_sha256": "d308e47ddf107071a0605c5c89990d63e03fe658b8e505a9a785ebde8785894b",
+    "path": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+    "shape": [
+      243575,
+      53
+    ],
+    "video_derived_only": true
+  },
+  "forbidden_exact_fields": [
+    "ar_context_available",
+    "ar_reg",
+    "ar_score",
+    "arousal",
+    "event_label",
+    "future_arousal_max_delta_rows_4_10",
+    "label_available",
+    "target_mask_future_arousal_max_delta_rows_4_10",
+    "teacher_hidden_state",
+    "teacher_score",
+    "valence"
+  ],
+  "forbidden_field_tokens": [
+    "arousal_lag",
+    "arousal_delta",
+    "ground_truth",
+    "future_",
+    "target_",
+    "teacher_"
+  ],
+  "frozen_substrate_only": true,
+  "h1_allowed_inputs": [
+    "pca256_current_row",
+    "pca256_same_video_lag_1",
+    "pca256_same_video_lag_2",
+    "pca256_same_video_lag_3",
+    "pca256_same_video_lag_4",
+    "temporal_diagnostics_53_current_row",
+    "history_availability_masks",
+    "time_seconds",
+    "video_time_fraction_from_video_metadata"
+  ],
+  "h2_additional_inputs": [
+    "own_prior_predictions",
+    "lags_and_deltas_of_own_prior_predictions"
+  ],
+  "hardware_for_later_fitting": "mlx_gpu_mps",
+  "labels_artifact": {
+    "inference_access": false,
+    "path": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/labels_aligned_2hz.parquet",
+    "scorer_join_after_prediction_checksum_only": true,
+    "sha256": "5bc032764e6acb606b1124eba01ff62bb59c95b19cf869a0a884311ff765f8cb"
+  },
+  "pca": {
+    "basis_policy": "fit_new_basis_inside_each_outer_training_pool_only",
+    "causal_pooling": "temporal_mean_2s",
+    "locked_or_outer_test_rows_in_fit": false,
+    "reason": "Phase 7 fold score matrices use different coordinate systems and cannot be concatenated for the 696/299 split",
+    "reuse_incompatible_phase7_fold_score_matrices": false,
+    "source": "frozen_predicted_cortical_fmri_row_features",
+    "teacher_basis_policy": "fit_inside_each_nested_teacher_crossfit_training_partition_only",
+    "width": 256,
+    "width_search": false
+  },
+  "schema_version": "again_dense_2hz_zero_label_deployment_stage0_v1",
+  "teacher_scores_available_at_candidate_inference": false,
+  "video_id_policy": "split_order_reset_metadata_only_never_learned_feature",
+  "vjepa_tribe_reencoding": false
+}

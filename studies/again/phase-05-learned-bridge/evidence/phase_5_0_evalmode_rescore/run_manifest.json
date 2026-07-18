@@ -1,0 +1,33 @@
+{
+  "checkpoints_expected": 702,
+  "checkpoints_loaded": 702,
+  "checkpoints_missing": 0,
+  "created_at": "2026-06-29T21:12:02.050053+00:00",
+  "dropout_disabled_for_scoring": true,
+  "eval_mode_scoring": true,
+  "feature": "temporal_mean_2s_then_pca256",
+  "losses": [
+    "regression",
+    "binary",
+    "regression_plus_binary"
+  ],
+  "model": "gated_ar_pca_mlp",
+  "no_training": true,
+  "output_root": "outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_evalmode_rescore_",
+  "protocols": [
+    "grouped_video",
+    "blocked_temporal_70_30"
+  ],
+  "runtime_seconds": 484.5636639595032,
+  "schema_version": "again_dense_2hz_phase5_evalmode_rescore_v1",
+  "score_only": true,
+  "seeds": [
+    20260625,
+    20260626,
+    20260627
+  ],
+  "source_commit_sha": "9757383c7e30d759fd15911e4ab87ee60b73fd86",
+  "source_output_root": "outputs/again_dense_2hz_phase5_adversarial_repair_fixplus_20260629_171825",
+  "source_was_legacy_train_mode_dropout_scoring": true,
+  "target": "arousal_spike_rows_2_6_train_q90"
+}

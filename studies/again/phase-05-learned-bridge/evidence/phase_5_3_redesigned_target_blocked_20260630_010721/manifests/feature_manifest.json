@@ -1,0 +1,762 @@
+{
+  "features": [
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "shuffled",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "random",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_train_only",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "width": 256
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "pca": 256
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "diagnostics": 53
+      },
+      "seed": 20260625,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "shuffled",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "random",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_train_only",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "width": 256
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "pca": 256
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "diagnostics": 53
+      },
+      "seed": 20260626,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "shuffled",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "random",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_train_only",
+          "source_checksum": "8e76be3c4879ab91b5b9717d71d73b55",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/future_arousal_max_delta_rows_4_10_train_q90__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "width": 256
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "pca": 256
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "diagnostics": 53
+      },
+      "seed": 20260627,
+      "target_name": "future_arousal_max_delta_rows_4_10_train_q90"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "shuffled",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "random",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_train_only",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "width": 256
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "pca": 256
+      },
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "diagnostics": 53
+      },
+      "seed": 20260625,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "shuffled",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "random",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_train_only",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "width": 256
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "pca": 256
+      },
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "diagnostics": 53
+      },
+      "seed": 20260626,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "real_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "shuffled",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "shuffled_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "random",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "random_pca_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "kind": "real",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "width": 256
+        },
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "label_permutation_residual",
+      "dims": {
+        "diagnostics": 53,
+        "pca": 256
+      },
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "phase4_fold_safe_pca",
+          "includes_temporal_diagnostics": false,
+          "kind": "video_mean_train_only",
+          "source_checksum": "449afa3017d594ff720477dcfc23a572",
+          "source_path": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312/features/residual_future_max_delta_rows_4_10__blocked_temporal_70_30__fold1__temporal_mean_2s__scores_w256.npy",
+          "uses_test_rows_for_mean": false,
+          "width": 256
+        }
+      ],
+      "control_type": "train_only_video_mean_residual",
+      "dims": {
+        "pca": 256
+      },
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    },
+    {
+      "blocks": [
+        {
+          "block": "temporal_diagnostics",
+          "source": ".cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz/_derived/temporal_diagnostics_summary_features.npy",
+          "width": 53
+        }
+      ],
+      "control_type": "diagnostics_only_residual",
+      "dims": {
+        "diagnostics": 53
+      },
+      "seed": 20260627,
+      "target_name": "residual_future_max_delta_rows_4_10"
+    }
+  ],
+  "foldsafe_pca_root": "outputs/again_dense_2hz_phase5_redesigned_target_foldsafe_pca_20260630_005312",
+  "row_count": 36
+}

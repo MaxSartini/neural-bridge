@@ -1,0 +1,12 @@
+{
+  "artifact_id": "again-phase-04-pca-bridge",
+  "classification": "external-study-collection",
+  "compatibility_view": "runs/again/phase-04-pca-bridge/full-benchmark-20260625",
+  "moved_at": "2026-07-17T21:23:09Z",
+  "items": [
+    {"path": "derived/again/phase-04-pca-bridge/fold-safe-cache-20260625", "role": "fold-safe-cache", "files": 2, "size_bytes": 9978781023, "sha256_tree": "7676e950901703cebcaea8600c80e0114c1a1bc35440b65b30a7dec4fd0bdfee"},
+    {"path": "derived/again/phase-04-pca-bridge/fold-safe-features-20260625", "role": "fold-safe-pca-features", "files": 54, "size_bytes": 13004464896, "sha256_tree": "8cd2479845903a7e9f834a1b285754635bd40e2bc6e59f729ab90f3bfa1fd86f"},
+    {"path": "derived/again/phase-04-pca-bridge/pca-components-20260625", "role": "fold-safe-pca-components", "files": 108, "size_bytes": 1221763863, "sha256_tree": "12315fb17cf070073ca1da9f70496e8d63979f094d2bc498349f805d3279ffaa"},
+    {"path": "runs/again/phase-04-pca-bridge/full-benchmark-20260625", "role": "benchmark-core-with-derived-links", "files": 67, "symlinks": 3, "size_bytes": 81074898, "sha256_tree": "2ca9b4b48e2e2fa4d769cd89674cfb50043e60aef0deb8c04fc0cf6551c2e95c", "prelink_core_sha256": "884951b3689261491dca52474058290b08238d161967c1e7812c73ee248eba12"}
+  ]
+}

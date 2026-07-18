@@ -1,0 +1,29 @@
+{
+  "artifact_id": "again-phase-05-and-05-5-git-closure",
+  "classification": "git-study-closure",
+  "programme": "again",
+  "phase": "phase-05-and-05-5",
+  "path": "studies/again/phase-05-learned-bridge",
+  "files": 277,
+  "size_bytes": 15403634,
+  "sha256_tree": "3701134c679289c641e34b9973c8cdf983fee013ef24b45579a15f5c86357dd5",
+  "contents": {
+    "compact_evidence": {
+      "files": 251,
+      "sha256_tree": "b79e54b64c8fe6605b82f495d000a440e5cf488d98c08676a3322cdec789522b"
+    },
+    "current_runners_and_summarizers": {
+      "files": 22,
+      "sha256_tree": "1822dde05d52dcd8a40317a5babee73bba400f60a4d812399aa5075c20392352"
+    },
+    "assembly_contract_test": {
+      "files": 1,
+      "sha256_tree": "c30f4ba4d071b22e6344f1a098f678134b599d61a777e8e257e3d91633432f5e",
+      "verification": "6 passed"
+    }
+  },
+  "selection": "Eval-mode correction through corrected 420-row closure, including the failed target redesign and both blocked and grouped confirmation evidence.",
+  "omissions": "Two large fitted PCA row-index CSV exports remain with the registered external derived collection. Older all-phase review and historical-ladder roots are redundant snapshot/deletion candidates after final cutover.",
+  "external_collection_registry": "again-phase-05-and-05-5",
+  "migrated_at": "2026-07-17T22:19:18Z"
+}

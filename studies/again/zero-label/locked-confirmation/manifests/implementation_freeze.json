@@ -1,0 +1,126 @@
+{
+  "absolute_teacher_parity_required": false,
+  "authorization": "explicit_user_authorization_20260715_continue_with_all",
+  "authorized": true,
+  "bootstrap": {
+    "one_sided_lower_quantile": 0.05,
+    "resamples": 2000,
+    "seed": 20260724,
+    "unit": "video"
+  },
+  "candidate": "video_supervised_temporal",
+  "cold_start": {
+    "missing_history": "zeros_plus_explicit_mask",
+    "observed_response_inputs": false,
+    "prediction_starts_at_row0": true,
+    "teacher_forcing_ratio": 0.0
+  },
+  "controls": {
+    "diagnostics_only": "zero_all_predicted_cortical_pca_channels",
+    "label_permutation": "deterministic_whole_video_hard_target_donor_resampling",
+    "no_video": "zero_pca_and_diagnostics_keep_masks_and_time_only",
+    "sequence_shuffle": "deterministic_whole_video_input_donor_resampling"
+  },
+  "cpu_fallback": false,
+  "dense_root": "/Users/maxsartini/Neural Bridge/.cache/h100_drive_downloads/again_tribe_v2_postpass_float16_256_2hz",
+  "development_split_digest": "cf65a766cd827e6201544dd753049cb4",
+  "ensemble": {
+    "members": [
+      20260721,
+      20260722,
+      20260723
+    ],
+    "weights": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ]
+  },
+  "event_threshold": {
+    "fit_scope": "development_only",
+    "quantile": 0.9
+  },
+  "external_phase4_root": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_phase4_pca_bridge_20260625_full",
+  "false_signal_controls": [
+    "diagnostics_only_supervised_temporal",
+    "no_video_supervised_temporal",
+    "sequence_shuffled_supervised_temporal",
+    "label_permutation_supervised_temporal"
+  ],
+  "features": {
+    "diagnostics_width": 53,
+    "outer_train_only": true,
+    "pca_width": 256,
+    "sequence_window_rows": 5,
+    "source_family": "temporal_mean_2s"
+  },
+  "hardware": "mlx_gpu_mps",
+  "heldout_hyperparameter_search": false,
+  "implementation_code_sha256": {
+    "contracts": "4c799a5efa9d50de56ccee81b0e0aeb16ab3b504eeb03160eb2f3719886fa914",
+    "locked_runner": "1e6441c9d7eaddda9e9c636f037cd5a4f46568e07d0e5dd99bb89897031cfd95",
+    "locked_utility": "0008c5a12abfd4cbb7c37f274f3e42b969fe2862a8328f4afa16fb880b99c34a",
+    "stage_a_runner": "5d3d8cf077239df6bece7e9023b947cc919095db6cb5046fa7b0c12afa473450",
+    "stage_a_utility": "c781090a712183d8b45d4c945c03cc4cdbaad85ca0e7867d22ce536907832483"
+  },
+  "implementation_freeze_digest": "4329feba3b11bdce76bfeb3cf6ae6fe9",
+  "lanes": [
+    "video_supervised_temporal",
+    "video_supervised_current_row",
+    "diagnostics_only_supervised_temporal",
+    "no_video_supervised_temporal",
+    "sequence_shuffled_supervised_temporal",
+    "label_permutation_supervised_temporal",
+    "phase7_ar_assisted_teacher_ceiling"
+  ],
+  "locked_split_digest": "ded8bc2bf079fef91ae5c253b9a9ac2e",
+  "locked_video_count": 299,
+  "member_selection": false,
+  "model": {
+    "batch_size": 8192,
+    "checkpoint_selection": "inner_grouped_video_hard_target_huber_only",
+    "gradient_clip": 1.0,
+    "hidden": 64,
+    "learning_rate": 0.0002,
+    "loss": "weighted_huber_to_hard_future_movement",
+    "max_epochs": 80,
+    "optimizer": "mlx.optimizers.AdamW",
+    "patience": 12,
+    "weight_decay": 0.0001
+  },
+  "output_root": "/Volumes/onn. Drive/Neural Bridge/outputs/again_dense_2hz_zero_label_direct_supervised_locked_confirm_20260715",
+  "panels": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "preregistration": "docs/zero_label_video_only_direct_supervised_locked_confirmation_preregistration.md",
+  "preregistration_sha256": "3237188f485673a7aabe358511495c031ca2e5373960acf772905f2fb34b61f9",
+  "required_metrics": [
+    "pooled_continuous_spearman",
+    "top_5pct_true_future_movement_lift",
+    "training_q90_future_event_pr_auc"
+  ],
+  "rows": {
+    "ensemble": 35,
+    "member": 105,
+    "total": 140
+  },
+  "schema_version": "again_zero_label_direct_supervised_locked_confirmation_v1",
+  "seeds": [
+    20260721,
+    20260722,
+    20260723
+  ],
+  "signed_implementation_digest": "c069959d6d00997925311663aff9ea57",
+  "split_manifest_sha256": "760b30b73a91a3f51ccd26fbb7a57de35ea73b9ef9579956e48e17f8de9f1e69",
+  "stage": "locked_confirmation",
+  "stage0_pass": true,
+  "stage0_result_sha256": "141d22da1307324e4f900ee8f981f66a3714d49c57f166f3dd69d92cf4bd7812",
+  "target_identity_digest": "446906dff30be33f204de0f973207975",
+  "target_manifest_sha256": "4d810d9d31ab3f147fdfcf723feacf2a846c6a99d05e619af22fb017c6752045",
+  "teacher_retention_is_gate": false,
+  "weight_search": false
+}
