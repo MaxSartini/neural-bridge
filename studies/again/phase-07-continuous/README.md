@@ -4,8 +4,8 @@ Phase 7 cracked a distinct problem from the earlier event/spike result: ranking 
 
 The claim-bearing result is the grouped held-out-video confirmation:
 
-1. Grouped held-out-video closure passed `420/420` comparison rows.
-2. Neural Bridge beat frozen AR and matched controls in `15/15` fold-groups.
+1. Grouped held-out-video closure passed `420/420` comparison cells (`315` member + `105` ensemble), not 420 independent observations.
+2. Neural Bridge beat frozen AR and matched controls in `15/15` fold-checkpoint groups.
 3. Spearman improved from `0.2405` to `0.2603` (`+8.22%`), while top-5% lift improved from `0.0896` to `0.0976` (`+8.97%`).
 
 This confirms continuous future-movement ranking and top-tail selection on unseen videos. The earlier diagnostic and blocked-temporal work remains separately documented because those protocols answer different questions; neither is used to discount the grouped confirmation.

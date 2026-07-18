@@ -10,7 +10,7 @@ For `arousal__future_spike_1_3s@0.05`, the strongest blocked row reached PR-AUC 
 
 ## AGAIN Phase 5: event confirmation
 
-The selected temporal residual head passed the full `420/420` controlled matrix across strict blocked-temporal and grouped held-out-video protocols.
+The selected temporal residual head passed the full `420/420` controlled evaluation matrix across strict blocked-temporal and grouped held-out-video protocols. These are evaluation cells, not independent observations.
 
 | Protocol | Real residual | Frozen AR | Absolute gain | Relative gain |
 | --- | ---: | ---: | ---: | ---: |
@@ -21,7 +21,7 @@ The selected temporal residual head passed the full `420/420` controlled matrix 
 
 ## AGAIN Phase 7: continuous future-movement ranking
 
-The grouped held-out-video confirmation passed all gates. Neural Bridge beat the separately trained frozen AR and the strongest matched controls in every fold-group.
+The grouped held-out-video confirmation passed all gates. Neural Bridge beat the separately trained frozen AR and the strongest matched controls in every fold-checkpoint group.
 
 | Endpoint | Neural Bridge | Frozen AR | Absolute gain | Relative gain | Positive groups |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -29,6 +29,8 @@ The grouped held-out-video confirmation passed all gates. Neural Bridge beat the
 | Top-5% movement lift | `0.097598` | `0.089566` | `+0.008032` | `+8.97%` | `15/15` |
 
 The claim-bearing protocol is grouped held-out-video confirmation. Blocked-temporal and grouped evidence remain separate because they test different forms of generalization. The confirmed result supports ranking and top-tail lift, not exact continuous trajectory prediction.
+
+The `420/420` matrix contains `315` member and `105` prespecified ensemble evaluation cells. Its consistency evidence is `15/15` positive fold-checkpoint groups; the underlying time rows are not treated as 420 independent samples.
 
 [Phase 7 summary](../studies/again/phase-07-continuous/evidence-summary.md) · [grouped report](../studies/again/phase-07-continuous/grouped-confirmation/reports/again_dense_2hz_phase7_continuous_checkpoint_ensemble_grouped_20260714_181440.md) · [machine result](../studies/again/phase-07-continuous/grouped-confirmation/metrics/result.json)
 
@@ -43,5 +45,7 @@ One prospectively locked video-only candidate was trained on 696 development vid
 | Event PR-AUC | `0.171062` | `0.135230` | `+26.50%` | `5/5` |
 
 All paired whole-video bootstrap lower bounds were positive, and the first-30-second cold-start tier passed. This remains supervised learning; “zero-label” describes inference inputs, not training.
+
+Using `2,000` whole-video bootstrap replicates, the one-sided 95% lower bounds for the gain over the strongest control were `+0.060679` Spearman, `+0.018774` top-5% lift, and `+0.023546` event PR-AUC.
 
 [Zero-label evidence](../studies/again/zero-label/evidence-summary.md) · [locked report](../studies/again/zero-label/locked-confirmation/reports/again_dense_2hz_zero_label_direct_supervised_locked_confirmation_20260715.md) · [machine result](../studies/again/zero-label/locked-confirmation/metrics/locked_confirmation_result.json)

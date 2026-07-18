@@ -1,19 +1,48 @@
 # Neural Bridge
 
-## Predict the moments that will move an audience—before the video ships.
+## Learning short-horizon future-response structure from video-derived predicted cortical activity.
 
-**Neural Bridge turns video into a forward-looking map of likely human-arousal movement: the peaks, weak moments, and sections most worth testing.**
+**Research question:** can a frozen video-to-cortical representation contain temporally aligned information about future arousal movement that survives a strong autoregressive baseline, matched false-signal controls, held-out-video evaluation, and—ultimately—the removal of response history at inference?
+
+Neural Bridge answers **yes** on AGAIN. It converts frozen [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) / [TRIBE v2](https://arxiv.org/abs/2605.04326) predictions into a causal temporal representation for ranking short-horizon future arousal movement. The upstream values are model-predicted average-subject cortical responses—not neural recordings from the people represented by the affect labels.
+
+> **Product translation:** turn a video into a forward-looking response map—likely peaks, weak moments, and the sections most worth testing—before a full audience study is available.
 
 | Proof point | Result | Why it matters |
 | --- | --- | --- |
-| Works without response labels at inference | **299 untouched videos**, `5/5` panels, gains of **`+77.65%`**, **`+70.80%`**, and **`+26.50%`** over the strongest controls | the bridge can operate from video-derived features alone on held-out inference |
-| Continuous response ranking is confirmed | **`420/420`** rows and **`15/15`** positive fold-groups versus strong AR and matched controls | the result is repeatable across unseen videos, seeds, and checkpoint groups |
+| Works without response labels at inference | On **299 untouched videos**: Spearman `0.178513` vs `0.100488` (**`+77.65%`**); top-5% lift `0.076608` vs `0.044852` (**`+70.80%`**); event PR-AUC `0.171062` vs `0.135230` (**`+26.50%`**) | the fixed bridge retained substantial video-derived signal with no observed arousal or response history at held-out inference |
+| Continuous response ranking is confirmed | Spearman `0.260301` vs AR `0.240537` (**`+8.22%`**); top-5% lift `0.097598` vs `0.089566` (**`+8.97%`**); **`15/15`** positive fold-checkpoint groups | aligned cortical predictions added repeatable signal beyond a target-specific learned persistence model |
 | Raw neuro-response features became useful | grouped event PR-AUC `0.136579` → **`0.238341`** | **`+74.51%`** on the same target; the value comes from the bridge, not raw TRIBE output |
-| Evidence spans two domains | original VEATIC + large-scale AGAIN | the event signal appears in edited affective video and gameplay, not one convenient dataset |
+| Evidence spans two datasets | [VEATIC](https://veatic.github.io/) + [AGAIN](https://doi.org/10.1109/TAFFC.2022.3188851) | related event-ranking evidence appears across edited video and gameplay; the label constructs differ, so this is an evidence ladder—not a claim of cross-dataset model transfer |
 
-> **The short version:** raw predicted cortical features initially lost badly to a strong persistence model. Neural Bridge turned them into signal that beat persistence and false-signal controls—then preserved substantial signal with response history removed entirely from inference.
+The `420/420` Phase 7 figure refers to **predeclared evaluation cells**, not 420 observations: `315` member cells plus `105` prespecified ensemble cells across five held-out-video folds, nine seeds, seven lanes, and three checkpoint groups. The underlying AGAIN foundation contains `995` cleaned videos and `243,575` aligned 2 Hz time rows.
+
+The video-only model is trained with labeled development data. “Zero-label at inference” means that held-out predictions use no observed arousal, response history, teacher score, or labeled warm start; it does not mean unsupervised training.
 
 [See the strongest concluded evidence →](results/README.md)
+
+### The prediction task
+
+For an eligible 2 Hz row at time `t`, the central continuous quantity is the largest future arousal increase from 2 to 5 seconds ahead:
+
+$$
+y_t = \max_{k \in \{4,\ldots,10\}} \left(a_{t+k}-a_t\right),
+\qquad f_s=2\,\mathrm{Hz}.
+$$
+
+Phase 7 ranks the train-only-AR residual of this quantity:
+
+$$
+\widetilde{y}_t = y_t - \widehat f_{\mathrm{AR}}\!\left(x_t^{\mathrm{AR}}\right),
+$$
+
+where the residualizer is fixed from its declared training ownership. Event heads use a training-side threshold only,
+
+$$
+e_t = \mathbf{1}\!\left[T(y_t) \ge Q_q^{\mathrm{train}}\!\left(T(y)\right)\right].
+$$
+
+“Causal temporal” means every model input is available at prediction time; it is a temporal-information constraint, not a claim of causal identification.
 
 ### What the metrics mean—in 30 seconds
 
@@ -22,6 +51,14 @@
 | **Spearman** | Did the model put the moments with larger true future movement ahead of the smaller ones? | closer to `1`; ordering is more correct |
 | **Top-5% lift** | Do the moments the model ranks in its top 5% actually contain more true future movement? | more real movement is concentrated in the predicted peaks |
 | **PR-AUC** | Can the model find rare future response events without being rewarded for guessing the common non-event class? | rare events are ranked more precisely and completely |
+
+For ranking score $s_t$, the reported top-tail statistic is
+
+$$
+\operatorname{Lift}_{0.05}
+= \mathbb{E}\!\left[y_t \mid s_t \in \operatorname{Top}_{5\%}(s)\right]
+- \mathbb{E}[y_t].
+$$
 
 ### What the controls mean—in 30 seconds
 
@@ -40,18 +77,25 @@ Neural Bridge is claim-bearing only when the real lane beats the appropriate str
 
 ```mermaid
 flowchart LR
-    A["Raw video"] --> B["Frozen video-to-cortical model"]
-    B --> C["Predicted cortical response"]
-    C --> D["Neural Bridge"]
-    D --> E["Future response heat map"]
-    E --> F["Peaks · weak moments · comparisons"]
+    A["Raw video"] --> B["Frozen V-JEPA 2.1"]
+    B --> C["Frozen TRIBE v2"]
+    C --> D["Predicted average-subject cortical response"]
+    D --> E["Fold-safe causal temporal bridge"]
+    G["Recent observed arousal"] --> H["Target-specific frozen AR"]
+    H --> E
+    D --> I["Video-only bridge"]
+    E --> J["Future-movement ranking"]
+    I --> J
+    J --> K["Peaks · weak moments · comparisons"]
 ```
+
+The AR-assisted and video-only results are separate experiments. The locked video-only lane removes `G → H` entirely at inference.
 
 Today, you usually learn how a video affects people **after** they watch it: panels, surveys, biometrics, expensive studies, and slow feedback. Neural Bridge is building a path toward useful response intelligence before that process is complete.
 
-This is not a generic engagement score and it is not a prettier wrapper around a video embedding. Neural Bridge was built because the raw predicted neuro-response features were **not useful enough on their own**.
+This is not a generic engagement score or a renamed video embedding. Neural Bridge was built because the raw predicted neuro-response features were **not competitive on their own**.
 
-The breakthrough is the bridge that made them useful.
+The contribution is the bridge that made them incrementally useful under matched controls.
 
 ## The headline result
 
@@ -78,7 +122,7 @@ All three paired whole-video bootstrap lower bounds were positive. The first-30-
 
 [See the locked evidence, controls, and exact boundaries →](studies/again/zero-label/evidence-summary.md)
 
-## Why this is a real breakthrough
+## The representation-learning result
 
 The upstream system produces a very rich predicted cortical/fMRI representation from video. Rich does not automatically mean useful.
 
@@ -130,7 +174,7 @@ Phase 7 answered the continuous question on grouped held-out videos:
 | Future-movement Spearman | **`0.260301`** | `0.240537` | `+0.019764` (**`+8.22%`**) | `0.240252` | **`15/15`** |
 | Top-5% movement lift | **`0.097598`** | `0.089566` | `+0.008032` (**`+8.97%`**) | `0.089709` | **`15/15`** |
 
-The full confirmation completed `420/420` declared rows. Every held-out-video fold mean was positive. Every preregistered grouped gate passed. Checkpoint averaging itself added `+0.007797` Spearman and `+0.002502` top-5% lift over the member mean.
+The full confirmation completed `420/420` declared evaluation cells. Every held-out-video fold mean was positive. Every preregistered grouped gate passed. Checkpoint averaging itself added `+0.007797` Spearman and `+0.002502` top-5% lift over the member mean.
 
 Compared with the original validated continuous bridge, Phase 7 improved:
 
@@ -139,7 +183,7 @@ Compared with the original validated continuous bridge, Phase 7 improved:
 - top-1% lift by **`+14.52%`**; and
 - the useful top-5% margin beyond AR by **`+98.92%`**—almost exactly double.
 
-The claim-bearing Phase 7 result is grouped held-out-video future-movement ranking and lift: unseen videos, `420/420` declared rows, and `15/15` positive fold-groups. Blocked-temporal and grouped-video protocols remain documented separately because they test different forms of generalization.
+The claim-bearing Phase 7 result is grouped held-out-video future-movement ranking and lift: held-out video IDs, `420/420` declared evaluation cells, and `15/15` positive fold-checkpoint groups. This is not a participant-exclusive or external-dataset split. Blocked-temporal and grouped-video protocols remain documented separately because they test different forms of generalization.
 
 [Open the full Phase 7 evidence →](studies/again/phase-07-continuous/evidence-summary.md)
 
@@ -193,40 +237,22 @@ VEATIC established the event signal and the importance of short causal temporal 
 
 ### AGAIN
 
-`995` cleaned gameplay videos, `243,575` aligned 2 Hz rows, nine games, three genres, and more than 37 hours of annotated material.
+`995` cleaned gameplay videos, `243,575` aligned 2 Hz rows, nine games, three genres, and approximately `33.8` hours in the cleaned project substrate. The source dataset contains more than 37 hours before cleaning.
 
 AGAIN introduced stronger AR controls, fold-safe representations, residual heads, strict time separation, checkpoint stabilization, held-out-video continuous confirmation, and the locked video-only study.
 
-Together, the two datasets support a real cross-domain event-ranking story. The continuous and zero-label results remain AGAIN-specific until independently confirmed elsewhere.
+Together, the two datasets support a cross-dataset event-ranking evidence ladder across related but non-identical arousal constructs. The continuous and zero-label results remain AGAIN-specific until independently confirmed elsewhere; no model-transfer result is implied.
 
 [See the full scientific journey and decisive design lessons →](studies/README.md)
 
-## For investors and product partners: the commercial thesis
-
-**Neural Bridge is the intelligence layer between a video and the expensive process of learning how people respond to it.**
-
-The product wedge is direct: upload a video and receive a response heat map showing likely peaks, weak moments, and the segments most worth revising, comparing, or validating with people. The aim is not to replace human testing. It is to make that testing faster, better targeted, and more valuable.
-
-| Investment question | Evidence-backed answer |
-| --- | --- |
-| **What was technically unlocked?** | Raw cortical predictions scored `0.136579` event PR-AUC; Neural Bridge raised the same-target result to **`0.238341` (`+74.51%`)**. The conversion layer—not access to a fashionable embedding—is the core invention. |
-| **Can it work before audience-response data exists?** | The frozen video-only system passed on **299 untouched videos**, beating the strongest controls by **`+77.65%`** in ranking, **`+70.80%`** in top-5% lift, and **`+26.50%`** in event PR-AUC. |
-| **Is this a one-benchmark trick?** | Event signal was established on edited affective VEATIC video and then rebuilt at much greater scale on AGAIN. AGAIN additionally confirmed continuous ranking and zero-label-at-inference operation. |
-| **Where is the defensibility?** | In the accumulated data contracts, causal temporal representations, target-specific baselines, matched controls, fold-safe training, and evidence system that repeatedly turned difficult raw features into validated signal. |
-| **What unlocks commercial deployment?** | End-to-end raw-video execution, latency and cost work, external transfer, calibration, and prospective customer studies—the next proof points, not substitutes for the research already completed. |
-
-The opportunity is a scalable **response-intelligence layer** for trailers, advertising, entertainment, games, and other video workflows: heat maps, edit comparisons, peak detection, cold-start diagnostics, confidence estimates, and intelligent prioritization of costly audience testing.
-
-[Inspect the concluded scorecard and exact values →](results/README.md)
-
-## For professors and scientific reviewers: the actual claim
+## Scientific interpretation and audit trail
 
 The scientifically interesting result is not that a large video representation correlates with arousal. **Raw predicted cortical features were initially weaker than a strong autoregressive model. Neural Bridge extracted additional future-response signal and kept beating matched alternative explanations.**
 
 | Review question | Claim-bearing evidence |
 | --- | --- |
 | **Does the bridge add signal beyond response persistence?** | Phase 7 grouped Spearman rose from frozen AR `0.240537` to **`0.260301` (`+8.22%`)**; top-5% lift rose from `0.089566` to **`0.097598` (`+8.97%`)**. |
-| **Does that hold across unseen videos and retraining variation?** | Yes: the declared matrix completed **`420/420`** rows and the bridge was positive in **`15/15`** held-out-video fold-groups. |
+| **Does that hold across held-out videos and retraining variation?** | Yes: the declared matrix completed **`420/420` evaluation cells** and the bridge was positive in **`15/15`** held-out-video fold-checkpoint groups. |
 | **Does useful signal survive without observed arousal at inference?** | Yes: one frozen candidate passed once on 299 locked videos with no observed arousal, response history, teacher score, or labeled warm start at inference. Training was supervised. |
 | **Could static video identity, timing, quality, or accidental alignment explain it?** | The real lane beat current-row video, no-video, diagnostics-only, shuffled, random, video-mean, and label-permutation controls under their declared comparisons. |
 | **Can the claims be audited rather than merely trusted?** | Compact closures recompute from tracked CSV/JSON; representative checkpoints replay published rows; large artifacts are hash-registered; the phase record preserves every decisive selection and control result. |
@@ -239,7 +265,28 @@ The evaluation discipline is deliberately strict:
 - candidates and any checkpoint ensembles are declared before confirmation; and
 - discovery, candidate selection, confirmation, and locked closure cannot silently exchange roles.
 
+The analysis does not treat the `243,575` autocorrelated time rows as independent replications. Phase 7 earns its consistency claim across five held-out-video folds and three prespecified checkpoint groups. The locked video-only study goes further: its uncertainty calculation resamples whole videos (`2,000` bootstrap replicates), and the one-sided 95% lower bounds for the gain over the strongest control are `+0.060679` Spearman, `+0.018774` top-5% lift, and `+0.023546` event PR-AUC—all above zero.
+
+For a manuscript, the clean next statistical additions are video-clustered intervals for Phase 7 and a participant-grouped sensitivity analysis where source identities permit it. Those strengthen inference around an already confirmed effect; they do not replace the existing held-out-video and locked-video results.
+
 [Read the methods and reproduce the evidence →](docs/README.md) · [Audit the complete study journey →](studies/README.md)
+
+## Upstream data and model lineage
+
+| Component | Role here | Scientific boundary |
+| --- | --- | --- |
+| [AGAIN](https://doi.org/10.1109/TAFFC.2022.3188851) | primary large-scale benchmark; first-person continuous arousal annotations from gameplay | Neural Bridge uses the cleaned 995-video subset; grouped folds hold out video IDs, not necessarily participants |
+| [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html) | historical 124-video event-ranking foundation | ratings concern the selected character's perceived affect; this is related evidence, not the same label construct as AGAIN |
+| [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) | frozen ViT-G dense video representation in the AGAIN feature foundation | upstream representation; Neural Bridge does not claim to train or improve V-JEPA itself |
+| [TRIBE v2](https://arxiv.org/abs/2605.04326) | frozen model mapping naturalistic stimuli to predicted average-subject fMRI response | outputs are in-silico predictions on a cortical surface, not measurements from AGAIN or VEATIC participants |
+
+## Product translation
+
+The research points toward a practical **response-intelligence layer between raw video and expensive audience testing**. A future product can turn video into response heat maps, likely peak and weak-moment detection, edit comparisons, cold-start diagnostics, confidence bands, and a principled shortlist of segments to test with people.
+
+The core asset is not access to an upstream model. It is the accumulated machinery that made a difficult representation useful: causal temporal learning, target-specific baselines, matched controls, fold-safe fitting, prospective candidate freezes, and executable evidence. End-to-end raw-video runtime, cost, calibration, external transfer, and prospective customer studies are the next commercial proof points.
+
+[Inspect the concluded scorecard and exact values →](results/README.md)
 
 ## Honest boundaries
 
@@ -264,7 +311,7 @@ Those boundaries make the result defensible. They do not make it small.
 | [Concluded results](results/README.md) | the compact scorecard with actual values and percentage gains |
 | [Methods and reproducibility](docs/README.md) | data ownership, controls, fitting rules, verification, and hardware support |
 | [Complete study journey](studies/README.md) | the evidence chain from dense data foundation through locked zero-label confirmation |
-| [Phase 7 grouped closure](studies/again/phase-07-continuous/grouped-confirmation/) | the `420/420`, `15/15` continuous-ranking report and machine evidence |
+| [Phase 7 grouped closure](studies/again/phase-07-continuous/grouped-confirmation/) | the `420/420` evaluation-cell, `15/15` fold-checkpoint-group report and machine evidence |
 | [Locked zero-label closure](studies/again/zero-label/locked-confirmation/) | the prospectively locked 299-video report, audits, controls, and machine verdict |
 | [`src/neural_bridge/`](src/neural_bridge/) | the single current CPU/CUDA/MLX-capable implementation |
 | [`registry/artifacts/`](registry/artifacts/) | hashes and provenance for heavy external artifacts |

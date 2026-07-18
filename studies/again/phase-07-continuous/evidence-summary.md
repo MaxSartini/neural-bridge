@@ -114,7 +114,7 @@ Within Phase 7 itself, ensemble Spearman by lane was:
 | shuffled-PCA residual | `0.2398151737` | real representation with correspondence destroyed |
 | label-permutation residual | `0.2360263012` | residual-null control |
 
-The controls cluster at or below AR; only the correctly aligned real bridge separates materially. This is the key causal pattern. It is not “a model with more parameters beat a simple baseline.” It is “the real aligned neuro-response bridge adds signal while equally trained false-signal versions do not.”
+The controls cluster at or below AR; only the correctly aligned real bridge separates materially. This is the key alignment-specific predictive pattern. It is not “a model with more parameters beat a simple baseline.” It is “the real aligned neuro-response bridge adds signal while equally trained false-signal versions do not.”
 
 The early ablation uses PR-AUC on a different target, while Phase 7 uses continuous Spearman/top-5% lift. A single cross-task improvement percentage would be scientifically invalid. The defensible, stronger conclusion is qualitative and replicated: Neural Bridge converted raw features that had negative incremental value into a consistently positive forward-looking correction over a learned persistence ceiling.
 

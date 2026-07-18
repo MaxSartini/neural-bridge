@@ -4,6 +4,35 @@
 
 TRIBE/cortical features in this repository are frozen predictions generated from video by upstream models trained on cortical-response data. They are not measurements from the viewers represented by VEATIC or AGAIN.
 
+The AGAIN feature foundation uses the frozen [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) ViT-G target encoder and [TRIBE v2](https://arxiv.org/abs/2605.04326). The primary affect sources are the [AGAIN dataset](https://doi.org/10.1109/TAFFC.2022.3188851) and [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html). AGAIN provides first-person continuous arousal annotations; VEATIC provides continuous ratings of a selected character's perceived affect. Results are therefore reported as a cross-dataset evidence ladder, not as a single transferred model or identical label construct.
+
+## Formal prediction target
+
+At the 2 Hz row rate, the Phase 7 future-movement quantity is
+
+$$
+y_t = \max_{k \in \{4,\ldots,10\}} \left(a_{t+k}-a_t\right),
+\qquad f_s=2\,\mathrm{Hz},
+$$
+
+so the forecast window is 2–5 seconds ahead. Phase 7 predicts
+
+$$
+\widetilde y_t = y_t - \widehat f_{\mathrm{AR}}\!\left(x_t^{\mathrm{AR}}\right)
+$$
+
+after fixing the autoregressive residualizer from its declared training ownership. Event labels use
+
+$$
+e_t = \mathbf{1}\!\left[T(y_t) \ge Q_q^{\mathrm{train}}\!\left(T(y)\right)\right],
+$$
+
+so test labels never choose their own threshold.
+
+- **Spearman** is rank correlation between the true and predicted continuous target.
+- **Top-5% lift** is $\mathbb{E}[y_t \mid s_t \in \operatorname{Top}_{5\%}(s)]-\mathbb{E}[y_t]$ over valid held-out rows.
+- **Event PR-AUC** is average precision pooled over valid held-out rows, retaining valid negatives from zero-event videos.
+
 ## Evaluation rules
 
 - Use every eligible dense 2 Hz row and retain valid negatives from zero-event videos.
@@ -15,6 +44,16 @@ TRIBE/cortical features in this repository are frozen predictions generated from
 - Separate exploration, candidate freeze, fresh confirmation, and outer closure.
 - Treat shuffled, random, video-mean, diagnostic-only, and label-permutation lanes as scientific controls, not decoration.
 - Declare checkpoint ensembles before confirmation; never select ensemble members on the locked result.
+
+“Causal temporal” means that inputs are restricted to information available at prediction time. It does not mean the study identifies a causal effect of video content on arousal.
+
+## Evaluation unit and uncertainty
+
+The dense 2 Hz rows within a video are serially dependent and are not presented as independent experimental replicates.
+
+- Phase 7 uses five outer folds grouped by `video_id`, nine fresh seeds, and three prespecified checkpoint groups. Its `420/420` count is an evaluation matrix (`315` member + `105` ensemble cells); the consistency result is `15/15` positive fold-checkpoint groups.
+- The locked video-only study uses a prospectively untouched 299-video pool. Its paired uncertainty procedure resamples whole videos for `2,000` bootstrap replicates; all three one-sided 95% lower bounds for the gain over the strongest control are positive.
+- Grouped-video evaluation holds out video IDs, not necessarily participant identities. No participant-exclusive or external-dataset generalization claim is made.
 
 ## Portable verification
 
