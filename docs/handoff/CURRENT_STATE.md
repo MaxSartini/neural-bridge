@@ -10,6 +10,7 @@ Authority date: 2026-07-18. This file is the compact handoff for the rebuild.
 - Phase 7 delivered the claim-bearing grouped held-out-video result: `420/420` declared evaluation cells and `15/15` positive fold-checkpoint groups. The separately scoped blocked-temporal protocol did not pass its distinct gate; the two protocols remain independent evidence.
 - `src/neural_bridge/zero_label/` recomputes the locked 140-row verdict, validates the no-label inference audits and prediction seal, and hash-verifies the registered 95-file external run.
 - The locked zero-label result passed all three declared tiers on 299 untouched videos. Stage A selected direct-supervised temporal video learning; a separate prospective plan then promoted that fixed lane to the locked pass.
+- Evidence-facing documentation now presents the complete ten-stage Original VEATIC-to-AGAIN journey. Every phase closure records its question, design, decisive evidence, rejected branches, claim boundary, audit trail, and transition; front-facing results no longer reduce the programme to Phase 7 and zero-label.
 - Supported checks pass: Ruff, ty, and 11 tests. Archived reproduction snapshots are evidence, not a linted current API.
 
 ## Scientific boundary

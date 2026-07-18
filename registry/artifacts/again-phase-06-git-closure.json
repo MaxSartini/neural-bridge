@@ -5,8 +5,8 @@
   "phase": "phase-06-event-stabilization",
   "path": "studies/again/phase-06-event-stabilization",
   "files": 36,
-  "size_bytes": 80720,
-  "sha256_tree": "e86ad11094269cd86ed26e5b424d0aaa749ad68de4f66aaa6b4e3fa3e9f5c9d1",
+  "size_bytes": 82121,
+  "sha256_tree": "82ec20735aafa21d6bac8b67c4f5f46a452f913158170385d53f01c1dc928355",
   "contents": {
     "selected_runs": "f591442828021b12d2299874c0690646961b8d2fb14c393b1606d011e7154273",
     "plans": "c19a21412972d4919fec7adbd44c6f41ad59b143aaf95f768220eac2bce06110"

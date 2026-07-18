@@ -5,8 +5,8 @@
   "phase": "phase-07-continuous",
   "path": "studies/again/phase-07-continuous",
   "files": 24,
-  "size_bytes": 770995,
-  "sha256_tree": "6b894df175340aec85961b6cc96d3c0659ac3521b5bda739ffc7b13e7d7bbbf2",
+  "size_bytes": 773272,
+  "sha256_tree": "c6d2d07e9893ed2fbd6f5d0e62165ad04060963ed67e52e1f2d409a1074c3365",
   "contents": {
     "diagnostic": "03369ef4c5cacec1535f60ef98bdcc3829486ac210c5009121413badf15f225d",
     "blocked_confirmation": "290bb82456cef454f0856df481d14e62006f94f4eb54dcca12711b931c7cf560",

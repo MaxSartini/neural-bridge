@@ -5,8 +5,8 @@
   "phase": "phase-03-raw-cortical",
   "path": "studies/again/phase-03-raw-cortical",
   "files": 15,
-  "size_bytes": 571127,
-  "sha256_tree": "4c0924697f9e3325f34fab326210c44728ac4af37e6c8e84abf481c91764a40b",
+  "size_bytes": 572414,
+  "sha256_tree": "dce15eb26c075f336bb39b1928f09ce8ae0b418a981c43cac38e3a42cd0da40a",
   "contents": {
     "preliminary_and_final_evidence": {
       "files": 14,

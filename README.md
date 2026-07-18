@@ -4,11 +4,18 @@
 
 **Research question:** can a frozen video-to-cortical representation reveal future response spikes and continuous arousal movement beyond strong autoregressive baselines, matched false-signal controls, and held-out-video evaluation—and can useful signal survive with no response history at inference?
 
-Neural Bridge answers **yes** across a programme that began with an event/spike breakthrough on [VEATIC](https://veatic.github.io/) and matured on [AGAIN](https://doi.org/10.1109/TAFFC.2022.3188851). It first found rare future response events, then rebuilt and confirmed the event system under stronger controls, extended the bridge to continuous movement ranking, and finally retained substantial signal with no response labels or history at inference.
+Neural Bridge answers **yes** across a programme that began with an event/spike breakthrough on [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html) and matured on [AGAIN](https://doi.org/10.1109/TAFFC.2022.3188851). It first found rare future response events, then rebuilt and confirmed the event system under stronger controls, extended the bridge to continuous movement ranking, and finally retained substantial signal with no response labels or history at inference.
 
 The bridge converts frozen [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) / [TRIBE v2](https://arxiv.org/abs/2605.04326) predictions into causally constrained temporal representations. The upstream values are model-predicted average-subject cortical responses—not neural recordings from the people represented by the affect labels.
 
-The proving ground is unusually substantial. Published in *IEEE Transactions on Affective Computing*, AGAIN was introduced as the **largest and most diverse publicly available affective gaming dataset of its kind at publication**: more than `1,100` annotated gameplay videos, over `37` hours, `124` participants, nine games, and three genres. Neural Bridge uses a rigorously cleaned AGAIN dataset containing `995` videos, `243,575` aligned 2 Hz rows, and approximately `33.8` hours—not a toy benchmark. [Read the AGAIN paper →](https://doi.org/10.1109/TAFFC.2022.3188851)
+### Two peer-reviewed proving grounds
+
+| Dataset | Why it is formidable | Neural Bridge scope |
+| --- | --- | --- |
+| **[VEATIC · WACV 2024](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html)** | `124` contextual-affect videos, `257,601` frames, `192` annotators, about `60` annotators per video, and continuous frame-level valence/arousal ratings spanning Hollywood film, documentary, and home video | the original controlled event/spike breakthrough; best blocked PR-AUC `0.2536`, balanced event-vs-stable PR-AUC `0.3394` |
+| **[AGAIN · IEEE Transactions on Affective Computing](https://doi.org/10.1109/TAFFC.2022.3188851)** | introduced as the largest and most diverse publicly available affective gaming dataset of its kind at publication: more than `1,100` videos, over `37` hours, `124` participants, nine games, and three genres | Neural Bridge's cleaned AGAIN dataset contains `995` videos, `243,575` aligned 2 Hz rows, and about `33.8` hours; it supports the reconstructed event, continuous, and zero-label results |
+
+These are not toy benchmarks or two views of the same construct. VEATIC provides contextual perceived-affect evidence; AGAIN provides large-scale first-person continuous-arousal evidence. Their related but non-identical labels make the event result an evidence ladder across datasets—not a disguised model-transfer claim.
 
 > **Product translation:** turn a video into a forward-looking response map—likely peaks, weak moments, and the sections most worth testing—before a full audience study is available.
 
@@ -16,7 +23,7 @@ The proving ground is unusually substantial. Published in *IEEE Transactions on 
 
 | Landmark | Strongest concluded evidence | What Neural Bridge proved |
 | --- | --- | --- |
-| **I · Original VEATIC event/spike breakthrough** | blocked event PR-AUC **`0.2536`** vs AR `0.1969` (**`+28.80%`**), shuffled `0.1840` (**`+37.83%`**), and random `0.1944` (**`+30.45%`**); balanced event-vs-stable PR-AUC **`0.3394`** | short causal temporal context could turn predicted cortical activity into useful rare-event signal across edited film, documentary, reality, and home video |
+| **I · Original VEATIC event/spike breakthrough** | on a WACV 2024 benchmark with `257,601` frames and `192` annotators: blocked event PR-AUC **`0.2536`** vs AR `0.1969` (**`+28.80%`**), shuffled `0.1840` (**`+37.83%`**), and random `0.1944` (**`+30.45%`**); balanced event-vs-stable PR-AUC **`0.3394`** | short causal temporal context could turn predicted cortical activity into useful rare-event signal across edited film, documentary, reality, and home video |
 | **II · AGAIN event/spike reconstruction** | same-target raw cortical `0.136579` → residual bridge **`0.238341` (`+74.51%`)**; the stabilized confirmation reached `0.234368` vs frozen AR `0.218050` (**`+7.48%`**), positive in **`15/15`** fold-checkpoint groups | the bridge—not raw TRIBE output—created the useful signal, then retained it under a redesigned target, stronger AR, matched controls, and fresh confirmation |
 | **III · Continuous response intelligence** | Spearman **`0.260301`** vs AR `0.240537` (**`+8.22%`**); top-5% lift **`0.097598`** vs `0.089566` (**`+8.97%`**); **`15/15`** positive groups | Neural Bridge moved beyond binary spikes and repeatedly ranked the magnitude and top tail of future arousal movement |
 | **IV · Video-only inference** | on **299 untouched videos**: Spearman `0.178513` vs `0.100488` (**`+77.65%`**); top-5% lift `0.076608` vs `0.044852` (**`+70.80%`**); event PR-AUC `0.171062` vs `0.135230` (**`+26.50%`**) | a frozen bridge retained substantial moment-by-moment signal with no observed arousal, response history, teacher score, or labeled warm start at inference |
@@ -31,22 +38,22 @@ The video-only model is trained with labeled development data. “Zero-label at 
 
 For an eligible 2 Hz row at time `t`, the central continuous quantity is the largest future arousal increase from 2 to 5 seconds ahead:
 
-$$
+```math
 y_t = \max_{k \in \{4,\ldots,10\}} \left(a_{t+k}-a_t\right),
 \qquad f_s=2\,\mathrm{Hz}.
-$$
+```
 
 Phase 7 ranks the train-only-AR residual of this quantity:
 
-$$
-\widetilde{y}_t = y_t - \widehat f_{\mathrm{AR}}\!\left(x_t^{\mathrm{AR}}\right),
-$$
+```math
+\widetilde{y}_t = y_t - \widehat{f}_{\mathrm{AR}}\!\left(x_t^{\mathrm{AR}}\right),
+```
 
 where the residualizer is fixed from its declared training ownership. Event heads use a training-side threshold only,
 
-$$
+```math
 e_t = \mathbf{1}\!\left[T(y_t) \ge Q_q^{\mathrm{train}}\!\left(T(y)\right)\right].
-$$
+```
 
 “Causal temporal” means every model input is available at prediction time; it is a temporal-information constraint, not a claim of causal identification.
 
@@ -60,11 +67,11 @@ $$
 
 For ranking score $s_t$, the reported top-tail statistic is
 
-$$
+```math
 \operatorname{Lift}_{0.05}
 = \mathbb{E}\!\left[y_t \mid s_t \in \operatorname{Top}_{5\%}(s)\right]
 - \mathbb{E}[y_t].
-$$
+```
 
 ### What the controls mean—in 30 seconds
 
@@ -105,7 +112,7 @@ The contribution is the bridge that made them incrementally useful under matched
 
 ## Breakthrough I — Original VEATIC event/spike ranking
 
-Neural Bridge's first major result came from `124` edited affective videos spanning film, documentary, reality TV, and home video. The strongest blocked future-event model reached PR-AUC **`0.2536`** versus trained AR `0.1969` (**`+28.80%`**), shuffled `0.1840` (**`+37.83%`**), and random `0.1944` (**`+30.45%`**). The balanced event-vs-stable evaluation reached **`0.3394`**.
+Neural Bridge's first major result came from VEATIC, a peer-reviewed WACV 2024 contextual-affect benchmark: `124` videos, `257,601` frames, `192` annotators, and about `60` annotators per video, with continuous frame-level valence and arousal ratings across Hollywood film, documentary, and home video. The strongest blocked future-event model reached PR-AUC **`0.2536`** versus trained AR `0.1969` (**`+28.80%`**), shuffled `0.1840` (**`+37.83%`**), and random `0.1944` (**`+30.45%`**). The balanced event-vs-stable evaluation reached **`0.3394`**.
 
 This was the foundational proof: temporal change in predicted cortical activity could matter more than raw state, and rare future response spikes could be ranked beyond persistence and false-signal controls. It established the event-first strategy that the later AGAIN programme rebuilt under denser data and stricter controls.
 
@@ -241,13 +248,32 @@ That is why an `8.22%` gain over AR is more meaningful than it first appears: AR
 
 The effect did not originate in one convenient gaming dataset.
 
-Original VEATIC contributed `124` edited affective videos across film, documentary, reality TV, and home video. The source AGAIN corpus contributed more than `1,100` annotated gameplay videos, over `37` hours, `124` participants, nine games, and three genres; the cleaned AGAIN dataset used by Neural Bridge contains `995` videos, `243,575` aligned 2 Hz rows, and approximately `33.8` hours after quality and alignment processing.
+Original VEATIC contributed a WACV 2024 benchmark with `124` contextual-affect videos, `257,601` frames, `192` annotators, and continuous frame-level ratings. The source AGAIN corpus contributed more than `1,100` annotated gameplay videos, over `37` hours, `124` participants, nine games, and three genres; the cleaned AGAIN dataset used by Neural Bridge contains `995` videos, `243,575` aligned 2 Hz rows, and approximately `33.8` hours after quality and alignment processing.
 
 VEATIC established the first event signal and the importance of short causal temporal context. AGAIN raised the difficulty: stronger target-specific AR controls, fold-safe representations, residual heads, strict time separation, checkpoint stabilization, held-out-video continuous confirmation, and the locked video-only study.
 
 Together, the two datasets support a cross-dataset event-ranking evidence ladder across related but non-identical arousal constructs. The continuous and zero-label results remain AGAIN-specific until independently confirmed elsewhere; no model-transfer result is implied.
 
 [See the full scientific journey and decisive design lessons →](studies/README.md)
+
+## The result was earned: ten stages of experimentation
+
+Neural Bridge is not the product of one architecture search or one favourable split. The programme repeatedly exposed weak ideas to stronger baselines and controls, kept the failures, and advanced only the parts that survived.
+
+| Stage | Experiment, failure, or win | What it changed |
+| --- | --- | --- |
+| **Original VEATIC** | Temporal event models beat AR, shuffled, and random controls; best blocked PR-AUC `0.2536`, balanced event-vs-stable PR-AUC `0.3394` | established the first event/spike result and the hypothesis that temporal change matters more than raw state |
+| **AGAIN Phase 0** | Built `995/995` dense outputs and `243,575` auditable 2 Hz rows, with explicit timing and quality ownership | replaced the older sparse foundation with a complete, provenance-preserving substrate |
+| **Phase 1** | Aligned labels without inventing timestamps or hiding unmatched rows; fold-owned the event threshold | made leakage-safe supervised evaluation possible |
+| **Phase 2** | Four baseline revisions produced materially different scores before the final target-specific AR was frozen | established a genuinely difficult persistence floor rather than an easy straw baseline |
+| **Phase 3** | **Important failure:** raw 20,484-vertex cortical summaries were inconsistent and often lost to AR | proved that access to a rich neuroscience representation was not itself the contribution |
+| **Phase 4** | Fold-safe PCA and two-second temporal aggregation produced a modest grouped event improvement | validated leakage-safe representation learning, but showed fixed compression was not the final bridge |
+| **Phase 5/5.5** | Corrected evaluation, built frozen-AR residual learning, rejected the first redesigned event target under matched controls, then found a causal temporal head that passed blocked and grouped confirmation | turned raw cortical PR-AUC `0.136579` into `0.238341` and formally solved the redesigned event task |
+| **Phase 6** | **Useful failures:** an Optuna single-seed configuration and two fixed blends failed fresh robustness checks; a prospectively declared checkpoint ensemble then passed | stabilized event PR-AUC at `0.234368` vs AR `0.218050` (**`+7.48%`**), positive in `15/15` groups |
+| **Phase 7** | Re-specialized the proven temporal machinery for continuous movement instead of assuming the event head would transfer unchanged | confirmed Spearman **`+8.22%`** and top-5% lift **`+8.97%`** over frozen AR, positive in `15/15` groups |
+| **Zero-label** | Distillation and self-rollout were eliminated by controls; direct temporal video learning survived development, was frozen prospectively, and passed all three endpoints on 299 locked videos | showed that substantial event and continuous signal survives without observed response history at inference |
+
+Every stage has a closure page containing its research question, design, decisive evidence, rejected approaches, claim boundary, and transition logic. [Audit the complete phase-by-phase record →](studies/README.md)
 
 ## Scientific interpretation and audit trail
 
@@ -316,15 +342,19 @@ Those boundaries make the result defensible. They do not make it small.
 | --- | --- |
 | [Concluded results](results/README.md) | the compact scorecard with actual values and percentage gains |
 | [Methods and reproducibility](docs/README.md) | data ownership, controls, fitting rules, verification, and hardware support |
-| [Complete study journey](studies/README.md) | the evidence chain from dense data foundation through locked zero-label confirmation |
+| [Complete ten-stage study journey](studies/README.md) | every major hypothesis, failed branch, promotion decision, confirmed win, and transition from Original VEATIC through locked zero-label confirmation |
 | [Original VEATIC closure](studies/original-veatic/v2-closure/) | the first controlled event/spike breakthrough and its machine evidence |
+| [AGAIN Phases 0–4](studies/again/phase-00-dense-foundation/) | dense data, label alignment, strong AR, the raw-feature failure, and the first fold-safe bridge; each page links forward |
+| [AGAIN Phase 5/5.5](studies/again/phase-05-learned-bridge/) | the learned-bridge progression, rejected target, selected temporal head, and `420/420` event confirmation |
 | [AGAIN event stabilization](studies/again/phase-06-event-stabilization/) | the confirmed `+7.48%` event gain and `15/15` positive groups |
 | [Phase 7 grouped closure](studies/again/phase-07-continuous/grouped-confirmation/) | the `420/420` evaluation-cell, `15/15` fold-checkpoint-group report and machine evidence |
 | [Locked zero-label closure](studies/again/zero-label/locked-confirmation/) | the prospectively locked 299-video report, audits, controls, and machine verdict |
 | [`src/neural_bridge/`](src/neural_bridge/) | the single current CPU/CUDA/MLX-capable implementation |
 | [`registry/artifacts/`](registry/artifacts/) | hashes and provenance for heavy external artifacts |
 
-## Run the tracked evidence
+## Recompute representative closures
+
+These commands exercise the current shared implementation and two terminal evidence closures; they are executable entry points into the programme, not a replacement for the phase-by-phase record above.
 
 ```bash
 uv sync --group dev

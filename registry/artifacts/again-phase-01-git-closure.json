@@ -5,8 +5,8 @@
   "phase": "phase-01-label-alignment",
   "path": "studies/again/phase-01-label-alignment",
   "files": 5,
-  "size_bytes": 6081,
-  "sha256_tree": "57a0c2cba9c4870abc834400ba8991f590a8dac22129ef5d743e0e312e277b52",
+  "size_bytes": 7390,
+  "sha256_tree": "149e591cabeadce282e85116876e6876e6ac3f7e94cf366bef2e89d4a28e27af",
   "contents": {
     "compact_contract": "95adcf50393b65146c46978914a5c000569241da52e5d1c09914f4a13753df9a"
   },
