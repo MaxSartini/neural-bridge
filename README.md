@@ -68,8 +68,8 @@ e_t = \mathbf{1}\!\left[T(y_t) \ge Q_q^{\mathrm{train}}\!\left(T(y)\right)\right
 For ranking score $s_t$, the reported top-tail statistic is
 
 ```math
-\operatorname{Lift}_{0.05}
-= \mathbb{E}\!\left[y_t \mid s_t \in \operatorname{Top}_{5\%}(s)\right]
+\mathrm{Lift}_{0.05}
+= \mathbb{E}\!\left[y_t \mid s_t \in \mathrm{Top}_{5\%}(s)\right]
 - \mathbb{E}[y_t].
 ```
 

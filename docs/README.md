@@ -30,7 +30,7 @@ e_t = \mathbf{1}\!\left[T(y_t) \ge Q_q^{\mathrm{train}}\!\left(T(y)\right)\right
 so test labels never choose their own threshold.
 
 - **Spearman** is rank correlation between the true and predicted continuous target.
-- **Top-5% lift** is $\mathbb{E}[y_t \mid s_t \in \operatorname{Top}_{0.05}(s)]-\mathbb{E}[y_t]$ over valid held-out rows.
+- **Top-5% lift** is $\mathbb{E}[y_t \mid s_t \in \mathrm{Top}_{0.05}(s)]-\mathbb{E}[y_t]$ over valid held-out rows.
 - **Event PR-AUC** is average precision pooled over valid held-out rows, retaining valid negatives from zero-event videos.
 
 ## Evaluation rules
