@@ -201,37 +201,45 @@ Together, the two datasets support a real cross-domain event-ranking story. The 
 
 [See the full scientific journey and decisive design lessons →](studies/README.md)
 
-## What this could become
+## For investors and product partners: the commercial thesis
 
-Neural Bridge is being built as **Service as Software for neuro-response video intelligence**.
+**Neural Bridge is the intelligence layer between a video and the expensive process of learning how people respond to it.**
 
-The product direction is simple: upload a video and receive a response-readiness layer that helps people decide what to test, revise, compare, or ship.
+The product wedge is direct: upload a video and receive a response heat map showing likely peaks, weak moments, and the segments most worth revising, comparing, or validating with people. The aim is not to replace human testing. It is to make that testing faster, better targeted, and more valuable.
 
-Potential outputs include:
+| Investment question | Evidence-backed answer |
+| --- | --- |
+| **What was technically unlocked?** | Raw cortical predictions scored `0.136579` event PR-AUC; Neural Bridge raised the same-target result to **`0.238341` (`+74.51%`)**. The conversion layer—not access to a fashionable embedding—is the core invention. |
+| **Can it work before audience-response data exists?** | The frozen video-only system passed on **299 untouched videos**, beating the strongest controls by **`+77.65%`** in ranking, **`+70.80%`** in top-5% lift, and **`+26.50%`** in event PR-AUC. |
+| **Is this a one-benchmark trick?** | Event signal was established on edited affective VEATIC video and then rebuilt at much greater scale on AGAIN. AGAIN additionally confirmed continuous ranking and zero-label-at-inference operation. |
+| **Where is the defensibility?** | In the accumulated data contracts, causal temporal representations, target-specific baselines, matched controls, fold-safe training, and evidence system that repeatedly turned difficult raw features into validated signal. |
+| **What unlocks commercial deployment?** | End-to-end raw-video execution, latency and cost work, external transfer, calibration, and prospective customer studies—the next proof points, not substitutes for the research already completed. |
 
-- a predicted future-response heat map;
-- likely peak and weak-moment detection;
-- segment-level response diagnostics;
-- variant and edit comparisons;
-- cold-start response-readiness reports;
-- uncertainty and confidence bands; and
-- prioritization for expensive human testing.
+The opportunity is a scalable **response-intelligence layer** for trailers, advertising, entertainment, games, and other video workflows: heat maps, edit comparisons, peak detection, cold-start diagnostics, confidence estimates, and intelligent prioritization of costly audience testing.
 
-For a creative team, this could mean faster iteration before a campaign launches. For researchers, it is a controlled way to test whether predicted neuro-response representations carry forward-looking behavioral signal. For investors, it is the foundation of a scalable intelligence layer between raw video models and real human-response decisions.
+[Inspect the concluded scorecard and exact values →](results/README.md)
 
-The research result is real. The product layer is still being validated. End-to-end raw-video execution, latency, external transfer, calibration, and prospective client outcomes are the next commercial proof points.
+## For professors and scientific reviewers: the actual claim
 
-## Why a scientific reviewer should take it seriously
+The scientifically interesting result is not that a large video representation correlates with arousal. **Raw predicted cortical features were initially weaker than a strong autoregressive model. Neural Bridge extracted additional future-response signal and kept beating matched alternative explanations.**
 
-- **The complete development record is preserved.** Every decisive baseline, control screen, target change, tuning branch, and ensemble decision remains auditable in its phase package.
-- **Controls are matched.** Real and false-signal residual lanes share the exact frozen AR underneath them.
-- **Fitting is fold-safe.** PCA, scalers, thresholds, AR, and heads are fitted only inside their declared training ownership.
-- **Validation schemes are not mixed.** Blocked time and held-out-video evidence remain separate.
-- **Candidates are frozen before confirmation.** Locked results are not used to select their own models.
-- **Heavy artifacts are hash-registered.** Checkpoints and large caches remain outside Git without disappearing from provenance.
-- **The evidence is executable.** Compact closures recompute from tracked CSV/JSON, and representative checkpoints replay against published rows.
+| Review question | Claim-bearing evidence |
+| --- | --- |
+| **Does the bridge add signal beyond response persistence?** | Phase 7 grouped Spearman rose from frozen AR `0.240537` to **`0.260301` (`+8.22%`)**; top-5% lift rose from `0.089566` to **`0.097598` (`+8.97%`)**. |
+| **Does that hold across unseen videos and retraining variation?** | Yes: the declared matrix completed **`420/420`** rows and the bridge was positive in **`15/15`** held-out-video fold-groups. |
+| **Does useful signal survive without observed arousal at inference?** | Yes: one frozen candidate passed once on 299 locked videos with no observed arousal, response history, teacher score, or labeled warm start at inference. Training was supervised. |
+| **Could static video identity, timing, quality, or accidental alignment explain it?** | The real lane beat current-row video, no-video, diagnostics-only, shuffled, random, video-mean, and label-permutation controls under their declared comparisons. |
+| **Can the claims be audited rather than merely trusted?** | Compact closures recompute from tracked CSV/JSON; representative checkpoints replay published rows; large artifacts are hash-registered; the phase record preserves every decisive selection and control result. |
 
-[Read the methods and reproduce the evidence →](docs/README.md)
+The evaluation discipline is deliberately strict:
+
+- target-specific AR is trained separately, then frozen identically beneath real and residual-control lanes;
+- PCA, scalers, thresholds, AR, and heads are fitted only within their declared fold ownership;
+- blocked-temporal and held-out-video protocols remain separate because they test different generalization questions;
+- candidates and any checkpoint ensembles are declared before confirmation; and
+- discovery, candidate selection, confirmation, and locked closure cannot silently exchange roles.
+
+[Read the methods and reproduce the evidence →](docs/README.md) · [Audit the complete study journey →](studies/README.md)
 
 ## Honest boundaries
 
@@ -249,17 +257,17 @@ The locked result is zero-label **at inference**, not label-free training. The u
 
 Those boundaries make the result defensible. They do not make it small.
 
-## Start exploring
+## Evidence map
 
-| If you are… | Start here |
+| Go directly to | What is there |
 | --- | --- |
-| A professor or scientific reviewer | [Methods, controls, and reproducibility](docs/README.md) |
-| An investor or product partner | [The strongest concluded results](results/README.md) |
-| Auditing the evidence trail | [The complete study journey](studies/README.md) |
-| Reproducing Phase 7 | [Grouped report and machine evidence](studies/again/phase-07-continuous/grouped-confirmation/) |
-| Reviewing label-free-at-inference evidence | [Locked zero-label confirmation](studies/again/zero-label/locked-confirmation/) |
-| Inspecting the implementation | [`src/neural_bridge/`](src/neural_bridge/) |
-| Checking heavy-artifact provenance | [`registry/artifacts/`](registry/artifacts/) |
+| [Concluded results](results/README.md) | the compact scorecard with actual values and percentage gains |
+| [Methods and reproducibility](docs/README.md) | data ownership, controls, fitting rules, verification, and hardware support |
+| [Complete study journey](studies/README.md) | the evidence chain from dense data foundation through locked zero-label confirmation |
+| [Phase 7 grouped closure](studies/again/phase-07-continuous/grouped-confirmation/) | the `420/420`, `15/15` continuous-ranking report and machine evidence |
+| [Locked zero-label closure](studies/again/zero-label/locked-confirmation/) | the prospectively locked 299-video report, audits, controls, and machine verdict |
+| [`src/neural_bridge/`](src/neural_bridge/) | the single current CPU/CUDA/MLX-capable implementation |
+| [`registry/artifacts/`](registry/artifacts/) | hashes and provenance for heavy external artifacts |
 
 ## Run the tracked evidence
 
