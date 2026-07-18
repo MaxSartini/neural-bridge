@@ -53,7 +53,7 @@ The `420/420` matrix contains `315` member and `105` prespecified ensemble evalu
 
 ## AGAIN zero-label-at-inference: locked confirmation
 
-One prospectively locked video-only candidate was trained on 696 development videos and evaluated once on 299 untouched videos. At inference it used no observed arousal, response history, teacher score, or labeled warm start.
+Selection and training were completed on 696 development videos. The chosen video-only system and evaluation contract were frozen before the untouched 299-video confirmation pool was opened. All three declared endpoints passed on the first and only locked evaluation. At inference the system used no observed arousal, response history, teacher score, or labeled warm start.
 
 | Endpoint | Neural Bridge | Strongest control | Relative gain | Panel wins |
 | --- | ---: | ---: | ---: | ---: |

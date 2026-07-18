@@ -182,7 +182,7 @@ The claim-bearing Phase 7 result is grouped held-out-video future-movement ranki
 
 ## Breakthrough IV — Response intelligence without response history
 
-The video-only candidate was trained on 696 development videos, frozen, and then evaluated once on a prospectively locked pool of 299 videos.
+Architecture selection and training were completed on 696 development videos. The chosen system and evaluation contract were then frozen **before the 299-video confirmation pool was opened**. On that first and only locked evaluation, all three declared endpoints passed.
 
 At inference it received:
 
@@ -259,7 +259,7 @@ The scientifically interesting result is not that a large video representation c
 | **Did the event win survive a harder reconstruction?** | Yes. On AGAIN, the same-target bridge improved raw cortical PR-AUC by **`+74.51%`**; the stabilized redesigned event system then beat frozen AR by **`+7.48%`**, positive in **`15/15`** fold-checkpoint groups. |
 | **Did Neural Bridge move beyond binary spikes?** | Yes. Phase 7 grouped Spearman rose from frozen AR `0.240537` to **`0.260301` (`+8.22%`)**; top-5% lift rose from `0.089566` to **`0.097598` (`+8.97%`)**, positive in **`15/15`** groups. |
 | **Was continuous confirmation complete?** | Yes: the declared Phase 7 matrix completed **`420/420` evaluation cells** across held-out-video folds, seeds, lanes, and prespecified checkpoint groups. |
-| **Does useful signal survive without observed arousal at inference?** | Yes: one frozen candidate passed once on 299 locked videos with no observed arousal, response history, teacher score, or labeled warm start at inference. Training was supervised. |
+| **Does useful signal survive without observed arousal at inference?** | Yes. Selection and training were completed on 696 development videos; the chosen system and evaluation contract were frozen before the untouched 299-video pool was opened. All three declared endpoints passed on the first and only locked evaluation, with no observed arousal, response history, teacher score, or labeled warm start at inference. Training was supervised. |
 | **Could static video identity, timing, quality, or accidental alignment explain it?** | The real lane beat current-row video, no-video, diagnostics-only, shuffled, random, video-mean, and label-permutation controls under their declared comparisons. |
 | **Can the claims be audited rather than merely trusted?** | Compact closures recompute from tracked CSV/JSON; representative checkpoints replay published rows; large artifacts are hash-registered; the phase record preserves every decisive selection and control result. |
 
