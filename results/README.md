@@ -2,6 +2,13 @@
 
 This page contains the strongest claim-bearing results only. The complete development record and diagnostic branches remain with their study packages, keeping this scorecard focused on concluded wins.
 
+| Programme milestone | Concluded win |
+| --- | --- |
+| Original VEATIC event/spike ranking | `0.2536` vs AR `0.1969` (**`+28.80%`**); balanced event-vs-stable PR-AUC `0.3394` |
+| AGAIN event/spike reconstruction | raw cortical `0.136579` → residual bridge `0.238341` (**`+74.51%`**); stabilized result **`+7.48%`** over frozen AR, positive in `15/15` groups |
+| AGAIN continuous ranking | Spearman **`+8.22%`** and top-5% lift **`+8.97%`** over frozen AR, both positive in `15/15` groups |
+| AGAIN video-only inference | locked 299-video gains of **`+77.65%`**, **`+70.80%`**, and **`+26.50%`** across the three endpoints |
+
 ## Original VEATIC: event signal established
 
 For `arousal__future_spike_1_3s@0.05`, the strongest blocked row reached PR-AUC `0.2536` versus AR `0.1969` (`+28.80%`), shuffled `0.1840` (`+37.83%`), and random `0.1944` (`+30.45%`). The balanced event-vs-stable evaluation reached PR-AUC `0.3394`. VEATIC's confirmed scope was future-event ranking; continuous specialization was established later on AGAIN.
@@ -18,6 +25,16 @@ The selected temporal residual head passed the full `420/420` controlled evaluat
 | Grouped held-out video | `0.231383` PR-AUC | `0.217495` | `+0.013888` | `+6.39%` |
 
 [Phase 5 journey](../studies/again/phase-05-learned-bridge/README.md) · [selected-head evidence](../studies/again/phase-05-learned-bridge/evidence/phase_5_5_selected_head_420_confirmation_20260714_124953/README.md)
+
+## AGAIN Phase 6: stabilized event ensemble
+
+A prospectively declared checkpoint ensemble converted the selected event head into a repeatable final system. It passed fresh blocked confirmation and grouped held-out-video closure.
+
+| Endpoint | Neural Bridge | Frozen AR | Best matched control | Gain over AR | Positive groups |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Grouped event PR-AUC | **`0.234368`** | `0.218050` | `0.217972` | **`+7.48%`** | **`15/15`** |
+
+[Phase 6 closure](../studies/again/phase-06-event-stabilization/README.md)
 
 ## AGAIN Phase 7: continuous future-movement ranking
 
