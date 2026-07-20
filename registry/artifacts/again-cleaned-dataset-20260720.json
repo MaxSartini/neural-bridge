@@ -1,0 +1,33 @@
+{
+  "artifact_id": "again-cleaned-dataset-20260720",
+  "classification": "external-canonical-dataset",
+  "external_relative_path": "datasets/again/cleaned-20260720",
+  "programme": "again",
+  "phase": "dataset",
+  "role": "cleaned-source-dataset-and-encoding-provenance",
+  "files": 1012,
+  "size_bytes": 39343719005,
+  "sha256_tree": "77cc4d0936c8f7d75c4344a4c216abe2a7aff25216ed6ad745eed1a618c8cffd",
+  "source_reconciliation": {
+    "cleaned_source_tree": {
+      "former_path": "/Volumes/onn. Drive/Neural Bridge/data/external/AGAIN/cleaned",
+      "files": 1009,
+      "size_bytes": 39250889145,
+      "sha256_tree": "0d44d95aa8dd6970695aef3b22499280b27331579bd43b2a6c128d4036e7a307"
+    },
+    "execution_bundle_tree": {
+      "path_at_reconciliation": "/Volumes/onn. Drive/Neural Bridge/h100_bundle_work/h100_again_dense_vjepa21_vitg_float16_256_2hz/data/AGAIN/cleaned",
+      "files_before_union": 1009,
+      "size_bytes_before_union": 39342746193,
+      "sha256_tree_before_union": "d1aa877c07241770cf33627e08e95b3e5d7b41b739d185d464a0a8b2dcd6da11"
+    },
+    "same_path_files_compared": 1006,
+    "same_path_files_sha256_identical": 1006,
+    "cleaned_source_only_files": 4,
+    "execution_bundle_only_files": 3,
+    "execution_bundle_only_files_moved_into_union": 3,
+    "content_mismatches": 0
+  },
+  "moved_at": "2026-07-20T16:31:04Z",
+  "verified_at": "2026-07-20T16:34:00Z"
+}

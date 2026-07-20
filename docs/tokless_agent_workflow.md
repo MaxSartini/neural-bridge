@@ -1,14 +1,15 @@
 # Compact Agent Workflow
 
-Updated: 2026-07-18
+Updated: 2026-07-20
 
 This is a machine-local efficiency contract for Codex desktop work on Neural Bridge. It is not a project dependency and never requires a contributor to install Codex CLI, Rust Token Killer, Context-Mode, or CodeGraph.
 
 ## Discovery
 
-- Start a clean task with one Context-Mode search for `current result constraints exact next action`, scoped to `neural-bridge-handoff`, limit `3`.
+- Start a clean task with one Context-Mode search for `current result constraints exact next action`, scoped to `neural-bridge-canonical-handoff`, limit `3`.
 - Read [`handoff/CURRENT_STATE.md`](handoff/CURRENT_STATE.md) only when that result is absent or stale.
-- Use the configured unified CodeGraph for source flow and blast radius; use exact search and node lookup against the real internal or external root for current source.
+- Use the canonical repository CodeGraph for source flow, blast radius, exact search, and source lookup. The ignored `artifacts` symlink is outside the graph; retired roots are queried only for explicit forensic migration work.
+- Start artifact lookup with one Context-Mode search scoped to `neural-bridge-canonical-artifacts`; open the exact registry entry or mapped artifact only when needed.
 - Use repository search only for literals, configuration, non-code material, or after graph lookup fails.
 - Keep discovery output under 20 lines or 3 KB. Aggregate large results off-window and return at most three exact snippets.
 
@@ -32,7 +33,7 @@ When project state changes:
 
 1. Validate the canonical evidence.
 2. Update [`handoff/CURRENT_STATE.md`](handoff/CURRENT_STATE.md) with the result, constraints, exact next action, and detailed-history links.
-3. Index only that handoff as `neural-bridge-handoff` and this file as `neural-bridge-workflow`.
+3. Index only that handoff as `neural-bridge-canonical-handoff` and this file as `neural-bridge-canonical-workflow`.
 4. Verify that the current-state query returns the updated handoff in its top three results.
 
-Do not index the full repository by default. Heavy artifacts remain outside Git and are reached through their registries and the configured external root.
+Do not index the full repository into Context-Mode by default. Its compact artifact registry is indexed as `neural-bridge-canonical-artifacts`; heavy bytes remain outside Git behind the ignored `artifacts` symlink.

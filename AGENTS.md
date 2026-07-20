@@ -3,6 +3,8 @@
 - This repository is the new canonical private Git repository under construction.
 - The existing internal and external project roots are forensic source material until migration closes.
 - Never infer absence from GitHub: audit local, ignored, untracked, and external material.
+- Start clean tasks with one `ctx_search` for `current result constraints exact next action`, scoped to `neural-bridge-canonical-handoff`, limit `3`; read the handoff only when that result is absent or stale.
+- Start artifact lookup with one `ctx_search` scoped to `neural-bridge-canonical-artifacts`; read only the exact registry entry or mapped artifact required.
 - Work newest-to-oldest: VEATIC 2.1, zero-label, AGAIN Phase 7 to 0, original VEATIC, earliest exploration.
 - Do not move a file or verified directory collection until `internal/migration/move-manifest.csv` records its source, destination, size, SHA-256 tree digest, role, and verification state.
 - Same-volume moves should be atomic renames. Cross-volume moves require destination checksum verification before source deletion.

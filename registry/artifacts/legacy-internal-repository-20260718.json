@@ -1,0 +1,31 @@
+{
+  "artifact_id": "legacy-internal-repository-20260718",
+  "classification": "external-provenance-archive",
+  "external_relative_path": "archive/legacy-repositories/neural-bridge-pre-rebuild-working-tree-20260718",
+  "programme": "cross-programme",
+  "phase": "pre-canonical-retirement",
+  "role": "complete-pre-rebuild-git-working-tree-and-local-assets",
+  "git": {
+    "branch": "archive/pre-rebuild-20260718",
+    "head": "57b51996bbaf89af6734bd29e0436b2f217aae00",
+    "working_tree_clean_at_copy": true
+  },
+  "files": 14061,
+  "symlinks": 37,
+  "size_bytes": 37057628689,
+  "sha256_tree": "8ce1ef45ccea1b46ff1339f06282e32899d218d67a38afc4a2eabac090d4ed2f",
+  "arrival_snapshot": {
+    "files": 56524,
+    "symlinks": 44,
+    "size_bytes": 38990670187,
+    "sha256_tree": "333bbc46c08a33f0271ca6ed8e889fbeb3ed23279c8509a70b457e4569c869e6"
+  },
+  "former_path": "/Users/maxsartini/Neural Bridge Archive 20260718",
+  "policy": "Provenance archive only. The canonical repository and registered scientific artifacts outrank this pre-rebuild working tree.",
+  "copied_at": "2026-07-20T16:44:00Z",
+  "verified_at": "2026-07-20T16:46:00Z",
+  "source_deleted_after_explicit_approval": true,
+  "source_deleted_at": "2026-07-20T19:03:04Z",
+  "deletion_manifest": "internal/migration/deletion-manifest.csv",
+  "carved_and_reverified_at": "2026-07-20T19:08:00Z"
+}

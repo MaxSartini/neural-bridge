@@ -1,5 +1,5 @@
 {
-  "classification": "external-delete-after-verify",
+  "classification": "external-deleted-verified-duplicates",
   "canonical_artifact_id": "veatic-2.1-initial-heads-shared-representations-20260717",
   "canonical_subtree": "cortical_memmap",
   "sha256_tree": "7c33071df27a0e7b1d2da8cf227759c484928352414c44579469576310b321da",
@@ -11,5 +11,8 @@
   ],
   "former_paths_now_symlink_to_canonical": true,
   "deletion_requires_explicit_approval": true,
-  "quarantined_at": "2026-07-17T20:56:32Z"
+  "quarantined_at": "2026-07-17T20:56:32Z",
+  "explicit_approval_received": "2026-07-20",
+  "deleted_at": "2026-07-20T19:03:04Z",
+  "deletion_manifest": "internal/migration/deletion-manifest.csv"
 }
