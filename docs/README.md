@@ -10,27 +10,29 @@ The AGAIN feature foundation uses the frozen [V-JEPA 2.1](https://arxiv.org/abs/
 
 At the 2 Hz row rate, the Phase 7 future-movement quantity is
 
-```math
-y_t = \max_{k \in \{4,\ldots,10\}} \left(a_{t+k}-a_t\right),
-\qquad f_s=2\,\mathrm{Hz},
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/equations/future-movement-target-dark.svg">
+  <img src="assets/equations/future-movement-target-light.svg" alt="y sub t equals the maximum, for k from 4 through 10, of a sub t plus k minus a sub t; the sampling frequency is 2 hertz">
+</picture>
 
 so the forecast window is 2–5 seconds ahead. Phase 7 predicts
 
-```math
-\widetilde{y}_t = y_t - \widehat{f}_{\mathrm{AR}}\!\left(x_t^{\mathrm{AR}}\right)
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/equations/ar-residual-target-dark.svg">
+  <img src="assets/equations/ar-residual-target-light.svg" alt="Residual target y tilde sub t equals y sub t minus the frozen autoregressive prediction of x sub t">
+</picture>
 
 after fixing the autoregressive residualizer from its declared training ownership. Event labels use
 
-```math
-e_t = \mathbf{1}\!\left[T(y_t) \ge Q_q^{\mathrm{train}}\!\left(T(y)\right)\right],
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/equations/event-label-dark.svg">
+  <img src="assets/equations/event-label-light.svg" alt="Event label e sub t is one when transformed y sub t is at least the training-side q quantile of transformed y">
+</picture>
 
 so test labels never choose their own threshold.
 
 - **Spearman** is rank correlation between the true and predicted continuous target.
-- **Top-5% lift** is $\mathbb{E}[y_t \mid s_t \in \mathrm{Top}_{0.05}(s)]-\mathbb{E}[y_t]$ over valid held-out rows.
+- **Top-5% lift** is the mean true future movement among valid held-out rows ranked in the top 5%, minus the overall held-out-row mean.
 - **Event PR-AUC** is average precision pooled over valid held-out rows, retaining valid negatives from zero-event videos.
 
 ## Evaluation rules

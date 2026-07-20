@@ -38,22 +38,24 @@ The video-only model is trained with labeled development data. “Zero-label at 
 
 For an eligible 2 Hz row at time `t`, the central continuous quantity is the largest future arousal increase from 2 to 5 seconds ahead:
 
-```math
-y_t = \max_{k \in \{4,\ldots,10\}} \left(a_{t+k}-a_t\right),
-\qquad f_s=2\,\mathrm{Hz}.
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/equations/future-movement-target-dark.svg">
+  <img src="docs/assets/equations/future-movement-target-light.svg" alt="y sub t equals the maximum, for k from 4 through 10, of a sub t plus k minus a sub t; the sampling frequency is 2 hertz">
+</picture>
 
 Phase 7 ranks the train-only-AR residual of this quantity:
 
-```math
-\widetilde{y}_t = y_t - \widehat{f}_{\mathrm{AR}}\!\left(x_t^{\mathrm{AR}}\right),
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/equations/ar-residual-target-dark.svg">
+  <img src="docs/assets/equations/ar-residual-target-light.svg" alt="Residual target y tilde sub t equals y sub t minus the frozen autoregressive prediction of x sub t">
+</picture>
 
 where the residualizer is fixed from its declared training ownership. Event heads use a training-side threshold only,
 
-```math
-e_t = \mathbf{1}\!\left[T(y_t) \ge Q_q^{\mathrm{train}}\!\left(T(y)\right)\right].
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/equations/event-label-dark.svg">
+  <img src="docs/assets/equations/event-label-light.svg" alt="Event label e sub t is one when transformed y sub t is at least the training-side q quantile of transformed y">
+</picture>
 
 “Causal temporal” means every model input is available at prediction time; it is a temporal-information constraint, not a claim of causal identification.
 
@@ -65,13 +67,12 @@ e_t = \mathbf{1}\!\left[T(y_t) \ge Q_q^{\mathrm{train}}\!\left(T(y)\right)\right
 | **Top-5% lift** | Do the moments the model ranks in its top 5% actually contain more true future movement? | more real movement is concentrated in the predicted peaks |
 | **PR-AUC** | Can the model find rare future response events without being rewarded for guessing the common non-event class? | rare events are ranked more precisely and completely |
 
-For ranking score $s_t$, the reported top-tail statistic is
+For ranking score *sₜ*, the reported top-tail statistic is
 
-```math
-\mathrm{Lift}_{0.05}
-= \mathbb{E}\!\left[y_t \mid s_t \in \mathrm{Top}_{5\%}(s)\right]
-- \mathbb{E}[y_t].
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/equations/top-tail-lift-dark.svg">
+  <img src="docs/assets/equations/top-tail-lift-light.svg" alt="Top-5-percent lift equals expected y sub t among scores in the top 5 percent minus overall expected y sub t">
+</picture>
 
 ### What the controls mean—in 30 seconds
 
@@ -88,19 +89,10 @@ Neural Bridge is claim-bearing only when the real lane beats the appropriate str
 
 ### How the system fits together
 
-```mermaid
-flowchart LR
-    A["Raw video"] --> B["Frozen V-JEPA 2.1"]
-    B --> C["Frozen TRIBE v2"]
-    C --> D["Predicted average-subject cortical response"]
-    D --> E["Fold-safe causal temporal bridge"]
-    G["Recent observed arousal"] --> H["Target-specific frozen AR"]
-    H --> E
-    D --> I["Video-only bridge"]
-    E --> J["Future-movement ranking"]
-    I --> J
-    J --> K["Peaks · weak moments · comparisons"]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/diagrams/neural-bridge-system-dark.svg">
+  <img src="docs/assets/diagrams/neural-bridge-system-light.svg" alt="Neural Bridge system flow from raw video through frozen V-JEPA 2.1 and TRIBE v2 into AR-assisted and video-only bridges, future-movement ranking, peaks, weak moments, and comparisons" width="566">
+</picture>
 
 The AR-assisted and video-only results are separate experiments. The locked video-only lane removes `G → H` entirely at inference.
 

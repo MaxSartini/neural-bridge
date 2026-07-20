@@ -1,0 +1,11 @@
+flowchart TB
+    A["Raw video"] --> B["Frozen V-JEPA 2.1"]
+    B --> C["Frozen TRIBE v2"]
+    C --> D["Predicted average-subject cortical response"]
+    D --> E["Fold-safe causal temporal bridge"]
+    G["Recent observed arousal"] --> H["Target-specific frozen AR"]
+    H --> E
+    D --> I["Video-only bridge"]
+    E --> J["Future-movement ranking"]
+    I --> J
+    J --> K["Peaks · weak moments · comparisons"]
