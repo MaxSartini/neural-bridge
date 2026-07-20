@@ -10,24 +10,15 @@ The AGAIN feature foundation uses the frozen [V-JEPA 2.1](https://arxiv.org/abs/
 
 At the 2 Hz row rate, the Phase 7 future-movement quantity is
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/equations/future-movement-target-dark.svg">
-  <img src="assets/equations/future-movement-target-light.svg" alt="y sub t equals the maximum, for k from 4 through 10, of a sub t plus k minus a sub t; the sampling frequency is 2 hertz">
-</picture>
+![y sub t equals the maximum, for k from 4 through 10, of a sub t plus k minus a sub t; the sampling frequency is 2 hertz](assets/equations/future-movement-target-light.svg)
 
 so the forecast window is 2–5 seconds ahead. Phase 7 predicts
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/equations/ar-residual-target-dark.svg">
-  <img src="assets/equations/ar-residual-target-light.svg" alt="Residual target y tilde sub t equals y sub t minus the frozen autoregressive prediction of x sub t">
-</picture>
+![Residual target y tilde sub t equals y sub t minus the frozen autoregressive prediction of x sub t](assets/equations/ar-residual-target-light.svg)
 
 after fixing the autoregressive residualizer from its declared training ownership. Event labels use
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/equations/event-label-dark.svg">
-  <img src="assets/equations/event-label-light.svg" alt="Event label e sub t is one when transformed y sub t is at least the training-side q quantile of transformed y">
-</picture>
+![Event label e sub t equals one when transformed y sub t is at least the training-side q quantile of transformed y](assets/equations/event-label-light.svg)
 
 so test labels never choose their own threshold.
 

@@ -38,24 +38,15 @@ The video-only model is trained with labeled development data. “Zero-label at 
 
 For an eligible 2 Hz row at time `t`, the central continuous quantity is the largest future arousal increase from 2 to 5 seconds ahead:
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/equations/future-movement-target-dark.svg">
-  <img src="docs/assets/equations/future-movement-target-light.svg" alt="y sub t equals the maximum, for k from 4 through 10, of a sub t plus k minus a sub t; the sampling frequency is 2 hertz">
-</picture>
+![y sub t equals the maximum, for k from 4 through 10, of a sub t plus k minus a sub t; the sampling frequency is 2 hertz](docs/assets/equations/future-movement-target-light.svg)
 
 Phase 7 ranks the train-only-AR residual of this quantity:
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/equations/ar-residual-target-dark.svg">
-  <img src="docs/assets/equations/ar-residual-target-light.svg" alt="Residual target y tilde sub t equals y sub t minus the frozen autoregressive prediction of x sub t">
-</picture>
+![Residual target y tilde sub t equals y sub t minus the frozen autoregressive prediction of x sub t](docs/assets/equations/ar-residual-target-light.svg)
 
 where the residualizer is fixed from its declared training ownership. Event heads use a training-side threshold only,
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/equations/event-label-dark.svg">
-  <img src="docs/assets/equations/event-label-light.svg" alt="Event label e sub t is one when transformed y sub t is at least the training-side q quantile of transformed y">
-</picture>
+![Event label e sub t is one when transformed y sub t is at least the training-side q quantile of transformed y](docs/assets/equations/event-label-light.svg)
 
 “Causal temporal” means every model input is available at prediction time; it is a temporal-information constraint, not a claim of causal identification.
 
@@ -69,10 +60,7 @@ where the residualizer is fixed from its declared training ownership. Event head
 
 For ranking score *sₜ*, the reported top-tail statistic is
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/equations/top-tail-lift-dark.svg">
-  <img src="docs/assets/equations/top-tail-lift-light.svg" alt="Top-5-percent lift equals expected y sub t among scores in the top 5 percent minus overall expected y sub t">
-</picture>
+![Top-5-percent lift equals expected y sub t among scores in the top 5 percent minus overall expected y sub t](docs/assets/equations/top-tail-lift-light.svg)
 
 ### What the controls mean—in 30 seconds
 
@@ -89,12 +77,9 @@ Neural Bridge is claim-bearing only when the real lane beats the appropriate str
 
 ### How the system fits together
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/diagrams/neural-bridge-system-dark.svg">
-  <img src="docs/assets/diagrams/neural-bridge-system-light.svg" alt="Neural Bridge system flow from raw video through frozen V-JEPA 2.1 and TRIBE v2 into AR-assisted and video-only bridges, future-movement ranking, peaks, weak moments, and comparisons" width="566">
-</picture>
+![Neural Bridge system flow from raw video through frozen V-JEPA 2.1 and TRIBE v2 into AR-assisted and video-only bridges, future-movement ranking, peaks, weak moments, and comparisons](docs/assets/diagrams/neural-bridge-system.svg)
 
-The AR-assisted and video-only results are separate experiments. The locked video-only lane removes `G → H` entirely at inference.
+The AR-assisted and video-only results are separate experiments. The locked video-only lane removes the recent-observed-arousal and frozen-AR branch entirely at inference.
 
 Today, you usually learn how a video affects people **after** they watch it: panels, surveys, biometrics, expensive studies, and slow feedback. Neural Bridge is building a path toward useful response intelligence before that process is complete.
 
