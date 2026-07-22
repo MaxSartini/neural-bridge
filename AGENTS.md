@@ -2,7 +2,7 @@
 
 - This is the canonical private Neural Bridge repository. Scientific work never routes through `neural-bridge-app`.
 - Startup supplies the exact contents of `/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md`; execute its next action without searching for the file again.
-- After state changes, replace that file and refresh Context indexes named by these exact roots: `/Users/maxsartini/Neural Bridge`, `/Users/maxsartini/Neural Bridge/registry/artifacts`, and `/Volumes/onn. Drive/Neural Bridge Artifacts`.
+- After state changes, replace that file and refresh only the exact changed file-backed Context sources and registry records; CodeGraph updates repository code incrementally. Never rescan a whole repository or artifact tree for an incremental change.
 - Every repository path, artifact path, Context source, command input, and generated reference must resolve directly to its current location. Never invent routing aliases.
 - Context Mode and CodeGraph must return the one requested state, source, artifact payload, command, or derived value directly; never return candidates or stop at a pointer.
 - Store heavy artifacts only under the external `artifacts` boundary. Canonical paths encode programme, phase, role, and lifecycle.
