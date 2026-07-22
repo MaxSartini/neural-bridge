@@ -15,6 +15,7 @@ dependencies = [
 
 [project.scripts]
 neural-bridge-index = "neural_bridge.artifact_graph:main"
+neural-bridge-graphify-mcp = "neural_bridge.artifact_graph:serve_mcp"
 neural-bridge-mlflow = "neural_bridge.mlflow_registry:main"
 
 [project.optional-dependencies]

@@ -82,7 +82,6 @@ def _experiment(client: Any, programme: str, artifact_root: Path) -> str:
     if existing is not None:
         return existing.experiment_id
     location = (artifact_root / programme).absolute()
-    location.mkdir(parents=True, exist_ok=True)
     return client.create_experiment(name, artifact_location=location.as_uri())
 
 
@@ -148,6 +147,25 @@ def sync_existing(
     }
 
 
+def status(database: Path = TRACKING_DB) -> dict[str, object]:
+    mlflow = configure_tracking(database)
+    client = mlflow.MlflowClient()
+    experiments = [
+        experiment
+        for experiment in client.search_experiments()
+        if experiment.name != "Default"
+    ]
+    runs = sum(
+        len(client.search_runs([experiment.experiment_id], max_results=10_000))
+        for experiment in experiments
+    )
+    return {
+        "database": str(database),
+        "experiments": len(experiments),
+        "runs": runs,
+    }
+
+
 def start_run(
     programme: str,
     phase: str,
@@ -187,7 +205,7 @@ def log_completed_output(
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("sync-existing",))
+    parser.add_argument("command", choices=("status", "sync-existing"))
     parser.add_argument("--artifact-root", type=Path, default=ARTIFACT_ROOT)
     parser.add_argument("--database", type=Path, default=TRACKING_DB)
     parser.add_argument("--mlflow-artifact-root", type=Path, default=MLFLOW_ARTIFACT_ROOT)
@@ -196,7 +214,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main() -> int:
     args = _parser().parse_args()
-    summary = sync_existing(args.artifact_root, args.database, args.mlflow_artifact_root)
+    summary = (
+        status(args.database)
+        if args.command == "status"
+        else sync_existing(args.artifact_root, args.database, args.mlflow_artifact_root)
+    )
     print(json.dumps(summary, sort_keys=True))
     return 0
 

@@ -13,6 +13,9 @@ from collections.abc import Iterable
 from pathlib import Path
 
 DEFAULT_EXCLUDES = frozenset({"archive", "indexes", "quarantine", "scratch"})
+DEFAULT_REPOSITORY = Path("/Users/maxsartini/Neural Bridge")
+DEFAULT_ARTIFACTS = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
+DEFAULT_INDEX_ROOT = DEFAULT_ARTIFACTS / "indexes" / "graphify"
 
 
 def _artifact_id(relative_path: str) -> str:
@@ -157,6 +160,15 @@ def main() -> int:
     summary = refresh_index(args.repository, args.artifacts, args.index_root)
     print(json.dumps(summary, sort_keys=True))
     return 0
+
+
+def serve_mcp() -> None:
+    """Refresh the merged graph before handing stdio directly to Graphify MCP."""
+    graphify_mcp = shutil.which("graphify-mcp")
+    if graphify_mcp is None:
+        raise RuntimeError("graphify-mcp is not installed")
+    summary = refresh_index(DEFAULT_REPOSITORY, DEFAULT_ARTIFACTS, DEFAULT_INDEX_ROOT)
+    os.execv(graphify_mcp, [graphify_mcp, "--graph", str(summary["merged_graph"])])
 
 
 if __name__ == "__main__":

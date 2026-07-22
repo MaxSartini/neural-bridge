@@ -7,6 +7,7 @@ from neural_bridge.mlflow_registry import (
     phase_inventory,
     phase_roots,
     start_run,
+    status,
     tracking_uri,
 )
 
@@ -63,3 +64,4 @@ def test_native_run_references_external_output_without_copying(tmp_path: Path) -
     assert run.data.params["sources"] == "tribe_cortical"
     assert run.data.metrics["records"] == 1
     assert not list(artifact_root.rglob("result.json"))
+    assert status(database)["runs"] == 1
