@@ -109,10 +109,8 @@ def main() -> int:
     substrate = CanonicalSubstrate.from_repo()
     if args.command == "preregister-event":
         output = (
-            args.output.expanduser().resolve()
-            if args.output
-            else _default_preregistration_output(substrate.repo_root)
-        )
+            args.output or _default_preregistration_output(substrate.repo_root)
+        ).expanduser().resolve()
         features = substrate.load_features(substrate.video_ids, ("diagnostics_only",))
         manifest = build_event_preregistration(substrate.identity, features)
         atomic_write_json(output, manifest)
@@ -131,10 +129,8 @@ def main() -> int:
     if args.command == "calibrate-event":
         preregistration = load_json(args.preregistration.expanduser().resolve())
         output = (
-            args.output.expanduser().resolve()
-            if args.output
-            else _default_calibration_output(substrate.repo_root)
-        )
+            args.output or _default_calibration_output(substrate.repo_root)
+        ).expanduser().resolve()
         all_features = substrate.load_features(substrate.video_ids, ("diagnostics_only",))
         train_mask = benchmark_partition_mask(
             all_features, preregistration["split"], "train"
@@ -167,10 +163,8 @@ def main() -> int:
         calibration = load_json(args.calibration.expanduser().resolve())
         sources = list(dict.fromkeys(args.source))
         output = (
-            args.output.expanduser().resolve()
-            if args.output
-            else _default_screen_output(substrate.repo_root, sources)
-        )
+            args.output or _default_screen_output(substrate.repo_root, sources)
+        ).expanduser().resolve()
         all_features = substrate.load_features(substrate.video_ids, sources)
         train_mask = benchmark_partition_mask(
             all_features, preregistration["split"], "train"
@@ -207,10 +201,8 @@ def main() -> int:
     if args.command == "fit-event-pca":
         preregistration = load_json(args.preregistration.expanduser().resolve())
         output = (
-            args.output.expanduser().resolve()
-            if args.output
-            else _default_pca_output(substrate.repo_root)
-        )
+            args.output or _default_pca_output(substrate.repo_root)
+        ).expanduser().resolve()
         features = substrate.load_features(substrate.video_ids, ("tribe_cortical",))
         result = fit_event_pca_cache(
             features,
@@ -242,13 +234,13 @@ def main() -> int:
         pca_manifest_path = args.pca_manifest or (
             _default_pca_output(substrate.repo_root) / "manifest.json"
         )
-        output = args.output or _default_stage1_output(substrate.repo_root)
+        output = (args.output or _default_stage1_output(substrate.repo_root)).expanduser().resolve()
         preregistration = load_json(preregistration_path.expanduser().resolve())
         calibration = load_json(calibration_path.expanduser().resolve())
         pca_manifest = load_json(pca_manifest_path.expanduser().resolve())
         capacity = probe_stage1_capacity(pca_manifest)
         plan = build_stage1_plan(preregistration, calibration, pca_manifest, capacity)
-        write_stage1_plan(output.expanduser().resolve(), plan)
+        write_stage1_plan(output, plan)
         print(
             json.dumps(
                 {
@@ -262,11 +254,7 @@ def main() -> int:
         return 0
     if args.command != "smoke":
         raise AssertionError("unreachable command")
-    output = (
-        args.output.expanduser().resolve()
-        if args.output
-        else _default_output(substrate.repo_root)
-    )
+    output = (args.output or _default_output(substrate.repo_root)).expanduser().resolve()
     cell = CellSpec(
         target=AROUSAL_SPIKE_1_3S,
         outer_fold=args.fold,

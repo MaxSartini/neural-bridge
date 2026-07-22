@@ -209,7 +209,10 @@ def build_event_preregistration(
             "primary_horizon_stops": (
                 "earliest_lags_reaching_25_50_75_percent_of_benchmark_train_movement_scale"
             ),
-            "washout_horizon": "25_to_75_percent_movement_scale_lags",
+            "window_grid": (
+                "all_start_stop_pairs_across_first_row_25_50_75_percent_movement_lags_"
+                "and_maximum_supported_lag"
+            ),
             "transform": "positive_future_maximum_increase",
             "quantile_grid": list(TARGET_QUANTILE_GRID),
             "quantile_rule": (
@@ -310,10 +313,7 @@ def build_event_preregistration(
                 "causal_temporal_convolution",
                 "gated_multiscale_temporal_convolution",
             ],
-            "training_outputs": [
-                "multi_horizon_continuous_future_movement",
-                "train_thresholded_event_logits",
-            ],
+            "training_outputs": ["train_thresholded_arousal_spike_logits"],
             "ar_contract": {
                 "ar_fit_scope": "same_training_partition",
                 "reuse": "fit_once_per_target_and_fold_then_freeze_for_every_matched_lane",
@@ -331,26 +331,18 @@ def build_event_preregistration(
                     "fallback_is_not_residual_win_evidence": True,
                 },
             },
-            "two_stage_contract": {
+            "spike_contract": {
                 "again_hypothesis": "frozen_ar_predictions_feed_gated_temporal_residual",
                 "veatic_candidate_requires_fresh_training": True,
                 "veatic_evidence_selects_or_rejects": True,
-                "stage_1": (
+                "objective": (
                     "crack_label_assisted_incremental_video_value_over_fresh_veatic_ar_in_"
                     "inner_validation"
                 ),
-                "stage_1_does_not_require_video_only_to_beat_ar": True,
-                "stage_2": (
-                    "after_stage_1_freeze_train_and_select_fresh_veatic_zero_label_"
-                    "candidates"
-                ),
+                "video_only_does_not_have_to_beat_ar_during_spike_discovery": True,
                 "sealed_benchmark_timing": (
-                    "open_future_tails_once_only_after_label_assisted_and_zero_label_"
-                    "configurations_are_frozen"
+                    "open_future_tails_once_only_after_the_spike_winner_is_frozen"
                 ),
-                "production_eligibility_requires_stage_2_video_only_inference": True,
-                "teacher_distillation_default": False,
-                "reason": "again_zero_label_distillation_and_self_rollout_failed_gates",
             },
             "transfer_boundary": (
                 "no_again_head_weights_dimensions_gates_inputs_losses_or_numeric_configuration"
@@ -363,15 +355,14 @@ def build_event_preregistration(
             ),
             "stability_seed_panel": list(range(20_260_801, 20_260_810)),
             "stability_seed_policy": (
-                "fixed_before_training_opened_only_after_winner_freeze_never_used_for_tuning"
+                "fixed_before_training_opened_after_shortlist_before_controls_and_winner_freeze"
             ),
             "freshness_policy": "refit_weights_and_pca_without_changing_declared_seed_ids",
             "checkpoint_ensembles": [[0, 1, 2], [3, 4, 5], [6, 7, 8]],
             "ensemble_rule": "equal_weight_average_no_member_or_weight_selection",
             "numeric_configuration_source": "veatic_2p1_only",
             "numeric_configuration_policy": (
-                "seal_a_child_training_plan_after_veatic_width_support_and_memory_calibration_"
-                "before_any_learned_head_result"
+                "freeze_each_experiment_matrix_only_after_the_preceding_veatic_gate_completes"
             ),
             "again_numeric_configuration_reuse": False,
             "checkpoint_metric": "inner_average_precision_skill_delta_vs_frozen_ar",
@@ -410,12 +401,13 @@ def build_event_preregistration(
         },
         "selection": {
             "stage_order": [
-                "linear_representation_screen",
-                "label_assisted_residual_head_screen",
-                "label_assisted_multi_seed_inner_validation_and_freeze",
-                "zero_label_candidate_screen_after_label_assisted_freeze",
-                "zero_label_multi_seed_inner_validation_and_freeze",
-                "single_sealed_benchmark_test_of_both_frozen_stages",
+                "target_and_fresh_ar_discovery",
+                "representation_and_pca_experiments",
+                "model_and_training_experiments",
+                "fixed_fold_and_seed_confirmation",
+                "matched_controls_and_no_harm",
+                "winner_selection_and_freeze",
+                "single_sealed_benchmark_confirmation",
             ],
             "primary_key": "mean_inner_average_precision_skill_delta_vs_frozen_ar",
             "tie_break": [
@@ -432,9 +424,8 @@ def build_event_preregistration(
             "paired_cluster_bootstrap_lower_ci_vs_strongest_matched_control_above_zero": True,
             "positive_benchmark_test_slice_delta_minimum": "4_of_5",
             "seed_group_sign_test": "one_sided_exact_p_below_0p05",
-            "single_target_frozen_before_zero_label_conversion": True,
-            "label_assisted_configuration_frozen_before_zero_label_conversion": True,
-            "both_stage_configurations_frozen_before_benchmark_test": True,
+            "single_spike_target_frozen_before_benchmark_test": True,
+            "spike_configuration_frozen_before_benchmark_test": True,
             "ensemble_uplift_median_above_zero": True,
             "secondary_slice_no_harm_margin": (
                 "freeze_from_veatic_train_video_cluster_uncertainty_before_benchmark"
@@ -580,8 +571,13 @@ def calibrate_event_preregistration(
     max_lag_rows = int(math.floor(maximum_seconds * row_hz))
     lags, movement = _movement_curve(features, labels, max_lag_rows)
     short, medium, long = _movement_milestones(lags, movement)
-    windows = ((1, short), (1, medium), (max(1, short), long))
-    unique_windows = tuple(dict.fromkeys(window for window in windows if window[0] <= window[1]))
+    anchors = tuple(dict.fromkeys((1, short, medium, long, int(lags[-1]))))
+    unique_windows = tuple(
+        (start, stop)
+        for start_index, start in enumerate(anchors)
+        for stop in anchors[start_index:]
+        if start <= stop
+    )
     folds = split["inner_grouped_video_folds"]
     targets = []
     for start, stop in unique_windows:
@@ -632,6 +628,7 @@ def calibrate_event_preregistration(
             "lag_seconds": (lags / row_hz).tolist(),
             "median_absolute_change": movement.tolist(),
             "milestone_rows": [short, medium, long],
+            "window_anchor_rows": list(anchors),
         },
         "target_hypotheses": targets,
         "target_selection": (

@@ -111,13 +111,12 @@ def test_preregistration_locks_label_blind_temporal_benchmark_split() -> None:
     assert first["representations"]["pca"]["fixed_width_candidates"] == [64, 128, 256, 512]
     assert "inner_validation" in first["representations"]["pca"]["winner"]
     assert first["representations"]["supervised_projection"]["pca_is_baseline_not_ceiling"]
-    two_stage = first["heads"]["two_stage_contract"]
-    assert two_stage["teacher_distillation_default"] is False
-    assert two_stage["stage_1_does_not_require_video_only_to_beat_ar"] is True
-    assert "label_assisted" in two_stage["stage_1"]
-    assert "zero_label" in two_stage["stage_2"]
+    spike = first["heads"]["spike_contract"]
+    assert spike["video_only_does_not_have_to_beat_ar_during_spike_discovery"] is True
+    assert "label_assisted" in spike["objective"]
+    assert first["heads"]["training_outputs"] == ["train_thresholded_arousal_spike_logits"]
     assert first["selection"]["stage_order"][-1].startswith("single_sealed")
-    assert first["heads"]["two_stage_contract"]["veatic_evidence_selects_or_rejects"] is True
+    assert spike["veatic_evidence_selects_or_rejects"] is True
     assert first["training"]["again_numeric_configuration_reuse"] is False
     assert first["training"]["checkpoint_eligibility"].endswith("epoch_1")
     assert first["training"]["minimum_epochs_before_termination"] == 50
