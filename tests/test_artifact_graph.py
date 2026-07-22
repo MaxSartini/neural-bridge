@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from neural_bridge.artifact_graph import build_artifact_graph, serve_mcp
+from neural_bridge.artifact_graph import _watch_filter, build_artifact_graph, serve_mcp
 
 
 def test_build_artifact_graph_is_exact_and_excludes_inactive_roots(tmp_path: Path) -> None:
@@ -35,11 +35,44 @@ def test_serve_mcp_refreshes_before_exec(monkeypatch) -> None:
         lambda *_: {"merged_graph": "/graph.json"},
     )
     executed = []
+
+    class Process:
+        def poll(self):
+            return None
+
+        def send_signal(self, _number):
+            return None
+
+        def wait(self):
+            return 0
+
+    class Thread:
+        def __init__(self, **_kwargs):
+            pass
+
+        def start(self):
+            pass
+
+        def join(self, **_kwargs):
+            pass
+
     monkeypatch.setattr(
-        "neural_bridge.artifact_graph.os.execv",
-        lambda executable, arguments: executed.append((executable, arguments)),
+        "neural_bridge.artifact_graph.subprocess.Popen",
+        lambda arguments: executed.append(arguments) or Process(),
     )
+    monkeypatch.setattr("neural_bridge.artifact_graph.threading.Thread", Thread)
+    monkeypatch.setattr("neural_bridge.artifact_graph.signal.signal", lambda *_: None)
 
-    serve_mcp()
+    assert serve_mcp() == 0
 
-    assert executed == [("/bin/mcp", ["/bin/mcp", "--graph", "/graph.json"])]
+    assert executed == [["/bin/mcp", "--graph", "/graph.json"]]
+
+
+def test_watch_filter_covers_both_roots_without_index_feedback() -> None:
+    assert _watch_filter(None, "/Users/maxsartini/Neural Bridge/src/model.py")
+    assert _watch_filter(None, "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/result.json")
+    assert not _watch_filter(None, "/Users/maxsartini/Neural Bridge/.git/index")
+    assert not _watch_filter(
+        None,
+        "/Volumes/onn. Drive/Neural Bridge Artifacts/indexes/graphify/merged/graph.json",
+    )

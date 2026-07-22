@@ -76,7 +76,7 @@ The shared learned-head implementation supports PyTorch on CPU or CUDA and MLX o
 
 ## Heavy artifacts
 
-Large caches, fitted PCA, checkpoints, score arrays, and model weights live outside Git under the external artifact root. [`registry/artifacts/`](../registry/artifacts/) records their canonical relative paths, file counts, sizes, and tree hashes. The ignored local `artifacts` path may point to that root.
+Large caches, fitted PCA, checkpoints, score arrays, and model weights live under `/Volumes/onn. Drive/Neural Bridge Artifacts`. Graphify indexes that tree together with repository code, MLflow tracks experiments, and the ignored local `artifacts` symlink resolves to that exact root.
 
 ## Claim discipline
 

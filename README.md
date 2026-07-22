@@ -327,7 +327,6 @@ Those boundaries make the result defensible. They do not make it small.
 | [Phase 7 grouped closure](studies/again/phase-07-continuous/grouped-confirmation/) | the `420/420` evaluation-cell, `15/15` fold-checkpoint-group report and machine evidence |
 | [Locked zero-label closure](studies/again/zero-label/locked-confirmation/) | the prospectively locked 299-video report, audits, controls, and machine verdict |
 | [`src/neural_bridge/`](src/neural_bridge/) | the single current CPU/CUDA/MLX-capable implementation |
-| [`registry/artifacts/`](registry/artifacts/) | hashes and provenance for heavy external artifacts |
 
 ## Recompute representative closures
 

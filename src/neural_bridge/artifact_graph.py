@@ -7,8 +7,11 @@ import hashlib
 import json
 import os
 import shutil
+import signal
 import subprocess
+import sys
 import tempfile
+import threading
 from collections.abc import Iterable
 from pathlib import Path
 
@@ -16,6 +19,9 @@ DEFAULT_EXCLUDES = frozenset({"archive", "indexes", "quarantine", "scratch"})
 DEFAULT_REPOSITORY = Path("/Users/maxsartini/Neural Bridge")
 DEFAULT_ARTIFACTS = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
 DEFAULT_INDEX_ROOT = DEFAULT_ARTIFACTS / "indexes" / "graphify"
+REPOSITORY_WATCH_EXCLUDES = frozenset(
+    {".git", ".mypy_cache", ".pytest_cache", ".ruff_cache", ".venv", "__pycache__", "artifacts"}
+)
 
 
 def _artifact_id(relative_path: str) -> str:
@@ -162,13 +168,62 @@ def main() -> int:
     return 0
 
 
-def serve_mcp() -> None:
-    """Refresh the merged graph before handing stdio directly to Graphify MCP."""
+def _watch_filter(_change: object, changed: str) -> bool:
+    path = Path(changed)
+    if path.name == ".DS_Store":
+        return False
+    try:
+        relative = path.relative_to(DEFAULT_REPOSITORY)
+    except ValueError:
+        relative = None
+    if relative is not None:
+        return not any(part in REPOSITORY_WATCH_EXCLUDES for part in relative.parts)
+    try:
+        relative = path.relative_to(DEFAULT_ARTIFACTS)
+    except ValueError:
+        return False
+    return not relative.parts or relative.parts[0] not in DEFAULT_EXCLUDES
+
+
+def _watch_and_refresh(stop_event: threading.Event) -> None:
+    from watchfiles import watch
+
+    for _changes in watch(
+        DEFAULT_REPOSITORY,
+        DEFAULT_ARTIFACTS,
+        watch_filter=_watch_filter,
+        debounce=120_000,
+        step=5_000,
+        stop_event=stop_event,
+    ):
+        try:
+            refresh_index(DEFAULT_REPOSITORY, DEFAULT_ARTIFACTS, DEFAULT_INDEX_ROOT)
+        except Exception as error:  # pragma: no cover - operational recovery path
+            print(f"Graphify refresh failed: {error}", file=sys.stderr, flush=True)
+
+
+def serve_mcp() -> int:
+    """Keep the merged graph current while supervising Graphify's stdio server."""
     graphify_mcp = shutil.which("graphify-mcp")
     if graphify_mcp is None:
         raise RuntimeError("graphify-mcp is not installed")
     summary = refresh_index(DEFAULT_REPOSITORY, DEFAULT_ARTIFACTS, DEFAULT_INDEX_ROOT)
-    os.execv(graphify_mcp, [graphify_mcp, "--graph", str(summary["merged_graph"])])
+    stop_event = threading.Event()
+    watcher = threading.Thread(target=_watch_and_refresh, args=(stop_event,), daemon=True)
+    watcher.start()
+    process = subprocess.Popen([graphify_mcp, "--graph", str(summary["merged_graph"])])
+
+    def forward_signal(number: int, _frame: object) -> None:
+        if process.poll() is None:
+            process.send_signal(number)
+
+    signal.signal(signal.SIGINT, forward_signal)
+    signal.signal(signal.SIGTERM, forward_signal)
+    try:
+        return process.wait()
+    finally:
+        stop_event.set()
+        watcher.join(timeout=1)
 
 
 if __name__ == "__main__":

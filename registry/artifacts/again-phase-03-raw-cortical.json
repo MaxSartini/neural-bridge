@@ -1,9 +1,0 @@
-{
-  "artifact_id": "again-phase-03-raw-cortical",
-  "classification": "external-study-collection",
-  "moved_at": "2026-07-17T21:26:35Z",
-  "items": [
-    {"path": "runs/again/phase-03-raw-cortical/preliminary-20260625", "role": "preliminary-raw-benchmark", "files": 5, "size_bytes": 151717, "sha256_tree": "6c2074f8c1418a214964252611a49495c3343aabeabb3123737459c01fb24710"},
-    {"path": "runs/again/phase-03-raw-cortical/final-benchmark-20260625", "role": "final-raw-benchmark", "files": 5, "size_bytes": 403271, "sha256_tree": "0548c386a1d8a53d212f7cf0cb8b7ac55fb4fcebb6f185e0d5f5c946ab93637b"}
-  ]
-}

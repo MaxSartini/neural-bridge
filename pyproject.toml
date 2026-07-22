@@ -11,6 +11,7 @@ dependencies = [
     "scikit-learn>=1.5",
     "scipy>=1.11",
     "sqlalchemy>=1.4,<3",
+    "watchfiles>=1,<2",
 ]
 
 [project.scripts]
