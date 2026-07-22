@@ -1,5 +1,8 @@
 # Neural Bridge Repository Contract
 
+- VEATIC, AGAIN, zero-label, training, and evaluation continuations are scientific work, never `neural-bridge-app` work. Run one canonical-handoff search; when current, treat its exact next action as the plan and execute it unless evidence makes it stale, incomplete, or unsafe.
+- Before implementation, allow at most 3 discovery calls and one primary read tool per question: CodeGraph for code, Context-Mode for indexed/derived evidence, or shell for small fixed output. Do not cross-check the same fact, hunt undeclared artifacts, or follow up without a concrete missing/stale detail.
+- Give one short startup update, then only material results, decisions, blockers, or 60-second progress. Do not enumerate skills, explain routing/tools, or repeat plans.
 - This repository is the new canonical private Git repository under construction.
 - The existing internal and external project roots are forensic source material until migration closes.
 - Never infer absence from GitHub: audit local, ignored, untracked, and external material.

@@ -183,8 +183,9 @@ self-rollout attempts as warnings rather than defaults.
 
 ## Exact next action
 
-Calculate support-aware capacity bounds and memory-safe neural batches from the completed
-five-fold PCA cache, then seal the child training plan. Use the cached projections
+Read target support directly from `event-spike-v1-calibration.json` and PCA evidence directly
+from `cortical-pca-v1/manifest.json`. No neural-memory artifact exists; run one bounded local
+capacity/batch probe instead of searching for one, then seal the child training plan. Use the cached projections
 to screen the 18 VEATIC targets with fresh label-assisted residual families and matched
 video-only/control lanes. Freeze the stable target, representation, and label-assisted head
 before beginning zero-label conversion; keep every last-30% label closed until both stages
