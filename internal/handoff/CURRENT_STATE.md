@@ -8,6 +8,7 @@ Updated: 2026-07-22
 - Train-only calibration produced 90 arousal-spike hypotheses: all 15 start/stop pairs across VEATIC's 0.5 s, 1 s, 3 s, 5 s, and 7.5 s movement anchors crossed with six fold-supported event quantiles. No target, representation, PCA width, model, or training recipe has won.
 - Five fold-owned, label-blind cortical PCA bases are verified. Candidate widths are fold 0 `[8,20,59,64,128,184,256,512]`, fold 1 `[8,20,59,64,128,189,256,512]`, fold 2 `[8,20,59,64,128,186,256,512]`, fold 3 `[8,20,57,64,128,179,256,512]`, and fold 4 `[8,20,59,64,128,186,256,512]`.
 - The full event screen is complete at `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/event-target-screen/tribe-cortical-tribe-grouped-mean-vjepa-temporal-mean.json`: schema `veatic21_event_target_screen_v12`, 21,600 records, all 5 folds, all 90 targets, all 3 sources, freshly fitted matched AR, and no benchmark-test label access. It remains diagnostic and no winner is frozen.
+- MLflow exposes 57 current result bundles with standardized scientific metrics and matched raw/AR comparisons. Pre-rebuild VEATIC 2.1 `again-parity`, `initial-heads`, and `optuna-50` runs are excluded from current evidence.
 - The last confirmed point is the completed spike target/representation screen. The unresolved gate is selecting defensible target and representation families from inner-fold evidence, then sealing the full fold-owned PCA-width experiment.
 
 ## Fixed constraints

@@ -13,27 +13,33 @@ from collections import defaultdict
 from collections.abc import Iterable, Mapping
 from contextlib import AbstractContextManager
 from dataclasses import dataclass
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 ARTIFACT_ROOT = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
 TRACKING_DB = ARTIFACT_ROOT / "indexes" / "mlflow" / "mlflow.db"
 MLFLOW_ARTIFACT_ROOT = ARTIFACT_ROOT / "runs" / "mlflow"
-IMPORT_SCHEMA = "neural_bridge_scientific_results_v1"
+IMPORT_SCHEMA = "neural_bridge_scientific_results_v4"
+_SUPERSEDED_PHASES = {
+    ("veatic-2.1", "again-parity"),
+    ("veatic-2.1", "initial-heads"),
+    ("veatic-2.1", "optuna-50"),
+}
+_SUPERSEDED_RESULTS = {
+    ARTIFACT_ROOT
+    / "runs/veatic-2.1/event-target-screen/tribe_grouped_mean-vjepa_temporal_mean.json",
+}
 
 
 @dataclass
 class MetricStats:
     count: int = 0
     total: float = 0.0
-    minimum: float = math.inf
-    maximum: float = -math.inf
 
     def add(self, value: float) -> None:
         self.count += 1
         self.total += value
-        self.minimum = min(self.minimum, value)
-        self.maximum = max(self.maximum, value)
 
 
 @dataclass
@@ -76,69 +82,16 @@ _IGNORED_EVIDENCE_PARTS = {
     "raw_cache",
     "video_windows",
 }
-_METRIC_TOKENS = (
-    "accuracy",
-    "average_precision",
-    "auprc",
-    "auroc",
-    "brier",
-    "correlation",
-    "delta",
-    "duration",
-    "elapsed",
-    "error",
-    "f1",
-    "gain",
-    "lift",
-    "loss",
-    "mae",
-    "mse",
-    "pearson",
-    "pr_auc",
-    "precision",
-    "prevalence",
-    "r2",
-    "recall",
-    "rmse",
-    "roc_auc",
-    "skill",
-    "spearman",
-    "throughput",
-    "uplift",
-)
-_DECISION_TOKENS = (
-    "audit_pass",
-    "beats_",
-    "credible",
-    "gate",
-    "no_harm",
-    "passed",
-    "positive_fold",
-    "promotable",
-    "proven",
-    "stable",
-    "verification_pass",
-    "wins_",
-)
-_GENERIC_STAT_KEYS = {"count", "max", "mean", "median", "min", "n", "std", "wins"}
-_PARAMETER_TOKENS = (
-    "alpha",
-    "architecture",
-    "candidate",
-    "checkpoint",
-    "control",
-    "epoch",
-    "fold",
-    "form",
-    "head",
-    "lane",
-    "model",
-    "pca",
-    "representation",
-    "seed",
-    "source",
-    "target",
-    "threshold",
+_METRIC_BASES = (
+    ("ranking.top_5pct_lift", ("top_5pct_lift", "top5_lift")),
+    ("event.average_precision_skill", ("average_precision_skill", "skill_delta")),
+    ("event.pr_auc", ("pr_auc", "auprc", "average_precision")),
+    ("event.roc_auc", ("roc_auc", "auroc")),
+    ("event.prevalence", ("prevalence",)),
+    ("continuous.spearman", ("spearman",)),
+    ("continuous.pearson", ("pearson", "correlation")),
+    ("continuous.mae", ("mae",)),
+    ("continuous.rmse", ("rmse",)),
 )
 
 
@@ -147,30 +100,106 @@ def tracking_uri(database: Path = TRACKING_DB) -> str:
     return f"sqlite:///{database}"
 
 
+@lru_cache(maxsize=4096)
 def _normalise_key(value: str) -> str:
     key = re.sub(r"[^a-zA-Z0-9_.-]+", "_", value).strip("_.-").lower()
     return re.sub(r"_+", "_", key)[:240]
 
 
-def _is_metric_key(key: str, parents: tuple[str, ...]) -> bool:
-    context = ".".join((*parents[-2:], key)).lower()
-    return any(token in context for token in (*_METRIC_TOKENS, *_DECISION_TOKENS)) or (
-        key.lower() in _GENERIC_STAT_KEYS
-        and any(token in context for token in ("vs_", "control", "real", "ar", "primary"))
+@lru_cache(maxsize=8192)
+def _canonical_decision_metric(key: str, parents: tuple[str, ...]) -> str | None:
+    context = _normalise_key(".".join((*parents, key)))
+    if "audit_pass" in context or "verification_pass" in context:
+        return "quality.audit_pass"
+    if "no_harm" in context:
+        return "quality.no_harm_pass"
+    if "leakage" in context and ("pass" in context or "check" in context):
+        return "quality.leakage_pass"
+    if "promotable" in context:
+        return "selection.promotable"
+    if "credible" in context:
+        return "selection.credible"
+    if key == "passed" and not parents:
+        return "selection.passed"
+    if "checks" in parents and isinstance(key, str):
+        return "quality.check_pass_rate"
+    return None
+
+
+@lru_cache(maxsize=8192)
+def _canonical_metric_name(key: str, parents: tuple[str, ...]) -> str | None:
+    decision = _canonical_decision_metric(key, parents)
+    if decision is not None:
+        return decision
+    raw = _normalise_key(".".join((*parents[-2:], key)))
+    if "train_loss" in raw:
+        return "training.train_loss"
+    if "validation_loss" in raw or "val_loss" in raw:
+        return "training.validation_loss"
+    if "duration_seconds" in raw or "elapsed_seconds" in raw:
+        return "runtime.duration_seconds"
+    base = next(
+        (name for name, aliases in _METRIC_BASES if any(alias in raw for alias in aliases)),
+        None,
     )
+    if base is None:
+        return None
+    stat = next(
+        (name for name in ("std", "min", "max") if re.search(rf"(^|[._]){name}[._]", raw)),
+        None,
+    )
+    if stat is not None:
+        return f"stability.{base}.{stat}"
+    if any(token in raw for token in ("minus_raw", "vs_raw", "delta_vs_raw")):
+        lane = "delta_vs_raw"
+    elif any(token in raw for token in ("minus_best_control", "vs_best_control", "vs_control")):
+        lane = "delta_vs_control"
+    elif any(token in raw for token in ("minus_ar", "vs_ar", "delta_vs_frozen_ar")):
+        lane = "delta_vs_ar"
+    elif raw.startswith("ar_") or ".ar_" in raw or "frozen_ar" in raw:
+        lane = "baseline_ar"
+    elif raw.startswith("raw_") or ".raw_" in raw:
+        lane = "baseline_raw"
+    elif "control" in raw:
+        lane = "baseline_control"
+    elif "validation" in raw:
+        lane = "validation"
+    else:
+        lane = "model"
+    return f"{lane}.{base}"
 
 
-def _metric_name(key: str, parents: tuple[str, ...]) -> str:
-    normalised = _normalise_key(key)
-    if key.lower() not in _GENERIC_STAT_KEYS:
-        return normalised
-    parent = next((part for part in reversed(parents) if part not in {"metrics", "summary"}), "")
-    return _normalise_key(f"{parent}.{key}")
-
-
-def _is_parameter_key(key: str) -> bool:
-    lowered = key.lower()
-    return any(token in lowered for token in _PARAMETER_TOKENS)
+@lru_cache(maxsize=1024)
+def _canonical_parameter_key(key: str) -> str | None:
+    raw = _normalise_key(key)
+    exact = {
+        "architecture": "architecture",
+        "best_architecture": "architecture",
+        "best_epoch": "best_epoch",
+        "candidate": "candidate",
+        "checkpoint_min_epoch": "checkpoint_min_epoch",
+        "control_type": "control",
+        "epochs_run": "epochs_run",
+        "fold": "fold",
+        "form": "form",
+        "head": "head",
+        "inner_fold": "inner_fold",
+        "max_epochs": "max_epochs",
+        "min_epochs": "min_epochs",
+        "model": "model",
+        "model_head": "head",
+        "outer_fold": "outer_fold",
+        "pca_variance_target": "pca_variance_target",
+        "pca_width": "pca_width",
+        "representation": "representation",
+        "ridge_alpha": "regularization_alpha",
+        "seed": "seed",
+        "source": "representation",
+        "target": "target",
+        "target_name": "target",
+        "threshold": "threshold",
+    }
+    return exact.get(raw)
 
 
 def _collect_parameter(
@@ -178,12 +207,13 @@ def _collect_parameter(
     value: object,
     parameters: dict[str, ParameterValue],
 ) -> None:
+    canonical = _canonical_parameter_key(key)
     if (
-        _is_parameter_key(key)
+        canonical is not None
         and isinstance(value, (str, int, float))
         and not isinstance(value, bool)
     ):
-        parameters[_normalise_key(key)].add(value)
+        parameters[canonical].add(value)
 
 
 def _collect_json_values(
@@ -196,12 +226,13 @@ def _collect_json_values(
     if isinstance(value, Mapping):
         for raw_key, item in value.items():
             key = str(raw_key)
-            if isinstance(item, bool) and _is_metric_key(key, parents):
-                values[_metric_name(key, parents)].add(float(item))
+            metric_name = _canonical_metric_name(key, parents)
+            if isinstance(item, bool) and metric_name is not None:
+                values[metric_name].add(float(item))
             elif isinstance(item, (int, float)) and not isinstance(item, bool):
                 number = float(item)
-                if math.isfinite(number) and _is_metric_key(key, parents):
-                    values[_metric_name(key, parents)].add(number)
+                if math.isfinite(number) and metric_name is not None:
+                    values[metric_name].add(number)
                 elif parameters is not None:
                     _collect_parameter(key, item, parameters)
             elif isinstance(item, str) and parameters is not None:
@@ -222,6 +253,8 @@ def _evidence_files(root: Path) -> Iterable[Path]:
     for path in sorted(root.rglob("*")):
         if not path.is_file() or path.is_symlink() or path.suffix.lower() not in {".csv", ".json"}:
             continue
+        if path in _SUPERSEDED_RESULTS:
+            continue
         relative_parts = set(path.relative_to(root).parts[:-1])
         if relative_parts & _IGNORED_EVIDENCE_PARTS:
             continue
@@ -233,31 +266,60 @@ def _evidence_files(root: Path) -> Iterable[Path]:
         yield path
 
 
+def _bundle_root(phase: Path, source: Path) -> Path:
+    relative = source.relative_to(phase)
+    directories = relative.parts[:-1]
+    markers = {"diagnostics", "metrics", "promotion", "score_parts", "training_curves"}
+    for index, part in enumerate(directories):
+        if part in markers:
+            return phase.joinpath(*directories[:index])
+    return source if source.parent == phase else source.parent
+
+
+def _evidence_bundles(phase: Path) -> dict[Path, tuple[Path, ...]]:
+    grouped: dict[Path, list[Path]] = defaultdict(list)
+    for source in _evidence_files(phase):
+        grouped[_bundle_root(phase, source)].append(source)
+    return {root: tuple(paths) for root, paths in sorted(grouped.items())}
+
+
 def _collect_csv_values(
     path: Path,
     values: dict[str, MetricStats],
     parameters: dict[str, ParameterValue] | None = None,
 ) -> None:
     with path.open(newline="", encoding="utf-8-sig") as handle:
-        for row in csv.DictReader(handle):
-            for raw_key, raw_value in row.items():
-                key = raw_key or ""
+        reader = csv.DictReader(handle)
+        metric_fields = {
+            field: metric
+            for field in reader.fieldnames or ()
+            if (metric := _canonical_metric_name(field, (path.stem,))) is not None
+        }
+        parameter_fields = {
+            field: parameter
+            for field in reader.fieldnames or ()
+            if (parameter := _canonical_parameter_key(field)) is not None
+        }
+        for row in reader:
+            for key, metric_name in metric_fields.items():
+                raw_value = row.get(key)
                 if not raw_value:
-                    continue
-                if not _is_metric_key(key, (path.stem,)):
-                    if parameters is not None:
-                        _collect_parameter(key, raw_value, parameters)
                     continue
                 try:
                     number = float(raw_value)
                 except ValueError:
                     continue
                 if math.isfinite(number):
-                    values[_metric_name(key, (path.stem,))].add(number)
+                    values[metric_name].add(number)
+            if parameters is not None:
+                for key in parameter_fields:
+                    raw_value = row.get(key)
+                    if raw_value:
+                        _collect_parameter(key, raw_value, parameters)
 
 
 def scientific_metrics_from_object(value: object) -> dict[str, float]:
-    """Return transparent min/mean/max summaries of genuine scientific measures."""
+    """Return standardized summaries of genuine scientific measures."""
     values: dict[str, MetricStats] = defaultdict(MetricStats)
     _collect_json_values(value, values)
     return _summarise_metric_values(values)
@@ -268,13 +330,7 @@ def _summarise_metric_values(values: Mapping[str, MetricStats]) -> dict[str, flo
     for key, observations in sorted(values.items()):
         if observations.count == 0:
             continue
-        if observations.count == 1:
-            metrics[key] = observations.total
-            continue
-        metrics[f"{key}.min"] = observations.minimum
-        metrics[f"{key}.mean"] = observations.total / observations.count
-        metrics[f"{key}.max"] = observations.maximum
-        metrics[f"{key}.n"] = float(observations.count)
+        metrics[key] = observations.total / observations.count
     return metrics
 
 
@@ -298,11 +354,42 @@ def scientific_run_data_from_file(path: Path) -> tuple[dict[str, float], dict[st
     return _summarise_metric_values(values), invariant_parameters
 
 
+def scientific_run_data_from_files(
+    paths: Iterable[Path],
+) -> tuple[dict[str, float], dict[str, str]]:
+    """Combine the result tables belonging to one executed experiment."""
+    values: dict[str, MetricStats] = defaultdict(MetricStats)
+    parameters: dict[str, ParameterValue] = defaultdict(ParameterValue)
+    for path in paths:
+        if path.suffix.lower() == ".json":
+            _collect_json_values(
+                json.loads(path.read_text(encoding="utf-8")),
+                values,
+                parameters=parameters,
+            )
+        elif path.suffix.lower() == ".csv":
+            _collect_csv_values(path, values, parameters)
+    invariant_parameters = {
+        key: value.value
+        for key, value in sorted(parameters.items())
+        if not value.varies and value.value is not None
+    }
+    return _summarise_metric_values(values), invariant_parameters
+
+
 def _file_sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         while chunk := handle.read(1024 * 1024):
             digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _bundle_sha256(root: Path, sources: Iterable[Path]) -> str:
+    digest = hashlib.sha256()
+    for source in sources:
+        digest.update(str(source.relative_to(root) if root.is_dir() else source.name).encode())
+        digest.update(_file_sha256(source).encode())
     return digest.hexdigest()
 
 
@@ -338,8 +425,64 @@ def phase_roots(artifact_root: Path = ARTIFACT_ROOT) -> list[tuple[str, Path]]:
         phases.extend(
             (programme.name, phase)
             for phase in sorted(path for path in programme.iterdir() if path.is_dir())
+            if (programme.name, phase.name) not in _SUPERSEDED_PHASES
         )
     return phases
+
+
+def _evidence_level(path: Path) -> str:
+    context = path.as_posix().lower()
+    if any(token in context for token in ("confirmation", "final-benchmark", "locked")):
+        return "confirmation"
+    if any(token in context for token in ("screen", "discovery", "ablation")):
+        return "discovery"
+    return "development"
+
+
+def _task(metrics: Mapping[str, float], parameters: Mapping[str, str]) -> str:
+    target = parameters.get("target", "").lower()
+    if "valence" in target:
+        return "valence"
+    if any(".event." in key for key in metrics):
+        return "spike"
+    if any(".continuous." in key for key in metrics):
+        return "continuous"
+    return "other"
+
+
+def _comparison_metrics(metrics: Mapping[str, float]) -> tuple[str | None, dict[str, float]]:
+    candidates = []
+    for priority, measure in enumerate(("continuous.spearman", "event.pr_auc")):
+        score = metrics.get(f"model.{measure}", metrics.get(f"validation.{measure}"))
+        if score is None:
+            continue
+        matched_baselines = sum(
+            f"baseline_{lane}.{measure}" in metrics for lane in ("raw", "ar", "control")
+        )
+        candidates.append((matched_baselines, priority, measure))
+    primary = max(candidates)[2] if candidates else None
+    if primary is None:
+        return None, {}
+    score = metrics.get(f"model.{primary}", metrics.get(f"validation.{primary}"))
+    raw = metrics.get(f"baseline_raw.{primary}")
+    ar = metrics.get(f"baseline_ar.{primary}")
+    control = metrics.get(f"baseline_control.{primary}")
+    comparison = {
+        key: value
+        for key, value in {
+            "comparison.model": score,
+            "comparison.raw": raw,
+            "comparison.ar": ar,
+            "comparison.best_control": control,
+            "comparison.delta_vs_raw": None if score is None or raw is None else score - raw,
+            "comparison.delta_vs_ar": None if score is None or ar is None else score - ar,
+            "comparison.delta_vs_best_control": (
+                None if score is None or control is None else score - control
+            ),
+        }.items()
+        if value is not None
+    }
+    return primary, comparison
 
 
 def configure_tracking(database: Path = TRACKING_DB) -> Any:
@@ -382,11 +525,11 @@ def sync_existing(
                 max_results=10_000,
             )
         }
-        for source_path in _evidence_files(phase):
-            source = str(source_path.absolute())
+        for bundle_root, source_paths in _evidence_bundles(phase).items():
+            source = str(bundle_root.absolute())
             existing = existing_by_source.get(source)
             try:
-                digest = _file_sha256(source_path)
+                digest = _bundle_sha256(bundle_root, source_paths)
             except OSError:
                 continue
             if (
@@ -398,25 +541,31 @@ def sync_existing(
                 updated += 1
                 continue
             try:
-                scientific_metrics, parameters = scientific_run_data_from_file(source_path)
+                scientific_metrics, parameters = scientific_run_data_from_files(source_paths)
             except (OSError, UnicodeError, csv.Error, json.JSONDecodeError):
                 continue
             if not scientific_metrics:
                 continue
+            primary_measure, comparison = _comparison_metrics(scientific_metrics)
+            scientific_metrics.update(comparison)
             active_sources[experiment_id].add(source)
             if existing is not None:
                 client.delete_run(existing.info.run_id)
                 existing = None
-            relative = source_path.relative_to(phase).as_posix()
+            relative = bundle_root.relative_to(phase).as_posix()
             tags = {
                 "mlflow.runName": f"{phase.name} / {relative}"[-240:],
                 "neural_bridge.programme": programme,
                 "neural_bridge.phase": phase.name,
                 "neural_bridge.phase_root": str(phase.absolute()),
                 "neural_bridge.source_path": source,
+                "neural_bridge.source_file_count": str(len(source_paths)),
                 "neural_bridge.source_sha256": digest,
                 "neural_bridge.import_kind": "existing_result",
                 "neural_bridge.import_schema": IMPORT_SCHEMA,
+                "neural_bridge.evidence_level": _evidence_level(bundle_root),
+                "neural_bridge.task": _task(scientific_metrics, parameters),
+                "neural_bridge.primary_measure": primary_measure or "none",
                 "neural_bridge.payload_policy": "reference_in_place",
                 "neural_bridge.science_metric_count": str(len(scientific_metrics)),
             }

@@ -19,6 +19,7 @@ from neural_bridge.mlflow_registry import (
 def test_phase_roots_excludes_mlflow_storage(tmp_path: Path) -> None:
     (tmp_path / "runs" / "again" / "phase-01").mkdir(parents=True)
     (tmp_path / "runs" / "mlflow" / "again").mkdir(parents=True)
+    (tmp_path / "runs" / "veatic-2.1" / "optuna-50").mkdir(parents=True)
 
     assert phase_roots(tmp_path) == [("again", tmp_path / "runs" / "again" / "phase-01")]
 
@@ -40,12 +41,10 @@ def test_scientific_metrics_exclude_inventory_and_summarise_results(tmp_path: Pa
     json_metrics, _ = scientific_run_data_from_file(phase / "result.json")
     csv_metrics, _ = scientific_run_data_from_file(phase / "fold_metrics.csv")
 
-    assert json_metrics["real_spearman"] == 0.4
-    assert json_metrics["audit_pass"] == 1.0
-    assert json_metrics["pr_auc.min"] == 0.2
-    assert json_metrics["pr_auc.max"] == 0.4
-    assert csv_metrics["pr_auc.min"] == 0.3
-    assert csv_metrics["pr_auc.max"] == 0.5
+    assert json_metrics["model.continuous.spearman"] == 0.4
+    assert json_metrics["quality.audit_pass"] == 1.0
+    assert json_metrics["model.event.pr_auc"] == pytest.approx(0.3)
+    assert csv_metrics["model.event.pr_auc"] == pytest.approx(0.4)
     assert "rows" not in json_metrics
     assert "bytes" not in json_metrics
 
@@ -60,8 +59,8 @@ def test_scientific_metrics_from_object_keeps_live_success_measures() -> None:
         }
     )
 
-    assert metrics["pooled_pr_auc.mean"] == pytest.approx(0.3)
-    assert metrics["skill_delta_vs_ar.min"] == -0.1
+    assert metrics["model.event.pr_auc"] == pytest.approx(0.3)
+    assert metrics["delta_vs_ar.event.average_precision_skill"] == 0.0
     assert "fold" not in metrics
 
 
@@ -75,7 +74,7 @@ def test_result_parameters_keep_only_invariant_configuration(tmp_path: Path) -> 
 
     metrics, parameters = scientific_run_data_from_file(result)
 
-    assert metrics["pr_auc.mean"] == pytest.approx(0.35)
+    assert metrics["model.event.pr_auc"] == pytest.approx(0.35)
     assert parameters == {"architecture": "temporal", "pca_width": "128", "target": "spike"}
 
 
@@ -112,6 +111,7 @@ def test_sync_existing_creates_result_runs_without_inventory_metrics(tmp_path: P
     source.mkdir(parents=True)
     result = source / "result.json"
     result.write_text('{"real_spearman": 0.3, "ar_spearman": 0.2, "rows": 99}')
+    (source / "fold_metrics.csv").write_text("fold,pr_auc\n0,0.4\n1,0.6\n")
     database = tmp_path / "mlflow.db"
 
     summary = sync_existing(
@@ -125,8 +125,17 @@ def test_sync_existing_creates_result_runs_without_inventory_metrics(tmp_path: P
     runs = mlflow.MlflowClient().search_runs(["1"])
     assert summary["results"] == 1
     assert len(runs) == 1
-    assert runs[0].data.tags["neural_bridge.source_path"] == str(result)
-    assert runs[0].data.metrics == {"ar_spearman": 0.2, "real_spearman": 0.3}
+    assert runs[0].data.tags["neural_bridge.source_path"] == str(source.parent)
+    assert runs[0].data.tags["neural_bridge.source_file_count"] == "2"
+    assert runs[0].data.metrics == {
+        "baseline_ar.continuous.spearman": 0.2,
+        "comparison.ar": 0.2,
+        "comparison.delta_vs_ar": pytest.approx(0.1),
+        "comparison.model": 0.3,
+        "model.event.pr_auc": 0.5,
+        "model.continuous.spearman": 0.3,
+    }
+    assert runs[0].data.tags["neural_bridge.primary_measure"] == "continuous.spearman"
 
     second = sync_existing(
         artifact_root=tmp_path / "artifacts",
