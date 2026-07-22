@@ -127,3 +127,12 @@ def test_sync_existing_creates_result_runs_without_inventory_metrics(tmp_path: P
     assert len(runs) == 1
     assert runs[0].data.tags["neural_bridge.source_path"] == str(result)
     assert runs[0].data.metrics == {"ar_spearman": 0.2, "real_spearman": 0.3}
+
+    second = sync_existing(
+        artifact_root=tmp_path / "artifacts",
+        database=database,
+        mlflow_artifact_root=tmp_path / "mlflow-artifacts",
+    )
+    assert second["created"] == 0
+    assert second["updated"] == 1
+    assert second["pruned"] == 0

@@ -383,21 +383,28 @@ def sync_existing(
             )
         }
         for source_path in _evidence_files(phase):
+            source = str(source_path.absolute())
+            existing = existing_by_source.get(source)
+            try:
+                digest = _file_sha256(source_path)
+            except OSError:
+                continue
+            if (
+                existing is not None
+                and existing.data.tags.get("neural_bridge.source_sha256") == digest
+                and existing.data.tags.get("neural_bridge.import_schema") == IMPORT_SCHEMA
+            ):
+                active_sources[experiment_id].add(source)
+                updated += 1
+                continue
             try:
                 scientific_metrics, parameters = scientific_run_data_from_file(source_path)
             except (OSError, UnicodeError, csv.Error, json.JSONDecodeError):
                 continue
             if not scientific_metrics:
                 continue
-            source = str(source_path.absolute())
             active_sources[experiment_id].add(source)
-            digest = _file_sha256(source_path)
-            existing = existing_by_source.get(source)
-            if existing is not None and existing.data.tags.get(
-                "neural_bridge.source_sha256"
-            ) != digest or existing is not None and existing.data.tags.get(
-                "neural_bridge.import_schema"
-            ) != IMPORT_SCHEMA:
+            if existing is not None:
                 client.delete_run(existing.info.run_id)
                 existing = None
             relative = source_path.relative_to(phase).as_posix()
