@@ -7,6 +7,8 @@ import json
 from datetime import UTC, datetime
 from pathlib import Path
 
+from neural_bridge.mlflow_registry import log_completed_output, start_run
+
 from .contracts import AROUSAL_SPIKE_1_3S, CandidateSpec, CellSpec
 from .data import CanonicalSubstrate
 from .event_screen import run_event_target_screen, write_event_target_screen
@@ -165,24 +167,43 @@ def main() -> int:
         output = (
             args.output or _default_screen_output(substrate.repo_root, sources)
         ).expanduser().resolve()
-        all_features = substrate.load_features(substrate.video_ids, sources)
-        train_mask = benchmark_partition_mask(
-            all_features, preregistration["split"], "train"
-        )
-        features = all_features.subset(train_mask)
-        labels = substrate.load_labels(
-            substrate.video_ids,
-            row_indices=_owned_rows(all_features, train_mask),
-            stage="event_screen_benchmark_train_only",
-        )
-        result = run_event_target_screen(
-            features,
-            labels,
-            preregistration,
-            calibration,
-            sources=sources,
-        )
-        write_event_target_screen(output, result)
+        with start_run(
+            "veatic-2.1",
+            "event-target-screen",
+            run_name=output.stem,
+            tags={"neural_bridge.execution_kind": "native"},
+        ):
+            all_features = substrate.load_features(substrate.video_ids, sources)
+            train_mask = benchmark_partition_mask(
+                all_features, preregistration["split"], "train"
+            )
+            features = all_features.subset(train_mask)
+            labels = substrate.load_labels(
+                substrate.video_ids,
+                row_indices=_owned_rows(all_features, train_mask),
+                stage="event_screen_benchmark_train_only",
+            )
+            result = run_event_target_screen(
+                features,
+                labels,
+                preregistration,
+                calibration,
+                sources=sources,
+            )
+            write_event_target_screen(output, result)
+            log_completed_output(
+                output,
+                parameters={
+                    "folds": len(preregistration["split"]["inner_grouped_video_folds"]),
+                    "sources": ",".join(sources),
+                    "targets": len(calibration["target_hypotheses"]),
+                },
+                metrics={"records": len(result["records"])},
+                tags={
+                    "neural_bridge.result_sha256": result["screen_sha256"],
+                    "neural_bridge.schema": result["schema"],
+                },
+            )
         print(
             json.dumps(
                 {

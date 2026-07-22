@@ -1,11 +1,11 @@
 # Neural Bridge Repository Contract
 
-- This is the canonical private Neural Bridge repository. Scientific work never routes through `neural-bridge-app`.
+- This is the canonical private Neural Bridge repository.
 - Startup supplies the exact contents of `/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md`; execute its next action without searching for the file again.
-- After state changes, replace that file and refresh only the exact changed file-backed Context sources and registry records; CodeGraph updates repository code incrementally. Never rescan a whole repository or artifact tree for an incremental change.
-- Every repository path, artifact path, Context source, command input, and generated reference must resolve directly to its current location. Never invent routing aliases.
-- Context Mode and CodeGraph must return the one requested state, source, artifact payload, command, or derived value directly; never return candidates or stop at a pointer.
-- Store heavy artifacts only under the external `artifacts` boundary. Canonical paths encode programme, phase, role, and lifecycle.
+- After relevant state, code, or artifact changes, replace current state and run the single `neural-bridge-index` refresh; never maintain duplicate indexes.
+- Every repository path, artifact path, retrieval source, command input, and generated reference must resolve directly to its current location. Never invent routing aliases.
+- Graphify exact-node lookup covers repository code and current external artifacts at `/Volumes/onn. Drive/Neural Bridge Artifacts/indexes/graphify/merged/graph.json`; never return candidates or stop at a pointer. Refresh it with `rtk uv run neural-bridge-index '/Users/maxsartini/Neural Bridge' '/Volumes/onn. Drive/Neural Bridge Artifacts' '/Volumes/onn. Drive/Neural Bridge Artifacts/indexes/graphify'` after relevant changes.
+- Store heavy artifacts only under `/Volumes/onn. Drive/Neural Bridge Artifacts`. Canonical paths encode programme, phase, role, and lifecycle.
 - Keep concluded results front-facing; keep active work, decisions, current state, and migration records under `internal/`. Each concluded phase owns only its defensible runner, config, compact results, report, provenance, artifact manifest, and tests.
 - Build VEATIC 2.1 only from VEATIC-specific targets, projections, models, controls, and selection. AGAIN contributes compatible hypotheses and rigor utilities, never fitted artifacts or numeric choices.
 - Keep VEATIC 2.1 and AGAIN implementations separate; share science code only after semantic and provenance equivalence is proven.

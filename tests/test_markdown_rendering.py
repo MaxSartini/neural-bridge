@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SKIPPED_PARTS = {".git", ".codegraph", ".venv", "artifacts", "node_modules"}
+SKIPPED_PARTS = {".git", ".venv", "artifacts", "node_modules"}
 MARKDOWN_IMAGE_RE = re.compile(r"!\[[^]]*]\(([^)\s]+)(?:\s+\"[^\"]*\")?\)")
 INLINE_MATH_RE = re.compile(r"(?<!\\)(?<!\$)\$([^\n$]+?)\$(?!\$)")
 

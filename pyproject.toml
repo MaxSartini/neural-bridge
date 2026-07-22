@@ -3,12 +3,19 @@ name = "neural-bridge"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
+    "alembic!=1.10.0,<2",
+    "mlflow-skinny>=3.14,<4",
     "numpy>=1.26",
     "pandas>=2.1",
     "pyarrow>=16",
     "scikit-learn>=1.5",
     "scipy>=1.11",
+    "sqlalchemy>=1.4,<3",
 ]
+
+[project.scripts]
+neural-bridge-index = "neural_bridge.artifact_graph:main"
+neural-bridge-mlflow = "neural_bridge.mlflow_registry:main"
 
 [project.optional-dependencies]
 training = [

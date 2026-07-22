@@ -3,9 +3,9 @@
 
 # Migration and local working state.
 /.migration-work
-/.codegraph
 /.scratch
 /.cache
+/graphify-out
 
 # Environments, dependencies, and generated builds.
 /.venv
