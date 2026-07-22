@@ -91,6 +91,16 @@ def test_stage1_plan_encodes_registered_checkpoint_and_fold_matrix() -> None:
         calibration,
         pca_manifest,
         {"backend": "mlx", "safe_batch_rows_by_hidden_width": {"64": 128}},
+        {
+            "benchmark_test_labels_accessed": False,
+            "families": [
+                {"source": "tribe_cortical", "target": "target"},
+                {"source": "vjepa_temporal_mean", "target": "target"},
+            ],
+            "schema": "veatic21_event_screen_viability_v1",
+            "summary_sha256": "summary",
+            "target_count": 1,
+        },
     )
     assert plan["checkpoint_policy"] == {
         "eligible_from_epoch": 1,
@@ -102,6 +112,11 @@ def test_stage1_plan_encodes_registered_checkpoint_and_fold_matrix() -> None:
         "tie_break": "earliest_checkpoint",
     }
     assert plan["matrix"]["folds"][0]["candidate_pca_widths"] == [64, 128]
+    assert plan["matrix"]["representations"] == ["tribe_cortical", "vjepa_temporal_mean"]
+    assert plan["matrix"]["screen_family_order"] == [
+        "target::tribe_cortical",
+        "target::vjepa_temporal_mean",
+    ]
 
 
 class _MemorySubstrate:

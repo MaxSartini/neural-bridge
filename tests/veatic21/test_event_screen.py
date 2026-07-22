@@ -6,6 +6,7 @@ from neural_bridge.veatic21.contracts import LabelRows
 from neural_bridge.veatic21.event_screen import (
     _ar_features,
     _causal_forms,
+    summarize_event_target_screen,
     targets_from_calibration,
 )
 
@@ -76,3 +77,39 @@ def test_targets_are_materialized_from_veatic_calibration() -> None:
     assert len(targets) == 1
     assert targets[0].horizon_rows == (1, 2, 3)
     assert targets[0].quantile == 0.875
+
+
+def test_event_screen_summary_selects_complete_family_configuration() -> None:
+    records = []
+    for fold in range(2):
+        for form, delta in (("current", 0.1), ("causal", 0.2)):
+            records.append(
+                {
+                    "event_prevalence": 0.1,
+                    "fold": fold,
+                    "form": form,
+                    "pca_width": 64,
+                    "pooled_pr_auc": 0.3 + delta,
+                    "ridge_alpha": 1.0,
+                    "skill_delta_vs_ar": delta + fold * 0.01,
+                    "source": "tribe_cortical",
+                    "target": "spike",
+                    "validation_rows": 10,
+                }
+            )
+    screen = {
+        "benchmark_test_labels_accessed": False,
+        "fold_count": 2,
+        "records": records,
+        "schema": "veatic21_event_target_screen_v12",
+        "screen_sha256": "screen",
+        "sources": ["tribe_cortical"],
+        "target_count": 1,
+    }
+
+    summary = summarize_event_target_screen(screen)
+
+    assert summary["family_count"] == 1
+    assert summary["selection_status"] == "diagnostic_families_not_frozen"
+    assert summary["families"][0]["form"] == "causal"
+    assert summary["families"][0]["positive_delta_fold_count"] == 2

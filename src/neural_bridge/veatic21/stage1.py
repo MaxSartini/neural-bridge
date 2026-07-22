@@ -153,6 +153,7 @@ def build_stage1_plan(
     calibration: Mapping[str, Any],
     pca_manifest: Mapping[str, Any],
     capacity: Mapping[str, Any],
+    viability_summary: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Bind current VEATIC artifacts to one executable, lazily expanded matrix."""
 
@@ -171,11 +172,30 @@ def build_stage1_plan(
 
     targets = targets_from_calibration(calibration)
     folds = sorted(pca_manifest["folds"], key=lambda row: int(row["fold"]))
+    if viability_summary is not None:
+        if viability_summary.get("schema") != "veatic21_event_screen_viability_v1":
+            raise ValueError("Stage-1 requires the current event-screen viability schema")
+        if viability_summary.get("benchmark_test_labels_accessed") is not False:
+            raise ValueError("Stage-1 viability evidence must keep benchmark-test labels sealed")
+        if int(viability_summary["target_count"]) != len(targets):
+            raise ValueError("Stage-1 viability target coverage does not match calibration")
+        family_order = [
+            f"{family['target']}::{family['source']}" for family in viability_summary["families"]
+        ]
+        representations = sorted(
+            {str(family["source"]) for family in viability_summary["families"]}
+        )
+    else:
+        family_order = []
+        representations = []
     plan: dict[str, Any] = {
         "artifacts": {
             "calibration_sha256": calibration["calibration_sha256"],
             "pca_manifest_sha256": pca_manifest["manifest_sha256"],
             "preregistration_sha256": preregistration_sha,
+            "viability_summary_sha256": (
+                viability_summary["summary_sha256"] if viability_summary is not None else None
+            ),
         },
         "capacity": dict(capacity),
         "checkpoint_policy": {
@@ -198,6 +218,8 @@ def build_stage1_plan(
                 for fold in folds
             ],
             "head_families": list(preregistration["heads"]["label_assisted_discovery"]),
+            "representations": representations,
+            "screen_family_order": family_order,
             "targets": [
                 {
                     "horizon_rows": list(target.horizon_rows),
@@ -213,6 +235,11 @@ def build_stage1_plan(
             "ar_fallback_scope": "whole_fold_seed_from_inner_validation",
             "requires_positive_delta_vs_frozen_ar": True,
             "sealed_tail_labels": True,
+        },
+        "screen_interpretation": {
+            "family_order_is_priority_not_elimination": True,
+            "raw_linear_screen_must_beat_ar": False,
+            "winner_frozen": False,
         },
         "schema": _SCHEMA,
     }

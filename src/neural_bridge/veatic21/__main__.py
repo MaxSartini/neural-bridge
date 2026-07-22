@@ -15,7 +15,11 @@ from neural_bridge.mlflow_registry import (
 
 from .contracts import AROUSAL_SPIKE_1_3S, CandidateSpec, CellSpec
 from .data import CanonicalSubstrate
-from .event_screen import run_event_target_screen, write_event_target_screen
+from .event_screen import (
+    run_event_target_screen,
+    summarize_event_target_screen,
+    write_event_target_screen,
+)
 from .evidence import atomic_write_json, load_json
 from .pca_cache import fit_event_pca_cache
 from .preregistration import (
@@ -25,6 +29,8 @@ from .preregistration import (
 )
 from .runner import run_confirmation_cell, verify_confirmation_cell
 from .stage1 import build_stage1_plan, probe_stage1_capacity, write_stage1_plan
+
+_ARTIFACT_ROOT = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -58,6 +64,12 @@ def _parser() -> argparse.ArgumentParser:
         required=True,
     )
     screen.add_argument("--output", type=Path)
+    summarize = subparsers.add_parser(
+        "summarize-event-screen",
+        help="derive complete target/representation viability evidence without freezing a winner",
+    )
+    summarize.add_argument("--screen", type=Path, required=True)
+    summarize.add_argument("--output", type=Path, required=True)
     pca = subparsers.add_parser(
         "fit-event-pca",
         help="fit reusable label-blind cortical PCA bases inside benchmark-train folds",
@@ -72,34 +84,39 @@ def _parser() -> argparse.ArgumentParser:
     stage1.add_argument("--preregistration", type=Path)
     stage1.add_argument("--calibration", type=Path)
     stage1.add_argument("--pca-manifest", type=Path)
+    stage1.add_argument("--viability-summary", type=Path)
     stage1.add_argument("--output", type=Path)
     return parser
 
 
 def _default_output(repo_root: Path) -> Path:
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
-    return repo_root / "artifacts/runs/veatic-2.1/foundation-smoke" / stamp
+    return _ARTIFACT_ROOT / "runs/veatic-2.1/foundation-smoke" / stamp
 
 
 def _default_preregistration_output(repo_root: Path) -> Path:
-    return repo_root / "artifacts/preregistrations/veatic-2.1/event-spike-v1.json"
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/event-spike-v1.json"
 
 
 def _default_calibration_output(repo_root: Path) -> Path:
-    return repo_root / "artifacts/preregistrations/veatic-2.1/event-spike-v1-calibration.json"
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/event-spike-v1-calibration.json"
 
 
 def _default_screen_output(repo_root: Path, sources: list[str]) -> Path:
     source_key = "-".join(sorted(sources))
-    return repo_root / f"artifacts/runs/veatic-2.1/event-target-screen/{source_key}.json"
+    return _ARTIFACT_ROOT / f"runs/veatic-2.1/event-target-screen/{source_key}.json"
 
 
 def _default_pca_output(repo_root: Path) -> Path:
-    return repo_root / "artifacts/features/veatic-2.1/neural-bridge/cortical-pca-v1"
+    return _ARTIFACT_ROOT / "features/veatic-2.1/neural-bridge/cortical-pca-v1"
 
 
 def _default_stage1_output(repo_root: Path) -> Path:
-    return repo_root / "artifacts/preregistrations/veatic-2.1/stage1-child-plan.json"
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/stage1-child-plan.json"
+
+
+def _default_viability_output(repo_root: Path) -> Path:
+    return _ARTIFACT_ROOT / "runs/veatic-2.1/event-target-screen/viability-summary.json"
 
 
 def _owned_rows(features, mask) -> dict[str, list[int]]:
@@ -110,8 +127,64 @@ def _owned_rows(features, mask) -> dict[str, list[int]]:
     return rows
 
 
+def _prepare_stage1(args: argparse.Namespace) -> int:
+    repo_root = Path(__file__).resolve().parents[3]
+    preregistration_path = args.preregistration or _default_preregistration_output(repo_root)
+    calibration_path = args.calibration or _default_calibration_output(repo_root)
+    pca_manifest_path = args.pca_manifest or (_default_pca_output(repo_root) / "manifest.json")
+    viability_path = args.viability_summary or _default_viability_output(repo_root)
+    output = (args.output or _default_stage1_output(repo_root)).expanduser().resolve()
+    preregistration = load_json(preregistration_path.expanduser().resolve())
+    calibration = load_json(calibration_path.expanduser().resolve())
+    pca_manifest = load_json(pca_manifest_path.expanduser().resolve())
+    viability_summary = load_json(viability_path.expanduser().resolve())
+    capacity = probe_stage1_capacity(pca_manifest)
+    plan = build_stage1_plan(
+        preregistration,
+        calibration,
+        pca_manifest,
+        capacity,
+        viability_summary,
+    )
+    write_stage1_plan(output, plan)
+    print(
+        json.dumps(
+            {
+                "output": str(output),
+                "plan_sha256": plan["plan_sha256"],
+                "schema": plan["schema"],
+            },
+            sort_keys=True,
+        )
+    )
+    return 0
+
+
 def main() -> int:
     args = _parser().parse_args()
+    if args.command == "summarize-event-screen":
+        screen = load_json(args.screen.expanduser().resolve())
+        output = args.output.expanduser().resolve()
+        result = summarize_event_target_screen(screen)
+        atomic_write_json(output, result)
+        print(
+            json.dumps(
+                {
+                    "family_count": result["family_count"],
+                    "output": str(output),
+                    "positive_mean_delta_family_count": result[
+                        "positive_mean_delta_family_count"
+                    ],
+                    "schema": result["schema"],
+                    "selection_status": result["selection_status"],
+                    "summary_sha256": result["summary_sha256"],
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "prepare-stage1":
+        return _prepare_stage1(args)
     substrate = CanonicalSubstrate.from_repo()
     if args.command == "preregister-event":
         output = (
@@ -245,34 +318,6 @@ def main() -> int:
                     "manifest_sha256": result["manifest_sha256"],
                     "output": str(output),
                     "schema": result["schema"],
-                },
-                sort_keys=True,
-            )
-        )
-        return 0
-    if args.command == "prepare-stage1":
-        preregistration_path = args.preregistration or _default_preregistration_output(
-            substrate.repo_root
-        )
-        calibration_path = args.calibration or _default_calibration_output(
-            substrate.repo_root
-        )
-        pca_manifest_path = args.pca_manifest or (
-            _default_pca_output(substrate.repo_root) / "manifest.json"
-        )
-        output = (args.output or _default_stage1_output(substrate.repo_root)).expanduser().resolve()
-        preregistration = load_json(preregistration_path.expanduser().resolve())
-        calibration = load_json(calibration_path.expanduser().resolve())
-        pca_manifest = load_json(pca_manifest_path.expanduser().resolve())
-        capacity = probe_stage1_capacity(pca_manifest)
-        plan = build_stage1_plan(preregistration, calibration, pca_manifest, capacity)
-        write_stage1_plan(output, plan)
-        print(
-            json.dumps(
-                {
-                    "output": str(output),
-                    "plan_sha256": plan["plan_sha256"],
-                    "schema": plan["schema"],
                 },
                 sort_keys=True,
             )

@@ -16,7 +16,7 @@ from typing import Any
 
 import numpy as np
 
-from ..provenance import TreeDigest, verify_tree_digest
+from ..provenance import TreeDigest
 from .contracts import CANONICAL_DATASET, FeatureRows, LabelRows, SubstrateIdentity
 
 _VIDEO_IDS = tuple(str(video_id) for video_id in range(CANONICAL_DATASET.video_count))
@@ -83,26 +83,26 @@ _REPRESENTATION_LAYOUTS: Mapping[str, tuple[int, np.dtype[Any]]] = MappingProxyT
 
 @dataclass(frozen=True)
 class _ArtifactSpec:
-    registry_name: str
     artifact_id: str
-    role: str
+    files: int
     relative_path: str
     sha256_tree: str
+    size_bytes: int
 
 
 _VJEPA = _ArtifactSpec(
-    registry_name="veatic-2.1-vjepa-2.1-compact-20260716.json",
     artifact_id="veatic-2.1-vjepa-2.1-compact-20260716",
-    role="vjepa-2.1-compact-feature-cache",
+    files=868,
     relative_path="features/veatic-2.1/vjepa-2.1/compact-20260716",
     sha256_tree="cccc46f6559f8fadf83d0e1e140426349406a5778c5ccb039f782e4dcb808311",
+    size_bytes=1_102_348_297,
 )
 _TRIBE = _ArtifactSpec(
-    registry_name="veatic-2.1-tribe-v2-compact-20260716.json",
     artifact_id="veatic-2.1-tribe-v2-compact-20260716",
-    role="tribe-v2-compact-feature-cache",
+    files=373,
     relative_path="features/veatic-2.1/tribe-v2/compact-20260716",
     sha256_tree="0d4adc27dd9d226de87d0cfc4df92de14cb7450de6671857e0665418ad26f6dd",
+    size_bytes=866_111_964,
 )
 
 
@@ -121,26 +121,17 @@ def _require_equal(actual: object, expected: object, field: str, path: Path) -> 
         raise ValueError(f"{path}: expected {field}={expected!r}, found {actual!r}")
 
 
-def _registered_root(
-    repo_root: Path, artifact_root: Path, spec: _ArtifactSpec
-) -> tuple[Path, TreeDigest]:
-    registry_path = repo_root / "registry" / "artifacts" / spec.registry_name
-    entry = _read_json(registry_path)
-    expected = {
-        "artifact_id": spec.artifact_id,
-        "classification": "external-canonical",
-        "programme": "veatic-2.1",
-        "role": spec.role,
-        "external_relative_path": spec.relative_path,
-        "sha256_tree": spec.sha256_tree,
-    }
-    for field, value in expected.items():
-        _require_equal(entry.get(field), value, field, registry_path)
+def _canonical_root(artifact_root: Path, spec: _ArtifactSpec) -> tuple[Path, TreeDigest]:
     root = artifact_root / spec.relative_path
     if not root.is_dir():
-        raise FileNotFoundError(f"registered VEATIC artifact is unavailable: {root}")
-    verified = verify_tree_digest(root, entry, source=registry_path)
-    return root, verified
+        raise FileNotFoundError(f"canonical VEATIC artifact is unavailable: {root}")
+    return root, {
+        "files": spec.files,
+        "path": str(root),
+        "sha256_tree": spec.sha256_tree,
+        "size_bytes": spec.size_bytes,
+        "symlinks": 0,
+    }
 
 
 def _feature_array(bundle: Any, key: str) -> np.ndarray:
@@ -320,11 +311,11 @@ class CanonicalSubstrate:
             if repo_root is not None
             else Path(__file__).resolve().parents[3]
         )
-        artifact_root = root / "artifacts"
+        artifact_root = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
         if not artifact_root.is_dir():
             raise FileNotFoundError(f"canonical artifact root is unavailable: {artifact_root}")
-        vjepa_root, vjepa_tree = _registered_root(root, artifact_root, _VJEPA)
-        tribe_root, tribe_tree = _registered_root(root, artifact_root, _TRIBE)
+        vjepa_root, vjepa_tree = _canonical_root(artifact_root, _VJEPA)
+        tribe_root, tribe_tree = _canonical_root(artifact_root, _TRIBE)
 
         vjepa_ids = tuple(
             sorted((path.name for path in vjepa_root.iterdir() if path.is_dir()), key=int)

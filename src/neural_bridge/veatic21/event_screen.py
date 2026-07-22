@@ -8,6 +8,7 @@ AR is a strong comparator, not a production input; primary lanes are video-only.
 from __future__ import annotations
 
 import math
+from collections import defaultdict
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -398,8 +399,118 @@ def write_event_target_screen(path: Path, result: Mapping[str, Any]) -> None:
     atomic_write_json(path, dict(result))
 
 
+def summarize_event_target_screen(screen: Mapping[str, Any]) -> dict[str, Any]:
+    """Summarize complete inner-fold target/representation families without freezing one."""
+    if screen.get("schema") != "veatic21_event_target_screen_v12":
+        raise ValueError("unsupported event target screen schema")
+    if screen.get("benchmark_test_labels_accessed") is not False:
+        raise ValueError("event target summary requires sealed benchmark-test labels")
+    expected_folds = set(range(int(screen["fold_count"])))
+    grouped: dict[tuple[str, str, str, float], list[Mapping[str, Any]]] = defaultdict(list)
+    for row in screen["records"]:
+        grouped[
+            (
+                str(row["target"]),
+                str(row["source"]),
+                str(row["form"]),
+                float(row["ridge_alpha"]),
+            )
+        ].append(row)
+
+    candidates: list[dict[str, Any]] = []
+    for (target, source, form, alpha), rows in grouped.items():
+        folds = {int(row["fold"]) for row in rows}
+        prevalences = [float(row["event_prevalence"]) for row in rows]
+        deltas = [float(row["skill_delta_vs_ar"]) for row in rows]
+        pr_aucs = [float(row["pooled_pr_auc"]) for row in rows]
+        finite = all(math.isfinite(value) for value in (*prevalences, *deltas, *pr_aucs))
+        coverage_safe = (
+            folds == expected_folds
+            and finite
+            and all(0.0 < prevalence < 1.0 for prevalence in prevalences)
+            and all(int(row["validation_rows"]) > 0 for row in rows)
+        )
+        if not coverage_safe:
+            continue
+        mean_delta = sum(deltas) / len(deltas)
+        mean_pr_auc = sum(pr_aucs) / len(pr_aucs)
+        mean_prevalence = sum(prevalences) / len(prevalences)
+        variance = sum((value - mean_delta) ** 2 for value in deltas) / len(deltas)
+        candidates.append(
+            {
+                "coverage_safe": True,
+                "fold_count": len(folds),
+                "form": form,
+                "mean_event_prevalence": mean_prevalence,
+                "mean_pooled_pr_auc": mean_pr_auc,
+                "mean_skill_delta_vs_ar": mean_delta,
+                "minimum_skill_delta_vs_ar": min(deltas),
+                "pca_width": int(rows[0]["pca_width"]),
+                "positive_delta_fold_count": sum(value > 0.0 for value in deltas),
+                "ridge_alpha": alpha,
+                "skill_delta_standard_deviation": math.sqrt(variance),
+                "source": source,
+                "target": target,
+            }
+        )
+
+    families: dict[tuple[str, str], dict[str, Any]] = {}
+    for candidate in candidates:
+        key = (str(candidate["target"]), str(candidate["source"]))
+        incumbent = families.get(key)
+        rank = (
+            float(candidate["mean_skill_delta_vs_ar"]),
+            int(candidate["positive_delta_fold_count"]),
+            float(candidate["mean_pooled_pr_auc"]),
+            -float(candidate["skill_delta_standard_deviation"]),
+            -float(candidate["ridge_alpha"]),
+            str(candidate["form"]),
+        )
+        if incumbent is None or rank > incumbent["_rank"]:
+            families[key] = {**candidate, "_rank": rank}
+    expected_families = int(screen["target_count"]) * len(screen["sources"])
+    if len(families) != expected_families:
+        raise ValueError(
+            f"event screen has {len(families)} complete target/source families; "
+            f"expected {expected_families}"
+        )
+    family_rows = []
+    for family in families.values():
+        family.pop("_rank", None)
+        family["positive_mean_delta_vs_ar"] = family["mean_skill_delta_vs_ar"] > 0.0
+        family_rows.append(family)
+    family_rows.sort(
+        key=lambda row: (
+            -row["mean_skill_delta_vs_ar"],
+            -row["positive_delta_fold_count"],
+            -row["mean_pooled_pr_auc"],
+            row["skill_delta_standard_deviation"],
+            row["target"],
+            row["source"],
+        )
+    )
+    result: dict[str, Any] = {
+        "benchmark_test_labels_accessed": False,
+        "candidate_configuration_count": len(candidates),
+        "family_count": len(family_rows),
+        "families": family_rows,
+        "fold_count": len(expected_folds),
+        "positive_mean_delta_family_count": sum(
+            row["positive_mean_delta_vs_ar"] for row in family_rows
+        ),
+        "schema": "veatic21_event_screen_viability_v1",
+        "screen_sha256": screen["screen_sha256"],
+        "selection_status": "diagnostic_families_not_frozen",
+        "source_count": len(screen["sources"]),
+        "target_count": int(screen["target_count"]),
+    }
+    result["summary_sha256"] = digest_json(result)
+    return result
+
+
 __all__ = [
     "run_event_target_screen",
+    "summarize_event_target_screen",
     "targets_from_calibration",
     "write_event_target_screen",
 ]

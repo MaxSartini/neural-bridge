@@ -3,7 +3,13 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from neural_bridge.artifact_graph import _watch_filter, build_artifact_graph, serve_mcp
+import pytest
+
+from neural_bridge.artifact_graph import (
+    _watch_filter,
+    build_artifact_graph,
+    exact_node_payload,
+)
 
 
 def test_build_artifact_graph_is_exact_and_excludes_inactive_roots(tmp_path: Path) -> None:
@@ -28,44 +34,57 @@ def test_build_artifact_graph_is_exact_and_excludes_inactive_roots(tmp_path: Pat
     assert nodes["runs/veatic-2.1/result.json"]["source_file"] == str(active)
 
 
-def test_serve_mcp_refreshes_before_exec(monkeypatch) -> None:
-    monkeypatch.setattr("neural_bridge.artifact_graph.shutil.which", lambda _: "/bin/mcp")
-    monkeypatch.setattr(
-        "neural_bridge.artifact_graph.refresh_index",
-        lambda *_: {"merged_graph": "/graph.json"},
+def test_exact_node_payload_delivers_the_indexed_function(monkeypatch, tmp_path: Path) -> None:
+    repository = tmp_path / "repository"
+    source = repository / "model.py"
+    source.parent.mkdir()
+    source.write_text("x = 1\n\ndef train():\n    return x\n\ny = 2\n")
+    graph = tmp_path / "graph.json"
+    graph.write_text(
+        json.dumps(
+            {
+                "nodes": [
+                    {
+                        "id": "repository::train",
+                        "label": "train()",
+                        "file_type": "code",
+                        "source_file": "model.py",
+                        "source_location": "L3",
+                    }
+                ]
+            }
+        )
     )
-    executed = []
+    monkeypatch.setattr("neural_bridge.artifact_graph.DEFAULT_REPOSITORY", repository)
+    monkeypatch.setattr("neural_bridge.artifact_graph.DEFAULT_ARTIFACTS", tmp_path / "artifacts")
+    (tmp_path / "artifacts").mkdir()
 
-    class Process:
-        def poll(self):
-            return None
+    payload = exact_node_payload("train", graph)
 
-        def send_signal(self, _number):
-            return None
+    assert payload["path"] == str(source)
+    assert payload["start_line"] == 3
+    assert payload["end_line"] == 4
+    assert payload["content"] == "def train():\n    return x"
 
-        def wait(self):
-            return 0
 
-    class Thread:
-        def __init__(self, **_kwargs):
-            pass
-
-        def start(self):
-            pass
-
-        def join(self, **_kwargs):
-            pass
-
-    monkeypatch.setattr(
-        "neural_bridge.artifact_graph.subprocess.Popen",
-        lambda arguments: executed.append(arguments) or Process(),
+def test_exact_node_payload_rejects_ambiguous_labels(monkeypatch, tmp_path: Path) -> None:
+    repository = tmp_path / "repository"
+    repository.mkdir()
+    graph = tmp_path / "graph.json"
+    graph.write_text(
+        json.dumps(
+            {
+                "nodes": [
+                    {"id": "one", "label": "main()", "source_file": "one.py"},
+                    {"id": "two", "label": "main()", "source_file": "two.py"},
+                ]
+            }
+        )
     )
-    monkeypatch.setattr("neural_bridge.artifact_graph.threading.Thread", Thread)
-    monkeypatch.setattr("neural_bridge.artifact_graph.signal.signal", lambda *_: None)
+    monkeypatch.setattr("neural_bridge.artifact_graph.DEFAULT_REPOSITORY", repository)
 
-    assert serve_mcp() == 0
-
-    assert executed == [["/bin/mcp", "--graph", "/graph.json"]]
+    with pytest.raises(LookupError, match="found 2"):
+        exact_node_payload("main", graph)
 
 
 def test_watch_filter_covers_both_roots_without_index_feedback() -> None:

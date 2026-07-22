@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import argparse
+import ast
+import asyncio
 import hashlib
 import json
 import os
+import re
 import shutil
-import signal
 import subprocess
 import sys
 import tempfile
@@ -202,25 +204,176 @@ def _watch_and_refresh(stop_event: threading.Event) -> None:
             print(f"Graphify refresh failed: {error}", file=sys.stderr, flush=True)
 
 
+def _normalise_lookup(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "", value.lower())
+
+
+def _resolve_exact_node(query: str, nodes: list[dict[str, object]]) -> dict[str, object]:
+    query = query.strip()
+    normalised = _normalise_lookup(query)
+    matches = []
+    for node in nodes:
+        label = str(node.get("label", ""))
+        node_id = str(node.get("id", ""))
+        source = str(node.get("source_file", ""))
+        absolute_source = str(
+            Path(source) if Path(source).is_absolute() else DEFAULT_REPOSITORY / source
+        )
+        exact_values = {node_id.lower(), label.lower(), source.lower(), absolute_source.lower()}
+        normalised_values = {
+            _normalise_lookup(label.removesuffix("()")),
+            _normalise_lookup(source),
+            _normalise_lookup(absolute_source),
+        }
+        if query.lower() in exact_values or normalised in normalised_values:
+            matches.append(node)
+    if len(matches) != 1:
+        raise LookupError(
+            f"Expected one exact Graphify node for {query!r}; found {len(matches)}. "
+            "Use its exact symbol label, absolute path, repository path, or node ID."
+        )
+    return matches[0]
+
+
+def _python_extent(path: Path, start_line: int) -> int | None:
+    try:
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+    except (OSError, SyntaxError, UnicodeError):
+        return None
+    return next(
+        (
+            node.end_lineno
+            for node in ast.walk(tree)
+            if getattr(node, "lineno", None) == start_line
+            and isinstance(node, (ast.AsyncFunctionDef, ast.ClassDef, ast.FunctionDef))
+        ),
+        None,
+    )
+
+
+def _code_excerpt(
+    path: Path,
+    node: dict[str, object],
+    nodes: list[dict[str, object]],
+) -> tuple[int, int, str]:
+    lines = path.read_text(encoding="utf-8").splitlines()
+    location = str(node.get("source_location", ""))
+    match = re.search(r"L(\d+)", location)
+    start = int(match.group(1)) if match else 1
+    end = _python_extent(path, start) if path.suffix == ".py" else None
+    if end is None and match:
+        following = sorted(
+            int(other_match.group(1))
+            for other in nodes
+            if str(other.get("source_file", "")) == str(node.get("source_file", ""))
+            and (other_match := re.search(r"L(\d+)", str(other.get("source_location", ""))))
+            and int(other_match.group(1)) > start
+        )
+        end = following[0] - 1 if following else len(lines)
+    end = end or len(lines)
+    return start, end, "\n".join(lines[start - 1 : end])
+
+
+def exact_node_payload(
+    query: str,
+    graph_path: Path = DEFAULT_INDEX_ROOT / "merged" / "graph.json",
+) -> dict[str, object]:
+    """Return the exact indexed code block or executable artifact handle."""
+    graph = json.loads(graph_path.read_text(encoding="utf-8"))
+    nodes = graph.get("nodes")
+    if not isinstance(nodes, list):
+        raise RuntimeError(f"Invalid Graphify graph: {graph_path}")
+    node = _resolve_exact_node(query, nodes)
+    source = Path(str(node.get("source_file", "")))
+    path = source if source.is_absolute() else DEFAULT_REPOSITORY / source
+    path = path.resolve(strict=True)
+    allowed = (DEFAULT_REPOSITORY.resolve(), DEFAULT_ARTIFACTS.resolve())
+    if not any(path == root or path.is_relative_to(root) for root in allowed):
+        raise RuntimeError(f"Indexed source escaped Neural Bridge roots: {path}")
+    payload: dict[str, object] = {
+        "id": node.get("id"),
+        "label": node.get("label"),
+        "path": str(path),
+        "type": node.get("file_type"),
+    }
+    if node.get("file_type") == "code" and path.is_file():
+        start, end, content = _code_excerpt(path, node, nodes)
+        payload.update({"start_line": start, "end_line": end, "content": content})
+    else:
+        stat = path.stat()
+        payload.update(
+            {
+                "delivery": "direct_consumer_path",
+                "size_bytes": stat.st_size,
+                "mtime_ns": stat.st_mtime_ns,
+            }
+        )
+    return payload
+
+
+async def _serve_exact_mcp(graph_path: Path) -> None:
+    from mcp import types
+    from mcp.server import Server
+    from mcp.server.stdio import stdio_server
+
+    server = Server("neural-bridge-graphify")
+
+    @server.list_tools()
+    async def list_tools() -> list[types.Tool]:
+        return [
+            types.Tool(
+                name="get_exact_neural_bridge_node",
+                description=(
+                    "Resolve exactly one current Neural Bridge code symbol or external artifact "
+                    "from the merged Graphify index. Returns the actual bounded code block for "
+                    "code, or the exact consumer path for large artifacts. Never returns "
+                    "candidates."
+                ),
+                inputSchema={
+                    "type": "object",
+                    "properties": {
+                        "query": {
+                            "type": "string",
+                            "description": (
+                                "Exact symbol label, absolute path, repository path, or Graphify ID"
+                            ),
+                        }
+                    },
+                    "required": ["query"],
+                },
+                annotations=types.ToolAnnotations(
+                    readOnlyHint=True,
+                    destructiveHint=False,
+                    idempotentHint=True,
+                    openWorldHint=False,
+                ),
+            )
+        ]
+
+    @server.call_tool()
+    async def call_tool(name: str, arguments: dict[str, object]) -> list[types.TextContent]:
+        if name != "get_exact_neural_bridge_node":
+            raise ValueError(f"Unknown tool: {name}")
+        payload = exact_node_payload(str(arguments["query"]), graph_path)
+        return [types.TextContent(type="text", text=json.dumps(payload, separators=(",", ":")))]
+
+    async with stdio_server() as (read_stream, write_stream):
+        await server.run(
+            read_stream,
+            write_stream,
+            server.create_initialization_options(),
+        )
+
+
 def serve_mcp() -> int:
-    """Keep the merged graph current while supervising Graphify's stdio server."""
-    graphify_mcp = shutil.which("graphify-mcp")
-    if graphify_mcp is None:
-        raise RuntimeError("graphify-mcp is not installed")
+    """Serve exact retrieval while keeping the combined Graphify index current."""
     summary = refresh_index(DEFAULT_REPOSITORY, DEFAULT_ARTIFACTS, DEFAULT_INDEX_ROOT)
     stop_event = threading.Event()
     watcher = threading.Thread(target=_watch_and_refresh, args=(stop_event,), daemon=True)
     watcher.start()
-    process = subprocess.Popen([graphify_mcp, "--graph", str(summary["merged_graph"])])
-
-    def forward_signal(number: int, _frame: object) -> None:
-        if process.poll() is None:
-            process.send_signal(number)
-
-    signal.signal(signal.SIGINT, forward_signal)
-    signal.signal(signal.SIGTERM, forward_signal)
     try:
-        return process.wait()
+        asyncio.run(_serve_exact_mcp(Path(str(summary["merged_graph"]))))
+        return 0
     finally:
         stop_event.set()
         watcher.join(timeout=1)

@@ -5,6 +5,7 @@ requires-python = ">=3.12"
 dependencies = [
     "alembic!=1.10.0,<2",
     "mlflow-skinny>=3.14,<4",
+    "mcp>=1.28,<2",
     "numpy>=1.26",
     "pandas>=2.1",
     "pyarrow>=16",
