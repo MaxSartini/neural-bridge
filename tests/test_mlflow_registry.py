@@ -2,30 +2,18 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from neural_bridge.mlflow_registry import (
     log_completed_output,
-    phase_inventory,
     phase_roots,
+    scientific_metrics_from_object,
+    scientific_run_data_from_file,
     start_run,
     status,
+    sync_existing,
     tracking_uri,
 )
-
-
-def test_phase_inventory_ignores_aliases_and_is_stable(tmp_path: Path) -> None:
-    phase = tmp_path / "runs" / "again" / "phase-01"
-    phase.mkdir(parents=True)
-    (phase / "result.json").write_text("{}")
-    (phase / "model.ckpt").write_bytes(b"model")
-    (phase / "alias").symlink_to(phase, target_is_directory=True)
-
-    first = phase_inventory(phase)
-    second = phase_inventory(phase)
-
-    assert first == second
-    assert first.files == 2
-    assert first.json_files == 1
-    assert first.checkpoints == 1
 
 
 def test_phase_roots_excludes_mlflow_storage(tmp_path: Path) -> None:
@@ -37,6 +25,58 @@ def test_phase_roots_excludes_mlflow_storage(tmp_path: Path) -> None:
 
 def test_tracking_uri_uses_absolute_sqlite_path(tmp_path: Path) -> None:
     assert tracking_uri(tmp_path / "mlflow.db") == f"sqlite:///{tmp_path}/mlflow.db"
+
+
+def test_scientific_metrics_exclude_inventory_and_summarise_results(tmp_path: Path) -> None:
+    phase = tmp_path / "phase"
+    phase.mkdir()
+    (phase / "result.json").write_text(
+        '{"rows": 99, "real_spearman": 0.4, "checks": {"audit_pass": true}, '
+        '"records": [{"pr_auc": 0.2}, {"pr_auc": 0.4}]}'
+    )
+    (phase / "inventory_summary.json").write_text('{"bytes": 999}')
+    (phase / "fold_metrics.csv").write_text("fold,pr_auc,seed\n0,0.3,1\n1,0.5,2\n")
+
+    json_metrics, _ = scientific_run_data_from_file(phase / "result.json")
+    csv_metrics, _ = scientific_run_data_from_file(phase / "fold_metrics.csv")
+
+    assert json_metrics["real_spearman"] == 0.4
+    assert json_metrics["audit_pass"] == 1.0
+    assert json_metrics["pr_auc.min"] == 0.2
+    assert json_metrics["pr_auc.max"] == 0.4
+    assert csv_metrics["pr_auc.min"] == 0.3
+    assert csv_metrics["pr_auc.max"] == 0.5
+    assert "rows" not in json_metrics
+    assert "bytes" not in json_metrics
+
+
+def test_scientific_metrics_from_object_keeps_live_success_measures() -> None:
+    metrics = scientific_metrics_from_object(
+        {
+            "records": [
+                {"pooled_pr_auc": 0.2, "skill_delta_vs_ar": -0.1, "fold": 0},
+                {"pooled_pr_auc": 0.4, "skill_delta_vs_ar": 0.1, "fold": 1},
+            ]
+        }
+    )
+
+    assert metrics["pooled_pr_auc.mean"] == pytest.approx(0.3)
+    assert metrics["skill_delta_vs_ar.min"] == -0.1
+    assert "fold" not in metrics
+
+
+def test_result_parameters_keep_only_invariant_configuration(tmp_path: Path) -> None:
+    result = tmp_path / "summary.csv"
+    result.write_text(
+        "target,architecture,seed,pr_auc,pca_width\n"
+        "spike,temporal,1,0.3,128\n"
+        "spike,temporal,2,0.4,128\n"
+    )
+
+    metrics, parameters = scientific_run_data_from_file(result)
+
+    assert metrics["pr_auc.mean"] == pytest.approx(0.35)
+    assert parameters == {"architecture": "temporal", "pca_width": "128", "target": "spike"}
 
 
 def test_native_run_references_external_output_without_copying(tmp_path: Path) -> None:
@@ -65,3 +105,25 @@ def test_native_run_references_external_output_without_copying(tmp_path: Path) -
     assert run.data.metrics["records"] == 1
     assert not list(artifact_root.rglob("result.json"))
     assert status(database)["runs"] == 1
+
+
+def test_sync_existing_creates_result_runs_without_inventory_metrics(tmp_path: Path) -> None:
+    source = tmp_path / "artifacts" / "runs" / "again" / "phase-07" / "metrics"
+    source.mkdir(parents=True)
+    result = source / "result.json"
+    result.write_text('{"real_spearman": 0.3, "ar_spearman": 0.2, "rows": 99}')
+    database = tmp_path / "mlflow.db"
+
+    summary = sync_existing(
+        artifact_root=tmp_path / "artifacts",
+        database=database,
+        mlflow_artifact_root=tmp_path / "mlflow-artifacts",
+    )
+
+    import mlflow
+
+    runs = mlflow.MlflowClient().search_runs(["1"])
+    assert summary["results"] == 1
+    assert len(runs) == 1
+    assert runs[0].data.tags["neural_bridge.source_path"] == str(result)
+    assert runs[0].data.metrics == {"ar_spearman": 0.2, "real_spearman": 0.3}

@@ -7,7 +7,11 @@ import json
 from datetime import UTC, datetime
 from pathlib import Path
 
-from neural_bridge.mlflow_registry import log_completed_output, start_run
+from neural_bridge.mlflow_registry import (
+    log_completed_output,
+    scientific_metrics_from_object,
+    start_run,
+)
 
 from .contracts import AROUSAL_SPIKE_1_3S, CandidateSpec, CellSpec
 from .data import CanonicalSubstrate
@@ -195,10 +199,11 @@ def main() -> int:
                 output,
                 parameters={
                     "folds": len(preregistration["split"]["inner_grouped_video_folds"]),
+                    "records": len(result["records"]),
                     "sources": ",".join(sources),
                     "targets": len(calibration["target_hypotheses"]),
                 },
-                metrics={"records": len(result["records"])},
+                metrics=scientific_metrics_from_object(result),
                 tags={
                     "neural_bridge.result_sha256": result["screen_sha256"],
                     "neural_bridge.schema": result["schema"],
