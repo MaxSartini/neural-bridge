@@ -1,0 +1,13 @@
+{
+  "artifact_id": "veatic-2.1-cortical-pca-v1-20260722",
+  "classification": "external-canonical",
+  "programme": "veatic-2.1",
+  "role": "fold-owned-cortical-pca-cache",
+  "external_relative_path": "features/veatic-2.1/neural-bridge/cortical-pca-v1",
+  "entrypoint": "features/veatic-2.1/neural-bridge/cortical-pca-v1/manifest.json",
+  "files": 16,
+  "size_bytes": 353113283,
+  "sha256_tree": "ccf59405455c3ae52f41c78ce4c3b258956e91b145365649523c572fa967d3ff",
+  "schema": "veatic21_cortical_pca_cache_v1",
+  "verified_at": "2026-07-22"
+}

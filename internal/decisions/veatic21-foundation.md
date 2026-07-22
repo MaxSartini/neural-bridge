@@ -1,6 +1,6 @@
 # VEATIC 2.1 Fresh Foundation
 
-Status: active, non-promotable foundation work as of 2026-07-21.
+Decision: foundation protocol completed and frozen on 2026-07-22.
 
 ## Boundary
 
@@ -55,14 +55,9 @@ and the all-124 refit API refuses before reading data or writing output. Enable 
 after a preregistered aggregate gate has a sealed, independently verifiable contract. No
 canonical all-124 refit has been run.
 
-## Exact next action
+## Downstream authority
 
-The label-blind per-video 70/30 split, train-prefix target calibration, compact linear
-diagnostic, and reusable five-fold 512-component cortical PCA cache are complete. Continue
-with the two-stage programme in
-[`veatic21-event-preregistration.md`](veatic21-event-preregistration.md): first prove that a
-fresh VEATIC video residual adds information beyond a fresh frozen VEATIC AR model, then
-freeze that discovery before training zero-label candidates. Fit every projection and head
-from first-70% rows in its current inner fold and keep every last-30% label closed until both
-stages freeze. Once the single benchmark opening completes, refit every fitted object from
-scratch on all 19,734 usable rows without reporting that refit as benchmark evidence.
+This record fixes the completed foundation evidence; it does not declare current work. The
+sole current action is in [`internal/handoff/CURRENT_STATE.md`](../handoff/CURRENT_STATE.md),
+with the registered method in
+[`internal/active/veatic21-event-preregistration.md`](../active/veatic21-event-preregistration.md).

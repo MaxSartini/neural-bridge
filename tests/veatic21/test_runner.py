@@ -33,6 +33,75 @@ from neural_bridge.veatic21.runner import (
     run_confirmation_cell,
     verify_confirmation_cell,
 )
+from neural_bridge.veatic21.stage1 import CheckpointSelector, build_stage1_plan
+
+
+def test_stage1_checkpoint_policy_keeps_epoch_one_and_has_no_epoch_ceiling() -> None:
+    selector = CheckpointSelector()
+    assert selector.observe(1, 0.2)
+    for epoch in range(2, 401):
+        selector.observe(epoch, 0.1)
+    assert selector.best_epoch == 1
+    assert selector.should_stop(400, optimizer_converged=True)
+
+    selector.observe(401, 0.3)
+    assert selector.best_epoch == 401
+    assert not selector.should_stop(10_000, optimizer_converged=False)
+
+
+def test_stage1_plan_encodes_registered_checkpoint_and_fold_matrix() -> None:
+    preregistration = {
+        "preregistration_sha256": "pre",
+        "heads": {
+            "label_assisted_discovery": [
+                "frozen_ar_plus_causal_temporal_residual",
+                "frozen_ar_plus_gated_multiscale_temporal_residual",
+            ]
+        },
+        "training": {
+            "checkpoint_eligibility": "every_completed_validation_from_epoch_1",
+            "checkpoint_metric": "inner_average_precision_skill_delta_vs_frozen_ar",
+            "comparison_seed_panel": [1, 2, 3],
+            "last_checkpoint_preference": False,
+            "minimum_epochs_before_termination": 50,
+        },
+    }
+    calibration = {
+        "benchmark_test_labels_accessed": False,
+        "calibration_sha256": "cal",
+        "preregistration_sha256": "pre",
+        "schema": "veatic21_event_calibration_v12",
+        "target_hypotheses": [
+            {
+                "horizon_rows": [2, 4],
+                "label": "arousal",
+                "name": "target",
+                "train_quantile": 0.9,
+                "transform": "absolute",
+            }
+        ],
+    }
+    pca_manifest = {
+        "folds": [{"candidate_widths": [64, 128], "directory": "fold-0", "fold": 0}],
+        "manifest_sha256": "pca",
+        "preregistration_sha256": "pre",
+    }
+    plan = build_stage1_plan(
+        preregistration,
+        calibration,
+        pca_manifest,
+        {"backend": "mlx", "safe_batch_rows_by_hidden_width": {"64": 128}},
+    )
+    assert plan["checkpoint_policy"] == {
+        "eligible_from_epoch": 1,
+        "maximum_epochs": None,
+        "minimum_epochs_before_termination": 50,
+        "optimizer_convergence_required": True,
+        "plateau_patience_epochs": 50,
+        "selection_metric": "inner_average_precision_skill_delta_vs_frozen_ar",
+        "tie_break": "earliest_checkpoint",
+    }
+    assert plan["matrix"]["folds"][0]["candidate_pca_widths"] == [64, 128]
 
 
 class _MemorySubstrate:

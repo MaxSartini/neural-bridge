@@ -9,7 +9,6 @@ import json
 import os
 from pathlib import Path
 
-
 IGNORED_NAMES = {".DS_Store", ".pytest_cache", "__pycache__"}
 
 

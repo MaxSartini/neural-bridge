@@ -1,6 +1,6 @@
 # VEATIC 2.1 Event/Spike Discovery
 
-Status: official per-video 70/30 calibration complete; future-tail labels sealed.
+Boundary: official per-video 70/30 calibration is complete; future-tail labels remain sealed.
 
 ## Product objective
 
@@ -151,16 +151,9 @@ new benchmark-train scope, not an inherited window.
 - Every checkpoint from epoch 1 is eligible to win, but no run may terminate before epoch
   50. Training continues beyond 50—including 400+ epochs when useful—until the frozen
   VEATIC plateau/convergence rule fires. The best validation checkpoint over the complete
-  trajectory wins; the last checkpoint has no preference and the epoch ceiling is only a
-  generous runaway-compute guard.
+  trajectory wins; the last checkpoint has no preference and there is no maximum epoch.
 - Keep held-out-video, blocked-temporal, cold-start, and eventual external-ad claims
   separate.
-
-The superseded 99-video compact internal-stack ablation covered 2,880 cells. Fresh PCA widths were
-182--191 for the cached V-JEPA view and 215--224 for grouped TRIBE; every compact linear
-lane lost to AR. It remains Phase-3-style failure evidence but is not eligible for selection
-under the corrected 70/30 benchmark. Repeating it would only rerun a known diagnostic dead
-end; cortical TRIBE advances through Neural Bridge heads.
 
 The reusable cortical PCA cache is now complete at
 `artifacts/features/veatic-2.1/neural-bridge/cortical-pca-v1` with manifest digest
@@ -181,12 +174,11 @@ Phase 7 confirms ranking and top-tail utility. The later zero-label programme st
 from the frozen label-assisted discovery, while treating AGAIN's failed distillation and
 self-rollout attempts as warnings rather than defaults.
 
-## Exact next action
+## Registered training sequence
 
-Read target support directly from `event-spike-v1-calibration.json` and PCA evidence directly
-from `cortical-pca-v1/manifest.json`. No neural-memory artifact exists; run one bounded local
-capacity/batch probe instead of searching for one, then seal the child training plan. Use the cached projections
-to screen the 18 VEATIC targets with fresh label-assisted residual families and matched
+The child plan consumes target support from `event-spike-v1-calibration.json` and PCA evidence
+from `cortical-pca-v1/manifest.json`; capacity and batching come from one bounded local probe.
+The cached projections screen the 18 VEATIC targets with fresh label-assisted residual families and matched
 video-only/control lanes. Freeze the stable target, representation, and label-assisted head
 before beginning zero-label conversion; keep every last-30% label closed until both stages
 freeze. Apply the same VEATIC-calculated method—not fitted artifacts—to continuous arousal

@@ -18,6 +18,7 @@ from .preregistration import (
     calibrate_event_preregistration,
 )
 from .runner import run_confirmation_cell, verify_confirmation_cell
+from .stage1 import build_stage1_plan, probe_stage1_capacity, write_stage1_plan
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -58,6 +59,14 @@ def _parser() -> argparse.ArgumentParser:
     pca.add_argument("--preregistration", type=Path, required=True)
     pca.add_argument("--output", type=Path)
     pca.add_argument("--fold", action="append", type=int, choices=range(5))
+    stage1 = subparsers.add_parser(
+        "prepare-stage1",
+        help="probe local capacity and seal the executable Stage-1 child plan",
+    )
+    stage1.add_argument("--preregistration", type=Path)
+    stage1.add_argument("--calibration", type=Path)
+    stage1.add_argument("--pca-manifest", type=Path)
+    stage1.add_argument("--output", type=Path)
     return parser
 
 
@@ -81,6 +90,10 @@ def _default_screen_output(repo_root: Path, sources: list[str]) -> Path:
 
 def _default_pca_output(repo_root: Path) -> Path:
     return repo_root / "artifacts/features/veatic-2.1/neural-bridge/cortical-pca-v1"
+
+
+def _default_stage1_output(repo_root: Path) -> Path:
+    return repo_root / "artifacts/preregistrations/veatic-2.1/stage1-child-plan.json"
 
 
 def _owned_rows(features, mask) -> dict[str, list[int]]:
@@ -214,6 +227,34 @@ def main() -> int:
                     "manifest_sha256": result["manifest_sha256"],
                     "output": str(output),
                     "schema": result["schema"],
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "prepare-stage1":
+        preregistration_path = args.preregistration or _default_preregistration_output(
+            substrate.repo_root
+        )
+        calibration_path = args.calibration or _default_calibration_output(
+            substrate.repo_root
+        )
+        pca_manifest_path = args.pca_manifest or (
+            _default_pca_output(substrate.repo_root) / "manifest.json"
+        )
+        output = args.output or _default_stage1_output(substrate.repo_root)
+        preregistration = load_json(preregistration_path.expanduser().resolve())
+        calibration = load_json(calibration_path.expanduser().resolve())
+        pca_manifest = load_json(pca_manifest_path.expanduser().resolve())
+        capacity = probe_stage1_capacity(pca_manifest)
+        plan = build_stage1_plan(preregistration, calibration, pca_manifest, capacity)
+        write_stage1_plan(output.expanduser().resolve(), plan)
+        print(
+            json.dumps(
+                {
+                    "output": str(output),
+                    "plan_sha256": plan["plan_sha256"],
+                    "schema": plan["schema"],
                 },
                 sort_keys=True,
             )

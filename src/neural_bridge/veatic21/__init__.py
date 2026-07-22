@@ -31,6 +31,7 @@ from .runner import (
     run_nested_discovery,
     verify_confirmation_cell,
 )
+from .stage1 import CheckpointSelector, build_stage1_plan, probe_stage1_capacity
 
 __all__ = [
     "AROUSAL_SPIKE_1_3S",
@@ -39,6 +40,7 @@ __all__ = [
     "CandidateSpec",
     "CanonicalSubstrate",
     "CellSpec",
+    "CheckpointSelector",
     "DatasetContract",
     "EventTargetHypothesis",
     "FeatureRows",
@@ -50,10 +52,12 @@ __all__ = [
     "VideoSplit",
     "benchmark_partition_mask",
     "build_video_splits",
+    "build_stage1_plan",
     "build_event_preregistration",
     "calibrate_event_preregistration",
     "freeze_final_recipe",
     "predict_exported_model",
+    "probe_stage1_capacity",
     "refit_all_124",
     "run_confirmation_cell",
     "run_event_target_screen",

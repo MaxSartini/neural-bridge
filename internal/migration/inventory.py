@@ -10,7 +10,6 @@ import os
 import re
 from pathlib import Path
 
-
 SKIP_DIRS = {".git", ".venv", "node_modules", "__pycache__"}
 
 
@@ -62,7 +61,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--pattern", required=True)
-    parser.add_argument("--root", action="append", nargs=2, metavar=("LABEL", "PATH"), required=True)
+    parser.add_argument(
+        "--root", action="append", nargs=2, metavar=("LABEL", "PATH"), required=True
+    )
     parser.add_argument("--max-hash-mib", type=int, default=64)
     args = parser.parse_args()
 

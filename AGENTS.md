@@ -1,24 +1,16 @@
 # Neural Bridge Repository Contract
 
-- VEATIC, AGAIN, zero-label, training, and evaluation continuations are scientific work, never `neural-bridge-app` work. Run one canonical-handoff search; when current, treat its exact next action as the plan and execute it unless evidence makes it stale, incomplete, or unsafe.
-- Before implementation, allow at most 3 discovery calls and one primary read tool per question: CodeGraph for code, Context-Mode for indexed/derived evidence, or shell for small fixed output. Do not cross-check the same fact, hunt undeclared artifacts, or follow up without a concrete missing/stale detail.
-- Give one short startup update, then only material results, decisions, blockers, or 60-second progress. Do not enumerate skills, explain routing/tools, or repeat plans.
-- This repository is the new canonical private Git repository under construction.
-- The existing internal and external project roots are forensic source material until migration closes.
-- Never infer absence from GitHub: audit local, ignored, untracked, and external material.
-- Start clean tasks with one `ctx_search` for `current result constraints exact next action`, scoped to `neural-bridge-canonical-handoff`, limit `3`; read the handoff only when that result is absent or stale.
-- Start artifact lookup with one `ctx_search` scoped to `neural-bridge-canonical-artifacts`; read only the exact registry entry or mapped artifact required.
-- Work newest-to-oldest: VEATIC 2.1, zero-label, AGAIN Phase 7 to 0, original VEATIC, earliest exploration.
-- Do not move a file or verified directory collection until `internal/migration/move-manifest.csv` records its source, destination, size, SHA-256 tree digest, role, and verification state.
-- Same-volume moves should be atomic renames. Cross-volume moves require destination checksum verification before source deletion.
-- Heavy data, caches, features, PCA, scores, models, weights, checkpoints, tensors, and complete runs belong under the ignored `artifacts` boundary on external storage.
-- Canonical paths describe scientific programme, phase, artifact role, and lifecycle. Never organize by incidental machine/provider labels such as H100, MLX, drive names, upload bundle names, or temporary job names; preserve those details only in provenance manifests.
-- Do not globally ignore scientific extensions. A heavy artifact placed outside `artifacts` must remain visible in Git status.
-- Front-facing paths contain concluded, defensible results only. Active work and handoffs stay under `internal/` and are not linked from the root README.
-- Each concluded phase owns its final runner, configuration, compact CSV/JSON results, report, provenance, external-artifact manifest, and only the minimum tests needed to defend that endpoint.
-- Do not migrate tests wholesale. Keep a test only when it protects migrated live code, a scientific invariant, reproducibility, or a demonstrated failure mode. Leave redundant smoke, probe, scaffolding, hardware-tryout, and superseded-runner tests behind.
-- Preserve decisive wins and failures that explain phase transitions; keep implementation noise out of normal navigation.
-- Build VEATIC 2.1 scientifically from scratch. AGAIN may contribute hypotheses and neutral rigor utilities only after semantic compatibility is proven; never inherit an AGAIN head, fitted PCA, threshold, target, window, checkpoint, training recipe, or model selection.
-- Keep `src/neural_bridge/again/` and the fresh `src/neural_bridge/veatic21/` implementation separate. Factor code into `src/neural_bridge/science/` only after both sides independently demonstrate identical semantics and provenance requirements.
-- Do not add a root README until the scientific packages and navigation are settled.
-- Do not configure a remote, commit, push, delete a source root, or migrate an active study without explicit approval.
+- This is the canonical private Neural Bridge repository.
+- VEATIC, AGAIN, zero-label, training, and evaluation are scientific work; `neural-bridge-app` is only for explicit macOS product work.
+- Continue from one source: search `neural-bridge-canonical-handoff` for `current result fixed constraints exact next action`, then execute its next action.
+- After state-changing work, replace `internal/handoff/CURRENT_STATE.md` with the current result, fixed constraints, and one exact next action; refresh `neural-bridge-canonical-handoff`, `neural-bridge-canonical-repository`, `neural-bridge-canonical-artifacts`, and `neural-bridge-canonical-artifact-payloads`. Name the executable command and inputs, or the exact file, symbol, and acceptance check when implementation is next.
+- Use one evidence path per question. CodeGraph returns one named symbol or bounded line slice; Context Mode returns one exact indexed state, registry record, artifact payload, or derived value. Make precise requests rather than relying on truncation.
+- Give one short startup update, then only material results, decisions, blockers, or 60-second progress.
+- Resolve an artifact by programme and role through `neural-bridge-canonical-artifacts`; it returns the complete registry record and exact external path. Query manifest/JSON payloads through `neural-bridge-canonical-artifact-payloads`; derive larger-file answers directly from that exact path.
+- Store heavy data, caches, features, PCA, scores, models, weights, checkpoints, tensors, and complete runs under the ignored external `artifacts` boundary. Canonical paths describe programme, phase, role, and lifecycle.
+- Keep concluded results in front-facing paths and active work, decisions, the handoff, and migration records under `internal/`.
+- Each concluded phase owns its final runner, configuration, compact results, report, provenance, artifact manifest, and the tests required to defend it.
+- Build VEATIC 2.1 from VEATIC-specific data, targets, fitted projections, models, controls, and selection. AGAIN contributes hypotheses and semantically compatible rigor utilities, never fitted artifacts or numeric choices.
+- Keep `src/neural_bridge/again/` and `src/neural_bridge/veatic21/` separate; share code through `src/neural_bridge/science/` only after both sides prove identical semantics and provenance.
+- For forensic migration, follow `internal/migration/README.md`.
+- Preserve unrelated changes. Configure remotes, commit, push, delete source material, or migrate an active study only with explicit approval.

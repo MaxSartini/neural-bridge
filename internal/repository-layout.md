@@ -9,7 +9,7 @@ This repository separates the reader-facing scientific record from active work a
 - `tests/`: a small suite protecting live shared code and scientific contracts; not a historical test archive.
 - `docs/`: concise overview, methods, rigor, reproducibility, and reference material.
 - `registry/`: study, claim, and external-artifact indexes.
-- `internal/`: active research, decisions, handoffs, and migration records; absent from front navigation.
+- `internal/`: active research, decisions, the canonical handoff, and migration records; absent from front navigation.
 - `artifacts`: ignored local symlink to the organized external artifact root.
 
 Canonical names are scientific, not operational. Hardware, cloud provider, drive, bundle, and temporary job names are recorded in provenance but never used as destination taxonomy. Material found under an operational bundle is relocated according to its actual programme and phase.
