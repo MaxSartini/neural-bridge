@@ -94,21 +94,29 @@
   `bbd9db2355962628243484e9c82962ca024a421b5c344c18bb37eeaf65b5a9c2`.
 - One real non-promotable gated cell verified the multiscale design and artifact lifecycle.
   It completed 58 epochs and retained checkpoint 5. Its score is not head-selection evidence.
-- No head family, training recipe, checkpoint panel, fallback, or final winner has been
-  selected. The sealed tail remains unopened.
+- All 90 gated cells completed. The result summary and every referenced cell metrics hash
+  verify; sealed-tail labels were not accessed. Canonical summary:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/head-family-screen/summary.json`.
+  Exact summary SHA-256:
+  `aade8c0bf25a50a0c4b859e7ed8c47e10937e6cab2fc8dbfa5402d024c4ff22e`.
+- The causal temporal residual remains selected. Its mean inner average-precision skill
+  delta versus fresh AR was `+0.009118552`; gated multiscale scored `+0.007984341`.
+  Paired gated-minus-causal was `-0.001134211`; causal won `54/90` pairs and gated won
+  `36/90`. Gating helped q950, was nearly neutral at q925, and lost on q900/q875/q850/q800.
+- Canonical head-family selection:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/head-family-selection.json`.
+  Exact selection SHA-256:
+  `d145c7f07dc0e825750532048bbedef4ddba4d3600adb84fa92b4ec6a7319d0a`.
+- No training recipe, checkpoint panel, fallback, or final winner has been selected. The
+  sealed tail remains unopened.
 
 ## Exact next action
 
-Run the complete registered 90-cell gated head-family screen:
-
-```bash
-cd '/Users/maxsartini/Neural Bridge'
-uv run python -m neural_bridge.veatic21 benchmark-head-family
-```
-
-Output is written resumably by completed cell under:
-
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/head-family-screen`
+Register the VEATIC-owned numeric training-recipe matrix for the selected PCA-512 causal
+temporal residual. Vary architecture width, learning rate, weight decay, and residual cap in
+staged gates rather than one combinatorial sweep. Reuse identical targets, folds, comparison
+seeds, fresh AR floors, checkpoint rules, and one sequential GPU worker. Calculate all
+candidate values from VEATIC 2.1 only; do not reuse AGAIN numeric winners.
 
 Use exactly one GPU worker for learned cells. Do not launch parallel training processes.
 
