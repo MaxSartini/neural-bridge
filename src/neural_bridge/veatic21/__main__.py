@@ -9,7 +9,7 @@ from pathlib import Path
 
 from .contracts import AROUSAL_SPIKE_1_3S, CandidateSpec, CellSpec
 from .data import CanonicalSubstrate
-from .evidence import atomic_write_json, digest_json, load_json
+from .evidence import atomic_write_json, digest_json, load_json, sha256_file
 from .pca_cache import fit_event_pca_cache
 from .preregistration import (
     benchmark_partition_mask,
@@ -25,6 +25,7 @@ from .stage1 import (
     run_stage1_discovery_cell,
     write_stage1_plan,
 )
+from .stage2 import build_stage2_pca_screen, run_stage2_pca_screen, write_stage2_pca_screen
 
 _ARTIFACT_ROOT = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
 
@@ -70,6 +71,24 @@ def _parser() -> argparse.ArgumentParser:
     ar_benchmark.add_argument("--preregistration", type=Path)
     ar_benchmark.add_argument("--calibration", type=Path)
     ar_benchmark.add_argument("--output", type=Path)
+    prepare_stage2 = subparsers.add_parser(
+        "prepare-stage2-pca",
+        help="seal the train-only target shortlist and fixed-PCA screening matrix",
+    )
+    prepare_stage2.add_argument("--ar-benchmark", type=Path)
+    prepare_stage2.add_argument("--plan", type=Path)
+    prepare_stage2.add_argument("--executor-request", type=Path)
+    prepare_stage2.add_argument("--output", type=Path)
+    stage2 = subparsers.add_parser(
+        "benchmark-stage2-pca",
+        help="run the complete resumable fixed-PCA screen without opening the sealed tail",
+    )
+    stage2.add_argument("--preregistration", type=Path)
+    stage2.add_argument("--calibration", type=Path)
+    stage2.add_argument("--pca-manifest", type=Path)
+    stage2.add_argument("--plan", type=Path)
+    stage2.add_argument("--screen", type=Path)
+    stage2.add_argument("--output", type=Path)
     cell = subparsers.add_parser(
         "run-stage1-cell",
         help="train one VEATIC-only learned spike discovery cell without opening the sealed tail",
@@ -122,6 +141,18 @@ def _default_stage1_output(repo_root: Path) -> Path:
 
 def _default_ar_benchmark_output() -> Path:
     return _ARTIFACT_ROOT / "runs/veatic-2.1/stage1-ar-benchmark"
+
+
+def _default_stage2_screen_output() -> Path:
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/stage2-pca-screen.json"
+
+
+def _default_stage2_run_output() -> Path:
+    return _ARTIFACT_ROOT / "runs/veatic-2.1/stage2-pca-screen"
+
+
+def _default_executor_validation_request() -> Path:
+    return _ARTIFACT_ROOT / "runs/veatic-2.1/stage1-executor-validation/cell-001/request.json"
 
 
 def _default_stage1_cell_output(config: Stage1CellConfig) -> Path:
@@ -191,6 +222,37 @@ def main() -> int:
     args = _parser().parse_args()
     if args.command == "prepare-stage1":
         return _prepare_stage1(args)
+    if args.command == "prepare-stage2-pca":
+        ar_path = (
+            (args.ar_benchmark or (_default_ar_benchmark_output() / "summary.json"))
+            .expanduser()
+            .resolve()
+        )
+        plan_path = (args.plan or _default_stage1_output(Path.cwd())).expanduser().resolve()
+        executor_path = (
+            (args.executor_request or _default_executor_validation_request()).expanduser().resolve()
+        )
+        output = (args.output or _default_stage2_screen_output()).expanduser().resolve()
+        screen = build_stage2_pca_screen(
+            load_json(ar_path),
+            load_json(plan_path),
+            load_json(executor_path),
+            executor_request_sha256=sha256_file(executor_path),
+        )
+        write_stage2_pca_screen(output, screen)
+        print(
+            json.dumps(
+                {
+                    "benchmark_test_labels_accessed": False,
+                    "expected_cells": screen["matrix"]["expected_cells"],
+                    "output": str(output),
+                    "screen_sha256": screen["screen_sha256"],
+                    "selected_targets": screen["target_shortlist"]["selected_targets"],
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
     substrate = CanonicalSubstrate.from_repo()
     if args.command == "benchmark-stage1-ar":
         preregistration = load_json(
@@ -218,6 +280,50 @@ def main() -> int:
                     "invalid_cells": summary["invalid_cells"],
                     "output": str(output),
                     "target_count": summary["target_count"],
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "benchmark-stage2-pca":
+        preregistration = load_json(
+            (args.preregistration or _default_preregistration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        calibration = load_json(
+            (args.calibration or _default_calibration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        pca_root = _default_pca_output(substrate.repo_root)
+        pca_manifest = load_json(
+            (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+        )
+        plan = load_json(
+            (args.plan or _default_stage1_output(substrate.repo_root)).expanduser().resolve()
+        )
+        screen = load_json((args.screen or _default_stage2_screen_output()).expanduser().resolve())
+        output = (args.output or _default_stage2_run_output()).expanduser().resolve()
+        summary = run_stage2_pca_screen(
+            substrate,
+            preregistration,
+            calibration,
+            pca_manifest,
+            plan,
+            screen,
+            pca_root,
+            output,
+            progress=lambda record: print(json.dumps(record, sort_keys=True), flush=True),
+        )
+        print(
+            json.dumps(
+                {
+                    "benchmark_test_labels_accessed": False,
+                    "completed_cells": summary["completed_cells"],
+                    "expected_cells": summary["expected_cells"],
+                    "output": str(output),
+                    "summary_sha256": summary["summary_sha256"],
                 },
                 sort_keys=True,
             )

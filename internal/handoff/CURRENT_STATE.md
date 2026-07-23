@@ -26,18 +26,38 @@
   It trained 84 epochs and selected checkpoint 34, demonstrating that epoch 1 onward is
   merit-eligible and the final checkpoint is not preferred. Its score is not selection
   evidence.
-- No target shortlist, PCA width, learned representation, head, training recipe,
-  checkpoint panel, fallback, or winner has been selected. The sealed tail remains unopened.
+- A train-only Stage-2 shortlist now contains exactly one target per preregistered quantile.
+  Within each quantile, targets were ranked by mean fresh-AR average-precision skill across
+  all 15 fold/seed cells, then minimum skill descending, dispersion ascending, and name.
+- The six shortlisted targets are:
+  `arousal_positive_max_0p5_0p5s_train_q950`,
+  `arousal_positive_max_0p5_1s_train_q925`,
+  `arousal_positive_max_0p5_1s_train_q900`,
+  `arousal_positive_max_0p5_1s_train_q875`,
+  `arousal_positive_max_0p5_1s_train_q850`, and
+  `arousal_positive_max_1_1s_train_q800`.
+- The fixed-PCA screen varies only widths `64/128/256/512` across those six targets, five
+  folds, and three comparison seeds: 360 expected cells. The nuisance recipe is copied from
+  the current VEATIC executor-validation configuration; its score was not used for selection.
+- Canonical Stage-2 screen:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/stage2-pca-screen.json`.
+  Exact screen SHA-256:
+  `b756bdcbf533466047c2b664aa9dac95f9a2146da3c9491994565b9412241114`.
+- No PCA width, learned representation, head, training recipe, checkpoint panel, fallback,
+  or winner has been selected. The sealed tail remains unopened.
 
 ## Exact next action
 
-Begin registered Stage-2 representation and PCA discovery on a train-only target shortlist
-derived from the completed fresh-AR benchmark.
+Run the complete registered 360-cell fixed-PCA screen:
 
-The active protocol requires a Stage-1 target shortlist but does not yet define a shortlist
-selection rule or one canonical matrix command. Do not select targets ad hoc, infer a rule
-from historical material, or launch arbitrary learned cells. First register the train-only
-shortlist rule and the exact Stage-2 execution matrix against the AR summary SHA-256 above.
+```bash
+cd '/Users/maxsartini/Neural Bridge'
+uv run python -m neural_bridge.veatic21 benchmark-stage2-pca
+```
+
+Output is written resumably by completed cell under:
+
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/stage2-pca-screen`
 
 Learned residual cells must use the plan-owned MLX capacity and the existing checkpoint
 contract. The fresh-AR baseline remains the completed float64 CPU/LBFGS benchmark.
@@ -46,6 +66,7 @@ contract. The fresh-AR baseline remains the completed float64 CPU/LBFGS benchmar
 
 1. Complete target discovery and fresh AR benchmark. **Done.**
 2. Register the target shortlist rule, then run representation and PCA experiments.
+   **Shortlist and fixed-PCA matrix registered; screen running next.**
 3. Model and training experiments.
 4. Fixed fold and seed stability.
 5. Matched controls, leakage checks, and whole-fold/seed no-harm.
