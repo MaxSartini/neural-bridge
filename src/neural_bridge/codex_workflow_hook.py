@@ -12,45 +12,22 @@ from typing import Any
 REPOSITORY = Path("/Users/maxsartini/Neural Bridge")
 ARTIFACTS = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
 ROOTS = (REPOSITORY, ARTIFACTS)
-GRAPHIFY_TOOL = "mcp__graphify__get_exact_neural_bridge_node"
+GRAPHIFY_TOOL_PREFIX = "mcp__graphify_native__"
 SHELL_TOOL_NAMES = frozenset(
     {"bash", "command_execution", "exec_command", "shell", "shell_command"}
 )
-DIRECT_RETRIEVAL_TOOLS = frozenset(
-    {
-        "cat",
-        "fd",
-        "find",
-        "grep",
-        "head",
-        "less",
-        "ls",
-        "more",
-        "rg",
-        "sed",
-        "tail",
-        "tree",
-    }
-)
-RETRIEVAL_TOOL_PATTERN = re.compile(
-    r"(?:context.?mode|codegraph|filesystem|caveman|ponytail)", re.IGNORECASE
-)
+BROAD_RETRIEVAL_TOOLS = frozenset({"fd", "find", "grep", "less", "ls", "more", "rg", "tree"})
+EXACT_READ_TOOLS = frozenset({"cat", "head", "sed", "tail"})
 RETRIEVAL_VERB_PATTERN = re.compile(r"(?:^|_)(?:fetch|find|get|list|read|search)(?:_|$)")
 SESSION_CONTEXT = (
     "Neural Bridge workflow enforcement is active. Treat /Users/maxsartini/Neural Bridge "
-    "and /Volumes/onn. Drive/Neural Bridge Artifacts as one logical Graphify codebase. At "
-    "task start, call "
-    "mcp__graphify__get_exact_neural_bridge_node for "
-    "/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md as the scientific handoff; "
-    "do not execute its next scientific action unless the active task authorizes it. Throughout "
-    "the task, use that same Graphify tool for every repository or artifact retrieval. Supply the "
-    "unique identity available--a symbol or qualified symbol, path suffix, unique filename, "
-    "absolute path, or node ID--plus provenance context when names repeat, without requiring a "
-    "memorized absolute path. For JSON, request the exact RFC 6901 value needed instead of the "
-    "whole document unless the whole document is genuinely required. Consume its one bounded "
-    "inline content result or direct heavy-payload consumer path; do not use "
-    "filesystem search, candidate dumps, pointer chasing, Context Mode, or substitute retrieval "
-    "systems. Every shell command and every top-level command segment must begin with rtk."
+    "and /Volumes/onn. Drive/Neural Bridge Artifacts as one logical Graphify codebase. At task "
+    "start, call native mcp__graphify_native__query_graph once with the full ordinary-language "
+    "job, including the canonical current scientific handoff. Graphify finds the work area; do not "
+    "guess paths or chain get_node calls to locate it. Read only sources returned by Graphify. Do "
+    "not use broad filesystem search. Do not execute a scientific action unless the "
+    "active task authorizes it. Every shell command and every top-level command segment must begin "
+    "with rtk."
 )
 
 
@@ -125,12 +102,14 @@ def _direct_scope_read(tokens: list[str], cwd: Path) -> bool:
     if len(tokens) < 2:
         return False
     executable = Path(tokens[1]).name
-    if executable not in DIRECT_RETRIEVAL_TOOLS:
+    if executable not in BROAD_RETRIEVAL_TOOLS | EXACT_READ_TOOLS:
         return False
     absolute_arguments = [Path(token) for token in tokens[2:] if token.startswith("/")]
     if absolute_arguments and all(
         not any(_is_within(argument, root) for root in ROOTS) for argument in absolute_arguments
     ):
+        return False
+    if executable in EXACT_READ_TOOLS and absolute_arguments:
         return False
     return any(_is_within(cwd, root) for root in ROOTS)
 
@@ -148,8 +127,8 @@ def shell_denial_reason(command: object, cwd: str) -> str | None:
             return "Every Neural Bridge shell command segment must begin with rtk."
         if _direct_scope_read(tokens, Path(cwd)):
             return (
-                "Use mcp__graphify__get_exact_neural_bridge_node for Neural Bridge retrieval; "
-                "direct filesystem search/read commands are blocked."
+                "Use native mcp__graphify_native__query_graph before reading returned sources; "
+                "broad filesystem search and unscoped reads are blocked."
             )
     return None
 
@@ -189,19 +168,15 @@ def evaluate_hook(payload: dict[str, Any]) -> dict[str, object] | None:
     if not isinstance(tool_input, dict):
         tool_input = {}
     normalized_name = tool_name.lower()
-    if tool_name == GRAPHIFY_TOOL:
+    if tool_name.startswith(GRAPHIFY_TOOL_PREFIX) or normalized_name == "apply_patch":
         return None
     if normalized_name in SHELL_TOOL_NAMES or "command" in tool_input or "cmd" in tool_input:
         command = tool_input.get("command", tool_input.get("cmd"))
         reason = shell_denial_reason(command, str(payload["cwd"]))
         return _deny(reason) if reason else None
 
-    if RETRIEVAL_TOOL_PATTERN.search(normalized_name):
-        return _deny(
-            "Graphify is the only retrieval layer for Neural Bridge repository and artifact data."
-        )
     if (
-        tool_name in {"Glob", "Grep", "Read", "Search"}
+        tool_name in {"Glob", "Grep", "Search"}
         or (
             normalized_name.startswith("mcp__")
             and RETRIEVAL_VERB_PATTERN.search(normalized_name)
@@ -209,7 +184,7 @@ def evaluate_hook(payload: dict[str, Any]) -> dict[str, object] | None:
         )
     ):
         return _deny(
-            "Use mcp__graphify__get_exact_neural_bridge_node for this exact Neural Bridge lookup."
+            "Use native mcp__graphify_native__query_graph with the ordinary-language task first."
         )
     return None
 

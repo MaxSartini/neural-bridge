@@ -4,7 +4,11 @@ from typing import Any, cast
 
 import pytest
 
-from neural_bridge.codex_workflow_hook import GRAPHIFY_TOOL, evaluate_hook, shell_denial_reason
+from neural_bridge.codex_workflow_hook import (
+    GRAPHIFY_TOOL_PREFIX,
+    evaluate_hook,
+    shell_denial_reason,
+)
 
 REPOSITORY = "/Users/maxsartini/Neural Bridge"
 
@@ -17,11 +21,11 @@ def test_session_start_injects_continuous_workflow() -> None:
     assert result is not None
     output = cast(dict[str, Any], result["hookSpecificOutput"])
     context = cast(str, output["additionalContext"])
-    assert "CURRENT_STATE.md" in context
     assert "/Volumes/onn. Drive/Neural Bridge Artifacts" in context
     assert "one logical Graphify codebase" in context
-    assert "do not execute its next scientific action" in context
-    assert "Throughout the task" in context
+    assert "ordinary-language job" in context
+    assert "do not guess paths" in context
+    assert "Do not execute a scientific action" in context
     assert "Graphify" in context
     assert "rtk" in context
 
@@ -36,6 +40,14 @@ def test_shell_policy_accepts_only_rtk_for_every_segment() -> None:
 
 def test_shell_policy_blocks_direct_repository_retrieval() -> None:
     assert shell_denial_reason("rtk rg Graphify AGENTS.md", REPOSITORY) is not None
+    assert shell_denial_reason("rtk cat AGENTS.md", REPOSITORY) is not None
+    assert (
+        shell_denial_reason(
+            "rtk cat '/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md'",
+            REPOSITORY,
+        )
+        is None
+    )
     assert (
         shell_denial_reason("rtk cat /Users/maxsartini/.codex/config.toml", REPOSITORY) is None
     )
@@ -63,8 +75,8 @@ def test_pre_tool_use_allows_graphify_and_denies_substitutes() -> None:
         evaluate_hook(
             {
                 **common,
-                "tool_name": GRAPHIFY_TOOL,
-                "tool_input": {"query": f"{REPOSITORY}/AGENTS.md"},
+                "tool_name": f"{GRAPHIFY_TOOL_PREFIX}query_graph",
+                "tool_input": {"question": "What implements the active Neural Bridge task?"},
             }
         )
         is None
@@ -79,6 +91,30 @@ def test_pre_tool_use_allows_graphify_and_denies_substitutes() -> None:
     assert result is not None
     output = cast(dict[str, Any], result["hookSpecificOutput"])
     assert output["permissionDecision"] == "deny"
+
+
+def test_pre_tool_use_allows_apply_patch_and_targeted_read() -> None:
+    common = {"hook_event_name": "PreToolUse", "cwd": REPOSITORY}
+    assert (
+        evaluate_hook(
+            {
+                **common,
+                "tool_name": "apply_patch",
+                "tool_input": {"command": "*** Begin Patch\n*** End Patch"},
+            }
+        )
+        is None
+    )
+    assert (
+        evaluate_hook(
+            {
+                **common,
+                "tool_name": "Read",
+                "tool_input": {"path": f"{REPOSITORY}/src/neural_bridge/artifact_graph.py"},
+            }
+        )
+        is None
+    )
 
 
 def test_hook_is_inert_outside_neural_bridge() -> None:
