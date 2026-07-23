@@ -46,8 +46,9 @@ SESSION_CONTEXT = (
     "the task, use that same Graphify tool for every repository or artifact retrieval. Supply the "
     "unique identity available--a symbol or qualified symbol, path suffix, unique filename, "
     "absolute path, or node ID--plus provenance context when names repeat, without requiring a "
-    "memorized absolute path, and consume its one "
-    "bounded inline content result or direct heavy-payload consumer path; do not use "
+    "memorized absolute path. For JSON, request the exact RFC 6901 value needed instead of the "
+    "whole document unless the whole document is genuinely required. Consume its one bounded "
+    "inline content result or direct heavy-payload consumer path; do not use "
     "filesystem search, candidate dumps, pointer chasing, Context Mode, or substitute retrieval "
     "systems. Every shell command and every top-level command segment must begin with rtk."
 )

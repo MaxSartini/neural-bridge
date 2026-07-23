@@ -271,6 +271,41 @@ def test_exact_heavy_artifact_delivers_direct_consumer_path(
     assert payload["path"] == str(payload_path)
 
 
+def test_json_pointer_returns_only_the_exact_bounded_value(monkeypatch, tmp_path: Path) -> None:
+    repository = tmp_path / "repository"
+    repository.mkdir()
+    artifacts = tmp_path / "artifacts"
+    result = artifacts / "runs" / "result.json"
+    result.parent.mkdir(parents=True)
+    result.write_text(json.dumps({"summary": {"status": "complete"}, "rows": [0] * 40_000}))
+    graph = tmp_path / "graph.json"
+    graph.write_text(
+        json.dumps(
+            {
+                "nodes": [
+                    {
+                        "id": "artifact::result",
+                        "label": "runs/result.json",
+                        "file_type": "artifact",
+                        "source_file": str(result),
+                        "_origin": "artifact_catalog",
+                    }
+                ]
+            }
+        )
+    )
+    monkeypatch.setattr("neural_bridge.artifact_graph.DEFAULT_REPOSITORY", repository)
+    monkeypatch.setattr("neural_bridge.artifact_graph.DEFAULT_ARTIFACTS", artifacts)
+
+    whole = exact_node_payload("result.json", graph)
+    selected = exact_node_payload("result.json", graph, json_pointer="/summary/status")
+
+    assert whole["delivery"] == "direct_consumer_path"
+    assert selected["delivery"] == "inline_content"
+    assert selected["json_pointer"] == "/summary/status"
+    assert selected["content"] == '"complete"'
+
+
 def test_exact_node_payload_rejects_ambiguous_labels(monkeypatch, tmp_path: Path) -> None:
     repository = tmp_path / "repository"
     repository.mkdir()

@@ -16,6 +16,7 @@ import tempfile
 import threading
 from collections.abc import Iterable
 from pathlib import Path
+from typing import cast
 
 DEFAULT_EXCLUDES = frozenset({"indexes", "quarantine"})
 DEFAULT_REPOSITORY = Path("/Users/maxsartini/Neural Bridge")
@@ -27,7 +28,7 @@ REPOSITORY_WATCH_EXCLUDES = frozenset(
 INLINE_TEXT_SUFFIXES = frozenset(
     {".cfg", ".ini", ".json", ".md", ".py", ".sh", ".toml", ".txt", ".yaml", ".yml"}
 )
-INLINE_TEXT_BYTES = 256 * 1024
+INLINE_TEXT_BYTES = 32 * 1024
 
 
 def _catalog_id(namespace: str, relative_path: str) -> str:
@@ -350,6 +351,24 @@ def _inline_text(path: Path) -> str | None:
         return None
 
 
+def _json_pointer_content(path: Path, pointer: str) -> str:
+    if path.suffix.lower() != ".json":
+        raise ValueError("JSON pointers can only be used with JSON files")
+    value: object = json.loads(path.read_text(encoding="utf-8"))
+    if pointer:
+        if not pointer.startswith("/"):
+            raise ValueError("JSON pointer must be empty for the root or begin with '/'")
+        for raw_token in pointer[1:].split("/"):
+            token = raw_token.replace("~1", "/").replace("~0", "~")
+            if isinstance(value, dict) and token in value:
+                value = cast(dict[str, object], value)[token]
+            elif isinstance(value, list) and token.isdigit() and int(token) < len(value):
+                value = value[int(token)]
+            else:
+                raise LookupError(f"JSON pointer {pointer!r} does not exist in {path}")
+    return json.dumps(value, ensure_ascii=False, separators=(",", ":"))
+
+
 def _python_extent(path: Path, start_line: int) -> int | None:
     try:
         tree = ast.parse(path.read_text(encoding="utf-8"))
@@ -394,6 +413,7 @@ def exact_node_payload(
     graph_path: Path = DEFAULT_INDEX_ROOT / "merged" / "graph.json",
     *,
     context: str | None = None,
+    json_pointer: str | None = None,
 ) -> dict[str, object]:
     """Return the exact indexed code block or executable artifact handle."""
     graph = json.loads(graph_path.read_text(encoding="utf-8"))
@@ -425,9 +445,15 @@ def exact_node_payload(
         )
     else:
         stat = path.stat()
-        content = _inline_text(path) if path.is_file() else None
+        content = (
+            _json_pointer_content(path, json_pointer)
+            if path.is_file() and json_pointer is not None
+            else _inline_text(path) if path.is_file() else None
+        )
         payload.update({"size_bytes": stat.st_size, "mtime_ns": stat.st_mtime_ns})
-        if content is None:
+        if json_pointer is not None:
+            payload["json_pointer"] = json_pointer
+        if content is None or len(content.encode("utf-8")) > INLINE_TEXT_BYTES:
             payload["delivery"] = "direct_consumer_path"
         else:
             payload.update({"delivery": "inline_content", "content": content})
@@ -451,7 +477,8 @@ async def _serve_exact_mcp(graph_path: Path) -> None:
                     "code symbol, repository file, script, configuration, document, result, model, "
                     "cache, or external artifact from the combined Graphify index. Returns content "
                     "when model-readable and the exact direct consumer path for heavy payloads. "
-                    "Never returns candidates or a routing pointer."
+                    "An optional JSON pointer returns only the exact requested JSON value. Never "
+                    "returns candidates or a routing pointer."
                 ),
                 inputSchema={
                     "type": "object",
@@ -468,6 +495,13 @@ async def _serve_exact_mcp(graph_path: Path) -> None:
                             "description": (
                                 "Optional provenance terms such as programme, phase, role, "
                                 "lifecycle, or directory, used only to disambiguate repeated names"
+                            ),
+                        },
+                        "json_pointer": {
+                            "type": "string",
+                            "description": (
+                                "Optional RFC 6901 pointer for an exact bounded JSON value; use an "
+                                "empty string only when the full JSON document is genuinely needed"
                             ),
                         }
                     },
@@ -487,10 +521,12 @@ async def _serve_exact_mcp(graph_path: Path) -> None:
         if name != "get_exact_neural_bridge_node":
             raise ValueError(f"Unknown tool: {name}")
         context = arguments.get("context")
+        json_pointer = arguments.get("json_pointer")
         payload = exact_node_payload(
             str(arguments["query"]),
             graph_path,
             context=str(context) if context is not None else None,
+            json_pointer=str(json_pointer) if json_pointer is not None else None,
         )
         return [types.TextContent(type="text", text=json.dumps(payload, separators=(",", ":")))]
 
