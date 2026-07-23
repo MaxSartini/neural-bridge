@@ -281,6 +281,8 @@ def _run_control_cell(
     seed: int,
     source_metrics_sha256: str,
     source_artifact_sha256: Mapping[str, str],
+    design_override: np.ndarray | None = None,
+    lane_targets_override: np.ndarray | None = None,
 ) -> dict[str, Any]:
     request = {
         "schema": "veatic21_control_cell_request_v1",
@@ -321,16 +323,22 @@ def _run_control_cell(
     )
     recipe = plan["selected_recipe"]
     context_rows = tuple(int(value) for value in recipe["context_rows"])
-    design, lane_targets = _lane_design_and_targets(
-        lane,
-        projected,
-        diagnostics,
-        binary,
-        video_id,
-        row_index,
-        context_rows,
-        seed,
-    )
+    if design_override is None:
+        design, lane_targets = _lane_design_and_targets(
+            lane,
+            projected,
+            diagnostics,
+            binary,
+            video_id,
+            row_index,
+            context_rows,
+            seed,
+        )
+    else:
+        design = np.asarray(design_override)
+        lane_targets = (
+            binary if lane_targets_override is None else np.asarray(lane_targets_override)
+        )
     scaler = StandardScaler().fit(design[train_mask])
     design = scaler.transform(design).astype(np.float32)
     atomic_save_npz(

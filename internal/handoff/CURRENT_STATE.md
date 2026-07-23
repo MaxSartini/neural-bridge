@@ -160,16 +160,27 @@
 - The earliest clean reusable boundary is the verified canonical substrate, label alignment,
   full fresh-AR benchmark, and label-blind fold-owned PCA cache. The learned bridge must be
   redesigned and evaluated control-complete from its first comparison cells.
+- Permanent execution invariant: every learned run includes its real lane, identical frozen
+  AR, all applicable matched controls, and its architecture/no-video ablation in the same
+  registered matrix. Real-only pilots cannot authorize stability, promotion, confirmation,
+  or later control backfill.
+- A compact control-complete redesign is registered. It selects q925 and q900 from the failed
+  comparison evidence only, removes static video level by subtracting each row's strictly
+  prior causal-prefix PCA mean, and trains the real lane beside all five matched controls plus
+  a current-innovation-only ablation. Canonical plan:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/innovation-control-plan.json`.
+  Exact plan SHA-256:
+  `82bd5e90b17305a36ea70431b47fd5909897f70268114b4378ee771529f5791b`.
+  The matrix contains 210 cells and exactly one sequential MLX worker.
 
 ## Exact next action
 
-Register a compact, control-complete learned-bridge redesign that directly addresses the
-causal-prefix video-mean/static-video failure. Reuse only the verified VEATIC substrate,
-fresh-AR procedure, fold-owned PCA caches, target definitions, row ownership, and lifecycle
-control semantics. Every new real candidate must train beside its matched shuffled, random,
-causal-prefix video-mean, diagnostics-only, label-permutation, and current-row ablation lanes
-before any stability expansion. Use exactly one sequential MLX worker and do not open the
-sealed tail.
+Run the registered compact causal-innovation redesign. Reuse only the verified VEATIC
+substrate, exact saved fresh-AR floors, fold-owned PCA-512 caches, target definitions, row
+ownership, and lifecycle control semantics. Train every real cell beside its matched shuffled,
+random, causal-prefix video-mean, diagnostics-only, label-permutation, and current-innovation
+ablation lanes. Do not authorize stability unless every registered gate passes. Use exactly
+one sequential MLX worker and do not open the sealed tail.
 
 Use exactly one GPU worker for learned cells. Do not launch parallel training processes.
 

@@ -12,6 +12,11 @@ TRIBE and V-JEPA are upstream inputs. The claim-bearing system is the downstream
 Bridge target, frozen-AR floor, fold-owned projection, causal temporal residual, controls,
 fallback, stability, and confirmation procedure.
 
+Every learned run is control-complete from its first registered cell. A real-only pilot may
+never authorize stability, promotion, confirmation, or a later control backfill. Real and
+matched controls share one matrix, row ownership, threshold, frozen AR, recipe, seeds, and
+checkpoint policy; only the declared controlled factor changes.
+
 ## Mandatory control families
 
 | Family | VEATIC 2.1 requirement | Evidence timing |
