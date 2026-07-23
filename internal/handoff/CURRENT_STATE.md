@@ -123,13 +123,18 @@
   Exact resolution SHA-256:
   `d102727ca24510269f0b87784c3ac83f78171939a69b2a25cff184d18b142cab`.
 - No stability expansion, controls panel, final frozen winner, or sealed confirmation has been
-  completed. The sealed tail remains unopened.
+  completed. The fixed nine-seed stability expansion is registered at
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/stability-plan.json`.
+  Exact plan SHA-256:
+  `ccc380cfa7c18549fce11b161ee020a44625e9526db27de25c293b33feef61b4`.
+  It contains 270 cells for the one retained recipe and exactly one sequential MLX worker.
+  The sealed tail remains unopened.
 
 ## Exact next action
 
-Register the fixed stability expansion for the retained PCA-512, width-64 causal temporal
-residual using the preregistered stability seeds `20260801` through `20260809`. Reuse the
-existing comparison-seed evidence, PCA bases, fresh AR procedure, checkpoint rules, and
+Run the registered fixed stability expansion for the retained PCA-512, width-64 causal
+temporal residual using preregistered stability seeds `20260801` through `20260809`. Reuse
+the existing comparison-seed evidence, PCA bases, fresh AR procedure, checkpoint rules, and
 whole-fold/seed no-harm fallback. Use exactly one sequential MLX worker and do not open the
 sealed tail.
 

@@ -28,6 +28,7 @@ from .recipe_resolution import (
     write_training_recipe_resolution,
 )
 from .runner import run_confirmation_cell, verify_confirmation_cell
+from .stability import build_stability_plan, run_stability_program, write_stability_plan
 from .stage1 import (
     Stage1CellConfig,
     build_stage1_plan,
@@ -209,6 +210,24 @@ def _parser() -> argparse.ArgumentParser:
     resolve_recipe.add_argument("--baseline-summary", type=Path)
     resolve_recipe.add_argument("--run-root", type=Path)
     resolve_recipe.add_argument("--output", type=Path)
+    prepare_stability = subparsers.add_parser(
+        "prepare-stability",
+        help="seal the fixed nine-seed stability panel for the retained recipe",
+    )
+    prepare_stability.add_argument("--preregistration", type=Path)
+    prepare_stability.add_argument("--recipe-plan", type=Path)
+    prepare_stability.add_argument("--recipe-selection", type=Path)
+    prepare_stability.add_argument("--pca-manifest", type=Path)
+    prepare_stability.add_argument("--output", type=Path)
+    stability = subparsers.add_parser(
+        "benchmark-stability",
+        help="run the retained recipe over the fixed stability seeds with one MLX worker",
+    )
+    stability.add_argument("--preregistration", type=Path)
+    stability.add_argument("--calibration", type=Path)
+    stability.add_argument("--pca-manifest", type=Path)
+    stability.add_argument("--plan", type=Path)
+    stability.add_argument("--output", type=Path)
     cell = subparsers.add_parser(
         "run-stage1-cell",
         help="train one VEATIC-only learned spike discovery cell without opening the sealed tail",
@@ -309,6 +328,14 @@ def _default_training_recipe_run_output() -> Path:
 
 def _default_training_recipe_selection_output() -> Path:
     return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/training-recipe-selection.json"
+
+
+def _default_stability_plan_output() -> Path:
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/stability-plan.json"
+
+
+def _default_stability_run_output() -> Path:
+    return _ARTIFACT_ROOT / "runs/veatic-2.1/stability"
 
 
 def _default_executor_validation_request() -> Path:
@@ -641,6 +668,44 @@ def main() -> int:
             )
         )
         return 0
+    if args.command == "prepare-stability":
+        pca_root = _default_pca_output(Path.cwd())
+        plan = build_stability_plan(
+            load_json(
+                (args.preregistration or _default_preregistration_output(Path.cwd()))
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.recipe_plan or _default_training_recipe_plan_output())
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.recipe_selection or _default_training_recipe_selection_output())
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+            ),
+        )
+        output = (args.output or _default_stability_plan_output()).expanduser().resolve()
+        write_stability_plan(output, plan)
+        print(
+            json.dumps(
+                {
+                    "backend": "mlx",
+                    "benchmark_test_labels_accessed": False,
+                    "expected_cells": plan["matrix"]["expected_cells"],
+                    "output": str(output),
+                    "plan_sha256": plan["plan_sha256"],
+                    "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
     substrate = CanonicalSubstrate.from_repo()
     if args.command == "benchmark-stage1-ar":
         preregistration = load_json(
@@ -844,6 +909,47 @@ def main() -> int:
                     "backend": "mlx",
                     "benchmark_test_labels_accessed": False,
                     "completed_new_cells": summary["completed_new_cells"],
+                    "output": str(output),
+                    "summary_sha256": summary["summary_sha256"],
+                    "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "benchmark-stability":
+        preregistration = load_json(
+            (args.preregistration or _default_preregistration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        calibration = load_json(
+            (args.calibration or _default_calibration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        pca_root = _default_pca_output(substrate.repo_root)
+        pca_manifest = load_json(
+            (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+        )
+        plan = load_json((args.plan or _default_stability_plan_output()).expanduser().resolve())
+        output = (args.output or _default_stability_run_output()).expanduser().resolve()
+        summary = run_stability_program(
+            substrate,
+            preregistration,
+            calibration,
+            pca_manifest,
+            plan,
+            pca_root,
+            output,
+            progress=lambda record: print(json.dumps(record, sort_keys=True), flush=True),
+        )
+        print(
+            json.dumps(
+                {
+                    "backend": "mlx",
+                    "benchmark_test_labels_accessed": False,
+                    "completed_cells": summary["completed_cells"],
                     "output": str(output),
                     "summary_sha256": summary["summary_sha256"],
                     "worker_count": 1,
