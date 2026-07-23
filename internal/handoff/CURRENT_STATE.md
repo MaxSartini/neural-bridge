@@ -138,7 +138,7 @@
 - The comparison control matrix is registered at
   `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/control-plan.json`.
   Exact plan SHA-256:
-  `4d009028523713b0d2717fc476c2aaa7a065fe42a574d42b7f68f146b9f78d73`.
+  `507201a9d064df049fe05d2e475951b8ee3ba012e99fd41183f3bafe15cdd289`.
   It reuses the 90 real causal and fresh-AR cells, then trains five matched residual controls
   plus one current-row ablation across the same targets, folds, and comparison seeds: 540 new
   cells, exactly one MLX worker. Stability cannot resume unless every registered gate passes.

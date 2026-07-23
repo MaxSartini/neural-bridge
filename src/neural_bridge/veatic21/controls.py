@@ -10,6 +10,7 @@ from typing import Any
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 
+from .contracts import FeatureRows
 from .data import CanonicalSubstrate
 from .evidence import (
     atomic_save_npz,
@@ -504,6 +505,13 @@ def run_control_program(
     )
     development_mask = benchmark_partition_mask(all_features, preregistration["split"], "train")
     features = all_features.subset(development_mask)
+    pca_features = FeatureRows(
+        video_id=features.video_id,
+        row_index=features.row_index,
+        time_seconds=features.time_seconds,
+        quality_eligible=features.quality_eligible,
+        representations={"tribe_cortical": features.representations["tribe_cortical"]},
+    )
     labels = substrate.load_labels(
         substrate.video_ids,
         row_indices=_owned_rows(all_features.video_id, all_features.row_index, development_mask),
@@ -512,7 +520,7 @@ def run_control_program(
     diagnostics = features.representations["diagnostics_only"]
     projected_by_fold = {
         int(fold): load_event_pca_projection(
-            features,
+            pca_features,
             preregistration,
             pca_manifest,
             pca_root,
