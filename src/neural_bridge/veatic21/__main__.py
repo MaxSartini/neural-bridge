@@ -23,6 +23,10 @@ from .preregistration import (
     build_event_preregistration,
     calibrate_event_preregistration,
 )
+from .recipe_resolution import (
+    resolve_stopped_training_recipe,
+    write_training_recipe_resolution,
+)
 from .runner import run_confirmation_cell, verify_confirmation_cell
 from .stage1 import (
     Stage1CellConfig,
@@ -197,6 +201,14 @@ def _parser() -> argparse.ArgumentParser:
     recipe.add_argument("--pca-manifest", type=Path)
     recipe.add_argument("--plan", type=Path)
     recipe.add_argument("--output", type=Path)
+    resolve_recipe = subparsers.add_parser(
+        "resolve-training-recipe",
+        help="seal a conservative resolution of the stopped numeric sweep",
+    )
+    resolve_recipe.add_argument("--plan", type=Path)
+    resolve_recipe.add_argument("--baseline-summary", type=Path)
+    resolve_recipe.add_argument("--run-root", type=Path)
+    resolve_recipe.add_argument("--output", type=Path)
     cell = subparsers.add_parser(
         "run-stage1-cell",
         help="train one VEATIC-only learned spike discovery cell without opening the sealed tail",
@@ -293,6 +305,10 @@ def _default_training_recipe_plan_output() -> Path:
 
 def _default_training_recipe_run_output() -> Path:
     return _ARTIFACT_ROOT / "runs/veatic-2.1/training-recipe"
+
+
+def _default_training_recipe_selection_output() -> Path:
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/training-recipe-selection.json"
 
 
 def _default_executor_validation_request() -> Path:
@@ -593,6 +609,33 @@ def main() -> int:
                     "output": str(output),
                     "plan_sha256": plan["plan_sha256"],
                     "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "resolve-training-recipe":
+        resolution = resolve_stopped_training_recipe(
+            load_json(
+                (args.plan or _default_training_recipe_plan_output()).expanduser().resolve()
+            ),
+            load_json(
+                (args.baseline_summary or (_default_supervised_run_output() / "summary.json"))
+                .expanduser()
+                .resolve()
+            ),
+            (args.run_root or _default_training_recipe_run_output()).expanduser().resolve(),
+        )
+        output = (args.output or _default_training_recipe_selection_output()).expanduser().resolve()
+        write_training_recipe_resolution(output, resolution)
+        print(
+            json.dumps(
+                {
+                    "benchmark_test_labels_accessed": False,
+                    "completed_new_cells": resolution["completed_new_cells"],
+                    "output": str(output),
+                    "resolution_sha256": resolution["resolution_sha256"],
+                    "selected_hidden_width": resolution["selected_recipe"]["hidden_width"],
                 },
                 sort_keys=True,
             )
