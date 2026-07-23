@@ -214,6 +214,93 @@ def write_stage2_pca_screen(path: Path, screen: Mapping[str, Any]) -> None:
     atomic_write_json(path, dict(screen))
 
 
+def select_stage2_pca_width(
+    summary: Mapping[str, Any],
+    screen: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Select the PCA width by the registered completed-screen primary key."""
+
+    _require_self_digest(summary, "summary_sha256")
+    _require_self_digest(screen, "screen_sha256")
+    if summary.get("screen_sha256") != screen.get("screen_sha256"):
+        raise ValueError("PCA summary does not belong to the registered screen")
+    if summary.get("completed_cells") != summary.get("expected_cells"):
+        raise ValueError("PCA width selection requires every registered cell")
+    if summary.get("benchmark_test_labels_accessed") is not False:
+        raise ValueError("PCA width selection cannot use benchmark-test labels")
+
+    records_by_width: dict[int, list[Mapping[str, Any]]] = defaultdict(list)
+    target_width_deltas: dict[tuple[str, int], list[float]] = defaultdict(list)
+    for record in summary["records"]:
+        width = int(record["pca_width"])
+        records_by_width[width].append(record)
+        target_width_deltas[(str(record["target"]), width)].append(
+            float(record["inner_average_precision_skill_delta_vs_frozen_ar"])
+        )
+    expected_widths = {int(width) for width in screen["matrix"]["pca_widths"]}
+    if set(records_by_width) != expected_widths:
+        raise ValueError("PCA summary does not cover every registered width")
+
+    ranking: list[dict[str, Any]] = []
+    for width, records in records_by_width.items():
+        deltas = np.asarray(
+            [
+                float(record["inner_average_precision_skill_delta_vs_frozen_ar"])
+                for record in records
+            ]
+        )
+        ranking.append(
+            {
+                "pca_width": width,
+                "cell_count": len(records),
+                "mean_inner_average_precision_skill_delta_vs_frozen_ar": float(np.mean(deltas)),
+                "median_inner_average_precision_skill_delta_vs_frozen_ar": float(np.median(deltas)),
+                "minimum_inner_average_precision_skill_delta_vs_frozen_ar": float(np.min(deltas)),
+                "positive_residual_cells": int(np.sum(deltas > 0.0)),
+                "whole_fold_seed_ar_fallback_cells": sum(
+                    not bool(record["whole_fold_seed_uses_residual"]) for record in records
+                ),
+                "mean_delta_by_target": {
+                    target: float(np.mean(target_width_deltas[(target, width)]))
+                    for target in screen["matrix"]["targets"]
+                },
+            }
+        )
+    ranking.sort(
+        key=lambda row: (
+            -float(row["mean_inner_average_precision_skill_delta_vs_frozen_ar"]),
+            -float(row["median_inner_average_precision_skill_delta_vs_frozen_ar"]),
+            int(row["pca_width"]),
+        )
+    )
+    primary_tie = len(ranking) > 1 and np.isclose(
+        float(ranking[0]["mean_inner_average_precision_skill_delta_vs_frozen_ar"]),
+        float(ranking[1]["mean_inner_average_precision_skill_delta_vs_frozen_ar"]),
+        rtol=0.0,
+        atol=0.0,
+    )
+    if primary_tie:
+        raise RuntimeError("exact mean tie requires the registered cluster-bootstrap tie-break")
+    selection: dict[str, Any] = {
+        "schema": "veatic21_stage2_pca_selection_v1",
+        "screen_sha256": screen["screen_sha256"],
+        "summary_sha256": summary["summary_sha256"],
+        "primary_key": "mean_inner_average_precision_skill_delta_vs_frozen_ar",
+        "primary_tie": False,
+        "tie_break_invoked": False,
+        "ranking": ranking,
+        "selected_pca_width": int(ranking[0]["pca_width"]),
+        "benchmark_test_labels_accessed": False,
+        "promotable": False,
+    }
+    selection["selection_sha256"] = digest_json(selection)
+    return selection
+
+
+def write_stage2_pca_selection(path: Path, selection: Mapping[str, Any]) -> None:
+    atomic_write_json(path, dict(selection))
+
+
 def run_stage2_pca_screen(
     substrate: CanonicalSubstrate,
     preregistration: Mapping[str, Any],
@@ -341,6 +428,8 @@ def run_stage2_pca_screen(
 __all__ = [
     "build_stage2_pca_screen",
     "run_stage2_pca_screen",
+    "select_stage2_pca_width",
     "select_train_only_target_shortlist",
+    "write_stage2_pca_selection",
     "write_stage2_pca_screen",
 ]

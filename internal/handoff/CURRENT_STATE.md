@@ -43,21 +43,32 @@
   `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/stage2-pca-screen.json`.
   Exact screen SHA-256:
   `b756bdcbf533466047c2b664aa9dac95f9a2146da3c9491994565b9412241114`.
-- No PCA width, learned representation, head, training recipe, checkpoint panel, fallback,
-  or winner has been selected. The sealed tail remains unopened.
+- All 360 fixed-PCA cells completed. The result summary and every referenced cell metrics
+  hash verify; sealed-tail labels were not accessed. Canonical summary:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/stage2-pca-screen/summary.json`.
+  Exact summary SHA-256:
+  `f0ece1ce929f184793c955354b0a8387af51334b382f32106a83ff174e3c23b4`.
+- PCA width `512` won the registered primary key with mean inner average-precision skill
+  delta versus fresh AR `0.006312049`. Widths `256`, `64`, and `128` scored `0.002299337`,
+  `0.000682527`, and `0.000622105`, respectively. Width 512 was also mean-best for each
+  of the six shortlisted targets, so no tie-break was invoked.
+- Canonical PCA selection:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/stage2-pca-selection.json`.
+  Exact selection SHA-256:
+  `5d023c9fcfc822e2a1c1210ed794cf716ca11eb79e5299474fb5a4512b39e5e7`.
+- No learned representation, head, training recipe, checkpoint panel, fallback, or final
+  winner has been selected. The sealed tail remains unopened.
 
 ## Exact next action
 
-Run the complete registered 360-cell fixed-PCA screen:
+Complete representation discovery by registering a VEATIC-owned supervised bottleneck
+matrix and comparing it against the selected fold-owned PCA-512 baseline on identical
+shortlisted targets, folds, seeds, nuisance training recipe, and checkpoint rules.
 
-```bash
-cd '/Users/maxsartini/Neural Bridge'
-uv run python -m neural_bridge.veatic21 benchmark-stage2-pca
-```
-
-Output is written resumably by completed cell under:
-
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/stage2-pca-screen`
+The active preregistration names an end-to-end learned bottleneck candidate but does not
+yet define its VEATIC-specific architecture or numeric matrix. Do not reuse AGAIN dimensions,
+weights, gates, losses, or numeric choices. Register the exact supervised-projection matrix
+before launching learned-alternative cells.
 
 Learned residual cells must use the plan-owned MLX capacity and the existing checkpoint
 contract. The fresh-AR baseline remains the completed float64 CPU/LBFGS benchmark.
@@ -66,7 +77,7 @@ contract. The fresh-AR baseline remains the completed float64 CPU/LBFGS benchmar
 
 1. Complete target discovery and fresh AR benchmark. **Done.**
 2. Register the target shortlist rule, then run representation and PCA experiments.
-   **Shortlist and fixed-PCA matrix registered; screen running next.**
+   **Shortlist and fixed-PCA screen done; PCA-512 selected. Supervised projection remains.**
 3. Model and training experiments.
 4. Fixed fold and seed stability.
 5. Matched controls, leakage checks, and whole-fold/seed no-harm.

@@ -25,7 +25,13 @@ from .stage1 import (
     run_stage1_discovery_cell,
     write_stage1_plan,
 )
-from .stage2 import build_stage2_pca_screen, run_stage2_pca_screen, write_stage2_pca_screen
+from .stage2 import (
+    build_stage2_pca_screen,
+    run_stage2_pca_screen,
+    select_stage2_pca_width,
+    write_stage2_pca_screen,
+    write_stage2_pca_selection,
+)
 
 _ARTIFACT_ROOT = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
 
@@ -79,6 +85,13 @@ def _parser() -> argparse.ArgumentParser:
     prepare_stage2.add_argument("--plan", type=Path)
     prepare_stage2.add_argument("--executor-request", type=Path)
     prepare_stage2.add_argument("--output", type=Path)
+    select_stage2 = subparsers.add_parser(
+        "select-stage2-pca",
+        help="select and seal the fixed-PCA width after the complete registered screen",
+    )
+    select_stage2.add_argument("--summary", type=Path)
+    select_stage2.add_argument("--screen", type=Path)
+    select_stage2.add_argument("--output", type=Path)
     stage2 = subparsers.add_parser(
         "benchmark-stage2-pca",
         help="run the complete resumable fixed-PCA screen without opening the sealed tail",
@@ -149,6 +162,10 @@ def _default_stage2_screen_output() -> Path:
 
 def _default_stage2_run_output() -> Path:
     return _ARTIFACT_ROOT / "runs/veatic-2.1/stage2-pca-screen"
+
+
+def _default_stage2_selection_output() -> Path:
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/stage2-pca-selection.json"
 
 
 def _default_executor_validation_request() -> Path:
@@ -248,6 +265,29 @@ def main() -> int:
                     "output": str(output),
                     "screen_sha256": screen["screen_sha256"],
                     "selected_targets": screen["target_shortlist"]["selected_targets"],
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "select-stage2-pca":
+        summary_path = (
+            (args.summary or (_default_stage2_run_output() / "summary.json")).expanduser().resolve()
+        )
+        screen_path = (args.screen or _default_stage2_screen_output()).expanduser().resolve()
+        output = (args.output or _default_stage2_selection_output()).expanduser().resolve()
+        selection = select_stage2_pca_width(
+            load_json(summary_path),
+            load_json(screen_path),
+        )
+        write_stage2_pca_selection(output, selection)
+        print(
+            json.dumps(
+                {
+                    "benchmark_test_labels_accessed": False,
+                    "output": str(output),
+                    "selected_pca_width": selection["selected_pca_width"],
+                    "selection_sha256": selection["selection_sha256"],
                 },
                 sort_keys=True,
             )
