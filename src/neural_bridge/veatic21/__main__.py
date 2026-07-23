@@ -10,6 +10,13 @@ from pathlib import Path
 from .contracts import AROUSAL_SPIKE_1_3S, CandidateSpec, CellSpec
 from .data import CanonicalSubstrate
 from .evidence import atomic_write_json, digest_json, load_json, sha256_file
+from .head_training import (
+    build_head_family_screen,
+    run_head_family_screen,
+    select_head_family,
+    write_head_family_screen,
+    write_head_family_selection,
+)
 from .pca_cache import fit_event_pca_cache, load_event_pca_scaler
 from .preregistration import (
     benchmark_partition_mask,
@@ -137,6 +144,34 @@ def _parser() -> argparse.ArgumentParser:
     select_supervised.add_argument("--summary", type=Path)
     select_supervised.add_argument("--screen", type=Path)
     select_supervised.add_argument("--output", type=Path)
+    prepare_heads = subparsers.add_parser(
+        "prepare-head-family",
+        help="seal the matched causal versus gated PCA-512 head-family matrix",
+    )
+    prepare_heads.add_argument("--representation-selection", type=Path)
+    prepare_heads.add_argument("--representation-summary", type=Path)
+    prepare_heads.add_argument("--representation-screen", type=Path)
+    prepare_heads.add_argument("--plan", type=Path)
+    prepare_heads.add_argument("--pca-manifest", type=Path)
+    prepare_heads.add_argument("--output", type=Path)
+    heads = subparsers.add_parser(
+        "benchmark-head-family",
+        help="run the sequential gated-head screen against verified causal evidence",
+    )
+    heads.add_argument("--preregistration", type=Path)
+    heads.add_argument("--calibration", type=Path)
+    heads.add_argument("--pca-manifest", type=Path)
+    heads.add_argument("--plan", type=Path)
+    heads.add_argument("--screen", type=Path)
+    heads.add_argument("--output", type=Path)
+    select_heads = subparsers.add_parser(
+        "select-head-family",
+        help="seal the paired causal-versus-gated head-family decision",
+    )
+    select_heads.add_argument("--summary", type=Path)
+    select_heads.add_argument("--screen", type=Path)
+    select_heads.add_argument("--baseline-summary", type=Path)
+    select_heads.add_argument("--output", type=Path)
     cell = subparsers.add_parser(
         "run-stage1-cell",
         help="train one VEATIC-only learned spike discovery cell without opening the sealed tail",
@@ -213,6 +248,18 @@ def _default_supervised_run_output() -> Path:
 
 def _default_supervised_selection_output() -> Path:
     return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/supervised-projection-selection.json"
+
+
+def _default_head_screen_output() -> Path:
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/head-family-screen.json"
+
+
+def _default_head_run_output() -> Path:
+    return _ARTIFACT_ROOT / "runs/veatic-2.1/head-family-screen"
+
+
+def _default_head_selection_output() -> Path:
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/head-family-selection.json"
 
 
 def _default_executor_validation_request() -> Path:
@@ -407,6 +454,76 @@ def main() -> int:
             )
         )
         return 0
+    if args.command == "prepare-head-family":
+        representation_selection_path = (
+            (args.representation_selection or _default_supervised_selection_output())
+            .expanduser()
+            .resolve()
+        )
+        representation_summary_path = (
+            (args.representation_summary or (_default_supervised_run_output() / "summary.json"))
+            .expanduser()
+            .resolve()
+        )
+        representation_screen_path = (
+            (args.representation_screen or _default_supervised_screen_output())
+            .expanduser()
+            .resolve()
+        )
+        plan_path = (args.plan or _default_stage1_output(Path.cwd())).expanduser().resolve()
+        pca_root = _default_pca_output(Path.cwd())
+        pca_manifest_path = (
+            (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+        )
+        screen = build_head_family_screen(
+            load_json(representation_selection_path),
+            load_json(representation_summary_path),
+            load_json(representation_screen_path),
+            load_json(plan_path),
+            load_json(pca_manifest_path),
+        )
+        output = (args.output or _default_head_screen_output()).expanduser().resolve()
+        write_head_family_screen(output, screen)
+        print(
+            json.dumps(
+                {
+                    "benchmark_test_labels_accessed": False,
+                    "expected_candidate_cells": screen["matrix"]["expected_candidate_cells"],
+                    "output": str(output),
+                    "screen_sha256": screen["screen_sha256"],
+                    "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "select-head-family":
+        summary_path = (
+            (args.summary or (_default_head_run_output() / "summary.json")).expanduser().resolve()
+        )
+        screen_path = (args.screen or _default_head_screen_output()).expanduser().resolve()
+        baseline_path = (
+            (args.baseline_summary or (_default_supervised_run_output() / "summary.json"))
+            .expanduser()
+            .resolve()
+        )
+        selection = select_head_family(
+            load_json(summary_path), load_json(screen_path), load_json(baseline_path)
+        )
+        output = (args.output or _default_head_selection_output()).expanduser().resolve()
+        write_head_family_selection(output, selection)
+        print(
+            json.dumps(
+                {
+                    "benchmark_test_labels_accessed": False,
+                    "output": str(output),
+                    "selected_head_family": selection["selected_head_family"],
+                    "selection_sha256": selection["selection_sha256"],
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
     substrate = CanonicalSubstrate.from_repo()
     if args.command == "benchmark-stage1-ar":
         preregistration = load_json(
@@ -506,6 +623,51 @@ def main() -> int:
         )
         output = (args.output or _default_supervised_run_output()).expanduser().resolve()
         summary = run_supervised_projection_screen(
+            substrate,
+            preregistration,
+            calibration,
+            pca_manifest,
+            plan,
+            screen,
+            pca_root,
+            output,
+            progress=lambda record: print(json.dumps(record, sort_keys=True), flush=True),
+        )
+        print(
+            json.dumps(
+                {
+                    "benchmark_test_labels_accessed": False,
+                    "completed_cells": summary["completed_cells"],
+                    "expected_cells": summary["expected_cells"],
+                    "output": str(output),
+                    "summary_sha256": summary["summary_sha256"],
+                    "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "benchmark-head-family":
+        preregistration = load_json(
+            (args.preregistration or _default_preregistration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        calibration = load_json(
+            (args.calibration or _default_calibration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        pca_root = _default_pca_output(substrate.repo_root)
+        pca_manifest = load_json(
+            (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+        )
+        plan = load_json(
+            (args.plan or _default_stage1_output(substrate.repo_root)).expanduser().resolve()
+        )
+        screen = load_json((args.screen or _default_head_screen_output()).expanduser().resolve())
+        output = (args.output or _default_head_run_output()).expanduser().resolve()
+        summary = run_head_family_screen(
             substrate,
             preregistration,
             calibration,

@@ -85,16 +85,30 @@
   `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/supervised-projection-selection.json`.
   Exact selection SHA-256:
   `169fbd766972cada97db5ed5ebd953f3d37be250b6933957a520156e1a31f581`.
+- The head-family screen reuses all 90 verified causal PCA-512 cells and registers only the
+  90 missing gated-multiscale cells on identical targets, folds, seeds, batch 4096, optimizer,
+  residual cap, AR floors, and checkpoint rules. It uses exactly one sequential MLX worker.
+- Canonical head-family screen:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/head-family-screen.json`.
+  Exact screen SHA-256:
+  `bbd9db2355962628243484e9c82962ca024a421b5c344c18bb37eeaf65b5a9c2`.
+- One real non-promotable gated cell verified the multiscale design and artifact lifecycle.
+  It completed 58 epochs and retained checkpoint 5. Its score is not head-selection evidence.
 - No head family, training recipe, checkpoint panel, fallback, or final winner has been
   selected. The sealed tail remains unopened.
 
 ## Exact next action
 
-Register the VEATIC-owned model and training matrix on the selected fold-owned PCA-512
-representation. Compare the causal temporal residual and gated multiscale temporal residual
-families on identical shortlisted targets, folds, comparison seeds, AR floors, and checkpoint
-rules. Calculate architecture widths, optimizer candidates, residual caps, and safe batch
-sizes from VEATIC 2.1 only; do not reuse AGAIN numeric winners.
+Run the complete registered 90-cell gated head-family screen:
+
+```bash
+cd '/Users/maxsartini/Neural Bridge'
+uv run python -m neural_bridge.veatic21 benchmark-head-family
+```
+
+Output is written resumably by completed cell under:
+
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/head-family-screen`
 
 Use exactly one GPU worker for learned cells. Do not launch parallel training processes.
 
