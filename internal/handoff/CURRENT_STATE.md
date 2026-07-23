@@ -122,13 +122,14 @@
   `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/training-recipe-selection.json`.
   Exact resolution SHA-256:
   `d102727ca24510269f0b87784c3ac83f78171939a69b2a25cff184d18b142cab`.
-- No stability expansion, controls panel, final frozen winner, or sealed confirmation has been
-  completed. The fixed nine-seed stability expansion is registered at
+- No valid stability expansion, final frozen winner, or sealed confirmation has been
+  completed. The fixed nine-seed stability expansion was registered at
   `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/stability-plan.json`.
   Exact plan SHA-256:
   `ccc380cfa7c18549fce11b161ee020a44625e9526db27de25c293b33feef61b4`.
   It contains 270 cells for the one retained recipe and exactly one sequential MLX worker.
-  The sealed tail remains unopened.
+  It must not resume: its 159 completed cells are non-promotable because the prerequisite
+  comparison control gate subsequently failed. The sealed tail remains unopened.
 - Stability was stopped at `159/270` completed cells after correcting the execution order:
   matched controls must pass before any more stability compute. One interrupted stability cell
   remains non-promotable and is handled by the registered partial-cell quarantine on resume.
@@ -142,14 +143,33 @@
   It reuses the 90 real causal and fresh-AR cells, then trains five matched residual controls
   plus one current-row ablation across the same targets, folds, and comparison seeds: 540 new
   cells, exactly one MLX worker. Stability cannot resume unless every registered gate passes.
+- The comparison control matrix completed `540/540` and failed. Canonical summary:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/matched-controls/summary.json`.
+  Exact summary SHA-256:
+  `aaef211412e0362614a88d2d6a0c0488104d2a3ebc3e935fd2dfdb98fc1d282c`.
+  Real causal residual mean skill delta versus AR was `+0.009118552`. The strongest matched
+  control was causal-prefix video mean at `+0.008330933`; aggregate real-minus-control was
+  `+0.000787619` and paired median was `+0.001444807`. Label permutation was appropriately
+  below AR at `-0.006659042`, and real beat the current-row ablation by `+0.001119056` in
+  aggregate. However q950 failed its target gate, folds 2 and 4 failed their fold gates, and
+  therefore `all_gates_pass` is false.
+- A no-training equal-weight diagnostic over the three comparison checkpoints did not repair
+  cross-fold consistency: no target beat its strongest matched control in more than `3/5`
+  folds. This is not a lucky-checkpoint failure. The current learned-bridge target shortlist,
+  head selection, numeric recipe, and stability evidence are rejected for promotion.
+- The earliest clean reusable boundary is the verified canonical substrate, label alignment,
+  full fresh-AR benchmark, and label-blind fold-owned PCA cache. The learned bridge must be
+  redesigned and evaluated control-complete from its first comparison cells.
 
 ## Exact next action
 
-Run the registered lifecycle-complete matched control matrix against the existing 90 real
-comparison cells. Verify identical frozen-AR floors, validation rows, thresholds, fold-owned
-PCA, causal context, checkpoints, and artifact hashes. Do not resume stability unless all
-aggregate, target, fold, label-permutation, temporal-ablation, and artifact gates pass. Use
-exactly one sequential MLX worker and do not open the sealed tail.
+Register a compact, control-complete learned-bridge redesign that directly addresses the
+causal-prefix video-mean/static-video failure. Reuse only the verified VEATIC substrate,
+fresh-AR procedure, fold-owned PCA caches, target definitions, row ownership, and lifecycle
+control semantics. Every new real candidate must train beside its matched shuffled, random,
+causal-prefix video-mean, diagnostics-only, label-permutation, and current-row ablation lanes
+before any stability expansion. Use exactly one sequential MLX worker and do not open the
+sealed tail.
 
 Use exactly one GPU worker for learned cells. Do not launch parallel training processes.
 
