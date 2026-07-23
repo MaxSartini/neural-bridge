@@ -36,7 +36,9 @@ from .supervised_projection import (
     build_supervised_projection_screen,
     probe_supervised_projection_capacity,
     run_supervised_projection_screen,
+    select_supervised_projection,
     write_supervised_projection_screen,
+    write_supervised_projection_selection,
 )
 
 _ARTIFACT_ROOT = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
@@ -128,6 +130,13 @@ def _parser() -> argparse.ArgumentParser:
     supervised.add_argument("--plan", type=Path)
     supervised.add_argument("--screen", type=Path)
     supervised.add_argument("--output", type=Path)
+    select_supervised = subparsers.add_parser(
+        "select-supervised-projection",
+        help="seal the representation decision after the complete matched screen",
+    )
+    select_supervised.add_argument("--summary", type=Path)
+    select_supervised.add_argument("--screen", type=Path)
+    select_supervised.add_argument("--output", type=Path)
     cell = subparsers.add_parser(
         "run-stage1-cell",
         help="train one VEATIC-only learned spike discovery cell without opening the sealed tail",
@@ -200,6 +209,10 @@ def _default_supervised_screen_output() -> Path:
 
 def _default_supervised_run_output() -> Path:
     return _ARTIFACT_ROOT / "runs/veatic-2.1/supervised-projection-screen"
+
+
+def _default_supervised_selection_output() -> Path:
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/supervised-projection-selection.json"
 
 
 def _default_executor_validation_request() -> Path:
@@ -367,6 +380,28 @@ def main() -> int:
                     "output": str(output),
                     "screen_sha256": screen["screen_sha256"],
                     "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "select-supervised-projection":
+        summary_path = (
+            (args.summary or (_default_supervised_run_output() / "summary.json"))
+            .expanduser()
+            .resolve()
+        )
+        screen_path = (args.screen or _default_supervised_screen_output()).expanduser().resolve()
+        output = (args.output or _default_supervised_selection_output()).expanduser().resolve()
+        selection = select_supervised_projection(load_json(summary_path), load_json(screen_path))
+        write_supervised_projection_selection(output, selection)
+        print(
+            json.dumps(
+                {
+                    "benchmark_test_labels_accessed": False,
+                    "output": str(output),
+                    "selected_representation": selection["selected_representation"],
+                    "selection_sha256": selection["selection_sha256"],
                 },
                 sort_keys=True,
             )

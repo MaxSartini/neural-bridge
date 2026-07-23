@@ -282,6 +282,85 @@ def write_supervised_projection_screen(path: Path, screen: Mapping[str, Any]) ->
     atomic_write_json(path, dict(screen))
 
 
+def select_supervised_projection(
+    summary: Mapping[str, Any],
+    screen: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Apply the registered paired representation gate after all cells complete."""
+
+    _require_self_digest(summary, "summary_sha256")
+    _require_self_digest(screen, "screen_sha256")
+    if summary.get("screen_sha256") != screen.get("screen_sha256"):
+        raise ValueError("representation summary does not belong to the registered screen")
+    if summary.get("completed_cells") != summary.get("expected_cells"):
+        raise ValueError("representation selection requires every registered cell")
+    if summary.get("benchmark_test_labels_accessed") is not False:
+        raise ValueError("representation selection cannot use benchmark-test labels")
+
+    pairs: dict[tuple[str, int, int], dict[str, float]] = {}
+    for record in summary["records"]:
+        key = (str(record["target"]), int(record["fold"]), int(record["seed"]))
+        pairs.setdefault(key, {})[str(record["lane"])] = float(
+            record["inner_average_precision_skill_delta_vs_frozen_ar"]
+        )
+    expected_pairs = int(summary["expected_cells"]) // len(_LANES)
+    if len(pairs) != expected_pairs or any(set(values) != set(_LANES) for values in pairs.values()):
+        raise ValueError("representation summary does not contain exact matched pairs")
+
+    paired_deltas = np.asarray(
+        [values["supervised_bottleneck512"] - values["fixed_pca512"] for values in pairs.values()]
+    )
+    lane_summaries = {}
+    for lane in _LANES:
+        values = np.asarray([pair[lane] for pair in pairs.values()])
+        lane_summaries[lane] = {
+            "mean_inner_average_precision_skill_delta_vs_frozen_ar": float(np.mean(values)),
+            "median_inner_average_precision_skill_delta_vs_frozen_ar": float(np.median(values)),
+            "positive_residual_pairs": int(np.sum(values > 0.0)),
+            "whole_fold_seed_ar_fallback_pairs": int(np.sum(values <= 0.0)),
+        }
+    by_target = {}
+    for target in screen["matrix"]["targets"]:
+        values = np.asarray(
+            [delta for key, delta in zip(pairs, paired_deltas, strict=True) if key[0] == target]
+        )
+        by_target[str(target)] = {
+            "pair_count": len(values),
+            "mean_supervised_minus_pca512": float(np.mean(values)),
+            "pca512_wins": int(np.sum(values < 0.0)),
+            "supervised_wins": int(np.sum(values > 0.0)),
+            "ties": int(np.sum(values == 0.0)),
+        }
+    mean_paired_delta = float(np.mean(paired_deltas))
+    selected = "supervised_bottleneck512" if mean_paired_delta > 0.0 else "fixed_pca512"
+    selection: dict[str, Any] = {
+        "schema": "veatic21_supervised_projection_selection_v1",
+        "screen_sha256": screen["screen_sha256"],
+        "summary_sha256": summary["summary_sha256"],
+        "primary_key": ("paired_mean_inner_average_precision_skill_delta_supervised_minus_pca512"),
+        "paired_mean_supervised_minus_pca512": mean_paired_delta,
+        "paired_median_supervised_minus_pca512": float(np.median(paired_deltas)),
+        "pair_count": len(paired_deltas),
+        "pca512_wins": int(np.sum(paired_deltas < 0.0)),
+        "supervised_wins": int(np.sum(paired_deltas > 0.0)),
+        "ties": int(np.sum(paired_deltas == 0.0)),
+        "lane_summaries": lane_summaries,
+        "by_target": by_target,
+        "selected_representation": selected,
+        "rejected_representation": (
+            "supervised_bottleneck512" if selected == "fixed_pca512" else "fixed_pca512"
+        ),
+        "benchmark_test_labels_accessed": False,
+        "promotable": False,
+    }
+    selection["selection_sha256"] = digest_json(selection)
+    return selection
+
+
+def write_supervised_projection_selection(path: Path, selection: Mapping[str, Any]) -> None:
+    atomic_write_json(path, dict(selection))
+
+
 @dataclass(frozen=True)
 class SupervisedProjectionCellConfig:
     lane: Literal["fixed_pca512", "supervised_bottleneck512"]
@@ -808,5 +887,7 @@ __all__ = [
     "probe_supervised_projection_capacity",
     "run_supervised_projection_cell",
     "run_supervised_projection_screen",
+    "select_supervised_projection",
+    "write_supervised_projection_selection",
     "write_supervised_projection_screen",
 ]

@@ -70,23 +70,33 @@
 - One real non-promotable supervised-bottleneck cell verified the wide source path,
   checkpointing, and artifact lifecycle. It completed 51 epochs and retained checkpoint 1.
   Its score is not representation-selection evidence.
-- No learned representation, head, training recipe, checkpoint panel, fallback, or final
-  winner has been selected. The sealed tail remains unopened.
+- All 180 matched representation cells completed with one sequential MLX worker. The result
+  summary and every referenced cell metrics hash verify; sealed-tail labels were not accessed.
+  Canonical summary:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/supervised-projection-screen/summary.json`.
+  Exact summary SHA-256:
+  `d5aec6be6364f008b0bf60ef5bd982e3f2384fa12799bcf7f3fab4abec583221`.
+- PCA-512 won all `90/90` matched target/fold/seed pairs. Its mean inner average-precision
+  skill delta versus fresh AR was `+0.009118552`, positive in `90/90`. The supervised
+  bottleneck scored `+0.000196811`, positive in `28/90`; paired supervised-minus-PCA was
+  `-0.008921741`. PCA won all `15/15` pairs within every shortlisted target.
+- The supervised 512-wide bottleneck is rejected and `fixed_pca512` remains the selected
+  Neural Bridge representation. Canonical representation selection:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/supervised-projection-selection.json`.
+  Exact selection SHA-256:
+  `169fbd766972cada97db5ed5ebd953f3d37be250b6933957a520156e1a31f581`.
+- No head family, training recipe, checkpoint panel, fallback, or final winner has been
+  selected. The sealed tail remains unopened.
 
 ## Exact next action
 
-Run the complete registered 180-cell matched supervised representation screen:
+Register the VEATIC-owned model and training matrix on the selected fold-owned PCA-512
+representation. Compare the causal temporal residual and gated multiscale temporal residual
+families on identical shortlisted targets, folds, comparison seeds, AR floors, and checkpoint
+rules. Calculate architecture widths, optimizer candidates, residual caps, and safe batch
+sizes from VEATIC 2.1 only; do not reuse AGAIN numeric winners.
 
-```bash
-cd '/Users/maxsartini/Neural Bridge'
-uv run python -m neural_bridge.veatic21 benchmark-supervised-projection
-```
-
-Output is written resumably by completed cell under:
-
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/supervised-projection-screen`
-
-Use exactly one GPU worker. Do not launch parallel training processes.
+Use exactly one GPU worker for learned cells. Do not launch parallel training processes.
 
 Learned residual cells must use the plan-owned MLX capacity and the existing checkpoint
 contract. The fresh-AR baseline remains the completed float64 CPU/LBFGS benchmark.
@@ -95,7 +105,7 @@ contract. The fresh-AR baseline remains the completed float64 CPU/LBFGS benchmar
 
 1. Complete target discovery and fresh AR benchmark. **Done.**
 2. Register the target shortlist rule, then run representation and PCA experiments.
-   **Shortlist and fixed-PCA screen done; PCA-512 selected; supervised screen registered.**
+   **Done: PCA-512 selected; supervised bottleneck rejected `90/90`.**
 3. Model and training experiments.
 4. Fixed fold and seed stability.
 5. Matched controls, leakage checks, and whole-fold/seed no-harm.

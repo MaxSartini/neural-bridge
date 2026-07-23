@@ -6,6 +6,7 @@ from neural_bridge.veatic21.evidence import digest_json
 from neural_bridge.veatic21.supervised_projection import (
     build_supervised_projection_screen,
     causal_context_indices,
+    select_supervised_projection,
 )
 
 
@@ -103,3 +104,50 @@ def test_supervised_projection_screen_is_matched_and_single_worker() -> None:
     assert screen["matched_recipe"]["batch_rows"] == 4096
     assert screen["matched_recipe"]["pca_and_supervised_lanes_use_identical_recipe"]
     assert screen["benchmark_test_labels_accessed"] is False
+
+
+def test_supervised_projection_selection_keeps_pca_on_nonpositive_pairing() -> None:
+    screen = _seal(
+        {
+            "matrix": {"targets": ["target"]},
+            "benchmark_test_labels_accessed": False,
+        },
+        "screen_sha256",
+    )
+    records = []
+    for seed in (1, 2):
+        records.extend(
+            [
+                {
+                    "target": "target",
+                    "fold": 0,
+                    "seed": seed,
+                    "lane": "fixed_pca512",
+                    "inner_average_precision_skill_delta_vs_frozen_ar": 0.02,
+                },
+                {
+                    "target": "target",
+                    "fold": 0,
+                    "seed": seed,
+                    "lane": "supervised_bottleneck512",
+                    "inner_average_precision_skill_delta_vs_frozen_ar": 0.01,
+                },
+            ]
+        )
+    summary = _seal(
+        {
+            "screen_sha256": screen["screen_sha256"],
+            "completed_cells": 4,
+            "expected_cells": 4,
+            "records": records,
+            "benchmark_test_labels_accessed": False,
+        },
+        "summary_sha256",
+    )
+
+    selection = select_supervised_projection(summary, screen)
+
+    assert selection["selected_representation"] == "fixed_pca512"
+    assert selection["pca512_wins"] == 2
+    assert selection["supervised_wins"] == 0
+    assert selection["paired_mean_supervised_minus_pca512"] == -0.01
