@@ -47,6 +47,11 @@ from .supervised_projection import (
     write_supervised_projection_screen,
     write_supervised_projection_selection,
 )
+from .training_recipe import (
+    build_training_recipe_plan,
+    run_training_recipe_program,
+    write_training_recipe_plan,
+)
 
 _ARTIFACT_ROOT = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
 
@@ -172,6 +177,26 @@ def _parser() -> argparse.ArgumentParser:
     select_heads.add_argument("--screen", type=Path)
     select_heads.add_argument("--baseline-summary", type=Path)
     select_heads.add_argument("--output", type=Path)
+    prepare_recipe = subparsers.add_parser(
+        "prepare-training-recipe",
+        help="seal the staged VEATIC-only numeric training-recipe gates",
+    )
+    prepare_recipe.add_argument("--plan", type=Path)
+    prepare_recipe.add_argument("--representation-summary", type=Path)
+    prepare_recipe.add_argument("--representation-selection", type=Path)
+    prepare_recipe.add_argument("--head-screen", type=Path)
+    prepare_recipe.add_argument("--head-selection", type=Path)
+    prepare_recipe.add_argument("--pca-manifest", type=Path)
+    prepare_recipe.add_argument("--output", type=Path)
+    recipe = subparsers.add_parser(
+        "benchmark-training-recipe",
+        help="run all staged recipe gates with one sequential MLX worker",
+    )
+    recipe.add_argument("--preregistration", type=Path)
+    recipe.add_argument("--calibration", type=Path)
+    recipe.add_argument("--pca-manifest", type=Path)
+    recipe.add_argument("--plan", type=Path)
+    recipe.add_argument("--output", type=Path)
     cell = subparsers.add_parser(
         "run-stage1-cell",
         help="train one VEATIC-only learned spike discovery cell without opening the sealed tail",
@@ -260,6 +285,14 @@ def _default_head_run_output() -> Path:
 
 def _default_head_selection_output() -> Path:
     return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/head-family-selection.json"
+
+
+def _default_training_recipe_plan_output() -> Path:
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/training-recipe-plan.json"
+
+
+def _default_training_recipe_run_output() -> Path:
+    return _ARTIFACT_ROOT / "runs/veatic-2.1/training-recipe"
 
 
 def _default_executor_validation_request() -> Path:
@@ -524,6 +557,47 @@ def main() -> int:
             )
         )
         return 0
+    if args.command == "prepare-training-recipe":
+        pca_root = _default_pca_output(Path.cwd())
+        plan = build_training_recipe_plan(
+            load_json((args.plan or _default_stage1_output(Path.cwd())).expanduser().resolve()),
+            load_json(
+                (
+                    args.representation_summary
+                    or (_default_supervised_run_output() / "summary.json")
+                )
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.representation_selection or _default_supervised_selection_output())
+                .expanduser()
+                .resolve()
+            ),
+            load_json((args.head_screen or _default_head_screen_output()).expanduser().resolve()),
+            load_json(
+                (args.head_selection or _default_head_selection_output()).expanduser().resolve()
+            ),
+            load_json(
+                (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+            ),
+        )
+        output = (args.output or _default_training_recipe_plan_output()).expanduser().resolve()
+        write_training_recipe_plan(output, plan)
+        print(
+            json.dumps(
+                {
+                    "backend": "mlx",
+                    "benchmark_test_labels_accessed": False,
+                    "expected_new_cells": plan["matrix"]["expected_new_cells"],
+                    "output": str(output),
+                    "plan_sha256": plan["plan_sha256"],
+                    "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
     substrate = CanonicalSubstrate.from_repo()
     if args.command == "benchmark-stage1-ar":
         preregistration = load_json(
@@ -684,6 +758,49 @@ def main() -> int:
                     "benchmark_test_labels_accessed": False,
                     "completed_cells": summary["completed_cells"],
                     "expected_cells": summary["expected_cells"],
+                    "output": str(output),
+                    "summary_sha256": summary["summary_sha256"],
+                    "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "benchmark-training-recipe":
+        preregistration = load_json(
+            (args.preregistration or _default_preregistration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        calibration = load_json(
+            (args.calibration or _default_calibration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        pca_root = _default_pca_output(substrate.repo_root)
+        pca_manifest = load_json(
+            (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+        )
+        plan = load_json(
+            (args.plan or _default_training_recipe_plan_output()).expanduser().resolve()
+        )
+        output = (args.output or _default_training_recipe_run_output()).expanduser().resolve()
+        summary = run_training_recipe_program(
+            substrate,
+            preregistration,
+            calibration,
+            pca_manifest,
+            plan,
+            pca_root,
+            output,
+            progress=lambda record: print(json.dumps(record, sort_keys=True), flush=True),
+        )
+        print(
+            json.dumps(
+                {
+                    "backend": "mlx",
+                    "benchmark_test_labels_accessed": False,
+                    "completed_new_cells": summary["completed_new_cells"],
                     "output": str(output),
                     "summary_sha256": summary["summary_sha256"],
                     "worker_count": 1,

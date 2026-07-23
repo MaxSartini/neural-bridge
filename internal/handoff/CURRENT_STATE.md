@@ -107,16 +107,23 @@
   `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/head-family-selection.json`.
   Exact selection SHA-256:
   `d145c7f07dc0e825750532048bbedef4ddba4d3600adb84fa92b4ec6a7319d0a`.
-- No training recipe, checkpoint panel, fallback, or final winner has been selected. The
-  sealed tail remains unopened.
+- The VEATIC-owned staged numeric training-recipe program is registered. It reuses the 90
+  verified PCA-512 causal cells, then varies hidden width, learning rate, weight decay, and
+  residual cap in four sequential gates. It registers 810 new learned cells, batch 4096,
+  no artificial memory fraction, and exactly one sequential MLX worker. Canonical plan:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/training-recipe-plan.json`.
+  Exact plan SHA-256:
+  `f3e67221bb6f8200a1bbd957e9a13e862ac7434af12dbe0884d9a431d778c793`.
+- No numeric training-recipe winner, checkpoint panel, fallback, or final winner has been
+  selected. The sealed tail remains unopened.
 
 ## Exact next action
 
-Register the VEATIC-owned numeric training-recipe matrix for the selected PCA-512 causal
-temporal residual. Vary architecture width, learning rate, weight decay, and residual cap in
-staged gates rather than one combinatorial sweep. Reuse identical targets, folds, comparison
-seeds, fresh AR floors, checkpoint rules, and one sequential GPU worker. Calculate all
-candidate values from VEATIC 2.1 only; do not reuse AGAIN numeric winners.
+Run the registered VEATIC-owned staged numeric training-recipe program for the selected
+PCA-512 causal temporal residual. Complete the hidden-width gate first, inherit only its
+winner into learning rate, then weight decay, then residual cap. Reuse identical targets,
+folds, comparison seeds, fresh AR floors, checkpoint rules, and exactly one sequential MLX
+worker. Do not open the sealed tail.
 
 Use exactly one GPU worker for learned cells. Do not launch parallel training processes.
 
