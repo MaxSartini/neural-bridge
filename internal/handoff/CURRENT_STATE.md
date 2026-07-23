@@ -56,19 +56,37 @@
   `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/stage2-pca-selection.json`.
   Exact selection SHA-256:
   `5d023c9fcfc822e2a1c1210ed794cf716ca11eb79e5299474fb5a4512b39e5e7`.
+- The supervised representation screen is registered as one sequential MLX worker with
+  matched batch size 4096. It contains 180 cells: PCA-512 and a fresh supervised 512-wide
+  bottleneck on the same six targets, five folds, and three seeds.
+- The supervised lane reuses each verified fold-owned cortical source scaler, then learns a
+  fresh shared bias-free `20,484 -> 512` projection over the current row and five causal past
+  rows. The PCA lane reuses the verified fold-owned PCA-512 projections. Both lanes use the
+  same temporal residual head, optimizer recipe, checkpoint contract, AR baseline, and rows.
+- Canonical supervised representation screen:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/supervised-projection-screen.json`.
+  Exact screen SHA-256:
+  `0b97abcb3d1be4139aefe757eb422a7a98d5c9c007c99cb01172f1ff22295873`.
+- One real non-promotable supervised-bottleneck cell verified the wide source path,
+  checkpointing, and artifact lifecycle. It completed 51 epochs and retained checkpoint 1.
+  Its score is not representation-selection evidence.
 - No learned representation, head, training recipe, checkpoint panel, fallback, or final
   winner has been selected. The sealed tail remains unopened.
 
 ## Exact next action
 
-Complete representation discovery by registering a VEATIC-owned supervised bottleneck
-matrix and comparing it against the selected fold-owned PCA-512 baseline on identical
-shortlisted targets, folds, seeds, nuisance training recipe, and checkpoint rules.
+Run the complete registered 180-cell matched supervised representation screen:
 
-The active preregistration names an end-to-end learned bottleneck candidate but does not
-yet define its VEATIC-specific architecture or numeric matrix. Do not reuse AGAIN dimensions,
-weights, gates, losses, or numeric choices. Register the exact supervised-projection matrix
-before launching learned-alternative cells.
+```bash
+cd '/Users/maxsartini/Neural Bridge'
+uv run python -m neural_bridge.veatic21 benchmark-supervised-projection
+```
+
+Output is written resumably by completed cell under:
+
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/supervised-projection-screen`
+
+Use exactly one GPU worker. Do not launch parallel training processes.
 
 Learned residual cells must use the plan-owned MLX capacity and the existing checkpoint
 contract. The fresh-AR baseline remains the completed float64 CPU/LBFGS benchmark.
@@ -77,7 +95,7 @@ contract. The fresh-AR baseline remains the completed float64 CPU/LBFGS benchmar
 
 1. Complete target discovery and fresh AR benchmark. **Done.**
 2. Register the target shortlist rule, then run representation and PCA experiments.
-   **Shortlist and fixed-PCA screen done; PCA-512 selected. Supervised projection remains.**
+   **Shortlist and fixed-PCA screen done; PCA-512 selected; supervised screen registered.**
 3. Model and training experiments.
 4. Fixed fold and seed stability.
 5. Matched controls, leakage checks, and whole-fold/seed no-harm.

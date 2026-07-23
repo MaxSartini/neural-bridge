@@ -6,7 +6,7 @@ import numpy as np
 
 from neural_bridge.veatic21.contracts import FeatureRows
 from neural_bridge.veatic21.evidence import digest_json
-from neural_bridge.veatic21.pca_cache import fit_event_pca_cache
+from neural_bridge.veatic21.pca_cache import fit_event_pca_cache, load_event_pca_scaler
 
 
 def test_pca_cache_fits_once_and_reuses_verified_payload(tmp_path: Path) -> None:
@@ -53,6 +53,9 @@ def test_pca_cache_fits_once_and_reuses_verified_payload(tmp_path: Path) -> None
 
     first = fit_event_pca_cache(features, preregistration, tmp_path, folds=[0])
     second = fit_event_pca_cache(features, preregistration, tmp_path, folds=[0])
+    scaler_mean, scaler_scale, basis_sha256 = load_event_pca_scaler(
+        preregistration, second, tmp_path, fold=0
+    )
     preregistration["unrelated_head_change"] = True
     preregistration["preregistration_sha256"] = digest_json(preregistration)
     third = fit_event_pca_cache(features, preregistration, tmp_path, folds=[0])
@@ -70,3 +73,7 @@ def test_pca_cache_fits_once_and_reuses_verified_payload(tmp_path: Path) -> None
     )
     assert projection.shape == (30, 3)
     assert np.isfinite(projection).all()
+    assert scaler_mean.shape == (8,)
+    assert scaler_scale.shape == (8,)
+    assert np.all(scaler_scale > 0)
+    assert len(basis_sha256) == 64

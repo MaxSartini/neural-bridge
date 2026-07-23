@@ -10,7 +10,7 @@ from pathlib import Path
 from .contracts import AROUSAL_SPIKE_1_3S, CandidateSpec, CellSpec
 from .data import CanonicalSubstrate
 from .evidence import atomic_write_json, digest_json, load_json, sha256_file
-from .pca_cache import fit_event_pca_cache
+from .pca_cache import fit_event_pca_cache, load_event_pca_scaler
 from .preregistration import (
     benchmark_partition_mask,
     build_event_preregistration,
@@ -31,6 +31,12 @@ from .stage2 import (
     select_stage2_pca_width,
     write_stage2_pca_screen,
     write_stage2_pca_selection,
+)
+from .supervised_projection import (
+    build_supervised_projection_screen,
+    probe_supervised_projection_capacity,
+    run_supervised_projection_screen,
+    write_supervised_projection_screen,
 )
 
 _ARTIFACT_ROOT = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
@@ -102,6 +108,26 @@ def _parser() -> argparse.ArgumentParser:
     stage2.add_argument("--plan", type=Path)
     stage2.add_argument("--screen", type=Path)
     stage2.add_argument("--output", type=Path)
+    prepare_supervised = subparsers.add_parser(
+        "prepare-supervised-projection",
+        help="seal the matched PCA-512 versus supervised-bottleneck matrix",
+    )
+    prepare_supervised.add_argument("--pca-selection", type=Path)
+    prepare_supervised.add_argument("--pca-summary", type=Path)
+    prepare_supervised.add_argument("--pca-screen", type=Path)
+    prepare_supervised.add_argument("--plan", type=Path)
+    prepare_supervised.add_argument("--pca-manifest", type=Path)
+    prepare_supervised.add_argument("--output", type=Path)
+    supervised = subparsers.add_parser(
+        "benchmark-supervised-projection",
+        help="run the sequential matched representation screen without opening the tail",
+    )
+    supervised.add_argument("--preregistration", type=Path)
+    supervised.add_argument("--calibration", type=Path)
+    supervised.add_argument("--pca-manifest", type=Path)
+    supervised.add_argument("--plan", type=Path)
+    supervised.add_argument("--screen", type=Path)
+    supervised.add_argument("--output", type=Path)
     cell = subparsers.add_parser(
         "run-stage1-cell",
         help="train one VEATIC-only learned spike discovery cell without opening the sealed tail",
@@ -166,6 +192,14 @@ def _default_stage2_run_output() -> Path:
 
 def _default_stage2_selection_output() -> Path:
     return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/stage2-pca-selection.json"
+
+
+def _default_supervised_screen_output() -> Path:
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/supervised-projection-screen.json"
+
+
+def _default_supervised_run_output() -> Path:
+    return _ARTIFACT_ROOT / "runs/veatic-2.1/supervised-projection-screen"
 
 
 def _default_executor_validation_request() -> Path:
@@ -293,6 +327,51 @@ def main() -> int:
             )
         )
         return 0
+    if args.command == "prepare-supervised-projection":
+        pca_selection_path = (
+            (args.pca_selection or _default_stage2_selection_output()).expanduser().resolve()
+        )
+        pca_summary_path = (
+            (args.pca_summary or (_default_stage2_run_output() / "summary.json"))
+            .expanduser()
+            .resolve()
+        )
+        pca_screen_path = (
+            (args.pca_screen or _default_stage2_screen_output()).expanduser().resolve()
+        )
+        plan_path = (args.plan or _default_stage1_output(Path.cwd())).expanduser().resolve()
+        pca_root = _default_pca_output(Path.cwd())
+        pca_manifest_path = (
+            (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+        )
+        preregistration = load_json(_default_preregistration_output(Path.cwd()))
+        pca_manifest = load_json(pca_manifest_path)
+        source_mean, _, _ = load_event_pca_scaler(preregistration, pca_manifest, pca_root, fold=0)
+        capacity = probe_supervised_projection_capacity(source_width=len(source_mean))
+        screen = build_supervised_projection_screen(
+            load_json(pca_selection_path),
+            load_json(pca_summary_path),
+            load_json(pca_screen_path),
+            load_json(plan_path),
+            pca_manifest,
+            capacity,
+        )
+        output = (args.output or _default_supervised_screen_output()).expanduser().resolve()
+        write_supervised_projection_screen(output, screen)
+        print(
+            json.dumps(
+                {
+                    "benchmark_test_labels_accessed": False,
+                    "batch_rows": screen["matched_recipe"]["batch_rows"],
+                    "expected_cells": screen["matrix"]["expected_cells"],
+                    "output": str(output),
+                    "screen_sha256": screen["screen_sha256"],
+                    "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
     substrate = CanonicalSubstrate.from_repo()
     if args.command == "benchmark-stage1-ar":
         preregistration = load_json(
@@ -364,6 +443,53 @@ def main() -> int:
                     "expected_cells": summary["expected_cells"],
                     "output": str(output),
                     "summary_sha256": summary["summary_sha256"],
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "benchmark-supervised-projection":
+        preregistration = load_json(
+            (args.preregistration or _default_preregistration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        calibration = load_json(
+            (args.calibration or _default_calibration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        pca_root = _default_pca_output(substrate.repo_root)
+        pca_manifest = load_json(
+            (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+        )
+        plan = load_json(
+            (args.plan or _default_stage1_output(substrate.repo_root)).expanduser().resolve()
+        )
+        screen = load_json(
+            (args.screen or _default_supervised_screen_output()).expanduser().resolve()
+        )
+        output = (args.output or _default_supervised_run_output()).expanduser().resolve()
+        summary = run_supervised_projection_screen(
+            substrate,
+            preregistration,
+            calibration,
+            pca_manifest,
+            plan,
+            screen,
+            pca_root,
+            output,
+            progress=lambda record: print(json.dumps(record, sort_keys=True), flush=True),
+        )
+        print(
+            json.dumps(
+                {
+                    "benchmark_test_labels_accessed": False,
+                    "completed_cells": summary["completed_cells"],
+                    "expected_cells": summary["expected_cells"],
+                    "output": str(output),
+                    "summary_sha256": summary["summary_sha256"],
+                    "worker_count": 1,
                 },
                 sort_keys=True,
             )

@@ -364,4 +364,41 @@ def load_event_pca_projection(
     return np.asarray(projection[:, :width], dtype=np.float32)
 
 
-__all__ = ["fit_event_pca_cache", "load_event_pca_projection"]
+def load_event_pca_scaler(
+    preregistration: Mapping[str, Any],
+    manifest: Mapping[str, Any],
+    output_root: Path,
+    *,
+    fold: int,
+) -> tuple[np.ndarray, np.ndarray, str]:
+    """Load and verify the fold-owned source scaler used before cortical PCA."""
+
+    if manifest.get("schema") != _SCHEMA or manifest.get("source") != _SOURCE:
+        raise ValueError("invalid cortical PCA manifest")
+    preregistration_sha256 = preregistration.get("preregistration_sha256")
+    if manifest.get("preregistration_sha256") != preregistration_sha256:
+        raise ValueError("PCA manifest does not belong to the current preregistration")
+    records = [row for row in manifest["folds"] if int(row["fold"]) == fold]
+    if len(records) != 1:
+        raise ValueError(f"PCA manifest must contain exactly one record for fold {fold}")
+    directory = output_root / str(records[0]["directory"])
+    metadata = load_json(directory / "metadata.json")
+    if (
+        metadata.get("preregistration_sha256") != preregistration_sha256
+        or int(metadata.get("fold", -1)) != fold
+        or metadata.get("source") != _SOURCE
+        or metadata.get("label_values_accessed") is not False
+    ):
+        raise ValueError("PCA scaler ownership does not match the requested fold")
+    _verify_payload(directory, metadata)
+    with np.load(directory / "basis.npz", allow_pickle=False) as arrays:
+        mean = np.asarray(arrays["scaler_mean"], dtype=np.float32)
+        scale = np.asarray(arrays["scaler_scale"], dtype=np.float32)
+    if mean.shape != scale.shape or mean.shape != (int(metadata["source_width"]),):
+        raise ValueError("PCA scaler payload has the wrong source width")
+    if not np.isfinite(mean).all() or not np.isfinite(scale).all() or np.any(scale <= 0):
+        raise ValueError("PCA scaler payload is invalid")
+    return mean, scale, str(metadata["file_sha256"]["basis.npz"])
+
+
+__all__ = ["fit_event_pca_cache", "load_event_pca_projection", "load_event_pca_scaler"]
