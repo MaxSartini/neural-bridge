@@ -192,15 +192,34 @@
   Exact plan SHA-256:
   `c903f7df63239060c02543678387b8aa854431a416c8dfde170301f74d11d123`.
   The matrix contains 105 cells and exactly one sequential MLX worker.
+- The q900 current-innovation matrix completed `105/105` and failed only the credible fold
+  gate. Canonical summary:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/current-innovation-controls/summary.json`.
+  Exact summary SHA-256:
+  `5da93896e370184e2a014ed9d4b4c17c15b67353fc1f4e6c8605f92b5d755025`.
+  Real raw PR-AUC was `0.291817192` versus matched fresh AR `0.279806127` and strongest
+  matched control diagnostics-only `0.284914605`: gains `+0.012011065` and `+0.006902587`.
+  Paired whole-video bootstrap lower 95% bounds were `+0.005779845` versus AR and
+  `+0.002699850` versus the strongest control. Label permutation was below AR; real beat the
+  uncentered current-row ablation; all 15 real cells beat AR. However only folds 2, 3, and 4
+  beat their strongest controls. Folds 0 and 1 lost to diagnostics-only, so the required
+  `4/5` credible fold gate failed. Equal-weight three-checkpoint averaging remained `3/5`.
+- Lifecycle diagnosis: the next real bridge must use permitted diagnostics/causal metadata
+  alongside cortical innovation and test incremental cortical value against diagnostics-only,
+  rather than treating diagnostics only as an adversary. It must also restore the settled
+  no-harm mechanism of a learned residual coefficient initialized at exact zero, so every
+  real/control lane begins at its identical frozen-AR floor and must earn a correction.
 
 ## Exact next action
 
-Run the registered q900 current-innovation redesign. Reuse only the verified VEATIC substrate,
-exact saved fresh-AR floors, fold-owned PCA-512 caches, target definition, row ownership, and
-lifecycle control semantics. Train every real cell beside its current-only matched shuffled,
-random, causal-prefix video-mean, diagnostics-only, label-permutation, and uncentered-current-
-row ablation lanes. Do not authorize stability unless every registered gate passes. Use
-exactly one sequential MLX worker and do not open the sealed tail.
+Register a q900 diagnostics-plus-current-cortical-innovation bridge with a zero-initialized
+learned residual alpha. Reuse only verified VEATIC substrate, exact saved fresh-AR floors,
+fold-owned PCA-512 caches, target definition, row ownership, and lifecycle controls. Train
+every real cell beside diagnostics-matched cortical-shuffled, random, causal-prefix-video-mean,
+diagnostics-only, label-permutation, and architecture/no-video ablation lanes. Keep raw PR-AUC
+primary and the complete spike metric/uncertainty report. Do not authorize stability unless
+every registered gate passes. Use exactly one sequential MLX worker and do not open the sealed
+tail.
 
 Use exactly one GPU worker for learned cells. Do not launch parallel training processes.
 
