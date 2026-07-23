@@ -28,6 +28,33 @@ AGAIN transfers method and rigor only. No AGAIN-fitted PCA, AR model, head, opti
 seconds, row offsets, thresholds, widths, seeds, checkpoints, or numeric winners may be used as
 a VEATIC selection.
 
+### Hard method-only transfer firewall
+
+The phrase **method transferred** in this handoff means that VEATIC may reproduce the
+scientific question, comparison design, ownership rule, control meaning, metric family, or
+order of operations. It never means reuse of an AGAIN implementation or fitted object.
+
+The new programme must not import, execute, copy, adapt in place, or load:
+
+- code from `src/neural_bridge/again/`;
+- a runner from any AGAIN study phase;
+- an AGAIN cache, feature row, row table, label, target, mask, or split membership;
+- an AGAIN PCA/scaler, projected score, AR model/prediction, residualizer, checkpoint,
+  model/head, control output, or result;
+- an AGAIN horizon, washout, seconds, row offset, lag, regularization, width, temporal window,
+  architecture, hidden size, optimizer, seed, checkpoint group, or numeric result gate.
+
+All VEATIC source and tests are implemented separately under the VEATIC namespace and
+`studies/veatic-2.1/`. Runtime manifests reject paths under AGAIN code, study, output, and
+artifact roots. Every phase emits a `veatic-derivation-ledger.json` mapping every fitted and
+numeric choice to its VEATIC evidence, derivation rule, owned rows, code digest, and artifact
+digest. A phase cannot advance when that ledger or the AGAIN-path rejection audit is absent.
+
+Method constants explicitly declared by this current VEATIC protocol—native 2 Hz rows,
+training-fold q90 event thresholding, separate grouped and blocked 70/30 reporting, and the
+declared PCA candidate set—are current VEATIC rules. They do not authorize reuse of AGAIN row
+membership, arrays, fitted values, or selected results.
+
 ## Repository and execution invariants
 
 - Repository: `/Users/maxsartini/Neural Bridge`.
@@ -38,8 +65,9 @@ a VEATIC selection.
 - Do not impose an artificial memory cap; the available GPU memory should be used.
 - CPU is allowed for CSV/JSON parsing, deterministic audits, orchestration, metrics, hashing,
   and report generation. It is not the learned-model fallback.
-- Reuse safe fitted artifacts when and only when the complete row/split/target/fold/transform
-  identity matches.
+- Reuse VEATIC-fitted artifacts when and only when the complete
+  row/split/target/fold/transform identity matches. The method-only firewall always forbids
+  reuse of an AGAIN-fitted artifact.
 - Commit and push each coherent phase transition to `main` before starting the next phase.
 - Replace this file in place whenever active scientific state changes. Do not append a diary.
 
@@ -517,6 +545,8 @@ Method transferred:
 - interpret label permutation correctly when the residual lane retains an AR floor;
 - use train-only video means rather than full-video static controls for promotability;
 - analyze AR dominance and target-window overlap before considering target redesign;
+- preserve the no-washout task as the first controlled reference while preparing a bounded,
+  VEATIC-derived washout procedure;
 - refit fold-safe PCA whenever a redesigned target changes split ownership;
 - confirm a selected target/head across seeds and both protocols before stabilization.
 
@@ -532,6 +562,42 @@ The final AGAIN selected-head evidence used seven matched lanes:
 
 Its `420/420` matrix combined `70` blocked rows and `350` grouped rows. The exact AGAIN target,
 head, feature width, seconds, and scores are historical context only.
+
+#### VEATIC-specific washout procedure
+
+The AGAIN result establishes that a washout can be scientifically useful; it does not
+establish the correct VEATIC gap. In particular, AGAIN's `rows 4..10`, `1.5s`, `2.5s`, target
+width, selected head, and fitted artifacts are not candidates by inheritance.
+
+VEATIC proceeds as follows:
+
+1. Run the starting spike task without a washout and with the complete controls.
+2. In Phase 01, compute label-only, per-video VEATIC autocorrelation/partial-autocorrelation,
+   rise time, event duration, causal-history predictiveness, coverage, and positive-support
+   summaries. Freeze a bounded candidate-generation rule before observing any washout-target
+   cortical result.
+3. In Phase 02/05 development data, decompose the no-washout result into legal AR persistence,
+   simple causal-history baselines, target/history row overlap, event prevalence, and
+   fold/video consistency.
+4. If the no-washout real lane clears its controls and consistency gates, retain it. The
+   washout is then unnecessary rather than mandatory.
+5. If legal persistence dominates or the target begins too near the causal history boundary,
+   instantiate a small VEATIC-derived gap family. For future start offset `s`, the washout is
+   `t+1..t+s-1` and the target begins at `t+s` or later.
+6. Derive candidate `s` and window ends only from VEATIC label decay, event timing, video
+   duration, coverage, and training-owned threshold stability. Record both row and second
+   identities on the verified VEATIC 2 Hz grid.
+7. Reject inadequate coverage/support candidates by rules frozen before cortical scoring.
+   Select surviving candidates only on development-owned training/inner-validation evidence
+   with every matched control; never select the gap on outer-test performance.
+8. Rebuild the target, masks, folds, AR floors, scalers, PCA, residualizers, heads, and controls
+   under the new ownership. No previous target-dependent object is silently reused.
+9. Freeze the selected washout design and score it on fresh untouched confirmation evidence
+   under blocked and grouped protocols. Evidence used to motivate redesign remains diagnostic.
+
+The no-washout and washout comparisons retain the same future-maximum-increase construct,
+fold-owned q90 threshold, metric stack, and controls. This isolates the contribution of the
+temporal separation instead of changing several scientific questions at once.
 
 ### AGAIN Phase 06 — event stabilization
 
@@ -637,16 +703,20 @@ Transfer:
 
 Do not transfer:
 
+- AGAIN source code or phase runners;
+- AGAIN caches, rows, labels, target arrays, masks, or split assignments;
 - AGAIN row offsets or seconds;
 - q90 numeric thresholds;
 - AR lag values or regularization;
 - PCA widths, components, scalers, or scores;
 - temporal aggregation windows;
-- head/model architecture;
+- washout gaps, target-window ends, or target selections;
+- head/model architecture or checkpoint weights;
 - hidden widths or optimizer settings;
 - seeds or checkpoint groups;
 - result gates expressed as AGAIN-specific numbers;
-- any fitted AGAIN artifact.
+- any fitted AGAIN artifact, prediction, control output, or metric result;
+- any direct runtime dependency on an AGAIN code, study, output, or artifact path.
 
 ## Control matrix required from the first applicable cell
 
@@ -841,6 +911,10 @@ From matching V-JEPA directories:
 24. Provenance report explicitly records `vjepa_hidden_states_loaded=false` and
     `vjepa_hidden_states_hashed=false`.
 25. No PCA, AR, target threshold, split, or model training occurred.
+26. Source/runtime dependency audit records no import or execution from
+    `src/neural_bridge/again/` or an AGAIN study runner.
+27. Runtime input-manifest validation rejects every AGAIN code, study, output, and artifact
+    path while retaining study documents as human-readable methodological references only.
 
 ### Phase 00 tests
 
@@ -857,6 +931,7 @@ Tests must prove, not merely report:
 - a quality-union mismatch fails;
 - an allowed-file hash mismatch fails;
 - label values are not used to choose a Phase 00 outcome;
+- source and runtime manifests cannot depend on AGAIN code, runners, data, or artifacts;
 - no output can claim Phase 01 authorization unless every Phase 00 control passes.
 
 ### Phase 00 outputs
@@ -867,6 +942,7 @@ Heavy/audit root should contain:
 - `allowed-input-manifest.json`
 - `row-inventory.csv`
 - `quality-summary.json`
+- `veatic-derivation-ledger.json`
 - `result.json`
 - `report.md`
 - `artifact-manifest.json`
@@ -901,12 +977,16 @@ Required work:
    event support, and video-duration compatibility.
 6. Define a bounded spike-window candidate procedure using the AGAIN future-maximum-increase
    formula.
-7. Freeze the target-window selection rule before reading cortical benchmark performance.
-8. Store continuous future movement values and validity masks.
-9. Do not create one global q90 binary label column.
-10. Do not create an outer 70/30 split during alignment.
-11. Write alignment, target-source, mask, and row-ownership digests.
-12. Produce compact evidence and authorize Phase 02 only after all alignment controls pass.
+7. Calculate per-video partial-autocorrelation decay, causal trailing-history and slope
+   predictiveness, rise time, event duration, and prospective washout coverage/support.
+8. Freeze both the initial no-washout selection rule and a bounded VEATIC-only procedure for
+   deriving possible washout starts/window ends before reading washout cortical performance.
+9. Record explicitly that AGAIN row offsets and seconds are not candidates by inheritance.
+10. Store continuous future movement values and validity masks.
+11. Do not create one global q90 binary label column.
+12. Do not create an outer 70/30 split during alignment.
+13. Write alignment, target-source, mask, row-ownership, and derivation-ledger digests.
+14. Produce compact evidence and authorize Phase 02 only after all alignment controls pass.
 
 ## Phase 02 through zero-label execution sequence
 
@@ -919,8 +999,10 @@ Required work:
 7. Freeze one VEATIC-selected representation.
 8. Phase 05 VEATIC-specific frozen-AR residual model discovery with no-harm and complete
    controls from the first cell.
-9. If and only if earned by controlled decomposition, register a VEATIC target redesign and
-   refit every ownership-dependent artifact.
+9. If controlled decomposition activates the washout branch, derive its gaps/windows from
+   VEATIC label dynamics, select only on development-owned evidence, register the redesign,
+   and refit every ownership-dependent artifact before fresh confirmation. If the starting
+   task clears its gates, retain the no-washout target.
 10. Confirm one event target/head/recipe across fresh seeds and both protocols.
 11. Phase 06 fixed checkpoint-group stabilization.
 12. Phase 07 separately specialized continuous arousal.

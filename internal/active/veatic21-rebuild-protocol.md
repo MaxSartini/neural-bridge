@@ -12,6 +12,31 @@ dataset-specific number and every fitted artifact: target horizons, event thresh
 and regularization, PCA width, temporal context, model family, optimizer, seeds, checkpoints,
 and any later target redesign.
 
+### Method-only transfer firewall
+
+`studies/again/` is read-only methodological evidence. It may be used to understand the
+question, comparison structure, ownership rule, control meaning, metric family, and order of
+operations. It is not a runtime or artifact source for VEATIC.
+
+The VEATIC implementation must not import, execute, copy, adapt in place, or load:
+
+- `src/neural_bridge/again/` code or an AGAIN phase runner;
+- an AGAIN cache, row table, label, target array, mask, split assignment, PCA/scaler,
+  AR model or prediction, residualizer, checkpoint, model/head, control output, or result;
+- an AGAIN config value for a horizon, gap, row offset, width, lag, regularization,
+  architecture, hidden size, optimizer, seed, checkpoint group, or numeric gate.
+
+Each VEATIC phase is implemented separately in the VEATIC namespace and study directory.
+Every fitted or numeric choice must name its VEATIC evidence source, derivation rule, owned
+rows, code digest, and artifact digest in a phase-local `veatic-derivation-ledger.json`.
+Runtime input manifests must reject paths in AGAIN code, study, output, and artifact roots.
+The ledger and path rejection are promotion controls, not optional documentation.
+
+Protocol constants explicitly frozen here—such as the native 2 Hz row grid, q90
+training-fold event rule, separately reported grouped and blocked 70/30 protocols, and the
+declared PCA candidate set—belong to this VEATIC protocol. No AGAIN row membership, fitted
+value, or selected result accompanies them.
+
 The ability order is fixed:
 
 1. arousal spike/event ranking;
@@ -86,6 +111,19 @@ VEATIC must determine `h_start` and `h_end` from its own 2 Hz label dynamics and
 durations. Store continuous values and validity masks only. Do not fit one global binary
 threshold. Event thresholds are training-fold q90 values fitted later.
 
+Phase 01 must also produce the label-only substrate needed for a possible VEATIC washout:
+
+- VEATIC autocorrelation and partial-autocorrelation decay by video;
+- predictiveness of current arousal, previous rows, causal trailing means, and causal slope;
+- event-duration/rise-time summaries, candidate-window coverage, eligible videos/rows, and
+  per-video positive support;
+- a bounded rule for deriving candidate gap starts and target-window ends from those VEATIC
+  summaries.
+
+This prepares the redesign without assuming one is needed. It does not copy AGAIN's
+`rows 4..10`, `1.5s`, `2.5s`, or any other offset. The derivation rule is frozen before any
+washout-target cortical score is observed.
+
 There is no outer 70/30 split in label alignment. Target construction covers the complete
 aligned table; split ownership is applied when a benchmark is fitted and scored.
 
@@ -100,6 +138,12 @@ q90 thresholds, feature normalization, AR regularization, and decision threshold
 inside the applicable outer-training partition. Test rows never select them.
 
 Freeze the exact AR predictions and checksums for every later matched real/control cell.
+
+For the starting no-washout target, Phase 02 also begins an AR-dominance and overlap
+decomposition on development-owned data: history rows actually consumed by AR, target rows,
+the intervening gap, simple causal-history baselines, AR-versus-chance uplift, and fold/video
+consistency. Phase 05 extends the same audit with the actual causal context of each head under
+evaluation. This is the evidence used by the conditional washout procedure.
 
 ### Phase 03 — raw predicted-cortical benchmark
 
@@ -138,9 +182,32 @@ mode. Best checkpoints are selected on inner validation, restored, and scored in
 A no-harm mechanism is mandatory: if a residual cannot earn positive inner-validation value,
 it is suppressed and the output falls back to the frozen AR floor.
 
-A washout gap or other target redesign is not part of the starting spike task. It may be
-introduced only after a completed controlled AR-dominance and target-overlap decomposition
-demonstrates that redesign is necessary. Any redesign uses VEATIC-derived row/second values.
+The first spike comparison remains the clean no-washout reference. A washout is expected to
+be a plausible next step, but it is not assumed to win. If the real no-washout bridge clears
+its complete control and consistency gates, retain it and report that a washout was
+unnecessary.
+
+If the completed decomposition instead shows that legal short-horizon arousal persistence
+dominates the task or that the target begins too close to the causal history boundary,
+activate the preregistered VEATIC washout-design procedure:
+
+1. Define the actual causal history set used by the strongest VEATIC AR/model at row `t`.
+2. Generate a small bounded set of future start offsets from VEATIC label autocorrelation,
+   partial autocorrelation, rise time, event duration, video duration, and coverage—not from
+   AGAIN offsets or scores.
+3. For a start offset `s`, declare rows `t+1..t+s-1` the washout and place the target window
+   wholly at `t+s` or later. Record both rows and seconds using the verified VEATIC 2 Hz grid.
+4. Reject candidates with inadequate eligible rows, video coverage, positives, or threshold
+   stability using criteria frozen before cortical scoring.
+5. Choose among surviving candidates only with development-owned training/inner-validation
+   data and the complete matched control matrix. Do not select a gap on an outer test score.
+6. Freeze the chosen target, gap, masks, splits, gates, and seeds; then refit every
+   ownership-dependent AR, scaler, PCA, residualizer, head, and control from VEATIC data.
+7. Treat prior held-out results used to motivate redesign as diagnostic. A redesigned target
+   earns its claim only on fresh, untouched confirmation evidence under both protocols.
+
+No-washout and washout targets use the same future-maximum-increase construct, fold-specific
+q90 event rule, metrics, and controls so the effect of temporal separation is interpretable.
 
 ### Phase 06 — event stabilization
 
@@ -224,8 +291,9 @@ Pearson, bias, MAE, and RMSE reported separately.
 - Use exactly one MLX GPU worker for PCA and learned training. Parallel GPU runs do not help.
 - Use available memory; do not impose an artificial memory cap.
 - CPU is permitted for CSV/JSON audit, deterministic orchestration, metrics, and reporting.
-- Reuse PCA bases, projected scores, frozen AR predictions, and checkpoints only when their
-  complete ownership/provenance identity matches.
+- Reuse VEATIC PCA bases, projected scores, frozen AR predictions, and checkpoints only when
+  their complete ownership/provenance identity matches. AGAIN-fitted objects are never
+  eligible for reuse.
 - Store heavy artifacts only under `/Volumes/onn. Drive/Neural Bridge Artifacts`.
 - A run request, split/row digest, code digest, input digest, control matrix, and output
   manifest must be written before a result can be considered resumable or reviewable.
