@@ -1,4 +1,4 @@
-"""Build an exact Graphify-compatible catalogue for external artifacts."""
+"""Build and serve one exact Neural Bridge repository/artifact knowledge graph."""
 
 from __future__ import annotations
 
@@ -17,27 +17,28 @@ import threading
 from collections.abc import Iterable
 from pathlib import Path
 
-DEFAULT_EXCLUDES = frozenset({"archive", "indexes", "quarantine", "scratch"})
+DEFAULT_EXCLUDES = frozenset({"indexes", "quarantine"})
 DEFAULT_REPOSITORY = Path("/Users/maxsartini/Neural Bridge")
 DEFAULT_ARTIFACTS = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
 DEFAULT_INDEX_ROOT = DEFAULT_ARTIFACTS / "indexes" / "graphify"
 REPOSITORY_WATCH_EXCLUDES = frozenset(
     {".git", ".mypy_cache", ".pytest_cache", ".ruff_cache", ".venv", "__pycache__", "artifacts"}
 )
+INLINE_TEXT_SUFFIXES = frozenset(
+    {".cfg", ".ini", ".json", ".md", ".py", ".sh", ".toml", ".txt", ".yaml", ".yml"}
+)
+INLINE_TEXT_BYTES = 256 * 1024
 
 
-def _artifact_id(relative_path: str) -> str:
-    digest = hashlib.sha256(relative_path.encode()).hexdigest()
-    return f"artifact::{digest}"
+def _catalog_id(namespace: str, relative_path: str) -> str:
+    digest = hashlib.sha256(f"{namespace}:{relative_path}".encode()).hexdigest()
+    return f"{namespace}::{digest}"
 
 
 def iter_artifacts(root: Path, excluded_roots: frozenset[str]) -> Iterable[Path]:
     for directory, names, files in os.walk(root, followlinks=False):
         current = Path(directory)
-        if current == root:
-            names[:] = sorted(name for name in names if name not in excluded_roots)
-        else:
-            names.sort()
+        names[:] = sorted(name for name in names if name not in excluded_roots)
         linked_directories = [name for name in names if (current / name).is_symlink()]
         names[:] = [name for name in names if name not in linked_directories]
         for name in linked_directories:
@@ -51,6 +52,8 @@ def build_artifact_graph(
     root: Path,
     output: Path,
     excluded_roots: frozenset[str] = DEFAULT_EXCLUDES,
+    *,
+    namespace: str = "artifact",
 ) -> dict[str, object]:
     root = root.resolve(strict=True)
     nodes: list[dict[str, object]] = []
@@ -65,7 +68,7 @@ def build_artifact_graph(
         total_bytes += stat.st_size
         nodes.append(
             {
-                "id": _artifact_id(relative),
+                "id": _catalog_id(namespace, relative),
                 "label": relative,
                 "file_type": "artifact_alias" if link_target else "artifact",
                 "source_file": str(path),
@@ -74,7 +77,7 @@ def build_artifact_graph(
                 "mtime_ns": stat.st_mtime_ns,
                 "link_target": link_target,
                 "suffix": path.suffix.lower(),
-                "_origin": "artifact_catalog",
+                "_origin": f"{namespace}_catalog",
             }
         )
 
@@ -91,7 +94,7 @@ def build_artifact_graph(
         temporary = Path(handle.name)
     temporary.replace(output)
     return {
-        "artifact_count": len(nodes),
+        f"{namespace}_count": len(nodes),
         "catalogued_bytes": total_bytes,
         "output": str(output),
         "root": str(root),
@@ -108,10 +111,22 @@ def refresh_index(repository: Path, artifacts: Path, index_root: Path) -> dict[s
     index_root = index_root.resolve()
     repository_output = index_root / "repository"
     repository_graph = repository_output / "graphify-out" / "graph.json"
+    repository_catalog_graph = index_root / "repository-catalog" / "graph.json"
     catalog_graph = index_root / "catalog" / "graph.json"
     merged_graph = index_root / "merged" / "graph.json"
 
-    catalog_summary = build_artifact_graph(artifacts, catalog_graph)
+    repository_catalog = build_artifact_graph(
+        repository,
+        repository_catalog_graph,
+        REPOSITORY_WATCH_EXCLUDES,
+        namespace="repository_file",
+    )
+    catalog_summary = build_artifact_graph(
+        artifacts,
+        catalog_graph,
+        DEFAULT_EXCLUDES,
+        namespace="artifact",
+    )
     subprocess.run(
         [
             graphify,
@@ -133,6 +148,7 @@ def refresh_index(repository: Path, artifacts: Path, index_root: Path) -> dict[s
             graphify,
             "merge-graphs",
             str(repository_graph),
+            str(repository_catalog_graph),
             str(catalog_graph),
             "--out",
             str(merged_graph),
@@ -148,6 +164,7 @@ def refresh_index(repository: Path, artifacts: Path, index_root: Path) -> dict[s
         raise RuntimeError("Graphify produced an invalid merged graph")
     return {
         **catalog_summary,
+        "repository_file_count": repository_catalog["repository_file_count"],
         "merged_edges": len(edges),
         "merged_graph": str(merged_graph),
         "merged_nodes": len(merged["nodes"]),
@@ -208,31 +225,129 @@ def _normalise_lookup(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", value.lower())
 
 
-def _resolve_exact_node(query: str, nodes: list[dict[str, object]]) -> dict[str, object]:
+def _contextual_unique(
+    matches: list[dict[str, object]], context: str | None
+) -> dict[str, object] | None:
+    if not context:
+        return None
+    terms = [_normalise_lookup(term) for term in re.findall(r"[A-Za-z0-9_.-]+", context)]
+    terms = [term for term in terms if term]
+    contextual = [
+        node
+        for node in matches
+        if all(
+            term
+            in _normalise_lookup(
+                f"{node.get('source_file', '')} {node.get('label', '')} {node.get('_origin', '')}"
+            )
+            for term in terms
+        )
+    ]
+    return contextual[0] if len(contextual) == 1 else None
+
+
+def _resolve_exact_node(
+    query: str,
+    nodes: list[dict[str, object]],
+    context: str | None = None,
+) -> dict[str, object]:
     query = query.strip()
     normalised = _normalise_lookup(query)
-    matches = []
+    query_lower = query.lower()
+
+    id_matches = [node for node in nodes if str(node.get("id", "")).lower() == query_lower]
+    if len(id_matches) == 1:
+        return id_matches[0]
+
+    path_matches = []
     for node in nodes:
-        label = str(node.get("label", ""))
-        node_id = str(node.get("id", ""))
         source = str(node.get("source_file", ""))
         absolute_source = str(
             Path(source) if Path(source).is_absolute() else DEFAULT_REPOSITORY / source
         )
-        exact_values = {node_id.lower(), label.lower(), source.lower(), absolute_source.lower()}
-        normalised_values = {
-            _normalise_lookup(label.removesuffix("()")),
-            _normalise_lookup(source),
-            _normalise_lookup(absolute_source),
-        }
-        if query.lower() in exact_values or normalised in normalised_values:
-            matches.append(node)
+        if query_lower in {source.lower(), absolute_source.lower()}:
+            path_matches.append(node)
+    catalog_path_matches = [
+        node for node in path_matches if str(node.get("_origin", "")).endswith("_catalog")
+    ]
+    if len(catalog_path_matches) == 1:
+        return catalog_path_matches[0]
+    if len(path_matches) == 1:
+        return path_matches[0]
+
+    label_matches = []
+    for node in nodes:
+        label = str(node.get("label", ""))
+        if query_lower == label.lower() or normalised == _normalise_lookup(
+            label.removesuffix("()")
+        ):
+            label_matches.append(node)
+    if len(label_matches) == 1:
+        return label_matches[0]
+    if contextual := _contextual_unique(label_matches, context):
+        return contextual
+
+    # Let callers use stable identities they naturally have (for example a qualified
+    # Python name or a unique filename) without exposing search candidates. Every
+    # relaxed match still has to resolve to exactly one node.
+    path_suffix_matches = []
+    query_path = query_lower.replace("\\", "/").removeprefix("./")
+    for node in nodes:
+        source = str(node.get("source_file", "")).lower().replace("\\", "/")
+        if source == query_path or source.endswith(f"/{query_path}"):
+            path_suffix_matches.append(node)
+    catalog_suffix_matches = [
+        node
+        for node in path_suffix_matches
+        if str(node.get("_origin", "")).endswith("_catalog")
+    ]
+    if len(catalog_suffix_matches) == 1:
+        return catalog_suffix_matches[0]
+    if contextual := _contextual_unique(catalog_suffix_matches, context):
+        return contextual
+    if len(path_suffix_matches) == 1:
+        return path_suffix_matches[0]
+    if contextual := _contextual_unique(path_suffix_matches, context):
+        return contextual
+
+    identifiers = re.findall(r"[A-Za-z_][A-Za-z0-9_]*", query.removesuffix("()"))
+    qualified_symbol = _normalise_lookup(identifiers[-1]) if identifiers else ""
+    qualified_symbol_matches = []
+    for node in nodes:
+        if node.get("file_type") != "code":
+            continue
+        label = _normalise_lookup(str(node.get("label", "")).removesuffix("()"))
+        if label and label == qualified_symbol:
+            qualified_symbol_matches.append(node)
+    if len(qualified_symbol_matches) == 1:
+        return qualified_symbol_matches[0]
+    if contextual := _contextual_unique(qualified_symbol_matches, context):
+        return contextual
+
+    matches = (
+        catalog_path_matches
+        or path_matches
+        or label_matches
+        or catalog_suffix_matches
+        or path_suffix_matches
+        or qualified_symbol_matches
+    )
     if len(matches) != 1:
         raise LookupError(
             f"Expected one exact Graphify node for {query!r}; found {len(matches)}. "
-            "Use its exact symbol label, absolute path, repository path, or node ID."
+            "Use a unique symbol or qualified symbol, path suffix, filename, absolute path, node "
+            "ID, or distinguishing provenance context."
         )
     return matches[0]
+
+
+def _inline_text(path: Path) -> str | None:
+    if path.suffix.lower() not in INLINE_TEXT_SUFFIXES or path.stat().st_size > INLINE_TEXT_BYTES:
+        return None
+    try:
+        return path.read_text(encoding="utf-8")
+    except UnicodeError:
+        return None
 
 
 def _python_extent(path: Path, start_line: int) -> int | None:
@@ -277,13 +392,15 @@ def _code_excerpt(
 def exact_node_payload(
     query: str,
     graph_path: Path = DEFAULT_INDEX_ROOT / "merged" / "graph.json",
+    *,
+    context: str | None = None,
 ) -> dict[str, object]:
     """Return the exact indexed code block or executable artifact handle."""
     graph = json.loads(graph_path.read_text(encoding="utf-8"))
     nodes = graph.get("nodes")
     if not isinstance(nodes, list):
         raise RuntimeError(f"Invalid Graphify graph: {graph_path}")
-    node = _resolve_exact_node(query, nodes)
+    node = _resolve_exact_node(query, nodes, context)
     source = Path(str(node.get("source_file", "")))
     path = source if source.is_absolute() else DEFAULT_REPOSITORY / source
     path = path.resolve(strict=True)
@@ -298,16 +415,22 @@ def exact_node_payload(
     }
     if node.get("file_type") == "code" and path.is_file():
         start, end, content = _code_excerpt(path, node, nodes)
-        payload.update({"start_line": start, "end_line": end, "content": content})
-    else:
-        stat = path.stat()
         payload.update(
             {
-                "delivery": "direct_consumer_path",
-                "size_bytes": stat.st_size,
-                "mtime_ns": stat.st_mtime_ns,
+                "delivery": "inline_content",
+                "start_line": start,
+                "end_line": end,
+                "content": content,
             }
         )
+    else:
+        stat = path.stat()
+        content = _inline_text(path) if path.is_file() else None
+        payload.update({"size_bytes": stat.st_size, "mtime_ns": stat.st_mtime_ns})
+        if content is None:
+            payload["delivery"] = "direct_consumer_path"
+        else:
+            payload.update({"delivery": "inline_content", "content": content})
     return payload
 
 
@@ -324,10 +447,11 @@ async def _serve_exact_mcp(graph_path: Path) -> None:
             types.Tool(
                 name="get_exact_neural_bridge_node",
                 description=(
-                    "Resolve exactly one current Neural Bridge code symbol or external artifact "
-                    "from the merged Graphify index. Returns the actual bounded code block for "
-                    "code, or the exact consumer path for large artifacts. Never returns "
-                    "candidates."
+                    "Universal Neural Bridge retrieval: resolve exactly one current or historical "
+                    "code symbol, repository file, script, configuration, document, result, model, "
+                    "cache, or external artifact from the combined Graphify index. Returns content "
+                    "when model-readable and the exact direct consumer path for heavy payloads. "
+                    "Never returns candidates or a routing pointer."
                 ),
                 inputSchema={
                     "type": "object",
@@ -335,7 +459,15 @@ async def _serve_exact_mcp(graph_path: Path) -> None:
                         "query": {
                             "type": "string",
                             "description": (
-                                "Exact symbol label, absolute path, repository path, or Graphify ID"
+                                "Unique symbol or qualified symbol, path suffix, filename, "
+                                "absolute path, or Graphify ID"
+                            ),
+                        },
+                        "context": {
+                            "type": "string",
+                            "description": (
+                                "Optional provenance terms such as programme, phase, role, "
+                                "lifecycle, or directory, used only to disambiguate repeated names"
                             ),
                         }
                     },
@@ -354,7 +486,12 @@ async def _serve_exact_mcp(graph_path: Path) -> None:
     async def call_tool(name: str, arguments: dict[str, object]) -> list[types.TextContent]:
         if name != "get_exact_neural_bridge_node":
             raise ValueError(f"Unknown tool: {name}")
-        payload = exact_node_payload(str(arguments["query"]), graph_path)
+        context = arguments.get("context")
+        payload = exact_node_payload(
+            str(arguments["query"]),
+            graph_path,
+            context=str(context) if context is not None else None,
+        )
         return [types.TextContent(type="text", text=json.dumps(payload, separators=(",", ":")))]
 
     async with stdio_server() as (read_stream, write_stream):

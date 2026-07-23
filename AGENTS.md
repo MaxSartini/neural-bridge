@@ -1,13 +1,14 @@
 # Neural Bridge Repository Contract
 
 - This is the canonical private Neural Bridge repository.
-- Startup supplies the exact contents of `/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md`; execute its next action without searching for the file again.
-- After relevant state, code, or artifact changes, replace current state and run the single `neural-bridge-index` refresh; never maintain duplicate indexes.
-- Every repository path, artifact path, retrieval source, command input, and generated reference must resolve directly to its current location. Never invent routing aliases.
-- Use `get_exact_neural_bridge_node` to retrieve current repository code or external artifacts directly from the combined Graphify index; never search for candidates or stop at a pointer. Refresh after relevant changes with `rtk uv run neural-bridge-index '/Users/maxsartini/Neural Bridge' '/Volumes/onn. Drive/Neural Bridge Artifacts' '/Volumes/onn. Drive/Neural Bridge Artifacts/indexes/graphify'`.
+- Treat `/Users/maxsartini/Neural Bridge` and `/Volumes/onn. Drive/Neural Bridge Artifacts` as one logical Graphify codebase, including current and historical material across every programme and phase. Graphify is the retrieval layer for every repository file, code symbol, script, configuration, document, result, model, cache, manifest, and external artifact at startup and throughout the task. Call `get_exact_neural_bridge_node` with the unique identity available—a symbol or qualified symbol, path suffix, unique filename, absolute path, or node ID—and optional provenance context such as programme, phase, role, lifecycle, or directory when names repeat. Consume its one bounded inline content result or direct heavy-payload consumer path. The caller does not need to memorize an absolute path. Never replace Graphify with filesystem search, candidate lists, pointer chasing, Context Mode, or another retrieval system; ambiguous identities fail closed without returning candidates.
+- At startup, retrieve `/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md` through `get_exact_neural_bridge_node`. Treat it only as the exact scientific handoff and follow its next action only when the active task authorizes that scientific work; do not turn it into workflow documentation or rediscover project state.
+- RTK is the terminal layer for every shell command. Every terminal command must begin with `rtk`; keep command inputs exact and outputs compact.
+- Every path, retrieval source, command input, and generated reference must resolve directly to its current location. Never invent routing aliases.
+- After relevant state, code, or artifact changes, replace current state in place, run exactly one `rtk uv run neural-bridge-index '/Users/maxsartini/Neural Bridge' '/Volumes/onn. Drive/Neural Bridge Artifacts' '/Volumes/onn. Drive/Neural Bridge Artifacts/indexes/graphify'`, verify, then commit and push the current work to `main`.
 - Store heavy artifacts only under `/Volumes/onn. Drive/Neural Bridge Artifacts`. Canonical paths encode programme, phase, role, and lifecycle.
 - Keep concluded results front-facing; keep active work, decisions, and current state under `internal/`. Each concluded phase owns only its defensible runner, config, compact results, report, provenance, artifact manifest, and tests.
 - Build VEATIC 2.1 only from VEATIC-specific targets, projections, models, controls, and selection. AGAIN contributes compatible hypotheses and rigor utilities, never fitted artifacts or numeric choices.
 - Keep VEATIC 2.1 and AGAIN implementations separate; share science code only after semantic and provenance equivalence is proven.
-- Preserve unrelated changes. Commit and push verified current work to `main`.
+- Preserve unrelated changes.
 - Replace this contract and `/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md` in place; never append history or duplicate plans.
