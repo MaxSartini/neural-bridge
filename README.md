@@ -8,6 +8,95 @@ Neural Bridge answers **yes** across a programme that began with an event/spike 
 
 The bridge converts frozen [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) / [TRIBE v2](https://arxiv.org/abs/2605.04326) predictions into causally constrained temporal representations. The upstream values are model-predicted average-subject cortical responses—not neural recordings from the people represented by the affect labels.
 
+## The end goal: one cumulative production generalist
+
+Neural Bridge is not ultimately a collection of unrelated dataset models. The programme is building one increasingly capable video-response system that accumulates complementary abilities from VEATIC, AGAIN, and future datasets, then applies those abilities to unseen client video.
+
+The intended production path is:
+
+```text
+unseen client video
+    → V-JEPA 2.1 inside the TRIBE v2 encoding stack
+    → dense predicted cortical-response sequence
+    → the combined Neural Bridge temporal model
+    → future spike, continuous movement, valence, peak/weak-moment, and heat-map outputs
+```
+
+### V-JEPA 2.1 and TRIBE v2 are one upstream stack
+
+V-JEPA 2.1 and TRIBE v2 are not two competing Neural Bridge models or two independent production inputs. V-JEPA 2.1 is the video encoder used inside the TRIBE v2 pipeline; TRIBE v2 maps that encoded video information into predicted average-subject cortical activity. For VEATIC 2.1, the expensive V-JEPA 2.1 pass was run once on H100 hardware and cached, then TRIBE v2 was run over those cached encoder outputs locally. That avoided paying to re-encode the same 124 videos while preserving the intended upstream stack.
+
+The active Neural Bridge input is the dense `tribe_cortical` output produced after TRIBE v2 runs over the cached V-JEPA 2.1 encoder outputs. This cortical output is the sole representation used for VEATIC 2.1 PCA, learned-head training, and winner selection.
+
+Neural Bridge begins after this frozen upstream stack. Raw TRIBE output is rich but is not expected to solve the product task by itself. AGAIN demonstrated the central point: raw predicted cortical features could lose to a strong response-history baseline, while the learned Neural Bridge temporal and residual machinery exposed useful forward-looking signal.
+
+### Why multiple datasets exist
+
+The datasets are complementary training and proving environments for the eventual generalist:
+
+| Source | Domain and capability contribution | Role in the final system |
+| --- | --- | --- |
+| **AGAIN** | `995` cleaned gameplay videos with dense first-person arousal; cracked controlled event/spike ranking, continuous future-movement ranking, and later video-only inference | teaches the bridge robust gameplay dynamics, response movement, event stabilization, residual learning, controls, and zero-label-at-inference methods |
+| **VEATIC 2.1** | the same `124` VEATIC film, television, documentary, and contextual-affect videos rebuilt on the stronger dense 2 Hz V-JEPA 2.1/TRIBE v2 substrate; includes both arousal and valence | adds edited and narrative video structure, perceived contextual affect, valence, and domain coverage that AGAIN cannot provide |
+| **Future datasets** | new content types, populations, labels, and response conditions | extend coverage and reduce dependence on the quirks of any one benchmark before production claims are made |
+
+Each dataset must first earn its own scientifically valid capabilities. VEATIC 2.1 therefore does **not** inherit AGAIN-fitted PCA, heads, thresholds, checkpoints, gates, or numerical choices. It inherits the lessons that worked—dense alignment, strong fresh baselines, fold ownership, learned temporal residuals, matched controls, stability testing, no-harm, and prospective confirmation—then calculates its own targets, widths, models, and training settings from VEATIC evidence.
+
+After dataset-specific abilities are discovered and confirmed, they become inputs to the eventual combined production model. The exact consolidation architecture is itself an empirical question, but the product contract is fixed: one system should retain the useful abilities learned across gameplay, film, television, contextual video, advertisements, and future domains rather than selecting a different research model manually for every client.
+
+### Labels help training; client inference must work from video
+
+The programme deliberately cracks difficult abilities with labels before attempting to remove label dependence. Labels are used to define targets, train supervised heads, compare checkpoints, and determine whether video adds meaningful information beyond strong baselines. PCA remains label-blind because its job is fold-owned compression, not supervised target selection.
+
+For label-assisted spike and continuous experiments, a freshly fitted autoregressive model is a comparator and may serve as the frozen base of a bounded residual candidate. It is not assumed to be available when a client uploads an advertisement. The later zero-label stage asks the production question: how much of the learned response intelligence can operate from video-derived features without observed client response labels, response history, teacher scores, or a labeled warm start?
+
+“Zero-label” therefore means **zero labels at inference**, not unsupervised training. The final production model is expected to learn from labeled development datasets and then operate on unseen client video through the same upstream encoding stack.
+
+### What the product should and should not predict
+
+Exact human-response values are neither realistic nor necessary. People and audiences vary, and no model can promise a precise second-by-second reaction for every viewer. Neural Bridge instead targets useful, transferable response structure:
+
+- relative ranking of likely future response movement;
+- rare spike and event likelihood;
+- high-value peaks and weak moments;
+- continuous arousal movement and top-tail concentration;
+- valence structure once VEATIC 2.1 earns it;
+- heat maps and segment comparisons that guide edits and testing; and
+- calibrated confidence and no-harm behavior when the learned bridge cannot improve on its validated fallback.
+
+The engineering objective is maximum accuracy, performance, robustness, and domain coverage in the most efficient defensible implementation. Efficiency is not permission to discard useful signal, reduce model capability, or skip necessary integration work.
+
+## What we are doing now: the VEATIC 2.1 rebuild
+
+VEATIC 2.1 is not a new dataset and is not the Original VEATIC model renamed. It is a fresh Neural Bridge rebuild over the same 124 VEATIC videos using the denser, stronger 2 Hz V-JEPA 2.1/TRIBE v2 substrate and the scientific lessons earned from Original VEATIC and AGAIN.
+
+The current position is deliberately before learned-model discovery:
+
+- the 124-video dense substrate and black/end-screen quality exclusions are verified;
+- train-only calibration retained all 90 arousal-spike target hypotheses for full fresh-AR discovery;
+- five fold-owned cortical PCA bases are cached through 512 dimensions and expose only the VEATIC candidate widths `64`, `128`, `256`, and `512`;
+- no PCA width has been benchmarked or selected;
+- the learned bounded causal-residual executor has passed one real non-promotable validation cell, including fresh fold-owned AR, causal temporal construction, MLX training, checkpoint selection, artifact sealing, and verified resume;
+- the full fresh-AR target benchmark and learned discovery matrix have not run; and
+- no VEATIC 2.1 target, representation, PCA width, learned model, training recipe, checkpoint, or final winner has been selected.
+
+The immediate task is the full resumable fresh-AR benchmark over every one of the 90 targets, five folds, and three fixed comparison seeds. That evidence establishes VEATIC-specific target support and baseline difficulty before any width or learned-head result can steer the search. After it completes, the same child-plan path is replaced in place with a `spike_discovery` plan cryptographically bound to the AR summary. Learned experiments then compare the registered PCA widths and both bounded causal-residual families on identical folds and seeds while preserving the sealed tail.
+
+The scientific order from there is fixed:
+
+1. complete full arousal-spike target discovery and fresh VEATIC AR benchmarking;
+2. benchmark VEATIC-specific PCA widths and learned representation candidates;
+3. compare model families and training methods on matched folds and seeds;
+4. confirm stability across the fixed fold and seed panels;
+5. run matched controls, leakage checks, and the no-harm gate against fresh frozen AR;
+6. select and freeze one spike winner from inner-validation evidence;
+7. open the sealed tail once for spike confirmation;
+8. repeat the earned method for continuous arousal;
+9. crack valence as its own target family; and
+10. only then develop the VEATIC 2.1 zero-label-at-inference form and integrate the confirmed VEATIC and AGAIN abilities into the broader production generalist.
+
+The active command, exact artifact paths, and next executable gate live in [`internal/handoff/CURRENT_STATE.md`](internal/handoff/CURRENT_STATE.md). That handoff records current execution state; this README records the stable product and programme model.
+
 ### Two peer-reviewed proving grounds
 
 | Dataset | Why it is formidable | Neural Bridge scope |
@@ -286,8 +375,8 @@ For a manuscript, the clean next statistical additions are video-clustered inter
 | --- | --- | --- |
 | [AGAIN](https://doi.org/10.1109/TAFFC.2022.3188851) | primary large-scale benchmark; first-person continuous arousal annotations from gameplay | Neural Bridge uses the cleaned 995-video subset; grouped folds hold out video IDs, not necessarily participants |
 | [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html) | historical 124-video event-ranking foundation | ratings concern the selected character's perceived affect; this is related evidence, not the same label construct as AGAIN |
-| [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) | frozen ViT-G dense video representation in the AGAIN feature foundation | upstream representation; Neural Bridge does not claim to train or improve V-JEPA itself |
-| [TRIBE v2](https://arxiv.org/abs/2605.04326) | frozen model mapping naturalistic stimuli to predicted average-subject fMRI response | outputs are in-silico predictions on a cortical surface, not measurements from AGAIN or VEATIC participants |
+| [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) | video encoder inside the upstream TRIBE v2 cache-generation stack; its expensive dense 2 Hz VEATIC pass was cached before TRIBE ran over it | not a separate Neural Bridge input, candidate representation, or production branch |
+| [TRIBE v2](https://arxiv.org/abs/2605.04326) | consumes the cached encoder outputs and produces predicted average-subject cortical activity; the resulting cortical cache is the Neural Bridge input | outputs are in-silico predictions on a cortical surface, not measurements from AGAIN or VEATIC participants |
 
 ## Product translation
 

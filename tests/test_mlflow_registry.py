@@ -19,7 +19,6 @@ from neural_bridge.mlflow_registry import (
 def test_phase_roots_excludes_mlflow_storage(tmp_path: Path) -> None:
     (tmp_path / "runs" / "again" / "phase-01").mkdir(parents=True)
     (tmp_path / "runs" / "mlflow" / "again").mkdir(parents=True)
-    (tmp_path / "runs" / "veatic-2.1" / "optuna-50").mkdir(parents=True)
 
     assert phase_roots(tmp_path) == [("again", tmp_path / "runs" / "again" / "phase-01")]
 
@@ -86,7 +85,7 @@ def test_native_run_references_external_output_without_copying(tmp_path: Path) -
 
     with start_run(
         "veatic-2.1",
-        "event-target-screen",
+        "stage1-ar-benchmark",
         database=database,
         mlflow_artifact_root=artifact_root,
     ):

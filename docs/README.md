@@ -1,8 +1,10 @@
 # Methods and Reproducibility
 
+The stable product architecture, the single V-JEPA 2.1/TRIBE v2 upstream stack, the multi-dataset generalist goal, and the current VEATIC 2.1 rebuild position are defined in the root [`README.md`](../README.md). This page owns evaluation and reproducibility details rather than a second product description.
+
 ## What the inputs are
 
-TRIBE/cortical features in this repository are frozen predictions generated from video by upstream models trained on cortical-response data. They are not measurements from the viewers represented by VEATIC or AGAIN.
+The Neural Bridge input is the frozen predicted-cortical cache produced by the upstream stack: V-JEPA 2.1 encodes video inside the process, and TRIBE v2 consumes those encoder outputs to produce the cortical sequence. V-JEPA encoder arrays are not a separate Neural Bridge candidate input. These values are predictions generated from video, not measurements from the viewers represented by VEATIC or AGAIN.
 
 The AGAIN feature foundation uses the frozen [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) ViT-G target encoder and [TRIBE v2](https://arxiv.org/abs/2605.04326). The primary affect sources are the [AGAIN dataset](https://doi.org/10.1109/TAFFC.2022.3188851) and [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html). AGAIN provides first-person continuous arousal annotations; VEATIC provides continuous ratings of a selected character's perceived affect. Results are therefore reported as a cross-dataset evidence ladder, not as a single transferred model or identical label construct.
 
@@ -76,7 +78,7 @@ The shared learned-head implementation supports PyTorch on CPU or CUDA and MLX o
 
 ## Heavy artifacts
 
-Large caches, fitted PCA, checkpoints, score arrays, and model weights live under `/Volumes/onn. Drive/Neural Bridge Artifacts`. Graphify indexes that tree together with repository code, MLflow tracks experiments, and the ignored local `artifacts` symlink resolves to that exact root.
+Large caches, fitted PCA, checkpoints, score arrays, and model weights live only under `/Volumes/onn. Drive/Neural Bridge Artifacts`. MLflow tracks registered experiment results from that root. Repository documentation must use the exact external paths; no local artifact alias is authoritative.
 
 ## Claim discipline
 

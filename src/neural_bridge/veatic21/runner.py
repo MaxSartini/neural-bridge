@@ -95,9 +95,7 @@ def _batches(
         return ()
     batch_count = (len(indices) + batch_rows - 1) // batch_rows
     if len(indices) // batch_count < minimum_rows:
-        raise ValueError(
-            "selected rows cannot form bounded batches that each cover the PCA width"
-        )
+        raise ValueError("selected rows cannot form bounded batches that each cover the PCA width")
     base_size, larger_batches = divmod(len(indices), batch_count)
     batches: list[np.ndarray] = []
     start = 0
@@ -299,6 +297,41 @@ def _fit_linear(
     return FittedLinear(transform=transform, head=head)
 
 
+def _fit_standardized_linear(
+    train_x: np.ndarray,
+    train_y: np.ndarray,
+    *,
+    regularization_c: float,
+    max_iter: int,
+    tolerance: float,
+    seed: int,
+) -> FittedLinear:
+    """Fit a small direct baseline without routing it through cortical PCA."""
+
+    matrix = np.asarray(train_x, dtype=np.float64)
+    if matrix.ndim != 2 or len(matrix) < 3:
+        raise ValueError("a direct linear baseline requires at least three matrix rows")
+    scaler = StandardScaler().fit(matrix)
+    scale = np.asarray(scaler.scale_, dtype=np.float64)
+    scale[scale == 0.0] = 1.0
+    width = matrix.shape[1]
+    transform = LinearTransform(
+        scaler_mean=np.asarray(scaler.mean_, dtype=np.float64),
+        scaler_scale=scale,
+        pca_mean=np.zeros(width, dtype=np.float64),
+        pca_components=np.eye(width, dtype=np.float64),
+    )
+    head = _fit_head(
+        transform.apply(matrix),
+        train_y,
+        regularization_c=regularization_c,
+        max_iter=max_iter,
+        tolerance=tolerance,
+        seed=seed,
+    )
+    return FittedLinear(transform=transform, head=head)
+
+
 def _array_digest(arrays: Mapping[str, np.ndarray]) -> str:
     digest = hashlib.sha256()
     for name, values in sorted(arrays.items()):
@@ -445,16 +478,12 @@ def run_nested_discovery(
             raise ValueError("inner training and validation rows overlap")
         threshold = fit_event_threshold(target_values, train_mask, cell.target)
         targets = event_labels(target_values, threshold)
-        ar_recipe = CandidateSpec(
-            name="target-specific-frozen-ar",
-            representation="vjepa_temporal_mean",
-            pca_width=min(8, ar_values.shape[1]),
-            regularization_c=1.0,
-        )
-        fitted_ar = _fit_linear(
+        fitted_ar = _fit_standardized_linear(
             ar_values[train_mask],
             targets[train_mask],
-            ar_recipe,
+            regularization_c=1.0,
+            max_iter=5_000,
+            tolerance=1e-6,
             seed=cell.seed + inner_fold,
         )
         ar_score = pooled_pr_auc(
@@ -586,18 +615,13 @@ def _fit_preseal_lanes(
 
     ar_values, ar_available = causal_ar_features(train_labels, target)
     ar_values = np.concatenate([ar_values, ar_available.astype(np.float64)], axis=1)
-    ar_recipe = replace(
-        candidate,
-        name=f"{candidate.name}__target-specific-frozen-ar",
-        pca_width=min(8, ar_values.shape[1]),
-        regularization_c=1.0,
-    )
-    frozen_ar = _fit_linear(
+    frozen_ar = _fit_standardized_linear(
         ar_values[train_mask],
         train_y,
-        ar_recipe,
+        regularization_c=1.0,
+        max_iter=candidate.max_iter,
+        tolerance=candidate.tolerance,
         seed=winner.cell.seed,
-        solver="randomized",
     )
 
     predictions = {

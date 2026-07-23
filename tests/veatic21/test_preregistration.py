@@ -100,7 +100,7 @@ def test_preregistration_locks_label_blind_temporal_benchmark_split() -> None:
     assert first["training"]["comparison_seed_panel"] == [20_260_722, 20_260_723, 20_260_724]
     assert len(first["training"]["stability_seed_panel"]) == 9
     assert "without_changing" in first["training"]["freshness_policy"]
-    assert first["representations"]["pca"]["actual_width"].startswith("smallest_train")
+    assert first["representations"]["pca"]["candidate_widths"] == ("fixed_width_candidates_only")
     assert "all_124" in first["representations"]["pca"]["production_refit_scope"]
     assert first["representations"]["pca"]["cache_reuse_across"] == [
         "targets",
@@ -131,9 +131,7 @@ def test_preregistration_locks_label_blind_temporal_benchmark_split() -> None:
 def test_calibration_uses_all_benchmark_train_labels_and_rejects_test() -> None:
     identity, features, labels = _canonical_fixture()
     preregistration = build_event_preregistration(identity, features)
-    benchmark_train_mask = benchmark_partition_mask(
-        features, preregistration["split"], "train"
-    )
+    benchmark_train_mask = benchmark_partition_mask(features, preregistration["split"], "train")
     benchmark_train_features = features.subset(benchmark_train_mask)
     benchmark_train_labels = _label_subset(labels, benchmark_train_mask)
 

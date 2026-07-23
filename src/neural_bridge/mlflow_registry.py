@@ -21,15 +21,6 @@ ARTIFACT_ROOT = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
 TRACKING_DB = ARTIFACT_ROOT / "indexes" / "mlflow" / "mlflow.db"
 MLFLOW_ARTIFACT_ROOT = ARTIFACT_ROOT / "runs" / "mlflow"
 IMPORT_SCHEMA = "neural_bridge_scientific_results_v4"
-_SUPERSEDED_PHASES = {
-    ("veatic-2.1", "again-parity"),
-    ("veatic-2.1", "initial-heads"),
-    ("veatic-2.1", "optuna-50"),
-}
-_SUPERSEDED_RESULTS = {
-    ARTIFACT_ROOT
-    / "runs/veatic-2.1/event-target-screen/tribe_grouped_mean-vjepa_temporal_mean.json",
-}
 
 
 @dataclass
@@ -253,8 +244,6 @@ def _evidence_files(root: Path) -> Iterable[Path]:
     for path in sorted(root.rglob("*")):
         if not path.is_file() or path.is_symlink() or path.suffix.lower() not in {".csv", ".json"}:
             continue
-        if path in _SUPERSEDED_RESULTS:
-            continue
         relative_parts = set(path.relative_to(root).parts[:-1])
         if relative_parts & _IGNORED_EVIDENCE_PARTS:
             continue
@@ -425,7 +414,6 @@ def phase_roots(artifact_root: Path = ARTIFACT_ROOT) -> list[tuple[str, Path]]:
         phases.extend(
             (programme.name, phase)
             for phase in sorted(path for path in programme.iterdir() if path.is_dir())
-            if (programme.name, phase.name) not in _SUPERSEDED_PHASES
         )
     return phases
 
@@ -609,9 +597,7 @@ def status(database: Path = TRACKING_DB) -> dict[str, object]:
     mlflow = configure_tracking(database)
     client = mlflow.MlflowClient()
     experiments = [
-        experiment
-        for experiment in client.search_experiments()
-        if experiment.name != "Default"
+        experiment for experiment in client.search_experiments() if experiment.name != "Default"
     ]
     runs = sum(
         len(client.search_runs([experiment.experiment_id], max_results=10_000))

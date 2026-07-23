@@ -1,27 +1,59 @@
-# Canonical Current State
+# Current State — VEATIC 2.1 Spike Discovery
 
-Updated: 2026-07-23
+## Confirmed state
 
-## Confirmed
-
-- VEATIC 2.1 contains 124 videos and 20,657 dense 2 Hz rows. The quality mask retains 19,734 rows: 13,753 development rows and a sealed 5,981-row last-30% tail.
-- Train-only calibration retains all 90 arousal-spike targets. No target, representation, PCA width, learned head, or training recipe has won.
-- Five fold-owned VEATIC cortical PCA bases are cached through 512 dimensions. This is reusable preparation only: no PCA width has been benchmarked or selected.
-- The event screen at `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/event-target-screen/tribe-cortical-tribe-grouped-mean-vjepa-temporal-mean.json` is complete: 21,600 unique cells covering 90 targets, 3 sources, 5 folds, 4 causal forms, and 4 ridge strengths, with fresh matched AR and no sealed-label access.
-- Its complete viability summary is `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/event-target-screen/viability-summary.json`. All 270 target/source families are retained; zero raw/linear families have positive mean skill delta versus fresh AR. This is a preliminary diagnostic only, not learned-model discovery, and it does not test either Neural Bridge residual head.
-- `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/stage1-child-plan.json` binds all 90 targets, all 270 target/source families, all fold-owned PCA widths, both registered label-assisted head families, matched folds, and matched seeds. It is a plan, not a trained result.
-- No learned Stage-1 residual-head experiment, PCA-width benchmark, model comparison, training-method comparison, fold/seed confirmation, control/no-harm gate, or winner selection has run. The existing `src/neural_bridge/veatic21/runner.py` is linear confirmation plumbing and must not be represented as the Stage-1 trainer.
-
-## Fixed constraints
-
-- Crack arousal spike first; continuous arousal, valence, and zero-label follow only after their preceding gate is genuinely won.
-- Use VEATIC-specific targets, projections, models, controls, and numeric choices. AGAIN supplies hypotheses and rigor, never fitted objects or copied numbers.
-- Every checkpoint from epoch 1 is merit-eligible. Train at least 50 epochs before termination, continue while validation can improve, impose no epoch ceiling, and break exact metric ties toward the earlier checkpoint.
-- Keep folds and seeds matched across candidates. Require incremental value over fresh frozen AR, controls, fold/seed stability, leakage checks, and no-harm. Any AR fallback is selected for a whole fold/seed from inner validation, never per row.
-- Keep the sealed tail closed until one complete spike recipe is frozen.
+- Canonical input is only the VEATIC 2.1 TRIBE v2 `cortical_prediction` produced over the
+  cached 2 Hz V-JEPA 2.1 encoder outputs:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/compact-20260716/per_video/<video_id>/tribe_v2_cortical_predictions.npz`.
+- Exact TRIBE tree SHA-256:
+  `0d4adc27dd9d226de87d0cfc4df92de14cb7450de6671857e0665418ad26f6dd`.
+- Substrate: 124 videos, 20,657 canonical rows, 923 black/static/end-screen exclusions,
+  19,734 usable rows, 13,753 development rows, and a sealed 5,981-row tail.
+- Train-only calibration retained all 90 arousal-spike target hypotheses.
+- Five fold-owned 512-component cortical PCA payloads are verified and the active manifest
+  exposes only candidate widths `64`, `128`, `256`, and `512`.
+- The learned residual executor passed one real non-promotable cell and verified resume.
+  It trained 84 epochs and selected checkpoint 34, demonstrating that epoch 1 onward is
+  merit-eligible and the final checkpoint is not preferred. Its score is not selection
+  evidence.
+- No target, PCA width, learned representation, head, training recipe, checkpoint panel,
+  fallback, or winner has been selected. The sealed tail has not been opened.
 
 ## Exact next action
 
-Implement and test the actual learned Stage-1 discovery-cell executor in `/Users/maxsartini/Neural Bridge/src/neural_bridge/veatic21/stage1.py`. It must consume the current child plan and fold-owned feature/PCA artifacts, fit fresh fold-owned AR, train both registered bounded causal residual-head families with matched folds and seeds, apply the checkpoint contract exactly, write resumable scientific metrics, and never open the sealed tail. Then run one bounded non-claiming cell to validate the executor before expanding the full discovery matrix.
+Run the complete fresh-AR benchmark across all 90 targets, five folds, and the three fixed
+comparison seeds:
 
-Protocol: `/Users/maxsartini/Neural Bridge/internal/active/veatic21-event-preregistration.md`.
+```bash
+cd '/Users/maxsartini/Neural Bridge'
+uv run python -m neural_bridge.veatic21 benchmark-stage1-ar
+```
+
+Output is written resumably by target under:
+
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/stage1-ar-benchmark`
+
+When `summary.json` reports all expected cells, replace the same child plan in place:
+
+```bash
+uv run python -m neural_bridge.veatic21 prepare-stage1
+```
+
+The new plan must report `purpose: spike_discovery` and bind the AR summary SHA-256 before
+learned PCA/head experiments begin.
+
+## Execution order
+
+1. Full target discovery and fresh AR benchmark.
+2. Representation and PCA experiments.
+3. Model and training experiments.
+4. Fixed fold and seed stability.
+5. Matched controls, leakage checks, and whole-fold/seed no-harm.
+6. Inner-validation winner selection and freeze.
+7. One sealed-tail confirmation.
+8. Continuous arousal, then valence, then VEATIC zero-label-at-inference.
+9. Combine confirmed VEATIC, AGAIN, and future dataset abilities into the production
+   generalist for unseen client video.
+
+The complete method and exact artifact paths are in
+[`internal/active/veatic21-event-preregistration.md`](../active/veatic21-event-preregistration.md).

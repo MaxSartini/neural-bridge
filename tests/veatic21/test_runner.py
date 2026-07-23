@@ -64,13 +64,15 @@ def test_stage1_plan_encodes_registered_checkpoint_and_fold_matrix() -> None:
             "comparison_seed_panel": [1, 2, 3],
             "last_checkpoint_preference": False,
             "minimum_epochs_before_termination": 50,
+            "nonconvergence_patience_epochs": 400,
+            "plateau_patience_epochs": 50,
         },
     }
     calibration = {
         "benchmark_test_labels_accessed": False,
         "calibration_sha256": "cal",
         "preregistration_sha256": "pre",
-        "schema": "veatic21_event_calibration_v12",
+        "schema": "veatic21_event_calibration_v13",
         "target_hypotheses": [
             {
                 "horizon_rows": [2, 4],
@@ -90,33 +92,30 @@ def test_stage1_plan_encodes_registered_checkpoint_and_fold_matrix() -> None:
         preregistration,
         calibration,
         pca_manifest,
-        {"backend": "mlx", "safe_batch_rows_by_hidden_width": {"64": 128}},
         {
-            "benchmark_test_labels_accessed": False,
-            "families": [
-                {"source": "tribe_cortical", "target": "target"},
-                {"source": "vjepa_temporal_mean", "target": "target"},
-            ],
-            "schema": "veatic21_event_screen_viability_v1",
-            "summary_sha256": "summary",
-            "target_count": 1,
+            "backend": "mlx",
+            "input_width_by_head_family": {
+                "frozen_ar_plus_causal_temporal_residual": 389,
+                "frozen_ar_plus_gated_multiscale_temporal_residual": 709,
+            },
+            "maximum_pca_width": 128,
+            "safe_batch_rows_by_head_hidden_width": {
+                "frozen_ar_plus_causal_temporal_residual:64": 128
+            },
         },
     )
     assert plan["checkpoint_policy"] == {
         "eligible_from_epoch": 1,
         "maximum_epochs": None,
         "minimum_epochs_before_termination": 50,
+        "nonconvergence_patience_epochs": 400,
         "optimizer_convergence_required": True,
         "plateau_patience_epochs": 50,
         "selection_metric": "inner_average_precision_skill_delta_vs_frozen_ar",
         "tie_break": "earliest_checkpoint",
     }
     assert plan["matrix"]["folds"][0]["candidate_pca_widths"] == [64, 128]
-    assert plan["matrix"]["representations"] == ["tribe_cortical", "vjepa_temporal_mean"]
-    assert plan["matrix"]["screen_family_order"] == [
-        "target::tribe_cortical",
-        "target::vjepa_temporal_mean",
-    ]
+    assert plan["matrix"]["representations"] == ["tribe_cortical"]
 
 
 class _MemorySubstrate:
@@ -216,16 +215,14 @@ def _small_substrate() -> _MemorySubstrate:
             row_index / (per_video - 1),
         )
     )
-    diagnostics = np.column_stack(
-        (np.cos((row_index + 1) * 0.3), (video_number % 5) / 5.0)
-    )
+    diagnostics = np.column_stack((np.cos((row_index + 1) * 0.3), (video_number % 5) / 5.0))
     features = FeatureRows(
         video_id=video_id,
         row_index=row_index,
         time_seconds=time_seconds,
         quality_eligible=np.ones(len(video_id), dtype=bool),
         representations={
-            "vjepa_temporal_mean": representation,
+            "tribe_cortical": representation,
             "diagnostics_only": diagnostics,
         },
     )
@@ -241,12 +238,14 @@ def _small_substrate() -> _MemorySubstrate:
 
 def _candidate() -> CandidateSpec:
     return CandidateSpec(
-        name="synthetic-vjepa",
-        representation="vjepa_temporal_mean",
+        name="synthetic-tribe-cortical",
+        representation="tribe_cortical",
         pca_width=2,
         regularization_c=1.0,
         max_iter=1_000,
         tolerance=1e-4,
+        pca_solver="incremental",
+        pca_batch_rows=4,
     )
 
 
@@ -361,8 +360,7 @@ def test_label_null_is_deterministic_nonzero_rotation_within_each_video() -> Non
         shifted = first[mask]
         assert int(source.sum()) == int(shifted.sum())
         assert any(
-            np.array_equal(shifted, np.roll(source, shift))
-            for shift in range(1, len(source))
+            np.array_equal(shifted, np.roll(source, shift)) for shift in range(1, len(source))
         )
 
 
@@ -407,9 +405,11 @@ def test_feature_rows_validation_checks_representations_in_bounded_chunks(
         (
             CandidateSpec(
                 name="invalid",
-                representation="vjepa_temporal_mean",
+                representation="tribe_cortical",
                 pca_width=0,
                 regularization_c=1.0,
+                pca_solver="incremental",
+                pca_batch_rows=1,
             ),
         ),
     ],
@@ -571,9 +571,7 @@ def test_verifier_recomputes_frozen_ar_instead_of_trusting_evaluator_scores(
     evaluator_path = output_dir / "evaluator_controls.npz"
     with np.load(evaluator_path, allow_pickle=False) as stored:
         evaluator = {name: np.asarray(stored[name]) for name in stored.files}
-    evaluator["target_specific_frozen_ar"] = evaluator[
-        "target_specific_frozen_ar"
-    ].copy()
+    evaluator["target_specific_frozen_ar"] = evaluator["target_specific_frozen_ar"].copy()
     evaluator["target_specific_frozen_ar"][0] += 0.01
     atomic_save_npz(evaluator_path, evaluator)
 

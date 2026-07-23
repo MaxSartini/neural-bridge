@@ -42,9 +42,7 @@ def _batches(indices: np.ndarray, batch_rows: int, minimum_rows: int = 1) -> lis
 
 def _row_digest(features: FeatureRows, indices: np.ndarray) -> str:
     digest = hashlib.sha256()
-    for video, row in zip(
-        features.video_id[indices], features.row_index[indices], strict=True
-    ):
+    for video, row in zip(features.video_id[indices], features.row_index[indices], strict=True):
         digest.update(f"{video}:{int(row)}\n".encode())
     return digest.hexdigest()
 
@@ -173,16 +171,14 @@ def fit_event_pca_cache(
     """Fit or verify one maximum PCA basis per requested benchmark-train fold."""
 
     features.validate()
-    if preregistration.get("schema") != "veatic21_event_preregistration_v12":
-        raise ValueError("PCA cache requires the VEATIC event preregistration v12")
+    if preregistration.get("schema") != "veatic21_event_preregistration_v13":
+        raise ValueError("PCA cache requires the VEATIC event preregistration v13")
     if set(features.representations) != {_SOURCE}:
         raise ValueError(f"PCA cache requires exactly the {_SOURCE} representation")
     specification = preregistration["representations"]["pca"]
     maximum = int(specification["maximum_components"])
     batch_rows = maximum * 2
-    if specification["batch_rows"] != (
-        "2_x_maximum_components_balanced_without_short_final_batch"
-    ):
+    if specification["batch_rows"] != ("2_x_maximum_components_balanced_without_short_final_batch"):
         raise ValueError("unsupported PCA batch contract")
 
     benchmark_mask = benchmark_partition_mask(features, preregistration["split"], "train")
@@ -259,18 +255,12 @@ def fit_event_pca_cache(
             fixed_widths = [
                 int(width) for width in specification["fixed_width_candidates"] if width <= maximum
             ]
-            candidate_widths = sorted(
-                set(fixed_widths).union(
-                    width for width in variance_widths.values() if width is not None
-                )
-            )
+            candidate_widths = sorted(set(fixed_widths))
             metadata = {
                 **ownership,
                 "cache_key": ownership_key,
                 "ownership_key": ownership_key,
-                "invocation_preregistration_sha256": preregistration[
-                    "preregistration_sha256"
-                ],
+                "preregistration_sha256": preregistration["preregistration_sha256"],
                 "label_values_accessed": False,
                 "fit_rows": int(len(fit_indices)),
                 "projected_rows": int(len(benchmark_indices)),
@@ -287,6 +277,20 @@ def fit_event_pca_cache(
             atomic_write_json(directory / "metadata.json", metadata)
         else:
             directory, metadata = compatible
+            fixed_widths = sorted(
+                {
+                    int(width)
+                    for width in specification["fixed_width_candidates"]
+                    if int(width) <= maximum
+                }
+            )
+            metadata = dict(metadata)
+            metadata.pop("metadata_sha256", None)
+            metadata.pop("invocation_preregistration_sha256", None)
+            metadata["preregistration_sha256"] = preregistration["preregistration_sha256"]
+            metadata["candidate_widths"] = fixed_widths
+            metadata["metadata_sha256"] = digest_json(metadata)
+            atomic_write_json(directory / "metadata.json", metadata)
         record = {
             "fold": fold,
             "ownership_key": ownership_key,
@@ -314,4 +318,50 @@ def fit_event_pca_cache(
     return manifest
 
 
-__all__ = ["fit_event_pca_cache"]
+def load_event_pca_projection(
+    features: FeatureRows,
+    preregistration: Mapping[str, Any],
+    manifest: Mapping[str, Any],
+    output_root: Path,
+    *,
+    fold: int,
+    width: int,
+) -> np.ndarray:
+    """Load an exact fold-owned cortical prefix after verifying ownership and payload."""
+
+    features.validate()
+    if set(features.representations) != {_SOURCE}:
+        raise ValueError(f"PCA projection loading requires exactly {_SOURCE}")
+    if manifest.get("schema") != _SCHEMA or manifest.get("source") != _SOURCE:
+        raise ValueError("invalid cortical PCA manifest")
+    preregistration_sha256 = preregistration.get("preregistration_sha256")
+    if manifest.get("preregistration_sha256") != preregistration_sha256:
+        raise ValueError("PCA manifest does not belong to the current preregistration")
+    if int(manifest.get("benchmark_rows", -1)) != len(features.video_id):
+        raise ValueError("PCA projection row count does not match the current feature rows")
+    indices = np.arange(len(features.video_id), dtype=np.int64)
+    if manifest.get("benchmark_row_sha256") != _row_digest(features, indices):
+        raise ValueError("PCA projection row identity does not match the current feature rows")
+    records = [row for row in manifest["folds"] if int(row["fold"]) == fold]
+    if len(records) != 1:
+        raise ValueError(f"PCA manifest must contain exactly one record for fold {fold}")
+    record = records[0]
+    if width not in {int(value) for value in record["candidate_widths"]}:
+        raise ValueError(f"PCA width {width} is not registered for fold {fold}")
+    directory = output_root / str(record["directory"])
+    metadata = load_json(directory / "metadata.json")
+    if (
+        metadata.get("preregistration_sha256") != preregistration_sha256
+        or int(metadata.get("fold", -1)) != fold
+        or metadata.get("source") != _SOURCE
+        or metadata.get("label_values_accessed") is not False
+    ):
+        raise ValueError("PCA metadata ownership does not match the requested fold")
+    _verify_payload(directory, metadata)
+    projection = np.load(directory / "benchmark-train-projection.npy", mmap_mode="r")
+    if projection.shape != (len(features.video_id), int(metadata["maximum_components"])):
+        raise ValueError("PCA projection payload shape does not match its metadata")
+    return np.asarray(projection[:, :width], dtype=np.float32)
+
+
+__all__ = ["fit_event_pca_cache", "load_event_pca_projection"]

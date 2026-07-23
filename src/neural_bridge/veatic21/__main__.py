@@ -7,20 +7,9 @@ import json
 from datetime import UTC, datetime
 from pathlib import Path
 
-from neural_bridge.mlflow_registry import (
-    log_completed_output,
-    scientific_metrics_from_object,
-    start_run,
-)
-
 from .contracts import AROUSAL_SPIKE_1_3S, CandidateSpec, CellSpec
 from .data import CanonicalSubstrate
-from .event_screen import (
-    run_event_target_screen,
-    summarize_event_target_screen,
-    write_event_target_screen,
-)
-from .evidence import atomic_write_json, load_json
+from .evidence import atomic_write_json, digest_json, load_json
 from .pca_cache import fit_event_pca_cache
 from .preregistration import (
     benchmark_partition_mask,
@@ -28,7 +17,14 @@ from .preregistration import (
     calibrate_event_preregistration,
 )
 from .runner import run_confirmation_cell, verify_confirmation_cell
-from .stage1 import build_stage1_plan, probe_stage1_capacity, write_stage1_plan
+from .stage1 import (
+    Stage1CellConfig,
+    build_stage1_plan,
+    probe_stage1_capacity,
+    run_stage1_ar_benchmark,
+    run_stage1_discovery_cell,
+    write_stage1_plan,
+)
 
 _ARTIFACT_ROOT = Path("/Volumes/onn. Drive/Neural Bridge Artifacts")
 
@@ -51,25 +47,6 @@ def _parser() -> argparse.ArgumentParser:
     )
     calibrate.add_argument("--preregistration", type=Path, required=True)
     calibrate.add_argument("--output", type=Path)
-    screen = subparsers.add_parser(
-        "screen-event",
-        help="run supervised target/representation screening on benchmark-train videos only",
-    )
-    screen.add_argument("--preregistration", type=Path, required=True)
-    screen.add_argument("--calibration", type=Path, required=True)
-    screen.add_argument(
-        "--source",
-        action="append",
-        choices=("vjepa_temporal_mean", "tribe_grouped_mean", "tribe_cortical"),
-        required=True,
-    )
-    screen.add_argument("--output", type=Path)
-    summarize = subparsers.add_parser(
-        "summarize-event-screen",
-        help="derive complete target/representation viability evidence without freezing a winner",
-    )
-    summarize.add_argument("--screen", type=Path, required=True)
-    summarize.add_argument("--output", type=Path, required=True)
     pca = subparsers.add_parser(
         "fit-event-pca",
         help="fit reusable label-blind cortical PCA bases inside benchmark-train folds",
@@ -84,8 +61,41 @@ def _parser() -> argparse.ArgumentParser:
     stage1.add_argument("--preregistration", type=Path)
     stage1.add_argument("--calibration", type=Path)
     stage1.add_argument("--pca-manifest", type=Path)
-    stage1.add_argument("--viability-summary", type=Path)
+    stage1.add_argument("--ar-benchmark", type=Path)
     stage1.add_argument("--output", type=Path)
+    ar_benchmark = subparsers.add_parser(
+        "benchmark-stage1-ar",
+        help="benchmark fresh AR across every registered target, fold, and comparison seed",
+    )
+    ar_benchmark.add_argument("--preregistration", type=Path)
+    ar_benchmark.add_argument("--calibration", type=Path)
+    ar_benchmark.add_argument("--output", type=Path)
+    cell = subparsers.add_parser(
+        "run-stage1-cell",
+        help="train one VEATIC-only learned spike discovery cell without opening the sealed tail",
+    )
+    cell.add_argument("--target", required=True)
+    cell.add_argument("--fold", type=int, required=True, choices=range(5))
+    cell.add_argument("--seed", type=int, required=True)
+    cell.add_argument("--pca-width", type=int, required=True, choices=(64, 128, 256, 512))
+    cell.add_argument(
+        "--head-family",
+        required=True,
+        choices=(
+            "frozen_ar_plus_causal_temporal_residual",
+            "frozen_ar_plus_gated_multiscale_temporal_residual",
+        ),
+    )
+    cell.add_argument("--hidden-width", type=int, required=True)
+    cell.add_argument("--learning-rate", type=float, required=True)
+    cell.add_argument("--weight-decay", type=float, required=True)
+    cell.add_argument("--residual-logit-cap", type=float, required=True)
+    cell.add_argument("--batch-rows", type=int, required=True)
+    cell.add_argument("--preregistration", type=Path)
+    cell.add_argument("--calibration", type=Path)
+    cell.add_argument("--pca-manifest", type=Path)
+    cell.add_argument("--plan", type=Path)
+    cell.add_argument("--output", type=Path)
     return parser
 
 
@@ -102,11 +112,6 @@ def _default_calibration_output(repo_root: Path) -> Path:
     return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/event-spike-v1-calibration.json"
 
 
-def _default_screen_output(repo_root: Path, sources: list[str]) -> Path:
-    source_key = "-".join(sorted(sources))
-    return _ARTIFACT_ROOT / f"runs/veatic-2.1/event-target-screen/{source_key}.json"
-
-
 def _default_pca_output(repo_root: Path) -> Path:
     return _ARTIFACT_ROOT / "features/veatic-2.1/neural-bridge/cortical-pca-v1"
 
@@ -115,8 +120,25 @@ def _default_stage1_output(repo_root: Path) -> Path:
     return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/stage1-child-plan.json"
 
 
-def _default_viability_output(repo_root: Path) -> Path:
-    return _ARTIFACT_ROOT / "runs/veatic-2.1/event-target-screen/viability-summary.json"
+def _default_ar_benchmark_output() -> Path:
+    return _ARTIFACT_ROOT / "runs/veatic-2.1/stage1-ar-benchmark"
+
+
+def _default_stage1_cell_output(config: Stage1CellConfig) -> Path:
+    config_sha256 = digest_json(
+        {
+            name: list(value) if isinstance(value, tuple) else value
+            for name, value in config.__dict__.items()
+        }
+    )
+    return (
+        _ARTIFACT_ROOT
+        / "runs/veatic-2.1/stage1-discovery"
+        / config.target_name
+        / f"fold-{config.fold}"
+        / f"seed-{config.seed}"
+        / f"{config.head_family}__pca-{config.pca_width}__{config_sha256[:16]}"
+    )
 
 
 def _owned_rows(features, mask) -> dict[str, list[int]]:
@@ -132,19 +154,23 @@ def _prepare_stage1(args: argparse.Namespace) -> int:
     preregistration_path = args.preregistration or _default_preregistration_output(repo_root)
     calibration_path = args.calibration or _default_calibration_output(repo_root)
     pca_manifest_path = args.pca_manifest or (_default_pca_output(repo_root) / "manifest.json")
-    viability_path = args.viability_summary or _default_viability_output(repo_root)
     output = (args.output or _default_stage1_output(repo_root)).expanduser().resolve()
     preregistration = load_json(preregistration_path.expanduser().resolve())
     calibration = load_json(calibration_path.expanduser().resolve())
     pca_manifest = load_json(pca_manifest_path.expanduser().resolve())
-    viability_summary = load_json(viability_path.expanduser().resolve())
+    ar_benchmark_path = args.ar_benchmark or (_default_ar_benchmark_output() / "summary.json")
+    ar_benchmark = (
+        load_json(ar_benchmark_path.expanduser().resolve())
+        if ar_benchmark_path.expanduser().resolve().is_file()
+        else None
+    )
     capacity = probe_stage1_capacity(pca_manifest)
     plan = build_stage1_plan(
         preregistration,
         calibration,
         pca_manifest,
         capacity,
-        viability_summary,
+        ar_benchmark,
     )
     write_stage1_plan(output, plan)
     print(
@@ -152,6 +178,7 @@ def _prepare_stage1(args: argparse.Namespace) -> int:
             {
                 "output": str(output),
                 "plan_sha256": plan["plan_sha256"],
+                "purpose": plan["purpose"],
                 "schema": plan["schema"],
             },
             sort_keys=True,
@@ -162,34 +189,89 @@ def _prepare_stage1(args: argparse.Namespace) -> int:
 
 def main() -> int:
     args = _parser().parse_args()
-    if args.command == "summarize-event-screen":
-        screen = load_json(args.screen.expanduser().resolve())
-        output = args.output.expanduser().resolve()
-        result = summarize_event_target_screen(screen)
-        atomic_write_json(output, result)
+    if args.command == "prepare-stage1":
+        return _prepare_stage1(args)
+    substrate = CanonicalSubstrate.from_repo()
+    if args.command == "benchmark-stage1-ar":
+        preregistration = load_json(
+            (args.preregistration or _default_preregistration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        calibration = load_json(
+            (args.calibration or _default_calibration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        output = (args.output or _default_ar_benchmark_output()).expanduser().resolve()
+        summary = run_stage1_ar_benchmark(
+            substrate,
+            preregistration,
+            calibration,
+            output,
+        )
         print(
             json.dumps(
                 {
-                    "family_count": result["family_count"],
+                    "benchmark_test_labels_accessed": False,
+                    "completed_cells": summary["completed_cells"],
+                    "invalid_cells": summary["invalid_cells"],
                     "output": str(output),
-                    "positive_mean_delta_family_count": result[
-                        "positive_mean_delta_family_count"
-                    ],
-                    "schema": result["schema"],
-                    "selection_status": result["selection_status"],
-                    "summary_sha256": result["summary_sha256"],
+                    "target_count": summary["target_count"],
                 },
                 sort_keys=True,
             )
         )
         return 0
-    if args.command == "prepare-stage1":
-        return _prepare_stage1(args)
-    substrate = CanonicalSubstrate.from_repo()
+    if args.command == "run-stage1-cell":
+        config = Stage1CellConfig(
+            target_name=args.target,
+            fold=args.fold,
+            seed=args.seed,
+            pca_width=args.pca_width,
+            head_family=args.head_family,
+            hidden_width=args.hidden_width,
+            learning_rate=args.learning_rate,
+            weight_decay=args.weight_decay,
+            residual_logit_cap=args.residual_logit_cap,
+            batch_rows=args.batch_rows,
+        )
+        preregistration = load_json(
+            (args.preregistration or _default_preregistration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        calibration = load_json(
+            (args.calibration or _default_calibration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        pca_root = _default_pca_output(substrate.repo_root)
+        pca_manifest = load_json(
+            (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+        )
+        plan = load_json(
+            (args.plan or _default_stage1_output(substrate.repo_root)).expanduser().resolve()
+        )
+        output = (args.output or _default_stage1_cell_output(config)).expanduser().resolve()
+        metrics = run_stage1_discovery_cell(
+            substrate,
+            preregistration,
+            calibration,
+            pca_manifest,
+            plan,
+            pca_root,
+            output,
+            config,
+        )
+        print(json.dumps({"output": str(output), **metrics}, sort_keys=True))
+        return 0
     if args.command == "preregister-event":
         output = (
-            args.output or _default_preregistration_output(substrate.repo_root)
-        ).expanduser().resolve()
+            (args.output or _default_preregistration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
         features = substrate.load_features(substrate.video_ids, ("diagnostics_only",))
         manifest = build_event_preregistration(substrate.identity, features)
         atomic_write_json(output, manifest)
@@ -208,12 +290,10 @@ def main() -> int:
     if args.command == "calibrate-event":
         preregistration = load_json(args.preregistration.expanduser().resolve())
         output = (
-            args.output or _default_calibration_output(substrate.repo_root)
-        ).expanduser().resolve()
-        all_features = substrate.load_features(substrate.video_ids, ("diagnostics_only",))
-        train_mask = benchmark_partition_mask(
-            all_features, preregistration["split"], "train"
+            (args.output or _default_calibration_output(substrate.repo_root)).expanduser().resolve()
         )
+        all_features = substrate.load_features(substrate.video_ids, ("diagnostics_only",))
+        train_mask = benchmark_partition_mask(all_features, preregistration["split"], "train")
         features = all_features.subset(train_mask)
         labels = substrate.load_labels(
             substrate.video_ids,
@@ -226,9 +306,7 @@ def main() -> int:
             json.dumps(
                 {
                     "calibration_sha256": calibration["calibration_sha256"],
-                    "benchmark_test_labels_accessed": calibration[
-                        "benchmark_test_labels_accessed"
-                    ],
+                    "benchmark_test_labels_accessed": calibration["benchmark_test_labels_accessed"],
                     "output": str(output),
                     "schema": calibration["schema"],
                     "targets": len(calibration["target_hypotheses"]),
@@ -237,71 +315,9 @@ def main() -> int:
             )
         )
         return 0
-    if args.command == "screen-event":
-        preregistration = load_json(args.preregistration.expanduser().resolve())
-        calibration = load_json(args.calibration.expanduser().resolve())
-        sources = list(dict.fromkeys(args.source))
-        output = (
-            args.output or _default_screen_output(substrate.repo_root, sources)
-        ).expanduser().resolve()
-        with start_run(
-            "veatic-2.1",
-            "event-target-screen",
-            run_name=output.stem,
-            tags={"neural_bridge.execution_kind": "native"},
-        ):
-            all_features = substrate.load_features(substrate.video_ids, sources)
-            train_mask = benchmark_partition_mask(
-                all_features, preregistration["split"], "train"
-            )
-            features = all_features.subset(train_mask)
-            labels = substrate.load_labels(
-                substrate.video_ids,
-                row_indices=_owned_rows(all_features, train_mask),
-                stage="event_screen_benchmark_train_only",
-            )
-            result = run_event_target_screen(
-                features,
-                labels,
-                preregistration,
-                calibration,
-                sources=sources,
-            )
-            write_event_target_screen(output, result)
-            log_completed_output(
-                output,
-                parameters={
-                    "folds": len(preregistration["split"]["inner_grouped_video_folds"]),
-                    "records": len(result["records"]),
-                    "sources": ",".join(sources),
-                    "targets": len(calibration["target_hypotheses"]),
-                },
-                metrics=scientific_metrics_from_object(result),
-                tags={
-                    "neural_bridge.result_sha256": result["screen_sha256"],
-                    "neural_bridge.schema": result["schema"],
-                },
-            )
-        print(
-            json.dumps(
-                {
-                    "benchmark_test_labels_accessed": result[
-                        "benchmark_test_labels_accessed"
-                    ],
-                    "output": str(output),
-                    "records": len(result["records"]),
-                    "schema": result["schema"],
-                    "screen_sha256": result["screen_sha256"],
-                },
-                sort_keys=True,
-            )
-        )
-        return 0
     if args.command == "fit-event-pca":
         preregistration = load_json(args.preregistration.expanduser().resolve())
-        output = (
-            args.output or _default_pca_output(substrate.repo_root)
-        ).expanduser().resolve()
+        output = (args.output or _default_pca_output(substrate.repo_root)).expanduser().resolve()
         features = substrate.load_features(substrate.video_ids, ("tribe_cortical",))
         result = fit_event_pca_cache(
             features,
@@ -334,16 +350,12 @@ def main() -> int:
     )
     candidates = (
         CandidateSpec(
-            name="tribe-grouped-mean-pca8-c1",
-            representation="tribe_grouped_mean",
-            pca_width=8,
+            name="tribe-cortical-pca64-c1",
+            representation="tribe_cortical",
+            pca_width=64,
             regularization_c=1.0,
-        ),
-        CandidateSpec(
-            name="vjepa-temporal-mean-pca8-c1",
-            representation="vjepa_temporal_mean",
-            pca_width=8,
-            regularization_c=1.0,
+            pca_solver="incremental",
+            pca_batch_rows=128,
         ),
     )
     first = run_confirmation_cell(

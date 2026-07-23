@@ -16,12 +16,12 @@ from .contracts import (
     VideoSplit,
 )
 from .data import CanonicalSubstrate
-from .event_screen import run_event_target_screen, targets_from_calibration
 from .preregistration import (
     EventTargetHypothesis,
     benchmark_partition_mask,
     build_event_preregistration,
     calibrate_event_preregistration,
+    targets_from_calibration,
 )
 from .protocol import build_video_splits, freeze_final_recipe
 from .runner import (
@@ -31,7 +31,14 @@ from .runner import (
     run_nested_discovery,
     verify_confirmation_cell,
 )
-from .stage1 import CheckpointSelector, build_stage1_plan, probe_stage1_capacity
+from .stage1 import (
+    CheckpointSelector,
+    Stage1CellConfig,
+    build_stage1_plan,
+    probe_stage1_capacity,
+    run_stage1_ar_benchmark,
+    run_stage1_discovery_cell,
+)
 
 __all__ = [
     "AROUSAL_SPIKE_1_3S",
@@ -41,6 +48,7 @@ __all__ = [
     "CanonicalSubstrate",
     "CellSpec",
     "CheckpointSelector",
+    "Stage1CellConfig",
     "DatasetContract",
     "EventTargetHypothesis",
     "FeatureRows",
@@ -60,7 +68,8 @@ __all__ = [
     "probe_stage1_capacity",
     "refit_all_124",
     "run_confirmation_cell",
-    "run_event_target_screen",
+    "run_stage1_ar_benchmark",
+    "run_stage1_discovery_cell",
     "run_nested_discovery",
     "targets_from_calibration",
     "verify_confirmation_cell",

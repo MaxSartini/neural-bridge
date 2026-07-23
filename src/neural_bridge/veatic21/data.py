@@ -73,8 +73,6 @@ _SHARED_METADATA_KEYS = (
 )
 _REPRESENTATION_LAYOUTS: Mapping[str, tuple[int, np.dtype[Any]]] = MappingProxyType(
     {
-        "vjepa_temporal_mean": (1_408, np.dtype(np.float32)),
-        "tribe_grouped_mean": (1_408, np.dtype(np.float32)),
         "tribe_cortical": (20_484, np.dtype(np.float16)),
         "diagnostics_only": (53, np.dtype(np.float32)),
     }
@@ -386,9 +384,7 @@ class CanonicalSubstrate:
             matrices[name] = np.empty((total_rows, width), dtype=dtype)
 
         offset = 0
-        tribe_requested = bool(
-            {"tribe_grouped_mean", "tribe_cortical"}.intersection(selected_representations)
-        )
+        tribe_requested = "tribe_cortical" in selected_representations
         for video_id in selected_videos:
             count = self._row_counts[video_id]
             destination = slice(offset, offset + count)
@@ -401,13 +397,6 @@ class CanonicalSubstrate:
                 time_values[destination] = time_seconds
                 eligible_values[destination] = ~exclusion.astype(np.bool_, copy=False)
 
-                if "vjepa_temporal_mean" in matrices:
-                    features = _feature_array(vjepa_bundle, "features")
-                    if features.shape != (count, 20, 1, 1_408):
-                        raise ValueError(f"{vjepa_path}: unexpected V-JEPA feature shape")
-                    matrices["vjepa_temporal_mean"][destination] = features.mean(
-                        axis=(1, 2), dtype=np.float32
-                    )
                 if "diagnostics_only" in matrices:
                     diagnostics = _feature_array(vjepa_bundle, "temporal_diagnostics53")
                     if diagnostics.shape != (count, 53):
@@ -419,13 +408,6 @@ class CanonicalSubstrate:
                     self.tribe_root / "per_video" / video_id / "tribe_v2_cortical_predictions.npz"
                 )
                 with np.load(tribe_path, allow_pickle=False) as tribe_bundle:
-                    if "tribe_grouped_mean" in matrices:
-                        grouped = _feature_array(tribe_bundle, "tribe_grouped_video_feature")
-                        if grouped.shape != (count, 2, 1_408):
-                            raise ValueError(f"{tribe_path}: unexpected grouped feature shape")
-                        matrices["tribe_grouped_mean"][destination] = grouped.mean(
-                            axis=1, dtype=np.float32
-                        )
                     if "tribe_cortical" in matrices:
                         cortical = _feature_array(tribe_bundle, "cortical_prediction")
                         if cortical.shape != (count, 20_484) or cortical.dtype != np.float16:
@@ -460,13 +442,10 @@ class CanonicalSubstrate:
         selected_rows: dict[str, set[int]] | None = None
         if row_indices is not None:
             selected_rows = {
-                str(video): {int(row) for row in rows}
-                for video, rows in row_indices.items()
+                str(video): {int(row) for row in rows} for video, rows in row_indices.items()
             }
             if set(selected_rows) != set(selected_videos) or any(
-                not rows
-                or min(rows) < 0
-                or max(rows) >= self._row_counts[video]
+                not rows or min(rows) < 0 or max(rows) >= self._row_counts[video]
                 for video, rows in selected_rows.items()
             ):
                 raise ValueError("label row selection must contain valid rows for every video")

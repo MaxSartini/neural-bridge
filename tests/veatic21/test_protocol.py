@@ -62,7 +62,7 @@ def _aligned_rows() -> tuple[FeatureRows, LabelRows, TargetSpec]:
         row_index=row_index,
         time_seconds=time_seconds,
         quality_eligible=np.ones(6, dtype=bool),
-        representations={"vjepa_temporal_mean": np.ones((6, 2))},
+        representations={"tribe_cortical": np.ones((6, 2))},
     )
     labels = LabelRows(
         video_id=video_id,
@@ -122,8 +122,10 @@ def test_event_threshold_is_owned_only_by_declared_training_rows() -> None:
 
 def _candidate_grid() -> tuple[CandidateSpec, CandidateSpec]:
     return (
-        CandidateSpec("alpha", "vjepa_temporal_mean", 2, 1.0),
-        CandidateSpec("beta", "vjepa_temporal_mean", 3, 1.0),
+        CandidateSpec(
+            "alpha", "tribe_cortical", 2, 1.0, pca_solver="incremental", pca_batch_rows=4
+        ),
+        CandidateSpec("beta", "tribe_cortical", 3, 1.0, pca_solver="incremental", pca_batch_rows=4),
     )
 
 
@@ -186,9 +188,7 @@ def test_winner_and_final_recipe_freezes_reject_leakage_and_incomplete_grids() -
     assert recipe.refit_seed == 91
     assert recipe.promotable is False
     assert recipe.digest == reordered.digest
-    assert recipe.digest != freeze_final_recipe(
-        candidates, discovery, refit_seed=92
-    ).digest
+    assert recipe.digest != freeze_final_recipe(candidates, discovery, refit_seed=92).digest
 
     with pytest.raises(ValueError, match="no preregistered promotion gate"):
         freeze_final_recipe(candidates, discovery, promotable=True)

@@ -34,7 +34,7 @@ def test_pca_cache_fits_once_and_reuses_verified_payload(tmp_path: Path) -> None
         "split_sha256": "split",
     }
     preregistration = {
-        "schema": "veatic21_event_preregistration_v12",
+        "schema": "veatic21_event_preregistration_v13",
         "preregistration_sha256": "preregistration",
         "substrate": {"identity": "fixture"},
         "split": split,
@@ -59,7 +59,7 @@ def test_pca_cache_fits_once_and_reuses_verified_payload(tmp_path: Path) -> None
 
     assert first["label_values_accessed"] is False
     assert first["benchmark_rows"] == 30
-    assert first["folds"][0]["candidate_widths"][:3] == [1, 2, 3]
+    assert first["folds"][0]["candidate_widths"] == [1, 2, 3]
     assert first["folds"][0]["cache_hit"] is False
     assert second["folds"][0]["cache_hit"] is True
     assert third["folds"][0]["cache_hit"] is True

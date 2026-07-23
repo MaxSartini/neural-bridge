@@ -11,18 +11,10 @@ from typing import Literal
 
 import numpy as np
 
-Representation = Literal[
-    "vjepa_temporal_mean",
-    "tribe_grouped_mean",
-    "tribe_cortical",
-]
+Representation = Literal["tribe_cortical"]
 PcaSolver = Literal["randomized", "incremental"]
 
-PRIMARY_REPRESENTATIONS = (
-    "vjepa_temporal_mean",
-    "tribe_grouped_mean",
-    "tribe_cortical",
-)
+PRIMARY_REPRESENTATIONS = ("tribe_cortical",)
 
 CONTROL_LANES = (
     "target_specific_frozen_ar",

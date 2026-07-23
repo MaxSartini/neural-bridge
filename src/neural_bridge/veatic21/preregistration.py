@@ -43,6 +43,28 @@ class EventTargetHypothesis:
         return tuple(range(start, stop + 1))
 
 
+def targets_from_calibration(calibration: Mapping[str, Any]) -> tuple[TargetSpec, ...]:
+    """Load the current train-calibrated spike candidates without opening sealed labels."""
+
+    if calibration.get("schema") != "veatic21_event_calibration_v13":
+        raise ValueError("unsupported event calibration schema")
+    if calibration.get("benchmark_test_labels_accessed") is not False:
+        raise ValueError("calibrated targets require sealed benchmark-test labels")
+    targets = tuple(
+        TargetSpec(
+            name=str(row["name"]),
+            label=row["label"],
+            horizon_rows=tuple(int(value) for value in row["horizon_rows"]),
+            quantile=float(row["train_quantile"]),
+            transform=row["transform"],
+        )
+        for row in calibration["target_hypotheses"]
+    )
+    for target in targets:
+        target.validate()
+    return targets
+
+
 TARGET_QUANTILE_GRID = (0.95, 0.925, 0.90, 0.875, 0.85, 0.80)
 _SPLIT_SEED = 20_260_722
 _BENCHMARK_TRAIN_FRACTION = 0.70
@@ -95,9 +117,7 @@ def _official_temporal_split(
     train_rows = 0
     test_rows = 0
     for video in identity.video_ids:
-        eligible_rows = np.sort(
-            features.row_index[(videos == video) & features.quality_eligible]
-        )
+        eligible_rows = np.sort(features.row_index[(videos == video) & features.quality_eligible])
         cutoff = int(len(eligible_rows) * _BENCHMARK_TRAIN_FRACTION)
         if cutoff <= 0 or cutoff >= len(eligible_rows):
             raise ValueError(f"video {video} cannot support an eligible 70/30 split")
@@ -145,9 +165,7 @@ def benchmark_partition_mask(
     features.validate()
     if partition not in {"train", "test"}:
         raise ValueError(f"unsupported benchmark partition: {partition}")
-    boundary_by_video = {
-        str(row["video_id"]): row for row in split["per_video_boundaries"]
-    }
+    boundary_by_video = {str(row["video_id"]): row for row in split["per_video_boundaries"]}
     videos = features.video_id.astype(str)
     mask = np.zeros(len(videos), dtype=bool)
     for video in np.unique(videos):
@@ -178,7 +196,7 @@ def build_event_preregistration(
     )
 
     manifest: dict[str, Any] = {
-        "schema": "veatic21_event_preregistration_v12",
+        "schema": "veatic21_event_preregistration_v13",
         "programme": "veatic-2.1",
         "claim": "within-video future-tail ranking of arousal-increase events",
         "label_values_accessed": False,
@@ -254,9 +272,6 @@ def build_event_preregistration(
             "encoder_stack": "vjepa_2p1_inside_tribe_v2",
             "canonical_neural_bridge_input": "tribe_cortical",
             "cached_vjepa_role": "expensive_reusable_intermediate_for_tribe_v2",
-            "internal_ablation_views": ["vjepa_temporal_mean", "tribe_grouped_mean"],
-            "independent_source_fusion": False,
-            "raw_current_row": "required_linear_diagnostic_not_presumed_winner",
             "pca": {
                 "benchmark_fit_scope": "eligible_first_70_percent_rows_across_all_124_videos",
                 "production_refit_scope": (
@@ -265,14 +280,12 @@ def build_event_preregistration(
                 "variance_targets": [0.80, 0.90, 0.95, 0.99],
                 "fixed_width_candidates": [64, 128, 256, 512],
                 "maximum_components": 512,
-                "basis_fit": "fit_one_512_component_basis_per_exact_fold_and_source",
+                "basis_fit": "fit_one_512_component_tribe_cortical_basis_per_exact_fold",
                 "scaler": "featurewise_standard_scaler_fit_on_exact_training_rows",
                 "solver": "deterministic_incremental_pca",
                 "batch_rows": "2_x_maximum_components_balanced_without_short_final_batch",
-                "actual_width": "smallest_train_fitted_width_reaching_variance_target",
-                "candidate_width_union": (
-                    "fixed_widths_plus_smallest_available_prefix_reaching_each_variance_target"
-                ),
+                "variance_targets_are_diagnostics_only": True,
+                "candidate_widths": "fixed_width_candidates_only",
                 "winner": "veatic_inner_validation_not_explained_variance_alone",
                 "reuse": "fit_maximum_once_per_source_fold_then_reuse_prefixes",
                 "cache_reuse_across": ["targets", "quantiles", "heads", "seeds"],
@@ -303,7 +316,6 @@ def build_event_preregistration(
         },
         "heads": {
             "candidate_status": "all_unselected_until_veatic_inner_validation",
-            "linear_internal_ablation": ["current", "causal_delta"],
             "label_assisted_discovery": [
                 "frozen_ar_plus_causal_temporal_residual",
                 "frozen_ar_plus_gated_multiscale_temporal_residual",
@@ -369,14 +381,19 @@ def build_event_preregistration(
             "checkpoint_eligibility": "every_completed_validation_from_epoch_1",
             "checkpoint_selection": "best_frozen_stage_metric_earliest_checkpoint_breaks_exact_tie",
             "minimum_epochs_before_termination": 50,
+            "plateau_patience_epochs": 50,
+            "nonconvergence_patience_epochs": 400,
             "last_checkpoint_preference": False,
             "termination": (
                 "after_epoch_50_continue_while_validation_can_improve_until_veatic_calibrated_"
-                "plateau_and_optimizer_convergence_with_generous_runaway_compute_safety_"
-                "ceiling_only_models_may_run_400_plus_epochs"
+                "plateau_and_optimizer_convergence_models_may_run_400_plus_epochs_while_"
+                "genuinely_improving"
             ),
             "benchmark_labels_for_checkpointing": False,
-            "nonconvergence": "candidate_failure",
+            "nonconvergence": (
+                "candidate_failure_after_400_consecutive_nonimproving_validations_without_"
+                "optimizer_convergence_this_is_not_an_absolute_epoch_ceiling"
+            ),
         },
         "controls": [
             "target_specific_frozen_ar",
@@ -611,7 +628,7 @@ def calibrate_event_preregistration(
             targets.append(target)
 
     calibration = {
-        "schema": "veatic21_event_calibration_v12",
+        "schema": "veatic21_event_calibration_v13",
         "preregistration_sha256": expected_digest,
         "benchmark_train_video_count": len(expected_videos),
         "benchmark_test_video_count": len(expected_videos),
