@@ -164,6 +164,12 @@
   AR, all applicable matched controls, and its architecture/no-video ablation in the same
   registered matrix. Real-only pilots cannot authorize stability, promotion, confirmation,
   or later control backfill.
+- Endpoint and control semantics are amended before the q900 current-innovation run at
+  `internal/active/veatic21-metric-control-amendment.md`. Raw PR-AUC is the spike primary;
+  average-precision skill is a cross-prevalence companion. The full spike report includes
+  analytic chance, top-1/5/10% event recall, Brier score, defined-only per-video PR-AUC,
+  fold/seed consistency, and paired whole-video uncertainty. Continuous and zero-label
+  abilities retain their distinct lifecycle endpoint and control stacks.
 - A compact control-complete redesign is registered. It selects q925 and q900 from the failed
   comparison evidence only, removes static video level by subtracting each row's strictly
   prior causal-prefix PCA mean, and trains the real lane beside all five matched controls plus
@@ -172,15 +178,29 @@
   Exact plan SHA-256:
   `82bd5e90b17305a36ea70431b47fd5909897f70268114b4378ee771529f5791b`.
   The matrix contains 210 cells and exactly one sequential MLX worker.
+- The causal-innovation redesign completed `210/210` and failed. Canonical summary:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/innovation-controls/summary.json`.
+  Exact summary SHA-256:
+  `ae181aa977d0b6f04af41cdbb74be7ea6c167a7d001aaf13a2fe7079213334ef`.
+  Aggregate real-minus-strongest-control was positive at `+0.001237357`, but q925 failed,
+  folds 2 and 3 failed, and the full temporal innovation lane lost to its current-innovation
+  ablation by `-0.003155313`. q900 alone passed its target gate; the failed full-temporal
+  redesign cannot advance.
+- A q900-only current-innovation candidate is registered with every matched control and an
+  uncentered-current-row ablation in the same matrix. Canonical plan:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/current-innovation-control-plan.json`.
+  Exact plan SHA-256:
+  `c903f7df63239060c02543678387b8aa854431a416c8dfde170301f74d11d123`.
+  The matrix contains 105 cells and exactly one sequential MLX worker.
 
 ## Exact next action
 
-Run the registered compact causal-innovation redesign. Reuse only the verified VEATIC
-substrate, exact saved fresh-AR floors, fold-owned PCA-512 caches, target definitions, row
-ownership, and lifecycle control semantics. Train every real cell beside its matched shuffled,
-random, causal-prefix video-mean, diagnostics-only, label-permutation, and current-innovation
-ablation lanes. Do not authorize stability unless every registered gate passes. Use exactly
-one sequential MLX worker and do not open the sealed tail.
+Run the registered q900 current-innovation redesign. Reuse only the verified VEATIC substrate,
+exact saved fresh-AR floors, fold-owned PCA-512 caches, target definition, row ownership, and
+lifecycle control semantics. Train every real cell beside its current-only matched shuffled,
+random, causal-prefix video-mean, diagnostics-only, label-permutation, and uncentered-current-
+row ablation lanes. Do not authorize stability unless every registered gate passes. Use
+exactly one sequential MLX worker and do not open the sealed tail.
 
 Use exactly one GPU worker for learned cells. Do not launch parallel training processes.
 

@@ -19,6 +19,7 @@ from .head_training import (
     write_head_family_selection,
 )
 from .innovation import (
+    build_current_innovation_control_plan,
     build_innovation_control_plan,
     run_innovation_control_program,
     write_innovation_control_plan,
@@ -278,6 +279,17 @@ def _parser() -> argparse.ArgumentParser:
     innovation.add_argument("--baseline-summary", type=Path)
     innovation.add_argument("--baseline-root", type=Path)
     innovation.add_argument("--output", type=Path)
+    prepare_current = subparsers.add_parser(
+        "prepare-current-innovation-controls",
+        help="seal q900 current-innovation with every matched control in the same run",
+    )
+    prepare_current.add_argument("--preregistration", type=Path)
+    prepare_current.add_argument("--prior-plan", type=Path)
+    prepare_current.add_argument("--prior-summary", type=Path)
+    prepare_current.add_argument("--recipe-selection", type=Path)
+    prepare_current.add_argument("--baseline-summary", type=Path)
+    prepare_current.add_argument("--pca-manifest", type=Path)
+    prepare_current.add_argument("--output", type=Path)
     cell = subparsers.add_parser(
         "run-stage1-cell",
         help="train one VEATIC-only learned spike discovery cell without opening the sealed tail",
@@ -402,6 +414,14 @@ def _default_innovation_plan_output() -> Path:
 
 def _default_innovation_run_output() -> Path:
     return _ARTIFACT_ROOT / "runs/veatic-2.1/innovation-controls"
+
+
+def _default_current_innovation_plan_output() -> Path:
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/current-innovation-control-plan.json"
+
+
+def _default_current_innovation_run_output() -> Path:
+    return _ARTIFACT_ROOT / "runs/veatic-2.1/current-innovation-controls"
 
 
 def _default_lifecycle_control_crosswalk() -> Path:
@@ -856,6 +876,53 @@ def main() -> int:
             ),
         )
         output = (args.output or _default_innovation_plan_output()).expanduser().resolve()
+        write_innovation_control_plan(output, plan)
+        print(
+            json.dumps(
+                {
+                    "backend": "mlx",
+                    "benchmark_test_labels_accessed": False,
+                    "expected_cells": plan["matrix"]["expected_cells"],
+                    "output": str(output),
+                    "plan_sha256": plan["plan_sha256"],
+                    "selected_targets": plan["matrix"]["targets"],
+                    "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "prepare-current-innovation-controls":
+        pca_root = _default_pca_output(Path.cwd())
+        plan = build_current_innovation_control_plan(
+            load_json(
+                (args.preregistration or _default_preregistration_output(Path.cwd()))
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.prior_plan or _default_innovation_plan_output()).expanduser().resolve()
+            ),
+            load_json(
+                (args.prior_summary or (_default_innovation_run_output() / "summary.json"))
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.recipe_selection or _default_training_recipe_selection_output())
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.baseline_summary or (_default_supervised_run_output() / "summary.json"))
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+            ),
+        )
+        output = (args.output or _default_current_innovation_plan_output()).expanduser().resolve()
         write_innovation_control_plan(output, plan)
         print(
             json.dumps(

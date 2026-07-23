@@ -58,6 +58,20 @@ are true on the complete comparison panel:
 Exact numeric margins must be calculated and registered from VEATIC 2.1 evidence before the
 control run. They must not be copied from AGAIN.
 
+## Ability-specific control adaptations
+
+- Label-assisted spike uses within-video temporal representation shuffle, matched random
+  representation, causal-prefix video mean, diagnostics-only, residual label permutation,
+  current-row/temporal ablation, and exact frozen AR.
+- Continuous future movement uses the same matched causal controls but is evaluated on
+  Spearman and top-tail lift; exact-value errors remain a separate claim.
+- Zero-label-at-inference uses whole-video input-donor shuffle, whole-video hard-label donor
+  permutation, diagnostics-only, no-video, current-row video, and an observed-arousal teacher
+  ceiling. It reports both full-video and cold-start slices across event PR-AUC, continuous
+  Spearman, and top-5% lift.
+- Whole-video zero-label donor controls and within-video label-assisted temporal controls ask
+  different scientific questions and are never substituted for one another.
+
 ## Reuse map for current artifacts
 
 - The 90 completed PCA-512 causal comparison cells provide the real lane, fresh-AR scores,

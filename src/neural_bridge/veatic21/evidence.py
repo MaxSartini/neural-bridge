@@ -236,6 +236,59 @@ def paired_video_bootstrap_pr_auc_delta(
     }
 
 
+def paired_video_bootstrap_raw_pr_auc_delta(
+    video_id: np.ndarray,
+    y_true: np.ndarray,
+    primary_scores: np.ndarray,
+    reference_scores: np.ndarray,
+    *,
+    seed: int,
+    resamples: int = 10_000,
+) -> dict[str, float | int]:
+    """Paired video-cluster bootstrap of raw PR-AUC differences."""
+
+    videos = np.asarray(video_id).astype(str)
+    y_true = np.asarray(y_true, dtype=np.int8)
+    primary_scores = np.asarray(primary_scores, dtype=np.float64)
+    reference_scores = np.asarray(reference_scores, dtype=np.float64)
+    if not (
+        videos.shape == y_true.shape == primary_scores.shape == reference_scores.shape
+    ):
+        raise ValueError("paired bootstrap inputs must be aligned vectors")
+    if resamples <= 0:
+        raise ValueError("resamples must be positive")
+    if not np.isfinite(primary_scores).all() or not np.isfinite(reference_scores).all():
+        raise ValueError("paired bootstrap scores must be finite")
+    unique_videos = np.unique(videos)
+    if len(unique_videos) < 2 or len(np.unique(y_true)) != 2:
+        raise ValueError("paired bootstrap requires multiple videos and both target classes")
+    indices = {video: np.flatnonzero(videos == video) for video in unique_videos}
+    observed = pooled_pr_auc(y_true, primary_scores) - pooled_pr_auc(y_true, reference_scores)
+    rng = np.random.default_rng(seed)
+    deltas: list[float] = []
+    for _ in range(resamples):
+        sample = rng.choice(unique_videos, size=len(unique_videos), replace=True)
+        rows = np.concatenate([indices[video] for video in sample])
+        sampled_y = y_true[rows]
+        if len(np.unique(sampled_y)) != 2:
+            continue
+        deltas.append(
+            pooled_pr_auc(sampled_y, primary_scores[rows])
+            - pooled_pr_auc(sampled_y, reference_scores[rows])
+        )
+    if len(deltas) < max(100, resamples // 2):
+        raise ValueError("too few valid paired bootstrap resamples")
+    lower, upper = np.quantile(np.asarray(deltas), (0.025, 0.975))
+    return {
+        "observed_delta": float(observed),
+        "ci_lower": float(lower),
+        "ci_upper": float(upper),
+        "valid_resamples": len(deltas),
+        "requested_resamples": resamples,
+        "seed": seed,
+    }
+
+
 def per_video_pr_auc(
     video_id: np.ndarray, y_true: np.ndarray, scores: np.ndarray
 ) -> dict[str, float | None]:

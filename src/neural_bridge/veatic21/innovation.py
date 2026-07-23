@@ -19,7 +19,13 @@ from .controls import (
     _run_control_cell,
 )
 from .data import CanonicalSubstrate
-from .evidence import atomic_write_json, digest_json, sha256_file
+from .evidence import (
+    atomic_write_json,
+    digest_json,
+    paired_video_bootstrap_raw_pr_auc_delta,
+    sha256_file,
+    source_tree_digest,
+)
 from .pca_cache import load_event_pca_projection
 from .preregistration import benchmark_partition_mask
 from .protocol import (
@@ -134,6 +140,7 @@ def build_innovation_control_plan(
             "pca_manifest_sha256": pca_manifest["manifest_sha256"],
             "preregistration_sha256": preregistration["preregistration_sha256"],
             "recipe_selection_sha256": recipe_selection["resolution_sha256"],
+            "veatic21_source_tree_sha256": source_tree_digest(Path(__file__).parent),
         },
         "target_selection": {
             "scope": "failed_control_comparison_evidence_only",
@@ -166,14 +173,33 @@ def build_innovation_control_plan(
             "sealed_tail_labels": True,
         },
         "gates": {
-            "real_mean_delta_vs_ar_positive": True,
-            "real_mean_minus_strongest_matched_control_positive": True,
+            "real_mean_raw_pr_auc_minus_ar_positive": True,
+            "real_mean_raw_pr_auc_minus_strongest_control_positive": True,
             "paired_median_real_minus_strongest_control_positive": True,
             "every_target_mean_real_minus_strongest_control_positive": True,
-            "every_fold_mean_real_minus_strongest_control_positive": True,
-            "real_mean_minus_current_innovation_ablation_positive": True,
-            "label_permutation_mean_delta_vs_ar_nonpositive": True,
+            "at_least_four_of_five_fold_means_positive": True,
+            "real_mean_minus_registered_ablation_positive": True,
+            "label_permutation_mean_raw_pr_auc_delta_vs_ar_nonpositive": True,
+            "bootstrap_lower_ci_vs_ar_positive": True,
+            "bootstrap_lower_ci_vs_strongest_control_positive": True,
             "exact_matrix_and_artifact_audits_pass": True,
+        },
+        "metrics": {
+            "primary": "raw_pr_auc",
+            "cross_prevalence_companion": "average_precision_skill",
+            "reported": [
+                "analytic_chance_pr_auc",
+                "top_1_5_10_percent_event_recall",
+                "brier_score",
+                "per_video_pr_auc_defined_only",
+            ],
+        },
+        "uncertainty": {
+            "primary_metric": "raw_pr_auc",
+            "cluster": "target_fold_seed_video",
+            "confidence_interval": 0.95,
+            "resamples": 2_048,
+            "seed": 20_260_723,
         },
         "stability_authorized_only_after_all_gates_pass": True,
         "benchmark_test_labels_accessed": False,
@@ -185,6 +211,124 @@ def build_innovation_control_plan(
 
 def write_innovation_control_plan(path: Path, plan: Mapping[str, Any]) -> None:
     atomic_write_json(path, dict(plan))
+
+
+def build_current_innovation_control_plan(
+    preregistration: Mapping[str, Any],
+    prior_plan: Mapping[str, Any],
+    prior_summary: Mapping[str, Any],
+    recipe_selection: Mapping[str, Any],
+    baseline_summary: Mapping[str, Any],
+    pca_manifest: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Promote the diagnostic current-innovation lane into a control-complete candidate."""
+
+    _require_self_digest(preregistration, "preregistration_sha256")
+    _require_self_digest(prior_plan, "plan_sha256")
+    _require_self_digest(prior_summary, "summary_sha256")
+    _require_self_digest(recipe_selection, "resolution_sha256")
+    _require_self_digest(baseline_summary, "summary_sha256")
+    _require_self_digest(pca_manifest, "manifest_sha256")
+    if prior_summary.get("plan_sha256") != prior_plan.get("plan_sha256"):
+        raise ValueError("current-innovation redesign does not bind the prior redesign")
+    if prior_summary.get("all_gates_pass") is not False:
+        raise ValueError("current-innovation redesign requires the recorded failed verdict")
+    eligible = [
+        str(target)
+        for target, passed in prior_summary["target_gate_results"].items()
+        if passed is True
+    ]
+    if eligible != ["arousal_positive_max_0p5_1s_train_q900"]:
+        raise ValueError("current-innovation target selection changed")
+    recipe_plan_path_sha = prior_plan.get("artifacts", {}).get("pca_manifest_sha256")
+    if recipe_plan_path_sha != pca_manifest.get("manifest_sha256"):
+        raise ValueError("current-innovation artifacts do not share the PCA manifest")
+
+    real_lane = "real_current_innovation_residual"
+    ablation_lane = "uncentered_current_row_residual"
+    lanes = (real_lane, *_MATCHED, ablation_lane)
+    folds = [int(value) for value in prior_plan["matrix"]["folds"]]
+    seeds = [int(value) for value in prior_plan["matrix"]["comparison_seeds"]]
+    cells_per_lane = len(folds) * len(seeds)
+    plan: dict[str, Any] = {
+        "schema": _SCHEMA,
+        "purpose": "control_complete_current_innovation_redesign",
+        "artifacts": {
+            "baseline_summary_sha256": baseline_summary["summary_sha256"],
+            "control_runtime_code_sha256": sha256_file(Path(__file__).with_name("controls.py")),
+            "innovation_code_sha256": sha256_file(Path(__file__)),
+            "pca_manifest_sha256": pca_manifest["manifest_sha256"],
+            "preregistration_sha256": preregistration["preregistration_sha256"],
+            "prior_innovation_plan_sha256": prior_plan["plan_sha256"],
+            "prior_innovation_summary_sha256": prior_summary["summary_sha256"],
+            "recipe_selection_sha256": recipe_selection["resolution_sha256"],
+            "veatic21_source_tree_sha256": source_tree_digest(Path(__file__).parent),
+        },
+        "target_selection": {
+            "scope": "prior_control_complete_innovation_matrix_only",
+            "rule": "only_target_with_positive_prior_target_gate",
+            "selected_targets": eligible,
+            "selection_is_development_only": True,
+        },
+        "architecture": {
+            "source": "fixed_fold_owned_pca512",
+            "centering": "subtract_strictly_prior_causal_prefix_mean_with_cold_start_indicator",
+            "temporal_design": "current_innovation_only",
+            "current_innovation_only": True,
+            "static_video_level_removed": True,
+            "future_features_forbidden": True,
+            "video_boundary_crossing_forbidden": True,
+        },
+        "selected_recipe": dict(recipe_selection["selected_recipe"]),
+        "matrix": {
+            "targets": eligible,
+            "folds": folds,
+            "comparison_seeds": seeds,
+            "real_lane": real_lane,
+            "matched_control_lanes": list(_MATCHED),
+            "ablation_lane": ablation_lane,
+            "trained_lanes": list(lanes),
+            "cells_per_lane": cells_per_lane,
+            "expected_cells": cells_per_lane * len(lanes),
+            "worker_count": 1,
+            "backend": "mlx",
+            "sealed_tail_labels": True,
+        },
+        "gates": {
+            "real_mean_raw_pr_auc_minus_ar_positive": True,
+            "real_mean_raw_pr_auc_minus_strongest_control_positive": True,
+            "paired_median_real_minus_strongest_control_positive": True,
+            "every_target_mean_real_minus_strongest_control_positive": True,
+            "at_least_four_of_five_fold_means_positive": True,
+            "real_mean_minus_registered_ablation_positive": True,
+            "label_permutation_mean_raw_pr_auc_delta_vs_ar_nonpositive": True,
+            "bootstrap_lower_ci_vs_ar_positive": True,
+            "bootstrap_lower_ci_vs_strongest_control_positive": True,
+            "exact_matrix_and_artifact_audits_pass": True,
+        },
+        "metrics": {
+            "primary": "raw_pr_auc",
+            "cross_prevalence_companion": "average_precision_skill",
+            "reported": [
+                "analytic_chance_pr_auc",
+                "top_1_5_10_percent_event_recall",
+                "brier_score",
+                "per_video_pr_auc_defined_only",
+            ],
+        },
+        "uncertainty": {
+            "primary_metric": "raw_pr_auc",
+            "cluster": "target_fold_seed_video",
+            "confidence_interval": 0.95,
+            "resamples": 2_048,
+            "seed": 20_260_723,
+        },
+        "stability_authorized_only_after_all_gates_pass": True,
+        "benchmark_test_labels_accessed": False,
+        "promotable": False,
+    }
+    plan["plan_sha256"] = digest_json(plan)
+    return plan
 
 
 def _strict_prior_center(
@@ -240,9 +384,13 @@ def _design_for_lane(
     row_index: np.ndarray,
     context_rows: tuple[int, ...],
     seed: int,
+    *,
+    real_lane: str = _REAL,
+    ablation_lane: str = _CURRENT,
+    current_only: bool = False,
 ) -> tuple[np.ndarray, np.ndarray]:
     targets = binary
-    if lane == _REAL:
+    if lane == real_lane:
         values = projected
     elif lane == "sequence_shuffled_residual":
         values = _permute_within_video(projected, video_id, _lane_rng(seed, lane))
@@ -260,7 +408,9 @@ def _design_for_lane(
             row_index,
             _lane_rng(seed, lane),
         )
-    elif lane == _CURRENT:
+    elif lane == ablation_lane:
+        if current_only:
+            return projected, targets
         return (
             _innovation_design(
                 projected,
@@ -279,7 +429,7 @@ def _design_for_lane(
             video_id,
             row_index,
             context_rows,
-            current_only=False,
+            current_only=current_only,
         ),
         targets,
     )
@@ -310,6 +460,10 @@ def run_innovation_control_program(
         Path(__file__).with_name("controls.py")
     ):
         raise ValueError("innovation plan does not bind the shared control runtime")
+    if plan.get("artifacts", {}).get("veatic21_source_tree_sha256") != source_tree_digest(
+        Path(__file__).parent
+    ):
+        raise ValueError("innovation plan does not bind the complete VEATIC runtime")
     request = {
         "schema": "veatic21_innovation_control_run_request_v1",
         "plan_sha256": plan["plan_sha256"],
@@ -374,6 +528,7 @@ def run_innovation_control_program(
     }
     diagnostics = features.representations["diagnostics_only"]
     context_rows = tuple(int(value) for value in plan["selected_recipe"]["context_rows"])
+    current_only = bool(plan["architecture"].get("current_innovation_only", False))
     records: list[dict[str, Any]] = []
     for target_name in matrix["targets"]:
         target = _target(calibration, str(target_name))
@@ -422,6 +577,9 @@ def run_innovation_control_program(
                         features.row_index,
                         context_rows,
                         int(seed),
+                        real_lane=str(matrix["real_lane"]),
+                        ablation_lane=str(matrix["ablation_lane"]),
+                        current_only=current_only,
                     )
                     cell_dir = (
                         output_dir
@@ -460,6 +618,19 @@ def run_innovation_control_program(
                         "inner_average_precision_skill_delta_vs_frozen_ar": metrics[
                             "inner_average_precision_skill_delta_vs_frozen_ar"
                         ],
+                        "event_prevalence": metrics["event_prevalence"],
+                        "fresh_ar_pr_auc": metrics["fresh_ar_pr_auc"],
+                        "lane_pr_auc": metrics["control_pr_auc"],
+                        "fresh_ar_brier_score": metrics["fresh_ar_brier_score"],
+                        "lane_brier_score": metrics["control_brier_score"],
+                        "fresh_ar_top_event_recall": metrics["fresh_ar_top_event_recall"],
+                        "lane_top_event_recall": metrics["control_top_event_recall"],
+                        "fresh_ar_defined_per_video_mean_pr_auc": metrics[
+                            "fresh_ar_defined_per_video_mean_pr_auc"
+                        ],
+                        "lane_defined_per_video_mean_pr_auc": metrics[
+                            "control_defined_per_video_mean_pr_auc"
+                        ],
                         "best_epoch": metrics["best_epoch"],
                         "cell_metrics_sha256": sha256_file(cell_dir / "metrics.json"),
                         "cell_directory": str(cell_dir.relative_to(output_dir)),
@@ -479,6 +650,70 @@ def run_innovation_control_program(
     return _summarize_innovation(plan, request_sha256, records, output_dir)
 
 
+def _paired_prediction_panel(
+    output_dir: Path,
+    records: list[dict[str, Any]],
+    real_lane: str,
+    reference_lane: str | None,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    indexed = {
+        (str(row["lane"]), str(row["target"]), int(row["fold"]), int(row["seed"])): row
+        for row in records
+    }
+    keys = sorted(
+        (str(row["target"]), int(row["fold"]), int(row["seed"]))
+        for row in records
+        if row["lane"] == real_lane
+    )
+    clusters = []
+    targets = []
+    primary = []
+    reference = []
+    for target, fold, seed in keys:
+        real_row = indexed[(real_lane, target, fold, seed)]
+        with np.load(
+            output_dir / str(real_row["cell_directory"]) / "validation-predictions.npz",
+            allow_pickle=False,
+        ) as arrays:
+            video = arrays["video_id"].astype(str)
+            row_index = np.asarray(arrays["row_index"])
+            truth = np.asarray(arrays["target"], dtype=np.int8)
+            real_scores = np.asarray(arrays["control_score"], dtype=np.float64)
+            ar_scores = np.asarray(arrays["ar_score"], dtype=np.float64)
+        if reference_lane is None:
+            reference_scores = ar_scores
+        else:
+            reference_row = indexed[(reference_lane, target, fold, seed)]
+            with np.load(
+                output_dir
+                / str(reference_row["cell_directory"])
+                / "validation-predictions.npz",
+                allow_pickle=False,
+            ) as arrays:
+                if not (
+                    np.array_equal(arrays["video_id"].astype(str), video)
+                    and np.array_equal(arrays["row_index"], row_index)
+                    and np.array_equal(arrays["target"], truth)
+                ):
+                    raise ValueError("innovation control predictions are not exactly paired")
+                reference_scores = np.asarray(arrays["control_score"], dtype=np.float64)
+        clusters.append(
+            np.asarray(
+                [f"{target}|{fold}|{seed}|{value}" for value in video],
+                dtype=str,
+            )
+        )
+        targets.append(truth)
+        primary.append(real_scores)
+        reference.append(reference_scores)
+    return (
+        np.concatenate(clusters),
+        np.concatenate(targets),
+        np.concatenate(primary),
+        np.concatenate(reference),
+    )
+
+
 def _summarize_innovation(
     plan: Mapping[str, Any],
     request_sha256: str,
@@ -492,7 +727,33 @@ def _summarize_innovation(
         str(lane): [row for row in records if row["lane"] == lane]
         for lane in matrix["trained_lanes"]
     }
-    lane_summaries = {lane: _lane_summary(rows) for lane, rows in by_lane.items()}
+    lane_summaries = {}
+    for lane, rows in by_lane.items():
+        lane_summary = _lane_summary(rows)
+        lane_summary.update(
+            {
+                "mean_raw_pr_auc": float(np.mean([row["lane_pr_auc"] for row in rows])),
+                "mean_matched_fresh_ar_pr_auc": float(
+                    np.mean([row["fresh_ar_pr_auc"] for row in rows])
+                ),
+                "mean_raw_pr_auc_delta_vs_frozen_ar": float(
+                    np.mean(
+                        [row["lane_pr_auc"] - row["fresh_ar_pr_auc"] for row in rows]
+                    )
+                ),
+                "mean_brier_score": float(np.mean([row["lane_brier_score"] for row in rows])),
+                "mean_defined_per_video_pr_auc": float(
+                    np.mean([row["lane_defined_per_video_mean_pr_auc"] for row in rows])
+                ),
+                "mean_top_event_recall": {
+                    key: float(
+                        np.mean([row["lane_top_event_recall"][key] for row in rows])
+                    )
+                    for key in ("top_1_percent", "top_5_percent", "top_10_percent")
+                },
+            }
+        )
+        lane_summaries[lane] = lane_summary
     deltas = {
         lane: {
             (str(row["target"]), int(row["fold"]), int(row["seed"])): float(
@@ -502,46 +763,84 @@ def _summarize_innovation(
         }
         for lane, rows in by_lane.items()
     }
-    real = deltas[_REAL]
+    real_lane = str(matrix["real_lane"])
+    ablation_lane = str(matrix["ablation_lane"])
+    real = deltas[real_lane]
     strongest = max(
         matrix["matched_control_lanes"],
-        key=lambda lane: lane_summaries[str(lane)][
-            "mean_inner_average_precision_skill_delta_vs_frozen_ar"
-        ],
+        key=lambda lane: lane_summaries[str(lane)]["mean_raw_pr_auc"],
     )
-    paired = np.asarray([real[key] - deltas[str(strongest)][key] for key in sorted(real)])
+    raw_pr_auc = {
+        lane: {
+            (str(row["target"]), int(row["fold"]), int(row["seed"])): float(
+                row["lane_pr_auc"]
+            )
+            for row in rows
+        }
+        for lane, rows in by_lane.items()
+    }
+    fresh_ar_pr_auc = {
+        (str(row["target"]), int(row["fold"]), int(row["seed"])): float(
+            row["fresh_ar_pr_auc"]
+        )
+        for row in by_lane[real_lane]
+    }
+    paired = np.asarray(
+        [raw_pr_auc[real_lane][key] - raw_pr_auc[str(strongest)][key] for key in sorted(real)]
+    )
     target_results = {}
     for target in matrix["targets"]:
         keys = [key for key in sorted(real) if key[0] == target]
-        real_mean = float(np.mean([real[key] for key in keys]))
+        real_mean = float(np.mean([raw_pr_auc[real_lane][key] for key in keys]))
         best = max(
-            float(np.mean([deltas[str(lane)][key] for key in keys]))
+            float(np.mean([raw_pr_auc[str(lane)][key] for key in keys]))
             for lane in matrix["matched_control_lanes"]
         )
         target_results[str(target)] = real_mean - best > 0.0
     fold_results = {}
     for fold in matrix["folds"]:
         keys = [key for key in sorted(real) if key[1] == int(fold)]
-        real_mean = float(np.mean([real[key] for key in keys]))
+        real_mean = float(np.mean([raw_pr_auc[real_lane][key] for key in keys]))
         best = max(
-            float(np.mean([deltas[str(lane)][key] for key in keys]))
+            float(np.mean([raw_pr_auc[str(lane)][key] for key in keys]))
             for lane in matrix["matched_control_lanes"]
         )
         fold_results[str(fold)] = real_mean - best > 0.0
-    real_mean = float(np.mean(list(real.values())))
-    strongest_mean = float(np.mean(list(deltas[str(strongest)].values())))
-    current_mean = float(np.mean(list(deltas[_CURRENT].values())))
-    label_mean = float(np.mean(list(deltas["label_permutation_residual"].values())))
+    real_mean = float(np.mean(list(raw_pr_auc[real_lane].values())))
+    ar_mean = float(np.mean(list(fresh_ar_pr_auc.values())))
+    strongest_mean = float(np.mean(list(raw_pr_auc[str(strongest)].values())))
+    current_mean = float(np.mean(list(raw_pr_auc[ablation_lane].values())))
+    label_mean = float(np.mean(list(raw_pr_auc["label_permutation_residual"].values())))
+    uncertainty = plan["uncertainty"]
+    ar_panel = _paired_prediction_panel(output_dir, records, real_lane, None)
+    control_panel = _paired_prediction_panel(output_dir, records, real_lane, str(strongest))
+    bootstrap_vs_ar = paired_video_bootstrap_raw_pr_auc_delta(
+        *ar_panel,
+        seed=int(uncertainty["seed"]),
+        resamples=int(uncertainty["resamples"]),
+    )
+    bootstrap_vs_control = paired_video_bootstrap_raw_pr_auc_delta(
+        *control_panel,
+        seed=int(uncertainty["seed"]) + 1,
+        resamples=int(uncertainty["resamples"]),
+    )
+    positive_folds = sum(fold_results.values())
     gates = {
-        "real_mean_delta_vs_ar_positive": real_mean > 0.0,
-        "real_mean_minus_strongest_matched_control_positive": real_mean - strongest_mean > 0.0,
+        "real_mean_raw_pr_auc_minus_ar_positive": real_mean - ar_mean > 0.0,
+        "real_mean_raw_pr_auc_minus_strongest_control_positive": (
+            real_mean - strongest_mean > 0.0
+        ),
         "paired_median_real_minus_strongest_control_positive": float(np.median(paired)) > 0.0,
         "every_target_mean_real_minus_strongest_control_positive": all(
             target_results.values()
         ),
-        "every_fold_mean_real_minus_strongest_control_positive": all(fold_results.values()),
-        "real_mean_minus_current_innovation_ablation_positive": real_mean - current_mean > 0.0,
-        "label_permutation_mean_delta_vs_ar_nonpositive": label_mean <= 0.0,
+        "at_least_four_of_five_fold_means_positive": positive_folds >= 4,
+        "real_mean_minus_registered_ablation_positive": real_mean - current_mean > 0.0,
+        "label_permutation_mean_raw_pr_auc_delta_vs_ar_nonpositive": label_mean - ar_mean <= 0.0,
+        "bootstrap_lower_ci_vs_ar_positive": float(bootstrap_vs_ar["ci_lower"]) > 0.0,
+        "bootstrap_lower_ci_vs_strongest_control_positive": (
+            float(bootstrap_vs_control["ci_lower"]) > 0.0
+        ),
         "exact_matrix_and_artifact_audits_pass": True,
     }
     summary: dict[str, Any] = {
@@ -552,8 +851,17 @@ def _summarize_innovation(
         "expected_cells": int(matrix["expected_cells"]),
         "lane_summaries": lane_summaries,
         "strongest_matched_control": str(strongest),
-        "real_minus_strongest_control": real_mean - strongest_mean,
+        "primary_metric": "raw_pr_auc",
+        "real_mean_raw_pr_auc": real_mean,
+        "matched_fresh_ar_mean_raw_pr_auc": ar_mean,
+        "real_minus_ar_raw_pr_auc": real_mean - ar_mean,
+        "real_minus_strongest_control_raw_pr_auc": real_mean - strongest_mean,
         "paired_median_real_minus_strongest_control": float(np.median(paired)),
+        "positive_fold_count": positive_folds,
+        "credible_fold_gate": positive_folds >= 4,
+        "strong_fold_gate": positive_folds == 5,
+        "paired_video_cluster_bootstrap_vs_ar": bootstrap_vs_ar,
+        "paired_video_cluster_bootstrap_vs_strongest_control": bootstrap_vs_control,
         "target_gate_results": target_results,
         "fold_gate_results": fold_results,
         "gate_results": gates,
@@ -570,6 +878,7 @@ def _summarize_innovation(
 
 
 __all__ = [
+    "build_current_innovation_control_plan",
     "build_innovation_control_plan",
     "run_innovation_control_program",
     "write_innovation_control_plan",

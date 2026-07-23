@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import numpy as np
+from scipy.special import expit
 from sklearn.preprocessing import StandardScaler
 
 from .contracts import FeatureRows
@@ -17,6 +18,7 @@ from .evidence import (
     atomic_write_json,
     average_precision_skill,
     digest_json,
+    per_video_pr_auc,
     pooled_pr_auc,
     row_identity_digest,
     sha256_file,
@@ -53,6 +55,15 @@ _MATCHED_CONTROLS = (
 )
 _ABLATIONS = ("current_row_only_residual",)
 _TRAINED_LANES = (*_MATCHED_CONTROLS, *_ABLATIONS)
+
+
+def _top_event_recall(y_true: np.ndarray, scores: np.ndarray, fraction: float) -> float:
+    count = max(1, int(np.ceil(len(y_true) * fraction)))
+    selected = np.argsort(-np.asarray(scores), kind="stable")[:count]
+    positives = int(np.sum(y_true))
+    if positives <= 0:
+        raise ValueError("top-event recall requires positive validation rows")
+    return float(np.sum(y_true[selected]) / positives)
 
 
 def _require_self_digest(record: Mapping[str, Any], field: str) -> None:
@@ -393,6 +404,11 @@ def _run_control_cell(
     delta = average_precision_skill(
         binary[validation], scores[validation]
     ) - average_precision_skill(binary[validation], ar_logits[validation])
+    truth = binary[validation]
+    ar_validation = ar_logits[validation]
+    control_validation = scores[validation]
+    ar_per_video = per_video_pr_auc(video_id[validation], truth, ar_validation)
+    control_per_video = per_video_pr_auc(video_id[validation], truth, control_validation)
     atomic_save_npz(
         output_dir / "validation-predictions.npz",
         {
@@ -411,8 +427,32 @@ def _run_control_cell(
         "fold": fold,
         "seed": seed,
         "inner_average_precision_skill_delta_vs_frozen_ar": delta,
-        "fresh_ar_pr_auc": pooled_pr_auc(binary[validation], ar_logits[validation]),
-        "control_pr_auc": pooled_pr_auc(binary[validation], scores[validation]),
+        "event_prevalence": float(np.mean(truth)),
+        "analytic_chance_pr_auc": float(np.mean(truth)),
+        "fresh_ar_pr_auc": pooled_pr_auc(truth, ar_validation),
+        "control_pr_auc": pooled_pr_auc(truth, control_validation),
+        "fresh_ar_average_precision_skill": average_precision_skill(truth, ar_validation),
+        "control_average_precision_skill": average_precision_skill(truth, control_validation),
+        "fresh_ar_brier_score": float(np.mean((expit(ar_validation) - truth) ** 2)),
+        "control_brier_score": float(np.mean((expit(control_validation) - truth) ** 2)),
+        "fresh_ar_top_event_recall": {
+            "top_1_percent": _top_event_recall(truth, ar_validation, 0.01),
+            "top_5_percent": _top_event_recall(truth, ar_validation, 0.05),
+            "top_10_percent": _top_event_recall(truth, ar_validation, 0.10),
+        },
+        "control_top_event_recall": {
+            "top_1_percent": _top_event_recall(truth, control_validation, 0.01),
+            "top_5_percent": _top_event_recall(truth, control_validation, 0.05),
+            "top_10_percent": _top_event_recall(truth, control_validation, 0.10),
+        },
+        "fresh_ar_per_video_pr_auc": ar_per_video,
+        "control_per_video_pr_auc": control_per_video,
+        "fresh_ar_defined_per_video_mean_pr_auc": float(
+            np.mean([value for value in ar_per_video.values() if value is not None])
+        ),
+        "control_defined_per_video_mean_pr_auc": float(
+            np.mean([value for value in control_per_video.values() if value is not None])
+        ),
         "best_epoch": selector.best_epoch,
         "epochs_completed": len(curve),
         "train_row_sha256": row_identity_digest(video_id[train_mask], row_index[train_mask]),

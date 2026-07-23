@@ -11,6 +11,7 @@ from neural_bridge.veatic21.evidence import (
     create_prediction_seal,
     digest_json,
     paired_video_bootstrap_pr_auc_delta,
+    paired_video_bootstrap_raw_pr_auc_delta,
     per_video_pr_auc,
     row_identity_digest,
     verify_prediction_seal,
@@ -120,3 +121,13 @@ def test_prevalence_normalized_skill_and_paired_video_uncertainty() -> None:
     assert result["observed_delta"] > 0.0
     assert result["ci_lower"] > 0.0
     assert result["valid_resamples"] == 500
+    raw_result = paired_video_bootstrap_raw_pr_auc_delta(
+        videos,
+        target,
+        primary,
+        reference,
+        seed=17,
+        resamples=500,
+    )
+    assert raw_result["observed_delta"] > 0.0
+    assert raw_result["ci_lower"] > 0.0
