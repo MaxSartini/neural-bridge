@@ -129,14 +129,27 @@
   `ccc380cfa7c18549fce11b161ee020a44625e9526db27de25c293b33feef61b4`.
   It contains 270 cells for the one retained recipe and exactly one sequential MLX worker.
   The sealed tail remains unopened.
+- Stability was stopped at `159/270` completed cells after correcting the execution order:
+  matched controls must pass before any more stability compute. One interrupted stability cell
+  remains non-promotable and is handled by the registered partial-cell quarantine on resume.
+- The full procedure-level control crosswalk from Neural Bridge phases 0–7 is now explicit at
+  `internal/active/veatic21-lifecycle-control-crosswalk.md`. AGAIN contributes control semantics
+  and rigor only; no AGAIN fitted artifact or numeric winner is reused.
+- The comparison control matrix is registered at
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/preregistrations/veatic-2.1/control-plan.json`.
+  Exact plan SHA-256:
+  `4d009028523713b0d2717fc476c2aaa7a065fe42a574d42b7f68f146b9f78d73`.
+  It reuses the 90 real causal and fresh-AR cells, then trains five matched residual controls
+  plus one current-row ablation across the same targets, folds, and comparison seeds: 540 new
+  cells, exactly one MLX worker. Stability cannot resume unless every registered gate passes.
 
 ## Exact next action
 
-Run the registered fixed stability expansion for the retained PCA-512, width-64 causal
-temporal residual using preregistered stability seeds `20260801` through `20260809`. Reuse
-the existing comparison-seed evidence, PCA bases, fresh AR procedure, checkpoint rules, and
-whole-fold/seed no-harm fallback. Use exactly one sequential MLX worker and do not open the
-sealed tail.
+Run the registered lifecycle-complete matched control matrix against the existing 90 real
+comparison cells. Verify identical frozen-AR floors, validation rows, thresholds, fold-owned
+PCA, causal context, checkpoints, and artifact hashes. Do not resume stability unless all
+aggregate, target, fold, label-permutation, temporal-ablation, and artifact gates pass. Use
+exactly one sequential MLX worker and do not open the sealed tail.
 
 Use exactly one GPU worker for learned cells. Do not launch parallel training processes.
 

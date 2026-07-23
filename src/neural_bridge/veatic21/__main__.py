@@ -8,6 +8,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from .contracts import AROUSAL_SPIKE_1_3S, CandidateSpec, CellSpec
+from .controls import build_control_plan, run_control_program, write_control_plan
 from .data import CanonicalSubstrate
 from .evidence import atomic_write_json, digest_json, load_json, sha256_file
 from .head_training import (
@@ -228,6 +229,28 @@ def _parser() -> argparse.ArgumentParser:
     stability.add_argument("--pca-manifest", type=Path)
     stability.add_argument("--plan", type=Path)
     stability.add_argument("--output", type=Path)
+    prepare_controls = subparsers.add_parser(
+        "prepare-controls",
+        help="seal the lifecycle-complete matched control panel before stability resumes",
+    )
+    prepare_controls.add_argument("--preregistration", type=Path)
+    prepare_controls.add_argument("--recipe-plan", type=Path)
+    prepare_controls.add_argument("--recipe-selection", type=Path)
+    prepare_controls.add_argument("--baseline-summary", type=Path)
+    prepare_controls.add_argument("--pca-manifest", type=Path)
+    prepare_controls.add_argument("--crosswalk", type=Path)
+    prepare_controls.add_argument("--output", type=Path)
+    controls = subparsers.add_parser(
+        "benchmark-controls",
+        help="run all matched controls with one MLX worker before further stability",
+    )
+    controls.add_argument("--preregistration", type=Path)
+    controls.add_argument("--calibration", type=Path)
+    controls.add_argument("--pca-manifest", type=Path)
+    controls.add_argument("--plan", type=Path)
+    controls.add_argument("--baseline-summary", type=Path)
+    controls.add_argument("--baseline-root", type=Path)
+    controls.add_argument("--output", type=Path)
     cell = subparsers.add_parser(
         "run-stage1-cell",
         help="train one VEATIC-only learned spike discovery cell without opening the sealed tail",
@@ -336,6 +359,21 @@ def _default_stability_plan_output() -> Path:
 
 def _default_stability_run_output() -> Path:
     return _ARTIFACT_ROOT / "runs/veatic-2.1/stability"
+
+
+def _default_control_plan_output() -> Path:
+    return _ARTIFACT_ROOT / "preregistrations/veatic-2.1/control-plan.json"
+
+
+def _default_control_run_output() -> Path:
+    return _ARTIFACT_ROOT / "runs/veatic-2.1/matched-controls"
+
+
+def _default_lifecycle_control_crosswalk() -> Path:
+    return (
+        Path(__file__).resolve().parents[3]
+        / "internal/active/veatic21-lifecycle-control-crosswalk.md"
+    )
 
 
 def _default_executor_validation_request() -> Path:
@@ -706,6 +744,50 @@ def main() -> int:
             )
         )
         return 0
+    if args.command == "prepare-controls":
+        pca_root = _default_pca_output(Path.cwd())
+        plan = build_control_plan(
+            load_json(
+                (args.preregistration or _default_preregistration_output(Path.cwd()))
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.recipe_plan or _default_training_recipe_plan_output())
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.recipe_selection or _default_training_recipe_selection_output())
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.baseline_summary or (_default_supervised_run_output() / "summary.json"))
+                .expanduser()
+                .resolve()
+            ),
+            load_json(
+                (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+            ),
+            (args.crosswalk or _default_lifecycle_control_crosswalk()).expanduser().resolve(),
+        )
+        output = (args.output or _default_control_plan_output()).expanduser().resolve()
+        write_control_plan(output, plan)
+        print(
+            json.dumps(
+                {
+                    "backend": "mlx",
+                    "benchmark_test_labels_accessed": False,
+                    "expected_new_cells": plan["matrix"]["expected_new_cells"],
+                    "output": str(output),
+                    "plan_sha256": plan["plan_sha256"],
+                    "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
     substrate = CanonicalSubstrate.from_repo()
     if args.command == "benchmark-stage1-ar":
         preregistration = load_json(
@@ -950,6 +1032,56 @@ def main() -> int:
                     "backend": "mlx",
                     "benchmark_test_labels_accessed": False,
                     "completed_cells": summary["completed_cells"],
+                    "output": str(output),
+                    "summary_sha256": summary["summary_sha256"],
+                    "worker_count": 1,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0
+    if args.command == "benchmark-controls":
+        preregistration = load_json(
+            (args.preregistration or _default_preregistration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        calibration = load_json(
+            (args.calibration or _default_calibration_output(substrate.repo_root))
+            .expanduser()
+            .resolve()
+        )
+        pca_root = _default_pca_output(substrate.repo_root)
+        pca_manifest = load_json(
+            (args.pca_manifest or (pca_root / "manifest.json")).expanduser().resolve()
+        )
+        plan = load_json((args.plan or _default_control_plan_output()).expanduser().resolve())
+        baseline_root = (
+            args.baseline_root or _default_supervised_run_output()
+        ).expanduser().resolve()
+        baseline_summary = load_json(
+            (args.baseline_summary or (baseline_root / "summary.json")).expanduser().resolve()
+        )
+        output = (args.output or _default_control_run_output()).expanduser().resolve()
+        summary = run_control_program(
+            substrate,
+            preregistration,
+            calibration,
+            pca_manifest,
+            plan,
+            baseline_summary,
+            pca_root,
+            baseline_root,
+            output,
+            progress=lambda record: print(json.dumps(record, sort_keys=True), flush=True),
+        )
+        print(
+            json.dumps(
+                {
+                    "all_gates_pass": summary["all_gates_pass"],
+                    "backend": "mlx",
+                    "benchmark_test_labels_accessed": False,
+                    "completed_new_cells": summary["completed_new_cells"],
                     "output": str(output),
                     "summary_sha256": summary["summary_sha256"],
                     "worker_count": 1,
