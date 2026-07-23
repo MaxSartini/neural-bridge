@@ -2,9 +2,19 @@
 
 ## Authority and scope
 
-This protocol and `internal/handoff/CURRENT_STATE.md` are the active authority for the
-VEATIC 2.1 research programme. The scientific method comes from the phase-local records under
-`studies/again/`, not from the compact reproduction engine under `src/neural_bridge/again/`.
+This file is a derived operational checklist and navigation aid for the VEATIC 2.1 research
+programme. It is not an independent source of scientific truth. The permanent, comprehensive
+scientific authority is
+`internal/active/veatic21-master-scientific-specification.md`; read it completely before using
+this checklist. Live progress, current authorization, exact result hashes, and the next action
+live in `internal/handoff/CURRENT_STATE.md`.
+
+This checklist may summarize but never add, weaken, replace, or override the master
+specification. If a method detail is absent here, follow the master rather than inferring
+permission. If the two differ, the master wins and this checklist must be corrected before
+execution. The scientific method evidence comes from the phase-local records under
+`studies/again/`, not from the compact reproduction engine under
+`src/neural_bridge/again/`.
 
 AGAIN contributes the successful phase order, scientific questions, control semantics,
 fold-ownership rules, evaluation discipline, and progression gates. VEATIC contributes every
@@ -297,5 +307,6 @@ Pearson, bias, MAE, and RMSE reported separately.
 - Store heavy artifacts only under `/Volumes/onn. Drive/Neural Bridge Artifacts`.
 - A run request, split/row digest, code digest, input digest, control matrix, and output
   manifest must be written before a result can be considered resumable or reviewable.
-- Replace `internal/handoff/CURRENT_STATE.md` in place whenever scientific state changes.
+- Replace `internal/handoff/CURRENT_STATE.md` in place whenever scientific state changes;
+  preserve its `Mandatory authority anchors` section.
 - Commit and push each coherent phase transition to `main` before beginning the next phase.
