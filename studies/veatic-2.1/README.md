@@ -10,6 +10,11 @@ interpolation provenance, and quality metadata; registered the complete VEATIC-d
 of 231 supported future-window candidates; and activated all 21 no-washout candidates for
 Phase 02 without selecting among them. The 210 washout candidates remain prospective only.
 
+Phase 02 is active, not concluded. Its pre-outer experiment freeze is tracked under
+`internal/active/veatic21-phase02-registration/` and externally under the canonical Phase 02
+registration root. It commits the complete target, split, search, optimizer, calibration,
+control, metric, seed, undertraining, and search-sufficiency rules before any AR score.
+
 Durable scientific authority is
 `internal/active/veatic21-master-scientific-specification.md`; the derived execution checklist
 is `internal/active/veatic21-rebuild-protocol.md`; and the single live authorization is

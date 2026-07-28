@@ -12,6 +12,13 @@ values and masks, and a complete 231-window VEATIC-derived registry. All 21 no-w
 windows proceed to Phase 02; none was selected in Phase 01. The 210 washout windows remain
 prospective and cannot be activated by convenience or by an inherited AGAIN offset.
 
+Before fitting any Phase 02 model, the repository freezes a VEATIC-derived AR registration:
+four repeated 10-fold grouped partitions, four nested inner folds, two blocked-forward folds,
+all 21 causal history depths, six feature forms, analytic controls, five materially different
+model families, and five fresh finalist seeds. Every evaluation cell has at least 1,000 rows.
+Outer outcomes cannot alter this registry, and q90/calibration/normalization remain
+training-owned in every fold.
+
 The AGAIN feature foundation uses the frozen [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) ViT-G target encoder and [TRIBE v2](https://arxiv.org/abs/2605.04326). The primary affect sources are the [AGAIN dataset](https://doi.org/10.1109/TAFFC.2022.3188851) and [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html). AGAIN provides first-person continuous arousal annotations; VEATIC provides continuous ratings of a selected character's perceived affect. Results are therefore reported as a cross-dataset evidence ladder, not as a single transferred model or identical label construct.
 
 ## Formal prediction target

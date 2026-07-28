@@ -1,0 +1,28 @@
+{
+  "active_target_count": 21,
+  "blocked_outer_cells": 2,
+  "blocked_support_rows": 42,
+  "code_sha256": "521b52de699476ff09de652a268eb529ae3d9d9227e9bf2dbc62c86ad61ae111",
+  "cortical_values_opened": false,
+  "global_binary_target_stored": false,
+  "grouped_outer_cells": 40,
+  "grouped_support_rows": 840,
+  "input_identity_sha256": "2c565a07ced8946b47b6642bd1db9266fe0ae67ff4ae4252aa89e9dd1976dd19",
+  "operations": {
+    "ar_fit": false,
+    "cortical_read": false,
+    "head_training": false,
+    "outer_model_scoring": false,
+    "pca": false,
+    "washout_scoring": false
+  },
+  "outer_model_scores_opened": false,
+  "outer_test_labels_opened": false,
+  "prospective_washout_target_count": 210,
+  "registration_pass": true,
+  "row_count": 20657,
+  "schema_version": "veatic21_phase02_registration_result_v2",
+  "single_next_authorized_action": "Execute the frozen comprehensive Phase 02 AR benchmark only",
+  "status": "PASS",
+  "video_count": 124
+}

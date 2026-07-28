@@ -78,9 +78,12 @@ The current position is immediately after the genuinely fresh Phase 01 target su
   interpolation, TRIBE row-time, and quality metadata for every row;
 - Phase 01 registered all 231 VEATIC-supported future-window hypotheses: all 21 no-washout
   candidates are active for Phase 02 and all 210 washout candidates remain prospective only;
+- Phase 02's complete AR experiment is frozen before outer scoring: four independent 10-fold
+  grouped-video partitions, two blocked-forward folds, all 21 history depths, six feature
+  forms, five model families, staged optimization/boundary checks, and five fresh seeds;
 - no target, split, AR family, representation, projection width, temporal context, head, optimizer, seed, checkpoint, control result, or winner is selected;
 - the only authorized action is the comprehensive fresh Phase 02 target-specific AR benchmark
-  over all 21 active no-washout candidates;
+  execution over all 21 active no-washout candidates under that exact registration;
 - quality flags remain attached metadata and do not silently delete rows; and
 - no cortical benchmark, PCA, learned model, or later phase begins until Phase 02 exhaustively
   establishes and seals the VEATIC AR floor under separate grouped-video and blocked-forward
