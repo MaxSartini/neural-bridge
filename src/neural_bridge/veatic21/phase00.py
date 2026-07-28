@@ -268,13 +268,18 @@ hidden-state payloads were not opened, inspected, loaded, copied, or hashed.
 """
 
 
-def _write_artifact_manifests(output_root: Path, payload_names: Sequence[str]) -> dict[str, str]:
+def _write_artifact_manifests(
+    output_root: Path,
+    payload_names: Sequence[str],
+    *,
+    schema_version: str = "veatic21_fresh_phase00_artifact_manifest_v2",
+) -> dict[str, str]:
     entries = []
     for name in payload_names:
         path = output_root / name
         entries.append({"path": name, "bytes": path.stat().st_size, "sha256": sha256_file(path)})
     manifest = {
-        "schema_version": "veatic21_fresh_phase00_artifact_manifest_v2",
+        "schema_version": schema_version,
         "root": str(output_root),
         "files": entries,
     }

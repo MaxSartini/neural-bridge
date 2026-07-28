@@ -1,8 +1,14 @@
 # VEATIC 2.1 Fresh Rebuild
 
-Fresh Phase 00 is the only concluded VEATIC 2.1 phase. Its compact defensible record is under
-[`phase-00-dense-foundation/`](phase-00-dense-foundation/README.md). No modeling phase has
-begun and no target, AR model, representation, head, checkpoint, or winner has been selected.
+Fresh Phases 00 and 01 are concluded. Their compact defensible records are under
+[`phase-00-dense-foundation/`](phase-00-dense-foundation/README.md) and
+[`phase-01-label-alignment/`](phase-01-label-alignment/README.md). No modeling phase has begun
+and no target, AR model, representation, head, checkpoint, or winner has been selected.
+
+Phase 01 passed 28/28 controls over all 20,657 rows. It preserved exact row identity, native
+interpolation provenance, and quality metadata; registered the complete VEATIC-derived set
+of 231 supported future-window candidates; and activated all 21 no-washout candidates for
+Phase 02 without selecting among them. The 210 washout candidates remain prospective only.
 
 Durable scientific authority is
 `internal/active/veatic21-master-scientific-specification.md`; the derived execution checklist

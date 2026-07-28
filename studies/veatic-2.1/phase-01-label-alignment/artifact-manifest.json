@@ -1,0 +1,56 @@
+{
+  "files": [
+    {
+      "bytes": 1247,
+      "path": "request.json",
+      "sha256": "dcd6db55d269713627cdd99c46fdd0eecf1474f3d5c3041c7705fa9682fa2cb9"
+    },
+    {
+      "bytes": 192387,
+      "path": "aligned-labels.npz",
+      "sha256": "bbbdacfcd927c506075d89b44cb2530acc8eee6811401d9527bff7a3ebd0c92c"
+    },
+    {
+      "bytes": 16408679,
+      "path": "target-substrate.npz",
+      "sha256": "a629578e2b6a7ad6f5d2e1ec33a43dd377606608eedec6973c7127d7ebbf3d78"
+    },
+    {
+      "bytes": 1263,
+      "path": "alignment-schema.json",
+      "sha256": "207005e5358ff6d0cbc94511fb6f4ef39911588e0ce908b0ed5332b021d9c7fb"
+    },
+    {
+      "bytes": 273859,
+      "path": "candidate-registry.json",
+      "sha256": "96039f11531857489ca28dd3b1271684a936b47b5f524d4ab615453f95cc4b0a"
+    },
+    {
+      "bytes": 13196,
+      "path": "dynamics-summary.json",
+      "sha256": "499155e479a4c65ad729908b176dd6ea9964376ccd583e7718f8d8594d6df141"
+    },
+    {
+      "bytes": 163421,
+      "path": "causal-history-diagnostics.json",
+      "sha256": "3383e83239a402117a3d8d55cb96b95ea91e550b82cc627702d1dd8349f6779b"
+    },
+    {
+      "bytes": 1719,
+      "path": "veatic-derivation-ledger.json",
+      "sha256": "c84134af6cd72c359fd33702893630917673a0148bacb1f42c3e0afbcd56b22a"
+    },
+    {
+      "bytes": 3379,
+      "path": "result.json",
+      "sha256": "feaae3f2f9b954786457dd816dd22f911d30c31492da42be682558ed84182710"
+    },
+    {
+      "bytes": 997,
+      "path": "report.md",
+      "sha256": "603f44b00c145c0d5d15128c310e1ac6203f25e83645dc6a662b6fd2318f043d"
+    }
+  ],
+  "root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-01-label-alignment",
+  "schema_version": "veatic21_fresh_phase01_artifact_manifest_v2"
+}

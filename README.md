@@ -70,14 +70,21 @@ The engineering objective is maximum accuracy, performance, robustness, and doma
 
 VEATIC 2.1 is not a new dataset and is not the Original VEATIC model renamed. It is a fresh Neural Bridge rebuild over the same 124 VEATIC videos using the denser, stronger 2 Hz V-JEPA 2.1/TRIBE v2 substrate and the scientific lessons earned from Original VEATIC and AGAIN.
 
-The current position is immediately after the genuinely fresh Phase 00 foundation:
+The current position is immediately after the genuinely fresh Phase 01 target substrate:
 
 - Phase 00 independently passed all 27 mandatory controls over all 124 per-video payloads and
   all 20,657 exact 2 Hz rows;
+- Phase 01 independently passed all 28 mandatory controls, preserving exact label,
+  interpolation, TRIBE row-time, and quality metadata for every row;
+- Phase 01 registered all 231 VEATIC-supported future-window hypotheses: all 21 no-washout
+  candidates are active for Phase 02 and all 210 washout candidates remain prospective only;
 - no target, split, AR family, representation, projection width, temporal context, head, optimizer, seed, checkpoint, control result, or winner is selected;
-- the only authorized action is Phase 01 exact label alignment and VEATIC target-substrate construction;
+- the only authorized action is the comprehensive fresh Phase 02 target-specific AR benchmark
+  over all 21 active no-washout candidates;
 - quality flags remain attached metadata and do not silently delete rows; and
-- no AR, PCA, cortical benchmark, learned model, or later phase begins until Phase 01 independently derives and seals the VEATIC label dynamics, candidate-generation rules, continuous targets, masks, and ownership digests.
+- no cortical benchmark, PCA, learned model, or later phase begins until Phase 02 exhaustively
+  establishes and seals the VEATIC AR floor under separate grouped-video and blocked-forward
+  protocols.
 
 After Phase 00, every phase and subphase must preregister a broad VEATIC-specific candidate registry, complete matched controls, staged training and pruning rules, convergence/undertraining checks, fresh-seed expansion, a full ledger of successful and failed runs, and a search-sufficiency gate. A convenient baseline, one projection, one head, one optimizer, one budget, or one seed cannot establish either a win or a failure.
 

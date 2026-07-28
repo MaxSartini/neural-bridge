@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 After Fresh Phase 00
+# Current State — VEATIC 2.1 After Fresh Phase 01
 
 Updated: 2026-07-28
 
@@ -40,17 +40,22 @@ method. This file cannot silently override the master specification.
 - Master scientific specification: version 2.0.
 - Repository: `/Users/maxsartini/Neural Bridge`.
 - Branch: `main` only; do not create a branch.
-- Lifecycle boundary: fresh Phase 00 concluded; before Phase 01 implementation and execution.
+- Lifecycle boundary: fresh Phases 00 and 01 concluded; before Phase 02 implementation and
+  execution.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
+- Phase 01 implementation: complete.
+- Phase 01 execution and independent verification: PASS, 28/28 mandatory controls.
 - Executed modeling phases: none.
-- Registered VEATIC targets, splits, AR models, projections, representations, heads,
-  checkpoints, model controls, or promotion outcomes: none.
+- Registered target substrate: 231 continuous future-maximum-increase candidates; all 21
+  no-washout candidates active for Phase 02, 210 washout candidates prospective only, no
+  target selected.
+- Registered VEATIC splits, AR models, projections, representations, heads, checkpoints,
+  model controls, or promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized phase: Phase 01 exact label alignment and VEATIC target-substrate construction
-  only.
-- Phase 02 and every AR fit, cortical benchmark, PCA, head search, washout cortical score,
-  continuous, valence, and zero-label action remain unauthorized.
+- Authorized phase: Phase 02 comprehensive fresh target-specific AR benchmark only.
+- Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
+  zero-label actions remain unauthorized.
 
 ## Canonical live inputs
 
@@ -118,56 +123,104 @@ External root:
 - Target/split/PCA/AR/model/head/washout operations: none.
 - Compact record: `studies/veatic-2.1/phase-00-dense-foundation`.
 
+## Concluded Phase 01 evidence
+
+External root:
+
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-01-label-alignment`
+
+- Status: PASS, 28/28 mandatory controls; independent output verification PASS.
+- Result SHA-256: `feaae3f2f9b954786457dd816dd22f911d30c31492da42be682558ed84182710`.
+- Artifact-manifest SHA-256:
+  `ea7257732a6de79b67448bebfca75267242cd17b5e7cf6a8b984cebe0c6a551e`.
+- Checksums-file SHA-256:
+  `0abe69e14a7d156cd5b950bcbcb7f44616965320e1c4bac70979522fa8ea1348`.
+- VEATIC code SHA-256:
+  `cf79ad38c91e19c9c7eb207c51f30febd77c0979156e39f4b98ff1b64e30d7fe`.
+- Input-identity SHA-256:
+  `5ac7bb4461ba4c746325f49b67725a6b8cad9cc11298be364537a2dbd9a1b25b`.
+- Row-identity SHA-256:
+  `54aa33fa242e45173ec9c4a4d3ad22857b21ee23622ec5b045d3303609eee39c`.
+- Label SHA-256: `03058fec314ea7d35b9d25f590888eb3880a380c23e3201fb571add6a91bff51`.
+- Alignment SHA-256:
+  `82ac63431ec02d307760d592fe993c64c7936f4fde2150d4f6a31e106b4e5f83`.
+- Target-source SHA-256:
+  `3a563f266a9e39eb647019247b073b0bf03d5f61d33dcb2fc391f5cf40c5c8c7`.
+- Continuous-target SHA-256:
+  `b13d9a8c0c578d81631fa0a5485d1e2cb2a1bf7f3102c4bc1c09df8a4f6e304a`.
+- Validity-mask SHA-256:
+  `f217a533b59e52dae63922f9d7c09d97641b4ddec51ec37b9de3dc871a370383`.
+- Row-ownership SHA-256:
+  `e7d37b3e5edcbee6a4a24ff7f9b186fb09bcdbed452536530163546da10057eb`.
+- Quality-metadata SHA-256:
+  `75afaaac71ba7ae073ae3dbef49a5fb8f18f13ae53c86ec035c5e7f8d896a9da`.
+- Coverage: all 124 videos and all 20,657 exact 2 Hz rows; no filtered rows.
+- Preserved metadata: native interpolation provenance plus TRIBE black/static fractions,
+  flags, union, and suggested quality weight for every row.
+- TRIBE access: time and quality metadata only; no cortical value loaded or scored.
+- Candidate derivation: shortest video has 22 rows, so the complete supported lattice is all
+  `1 <= start <= end <= 21`, totaling 231 candidates.
+- Phase 02 active family: all 21 no-washout candidates `(start=1, end=1..21)`.
+- Prospective-only family: 210 washout candidates `(start>1)`; inactive until the durable
+  conditional washout trigger is satisfied in a later authorized phase.
+- Selected target/global binary label/outer split: none/absent/absent.
+- AR/PCA/cortical performance/model/head operations: none.
+- Compact record: `studies/veatic-2.1/phase-01-label-alignment`.
+
 ## Active execution contract
 
 Read these rebuild-protocol sections for the one authorized action:
 
 - **Canonical input boundary**;
-- **Phase 01 — exact label alignment and target substrate**;
+- **Phase 02 — target-specific fresh AR floor**;
 - **Comprehensive experiment and search-sufficiency checklist**;
+- **Controls from the first applicable cell**;
+- **Metrics and uncertainty**;
 - **Execution and artifact rules**.
 
-Implement Phase 01 from the fresh Phase 00 identity. Open supervised arousal and valence only
-from all 124 matching V-JEPA `rows.csv` files. Reconstruct the complete 20,657-row table and
-reconfirm exact `(video_id, row_index, time_seconds)` identity against Phase 00. Validate
-finite label values and native interpolation provenance without shifting, smoothing,
-extrapolating, or repairing labels.
+Implement Phase 02 from the sealed Phase 01 substrate. Benchmark every one of the 21 active
+no-washout candidates, not a convenient representative horizon. Fit fresh target-, protocol-,
+fold-, and seed-specific AR models using current and causal past arousal only. Independently
+report grouped held-out-video and blocked forward-time protocols; neither substitutes for
+the other.
 
-Phase 01 must perform comprehensive VEATIC-specific label-only analysis before any cortical
-performance is read. It calculates movement distributions, per-video autocorrelation and
-partial-autocorrelation decay, causal trailing-history and slope predictiveness, rise time,
-event duration, video-duration compatibility, target-window coverage, eligible rows/videos,
-per-video positive support, and fold-owned threshold-stability expectations.
+Before any outer result is opened, derive and justify from VEATIC development-owned evidence
+the split proportions, repeat count, causal history families, feature forms, model capacities,
+regularization, optimizer budgets, convergence criteria, and calibration plan. Fit q90 event
+thresholds, feature normalization, AR regularization, and decision thresholds inside each
+applicable outer-training partition. Test rows never select a threshold, feature, model,
+budget, or candidate.
 
-Freeze a bounded, justified registry of initial no-washout future-maximum-increase candidate
-windows and a separate bounded VEATIC-only procedure for possible washout starts/window ends.
-Candidate bounds and rejection rules come only from VEATIC label dynamics, duration,
-coverage, and support. AGAIN row offsets, seconds, thresholds, targets, and fitted values are
-not candidates by inheritance.
+Phase 02 must maintain a full append-only experiment ledger for every attempted configuration,
+including failures, convergence and learning-curve evidence, pruning reasons, seeds, fold
+ownership, and exact artifacts. One estimator, history depth, regularizer, optimizer, budget,
+or seed cannot establish the AR floor. A search-sufficiency gate must show that plausible
+candidate families received a fair test and that the selected configurations are not merely
+undertrained or boundary optima.
 
-Store continuous future movement values and validity masks for every registered candidate.
-Do not create one global binary label column: q90 event thresholds belong to later training
-partitions. Do not create an outer evaluation split. Do not read cortical values to choose a
-target, and do not fit AR, PCA, a learned model, or any control lane.
+Begin the AR-dominance/overlap decomposition on development-owned data for each active target:
+history rows consumed, target rows, intervening gap, simple causal-history baselines,
+AR-versus-chance uplift, and fold/video consistency. The 210 prospective washout candidates
+must not be scored or activated in Phase 02.
 
-Phase 01 output root:
+Phase 02 output root:
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-01-label-alignment`
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar`
 
 ## Progression and handoff rule
 
-When and only when Phase 01 passes every alignment, provenance, candidate-registry,
-coverage/support, leakage, and no-cortical-selection control:
+When and only when Phase 02 satisfies the comprehensive search-sufficiency gate and all
+split-ownership, leakage, calibration, convergence, repeatability, and metric controls:
 
 1. inspect every compact and external output;
 2. run all focused VEATIC tests, authority-contract tests, and the full repository test suite;
 3. create the compact defensible record under
-   `studies/veatic-2.1/phase-01-label-alignment`;
+   `studies/veatic-2.1/phase-02-target-specific-ar`;
 4. replace this file while retaining **Mandatory authority anchors**;
 5. record exact code, input, result, artifact-manifest, and checksum hashes plus the single
    newly authorized action;
 6. commit and push the coherent transition directly to `origin/main`;
-7. begin Phase 02 only after the Phase 01 transition is present on remote `main`.
+7. begin Phase 03 only after the Phase 02 transition is present on remote `main`.
 
 No later phase may claim success or failure without the master specification's comprehensive
 VEATIC experiment registration, full result ledger, complete controls, and
@@ -175,7 +228,8 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Implement, test, execute, and review fresh Phase 01 exact label alignment and comprehensive
-VEATIC target-substrate construction over all 20,657 exact 2 Hz rows. Produce continuous
-candidate values/masks and label-only derivation evidence; do not create a global binary
-target, outer split, AR/PCA/model, or cortical performance result.
+Implement and test the fresh Phase 02 benchmark framework, preregister the complete
+VEATIC-derived search design, then execute and review the comprehensive target-specific AR
+benchmark over all 21 active no-washout candidates under separate grouped-video and
+blocked-forward protocols. Do not score cortical values, fit PCA or a learned head, or open
+any of the 210 prospective washout candidates.

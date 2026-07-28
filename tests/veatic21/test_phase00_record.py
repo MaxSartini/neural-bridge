@@ -75,11 +75,11 @@ def test_phase00_compact_record_matches_external_evidence() -> None:
     assert provenance["row_count"] == 20_657
 
 
-def test_current_state_records_phase00_and_only_authorizes_phase01() -> None:
+def test_current_state_retains_phase00_while_authorizing_only_phase02() -> None:
     current = CURRENT.read_text(encoding="utf-8")
     assert RESULT_SHA256 in current
     assert ARTIFACT_MANIFEST_SHA256 in current
     assert CHECKSUMS_SHA256 in current
     assert "Phase 00 execution: PASS, 27/27 mandatory controls" in current
-    assert "Authorized phase: Phase 01 exact label alignment" in current
-    assert "Phase 02 and every AR fit" in current
+    assert "Authorized phase: Phase 02 comprehensive fresh target-specific AR benchmark" in current
+    assert "Cortical benchmark, PCA, head search" in current

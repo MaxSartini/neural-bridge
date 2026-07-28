@@ -20,6 +20,7 @@ from neural_bridge.veatic21.data import (
     assert_tree_identity,
     audit_tribe_payload,
     read_row_identity,
+    read_tribe_row_metadata,
     validate_row_count_identity,
     validate_video_inventory,
     verify_vjepa_payload_records,
@@ -141,6 +142,17 @@ def test_payload_audit_accepts_only_declared_nonlabel_arrays(tmp_path: Path) -> 
     assert audit.cortical_shape == (2, EXPECTED_CORTICAL_WIDTH)
     assert not set(audit.accessed_arrays) & {"arousal", "valence"}
     assert audit.union_rows == 1
+
+
+def test_phase01_tribe_reader_preserves_quality_without_cortical_access(tmp_path: Path) -> None:
+    path = tmp_path / "payload.npz"
+    np.savez(path, **_payload_arrays(nonfinite=True))  # ty: ignore[invalid-argument-type]
+    metadata = read_tribe_row_metadata(path, _identity())
+
+    assert metadata.row_count == 2
+    assert np.array_equal(metadata.quality_exclusion_flag, [0, 1])
+    assert "cortical_prediction" not in metadata.accessed_arrays
+    assert not set(metadata.accessed_arrays) & {"arousal", "valence"}
 
 
 @pytest.mark.parametrize(

@@ -15,6 +15,11 @@ VJEPA_ROOT = ARTIFACT_ROOT / (
 )
 LIFECYCLE_ROOT = ARTIFACT_ROOT / "runs/veatic-2.1/fresh-method-rebuild-20260728"
 PHASE00_ROOT = LIFECYCLE_ROOT / "phase-00-dense-foundation"
+PHASE01_ROOT = LIFECYCLE_ROOT / "phase-01-label-alignment"
+PHASE00_RESULT_SHA256 = "76667bc439af70b4ed212fe114922f0453415280fb64acf2910955d688333ffb"
+PHASE00_INPUT_IDENTITY_SHA256 = (
+    "da59601575403b5d5becdf98c4d348adaa324c5f99c92eabefdcc49b31d569b4"
+)
 
 MASTER_SPECIFICATION = REPOSITORY_ROOT / (
     "internal/active/veatic21-master-scientific-specification.md"
@@ -141,6 +146,18 @@ PHASE00_ACCESSED_TRIBE_ARRAYS = frozenset(
     }
 )
 
+PHASE01_ACCESSED_TRIBE_ARRAYS = frozenset(
+    {
+        "time_seconds",
+        "black_frame_fraction",
+        "duplicate_frame_fraction",
+        "quality_black_frame_flag",
+        "quality_duplicate_frame_flag",
+        "quality_exclusion_flag",
+        "quality_weight_suggested",
+    }
+)
+
 MANDATORY_CHECK_NAMES = (
     "exact_tribe_video_inventory",
     "exact_vjepa_video_inventory",
@@ -168,6 +185,37 @@ MANDATORY_CHECK_NAMES = (
     "vjepa_metadata_tree_digest",
     "forbidden_hidden_state_firewall",
     "no_modeling_operations",
+    "again_runtime_firewall",
+)
+
+PHASE01_MANDATORY_CHECK_NAMES = (
+    "phase00_identity_reconfirmed",
+    "complete_video_inventory",
+    "complete_row_inventory",
+    "exact_row_identity",
+    "exact_2hz_grid",
+    "rows_schema_and_encode_policy",
+    "finite_arousal",
+    "finite_valence",
+    "native_interpolation_provenance",
+    "tribe_row_identity_reconfirmed",
+    "quality_metadata_preserved",
+    "all_rows_retained",
+    "label_only_input_boundary",
+    "candidate_bound_derived_from_veatic",
+    "complete_no_washout_registry",
+    "complete_prospective_washout_registry",
+    "candidate_values_and_masks_stored",
+    "candidate_coverage_audited",
+    "per_video_support_audited",
+    "threshold_stability_audited",
+    "autocorrelation_audited",
+    "partial_autocorrelation_audited",
+    "causal_history_predictiveness_audited",
+    "rise_and_event_duration_audited",
+    "global_binary_label_absent",
+    "outer_split_absent",
+    "no_cortical_performance_or_modeling",
     "again_runtime_firewall",
 )
 

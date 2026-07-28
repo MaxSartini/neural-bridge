@@ -6,6 +6,12 @@ The stable product architecture, the single V-JEPA 2.1/TRIBE v2 upstream stack, 
 
 The VEATIC Neural Bridge input is the complete collection of 124 per-video predicted-cortical payloads produced by the upstream stack. Each payload contributes its `cortical_prediction` array on the exact 2 Hz row grid; no single pooled or privileged file represents the dataset. Matching per-video V-JEPA `rows.csv` files provide row identity, labels, and interpolation provenance. V-JEPA hidden-state arrays are upstream-only and are not a separate Neural Bridge candidate input. The cortical values are predictions generated from video, not measurements from the viewers represented by VEATIC or AGAIN.
 
+Fresh VEATIC Phase 01 has now sealed the exact supervised substrate: 124 videos, 20,657 rows,
+full native interpolation provenance, attached TRIBE quality metadata, continuous target
+values and masks, and a complete 231-window VEATIC-derived registry. All 21 no-washout
+windows proceed to Phase 02; none was selected in Phase 01. The 210 washout windows remain
+prospective and cannot be activated by convenience or by an inherited AGAIN offset.
+
 The AGAIN feature foundation uses the frozen [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) ViT-G target encoder and [TRIBE v2](https://arxiv.org/abs/2605.04326). The primary affect sources are the [AGAIN dataset](https://doi.org/10.1109/TAFFC.2022.3188851) and [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html). AGAIN provides first-person continuous arousal annotations; VEATIC provides continuous ratings of a selected character's perceived affect. Results are therefore reported as a cross-dataset evidence ladder, not as a single transferred model or identical label construct.
 
 ## Formal prediction target
@@ -61,6 +67,9 @@ uv sync --group dev
 uv run ruff check src tests
 uv run ty check
 uv run pytest -q
+
+uv run python -m neural_bridge.veatic21 verify-phase00
+uv run python -m neural_bridge.veatic21 verify-phase01
 
 uv run python -m neural_bridge.again verify-evidence phase5-selected \
   --root studies/again/phase-05-learned-bridge/evidence/phase_5_5_selected_head_420_confirmation_20260714_124953

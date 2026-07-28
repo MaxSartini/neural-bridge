@@ -28,6 +28,7 @@ from neural_bridge.veatic21.contracts import (
     FORBIDDEN_AGAIN_RUNTIME_ROOTS,
     FORBIDDEN_HIDDEN_STATE_FILENAME,
     PHASE00_ACCESSED_TRIBE_ARRAYS,
+    PHASE01_ACCESSED_TRIBE_ARRAYS,
     ROWS_CSV_COLUMNS,
     TRIBE_KEY_SCHEMA,
     TRIBE_VIDEO_FILENAMES,
@@ -77,6 +78,42 @@ class PayloadAudit:
     both_rows: int
     union_rows: int
     accessed_arrays: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class SupervisedRows:
+    video_id: str
+    row_index: np.ndarray
+    time_seconds: np.ndarray
+    native_label_frame_count: np.ndarray
+    source_frame_position: np.ndarray
+    source_floor_frame_index: np.ndarray
+    source_ceil_frame_index: np.ndarray
+    source_interp_alpha: np.ndarray
+    source_match_quality: tuple[str, ...]
+    arousal: np.ndarray
+    valence: np.ndarray
+
+    @property
+    def row_count(self) -> int:
+        return int(self.row_index.size)
+
+
+@dataclass(frozen=True)
+class TribeRowMetadata:
+    video_id: str
+    time_seconds: np.ndarray
+    black_frame_fraction: np.ndarray
+    duplicate_frame_fraction: np.ndarray
+    quality_black_frame_flag: np.ndarray
+    quality_duplicate_frame_flag: np.ndarray
+    quality_exclusion_flag: np.ndarray
+    quality_weight_suggested: np.ndarray
+    accessed_arrays: tuple[str, ...]
+
+    @property
+    def row_count(self) -> int:
+        return int(self.time_seconds.size)
 
 
 def _resolved(path: Path) -> Path:
@@ -342,6 +379,100 @@ def read_row_identity(path: Path, expected_video_id: str) -> RowIdentity:
     )
 
 
+def read_supervised_rows(path: Path, expected_video_id: str) -> SupervisedRows:
+    """Read authoritative labels from rows.csv through a dedicated supervised path."""
+
+    path = reject_forbidden_runtime_path(path)
+    identity = read_row_identity(path, expected_video_id)
+    native_counts: list[int] = []
+    positions: list[float] = []
+    floors: list[int] = []
+    ceils: list[int] = []
+    alphas: list[float] = []
+    source_matches: list[str] = []
+    arousal: list[float] = []
+    valence: list[float] = []
+    with path.open(newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        if tuple(reader.fieldnames or ()) != ROWS_CSV_COLUMNS:
+            raise ValueError(f"rows.csv schema mismatch: {path}")
+        for row_number, row in enumerate(reader, start=2):
+            native_counts.append(
+                _parse_int(
+                    row["native_label_frame_count"],
+                    field="native_label_frame_count",
+                    path=path,
+                    row_number=row_number,
+                )
+            )
+            position = _parse_float(
+                row["source_frame_position"],
+                field="source_frame_position",
+                path=path,
+                row_number=row_number,
+            )
+            floor = _parse_int(
+                row["source_floor_frame_index"],
+                field="source_floor_frame_index",
+                path=path,
+                row_number=row_number,
+            )
+            ceil = _parse_int(
+                row["source_ceil_frame_index"],
+                field="source_ceil_frame_index",
+                path=path,
+                row_number=row_number,
+            )
+            alpha = _parse_float(
+                row["source_interp_alpha"],
+                field="source_interp_alpha",
+                path=path,
+                row_number=row_number,
+            )
+            source_arousal = _parse_float(
+                row["source_arousal"],
+                field="source_arousal",
+                path=path,
+                row_number=row_number,
+            )
+            source_valence = _parse_float(
+                row["source_valence"],
+                field="source_valence",
+                path=path,
+                row_number=row_number,
+            )
+            aligned_arousal = _parse_float(
+                row["arousal"], field="arousal", path=path, row_number=row_number
+            )
+            aligned_valence = _parse_float(
+                row["valence"], field="valence", path=path, row_number=row_number
+            )
+            if aligned_arousal != source_arousal or aligned_valence != source_valence:
+                raise ValueError(f"{path}:{row_number}: aligned/source label mismatch")
+            positions.append(position)
+            floors.append(floor)
+            ceils.append(ceil)
+            alphas.append(alpha)
+            source_matches.append(row["source_match_quality"])
+            arousal.append(aligned_arousal)
+            valence.append(aligned_valence)
+    if len(arousal) != identity.row_count:
+        raise ValueError(f"supervised/identity row-count mismatch: {path}")
+    return SupervisedRows(
+        video_id=expected_video_id,
+        row_index=identity.row_index,
+        time_seconds=identity.time_seconds,
+        native_label_frame_count=np.asarray(native_counts, dtype=np.int32),
+        source_frame_position=np.asarray(positions, dtype=np.float64),
+        source_floor_frame_index=np.asarray(floors, dtype=np.int32),
+        source_ceil_frame_index=np.asarray(ceils, dtype=np.int32),
+        source_interp_alpha=np.asarray(alphas, dtype=np.float64),
+        source_match_quality=tuple(source_matches),
+        arousal=np.asarray(arousal, dtype=np.float64),
+        valence=np.asarray(valence, dtype=np.float64),
+    )
+
+
 def verify_vjepa_payload_records(video_root: Path, video_id: str) -> None:
     video_root = reject_forbidden_runtime_path(video_root)
     payload_path = video_root / "_PAYLOAD_SHA256.json"
@@ -387,6 +518,85 @@ def verify_vjepa_payload_records(video_root: Path, video_id: str) -> None:
 def validate_row_count_identity(tribe: object, vjepa: object, rows: int) -> None:
     if tribe != rows or vjepa != rows:
         raise ValueError(f"row-count identity mismatch: TRIBE={tribe}, V-JEPA={vjepa}, CSV={rows}")
+
+
+def read_tribe_row_metadata(
+    path: Path, row_identity: RowIdentity | SupervisedRows
+) -> TribeRowMetadata:
+    """Read Phase 01 row/quality metadata without loading any feature or label array."""
+
+    path = reject_forbidden_runtime_path(path)
+    accessed: list[str] = []
+
+    def read(npz: Mapping[str, np.ndarray], key: str) -> np.ndarray:
+        if key not in PHASE01_ACCESSED_TRIBE_ARRAYS:
+            raise AssertionError(f"Phase 01 attempted undeclared TRIBE array access: {key}")
+        accessed.append(key)
+        return npz[key]
+
+    with np.load(path, allow_pickle=False) as payload:
+        if tuple(payload.files) != TRIBE_KEY_SCHEMA:
+            raise ValueError(f"TRIBE key schema mismatch for video {row_identity.video_id}")
+        time_seconds = read(payload, "time_seconds")
+        black_fraction = read(payload, "black_frame_fraction")
+        duplicate_fraction = read(payload, "duplicate_frame_fraction")
+        black_raw = read(payload, "quality_black_frame_flag")
+        duplicate_raw = read(payload, "quality_duplicate_frame_flag")
+        exclusion_raw = read(payload, "quality_exclusion_flag")
+        weight = read(payload, "quality_weight_suggested")
+
+        expected_shape = (row_identity.row_count,)
+        for name, array in (
+            ("time_seconds", time_seconds),
+            ("black_frame_fraction", black_fraction),
+            ("duplicate_frame_fraction", duplicate_fraction),
+            ("quality_black_frame_flag", black_raw),
+            ("quality_duplicate_frame_flag", duplicate_raw),
+            ("quality_exclusion_flag", exclusion_raw),
+            ("quality_weight_suggested", weight),
+        ):
+            if array.shape != expected_shape:
+                raise ValueError(f"{name} shape mismatch for video {row_identity.video_id}")
+        if not np.array_equal(time_seconds.astype(np.float64), row_identity.time_seconds):
+            raise ValueError(f"TRIBE/rows.csv time mismatch for video {row_identity.video_id}")
+        for name, array in (
+            ("time_seconds", time_seconds),
+            ("black_frame_fraction", black_fraction),
+            ("duplicate_frame_fraction", duplicate_fraction),
+            ("quality_weight_suggested", weight),
+        ):
+            if not np.isfinite(array).all():
+                raise ValueError(f"nonfinite {name} for video {row_identity.video_id}")
+        for name, array in (
+            ("black", black_raw),
+            ("duplicate", duplicate_raw),
+            ("exclusion", exclusion_raw),
+        ):
+            if not np.isin(array, (0, 1)).all():
+                raise ValueError(f"nonbinary {name} flag for video {row_identity.video_id}")
+        black = black_raw.astype(bool)
+        duplicate = duplicate_raw.astype(bool)
+        exclusion = exclusion_raw.astype(bool)
+        if not np.array_equal(black, black_fraction >= BLACK_FRACTION_THRESHOLD):
+            raise ValueError(f"black threshold mismatch for video {row_identity.video_id}")
+        if not np.array_equal(duplicate, duplicate_fraction >= DUPLICATE_FRACTION_THRESHOLD):
+            raise ValueError(f"duplicate threshold mismatch for video {row_identity.video_id}")
+        if not np.array_equal(exclusion, black | duplicate):
+            raise ValueError(f"quality union mismatch for video {row_identity.video_id}")
+        if np.any((weight < 0.0) | (weight > 1.0)):
+            raise ValueError(f"quality weight outside [0,1] for video {row_identity.video_id}")
+
+        return TribeRowMetadata(
+            video_id=row_identity.video_id,
+            time_seconds=time_seconds.astype(np.float64),
+            black_frame_fraction=black_fraction.astype(np.float32),
+            duplicate_frame_fraction=duplicate_fraction.astype(np.float32),
+            quality_black_frame_flag=black_raw.astype(np.uint8),
+            quality_duplicate_frame_flag=duplicate_raw.astype(np.uint8),
+            quality_exclusion_flag=exclusion_raw.astype(np.uint8),
+            quality_weight_suggested=weight.astype(np.float32),
+            accessed_arrays=tuple(accessed),
+        )
 
 
 def audit_tribe_payload(path: Path, row_identity: RowIdentity) -> PayloadAudit:

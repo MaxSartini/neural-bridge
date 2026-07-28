@@ -4,6 +4,11 @@ Neural Bridge advanced through ten connected research stages. Each stage had a d
 
 Current shared code lives in [`src/neural_bridge/`](../src/neural_bridge/). Historical phase scripts are provenance, not the active API. Each linked closure preserves compact evidence and identifies any heavy externally registered artifacts.
 
+The fresh [VEATIC 2.1 rebuild](veatic-2.1/README.md) is active after its Phase 01 alignment
+gate. Phase 00 passed 27/27 substrate controls and Phase 01 passed 28/28 label/target controls
+over all 124 videos and 20,657 rows. Its next step is a comprehensive fresh AR search over
+all 21 active no-washout target candidates; it has no selected target or modeling result yet.
+
 | Stage | Question | Decisive result | Scientific consequence |
 | --- | --- | --- | --- |
 | [Original VEATIC](original-veatic/v2-closure/README.md) | Can short causal temporal change improve future event/spike ranking? | blocked PR-AUC `0.2536` vs AR `0.1969`, shuffled `0.1840`, and random `0.1944`; balanced event-vs-stable `0.3394` | established the event-first hypothesis; contributed no fitted artifact or exact recipe to later datasets |
