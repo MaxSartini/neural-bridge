@@ -1,0 +1,81 @@
+{
+  "schema_version": "veatic21_phase02_executor_backtest_registration_v1",
+  "authorized_at_utc": "2026-07-28T23:11:08Z",
+  "purpose": "select_the_fastest_numerically_equivalent_hardware_saturating_stage_a_executor_before_main_execution",
+  "scientific_registration_sha256": "ab21c9b971fc0cf8aa18f4d77f585b8236db08bf810b1f83c79a476dfde44815",
+  "scientific_candidate_registry_changed": false,
+  "outer_test_scores_allowed": false,
+  "cortical_values_allowed": false,
+  "host": {
+    "model": "Mac Studio Mac14,13",
+    "chip": "Apple M2 Max",
+    "cpu_cores": 12,
+    "performance_cores": 8,
+    "efficiency_cores": 4,
+    "unified_memory_bytes": 34359738368
+  },
+  "reference_attempt": {
+    "root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/stage-a-linear-screen",
+    "termination_manifest": "termination-manifest.json",
+    "completed_work_units": 6091,
+    "completed_configurations": 1279110,
+    "append_only_ledger_sha256": "eb2b4ccbbaf5ab50e48230bb39649cb20857307cc385b222b81817c0c5d7b6d1"
+  },
+  "backtest_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/executor-backtest-20260729",
+  "representative_units": {
+    "numerical_equivalence_sequence_ranges_inclusive": [[0, 503], [504, 755]],
+    "coverage": "both_complete_blocked_inner_cells_plus_one_complete_grouped_inner_cell_across_all_six_forms_twenty_one_depths_and_two_stage_a_families",
+    "timed_sequence_range_inclusive": [504, 755],
+    "warmup_sequence_range_inclusive": [504, 527],
+    "timed_repetitions": 3
+  },
+  "executor_requirements": {
+    "single_coordinator": true,
+    "deterministic_disjoint_shards": true,
+    "atomic_unit_publication": true,
+    "shard_local_append_only_ledgers": true,
+    "verified_canonical_ledger_merge": true,
+    "ridge_logistic_preparation_cache": true,
+    "cpu_metric_parallelism": true,
+    "gpu_execution_concurrency": true,
+    "resume_without_duplicate_execution": true,
+    "numerical_library_threads_per_metric_worker": 1
+  },
+  "candidate_configurations": [
+    {"id": "reference_1x1", "mlx_lanes": 1, "metric_workers_per_lane": 1, "pair_cache": false},
+    {"id": "saturated_1x8", "mlx_lanes": 1, "metric_workers_per_lane": 8, "pair_cache": true},
+    {"id": "saturated_2x4", "mlx_lanes": 2, "metric_workers_per_lane": 4, "pair_cache": true},
+    {"id": "saturated_3x2", "mlx_lanes": 3, "metric_workers_per_lane": 2, "pair_cache": true},
+    {"id": "saturated_4x2", "mlx_lanes": 4, "metric_workers_per_lane": 2, "pair_cache": true}
+  ],
+  "numerical_equivalence": {
+    "exact_fields": [
+      "unit",
+      "split_sha256",
+      "feature_names",
+      "feature_count",
+      "feature_matrix_sha256",
+      "scaler_sha256",
+      "target_thresholds_sha256",
+      "train_row_counts",
+      "validation_row_counts",
+      "configuration_count",
+      "outer_test_scores_opened",
+      "cortical_values_opened",
+      "record_configuration_status_disposition_and_counts"
+    ],
+    "metric_absolute_tolerance": 1e-12,
+    "solver_diagnostic_absolute_tolerance": 1e-7,
+    "convergence_masks_exact": true,
+    "configuration_order_exact": true,
+    "allowed_non_equivalent_fields": ["runtime_seconds", "executor_sha256", "execution_provenance"]
+  },
+  "selection_rule": {
+    "eligibility": "all_equivalence_determinism_resume_ledger_memory_and_access_gates_pass",
+    "primary": "highest_median_completed_work_units_per_second_across_three_timed_repetitions",
+    "tie_rule": "within_three_percent_prefer_fewer_mlx_lanes_then_lower_peak_unified_memory",
+    "saturation_gate": "mean_gpu_device_utilization_at_least_ninety_percent_or_less_than_five_percent_throughput_gain_from_the_next_safe_lane_count_with_the_remaining_bottleneck_profiled",
+    "memory_gate": "no_memory_pressure_failure_and_at_least_six_gibibytes_measured_host_headroom",
+    "scientific_scores_used_for_executor_selection": false
+  }
+}

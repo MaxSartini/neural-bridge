@@ -356,9 +356,26 @@ Pearson, bias, MAE, and RMSE reported separately.
 ## Execution and artifact rules
 
 - Work on `main` only.
-- Use exactly one MLX GPU worker for PCA and learned training. Parallel GPU runs do not help.
-- Use available memory; do not impose an artificial memory cap.
-- CPU is permitted for CSV/JSON audit, deterministic orchestration, metrics, and reporting.
+- Use the measured fastest valid MLX/GPU or parallel CPU path for PCA, learned fitting,
+  representation transforms, scoring, and final inference; CPU is not a learned-model
+  fallback.
+- Before freezing a material run, backtest representative training/inner-only cells across
+  safe CPU-worker, MLX execution-lane, and compatible GPU-batch configurations on the actual
+  host. Select throughput only after numerical equivalence, determinism, convergence,
+  ownership, resumability, and ledger-integrity checks pass. Outer and confirmation outcomes
+  remain unopened.
+- Use one coordinator, deterministic disjoint work assignment, atomic publication,
+  shard-local append-only ledgers, and a verified canonical merge. Never point independent
+  workers at one mutable ledger.
+- Pipeline CPU feature preparation, metrics, hashing, and artifact writing with MLX work.
+  Use available performance cores and unified memory without oversubscribing numerical
+  libraries or imposing an artificial low memory cap.
+- Freeze host identity, CPU-worker count, MLX lane count, compatible GPU batch size,
+  utilization evidence, peak memory, executor digest, and backtest result in the main run
+  request. Changing any of them after launch requires a sealed termination and new identity.
+- Repeat the saturation/equivalence exercise for deployment inference and report cold-start
+  and steady-state latency, throughput, batch scaling, CPU/GPU utilization, and unified-memory
+  peak before calling an inference implementation production-ready.
 - Reuse VEATIC PCA bases, projected scores, frozen AR predictions, and checkpoints only when
   their complete ownership/provenance identity matches. AGAIN-fitted objects are never
   eligible for reuse.

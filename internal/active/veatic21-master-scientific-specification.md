@@ -1,7 +1,8 @@
 # VEATIC 2.1 AGAIN-Method Master Scientific Specification
 
-Specification version: 2.0
+Specification version: 2.1
 Fresh Phase 00 authority seal: 2026-07-28
+Hardware-saturation execution amendment: 2026-07-29
 
 ## Purpose and change control
 
@@ -75,11 +76,42 @@ of AGAIN row membership, arrays, fitted values, configurations, or selected resu
 - Repository: `/Users/maxsartini/Neural Bridge`.
 - Branch: `main` only. Do not create a branch.
 - Heavy-artifact root: `/Volumes/onn. Drive/Neural Bridge Artifacts`.
-- All PCA and learned training uses MLX with exactly one GPU worker.
-- Do not start parallel GPU training processes. There is one useful GPU execution path.
-- Do not impose an artificial memory cap; the available GPU memory should be used.
-- CPU is allowed for CSV/JSON parsing, deterministic audits, orchestration, metrics, hashing,
-  and report generation. It is not the learned-model fallback.
+- All PCA, learned fitting, representation transforms, claim-bearing scoring, and deployable
+  inference use the fastest numerically valid MLX/GPU or parallel CPU path established on the
+  actual Apple-silicon host. CPU execution is not the learned-model fallback.
+- Worker count is a measured execution parameter, never a universal constant. Before each
+  computationally material phase freezes its main run request, benchmark representative
+  training/inner-validation cells across safe CPU-worker, MLX execution-lane, and compatible
+  GPU-batch configurations on the actual host. Do not open an outer or confirmation outcome
+  during this executor backtest.
+- Select the fastest configuration only after it reproduces the registered mathematical
+  outputs, convergence dispositions, metric values, split ownership, and deterministic
+  artifact identities within a frozen equivalence contract. Freeze the selected host,
+  worker/lane/batch configuration and executor digest in the run request before the main run.
+- Use one coordinator with deterministic disjoint work assignment, atomic unit publication,
+  shard-local append-only ledgers, and a verified canonical merge. Never launch
+  uncoordinated workers against one mutable ledger or artifact path.
+- Pipeline and parallelize CPU-eligible parsing, feature preparation, metrics, hashing, and
+  report generation while MLX executes. Use the available performance cores without
+  oversubscribing numerical libraries.
+- Use available unified memory to enlarge compatible GPU batches and keep the GPU supplied,
+  while retaining measured operating-system headroom. Allocating memory without increasing
+  useful batch throughput is not a goal, and no artificial low memory cap may be imposed.
+- Record wall time, throughput, CPU/GPU utilization, peak active/cache memory, failures, and
+  equivalence evidence for every executor candidate. A worker configuration may not be
+  chosen from scientific outcome scores.
+- Apply this hardware-saturation contract to development, confirmation, and final inference,
+  not only search stages. Each production inference path records cold-start and steady-state
+  latency, throughput, batch-size scaling, CPU/GPU utilization, unified-memory peak, and
+  numerical equivalence to its sealed reference. A one-core or low-occupancy implementation
+  cannot be called production-ready when a measured safe configuration uses the host better.
+- Once a main execution begins, changing executor code, worker/lane count, batching, or
+  artifact-coordination semantics requires termination and sealing of the attempt followed
+  by a new run identity. Completed attempts remain in provenance and are never silently
+  merged across incompatible executor identities.
+- CPU is allowed for CSV/JSON parsing, deterministic audits, orchestration, feature
+  preparation, metrics, hashing, and report generation. It is not the learned-model
+  fallback.
 - Reuse VEATIC-fitted artifacts when and only when the complete
   row/split/target/fold/transform identity matches. The method-only firewall always forbids
   reuse of an AGAIN-fitted artifact.

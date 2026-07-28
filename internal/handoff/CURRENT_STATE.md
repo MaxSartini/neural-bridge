@@ -1,6 +1,6 @@
-# Current State — VEATIC 2.1 Phase 02 Registered
+# Current State — VEATIC 2.1 Phase 02 Executor Backtest
 
-Updated: 2026-07-28
+Updated: 2026-07-29
 
 ## Mandatory authority anchors
 
@@ -37,28 +37,30 @@ method. This file cannot silently override the master specification.
 ## Live scientific state
 
 - Programme: VEATIC 2.1 AGAIN-method rebuild.
-- Master scientific specification: version 2.0.
+- Master scientific specification: version 2.1.
 - Repository: `/Users/maxsartini/Neural Bridge`.
 - Branch: `main` only; do not create a branch.
-- Lifecycle boundary: fresh Phases 00 and 01 concluded; Phase 02 experiment registration
-  frozen and verified; before Phase 02 model execution.
+- Lifecycle boundary: fresh Phases 00 and 01 concluded; Phase 02 scientific experiment
+  registration frozen and verified; the underpowered sequential Stage A attempt is sealed;
+  before the replacement Stage A executor backtest and main execution.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
 - Phase 01 execution and independent verification: PASS, 28/28 mandatory controls.
 - Phase 02 registration implementation/execution/verification: PASS; no model or outer score
   opened.
-- Phase 02 Stage A implementation: complete and tested; execution RUNNING on one MLX GPU
-  worker.
-- Executed modeling phases: none.
+- Phase 02 sequential Stage A attempt: user-authorized termination sealed after 6,091 inner
+  work units and 1,279,110 configuration evaluations; not eligible for main-run resume.
+- Executed claim-bearing outer modeling phases: none.
 - Registered target substrate: 231 continuous future-maximum-increase candidates; all 21
   no-washout candidates active for Phase 02, 210 washout candidates prospective only, no
   target selected.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: execute the frozen Phase 02 comprehensive target-specific AR benchmark
-  only.
+- Authorized action: implement and backtest a hardware-saturating executor for the frozen
+  Phase 02 comprehensive target-specific AR benchmark, then freeze the fastest numerically
+  equivalent configuration before starting a new main Stage A identity.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -214,12 +216,13 @@ External root:
 - Repository freeze:
   `internal/active/veatic21-phase02-registration/experiment-registration.json`.
 
-## Phase 02 Stage A execution identity
+## Sealed sequential Stage A attempt
 
 - Runner: `src/neural_bridge/veatic21/phase02_stage_a.py`.
 - Stage A source SHA-256:
   `6a4f368a8ebccc2bab15d3658909438cccceee3c01601e2ec9bd7ccea5ebed78`.
-- Backend: one MLX GPU worker; no CPU learned-model fallback.
+- Backend: one sequential MLX GPU process with largely one-core CPU orchestration; terminated
+  because it materially underutilized the Mac Studio hardware.
 - Complete work-unit count: 40,824.
 - Complete target/regularizer inner-evaluation record count: 8,573,040.
 - Per-unit scope: one protocol/outer/inner/feature-depth/model cell, all 21 active targets,
@@ -237,13 +240,44 @@ External root:
   `f54ecf511d60455e1f84193bd17d91d2a0ffc85ed3daa41fe290b520d96ff557`.
 - Immutable work-unit-registry SHA-256:
   `67ab7e7f0414b2cf7f2705e589ce69f76e37409168c231457a7a4db287677d3b`.
-- Mutable live progress file: `<artifact root>/run-state.json`; it is the exact execution
-  checkpoint while this long run remains active.
+- Terminated at: `2026-07-28T23:11:08Z`.
+- Final completed work units/configurations: `6,091` / `1,279,110`.
+- Final unit files/ledger lines: `6,091` / `6,091`.
+- Final append-only ledger SHA-256:
+  `eb2b4ccbbaf5ab50e48230bb39649cb20857307cc385b222b81817c0c5d7b6d1`.
+- Termination manifest: `<artifact root>/termination-manifest.json`.
+- Termination-manifest SHA-256:
+  `d647b77b125b5e1d01bbbfc81ed7824b3816f62477266f965a36e4bc691a03a6`.
+- Sealed run-state SHA-256:
+  `b022116d04786a2b4236c374d8672103cf88b585058c793a0a4994e21132b90e`.
+- Disposition: preserved for provenance and numerical backtesting; never resume or merge into
+  the replacement main run.
 - First paired real-cell audit: ridge converged `210/210`; logistic used the registered 4×
   escalation and converged `210/210`; full artifact/ledger/resume identity passed.
 - Resumption contract: request, work-unit registry, code/registration identity, unit JSON,
   append-only ledger, and run state must agree; a source or registration mismatch fails.
 - Outer test scores and cortical values remain unopened.
+
+## Replacement executor backtest registration
+
+- Repository freeze:
+  `internal/active/veatic21-phase02-registration/executor-backtest-registration.json`.
+- Backtest-registration SHA-256:
+  `4a094fb60db44182fbc65cbf7736c5dabc023874a2b7022f3725fdc3db2662b5`.
+- Host: Apple M2 Max Mac Studio, 12 CPU cores (8 performance, 4 efficiency), 32 GiB unified
+  memory.
+- Backtest uses preserved inner-only reference units; it may not open outer-test outcomes or
+  cortical values.
+- Numerical-equivalence coverage: both complete blocked Stage A inner cells plus one complete
+  grouped Stage A inner cell, spanning all six feature forms, all 21 history depths, and both
+  Stage A model families.
+- Throughput candidates: 1/2/3/4 coordinated MLX lanes with CPU metric-worker allocations
+  bounded around the eight performance cores, deterministic sharding, preparation caching,
+  atomic publication, shard ledgers, and verified canonical merge.
+- Selection uses three timed repetitions and hardware throughput only. Scientific outcome
+  scores cannot select the executor.
+- The main replacement run remains unauthorized until the fastest eligible executor and its
+  exact digest/configuration are frozen here and pushed to `origin/main`.
 
 ## Active execution contract
 
@@ -256,11 +290,17 @@ Read these rebuild-protocol sections for the one authorized action:
 - **Metrics and uncertainty**;
 - **Execution and artifact rules**.
 
-Execute Phase 02 from the sealed Phase 01 substrate and the exact frozen registration above.
-Benchmark every one of the 21 active no-washout candidates, not a convenient representative
-horizon. Fit fresh target-, protocol-, fold-, and seed-specific AR models using current and
-causal past arousal only. Independently report grouped held-out-video and blocked forward-time
-protocols; neither substitutes for the other.
+Implement and backtest only the execution machinery for Phase 02 from the sealed Phase 01
+substrate and exact frozen scientific registration. The backtest may reproduce only preserved
+training/inner-validation units from the terminated attempt. It must not open a new outer
+outcome, cortical value, or prospective washout candidate.
+
+The executor must use one coordinator, deterministic disjoint shards, atomic unit
+publication, shard-local ledgers, verified canonical merge, cached pair-owned preparation,
+parallel CPU metrics, and measured MLX concurrency. Backtest every registered executor
+candidate, record failures as well as successes, and require numerical equivalence,
+convergence-mask identity, deterministic repeated output, safe resume, no duplicate work,
+memory headroom, and access-firewall evidence.
 
 Do not add, remove, or tune a target, split, history family, feature form, model family,
 regularization range, optimizer, budget, calibration method, seed count, control, metric, or
@@ -269,12 +309,12 @@ rules using training/inner-validation evidence only. Fit q90 event thresholds, f
 normalization, AR regularization, calibration, and decision thresholds inside each applicable
 training partition. Test rows never select a threshold, feature, model, budget, or candidate.
 
-Phase 02 must maintain a full append-only experiment ledger for every attempted configuration,
-including failures, convergence and learning-curve evidence, pruning reasons, seeds, fold
-ownership, and exact artifacts. One estimator, history depth, regularizer, optimizer, budget,
-or seed cannot establish the AR floor. A search-sufficiency gate must show that plausible
-candidate families received a fair test and that the selected configurations are not merely
-undertrained or boundary optima.
+The replacement Phase 02 main run must maintain a full append-only experiment ledger for
+every attempted configuration, including failures, convergence and learning-curve evidence,
+pruning reasons, seeds, fold ownership, and exact artifacts. One estimator, history depth,
+regularizer, optimizer, budget, or seed cannot establish the AR floor. A search-sufficiency
+gate must show that plausible candidate families received a fair test and that the selected
+configurations are not merely undertrained or boundary optima.
 
 Begin the AR-dominance/overlap decomposition on development-owned data for each active target:
 history rows consumed, target rows, intervening gap, simple causal-history baselines,
@@ -306,13 +346,16 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Implement, test, execute, and review the exact frozen Phase 02 target-specific AR benchmark
-over all 21 active no-washout candidates under the registered grouped-video and
-blocked-forward protocols. Maintain the append-only ledger and do not conclude Phase 02 until
-the search-sufficiency gate passes. Do not score cortical values, fit PCA or a learned head,
-or open any of the 210 prospective washout candidates.
+Implement and test the coordinated hardware-saturating Stage A executor. Backtest it against
+the sealed reference units using
+`internal/active/veatic21-phase02-registration/executor-backtest-registration.json`. Run the
+complete frozen 1/2/3/4-lane throughput matrix and three timed repetitions; do not select from
+one convenient pilot. Freeze the fastest configuration only after every equivalence,
+determinism, convergence, ownership, resume, ledger, access, utilization, and memory gate
+passes.
 
-Keep running/resuming `python -m neural_bridge.veatic21 phase02-stage-a`. Do not aggregate,
-prune, or advance to Stage B until every Stage A work unit is complete and its ledger passes
-the independent completeness/convergence audit. If interrupted, resume the same artifact
-root; never delete valid units or start a competing worker.
+Then replace this file with the selected executor digest and exact run identity, run the
+focused and full tests, commit and push the coherent transition to `main`, and only then start
+the new main Stage A root. Do not resume or merge the sealed sequential attempt. Do not score
+outer outcomes or cortical values, fit PCA or a learned head, aggregate/prune Stage A, advance
+to Stage B, or open any prospective washout candidate during executor development/backtesting.
