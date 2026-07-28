@@ -48,7 +48,8 @@ method. This file cannot silently override the master specification.
 - Phase 01 execution and independent verification: PASS, 28/28 mandatory controls.
 - Phase 02 registration implementation/execution/verification: PASS; no model or outer score
   opened.
-- Phase 02 Stage A implementation: complete and tested; execution not started.
+- Phase 02 Stage A implementation: complete and tested; execution RUNNING on one MLX GPU
+  worker.
 - Executed modeling phases: none.
 - Registered target substrate: 231 continuous future-maximum-increase candidates; all 21
   no-washout candidates active for Phase 02, 210 washout candidates prospective only, no
@@ -232,6 +233,14 @@ External root:
   no target-valid row silently removed for unavailable past.
 - Artifact root:
   `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/stage-a-linear-screen`.
+- Immutable Stage A request SHA-256:
+  `f54ecf511d60455e1f84193bd17d91d2a0ffc85ed3daa41fe290b520d96ff557`.
+- Immutable work-unit-registry SHA-256:
+  `67ab7e7f0414b2cf7f2705e589ce69f76e37409168c231457a7a4db287677d3b`.
+- Mutable live progress file: `<artifact root>/run-state.json`; it is the exact execution
+  checkpoint while this long run remains active.
+- First paired real-cell audit: ridge converged `210/210`; logistic used the registered 4×
+  escalation and converged `210/210`; full artifact/ledger/resume identity passed.
 - Resumption contract: request, work-unit registry, code/registration identity, unit JSON,
   append-only ledger, and run state must agree; a source or registration mismatch fails.
 - Outer test scores and cortical values remain unopened.
@@ -303,6 +312,7 @@ blocked-forward protocols. Maintain the append-only ledger and do not conclude P
 the search-sufficiency gate passes. Do not score cortical values, fit PCA or a learned head,
 or open any of the 210 prospective washout candidates.
 
-Begin by running/resuming `python -m neural_bridge.veatic21 phase02-stage-a`. Do not aggregate,
+Keep running/resuming `python -m neural_bridge.veatic21 phase02-stage-a`. Do not aggregate,
 prune, or advance to Stage B until every Stage A work unit is complete and its ledger passes
-the independent completeness/convergence audit.
+the independent completeness/convergence audit. If interrupted, resume the same artifact
+root; never delete valid units or start a competing worker.
