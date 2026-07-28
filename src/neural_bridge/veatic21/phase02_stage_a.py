@@ -373,6 +373,8 @@ def _ridge_screen(
         "target_tolerance_max": float(np.max(tolerance)),
         "converged_cells": int(np.sum(relative_np <= tolerance[None, :])),
         "total_cells": int(relative_np.size),
+        "converged_mask": (relative_np <= tolerance[None, :]).tolist(),
+        "relative_residual_by_cell": relative_np.tolist(),
         "regularization_scales": scales.tolist(),
     }
 
@@ -417,13 +419,14 @@ def _logistic_screen(
     weights = mx.zeros(shape, dtype=mx.float32)
     accelerated = weights
     momentum_state = 1.0
-    budget = _next_power_of_two(math.sqrt(float(np.min(counts_np))))
+    base_budget = _next_power_of_two(math.sqrt(float(np.min(counts_np))))
+    maximum_budget = base_budget * 4
     tolerance = 1 / np.sqrt(counts_np)
     learning_curve: list[dict[str, float | int]] = []
     gradient_relative_np = np.full(
         (len(REGULARIZATION_MULTIPLIERS), labels.shape[1]), np.inf, dtype=np.float32
     )
-    for iteration in range(budget):
+    for iteration in range(maximum_budget):
         logits = mx.einsum("np,apt->nat", x_mx, accelerated)
         error = (mx.sigmoid(logits) - labels_mx[:, None, :]) * masks_mx[:, None, :]
         gradient = mx.einsum("np,nat->apt", x_mx, error) / counts_mx[None, None, :]
@@ -440,7 +443,7 @@ def _logistic_screen(
         weights = next_weights
         momentum_state = next_momentum
         completed = iteration + 1
-        if completed % 8 == 0 or completed == budget:
+        if completed % 8 == 0 or completed == maximum_budget:
             gradient_norm = mx.sqrt(mx.sum(gradient * gradient, axis=1))
             weight_norm = mx.sqrt(mx.sum(weights * weights, axis=1)) + 1.0
             gradient_relative_np = np.asarray(gradient_norm / weight_norm)
@@ -453,7 +456,9 @@ def _logistic_screen(
                     "max_relative_gradient": float(np.max(gradient_relative_np)),
                 }
             )
-            if np.all(gradient_relative_np <= tolerance[None, :]):
+            if completed >= base_budget and np.all(
+                gradient_relative_np <= tolerance[None, :]
+            ):
                 break
     logits = np.einsum("np,apt->nat", x, np.asarray(weights), optimize=True)
     probabilities = 1 / (1 + np.exp(-np.clip(logits, -30, 30)))
@@ -461,11 +466,15 @@ def _logistic_screen(
     return probabilities, {
         "backend": "mlx_gpu_full_batch_accelerated_gradient",
         "iterations": learning_curve[-1]["update"],
-        "budget": budget,
+        "base_budget": base_budget,
+        "maximum_budget": maximum_budget,
+        "budget_escalated": bool(learning_curve[-1]["update"] > base_budget),
         "max_relative_gradient": float(np.max(gradient_relative_np)),
         "target_tolerance_max": float(np.max(tolerance)),
         "converged_cells": int(np.sum(gradient_relative_np <= tolerance[None, :])),
         "total_cells": int(gradient_relative_np.size),
+        "converged_mask": (gradient_relative_np <= tolerance[None, :]).tolist(),
+        "relative_gradient_by_cell": gradient_relative_np.tolist(),
         "regularization_scales": scales.tolist(),
         "learning_curve": learning_curve,
     }
@@ -483,6 +492,7 @@ def _records_from_predictions(
 ) -> list[dict[str, object]]:
     records: list[dict[str, object]] = []
     scales = cast(list[float], solver["regularization_scales"])
+    convergence = cast(list[list[bool]], solver["converged_mask"])
     for alpha_index, multiplier in enumerate(REGULARIZATION_MULTIPLIERS):
         for target, candidate_id in enumerate(candidate_ids):
             owned = validation_masks[:, target]
@@ -497,11 +507,17 @@ def _records_from_predictions(
             configuration_id = (
                 f"{unit.unit_id}__{candidate_id}__reg{alpha_index:02d}"
             )
+            converged = convergence[alpha_index][target]
             records.append(
                 {
                     "configuration_id": configuration_id,
-                    "status": "completed",
-                    "disposition": "eligible_for_inner_aggregation",
+                    "status": "completed" if converged else "undertrained",
+                    "disposition": (
+                        "eligible_for_inner_aggregation"
+                        if converged
+                        else "protected_from_pruning_requires_16x_budget"
+                    ),
+                    "converged": converged,
                     "model_family": unit.model_family,
                     "candidate_id": candidate_id,
                     "feature_form": unit.feature_form,

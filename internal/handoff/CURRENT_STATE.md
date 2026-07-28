@@ -217,7 +217,7 @@ External root:
 
 - Runner: `src/neural_bridge/veatic21/phase02_stage_a.py`.
 - Stage A source SHA-256:
-  `f77129c40b71af0f50a2e2b147f4ec20078a50a1cbab2e645f63b06001f326c9`.
+  `6a4f368a8ebccc2bab15d3658909438cccceee3c01601e2ec9bd7ccea5ebed78`.
 - Backend: one MLX GPU worker; no CPU learned-model fallback.
 - Complete work-unit count: 40,824.
 - Complete target/regularizer inner-evaluation record count: 8,573,040.
@@ -225,6 +225,9 @@ External root:
   and all 10 registered training-scaled regularization multipliers.
 - Registered Stage A families: continuous ridge and event logistic-L2 across all 21 history
   depths and all six feature forms.
+- Logistic convergence rule: run the data-derived base budget, escalate unresolved cells to
+  the registered 4× budget, and mark any remaining unresolved cell `undertrained`, protected
+  from pruning, and required to receive the registered 16× budget before disposition.
 - Causal cold-start handling: earliest/current-level padding plus explicit availability masks;
   no target-valid row silently removed for unavailable past.
 - Artifact root:
