@@ -5,10 +5,10 @@ import json
 from pathlib import Path
 from typing import Any
 
-from neural_bridge.veatic21.phase04 import PHASE04_CHECKS
+from neural_bridge.veatic21.phase05 import PHASE05_CHECKS
 
 ROOT = Path(__file__).resolve().parents[2]
-RECORD = ROOT / "studies" / "veatic-2.1" / "phase-04-pca-bridge"
+RECORD = ROOT / "studies" / "veatic-2.1" / "phase-05-learned-bridge"
 CURRENT = ROOT / "internal" / "handoff" / "CURRENT_STATE.md"
 
 
@@ -22,26 +22,23 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def test_phase04_compact_record_is_control_complete_and_hash_consistent() -> None:
+def test_phase05_compact_record_is_control_complete_and_hash_consistent() -> None:
     result = _load_json(RECORD / "result.json")
     summary = _load_json(RECORD / "summary.json")
-    accuracy = _load_json(RECORD / "pca-accuracy-audit.json")
-    selected = _load_json(RECORD / "selected-representation.json")
+    selected = _load_json(RECORD / "selected-recipe.json")
     provenance = _load_json(RECORD / "provenance.json")
     manifest = _load_json(RECORD / "artifact-manifest.json")
 
-    assert set(result["checks"]) == set(PHASE04_CHECKS)
+    assert set(result["checks"]) == set(PHASE05_CHECKS)
     assert all(result["checks"].values())
     assert result["status"] == "pass"
-    assert result["phase05_authorized"] is True
-    assert result["linear_pca_fusion_claim_pass"] is False
-    assert result["selected_width"] == 64
-    assert result["selected_temporal_depth_rows"] == 0
-    assert selected["selected"]["width"] == 64
-    assert selected["selected"]["temporal_depth_rows"] == 0
-    assert summary["promotion"]["linear_fusion_promoted"] is False
-    assert len(accuracy["records"]) == 6
-    assert all(not record["separately_refit_widths"] for record in accuracy["records"])
+    assert result["no_washout_residual_claim_pass"] is False
+    assert result["phase06_authorized"] is False
+    assert result["washout_design_authorized"] is True
+    assert result["washout_activated"] is False
+    assert result["selected_recipe"] == "relu-bottleneck-8"
+    assert selected["selected"]["active_real_cells"] == 3
+    assert summary["decomposition"]["legal_persistence_dominates"] is True
 
     external = provenance["external_hashes"]
     assert _sha256(RECORD / "result.json") == external["result_sha256"]
@@ -49,26 +46,24 @@ def test_phase04_compact_record_is_control_complete_and_hash_consistent() -> Non
     artifacts = {item["path"]: item["sha256"] for item in manifest["artifacts"]}
     for filename in (
         "request.json",
-        "pca-accuracy-audit.json",
+        "control-matrix.json",
         "result.json",
-        "selected-representation.json",
+        "selected-recipe.json",
         "summary.json",
         "primary-deltas.json",
         "report.md",
         "veatic-derivation-ledger.json",
     ):
         assert _sha256(RECORD / filename) == artifacts[filename]
-    assert len([path for path in artifacts if path.startswith("pca-models/")]) == 6
-    assert len([path for path in artifacts if path.startswith("projection-cache/")]) == 48
+    assert len([path for path in artifacts if path.startswith("search-checkpoints/")]) == 144
     assert len([path for path in artifacts if path.startswith("predictions/")]) == 6
-    assert len([path for path in artifacts if path.startswith("final-models/")]) == 6
 
 
-def test_live_handoff_retains_phase04_hashes_after_phase05_progression() -> None:
+def test_live_handoff_records_phase05_hashes_and_only_authorizes_washout_design() -> None:
     current = CURRENT.read_text(encoding="utf-8")
     provenance = _load_json(RECORD / "provenance.json")
 
     assert all(value in current for value in provenance["external_hashes"].values())
-    assert "## Concluded Phase 05 evidence" in current
     assert "Authorized phase: Phase 05 VEATIC-only washout design only" in current
+    assert "Cortical washout scoring and Phase 06 remain unauthorized" in current
     assert "## Exact next action" in current

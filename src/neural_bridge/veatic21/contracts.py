@@ -14,6 +14,7 @@ PHASE01_ROOT = LIFECYCLE_ROOT / "phase-01-label-alignment"
 PHASE02_ROOT = LIFECYCLE_ROOT / "phase-02-ar-baseline"
 PHASE03_ROOT = LIFECYCLE_ROOT / "phase-03-raw-cortical"
 PHASE04_ROOT = LIFECYCLE_ROOT / "phase-04-pca-bridge"
+PHASE05_ROOT = LIFECYCLE_ROOT / "phase-05-learned-bridge"
 
 PCA_MAX_RANK = 512
 PCA_PREFIX_WIDTHS = (64, 128, 256, 512)

@@ -1,0 +1,832 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1048,
+      "path": "control-matrix.json",
+      "sha256": "92aab4cde345f8c9eacfd8e67307736963bbf4917670af416fc68b33872d4d17"
+    },
+    {
+      "bytes": 29133,
+      "path": "fold-metrics.csv",
+      "sha256": "9b18358987eb56af01501e89a4b3543c1d7b32873a3f2b03002246ee34efd3c5"
+    },
+    {
+      "bytes": 28054,
+      "path": "inner-head-search.csv",
+      "sha256": "6c9b2cb57ba877551a62e400170fa22b471eb460e89f53830517d0ced5870387"
+    },
+    {
+      "bytes": 3907,
+      "path": "inner-recipe-search.csv",
+      "sha256": "0370a8641fda6df01d849a3cea161ffdb438c9ee599e18d19d0f579d24a64cac"
+    },
+    {
+      "bytes": 380438,
+      "path": "per-video-metrics.csv",
+      "sha256": "c97fe7378be456e867c5d778848dd328c76eae71722fc13d601d04fc7271bdbd"
+    },
+    {
+      "bytes": 4523,
+      "path": "prediction-manifest.json",
+      "sha256": "e174fea9bfc3d127b35d10a6b3364e549cae313cb9ad0773820b26b7b101ce04"
+    },
+    {
+      "bytes": 291017,
+      "path": "predictions/blocked_temporal-fold-00-seed-2584653445.npz",
+      "sha256": "35e24c4e354c80e4df41e90ef893d46d961fede97f745c51855e9b2b82b6d632"
+    },
+    {
+      "bytes": 298753,
+      "path": "predictions/grouped_video-fold-00-seed-4192784409.npz",
+      "sha256": "92323af2ba5597c527437c218eda1c70b748a71f67224342a008ab5e514bf80a"
+    },
+    {
+      "bytes": 291170,
+      "path": "predictions/grouped_video-fold-01-seed-0364988386.npz",
+      "sha256": "8719e473b66ba5ad80d44971b1c77d665991b028a4608ee9ea2682e947deff56"
+    },
+    {
+      "bytes": 286280,
+      "path": "predictions/grouped_video-fold-02-seed-2265704891.npz",
+      "sha256": "d7cc2b309bc9e2a0ed7526ea73bfd7203256d1307197bf7a4f33d35982dd221b"
+    },
+    {
+      "bytes": 288405,
+      "path": "predictions/grouped_video-fold-03-seed-0901047996.npz",
+      "sha256": "3f83998630bbf4de27a73bba6fc48390be5ccdac8c66dcc7a01b7e224144ab46"
+    },
+    {
+      "bytes": 287754,
+      "path": "predictions/grouped_video-fold-04-seed-4201378280.npz",
+      "sha256": "4b1d54feb8a8c5c4b36376ee07687978e6020e67e5cfb0f84e4b9de3e2589432"
+    },
+    {
+      "bytes": 10341,
+      "path": "primary-deltas.json",
+      "sha256": "5040d03489f6583df9ff83c6112b9cf61fd974ee49259572ad82d146e445ed9f"
+    },
+    {
+      "bytes": 1926,
+      "path": "report.md",
+      "sha256": "b3e3762b2ba97e9f8f5293c0479f594774c5a0c5a3e400e63dfd9c8596900189"
+    },
+    {
+      "bytes": 7284,
+      "path": "request.json",
+      "sha256": "72d7bc7133f17cb0a4cbac476e784488b4c8fb89e44872c3c5cd799c9a5cafe2"
+    },
+    {
+      "bytes": 3750,
+      "path": "result.json",
+      "sha256": "04a5277ab2a22539af7282d216023248d5cc1499eb8431697e43855cdd67a589"
+    },
+    {
+      "bytes": 72424,
+      "path": "search-checkpoint-manifest.json",
+      "sha256": "3b3a224b6568402c3a41d264cd33b3ba9e9ab2d38cd836b8a98921b74fb9f26b"
+    },
+    {
+      "bytes": 5238,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/linear/diagnostics_only.npz",
+      "sha256": "b8e067af720ff6861e118a65869c8bb1195f1a3ed6d10ed7809e1bcd1171adf9"
+    },
+    {
+      "bytes": 5239,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/linear/label_permutation_cortical.npz",
+      "sha256": "457f72e3e95244ff2f5d336ae4b8d4384955e65cd0ed7fd77dbd066562e6b26a"
+    },
+    {
+      "bytes": 5234,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/linear/quality_motion_luma_only.npz",
+      "sha256": "ef712c383945098b79f4804e26036b44444a7c0dd13b0877682d9230b1297d0c"
+    },
+    {
+      "bytes": 5237,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/linear/real_cortical.npz",
+      "sha256": "4dbf9659f62e51f1eafdec70fd8a770a72be2919a19659f567142ac815c57723"
+    },
+    {
+      "bytes": 5231,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/linear/shape_matched_random.npz",
+      "sha256": "3ef6671889f00eccc3cf7ae1ba32b05fc2d6e106753fe864b997e0e07b7255f2"
+    },
+    {
+      "bytes": 5237,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/linear/shuffled_cortical.npz",
+      "sha256": "8b3a0669ad81ce3acd68f60bed29a957ba45b69b027ba1874ebca5854b0a17cc"
+    },
+    {
+      "bytes": 5235,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/linear/time_video_time_only.npz",
+      "sha256": "47f74631d55c76b2803efc0b897615164d5c90c1c912544c90a3bc33ec4574eb"
+    },
+    {
+      "bytes": 5241,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/linear/train_only_video_mean.npz",
+      "sha256": "5708407accee1faf03fa44c648ab001651a68d5007bb36f2cb4e646639b3cafa"
+    },
+    {
+      "bytes": 9046,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-16/diagnostics_only.npz",
+      "sha256": "aa827db795926221defb9625d1a1dc34dfc83b30dfb5c2b6d88c48f8da46afe1"
+    },
+    {
+      "bytes": 9035,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-16/label_permutation_cortical.npz",
+      "sha256": "e47469d95b8decd5841ecdd9f3e2a22d4af6ecec7aaa2b2564439660f9761df8"
+    },
+    {
+      "bytes": 9037,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-16/quality_motion_luma_only.npz",
+      "sha256": "3c36ad4afc7a0a2121461cdb53aa2da0b23c255e2bb215ad76c7e4ca89bf1b5e"
+    },
+    {
+      "bytes": 9047,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-16/real_cortical.npz",
+      "sha256": "5f0e2d6a452d4838787fc126f4d613aacdb12b2c48ce87246e798006d55ba61a"
+    },
+    {
+      "bytes": 9036,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-16/shape_matched_random.npz",
+      "sha256": "a8293adacd010ef2de16cde70d33c67fb46acc55bcd2bcbe05181af0b3f2c479"
+    },
+    {
+      "bytes": 9038,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-16/shuffled_cortical.npz",
+      "sha256": "c588ea3b4b5628a993ae51463a286325544eedccbf33ef4f87ceb05a755ea6c1"
+    },
+    {
+      "bytes": 9226,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-16/time_video_time_only.npz",
+      "sha256": "468f7af50ab6a1e92ef4d3777e83740d9090d6e8f76d2d5fef374bbb8d0a3fd9"
+    },
+    {
+      "bytes": 9041,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-16/train_only_video_mean.npz",
+      "sha256": "f446d720bab08e5d8e5205b8399990494d3f5efabf9a8d2d366178686a276c13"
+    },
+    {
+      "bytes": 7177,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-8/diagnostics_only.npz",
+      "sha256": "5ae812aeec3bbe17e50a4b2a6a7cc1c2a59f77e573b00cc2bf0d013da6f5c18a"
+    },
+    {
+      "bytes": 7249,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-8/label_permutation_cortical.npz",
+      "sha256": "f3f272d3fef0f1ffdbbd086d1d12695ffde2345c7f4ee77432fb6c3c5dcfc148"
+    },
+    {
+      "bytes": 7163,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-8/quality_motion_luma_only.npz",
+      "sha256": "2b43706a0a2787966da3bfd9224a0a674f8fc6b2c2e7a1493b6d2bce92e7b3de"
+    },
+    {
+      "bytes": 7166,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-8/real_cortical.npz",
+      "sha256": "83a8380245f26602b0e93a0b20a6d1ae48bf55b0fc1b210ec6d0346220775223"
+    },
+    {
+      "bytes": 7168,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-8/shape_matched_random.npz",
+      "sha256": "aeb6a366ee94555bb9f976fb3769c89c1d2a8e5a59c078e6439425f643b99a4c"
+    },
+    {
+      "bytes": 7173,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-8/shuffled_cortical.npz",
+      "sha256": "b4dcf80818cc8011029e9d51ebe22ca384dec6302aea50bab1cd85c9fc9f482b"
+    },
+    {
+      "bytes": 7254,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-8/time_video_time_only.npz",
+      "sha256": "d827abdcaff408e92ade28601ce4e02e137d32b55eda2126ad3697a7d77dd5a5"
+    },
+    {
+      "bytes": 7179,
+      "path": "search-checkpoints/blocked_temporal-fold-00-seed-2584653445/relu-bottleneck-8/train_only_video_mean.npz",
+      "sha256": "54607b6e82cc333b24dbf695a07428fd816b3f2bc122b5285e2bdd2421d1e7ab"
+    },
+    {
+      "bytes": 5512,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/linear/diagnostics_only.npz",
+      "sha256": "8c78f42fcfeed166b6cf55754abbc633991cd337ce3341136c4a793b8be439ab"
+    },
+    {
+      "bytes": 5511,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/linear/label_permutation_cortical.npz",
+      "sha256": "d197a3d1a77399f57ab97b3c71f8ed60549c3164e2ed70dbe47beb5991ae6ac5"
+    },
+    {
+      "bytes": 5237,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/linear/quality_motion_luma_only.npz",
+      "sha256": "ddf8b07db7102fd8ce05f4e685a288c72f3f1cdcb294bea701eb35b2ab6f1532"
+    },
+    {
+      "bytes": 5510,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/linear/real_cortical.npz",
+      "sha256": "699f3ff731deb314f9c728491ae31f325e41173c76918184acb61f94e586e2b1"
+    },
+    {
+      "bytes": 5236,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/linear/shape_matched_random.npz",
+      "sha256": "cf3836307edafa747dda7a22de8d96e1a895c5f0e16ad21e8d6bacf19cbaeae4"
+    },
+    {
+      "bytes": 5240,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/linear/shuffled_cortical.npz",
+      "sha256": "84fd50bcc40fc8f053205ca6ed1263491d6660d96add9663e67401cf0aaea556"
+    },
+    {
+      "bytes": 5511,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/linear/time_video_time_only.npz",
+      "sha256": "138aa25fe01257cfe3b7dec79f7059427318127d27297586d1efcc69fdefc99a"
+    },
+    {
+      "bytes": 5238,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/linear/train_only_video_mean.npz",
+      "sha256": "617cee43616f2ae86ccdc5798e1fd662678808cddd2b05847cd6bec667202f21"
+    },
+    {
+      "bytes": 9046,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-16/diagnostics_only.npz",
+      "sha256": "d9af7fed734056ada3e509ea9a89a5bbd4ea431e2558c0800f73a70634dcf4bd"
+    },
+    {
+      "bytes": 9211,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-16/label_permutation_cortical.npz",
+      "sha256": "d49263a79e935b237d7dfda68b6be896bbbe11e83896e0f89aa627f7f0324a14"
+    },
+    {
+      "bytes": 9042,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-16/quality_motion_luma_only.npz",
+      "sha256": "5ecdecc5e10c2161b01e1bcadb601b1690386573e0ab39df157c45b31fcc0644"
+    },
+    {
+      "bytes": 9038,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-16/real_cortical.npz",
+      "sha256": "2b24db0d6f1ea500ea4b845832ba544d39789fdee5cd19305157a3ef948e55f2"
+    },
+    {
+      "bytes": 9030,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-16/shape_matched_random.npz",
+      "sha256": "634ebcbe9d957a91456f6530514d8f74efb0d546481938e18be5023d90c4b146"
+    },
+    {
+      "bytes": 9202,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-16/shuffled_cortical.npz",
+      "sha256": "517d2ca4d5f136edd2cd5f74e4b85a84043c80b5a590550b68d0a7d1829e6871"
+    },
+    {
+      "bytes": 9226,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-16/time_video_time_only.npz",
+      "sha256": "311b3b3897d7d3e1db51dea57f69d7f62e4ba0d53f39a511aebddcb6a627d70b"
+    },
+    {
+      "bytes": 9045,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-16/train_only_video_mean.npz",
+      "sha256": "33c8d966a020c7f5d5d6ded58de7d18b24baf9400c5af8a7e9fdd45aa7044769"
+    },
+    {
+      "bytes": 7168,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-8/diagnostics_only.npz",
+      "sha256": "4810a0736f25b9708dd769a24a0bdbb8211b11fbbdfa872e9ac67ae5bdaec9ac"
+    },
+    {
+      "bytes": 7172,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-8/label_permutation_cortical.npz",
+      "sha256": "61eb6843ee6aab20e1724bfc25cc63eb225a1e9dcc2981ef8bdf04628e38b10f"
+    },
+    {
+      "bytes": 7167,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-8/quality_motion_luma_only.npz",
+      "sha256": "af63d852cbd62701d6c4158257eb6e62d0b5e2683dfab622fe004185a5da93bc"
+    },
+    {
+      "bytes": 7250,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-8/real_cortical.npz",
+      "sha256": "a5bb334f50abb28d9ecd15676779fdc785ea63f84c80d5dcde1c421bc8d427bd"
+    },
+    {
+      "bytes": 7165,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-8/shape_matched_random.npz",
+      "sha256": "77597bd5613c5af3f5681ac739d4f53378123e50116e2c7f4c7a49641d062de3"
+    },
+    {
+      "bytes": 7170,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-8/shuffled_cortical.npz",
+      "sha256": "95af71474596f0891f28d8d00afdb94db420e40cddf94efb102b422f20d36378"
+    },
+    {
+      "bytes": 7264,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-8/time_video_time_only.npz",
+      "sha256": "02561f44fce38aab50ea1a0b343f77bccff809445db18c2dd5d15804ddf5791a"
+    },
+    {
+      "bytes": 7159,
+      "path": "search-checkpoints/grouped_video-fold-00-seed-4192784409/relu-bottleneck-8/train_only_video_mean.npz",
+      "sha256": "44f1335e050545c9b06448ccac8ac49fa2a59500988effc6fa8c8da123730c9b"
+    },
+    {
+      "bytes": 5515,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/linear/diagnostics_only.npz",
+      "sha256": "5d9206be73016b39a409dd6cf06b7c6d800e7a0465b804607c868482b6b415aa"
+    },
+    {
+      "bytes": 5519,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/linear/label_permutation_cortical.npz",
+      "sha256": "2ea2fc724c073f2a8f01bfe1f2033b55a04744184d5479adf2abef2193345368"
+    },
+    {
+      "bytes": 5238,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/linear/quality_motion_luma_only.npz",
+      "sha256": "2986277971d25ab4accaee8f8df5ff73cf0c1a01533ece820c518f9037e44fa1"
+    },
+    {
+      "bytes": 5238,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/linear/real_cortical.npz",
+      "sha256": "77556ce05d7faf967be673ff385a104d0e4481cf567b6440d0fecc8d7e09dc67"
+    },
+    {
+      "bytes": 5235,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/linear/shape_matched_random.npz",
+      "sha256": "e0591678883804461742b547bf35508298312f5e6f6311e8d14c155bbff8974f"
+    },
+    {
+      "bytes": 5240,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/linear/shuffled_cortical.npz",
+      "sha256": "89ff7777c6c90f72a76323a60e13b54cc5dcd76c7d263cf9eb1f3978eb51dfea"
+    },
+    {
+      "bytes": 5513,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/linear/time_video_time_only.npz",
+      "sha256": "28f545e5a86df36df34119cb9158d5d84a41616b427b22b40a3d7720d97ca60c"
+    },
+    {
+      "bytes": 5240,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/linear/train_only_video_mean.npz",
+      "sha256": "133f3d97d2c96530aab963bf3cbc03bae8279aa629d2f95bfecb5185db7ee29e"
+    },
+    {
+      "bytes": 9220,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-16/diagnostics_only.npz",
+      "sha256": "106e67b438d60dcad8f1c6dc77bdf51b00aa78639b984ee40fea97a0a97780c7"
+    },
+    {
+      "bytes": 9200,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-16/label_permutation_cortical.npz",
+      "sha256": "5b81482dcee2ba7855c1cfe1057a35763ba6eb5bedca52554b68f7585eaa4557"
+    },
+    {
+      "bytes": 9046,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-16/quality_motion_luma_only.npz",
+      "sha256": "b694af7c9a7c26a6685cc5cd649bc0d086d73c59378176e83aca508fd938f070"
+    },
+    {
+      "bytes": 9035,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-16/real_cortical.npz",
+      "sha256": "fbbea095a3ae95c565aee2e29832387472ae9269fe62e1ee9b3865eec5aefaf5"
+    },
+    {
+      "bytes": 9033,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-16/shape_matched_random.npz",
+      "sha256": "b0f725d2f3457f13621956ed2e7f268fadc3b46d21764b6337251940397e4eb9"
+    },
+    {
+      "bytes": 9216,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-16/shuffled_cortical.npz",
+      "sha256": "fbbaab4347bb41c0992ed29a4b6c09e301b2689b515ad2fab8e6cb8b8783011d"
+    },
+    {
+      "bytes": 9053,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-16/time_video_time_only.npz",
+      "sha256": "85d374d88e2bf0bc0c25fd396f89d381dec07c9153d2bd4e82d5de0027a25154"
+    },
+    {
+      "bytes": 9246,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-16/train_only_video_mean.npz",
+      "sha256": "b24fcebc1e26df9dc0f4adee3c7de0a04a5883ac0f06311bbbef0d7a6c2f6c2b"
+    },
+    {
+      "bytes": 7260,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-8/diagnostics_only.npz",
+      "sha256": "c0f11421413e386c2a232f7f9f1d5be26bc95a9fc432e0404c264971bd8bafa8"
+    },
+    {
+      "bytes": 7253,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-8/label_permutation_cortical.npz",
+      "sha256": "17563077a7bfdec0a73c3c849bb5120806e2a2a94d96203959fb5823ff329494"
+    },
+    {
+      "bytes": 7257,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-8/quality_motion_luma_only.npz",
+      "sha256": "cc8410be13d45ef8422036968a120a5ff9485a077e87f949805db443e431c34c"
+    },
+    {
+      "bytes": 7171,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-8/real_cortical.npz",
+      "sha256": "a1c4712f27867a72ef487642de4c6ab5f40f83919c56f6d815b594a3d11f4beb"
+    },
+    {
+      "bytes": 7169,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-8/shape_matched_random.npz",
+      "sha256": "84530dda9f5173c16de7023baaae317e4465b261e8d26f355efd352bc6cc33af"
+    },
+    {
+      "bytes": 7258,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-8/shuffled_cortical.npz",
+      "sha256": "ba3bfdd9540d1dc1c3c0b360cba52ed2acbeef3acd630925d5567bc9522d375a"
+    },
+    {
+      "bytes": 7168,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-8/time_video_time_only.npz",
+      "sha256": "3adfb3ab2b4b2e23aa1d13333418d833f9ab0ae4124e0fd95bd73e7ba5f34121"
+    },
+    {
+      "bytes": 7251,
+      "path": "search-checkpoints/grouped_video-fold-01-seed-0364988386/relu-bottleneck-8/train_only_video_mean.npz",
+      "sha256": "55615a22bc34d361ed33c50e2c71c339ebf4e002e0a7aac4f77e9793344ba334"
+    },
+    {
+      "bytes": 5518,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/linear/diagnostics_only.npz",
+      "sha256": "1007cb71008fcdefd3933c29db9aa67a02ee9a6de23cdc1df52222f4444ab926"
+    },
+    {
+      "bytes": 5515,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/linear/label_permutation_cortical.npz",
+      "sha256": "3a8d720a4e429bbee92de109de8505fd53ab34a2f7b5143f8451a74d4a5c5e78"
+    },
+    {
+      "bytes": 5242,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/linear/quality_motion_luma_only.npz",
+      "sha256": "177623f5bb7017a47302bdb7e5ffa5d3fb031af3015237280d732f2e8ab5f6a1"
+    },
+    {
+      "bytes": 5239,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/linear/real_cortical.npz",
+      "sha256": "a850fc1ff562f87181bc0b7eff1de3beac21a83d57e19d4450a124edfe3c59d2"
+    },
+    {
+      "bytes": 5237,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/linear/shape_matched_random.npz",
+      "sha256": "cf406b296a95dcceb57788c698e0812dbfe7b0a9aa8f6fb7cec9bb9a6905cb48"
+    },
+    {
+      "bytes": 5239,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/linear/shuffled_cortical.npz",
+      "sha256": "760e7e6bfcc0decb1dd04a2382a77d514fa4eb9dcad20cccd48e02c2c30fcaf5"
+    },
+    {
+      "bytes": 5240,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/linear/time_video_time_only.npz",
+      "sha256": "608b6b966ea5ab77d871de2042562eb7cfa88149552e0a41aa647a09f394eff8"
+    },
+    {
+      "bytes": 5241,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/linear/train_only_video_mean.npz",
+      "sha256": "df8315374051620793e769f242c1b24c103fb3cf54c01e120123666552e038b8"
+    },
+    {
+      "bytes": 9225,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-16/diagnostics_only.npz",
+      "sha256": "708f1e4dcafe355e231beb13ecebda96eb6d4d8e601b8a2d3bbbfd9ea18af987"
+    },
+    {
+      "bytes": 9207,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-16/label_permutation_cortical.npz",
+      "sha256": "121889c053ef0fc7f3bcaa8c0001b38d0de321554bb406224ab60275ce193ef5"
+    },
+    {
+      "bytes": 9050,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-16/quality_motion_luma_only.npz",
+      "sha256": "05b6001c3bcae0836a6266cf6ce5c1c59c7edb4b711778b5226fbef29341bcb5"
+    },
+    {
+      "bytes": 9045,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-16/real_cortical.npz",
+      "sha256": "34a9b350c475535fb6bc03ce78327b98fca06ab85ba501924e37d7601b23ccb9"
+    },
+    {
+      "bytes": 9047,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-16/shape_matched_random.npz",
+      "sha256": "e6627d76ebaa1968ee5a9804a87a8695b4eb372dd89d5449e2ab1f6754b384be"
+    },
+    {
+      "bytes": 9046,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-16/shuffled_cortical.npz",
+      "sha256": "4d54f1f3e10d96ba4f824547ea7b68aef7f570721defbe8074ea524cc65bbdb4"
+    },
+    {
+      "bytes": 9054,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-16/time_video_time_only.npz",
+      "sha256": "a1a45898e0cb40ef39b089e4afc6e0499fa50d2509fb598ca1edd9d67568d493"
+    },
+    {
+      "bytes": 9056,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-16/train_only_video_mean.npz",
+      "sha256": "cd1515319d419d06ceef6a90029607a573ae68e4633e1d92349514eb23a4cacd"
+    },
+    {
+      "bytes": 7265,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-8/diagnostics_only.npz",
+      "sha256": "a6cc5f1efaf5d21175b18ef3666eb3e682ae4df240d090d5cff9e090fae7e561"
+    },
+    {
+      "bytes": 7265,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-8/label_permutation_cortical.npz",
+      "sha256": "3fa0cfb55ce8d613841dbd03226d142c44f3cfebd1b1b06c9bdf06522373425e"
+    },
+    {
+      "bytes": 7268,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-8/quality_motion_luma_only.npz",
+      "sha256": "cb500a7dd539456c42cc945aca4e416739ffb0c5d0dce2b17c860d7407ce210a"
+    },
+    {
+      "bytes": 7258,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-8/real_cortical.npz",
+      "sha256": "8a4d19324ccec1510bb691f9158f149bd58d0210f5e3aeb07f71ac4c925c94e4"
+    },
+    {
+      "bytes": 7168,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-8/shape_matched_random.npz",
+      "sha256": "92a0a7c5bb8d61354cb2edaa275cab9a085e371aef536f188079209bb03275df"
+    },
+    {
+      "bytes": 7178,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-8/shuffled_cortical.npz",
+      "sha256": "ad4c8344e4a8599bcb7e97e62daecac0223f4702664a19e31b2c182e1590c358"
+    },
+    {
+      "bytes": 7172,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-8/time_video_time_only.npz",
+      "sha256": "4feab05c0828a758134622a1d9d3472575a87d2838fe3a4163ba1e83048f8cbc"
+    },
+    {
+      "bytes": 7173,
+      "path": "search-checkpoints/grouped_video-fold-02-seed-2265704891/relu-bottleneck-8/train_only_video_mean.npz",
+      "sha256": "e5a579e8639c9305dfe781b36091d6023aadc0b5df7c1660977d5eb0be324ce0"
+    },
+    {
+      "bytes": 5514,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/linear/diagnostics_only.npz",
+      "sha256": "ca8232d4256c393a82b356ec9712b33a3e6d7292ebaf9654f61fc4d11609af2b"
+    },
+    {
+      "bytes": 5506,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/linear/label_permutation_cortical.npz",
+      "sha256": "c09a177a5d814e649897871a2cf818e1671548affdd8030439faddd139a04d7c"
+    },
+    {
+      "bytes": 5514,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/linear/quality_motion_luma_only.npz",
+      "sha256": "40873a9e6112a38020a03aa156836069fd8b8e609e7f754df81d81d5c009eb35"
+    },
+    {
+      "bytes": 5236,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/linear/real_cortical.npz",
+      "sha256": "d6d87c0f63ce758aa8d3bfec54e38aace3b29b0981166fafa9b989be30fce67f"
+    },
+    {
+      "bytes": 5235,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/linear/shape_matched_random.npz",
+      "sha256": "914c5979d160c2b32bbca2368f791e2e3becbc5fabd7bd3bd9717259ccf2c59b"
+    },
+    {
+      "bytes": 5236,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/linear/shuffled_cortical.npz",
+      "sha256": "4fe051dae84a6d86f27b2c6aada3bb53b391bad5fb0d5cacd306217360c33a11"
+    },
+    {
+      "bytes": 5515,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/linear/time_video_time_only.npz",
+      "sha256": "327bf93c8bd356bc54a4be3b8957e3905620d78e56fdc874022de1d12d8d3f81"
+    },
+    {
+      "bytes": 5240,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/linear/train_only_video_mean.npz",
+      "sha256": "24d5ad0a8d553c0f877c781014ae5530aa933459c16cb9f817751b29d381280d"
+    },
+    {
+      "bytes": 9213,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-16/diagnostics_only.npz",
+      "sha256": "4f145ebff51e50316cab89e23ed03aea0f8918fc435313b55a1925d8fcf25f53"
+    },
+    {
+      "bytes": 9211,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-16/label_permutation_cortical.npz",
+      "sha256": "cef1ede4f6bdc08dfb68e1312cc27f45630038e9efe32d40c777ae7c8209f04e"
+    },
+    {
+      "bytes": 9044,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-16/quality_motion_luma_only.npz",
+      "sha256": "db5cca646911b53b0c683a315e575175e08f2fe8885b4c8319ce1ccaf25587b7"
+    },
+    {
+      "bytes": 9040,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-16/real_cortical.npz",
+      "sha256": "b406e7496ea0f26324eb45b6f4e3a5c8fadba12130d19a6534e628cc2dbb1593"
+    },
+    {
+      "bytes": 9039,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-16/shape_matched_random.npz",
+      "sha256": "b5f7e82f58e5e3db511925a038e45f3fdf52bca4f705fbb05905f5a9eca87245"
+    },
+    {
+      "bytes": 9033,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-16/shuffled_cortical.npz",
+      "sha256": "d7cbc6458491d548ac8bb91ea165c20c73b2549a19a34474d3720cb9d08e4384"
+    },
+    {
+      "bytes": 9041,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-16/time_video_time_only.npz",
+      "sha256": "56afef50a5f69909529789f482d2dd7032d0960ee7be714b086e7431a80e6a61"
+    },
+    {
+      "bytes": 9036,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-16/train_only_video_mean.npz",
+      "sha256": "6ba368aabe1150c71f866c54adb63902babed952cadd732b1f984ac8ee48374f"
+    },
+    {
+      "bytes": 7254,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-8/diagnostics_only.npz",
+      "sha256": "105ab1ddb8ba7c75e0c108af84a24d8e57f7c3d6f80db26c4ada389139919b16"
+    },
+    {
+      "bytes": 7252,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-8/label_permutation_cortical.npz",
+      "sha256": "ab7f2e00c328d31fd9b31581c4781638ccec137c01cd84c103dd76aa2dc8f27b"
+    },
+    {
+      "bytes": 7255,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-8/quality_motion_luma_only.npz",
+      "sha256": "0c4f0cf9e9a5e4f84cb7564cf682c31d2f22fa3a0ffb40f5e17d35afe48478bc"
+    },
+    {
+      "bytes": 7176,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-8/real_cortical.npz",
+      "sha256": "c2eabe0c19001c726ecde6d8de0a646b3eaa9d333917e137ec57b01d66a74f16"
+    },
+    {
+      "bytes": 7169,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-8/shape_matched_random.npz",
+      "sha256": "746f5136ecc27981c3aeda7da6aa2577020e4fcae934b5da44f6b31c8799499c"
+    },
+    {
+      "bytes": 7167,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-8/shuffled_cortical.npz",
+      "sha256": "4d7662f228d7450c63c9cf42c954b2abc84c908cd48602538a047c3f861e9e9b"
+    },
+    {
+      "bytes": 7175,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-8/time_video_time_only.npz",
+      "sha256": "e97eab44b0ff0e3e27fc6ac1d6da05bab080feffc0bf3d973efbef8c29bbd909"
+    },
+    {
+      "bytes": 7176,
+      "path": "search-checkpoints/grouped_video-fold-03-seed-0901047996/relu-bottleneck-8/train_only_video_mean.npz",
+      "sha256": "91005d0504e12cac7d16e223b4cd37a5121b7a131a1fd4540cbc1047cecd1165"
+    },
+    {
+      "bytes": 5238,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/linear/diagnostics_only.npz",
+      "sha256": "86bd1189211b1725dffcd9ab5512af1bb15d3e0acba1392f738754da8e1d4a4b"
+    },
+    {
+      "bytes": 5515,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/linear/label_permutation_cortical.npz",
+      "sha256": "7819185a4479d296654ea02a1224640a526753dafe740aadfdc47f67e7dcebb2"
+    },
+    {
+      "bytes": 5239,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/linear/quality_motion_luma_only.npz",
+      "sha256": "54d2a00c40a439f7843ec36a91372b7cba6e505f503c25fb08354725ffa2c040"
+    },
+    {
+      "bytes": 5514,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/linear/real_cortical.npz",
+      "sha256": "adc525886120cecaf4ff098b4fa858c48c1546c813d4b6a5fca79ab5c89e96d8"
+    },
+    {
+      "bytes": 5236,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/linear/shape_matched_random.npz",
+      "sha256": "35ddb286ab8145d22a729c94e1d5d702540f687ca90be2e23cbf19e3f156ee54"
+    },
+    {
+      "bytes": 5238,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/linear/shuffled_cortical.npz",
+      "sha256": "9f5df2b4c24b9cb0317968110cc4bc9f1577795e45b424505caa02586a285e49"
+    },
+    {
+      "bytes": 5512,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/linear/time_video_time_only.npz",
+      "sha256": "6608602bcf480eb676803f74791cffc0095244fee7bc85c3b87153e67e6996ff"
+    },
+    {
+      "bytes": 5239,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/linear/train_only_video_mean.npz",
+      "sha256": "f1e10d20d98afd452fc6f7c25d3db9a0c1389e6413fcd64e670be3a5cdd5305a"
+    },
+    {
+      "bytes": 9223,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-16/diagnostics_only.npz",
+      "sha256": "cab6a0fb6cbef8cd3b476656d44c7d6d32e48cd5961c2f65d76262f30658c569"
+    },
+    {
+      "bytes": 9217,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-16/label_permutation_cortical.npz",
+      "sha256": "08882094ab39e9fda8208b6f6230bcc87b577b16018401a84b675cf6cf308266"
+    },
+    {
+      "bytes": 9046,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-16/quality_motion_luma_only.npz",
+      "sha256": "116592659c6150525bbc2d77c7a6260008b8a11c0fd00bf5bfe69acc2aa59025"
+    },
+    {
+      "bytes": 9204,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-16/real_cortical.npz",
+      "sha256": "803179cc222ec683fe80d2d66975e3cd8dca57ca2b3d99914411b7102ddc410c"
+    },
+    {
+      "bytes": 9051,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-16/shape_matched_random.npz",
+      "sha256": "8a75481805d54457b897421ad272b327d5128aa0576bff37ae42288a1734d963"
+    },
+    {
+      "bytes": 9207,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-16/shuffled_cortical.npz",
+      "sha256": "0d51b251ac9bdd87fc001cb1b3e750b7b24d6419d3fff8699c43438cff7b4348"
+    },
+    {
+      "bytes": 9209,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-16/time_video_time_only.npz",
+      "sha256": "958bdbe25e356dc3705c54370ea9e736cbeaeb07fd8f6cbf08c47d3bcf79b333"
+    },
+    {
+      "bytes": 9039,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-16/train_only_video_mean.npz",
+      "sha256": "172aa6312c730b5b38ddc574a6e3e997a2897a4f545767c96d19c0704ecec414"
+    },
+    {
+      "bytes": 7259,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-8/diagnostics_only.npz",
+      "sha256": "49fa366df31e26d9072ac5490ba0e99a7f4917239c8890d94143cdb6d56b6ebb"
+    },
+    {
+      "bytes": 7249,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-8/label_permutation_cortical.npz",
+      "sha256": "6b19f7470153592f3754312eed251ce9202cf16798d0299ce363164a700c0d99"
+    },
+    {
+      "bytes": 7263,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-8/quality_motion_luma_only.npz",
+      "sha256": "f0e705b0db44520998ccb6f1805d1dd31ab211b8e81d83fe835690c5e559509e"
+    },
+    {
+      "bytes": 7243,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-8/real_cortical.npz",
+      "sha256": "70fbb0fcab382755d57b92eb4108d93acba7853b52d69bf5b1374a8344046f80"
+    },
+    {
+      "bytes": 7169,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-8/shape_matched_random.npz",
+      "sha256": "083099d9ca4399372a22d8a91b15a09035733d608d9e5c547386edf07bd06ab6"
+    },
+    {
+      "bytes": 7260,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-8/shuffled_cortical.npz",
+      "sha256": "8a7d6e7ea3dd146afcf37645f93625e3b80926037d07b6e38eaff5ee1be49929"
+    },
+    {
+      "bytes": 7266,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-8/time_video_time_only.npz",
+      "sha256": "ff5f474d4b15e88941dd7286e3c0887fe3ce612d8201969faf2dfdc4cc28a08e"
+    },
+    {
+      "bytes": 7259,
+      "path": "search-checkpoints/grouped_video-fold-04-seed-4201378280/relu-bottleneck-8/train_only_video_mean.npz",
+      "sha256": "e902c23ae9731b947ab44535e475a18ce340342c382e67b3f8d4fdcca2423533"
+    },
+    {
+      "bytes": 22382,
+      "path": "selected-checkpoint-manifest.json",
+      "sha256": "654f9992f9718e08da08d4e55d6a6244346932b177c676e128f136cdb5595ba2"
+    },
+    {
+      "bytes": 1347,
+      "path": "selected-recipe.json",
+      "sha256": "ed85a4edf2dafb8ac9e57c6b6dbe429c5543955c780a0d4c5f8733d116d773bf"
+    },
+    {
+      "bytes": 15918,
+      "path": "summary.json",
+      "sha256": "1a803ea9abb9b3ab1bcfbb2068066dd3ff31af52fff7a12a612f86365948c936"
+    },
+    {
+      "bytes": 6493,
+      "path": "veatic-derivation-ledger.json",
+      "sha256": "b0f908d9782c69c3efcc515db1a7f72c528bc667ed5b07ffda8599358e2cc6a9"
+    }
+  ],
+  "created_at": "2026-07-28T19:37:22.042879+00:00",
+  "root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-05-learned-bridge",
+  "schema": "veatic21_phase05_artifact_manifest_v1"
+}

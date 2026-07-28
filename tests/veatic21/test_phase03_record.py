@@ -64,5 +64,5 @@ def test_live_handoff_retains_phase03_hashes_after_phase04_progression() -> None
 
     assert all(value in current for value in provenance["external_hashes"].values())
     assert "## Concluded Phase 04 evidence" in current
-    assert "Authorized phase: Phase 05 learned frozen-AR bridge only" in current
+    assert "Authorized phase: Phase 05 VEATIC-only washout design only" in current
     assert "## Exact next action" in current
