@@ -195,9 +195,7 @@ def paired_video_bootstrap_pr_auc_delta(
     y_true = np.asarray(y_true, dtype=np.int8)
     primary_scores = np.asarray(primary_scores, dtype=np.float64)
     reference_scores = np.asarray(reference_scores, dtype=np.float64)
-    if not (
-        videos.shape == y_true.shape == primary_scores.shape == reference_scores.shape
-    ):
+    if not (videos.shape == y_true.shape == primary_scores.shape == reference_scores.shape):
         raise ValueError("paired bootstrap inputs must be aligned vectors")
     if resamples <= 0:
         raise ValueError("resamples must be positive")
@@ -251,9 +249,7 @@ def paired_video_bootstrap_raw_pr_auc_delta(
     y_true = np.asarray(y_true, dtype=np.int8)
     primary_scores = np.asarray(primary_scores, dtype=np.float64)
     reference_scores = np.asarray(reference_scores, dtype=np.float64)
-    if not (
-        videos.shape == y_true.shape == primary_scores.shape == reference_scores.shape
-    ):
+    if not (videos.shape == y_true.shape == primary_scores.shape == reference_scores.shape):
         raise ValueError("paired bootstrap inputs must be aligned vectors")
     if resamples <= 0:
         raise ValueError("resamples must be positive")
@@ -298,8 +294,6 @@ def per_video_pr_auc(
     for video in sorted(set(video_id.astype(str)), key=lambda value: int(value)):
         mask = video_id.astype(str) == video
         output[video] = (
-            pooled_pr_auc(y_true[mask], scores[mask])
-            if len(np.unique(y_true[mask])) == 2
-            else None
+            pooled_pr_auc(y_true[mask], scores[mask]) if len(np.unique(y_true[mask])) == 2 else None
         )
     return output

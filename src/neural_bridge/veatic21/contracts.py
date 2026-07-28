@@ -11,6 +11,7 @@ VJEPA_ROOT = ARTIFACT_ROOT / "features/veatic-2.1/vjepa-2.1/compact-20260716"
 LIFECYCLE_ROOT = ARTIFACT_ROOT / "runs/veatic-2.1/again-method-restart-20260723"
 PHASE00_ROOT = LIFECYCLE_ROOT / "phase-00-dense-foundation"
 PHASE01_ROOT = LIFECYCLE_ROOT / "phase-01-label-alignment"
+PHASE02_ROOT = LIFECYCLE_ROOT / "phase-02-ar-baseline"
 
 MASTER_SPECIFICATION = REPOSITORY_ROOT / (
     "internal/active/veatic21-master-scientific-specification.md"
@@ -53,6 +54,18 @@ WASHOUT_SUPPORT_VIDEO_FRACTION_FLOOR = 0.80
 WASHOUT_SUPPORT_MIN_EVENTS_PER_VIDEO = 1
 HISTOGRAM_MIN_BINS = 16
 HISTOGRAM_MAX_BINS = 128
+
+# Phase 02 model/split constants. Split seeds are derived from the sealed Phase 01 target
+# digest at runtime; no AGAIN seed, lag, regularization, or fitted value is inherited.
+OUTER_TEST_FRACTION = 0.30
+INNER_VALIDATION_FRACTION = 0.30
+GROUPED_OUTER_REPEATS = 5
+AR_REGULARIZATION_CANDIDATES = (0.0, 2.0**-16, 2.0**-12, 2.0**-8, 2.0**-4, 1.0)
+AR_OPTIMIZER_MAX_ITERATIONS = 1_000
+AR_FINAL_OPTIMIZER_MAX_ITERATIONS = 5_000
+AR_OPTIMIZER_TOLERANCE = 1e-6
+AR_OPTIMIZER_LEARNING_RATE = 0.05
+CLUSTER_BOOTSTRAP_RESAMPLES = 2_000
 
 TRIBE_TREE_SHA256 = "0d4adc27dd9d226de87d0cfc4df92de14cb7450de6671857e0665418ad26f6dd"
 TRIBE_TREE_FILES = 373

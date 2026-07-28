@@ -48,11 +48,12 @@ def test_phase01_compact_record_is_control_complete_and_hash_consistent() -> Non
         assert _sha256(RECORD / filename) == artifacts[filename]
 
 
-def test_live_handoff_records_phase01_hashes_and_only_authorizes_phase02() -> None:
+def test_live_handoff_retains_phase01_hashes_after_phase02_progression() -> None:
     current = CURRENT.read_text(encoding="utf-8")
     provenance = _load_json(RECORD / "provenance.json")
 
     assert all(value in current for value in provenance["external_hashes"].values())
-    assert "Authorized phase: Phase 02 fresh target-specific AR baseline only" in current
-    assert "Phase 03 cortical benchmarking" in current
+    assert "## Concluded Phase 02 evidence" in current
+    assert "Current Phase 01 execution: PASS" in current
+    assert "Authorized phase: Phase 03 raw cortical benchmark only" in current
     assert "## Exact next action" in current

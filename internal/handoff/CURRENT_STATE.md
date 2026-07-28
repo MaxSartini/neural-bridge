@@ -40,15 +40,17 @@ method. This file cannot silently override the master specification.
 - Master scientific specification: version 1.0.
 - Repository: `/Users/maxsartini/Neural Bridge`.
 - Branch: `main` only; do not create a branch.
-- Lifecycle boundary: Phases 00 and 01 concluded and sealed; pre-Phase-02.
+- Lifecycle boundary: Phases 00 through 02 concluded and sealed; pre-Phase-03.
 - Current Phase 00 implementation: complete.
 - Current Phase 00 execution: PASS, 27/27 mandatory controls.
 - Current Phase 01 implementation: complete.
 - Current Phase 01 execution: PASS, 20/20 mandatory controls.
+- Current Phase 02 implementation: complete.
+- Current Phase 02 execution: PASS, 24/24 mandatory controls.
 - Current promotable VEATIC result: none.
-- Authorized phase: Phase 02 fresh target-specific AR baseline only.
-- Phase 03 cortical benchmarking, PCA, learned bridge work, and all later phases remain
-  unauthorized until the Phase 02 gate passes.
+- Authorized phase: Phase 03 raw cortical benchmark only.
+- Phase 04 fold-owned PCA, washout activation, learned bridge work, and all later phases remain
+  unauthorized until the Phase 03 gate passes.
 
 ## Canonical live inputs
 
@@ -129,42 +131,92 @@ External root:
 - Focused VEATIC tests: 45 passed, 0 failed.
 - Compact record: `studies/veatic-2.1/phase-01-label-alignment`.
 
+## Concluded Phase 02 evidence
+
+External root:
+
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-02-ar-baseline`
+
+- Result SHA-256: `bf7bb7dd24432af1a6baa4f846a2f84dfcfb89c822bddfefe4ba70f30d9f6ed0`.
+- Artifact-manifest SHA-256:
+  `67263687318aa4f08f378320121e198bd4091a2c9546aa2c99958ec9789956cb`.
+- Checksums-file SHA-256:
+  `a2ce6be879d8380344209dce0ffe993f9059f8f8e55d04881e7e7b9e46113617`.
+- Prediction-manifest SHA-256:
+  `89c7c3c6444fc93e1a30e5274f93ee4d79eddbdee92802fc561b073ef47048dc`.
+- Model-manifest SHA-256:
+  `6be0059028ff1d910cbd2c7f3f3067087b7615f71aae96fd750089d11d84e32d`.
+- Split-manifest SHA-256:
+  `ade612dd40457918561fbbfdfa6786993df2198576d77612b05ca03b39ffeb8c`.
+- AR-dominance decomposition SHA-256:
+  `21e4e081094df6b4b2b2c3e206deae44f05d501c875e89e0a189d95cc1739595`.
+- Fold-metrics SHA-256:
+  `e67a9a09bd7fa78382a2652cc7127dd7f3a5bd90b64d32ca39a523cb3ef1ef72`.
+- Per-video-metrics SHA-256:
+  `6ba7879342064806c4ce01a7cfd4f2b84a0ef7d0c643b12c87abbc4a570de89b`.
+- Hyperparameter-search SHA-256:
+  `2f28f96b3540032845e16476ecdd557b197d5890eb1c357874a59d75c3b7a8ae`.
+- VEATIC code SHA-256: `48ea2c2ec687d777098882bd3f00721e715743314d080b0ab1a18fe4a8c291ef`.
+- Target: sealed continuous future maximum increase over `t+1..t+6`; q90 was fitted
+  separately inside every applicable training partition.
+- Common causal-history mask: 19,169 rows across 124 videos.
+- Fresh VEATIC-derived AR lag candidates: `0/1/2/4/6` rows; all lag and ridge choices were
+  selected by nested inner-validation raw PR-AUC.
+- Protocols: five digest-derived grouped-video 70/30 cells and one per-video forward
+  blocked-temporal 70/30 cell, reported separately.
+- Grouped held-out AR PR-AUC: median `0.315086`, range `0.278621–0.383829`.
+- Blocked held-out AR PR-AUC: `0.276250`.
+- AR exceeded analytic chance and the training-owned strongest simple causal-history control
+  in every cell; paired whole-video bootstrap intervals and per-video defined/undefined
+  metrics are sealed in the decomposition and metrics artifacts.
+- Exact outer-test rows and AR/current/slope/chance predictions are frozen in six checksummed
+  target/protocol/fold/seed bundles for matched downstream lanes.
+- Prospective washout activated/selected: false/false. Target/history overlap: zero rows;
+  control-complete development evidence remains required before any redesign.
+- Training runtime: MLX on `gpu:0`, exactly one worker, no artificial memory cap.
+- Hidden state loaded/hashed: false/false. Cortical values loaded: false. PCA/bridge work: none.
+- Focused VEATIC tests: 55 passed, 0 failed.
+- Compact record: `studies/veatic-2.1/phase-02-ar-baseline`.
+
 ## Active execution contract
 
-Implement Phase 02 exactly from:
+Implement Phase 03 exactly from:
 
-- `veatic21-master-scientific-specification.md` → **Phase 02 through zero-label execution
-  sequence**, the Phase 02 method-transfer evidence, ownership rules, and metric contract;
-- `veatic21-rebuild-protocol.md` → **Phase 02 — target-specific fresh AR floor**.
+- `veatic21-master-scientific-specification.md` → **AGAIN Phase 03 — raw cortical benchmark**,
+  **Control matrix required from the first applicable cell**, the ownership rules, metric
+  contract, and **Phase 02 through zero-label execution sequence**;
+- `veatic21-rebuild-protocol.md` → **Phase 03 — raw cortical benchmark**.
 
-Use the sealed Phase 01 continuous target `t+1..t+6` and validity mask. Build fresh
-target-specific AR baselines under separate grouped-video and blocked-temporal 70/30 outer
-protocols. Fit event q90 only from each outer-training partition's continuous target values.
-Select every AR lag/regularization choice by inner validation owned by the corresponding
-outer-training partition; no held-out row may influence a fitted choice.
+Use the sealed Phase 02 target/protocol/fold/seed rows, splits, q90 ownership, and exact frozen
+AR predictions. Benchmark the final TRIBE `cortical_prediction` first as raw cortical-only and
+AR-plus-raw lanes under the separately reported grouped-video and blocked-temporal protocols.
+Every applicable real and control lane must use identical matched rows, target, split, fold,
+seed, AR floor, training ownership, capacity, selection policy, and metric rows. Only the
+declared controlled factor may change.
 
-Report grouped and blocked protocols separately using the spike metric contract. Freeze exact
-target/protocol/fold/seed AR predictions and checksums for later matched lanes. Do not read or
-load cortical values, fit PCA, benchmark a cortical representation, activate a washout, or
-begin learned bridge work. AGAIN AR lags, regularization, splits, seeds, predictions, fitted
-objects, numeric results, and code remain forbidden by inheritance.
+Fit normalization and every learned raw-cortical choice only on the corresponding
+outer-training ownership and select it only through nested development evidence. Report the
+complete spike metric stack, exact frozen-AR deltas, strongest-control deltas, fold/video
+consistency, and paired whole-video uncertainty. Do not fit PCA, select a representation
+width, activate a washout, begin learned bridge work, or execute Phase 04. AGAIN code,
+runners, data, numeric choices, fitted artifacts, and predictions remain forbidden.
 
-All AR training is learned training and therefore uses MLX with exactly one GPU worker and no
-artificial memory cap. CPU remains limited to parsing, deterministic audits, orchestration,
-metrics, hashing, and report generation.
+All learned training uses MLX with exactly one GPU worker and no artificial memory cap. CPU
+remains limited to parsing, deterministic audits, orchestration, metrics, hashing, and report
+generation.
 
 ## Progression and handoff rule
 
-When Phase 02 completes:
+When Phase 03 completes:
 
-1. inspect every compact and external Phase 02 output;
+1. inspect every compact and external Phase 03 output;
 2. run all focused VEATIC and authority-contract tests;
 3. create the compact defensible study record under
-   `studies/veatic-2.1/phase-02-ar-baseline`;
+   `studies/veatic-2.1/phase-03-raw-cortical`;
 4. replace this file with the new live state while retaining **Mandatory authority anchors**;
 5. record exact code/input/output hashes and the single newly authorized action;
 6. commit and push the coherent transition directly to `origin/main`;
-7. begin Phase 03 only after the Phase 02 gate passes and the transition is on remote
+7. begin Phase 04 only after the Phase 03 gate passes and the transition is on remote
    `main`.
 
 Do not rewrite the master specification merely because progress changed. Amend it only for an
@@ -172,6 +224,8 @@ explicitly authorized durable method change.
 
 ## Exact next action
 
-Implement, test, execute, and review the Phase 02 fresh target-specific AR floor under
-separate grouped-video and blocked-temporal protocols. Do not load cortical values, fit PCA,
-activate a washout, or begin Phase 03 or learned bridge work until the Phase 02 gate passes.
+Implement, test, execute, and review the Phase 03 raw cortical benchmark on the exact sealed
+Phase 02 rows and frozen AR predictions under separate grouped-video and blocked-temporal
+protocols with the complete applicable control matrix. Do not fit PCA, select a representation
+width, activate a washout, or begin Phase 04 or learned bridge work until the Phase 03 gate
+passes.

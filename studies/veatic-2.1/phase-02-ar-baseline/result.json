@@ -1,0 +1,80 @@
+{
+  "blocked_ar_pr_auc": 0.2762498960631371,
+  "checks": {
+    "again_runtime_firewall": true,
+    "ar_dominance_and_overlap_decomposition": true,
+    "blocked_forward_time_outer_70_30": true,
+    "common_causal_history_row_mask": true,
+    "complete_spike_metric_stack": true,
+    "cortical_values_not_loaded": true,
+    "defined_only_per_video_pr_auc": true,
+    "exact_ar_predictions_frozen": true,
+    "fold_owned_normalization": true,
+    "fold_owned_q90_thresholds": true,
+    "grouped_video_outer_70_30": true,
+    "inner_selected_lag_and_regularization": true,
+    "mlx_gpu_zero_single_worker": true,
+    "nested_inner_partition_ownership": true,
+    "paired_video_cluster_bootstrap": true,
+    "pca_and_later_model_work_not_started": true,
+    "phase03_only_authorization": true,
+    "prediction_and_model_checksums": true,
+    "prospective_washout_inactive": true,
+    "sealed_phase01_gate_and_input_identity": true,
+    "selected_continuous_target_and_mask_only": true,
+    "separate_grouped_and_blocked_protocols": true,
+    "training_owned_decision_thresholds": true,
+    "veatic_derived_lag_family": true
+  },
+  "code_sha256": "48ea2c2ec687d777098882bd3f00721e715743314d080b0ab1a18fe4a8c291ef",
+  "completed_at": "2026-07-28T17:51:24.635682+00:00",
+  "dominance_decomposition_sha256": "21e4e081094df6b4b2b2c3e206deae44f05d501c875e89e0a189d95cc1739595",
+  "eligible_rows": 19169,
+  "grouped_ar_pr_auc_median": 0.3150861203253713,
+  "input_hashes": {
+    "phase01_result_sha256": "31e6933c4d7a2b6ed077d9ae57b4e667c7957286aa0c4c97ff07c56801fb5539",
+    "phase01_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-01-label-alignment",
+    "substrate_arrays_sha256": "ce4acca4b2b72320bf224ac057342be34f27c4ea713f2a7f5eed97d3f0125088",
+    "substrate_file_sha256": "50dfa45bb3a063e88e9334c8cc9e57a9b2353a809d00298ce4d137cc3d8159af",
+    "target_source_sha256": "ad8b167dff44ae6a0c1c78ef3e501cc622e6320be9a912d879c3d9fc99863a4f"
+  },
+  "lag_depth_candidates": [
+    0,
+    1,
+    2,
+    4,
+    6
+  ],
+  "model_manifest_sha256": "6be0059028ff1d910cbd2c7f3f3067087b7615f71aae96fd750089d11d84e32d",
+  "operations": {
+    "again_runtime_dependency": false,
+    "ar_fit": true,
+    "cortical_target_performance_read": false,
+    "cortical_values_loaded": false,
+    "learned_bridge": false,
+    "mlx_device": "gpu:0",
+    "pca": false,
+    "washout_activated": false,
+    "worker_processes": 1
+  },
+  "phase": "phase-02-ar-baseline",
+  "phase03_authorized": true,
+  "prediction_manifest_sha256": "89c7c3c6444fc93e1a30e5274f93ee4d79eddbdee92802fc561b073ef47048dc",
+  "protocol_cells": {
+    "blocked_temporal": 1,
+    "grouped_video": 5
+  },
+  "row_hz": 2.0,
+  "schema": "veatic21_phase02_result_v1",
+  "single_next_authorized_action": "Phase 03 raw cortical benchmark under exact matched grouped-video and blocked-temporal Phase 02 rows and frozen AR predictions",
+  "source_rows": 20657,
+  "split_manifest_sha256": "ade612dd40457918561fbbfdfa6786993df2198576d77612b05ca03b39ffeb8c",
+  "started_at": "2026-07-28T17:49:48.164568+00:00",
+  "status": "pass",
+  "target_future_rows": [
+    1,
+    6
+  ],
+  "videos": 124,
+  "washout_activated": false
+}

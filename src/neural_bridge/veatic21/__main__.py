@@ -7,16 +7,19 @@ import json
 
 from neural_bridge.veatic21.phase00 import run_phase00
 from neural_bridge.veatic21.phase01 import run_phase01
+from neural_bridge.veatic21.phase02 import run_phase02
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("phase00", "phase01"))
+    parser.add_argument("action", choices=("phase00", "phase01", "phase02"))
     args = parser.parse_args()
     if args.action == "phase00":
         print(json.dumps(run_phase00(), indent=2, sort_keys=True))
     elif args.action == "phase01":
         print(json.dumps(run_phase01(), indent=2, sort_keys=True))
+    elif args.action == "phase02":
+        print(json.dumps(run_phase02(), indent=2, sort_keys=True))
 
 
 if __name__ == "__main__":
