@@ -48,6 +48,7 @@ method. This file cannot silently override the master specification.
 - Phase 01 execution and independent verification: PASS, 28/28 mandatory controls.
 - Phase 02 registration implementation/execution/verification: PASS; no model or outer score
   opened.
+- Phase 02 Stage A implementation: complete and tested; execution not started.
 - Executed modeling phases: none.
 - Registered target substrate: 231 continuous future-maximum-increase candidates; all 21
   no-washout candidates active for Phase 02, 210 washout candidates prospective only, no
@@ -212,6 +213,26 @@ External root:
 - Repository freeze:
   `internal/active/veatic21-phase02-registration/experiment-registration.json`.
 
+## Phase 02 Stage A execution identity
+
+- Runner: `src/neural_bridge/veatic21/phase02_stage_a.py`.
+- Stage A source SHA-256:
+  `f77129c40b71af0f50a2e2b147f4ec20078a50a1cbab2e645f63b06001f326c9`.
+- Backend: one MLX GPU worker; no CPU learned-model fallback.
+- Complete work-unit count: 40,824.
+- Complete target/regularizer inner-evaluation record count: 8,573,040.
+- Per-unit scope: one protocol/outer/inner/feature-depth/model cell, all 21 active targets,
+  and all 10 registered training-scaled regularization multipliers.
+- Registered Stage A families: continuous ridge and event logistic-L2 across all 21 history
+  depths and all six feature forms.
+- Causal cold-start handling: earliest/current-level padding plus explicit availability masks;
+  no target-valid row silently removed for unavailable past.
+- Artifact root:
+  `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/stage-a-linear-screen`.
+- Resumption contract: request, work-unit registry, code/registration identity, unit JSON,
+  append-only ledger, and run state must agree; a source or registration mismatch fails.
+- Outer test scores and cortical values remain unopened.
+
 ## Active execution contract
 
 Read these rebuild-protocol sections for the one authorized action:
@@ -278,3 +299,7 @@ over all 21 active no-washout candidates under the registered grouped-video and
 blocked-forward protocols. Maintain the append-only ledger and do not conclude Phase 02 until
 the search-sufficiency gate passes. Do not score cortical values, fit PCA or a learned head,
 or open any of the 210 prospective washout candidates.
+
+Begin by running/resuming `python -m neural_bridge.veatic21 phase02-stage-a`. Do not aggregate,
+prune, or advance to Stage B until every Stage A work unit is complete and its ledger passes
+the independent completeness/convergence audit.
