@@ -77,7 +77,7 @@ def test_phase02_registration_repo_freeze_matches_external() -> None:
     assert provenance["checksums_sha256"] == CHECKSUMS_SHA256
 
 
-def test_current_state_authorizes_only_frozen_phase02_execution() -> None:
+def test_current_state_authorizes_only_phase02_executor_backtesting() -> None:
     current = CURRENT.read_text(encoding="utf-8")
     for digest in (
         REGISTRATION_SHA256,
@@ -87,6 +87,7 @@ def test_current_state_authorizes_only_frozen_phase02_execution() -> None:
     ):
         assert digest in current
     assert "Frozen Phase 02 registration evidence" in current
-    assert "execute the frozen Phase 02 comprehensive target-specific AR benchmark" in current
+    assert "Authorized action: implement and backtest a hardware-saturating executor" in current
+    assert "The main replacement run remains unauthorized" in current
     assert "Do not add, remove, or tune a target, split, history family" in current
-    assert "Do not score cortical values" in current
+    assert "outer outcomes or cortical values" in current

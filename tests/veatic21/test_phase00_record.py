@@ -81,5 +81,5 @@ def test_current_state_retains_phase00_while_authorizing_only_phase02() -> None:
     assert ARTIFACT_MANIFEST_SHA256 in current
     assert CHECKSUMS_SHA256 in current
     assert "Phase 00 execution: PASS, 27/27 mandatory controls" in current
-    assert "Authorized action: execute the frozen Phase 02 comprehensive" in current
+    assert "Authorized action: implement and backtest a hardware-saturating executor" in current
     assert "Cortical benchmark, PCA, head search" in current

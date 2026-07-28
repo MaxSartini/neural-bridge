@@ -8,6 +8,7 @@ import json
 import math
 import os
 import time
+from concurrent.futures import Executor
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import cast
@@ -31,7 +32,11 @@ from neural_bridge.veatic21.phase02_features import (
     feature_names,
     standardize_from_owner,
 )
-from neural_bridge.veatic21.phase02_metrics import binary_ranking_metrics, probability_metrics
+from neural_bridge.veatic21.phase02_metrics import (
+    binary_ranking_and_probability_metrics_fast,
+    binary_ranking_metrics,
+    probability_metrics,
+)
 from neural_bridge.veatic21.phase02_registration import (
     _blocked_row_masks,
     verify_phase02_registration,
@@ -85,6 +90,20 @@ class StageAInputs:
     blocked_splits: tuple[dict[str, object], ...]
 
 
+@dataclass(frozen=True)
+class StageAPrepared:
+    train_masks: np.ndarray
+    validation_masks: np.ndarray
+    split_digest: str
+    raw_features: np.ndarray
+    mean: np.ndarray
+    std: np.ndarray
+    x: np.ndarray
+    thresholds: np.ndarray
+    labels: np.ndarray
+    preparation_seconds: float
+
+
 def _stage_a_code_identity() -> str:
     digest = hashlib.sha256()
     package = REPOSITORY_ROOT / "src/neural_bridge/veatic21"
@@ -114,8 +133,15 @@ def enumerate_stage_a_work_units(
     units: list[StageAWorkUnit] = []
 
     def add(
-        *, protocol: str, split_index: int, repeat: int | None, outer_fold: int,
-        inner_fold: int, form: str, depth: int, family: str
+        *,
+        protocol: str,
+        split_index: int,
+        repeat: int | None,
+        outer_fold: int,
+        inner_fold: int,
+        form: str,
+        depth: int,
+        family: str,
     ) -> None:
         sequence = len(units)
         repeat_code = "na" if repeat is None else f"{repeat:02d}"
@@ -180,9 +206,7 @@ def _load_inputs() -> StageAInputs:
     with np.load(PHASE01_ROOT / "target-substrate.npz", allow_pickle=False) as payload:
         starts = payload["candidate_start_rows"].astype(int)
         indices = np.flatnonzero(starts == 1)
-        active_values = payload["continuous_future_maximum_increase"][indices].astype(
-            np.float32
-        )
+        active_values = payload["continuous_future_maximum_increase"][indices].astype(np.float32)
         active_masks = payload["valid_mask"][indices].astype(bool)
         target_ends = tuple(int(value) for value in payload["candidate_end_rows"][indices])
     registration = load_json(PHASE02_REGISTRATION_ROOT / "experiment-registration.json")
@@ -190,9 +214,7 @@ def _load_inputs() -> StageAInputs:
     candidate_ids = tuple(cast(list[str], registration["targets"]))
     if candidate_ids != tuple(f"s01_e{end:02d}" for end in range(1, 22)):
         raise ValueError("Stage A target registry mismatch")
-    history = build_causal_history(
-        arousal, video_id, row_index, max_depth=max(target_ends)
-    )
+    history = build_causal_history(arousal, video_id, row_index, max_depth=max(target_ends))
     return StageAInputs(
         arousal=arousal,
         video_id=video_id,
@@ -252,9 +274,7 @@ def _split_masks(
             block_count,
         )
         train_masks[:, target] = masks["inner_train"] & inputs.active_masks[target]
-        validation_masks[:, target] = (
-            masks["inner_validation"] & inputs.active_masks[target]
-        )
+        validation_masks[:, target] = masks["inner_validation"] & inputs.active_masks[target]
     train_owner = np.zeros(len(inputs.video_id), dtype=bool)
     for video, count in row_counts.items():
         owned = inputs.video_id == video
@@ -310,11 +330,40 @@ def _masked_operator(
     return gram + weights * penalties[None, :, None] * regularization[:, None, :]
 
 
+def _ridge_update_block(
+    x: mx.array,
+    masks: mx.array,
+    counts: mx.array,
+    penalties: mx.array,
+    regularization: mx.array,
+    weights: mx.array,
+    residual: mx.array,
+    direction: mx.array,
+    residual_square: mx.array,
+) -> tuple[mx.array, mx.array, mx.array, mx.array]:
+    for _ in range(8):
+        applied = _masked_operator(x, masks, counts, penalties, regularization, direction)
+        denominator = mx.sum(direction * applied, axis=1)
+        step = residual_square / mx.maximum(denominator, np.finfo(np.float32).eps)
+        weights = weights + step[:, None, :] * direction
+        residual = residual - step[:, None, :] * applied
+        next_square = mx.sum(residual * residual, axis=1)
+        beta = next_square / mx.maximum(residual_square, np.finfo(np.float32).eps)
+        direction = residual + beta[:, None, :] * direction
+        residual_square = next_square
+    return weights, residual, direction, residual_square
+
+
+_compiled_ridge_update_block = mx.compile(_ridge_update_block)
+
+
 def _ridge_screen(
     x: np.ndarray,
     values: np.ndarray,
     train_masks: np.ndarray,
     validation_masks: np.ndarray,
+    *,
+    compiled_update_blocks: bool = False,
 ) -> tuple[np.ndarray, dict[str, object]]:
     y = values.T.astype(np.float32)
     y[~train_masks] = 0.0
@@ -345,23 +394,23 @@ def _ridge_screen(
     tolerance = 1 / np.sqrt(counts_np)
     iterations = 0
     relative_np = np.full(residual_square.shape, np.inf, dtype=np.float32)
-    for iteration in range(budget):
-        applied = _masked_operator(
-            x_mx, masks_mx, counts_mx, penalties_mx, regularization_mx, direction
+    update_block = _compiled_ridge_update_block if compiled_update_blocks else _ridge_update_block
+    for _ in range(0, budget, 8):
+        weights, residual, direction, residual_square = update_block(
+            x_mx,
+            masks_mx,
+            counts_mx,
+            penalties_mx,
+            regularization_mx,
+            weights,
+            residual,
+            direction,
+            residual_square,
         )
-        denominator = mx.sum(direction * applied, axis=1)
-        step = residual_square / mx.maximum(denominator, np.finfo(np.float32).eps)
-        weights = weights + step[:, None, :] * direction
-        residual = residual - step[:, None, :] * applied
-        next_square = mx.sum(residual * residual, axis=1)
-        beta = next_square / mx.maximum(residual_square, np.finfo(np.float32).eps)
-        direction = residual + beta[:, None, :] * direction
-        residual_square = next_square
-        iterations = iteration + 1
-        if iterations % 8 == 0 or iterations == budget:
-            relative_np = np.asarray(mx.sqrt(residual_square) / right_norm)
-            if np.all(relative_np <= tolerance[None, :]):
-                break
+        iterations += 8
+        relative_np = np.asarray(mx.sqrt(residual_square) / right_norm)
+        if np.all(relative_np <= tolerance[None, :]):
+            break
     weight_np = np.asarray(weights)
     predictions = np.einsum("np,apt->nat", x, weight_np, optimize=True)
     predictions[:, :, :][~validation_masks[:, None, :].repeat(len(weight_np), axis=1)] = np.nan
@@ -376,6 +425,7 @@ def _ridge_screen(
         "converged_mask": (relative_np <= tolerance[None, :]).tolist(),
         "relative_residual_by_cell": relative_np.tolist(),
         "regularization_scales": scales.tolist(),
+        "compiled_update_blocks": compiled_update_blocks,
     }
 
 
@@ -383,11 +433,36 @@ def _logistic_loss_summary(
     x: mx.array, labels: mx.array, masks: mx.array, counts: mx.array, weights: mx.array
 ) -> float:
     logits = mx.einsum("np,apt->nat", x, weights)
-    loss = mx.maximum(logits, 0) - logits * labels[:, None, :] + mx.log1p(
-        mx.exp(-mx.abs(logits))
-    )
+    loss = mx.maximum(logits, 0) - logits * labels[:, None, :] + mx.log1p(mx.exp(-mx.abs(logits)))
     per_cell = mx.sum(loss * masks[:, None, :], axis=0) / counts[None, :]
     return float(np.asarray(mx.mean(per_cell)))
+
+
+def _logistic_update_block(
+    x: mx.array,
+    labels: mx.array,
+    masks: mx.array,
+    counts: mx.array,
+    regularization: mx.array,
+    penalties: mx.array,
+    step: mx.array,
+    coefficients: mx.array,
+    weights: mx.array,
+    accelerated: mx.array,
+) -> tuple[mx.array, mx.array, mx.array]:
+    gradient = mx.zeros_like(weights)
+    for index in range(8):
+        logits = mx.einsum("np,apt->nat", x, accelerated)
+        error = (mx.sigmoid(logits) - labels[:, None, :]) * masks[:, None, :]
+        gradient = mx.einsum("np,nat->apt", x, error) / counts[None, None, :]
+        gradient = gradient + (accelerated * penalties[None, :, None] * regularization[:, None, :])
+        next_weights = accelerated - step[:, None, :] * gradient
+        accelerated = next_weights + coefficients[index] * (next_weights - weights)
+        weights = next_weights
+    return weights, accelerated, gradient
+
+
+_compiled_logistic_update_block = mx.compile(_logistic_update_block)
 
 
 def _logistic_screen(
@@ -395,6 +470,8 @@ def _logistic_screen(
     labels: np.ndarray,
     train_masks: np.ndarray,
     validation_masks: np.ndarray,
+    *,
+    compiled_update_blocks: bool = False,
 ) -> tuple[np.ndarray, dict[str, object]]:
     counts_np = train_masks.sum(axis=0).astype(np.float32)
     scales = _regularization_scales(x, train_masks)
@@ -418,7 +495,6 @@ def _logistic_screen(
     shape = (len(REGULARIZATION_MULTIPLIERS), x.shape[1], labels.shape[1])
     weights = mx.zeros(shape, dtype=mx.float32)
     accelerated = weights
-    momentum_state = 1.0
     base_budget = _next_power_of_two(math.sqrt(float(np.min(counts_np))))
     maximum_budget = base_budget * 4
     tolerance = 1 / np.sqrt(counts_np)
@@ -426,24 +502,28 @@ def _logistic_screen(
     gradient_relative_np = np.full(
         (len(REGULARIZATION_MULTIPLIERS), labels.shape[1]), np.inf, dtype=np.float32
     )
-    for iteration in range(maximum_budget):
-        logits = mx.einsum("np,apt->nat", x_mx, accelerated)
-        error = (mx.sigmoid(logits) - labels_mx[:, None, :]) * masks_mx[:, None, :]
-        gradient = mx.einsum("np,nat->apt", x_mx, error) / counts_mx[None, None, :]
-        gradient = gradient + (
-            accelerated
-            * penalties_mx[None, :, None]
-            * regularization_mx[:, None, :]
-        )
-        next_weights = accelerated - step_mx[:, None, :] * gradient
-        next_momentum = (1 + math.sqrt(1 + 4 * momentum_state**2)) / 2
-        accelerated = next_weights + ((momentum_state - 1) / next_momentum) * (
-            next_weights - weights
-        )
-        weights = next_weights
-        momentum_state = next_momentum
-        completed = iteration + 1
-        if completed % 8 == 0 or completed == maximum_budget:
+    if compiled_update_blocks:
+        momentum_state = 1.0
+        coefficients: list[float] = []
+        for _ in range(maximum_budget):
+            next_momentum = (1 + math.sqrt(1 + 4 * momentum_state**2)) / 2
+            coefficients.append((momentum_state - 1) / next_momentum)
+            momentum_state = next_momentum
+        coefficient_mx = mx.array(np.asarray(coefficients, dtype=np.float32))
+        for block_start in range(0, maximum_budget, 8):
+            weights, accelerated, gradient = _compiled_logistic_update_block(
+                x_mx,
+                labels_mx,
+                masks_mx,
+                counts_mx,
+                regularization_mx,
+                penalties_mx,
+                step_mx,
+                coefficient_mx[block_start : block_start + 8],
+                weights,
+                accelerated,
+            )
+            completed = block_start + 8
             gradient_norm = mx.sqrt(mx.sum(gradient * gradient, axis=1))
             weight_norm = mx.sqrt(mx.sum(weights * weights, axis=1)) + 1.0
             gradient_relative_np = np.asarray(gradient_norm / weight_norm)
@@ -456,10 +536,40 @@ def _logistic_screen(
                     "max_relative_gradient": float(np.max(gradient_relative_np)),
                 }
             )
-            if completed >= base_budget and np.all(
-                gradient_relative_np <= tolerance[None, :]
-            ):
+            if completed >= base_budget and np.all(gradient_relative_np <= tolerance[None, :]):
                 break
+    else:
+        momentum_state = 1.0
+        for iteration in range(maximum_budget):
+            logits = mx.einsum("np,apt->nat", x_mx, accelerated)
+            error = (mx.sigmoid(logits) - labels_mx[:, None, :]) * masks_mx[:, None, :]
+            gradient = mx.einsum("np,nat->apt", x_mx, error) / counts_mx[None, None, :]
+            gradient = gradient + (
+                accelerated * penalties_mx[None, :, None] * regularization_mx[:, None, :]
+            )
+            next_weights = accelerated - step_mx[:, None, :] * gradient
+            next_momentum = (1 + math.sqrt(1 + 4 * momentum_state**2)) / 2
+            accelerated = next_weights + ((momentum_state - 1) / next_momentum) * (
+                next_weights - weights
+            )
+            weights = next_weights
+            momentum_state = next_momentum
+            completed = iteration + 1
+            if completed % 8 == 0 or completed == maximum_budget:
+                gradient_norm = mx.sqrt(mx.sum(gradient * gradient, axis=1))
+                weight_norm = mx.sqrt(mx.sum(weights * weights, axis=1)) + 1.0
+                gradient_relative_np = np.asarray(gradient_norm / weight_norm)
+                learning_curve.append(
+                    {
+                        "update": completed,
+                        "mean_log_loss": _logistic_loss_summary(
+                            x_mx, labels_mx, masks_mx, counts_mx, weights
+                        ),
+                        "max_relative_gradient": float(np.max(gradient_relative_np)),
+                    }
+                )
+                if completed >= base_budget and np.all(gradient_relative_np <= tolerance[None, :]):
+                    break
     logits = np.einsum("np,apt->nat", x, np.asarray(weights), optimize=True)
     probabilities = 1 / (1 + np.exp(-np.clip(logits, -30, 30)))
     probabilities[~validation_masks[:, None, :].repeat(len(probabilities[0]), axis=1)] = np.nan
@@ -477,6 +587,7 @@ def _logistic_screen(
         "relative_gradient_by_cell": gradient_relative_np.tolist(),
         "regularization_scales": scales.tolist(),
         "learning_curve": learning_curve,
+        "compiled_update_blocks": compiled_update_blocks,
     }
 
 
@@ -489,100 +600,191 @@ def _records_from_predictions(
     validation_masks: np.ndarray,
     predictions: np.ndarray,
     solver: dict[str, object],
+    *,
+    metric_executor: Executor | None = None,
+    fast_metrics: bool = False,
 ) -> list[dict[str, object]]:
-    records: list[dict[str, object]] = []
     scales = cast(list[float], solver["regularization_scales"])
     convergence = cast(list[list[bool]], solver["converged_mask"])
-    for alpha_index, multiplier in enumerate(REGULARIZATION_MULTIPLIERS):
-        for target, candidate_id in enumerate(candidate_ids):
-            owned = validation_masks[:, target]
-            score = predictions[owned, alpha_index, target]
-            target_labels = labels[owned, target]
-            metrics = binary_ranking_metrics(target_labels, score)
-            probability = (
-                probability_metrics(target_labels, score)
-                if unit.model_family == "event_logistic_l2"
-                else {"brier": None}
+
+    def build_record(indices: tuple[int, int]) -> dict[str, object]:
+        alpha_index, target = indices
+        multiplier = REGULARIZATION_MULTIPLIERS[alpha_index]
+        candidate_id = candidate_ids[target]
+        owned = validation_masks[:, target]
+        score = predictions[owned, alpha_index, target]
+        target_labels = labels[owned, target]
+        if fast_metrics:
+            metrics = binary_ranking_and_probability_metrics_fast(
+                target_labels,
+                score,
+                probability=unit.model_family == "event_logistic_l2",
             )
-            configuration_id = (
-                f"{unit.unit_id}__{candidate_id}__reg{alpha_index:02d}"
-            )
-            converged = convergence[alpha_index][target]
-            records.append(
-                {
-                    "configuration_id": configuration_id,
-                    "status": "completed" if converged else "undertrained",
-                    "disposition": (
-                        "eligible_for_inner_aggregation"
-                        if converged
-                        else "protected_from_pruning_requires_16x_budget"
-                    ),
-                    "converged": converged,
-                    "model_family": unit.model_family,
-                    "candidate_id": candidate_id,
-                    "feature_form": unit.feature_form,
-                    "history_depth_rows": unit.history_depth,
-                    "history_depth_seconds": unit.history_depth / 2,
-                    "regularization_multiplier": float(multiplier),
-                    "regularization_scale": scales[target],
-                    "regularization_value": float(multiplier * scales[target]),
-                    "train_threshold_q90": float(thresholds[target]),
-                    "train_rows": int(train_masks[:, target].sum()),
-                    "validation_rows": int(owned.sum()),
-                    **metrics,
-                    **probability,
-                }
-            )
-    return records
+        else:
+            metrics = {
+                **binary_ranking_metrics(target_labels, score),
+                **(
+                    probability_metrics(target_labels, score)
+                    if unit.model_family == "event_logistic_l2"
+                    else {"brier": None}
+                ),
+            }
+        configuration_id = f"{unit.unit_id}__{candidate_id}__reg{alpha_index:02d}"
+        converged = convergence[alpha_index][target]
+        return {
+            "configuration_id": configuration_id,
+            "status": "completed" if converged else "undertrained",
+            "disposition": (
+                "eligible_for_inner_aggregation"
+                if converged
+                else "protected_from_pruning_requires_16x_budget"
+            ),
+            "converged": converged,
+            "model_family": unit.model_family,
+            "candidate_id": candidate_id,
+            "feature_form": unit.feature_form,
+            "history_depth_rows": unit.history_depth,
+            "history_depth_seconds": unit.history_depth / 2,
+            "regularization_multiplier": float(multiplier),
+            "regularization_scale": scales[target],
+            "regularization_value": float(multiplier * scales[target]),
+            "train_threshold_q90": float(thresholds[target]),
+            "train_rows": int(train_masks[:, target].sum()),
+            "validation_rows": int(owned.sum()),
+            **metrics,
+        }
+
+    indices = [
+        (alpha_index, target)
+        for alpha_index in range(len(REGULARIZATION_MULTIPLIERS))
+        for target in range(len(candidate_ids))
+    ]
+    if metric_executor is None:
+        return [build_record(index) for index in indices]
+    return list(metric_executor.map(build_record, indices))
 
 
-def execute_stage_a_unit(inputs: StageAInputs, unit: StageAWorkUnit) -> dict[str, object]:
+def prepare_stage_a_unit(inputs: StageAInputs, unit: StageAWorkUnit) -> StageAPrepared:
+    """Prepare the model-family-independent part of a Stage A work unit."""
+
     started = time.monotonic()
     train_owner, train_masks, validation_masks, split_digest = _split_masks(inputs, unit)
-    raw_features = build_feature_matrix(
-        inputs.history, unit.feature_form, unit.history_depth
-    )
+    raw_features = build_feature_matrix(inputs.history, unit.feature_form, unit.history_depth)
     standardized, mean, std = standardize_from_owner(raw_features, train_owner)
     x = np.column_stack([standardized, np.ones(len(standardized), dtype=np.float32)])
     thresholds, labels = _thresholds_and_labels(inputs.active_values, train_masks)
+    return StageAPrepared(
+        train_masks=train_masks,
+        validation_masks=validation_masks,
+        split_digest=split_digest,
+        raw_features=raw_features,
+        mean=mean,
+        std=std,
+        x=x,
+        thresholds=thresholds,
+        labels=labels,
+        preparation_seconds=time.monotonic() - started,
+    )
+
+
+def solve_stage_a_prepared(
+    inputs: StageAInputs,
+    unit: StageAWorkUnit,
+    prepared: StageAPrepared,
+    *,
+    compiled_update_blocks: bool = False,
+) -> tuple[np.ndarray, dict[str, object], float]:
+    """Run the registered MLX solver for a prepared Stage A unit."""
+
+    started = time.monotonic()
     if unit.model_family == "continuous_ridge":
         predictions, solver = _ridge_screen(
-            x, inputs.active_values, train_masks, validation_masks
+            prepared.x,
+            inputs.active_values,
+            prepared.train_masks,
+            prepared.validation_masks,
+            compiled_update_blocks=compiled_update_blocks,
         )
     elif unit.model_family == "event_logistic_l2":
-        predictions, solver = _logistic_screen(x, labels, train_masks, validation_masks)
+        predictions, solver = _logistic_screen(
+            prepared.x,
+            prepared.labels,
+            prepared.train_masks,
+            prepared.validation_masks,
+            compiled_update_blocks=compiled_update_blocks,
+        )
     else:
         raise ValueError(f"unsupported Stage A family: {unit.model_family}")
+    return predictions, solver, time.monotonic() - started
+
+
+def finalize_stage_a_unit(
+    inputs: StageAInputs,
+    unit: StageAWorkUnit,
+    prepared: StageAPrepared,
+    predictions: np.ndarray,
+    solver: dict[str, object],
+    *,
+    solve_seconds: float,
+    metric_executor: Executor | None = None,
+    fast_metrics: bool = False,
+    execution_provenance: dict[str, object] | None = None,
+) -> dict[str, object]:
+    """Compute metrics and immutable evidence after the MLX solve has synchronized."""
+
+    started = time.monotonic()
     records = _records_from_predictions(
         unit,
         inputs.candidate_ids,
-        thresholds,
-        labels,
-        train_masks,
-        validation_masks,
+        prepared.thresholds,
+        prepared.labels,
+        prepared.train_masks,
+        prepared.validation_masks,
         predictions,
         solver,
+        metric_executor=metric_executor,
+        fast_metrics=fast_metrics,
     )
-    return {
+    finalized_seconds = time.monotonic() - started
+    result: dict[str, object] = {
         "schema_version": "veatic21_phase02_stage_a_unit_v2",
         "unit": asdict(unit),
         "registration_sha256": PHASE02_REGISTRATION_SHA256,
         "stage_a_code_sha256": _stage_a_code_identity(),
-        "split_sha256": split_digest,
+        "split_sha256": prepared.split_digest,
         "feature_names": list(feature_names(unit.feature_form, unit.history_depth)),
-        "feature_count": raw_features.shape[1],
-        "feature_matrix_sha256": _array_digest({"features": raw_features}),
-        "scaler_sha256": _array_digest({"mean": mean, "std": std}),
-        "target_thresholds_sha256": _array_digest({"thresholds": thresholds}),
-        "train_row_counts": train_masks.sum(axis=0).astype(int).tolist(),
-        "validation_row_counts": validation_masks.sum(axis=0).astype(int).tolist(),
+        "feature_count": prepared.raw_features.shape[1],
+        "feature_matrix_sha256": _array_digest({"features": prepared.raw_features}),
+        "scaler_sha256": _array_digest({"mean": prepared.mean, "std": prepared.std}),
+        "target_thresholds_sha256": _array_digest({"thresholds": prepared.thresholds}),
+        "train_row_counts": prepared.train_masks.sum(axis=0).astype(int).tolist(),
+        "validation_row_counts": prepared.validation_masks.sum(axis=0).astype(int).tolist(),
         "solver": solver,
         "configuration_count": len(records),
         "records": records,
-        "runtime_seconds": time.monotonic() - started,
+        "runtime_seconds": prepared.preparation_seconds + solve_seconds + finalized_seconds,
         "outer_test_scores_opened": False,
         "cortical_values_opened": False,
     }
+    if execution_provenance is not None:
+        result["execution_provenance"] = execution_provenance
+    return result
+
+
+def execute_stage_a_unit(inputs: StageAInputs, unit: StageAWorkUnit) -> dict[str, object]:
+    started = time.monotonic()
+    prepared = prepare_stage_a_unit(inputs, unit)
+    predictions, solver, solve_seconds = solve_stage_a_prepared(inputs, unit, prepared)
+    result = finalize_stage_a_unit(
+        inputs,
+        unit,
+        prepared,
+        predictions,
+        solver,
+        solve_seconds=solve_seconds,
+    )
+    result["runtime_seconds"] = time.monotonic() - started
+    return result
 
 
 def _append_ledger(path: Path, unit_result_path: Path, result: dict[str, object]) -> None:
@@ -713,17 +915,13 @@ def run_phase02_stage_a(
                 "work_units_total": len(units),
                 "work_units_completed": completed_total,
                 "work_units_remaining": len(units) - completed_total,
-                "configurations_completed": completed_total
-                * len(REGULARIZATION_MULTIPLIERS)
-                * 21,
+                "configurations_completed": completed_total * len(REGULARIZATION_MULTIPLIERS) * 21,
                 "outer_test_scores_opened": False,
                 "cortical_values_opened": False,
                 "last_unit_id": unit.unit_id,
             },
         )
-    completed_units = [
-        unit for unit in units if (unit_root / f"{unit.unit_id}.json").exists()
-    ]
+    completed_units = [unit for unit in units if (unit_root / f"{unit.unit_id}.json").exists()]
     completed_total = len(completed_units)
     state_path = output_root / "run-state.json"
     _write_json(
@@ -736,9 +934,7 @@ def run_phase02_stage_a(
             "work_units_total": len(units),
             "work_units_completed": completed_total,
             "work_units_remaining": len(units) - completed_total,
-            "configurations_completed": completed_total
-            * len(REGULARIZATION_MULTIPLIERS)
-            * 21,
+            "configurations_completed": completed_total * len(REGULARIZATION_MULTIPLIERS) * 21,
             "outer_test_scores_opened": False,
             "cortical_values_opened": False,
             "last_unit_id": completed_units[-1].unit_id if completed_units else None,

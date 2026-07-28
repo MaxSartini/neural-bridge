@@ -263,7 +263,7 @@ External root:
 - Repository freeze:
   `internal/active/veatic21-phase02-registration/executor-backtest-registration.json`.
 - Backtest-registration SHA-256:
-  `4a094fb60db44182fbc65cbf7736c5dabc023874a2b7022f3725fdc3db2662b5`.
+  `de77372559fda0f8eed1d887d350a448a11020b9840101845ff2d9775c67e544`.
 - Host: Apple M2 Max Mac Studio, 12 CPU cores (8 performance, 4 efficiency), 32 GiB unified
   memory.
 - Backtest uses preserved inner-only reference units; it may not open outer-test outcomes or
@@ -271,9 +271,22 @@ External root:
 - Numerical-equivalence coverage: both complete blocked Stage A inner cells plus one complete
   grouped Stage A inner cell, spanning all six feature forms, all 21 history depths, and both
   Stage A model families.
-- Throughput candidates: 1/2/3/4 coordinated MLX lanes with CPU metric-worker allocations
-  bounded around the eight performance cores, deterministic sharding, preparation caching,
-  atomic publication, shard ledgers, and verified canonical merge.
+- Throughput candidates: the sequential reference plus compiled/cached 1/4/8/12-metric-worker
+  cases and 1/2/3/4/6/8/12 total-GPU-queue cases. GPU concurrency includes both shared-runtime
+  thread-local Metal streams and isolated MLX processes, so neither a four-process cap nor an
+  untested assumption that twelve processes is optimal can determine the result. Every
+  candidate uses deterministic sharding, atomic publication, shard ledgers, and verified
+  canonical merge.
+- GPU work already batches the complete registered `10 regularizers × 21 targets = 210`
+  solver cells per unit. Eligible optimized candidates compile eight-update ridge blocks while
+  retaining the reference logistic update path; separately named full-compilation candidates
+  test compiled logistic blocks under the same strict equivalence gate. Uncompiled optimized
+  component-ablation candidates prevent compilation from being assumed necessary. Unit-level
+  queue concurrency, CPU metric parallelism, and ridge/logistic preparation caching are
+  measured independently around that full mathematical batch.
+- A real warm-up barrier excludes MLX graph compilation and worker-start skew from timed
+  throughput. Timed evidence samples GPU utilization, aggregate worker CPU, operating-system
+  memory headroom, summed per-process MLX peaks, swap/power/thermal state, and all failures.
 - Selection uses three timed repetitions and hardware throughput only. Scientific outcome
   scores cannot select the executor.
 - The main replacement run remains unauthorized until the fastest eligible executor and its
@@ -349,10 +362,10 @@ search-sufficiency gate.
 Implement and test the coordinated hardware-saturating Stage A executor. Backtest it against
 the sealed reference units using
 `internal/active/veatic21-phase02-registration/executor-backtest-registration.json`. Run the
-complete frozen 1/2/3/4-lane throughput matrix and three timed repetitions; do not select from
-one convenient pilot. Freeze the fastest configuration only after every equivalence,
-determinism, convergence, ownership, resume, ledger, access, utilization, and memory gate
-passes.
+complete frozen CPU-worker and 1/2/3/4/6/8/12-total-GPU-queue matrix and three timed
+repetitions; do not select from one convenient pilot. Freeze the fastest configuration only
+after every equivalence, determinism, convergence, ownership, resume, ledger, access,
+utilization, thermal, and memory gate passes.
 
 Then replace this file with the selected executor digest and exact run identity, run the
 focused and full tests, commit and push the coherent transition to `main`, and only then start

@@ -12,7 +12,24 @@
     "cpu_cores": 12,
     "performance_cores": 8,
     "efficiency_cores": 4,
+    "gpu_cores": 30,
+    "metal_version": 4,
+    "python_version": "3.13.9_arm64",
+    "mlx_version": "0.32.0",
+    "numpy_version": "2.5.1",
     "unified_memory_bytes": 34359738368
+  },
+  "systems_research_basis": {
+    "mlx_compile": "https://ml-explore.github.io/mlx/build/html/usage/compile.html",
+    "mlx_streams": "https://ml-explore.github.io/mlx/build/html/usage/using_streams.html",
+    "mlx_unified_memory": "https://ml-explore.github.io/mlx/build/html/usage/unified_memory.html",
+    "mlx_function_transforms": "https://ml-explore.github.io/mlx/build/html/usage/function_transforms.html",
+    "numpy_thread_safety": "https://numpy.org/doc/2.3/reference/thread_safety.html",
+    "sklearn_parallelism": "https://scikit-learn.org/stable/computing/parallelism.html",
+    "apple_metal_command_buffers": "https://developer.apple.com/library/archive/documentation/3DDrawing/Conceptual/MTLBestPracticesGuide/CommandBuffers.html",
+    "apple_gpu_occupancy": "https://developer.apple.com/documentation/xcode/finding-your-metal-apps-gpu-occupancy",
+    "apple_gpu_memory_bandwidth": "https://developer.apple.com/documentation/xcode/measuring-the-gpus-use-of-memory-bandwidth",
+    "local_taskpolicy_control": "macOS_taskpolicy_manual_confirms_dash_b_sets_background_priority_so_it_is_forbidden_for_the_benchmark"
   },
   "reference_attempt": {
     "root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/stage-a-linear-screen",
@@ -37,16 +54,38 @@
     "verified_canonical_ledger_merge": true,
     "ridge_logistic_preparation_cache": true,
     "cpu_metric_parallelism": true,
-    "gpu_execution_concurrency": true,
+    "single_stable_sort_for_pr_auc_roc_auc_and_optional_brier": true,
+    "mlx_eight_update_graph_compilation": "ridge_only_eligible_matrix_plus_separately_gated_full_ridge_and_logistic_experimental_candidates",
+    "gpu_execution_concurrency": "both_thread_local_metal_streams_and_isolated_mlx_processes",
+    "warmup_barrier_before_timing": true,
     "resume_without_duplicate_execution": true,
-    "numerical_library_threads_per_metric_worker": 1
+    "numerical_library_threads_per_metric_worker": 1,
+    "solver_grid_cells_batched_per_unit": 210,
+    "os_background_taskpolicy_used": false,
+    "ac_power_required": true,
+    "low_power_mode_must_be_disabled": true,
+    "system_sleep_must_be_disabled": true
   },
   "candidate_configurations": [
-    {"id": "reference_1x1", "mlx_lanes": 1, "metric_workers_per_lane": 1, "pair_cache": false},
-    {"id": "saturated_1x8", "mlx_lanes": 1, "metric_workers_per_lane": 8, "pair_cache": true},
-    {"id": "saturated_2x4", "mlx_lanes": 2, "metric_workers_per_lane": 4, "pair_cache": true},
-    {"id": "saturated_3x2", "mlx_lanes": 3, "metric_workers_per_lane": 2, "pair_cache": true},
-    {"id": "saturated_4x2", "mlx_lanes": 4, "metric_workers_per_lane": 2, "pair_cache": true}
+    {"id": "reference_1p1s_1m", "mlx_lanes": 1, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 1, "pair_cache": false, "compiled_ridge_update_blocks": false, "compiled_logistic_update_blocks": false, "fast_metrics": false, "pipeline_depth": 1},
+    {"id": "optimized_uncompiled_1p1s_8m", "mlx_lanes": 1, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 8, "pair_cache": true, "compiled_ridge_update_blocks": false, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_uncompiled_4p1s_2m", "mlx_lanes": 4, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 2, "pair_cache": true, "compiled_ridge_update_blocks": false, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_1p1s_1m", "mlx_lanes": 1, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 1, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_1p1s_4m", "mlx_lanes": 1, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 4, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_1p1s_8m", "mlx_lanes": 1, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 8, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_1p1s_12m", "mlx_lanes": 1, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 12, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_1p2s_8m", "mlx_lanes": 1, "gpu_streams_per_lane": 2, "metric_workers_per_lane": 8, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_1p4s_8m", "mlx_lanes": 1, "gpu_streams_per_lane": 4, "metric_workers_per_lane": 8, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 8},
+    {"id": "optimized_2p1s_4m", "mlx_lanes": 2, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 4, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_2p2s_4m", "mlx_lanes": 2, "gpu_streams_per_lane": 2, "metric_workers_per_lane": 4, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_3p1s_2m", "mlx_lanes": 3, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 2, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_4p1s_2m", "mlx_lanes": 4, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 2, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_6p1s_1m", "mlx_lanes": 6, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 1, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_8p1s_1m", "mlx_lanes": 8, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 1, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "optimized_12p1s_1m", "mlx_lanes": 12, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 1, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": false, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "experimental_full_compile_1p1s_8m", "mlx_lanes": 1, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 8, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": true, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "experimental_full_compile_2p1s_4m", "mlx_lanes": 2, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 4, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": true, "fast_metrics": true, "pipeline_depth": 4},
+    {"id": "experimental_full_compile_4p1s_2m", "mlx_lanes": 4, "gpu_streams_per_lane": 1, "metric_workers_per_lane": 2, "pair_cache": true, "compiled_ridge_update_blocks": true, "compiled_logistic_update_blocks": true, "fast_metrics": true, "pipeline_depth": 4}
   ],
   "numerical_equivalence": {
     "exact_fields": [
@@ -73,8 +112,8 @@
   "selection_rule": {
     "eligibility": "all_equivalence_determinism_resume_ledger_memory_and_access_gates_pass",
     "primary": "highest_median_completed_work_units_per_second_across_three_timed_repetitions",
-    "tie_rule": "within_three_percent_prefer_fewer_mlx_lanes_then_lower_peak_unified_memory",
-    "saturation_gate": "mean_gpu_device_utilization_at_least_ninety_percent_or_less_than_five_percent_throughput_gain_from_the_next_safe_lane_count_with_the_remaining_bottleneck_profiled",
+    "tie_rule": "within_three_percent_prefer_fewer_total_gpu_queues_then_fewer_mlx_processes_then_lower_peak_unified_memory",
+    "saturation_gate": "mean_gpu_device_utilization_at_least_ninety_percent_or_less_than_five_percent_throughput_gain_from_the_next_safe_total_gpu_queue_count_or_the_safe_registered_twelve_queue_host_ceiling",
     "memory_gate": "no_memory_pressure_failure_and_at_least_six_gibibytes_measured_host_headroom",
     "scientific_scores_used_for_executor_selection": false
   }

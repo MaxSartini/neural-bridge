@@ -12,6 +12,7 @@ from neural_bridge.veatic21.phase02_registration import (
     verify_phase02_registration,
 )
 from neural_bridge.veatic21.phase02_stage_a import run_phase02_stage_a
+from neural_bridge.veatic21.phase02_stage_a_backtest import run_phase02_executor_backtest
 
 
 def main() -> None:
@@ -25,6 +26,10 @@ def main() -> None:
     subparsers.add_parser("verify-phase02-registration", help="verify the Phase 02 AR freeze")
     stage_a = subparsers.add_parser("phase02-stage-a", help="run/resume inner Stage A screen")
     stage_a.add_argument("--max-units", type=int, default=None)
+    subparsers.add_parser(
+        "phase02-executor-backtest",
+        help="run/resume the registered hardware-saturation backtest",
+    )
     arguments = parser.parse_args()
 
     if arguments.command == "phase00":
@@ -39,6 +44,8 @@ def main() -> None:
         result = verify_phase02_registration()
     elif arguments.command == "phase02-stage-a":
         result = run_phase02_stage_a(max_units=arguments.max_units)
+    elif arguments.command == "phase02-executor-backtest":
+        result = run_phase02_executor_backtest()
     else:
         result = verify_phase00_output()
     print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))

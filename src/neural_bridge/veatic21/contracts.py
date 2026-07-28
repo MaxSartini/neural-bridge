@@ -20,6 +20,13 @@ PHASE02_ROOT = LIFECYCLE_ROOT / "phase-02-target-specific-ar"
 PHASE02_REGISTRATION_ROOT = PHASE02_ROOT / "registration"
 PHASE02_BENCHMARK_ROOT = PHASE02_ROOT / "benchmark"
 PHASE02_STAGE_A_ROOT = PHASE02_BENCHMARK_ROOT / "stage-a-linear-screen"
+PHASE02_EXECUTOR_BACKTEST_REGISTRATION = REPOSITORY_ROOT / (
+    "internal/active/veatic21-phase02-registration/executor-backtest-registration.json"
+)
+PHASE02_EXECUTOR_BACKTEST_ROOT = PHASE02_BENCHMARK_ROOT / "executor-backtest-20260729"
+PHASE02_STAGE_A_SATURATED_ROOT = PHASE02_BENCHMARK_ROOT / (
+    "stage-a-linear-screen-hardware-saturated"
+)
 PHASE02_REGISTRATION_SHA256 = (
     "ab21c9b971fc0cf8aa18f4d77f585b8236db08bf810b1f83c79a476dfde44815"
 )
