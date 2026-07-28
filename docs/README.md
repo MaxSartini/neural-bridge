@@ -4,17 +4,17 @@ The stable product architecture, the single V-JEPA 2.1/TRIBE v2 upstream stack, 
 
 ## What the inputs are
 
-The Neural Bridge input is the frozen predicted-cortical cache produced by the upstream stack: V-JEPA 2.1 encodes video inside the process, and TRIBE v2 consumes those encoder outputs to produce the cortical sequence. V-JEPA encoder arrays are not a separate Neural Bridge candidate input. These values are predictions generated from video, not measurements from the viewers represented by VEATIC or AGAIN.
+The VEATIC Neural Bridge input is the complete collection of 124 per-video predicted-cortical payloads produced by the upstream stack. Each payload contributes its `cortical_prediction` array on the exact 2 Hz row grid; no single pooled or privileged file represents the dataset. Matching per-video V-JEPA `rows.csv` files provide row identity, labels, and interpolation provenance. V-JEPA hidden-state arrays are upstream-only and are not a separate Neural Bridge candidate input. The cortical values are predictions generated from video, not measurements from the viewers represented by VEATIC or AGAIN.
 
 The AGAIN feature foundation uses the frozen [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) ViT-G target encoder and [TRIBE v2](https://arxiv.org/abs/2605.04326). The primary affect sources are the [AGAIN dataset](https://doi.org/10.1109/TAFFC.2022.3188851) and [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html). AGAIN provides first-person continuous arousal annotations; VEATIC provides continuous ratings of a selected character's perceived affect. Results are therefore reported as a cross-dataset evidence ladder, not as a single transferred model or identical label construct.
 
 ## Formal prediction target
 
-At the 2 Hz row rate, the Phase 7 future-movement quantity is
+For the concluded AGAIN Phase 7 study, at its 2 Hz row rate, the future-movement quantity was
 
 ![y sub t equals the maximum, for k from 4 through 10, of a sub t plus k minus a sub t; the sampling frequency is 2 hertz](assets/equations/future-movement-target-light.svg)
 
-so the forecast window is 2–5 seconds ahead. Phase 7 predicts
+so its forecast window was 2–5 seconds ahead. These row offsets and seconds are not VEATIC 2.1 candidates by inheritance. Fresh VEATIC target windows must be derived from VEATIC label dynamics before cortical scoring. AGAIN Phase 7 predicts
 
 ![Residual target y tilde sub t equals y sub t minus the frozen autoregressive prediction of x sub t](assets/equations/ar-residual-target-light.svg)
 
@@ -31,7 +31,9 @@ so test labels never choose their own threshold.
 ## Evaluation rules
 
 - Use every eligible dense 2 Hz row and retain valid negatives from zero-event videos.
-- Apply the declared black/static quality mask consistently.
+- For fresh VEATIC, retain all 20,657 canonical rows in the primary substrate. Black/static
+  quality flags are metadata and nuisance controls; any filtered analysis is a separately
+  registered sensitivity with matched lanes.
 - Fit PCA, scalers, thresholds, AR models, and heads inside their allowed training folds only.
 - Train `AR-only` separately. Reuse the exact fold/seed frozen AR unchanged in real and matched-control residual lanes.
 - Pool event PR-AUC over valid rows; never invent per-video zero scores.
@@ -46,7 +48,7 @@ so test labels never choose their own threshold.
 
 The dense 2 Hz rows within a video are serially dependent and are not presented as independent experimental replicates.
 
-- Phase 7 uses five outer folds grouped by `video_id`, nine fresh seeds, and three prespecified checkpoint groups. Its `420/420` count is an evaluation matrix (`315` member + `105` ensemble cells); the consistency result is `15/15` positive fold-checkpoint groups.
+- The concluded AGAIN Phase 7 study used five outer folds grouped by `video_id`, nine fresh seeds, and three prespecified checkpoint groups. Its `420/420` count is an evaluation matrix (`315` member + `105` ensemble cells); the consistency result is `15/15` positive fold-checkpoint groups. None of those counts or settings transfers to VEATIC 2.1.
 - The locked video-only study uses a prospectively untouched 299-video pool. Its paired uncertainty procedure resamples whole videos for `2,000` bootstrap replicates; all three one-sided 95% lower bounds for the gain over the strongest control are positive.
 - Grouped-video evaluation holds out video IDs, not necessarily participant identities. No participant-exclusive or external-dataset generalization claim is made.
 

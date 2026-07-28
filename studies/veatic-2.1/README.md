@@ -1,17 +1,18 @@
-# VEATIC 2.1 Clean Rebuild
+# VEATIC 2.1 Fresh Rebuild
 
-This study follows the progression-enabling AGAIN phase structure with VEATIC-owned fitted
-artifacts and numeric choices. Durable scientific authority is
-`internal/active/veatic21-master-scientific-specification.md`; the derived execution
-checklist is `internal/active/veatic21-rebuild-protocol.md`, and live state is
+The programme is at fresh Phase 00. No VEATIC phase has concluded and this directory contains
+no scientific result.
+
+Durable scientific authority is
+`internal/active/veatic21-master-scientific-specification.md`; the derived execution checklist
+is `internal/active/veatic21-rebuild-protocol.md`; and the single live authorization is
 `internal/handoff/CURRENT_STATE.md`.
 
-Controls are part of every applicable phase from its first registered cell. No phase advances
-until its control gate passes.
+The canonical input is the complete set of 124 per-video TRIBE cortical-prediction payloads,
+aligned to the matching native 2 Hz V-JEPA `rows.csv` files. Every target, split, AR family,
+representation, projection, temporal context, head, optimizer, seed, control, and result must
+be derived, trained, and evaluated specifically for VEATIC 2.1. AGAIN contributes methodology
+only.
 
-Phases 00 through 03 concluded on 2026-07-28. Their compact defensible records are under the
-corresponding `phase-00-dense-foundation/`, `phase-01-label-alignment/`,
-`phase-02-ar-baseline/`, and `phase-03-raw-cortical/` directories; heavy evidence remains in
-the canonical external lifecycle root. Phase 03's direct raw-fusion claim failed and was not
-promoted. Phase 04 fold-owned PCA is the sole newly authorized action. Consult
-`internal/handoff/CURRENT_STATE.md` for the exact live boundary.
+Create a phase directory here only after its complete controlled evidence passes review and
+the coherent transition is ready to be committed and pushed on `main`.

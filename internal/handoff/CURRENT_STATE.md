@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 AGAIN-Method Rebuild
+# Current State — VEATIC 2.1 Fresh Phase 00
 
 Updated: 2026-07-28
 
@@ -18,8 +18,8 @@ loaded in full on every turn.
 Their roles are deliberately different:
 
 - The master scientific specification is permanent and comprehensive. It owns the durable
-  input boundary, phase-by-phase method, controls, metrics, washout design, provenance rules,
-  and implementation contracts.
+  input boundary, phase-by-phase method, controls, metrics, experiment-sufficiency rules,
+  provenance requirements, and implementation contracts.
 - The rebuild protocol is a derived execution checklist and navigation aid. It cannot add an
   independent rule or weaken or replace the master specification.
 - This file is the replace-in-place live handoff. It owns current progress, result/artifact
@@ -37,382 +37,133 @@ method. This file cannot silently override the master specification.
 ## Live scientific state
 
 - Programme: VEATIC 2.1 AGAIN-method rebuild.
-- Master scientific specification: version 1.0.
+- Master scientific specification: version 2.0.
 - Repository: `/Users/maxsartini/Neural Bridge`.
 - Branch: `main` only; do not create a branch.
-- Lifecycle boundary: Phases 00 through 04 and the Phase 05 no-washout bridge concluded and
-  sealed; pre-washout-design.
-- Current Phase 00 implementation: complete.
-- Current Phase 00 execution: PASS, 27/27 mandatory controls.
-- Current Phase 01 implementation: complete.
-- Current Phase 01 execution: PASS, 20/20 mandatory controls.
-- Current Phase 02 implementation: complete.
-- Current Phase 02 execution: PASS, 24/24 mandatory controls.
-- Current Phase 03 implementation: complete.
-- Current Phase 03 execution: PASS, 29/29 mandatory controls; direct raw-fusion claim FAIL.
-- Current Phase 04 implementation: complete.
-- Current Phase 04 execution: PASS, 36/36 mandatory controls; linear PCA-fusion claim FAIL.
-- Current Phase 05 no-washout implementation: complete.
-- Current Phase 05 no-washout execution: PASS, 33/33 mandatory controls; learned residual
-  claim FAIL; legal persistence dominance established.
+- Lifecycle boundary: fresh Phase 00, before implementation and execution.
+- Implemented phases: none.
+- Executed phases: none.
+- Registered VEATIC results, fitted artifacts, selected targets, AR models, representations,
+  heads, checkpoints, controls, or promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized phase: Phase 05 VEATIC-only washout design only.
-- Cortical washout scoring and Phase 06 remain unauthorized. The next action may use sealed
-  label/decomposition evidence to freeze candidate gaps, windows, eligibility, ownership, and
-  gates, but it must not fit or score a washout cortical representation.
+- Authorized phase: Phase 00 dense-foundation audit only.
+- Phase 01 and every modeling, target-selection, PCA, AR, head-search, washout, continuous,
+  valence, and zero-label action remain unauthorized.
 
 ## Canonical live inputs
 
-Final TRIBE v2 predicted-cortical root:
+Complete TRIBE v2 per-video raw cortical-prediction root:
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/compact-20260716`
+`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/veatic 2.1 raw cortical predictions/per_video`
 
-The only real Neural Bridge representation is:
+Every video `0..123` has exactly one prediction payload:
 
-`per_video/<video_id>/tribe_v2_cortical_predictions.npz:cortical_prediction`
+`<video_id>/tribe_v2_cortical_predictions.npz`
+
+The real representation array inside every payload is `cortical_prediction`. The phrase
+"cortical predictions" means the complete collection of all 124 per-video arrays aligned to
+all eligible exact 2 Hz rows. It never means one singular file, one preferred video, or an
+unregistered subset.
 
 Matching V-JEPA row/label/metadata root:
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/compact-20260716`
+`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/veatic 2.1 v jepa 2.1 stuff`
 
-Authoritative row/label file:
+Authoritative row/label/provenance file for each matching video:
 
 `<video_id>/rows.csv`
 
-`vjepa21_hidden_states.npz` is absolutely forbidden. Do not open, inspect, load, memory-map,
-copy, or hash it. V-JEPA and TRIBE are completed upstream substrate and are not rerun.
+The row identity is `(video_id, row_index, time_seconds)` on the native 2 Hz grid: exact
+`0.5s` steps beginning at `0.0s`. Phase 00 preserves every row and uses label columns only in
+an isolated equality audit, never to select an outcome. Supervised labels open scientifically
+only after Phase 00 authorizes Phase 01.
+
+Allowed V-JEPA companion inputs are `rows.csv`, `manifest.json`, `preprocessing.json`,
+`status.json`, `_PAYLOAD_SHA256.json`, and `_UPLOAD_COMPLETE.json` in every video directory.
+Every `vjepa21_hidden_states.npz` is absolutely forbidden: do not open, inspect, load,
+memory-map, copy, or hash it. V-JEPA and TRIBE are completed upstream substrate and are not
+rerun.
 
 AGAIN is methodology-only. Do not import, execute, copy, adapt, or reuse AGAIN code, runners,
 data, splits, targets, numeric choices, PCA, AR objects, heads, checkpoints, predictions,
-controls, or fitted artifacts. Follow the master specification's method-only firewall.
+controls, or fitted artifacts. Every VEATIC choice and fitted object is fresh.
 
-## Concluded Phase 00 evidence
+## Canonical-root preflight facts
 
-External root:
+A read-only authority-change audit of the exact roots above established the input expectation
+that fresh Phase 00 must independently reproduce and seal:
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-00-dense-foundation`
+- videos: `124`, exact IDs `0..123` in both roots;
+- prediction payloads: `124`, one in every video directory;
+- aligned rows: `20,657`, all retained;
+- row rate and step: `2 Hz`, exact `0.5s`;
+- cortical layout: `[per_video_rows, 20,484]`, float16, finite;
+- per-video key schema: uniform across all 124 payloads;
+- row counts: minimum `22`, maximum `358`;
+- quality flags: 76 black, 871 duplicate/static, 24 both, 923 union;
+- TRIBE per-video allowlisted tree: 373 files, 866,111,964 bytes, SHA-256
+  `851d55ccaac7c587495f65cdfbfbcf6bfe22a66a7ab3da2a048d0422e4087a60`;
+- V-JEPA metadata-only allowlisted tree: 744 files, 7,103,590 bytes, SHA-256
+  `cee65f87ff1e118353acd0c6f86c7f8c925e4e612b47884caea0544f6250e1cd`;
+- V-JEPA hidden-state files opened or hashed: false.
 
-- Result SHA-256: `e2792c8c75f80239b6687680dacba77ecc9710d4806cc9dc3351cb3611655056`.
-- Artifact-manifest SHA-256:
-  `a7aa9913eaa1dc7b1068719bc2405701316468fd0cd94008860490bc94361d4a`.
-- Checksums-file SHA-256:
-  `51bfce91aab1e7212752b0767159dfb3db015199846f3fe6aa556d80dfbf7df8`.
-- VEATIC code SHA-256: `87b67fe2aa6878d703f9703d741bf0cfae33442160423ac11b78bc9a2c5c3208`.
-- Input-identity SHA-256:
-  `9ea8b7fb0cecdcad083e48c27027746d56be396fe6eef3a0eec2b930454414f0`.
-- TRIBE tree SHA-256: `0d4adc27dd9d226de87d0cfc4df92de14cb7450de6671857e0665418ad26f6dd`.
-- Allowlisted V-JEPA metadata tree SHA-256:
-  `cee65f87ff1e118353acd0c6f86c7f8c925e4e612b47884caea0544f6250e1cd`.
-- Audited inventory: 124 videos and 20,657 rows; all source rows retained.
-- Quality counts: 76 black, 871 duplicate/static, 24 both, 923 union, 19,734 unflagged.
-- Forbidden hidden state loaded/hashed/copied/inspected: false/false/false/false.
-- AGAIN runtime imports or execution: none.
-- Focused VEATIC tests: 34 passed, 0 failed.
-- Compact record: `studies/veatic-2.1/phase-00-dense-foundation`.
-
-## Concluded Phase 01 evidence
-
-External root:
-
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-01-label-alignment`
-
-- Result SHA-256: `31e6933c4d7a2b6ed077d9ae57b4e667c7957286aa0c4c97ff07c56801fb5539`.
-- Artifact-manifest SHA-256:
-  `df86ff4f83b6f55397e4532db5121059bc8b4d40a14adc324a7e9117c091f099`.
-- Checksums-file SHA-256:
-  `dcc551a583c042a167c902afeac07c3be73b59d44e04313c8aedd13c50c801de`.
-- Target-substrate file SHA-256:
-  `50dfa45bb3a063e88e9334c8cc9e57a9b2353a809d00298ce4d137cc3d8159af`.
-- VEATIC code SHA-256: `c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639`.
-- Alignment SHA-256: `349eceb1635fd50863ab9c6bb627fa6471dd3914a4035abea2392eee45bf57b7`.
-- Target-source SHA-256:
-  `ad8b167dff44ae6a0c1c78ef3e501cc622e6320be9a912d879c3d9fc99863a4f`.
-- Mask SHA-256: `2fe43426a67e2e4d39382b09ed5a812fbe966f0ce5ddb61adf7e901a053b2f43`.
-- Row-ownership SHA-256:
-  `69676e189414a85433ebfd87966684f2353fa69a2ac6a1cd801015a424cf13cd`.
-- Substrate-arrays SHA-256:
-  `ce4acca4b2b72320bf224ac057342be34f27c4ea713f2a7f5eed97d3f0125088`.
-- Selected initial target: future maximum increase over `t+1..t+6` (0.5–3.0 seconds),
-  19,913 valid rows, 96.3983% complete-table coverage.
-- Prospective washout candidates: `t+5..t+10` and `t+6..t+11`; inactive and unselected.
-- Global binary label stored: false. Outer split created: false.
-- Hidden state loaded/hashed: false/false. Cortical values loaded: false.
-- Focused VEATIC tests: 45 passed, 0 failed.
-- Compact record: `studies/veatic-2.1/phase-01-label-alignment`.
-
-## Concluded Phase 02 evidence
-
-External root:
-
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-02-ar-baseline`
-
-- Result SHA-256: `bf7bb7dd24432af1a6baa4f846a2f84dfcfb89c822bddfefe4ba70f30d9f6ed0`.
-- Artifact-manifest SHA-256:
-  `67263687318aa4f08f378320121e198bd4091a2c9546aa2c99958ec9789956cb`.
-- Checksums-file SHA-256:
-  `a2ce6be879d8380344209dce0ffe993f9059f8f8e55d04881e7e7b9e46113617`.
-- Prediction-manifest SHA-256:
-  `89c7c3c6444fc93e1a30e5274f93ee4d79eddbdee92802fc561b073ef47048dc`.
-- Model-manifest SHA-256:
-  `6be0059028ff1d910cbd2c7f3f3067087b7615f71aae96fd750089d11d84e32d`.
-- Split-manifest SHA-256:
-  `ade612dd40457918561fbbfdfa6786993df2198576d77612b05ca03b39ffeb8c`.
-- AR-dominance decomposition SHA-256:
-  `21e4e081094df6b4b2b2c3e206deae44f05d501c875e89e0a189d95cc1739595`.
-- Fold-metrics SHA-256:
-  `e67a9a09bd7fa78382a2652cc7127dd7f3a5bd90b64d32ca39a523cb3ef1ef72`.
-- Per-video-metrics SHA-256:
-  `6ba7879342064806c4ce01a7cfd4f2b84a0ef7d0c643b12c87abbc4a570de89b`.
-- Hyperparameter-search SHA-256:
-  `2f28f96b3540032845e16476ecdd557b197d5890eb1c357874a59d75c3b7a8ae`.
-- VEATIC code SHA-256: `48ea2c2ec687d777098882bd3f00721e715743314d080b0ab1a18fe4a8c291ef`.
-- Target: sealed continuous future maximum increase over `t+1..t+6`; q90 was fitted
-  separately inside every applicable training partition.
-- Common causal-history mask: 19,169 rows across 124 videos.
-- Fresh VEATIC-derived AR lag candidates: `0/1/2/4/6` rows; all lag and ridge choices were
-  selected by nested inner-validation raw PR-AUC.
-- Protocols: five digest-derived grouped-video 70/30 cells and one per-video forward
-  blocked-temporal 70/30 cell, reported separately.
-- Grouped held-out AR PR-AUC: median `0.315086`, range `0.278621–0.383829`.
-- Blocked held-out AR PR-AUC: `0.276250`.
-- AR exceeded analytic chance and the training-owned strongest simple causal-history control
-  in every cell; paired whole-video bootstrap intervals and per-video defined/undefined
-  metrics are sealed in the decomposition and metrics artifacts.
-- Exact outer-test rows and AR/current/slope/chance predictions are frozen in six checksummed
-  target/protocol/fold/seed bundles for matched downstream lanes.
-- Prospective washout activated/selected: false/false. Target/history overlap: zero rows;
-  control-complete development evidence remains required before any redesign.
-- Training runtime: MLX on `gpu:0`, exactly one worker, no artificial memory cap.
-- Hidden state loaded/hashed: false/false. Cortical values loaded: false. PCA/bridge work: none.
-- Focused VEATIC tests: 55 passed, 0 failed.
-- Compact record: `studies/veatic-2.1/phase-02-ar-baseline`.
-
-## Concluded Phase 03 evidence
-
-External root:
-
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-03-raw-cortical`
-
-- Result SHA-256: `8c0839d8eb8ba5c20e4c13ae83367b0fe4e0e383b7e0c3b074b80f7a5cf38c16`.
-- Artifact-manifest SHA-256:
-  `200c05ef34c9f7926133b3ae39aeb7c6e25350d142df34ef38e46fb24a75fdbf`.
-- Checksums-file SHA-256:
-  `ae6add6926dd8be81d287dc514a9d261fbfb0ba921d6920c4beaf7dc4696ca51`.
-- Prediction-manifest SHA-256:
-  `186acd0eb6017c7764fa1fc5215567e34ef5c55cfbee0b5bc94a0da6fc8b9d91`.
-- Model-manifest SHA-256:
-  `720e5756f8883c90be628180ca33efd767c03bf2d1f4702951d53e13c9612f23`.
-- Primary-deltas SHA-256:
-  `21808b3712c79a297a22c31b64a8da58b57b80222ddc9f93541a4a42c0734ac1`.
-- Summary SHA-256: `5f453b5bdc9333d11ab18324c6de8cfc1675f5c47e8113525d8e0bb23efc1b15`.
-- Fold-metrics SHA-256:
-  `97e6e98e043d9fbd48349fd87216fb583865eef312dc476b90753c890ccc5f18`.
-- Per-video-metrics SHA-256:
-  `11c0ced3e63679f8d971b843ef8680835f8f48a7e0a454238747854589d18a80`.
-- Control-matrix SHA-256:
-  `809208be17960eb98171409669ae8cf95c9432b855d48e7a5950d3a64706ca59`.
-- Input-manifest SHA-256:
-  `e47f5e28119344ec9f405c13e8fa91ddf1ee6565d90b9abb573154b8c0f3ca00`.
-- VEATIC code SHA-256: `51110daaa37578ae4f73d7b7cff3146d8a943e3aeeda3ca580283870f11c0fa1`.
-- Real input: all 20,484 dimensions of final TRIBE `cortical_prediction`; no PCA or width
-  selection.
-- Matrix: 17 matched lanes in each of five grouped-video cells and one blocked-temporal cell.
-  Controls include frozen AR, raw-only/current-row, within-video shuffled, shape-matched
-  random, train-only video mean, diagnostics, time/video-time, quality/motion/luma, and
-  training-label permutation, with only and AR-plus variants where applicable.
-- Exact Phase 02 row, target, q90, fold, seed, and frozen AR prediction identities were reused.
-- Grouped median PR-AUC: frozen AR `0.315086`; real cortical-only `0.120929`; direct
-  AR-plus-real `0.317626`.
-- Blocked PR-AUC: frozen AR `0.276250`; real cortical-only `0.088738`; direct AR-plus-real
-  `0.263731`.
-- Direct raw-fusion claim: FAIL. Fusion did not beat frozen AR consistently across grouped
-  folds and degraded the blocked result. Direct fusion is not promoted.
-- Exact 17-lane predictions, complete spike metrics, defined/undefined per-video metrics, and
-  paired whole-video bootstrap deltas are sealed for all six cells.
-- Training runtime: MLX on `gpu:0`, exactly one worker, no artificial memory cap.
-- Hidden state loaded/hashed: false/false. Grouped upstream feature loaded: false.
-- PCA/width selection/washout/learned bridge: none/none/none/none.
-- Focused VEATIC tests: 64 passed, 0 failed.
-- Compact record: `studies/veatic-2.1/phase-03-raw-cortical`.
-
-## Concluded Phase 04 evidence
-
-External root:
-
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-04-pca-bridge`
-
-- Result SHA-256: `922f181ded0b9125de43242558bd6e66113bcebf24316ca38d7767b1965f8da4`.
-- Artifact-manifest SHA-256:
-  `e9000630e2971536babc4bd7dab123507b570c78a68a1ae3ae3ec8fc20ff56a8`.
-- Checksums-file SHA-256:
-  `bc195a879ddc2be9c37005c285b2560f69c2d4e7831b3182d6a95739f7631924`.
-- Request SHA-256: `dd6bc73ef170e7e7b69c17d0cc03d546c2738b7d7d74ced4f0da117434fe0fa9`.
-- PCA-accuracy-audit SHA-256:
-  `d55ae7ebd9a4c0ea15e7307edbc6e643283aa4d1be3813e1fab8d1ddf5a28a37`.
-- Projection-cache-manifest SHA-256:
-  `03cefe1a72d72021bc08ca2fcb2731d32a2deebc9fced5706407a3afb0f9ec4d`.
-- Prediction-manifest SHA-256:
-  `ee3c73f873fe11fcab88fba840ceb7b6f63b5369933c877adf20668a99969623`.
-- Final-model-manifest SHA-256:
-  `1286894f22cf1b12feb373d7d05357cf6b6f9912e8137505c1cb632b3aee2afb`.
-- Selected-representation SHA-256:
-  `e906ff541c01113998e8a4d0081a71fe92417e82137b81c0286fc2414c38adb0`.
-- Summary SHA-256: `70347ca38b29f40acef6660cfc75d4983253f4150feebad0352fc89f384990c0`.
-- Primary-deltas SHA-256:
-  `93ff652c9e0186842fa433a301b2b97cb306ba117d126d4b47e59840e9bc6e5e`.
-- Fold-metrics SHA-256:
-  `0910c1f81cf22c7378fa81e4e4f79a3102f4456334d820a206948c6383aaad13`.
-- Per-video-metrics SHA-256:
-  `ae1b7e3ef3c20ccc37dac43b28bcf15ddb757a5131d103d008ce6649b660af08`.
-- Inner-family-search SHA-256:
-  `110504d45deac45add946fd4aeaf885fcbe61e34073250bed06f8a6b9cba77af`.
-- Inner-candidate-search SHA-256:
-  `6a3f935315a6fd09ce10169b8dff613b38b0a873942455745e8ed4a9545be540`.
-- VEATIC code SHA-256: `4d1092d6bbd134c9bd633a69292667e7d10fa2b881917191b9b5c74648955b66`.
-- Per outer-training cell, one maximum rank-512 basis used every owned eligible row after
-  outer-training-only scaling. Nested `64/128/256/512` prefixes and causal temporal depths
-  `0/4/6` were evaluated under the complete control matrix.
-- Accuracy audit: six primary and six independent-seed bases passed; no width required a
-  separate fallback fit. Minimum leading-subspace overlap was `0.999983`; maximum component
-  orthogonality error was `0.003089`; primary reconstruction residual fractions ranged
-  `0.000121–0.000365`.
-- Global inner-only selection froze width `64` and temporal depth `0` rows. Its median inner
-  fusion selection margin versus frozen AR and the strongest matched control was `-0.045159`.
-- Matrix: 17 matched outer lanes in each of five grouped-video cells and one blocked-temporal
-  cell, with 102 exact metric rows, six prediction bundles, and six final-model bundles.
-- Grouped median PR-AUC: frozen AR `0.315086`; selected real PCA-only `0.128426`; selected
-  AR-plus-real PCA `0.309344`.
-- Blocked PR-AUC: frozen AR `0.276250`; selected real PCA-only `0.115511`; selected
-  AR-plus-real PCA `0.259457`.
-- Linear PCA-fusion claim: FAIL. Fusion did not consistently beat frozen AR and matched
-  controls. Linear PCA fusion is not promoted, but the selected representation is frozen for
-  the ordered learned residual question.
-- The complete external checksum inventory independently verifies. Exact Phase 02 ownership
-  and frozen AR predictions were reused; no held-out row selected the representation.
-- Training runtime: MLX on `gpu:0`, exactly one worker, no artificial memory cap.
-- Hidden state loaded/hashed: false/false. Grouped upstream feature loaded: false.
-- Washout/learned bridge/AGAIN runtime dependency: none/none/none.
-- Focused VEATIC tests: 73 passed, 0 failed; full repository tests: 93 passed, 0 failed.
-- Compact record: `studies/veatic-2.1/phase-04-pca-bridge`.
-
-## Concluded Phase 05 evidence
-
-External root:
-
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-05-learned-bridge`
-
-- Result SHA-256: `04a5277ab2a22539af7282d216023248d5cc1499eb8431697e43855cdd67a589`.
-- Artifact-manifest SHA-256:
-  `f12175f22d326bb5895001c108dcd84e5fab3d075da22d589badf6d3a0997e06`.
-- Checksums-file SHA-256:
-  `209c2b6c5f3f49c40ed5d62e0b421daad1daa1ef0ab749760fdff896e13192e6`.
-- Request SHA-256: `72d7bc7133f17cb0a4cbac476e784488b4c8fb89e44872c3c5cd799c9a5cafe2`.
-- Summary SHA-256: `1a803ea9abb9b3ab1bcfbb2068066dd3ff31af52fff7a12a612f86365948c936`.
-- Selected-recipe SHA-256:
-  `ed85a4edf2dafb8ac9e57c6b6dbe429c5543955c780a0d4c5f8733d116d773bf`.
-- Control-matrix SHA-256:
-  `92aab4cde345f8c9eacfd8e67307736963bbf4917670af416fc68b33872d4d17`.
-- Primary-deltas SHA-256:
-  `5040d03489f6583df9ff83c6112b9cf61fd974ee49259572ad82d146e445ed9f`.
-- Inner-head-search SHA-256:
-  `6c9b2cb57ba877551a62e400170fa22b471eb460e89f53830517d0ced5870387`.
-- Inner-recipe-search SHA-256:
-  `0370a8641fda6df01d849a3cea161ffdb438c9ee599e18d19d0f579d24a64cac`.
-- Fold-metrics SHA-256:
-  `9b18358987eb56af01501e89a4b3543c1d7b32873a3f2b03002246ee34efd3c5`.
-- Per-video-metrics SHA-256:
-  `c97fe7378be456e867c5d778848dd328c76eae71722fc13d601d04fc7271bdbd`.
-- Search-checkpoint-manifest SHA-256:
-  `3b3a224b6568402c3a41d264cd33b3ba9e9ab2d38cd836b8a98921b74fb9f26b`.
-- Selected-checkpoint-manifest SHA-256:
-  `654f9992f9718e08da08d4e55d6a6244346932b177c676e128f136cdb5595ba2`.
-- Prediction-manifest SHA-256:
-  `e174fea9bfc3d127b35d10a6b3364e549cae313cb9ad0773820b26b7b101ce04`.
-- Derivation-ledger SHA-256:
-  `b0f908d9782c69c3efcc515db1a7f72c528bc667ed5b07ffda8599358e2cc6a9`.
-- VEATIC code SHA-256: `d704d0052030472ea8ffe6504c9baf45e6b82c02005be1c040d9810649a9f217`.
-- Fresh VEATIC head family: linear and width-8/16 ReLU bottlenecks derived from the sealed
-  Phase 04 width 64. Learning rate, step count, and checkpoint interval were derived from
-  that width before Phase 04 scores were opened; no AGAIN recipe or number was inherited.
-- Matrix: 144 inner-owned search checkpoints across three recipes, eight residual families,
-  and six cells. Every residual used the exact immutable matching AR logit floor and identical
-  capacity/optimizer/checkpoint policy.
-- Global inner-only selection froze `relu-bottleneck-8` with 529 parameters. Only three of six
-  real checkpoints earned positive inner-validation value. Median real inner delta was
-  `0.002751`; median control-adjusted selection margin was `-0.009504`.
-- Strict no-harm suppression produced bit-exact frozen AR for 25 of 48 outer residual lanes,
-  including three of six real lanes and the blocked real lane. The remaining 23 residual lanes
-  used restored best checkpoints in deterministic eval mode.
-- Outer matrix: 10 matched lanes and 60 exact metric rows across five grouped-video cells and
-  one blocked-temporal cell, with six checksummed prediction bundles.
-- Grouped median PR-AUC: frozen AR `0.315086`; real residual `0.315152`.
-- Blocked PR-AUC: frozen AR `0.276250`; real residual `0.276250` bit-exactly.
-- No-washout learned residual claim: FAIL. It did not consistently beat frozen AR and the
-  strongest matched control with paired whole-video uncertainty. Phase 06 is not authorized.
-- Phase 02 target/history overlap remains zero rows, but the control-complete outer result
-  satisfies the preregistered legal-persistence-dominance rule. Only VEATIC washout design is
-  authorized next; no washout target or cortical washout score exists yet.
-- The complete external checksum inventory independently verifies. All selected checkpoints
-  were restored in eval mode; outer rows did not select a head, recipe, checkpoint, or gate.
-- Training runtime: MLX on `gpu:0`, exactly one worker, no artificial memory cap.
-- Hidden state loaded/hashed: false/false. Grouped upstream feature loaded: false.
-- Washout activated/target redesigned/Phase 06 executed: false/false/false.
-- Focused VEATIC tests: 82 passed, 0 failed; full repository tests: 102 passed, 0 failed.
-- Compact record: `studies/veatic-2.1/phase-05-learned-bridge`.
+These are input expectations, not a Phase 00 PASS. Phase 00 must fail closed if independent
+recomputation differs.
 
 ## Active execution contract
 
-Design the Phase 05 VEATIC washout branch exactly from:
+Read these rebuild-protocol sections for the one authorized action:
 
-- `veatic21-master-scientific-specification.md` → **AGAIN Phase 05/5.5 — learned frozen-AR
-  bridge and event head**, **Control matrix required from the first applicable cell**,
-  **Metric contract**, **VEATIC-specific washout procedure**, and **Phase 02 through
-  zero-label execution sequence**;
-- `veatic21-rebuild-protocol.md` → **Phase 05 — VEATIC learned frozen-AR bridge**.
+- **Canonical input boundary**;
+- **Phase 00 — dense foundation**;
+- **Execution and artifact rules**.
 
-Use the sealed Phase 01 label dynamics and prospective washout procedure plus the sealed Phase
-02/05 no-washout decomposition. Define the actual causal history set, instantiate only the
-small bounded future-start/window family derived from VEATIC autocorrelation, partial
-autocorrelation, rise time, event duration, video duration, coverage, and positive support,
-and record exact row/second identities on the verified 2 Hz grid. AGAIN gaps, rows, seconds,
-targets, and scores are not candidates by inheritance.
+Implement Phase 00 from scratch under the VEATIC namespace. Do not copy or adapt any existing
+phase runner. Keep feature access, row/metadata access, and later supervised-label access
+structurally separate. The feature path must be unable to request label arrays as model
+features, and every hidden-state path must be rejected before open, load, inspection, copy,
+or hash.
 
-Apply criteria frozen before cortical scoring to reject candidates with inadequate eligible
-rows, video coverage, positives, or fold-owned threshold stability. Freeze the surviving
-candidate target definitions, masks, ownership rebuild requirements, selection rule, gates,
-and fresh seed derivation. Prior held-out results are diagnostic motivation only.
+Phase 00 audits all 124 TRIBE prediction payloads and all 124 matching V-JEPA row/metadata
+directories. It validates exact file inventory, manifests/status, recorded payload hashes,
+video IDs, complete 2 Hz row identity, row-count agreement, cortical shape/dtype/finiteness,
+uniform schemas, time equality, quality flags, allowlisted tree digests, and the AGAIN runtime
+firewall. It must explicitly prove that every video prediction and every canonical row was
+considered.
 
-This action is design-only. Do not load Phase 04 cortical scores, construct or fit a washout
-PCA/residual head, score any cortical washout candidate, select a gap from outer results, or
-execute Phase 06. Every target-dependent AR, scaler, PCA, residualizer, head, and control must
-later be rebuilt after an authorized design transition; no current target-dependent fitted
-object may be silently reused.
+Phase 00 performs no target construction or selection, split, PCA, AR fit, learned model,
+head search, washout design, or scientific comparison.
 
-All learned training uses MLX with exactly one GPU worker and no artificial memory cap. CPU
-remains limited to parsing, deterministic audits, orchestration, metrics, hashing, and report
-generation.
+New external lifecycle root:
+
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728`
+
+Phase 00 output root:
+
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-00-dense-foundation`
+
+Do not resume from or write into any other VEATIC run lifecycle.
 
 ## Progression and handoff rule
 
-When the Phase 05 washout design completes:
+When and only when fresh Phase 00 passes every mandatory control:
 
-1. inspect every compact and external washout-design output;
-2. run all focused VEATIC and authority-contract tests;
-3. create the compact defensible study record under
-   `studies/veatic-2.1/phase-05-washout-design`;
-4. replace this file with the new live state while retaining **Mandatory authority anchors**;
-5. record exact code/input/output hashes and the single newly authorized action;
+1. inspect every compact and external output;
+2. run all focused VEATIC tests, authority-contract tests, and the full repository test suite;
+3. create the compact defensible record under
+   `studies/veatic-2.1/phase-00-dense-foundation`;
+4. replace this file while retaining **Mandatory authority anchors**;
+5. record exact code, input, result, artifact-manifest, and checksum hashes plus the single
+   newly authorized action;
 6. commit and push the coherent transition directly to `origin/main`;
-7. begin any cortical washout candidate evaluation only after the design transition is on
-   remote `main`; Phase 06 remains unauthorized until a controlled target/head passes.
+7. begin Phase 01 only after the Phase 00 transition is present on remote `main`.
 
-Do not rewrite the master specification merely because progress changed. Amend it only for an
-explicitly authorized durable method change.
+No later phase may claim success or failure without the master specification's comprehensive
+VEATIC experiment registration, full result ledger, complete controls, and
+search-sufficiency gate.
 
 ## Exact next action
 
-Implement, test, execute, and review a label/decomposition-only Phase 05 VEATIC washout design.
-Freeze the bounded candidate start/window definitions, exact row/second identities,
-coverage/support/threshold-stability eligibility rules, ownership rebuild contract, fresh
-seeds, development-only selection rule, and confirmation gates before opening any washout
-cortical score. Do not fit or score a washout model and do not begin Phase 06.
+Implement, test, execute, and review a genuinely fresh Phase 00 dense-foundation audit over
+all 124 per-video cortical prediction payloads and their matching exact 2 Hz V-JEPA row and
+metadata inputs. Produce only Phase 00 evidence. Do not begin Phase 01 or any modeling action.

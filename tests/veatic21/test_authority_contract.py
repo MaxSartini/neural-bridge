@@ -7,10 +7,35 @@ AGENTS = ROOT / "AGENTS.md"
 MASTER = ROOT / "internal" / "active" / "veatic21-master-scientific-specification.md"
 CHECKLIST = ROOT / "internal" / "active" / "veatic21-rebuild-protocol.md"
 CURRENT = ROOT / "internal" / "handoff" / "CURRENT_STATE.md"
+PROJECT_README = ROOT / "README.md"
+METHODS_README = ROOT / "docs" / "README.md"
+STUDY = ROOT / "studies" / "veatic-2.1"
+PACKAGE = ROOT / "src" / "neural_bridge" / "veatic21"
 
 MASTER_ABSOLUTE = str(MASTER)
 CHECKLIST_ABSOLUTE = str(CHECKLIST)
 CURRENT_ABSOLUTE = str(CURRENT)
+
+TRIBE_PER_VIDEO_ROOT = (
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/"
+    "veatic 2.1 raw cortical predictions/per_video"
+)
+VJEPA_ROOT = (
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/"
+    "veatic 2.1 v jepa 2.1 stuff"
+)
+FRESH_LIFECYCLE_ROOT = (
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/"
+    "fresh-method-rebuild-20260728"
+)
+DISALLOWED_ACTIVE_TEXT = (
+    "tribe-v2/compact-",
+    "vjepa-2.1/compact-",
+    "/again-method-restart-",
+    "Final TRIBE",
+    "final-TRIBE",
+    "sole real Neural Bridge representation",
+)
 
 
 def _read(path: Path) -> str:
@@ -28,6 +53,7 @@ def test_durable_master_retains_comprehensive_scientific_contract() -> None:
         "## Study-local AGAIN research map",
         "#### VEATIC-specific washout procedure",
         "## Control matrix required from the first applicable cell",
+        "## Comprehensive VEATIC experiment-sufficiency contract",
         "## Metric contract",
         "## PCA strategy and accuracy safeguards",
         "## Phase 00 implementation contract",
@@ -36,7 +62,8 @@ def test_durable_master_retains_comprehensive_scientific_contract() -> None:
     )
     missing = [section for section in required_sections if section not in master]
     assert not missing, f"master scientific specification lost required sections: {missing}"
-    assert len(master.splitlines()) >= 900, "master specification was unexpectedly shortened"
+    assert "Specification version: 2.0" in master
+    assert len(master.splitlines()) >= 1_000, "master specification was unexpectedly shortened"
 
 
 def test_live_handoff_preserves_mandatory_authority_anchors() -> None:
@@ -70,3 +97,94 @@ def test_derived_checklist_defers_to_master_and_live_state() -> None:
     assert "the master wins" in checklist
     assert "internal/active/veatic21-master-scientific-specification.md" in checklist
     assert "internal/handoff/CURRENT_STATE.md" in checklist
+
+
+def test_all_active_authorities_use_exact_renamed_input_roots() -> None:
+    master = _read(MASTER)
+    checklist = _read(CHECKLIST)
+    current = _read(CURRENT)
+
+    for document in (master, checklist, current):
+        assert TRIBE_PER_VIDEO_ROOT in document
+        assert VJEPA_ROOT in document
+        for disallowed in DISALLOWED_ACTIVE_TEXT:
+            assert disallowed not in document
+
+    assert FRESH_LIFECYCLE_ROOT in master
+    assert FRESH_LIFECYCLE_ROOT in current
+
+
+def test_complete_per_video_2hz_boundary_is_unambiguous() -> None:
+    master = _read(MASTER)
+    checklist = _read(CHECKLIST)
+    current = _read(CURRENT)
+
+    for document in (master, checklist, current):
+        assert "all 124" in document.lower()
+        assert "2 Hz" in document
+        assert "cortical_prediction" in document
+        assert "vjepa21_hidden_states.npz" in document
+
+    assert "There is no single pooled or privileged" in master
+    assert "There is no single pooled or privileged" in checklist
+    assert "complete collection of all 124 per-video arrays" in current
+    assert "851d55ccaac7c587495f65cdfbfbcf6bfe22a66a7ab3da2a048d0422e4087a60" in master
+    assert "851d55ccaac7c587495f65cdfbfbcf6bfe22a66a7ab3da2a048d0422e4087a60" in current
+
+
+def test_every_claim_bearing_phase_requires_fresh_comprehensive_search() -> None:
+    master = _read(MASTER)
+    checklist = _read(CHECKLIST)
+    normalized_master = " ".join(master.split())
+
+    required_master_text = (
+        "Every phase and subphase",
+        "one representation, one head, one optimizer, one training budget, or one seed",
+        "Every attempted configuration",
+        "search-sufficiency gate",
+        "learning curves",
+        "not negative",
+    )
+    for text in required_master_text:
+        assert text in normalized_master
+
+    assert "## Comprehensive experiment and search-sufficiency checklist" in checklist
+    assert "full append-only experiment ledger" in checklist
+    assert "one convenient implementation" in checklist
+    assert "derive and justify the split proportions" in checklist
+    assert "Do not import an AGAIN head" in checklist
+
+
+def test_live_state_is_fresh_phase00_only() -> None:
+    current = _read(CURRENT)
+
+    assert "fresh Phase 00, before implementation and execution" in current
+    assert "Implemented phases: none" in current
+    assert "Executed phases: none" in current
+    assert "Authorized phase: Phase 00 dense-foundation audit only" in current
+    assert "Implement, test, execute, and review a genuinely fresh Phase 00" in current
+    assert "Concluded Phase" not in current
+    assert not PACKAGE.exists(), "fresh Phase 00 must not retain a VEATIC implementation"
+    assert not any(STUDY.glob("phase-*")), "fresh study root must not retain phase records"
+
+
+def test_surrounding_veatic_documentation_matches_fresh_authority() -> None:
+    project = _read(PROJECT_README)
+    methods = _read(METHODS_README)
+    study = _read(STUDY / "README.md")
+
+    assert TRIBE_PER_VIDEO_ROOT in project
+    assert VJEPA_ROOT in project
+    assert "no VEATIC 2.1 phase is implemented or executed" in project
+    assert "one projection, one head, one optimizer, one budget, or one seed" in project
+    assert "complete collection of 124 per-video predicted-cortical payloads" in methods
+    assert "None of those counts or settings transfers to VEATIC 2.1" in methods
+    assert "No VEATIC phase has concluded" in study
+
+    stale_claims = (
+        "90 arousal-spike target hypotheses",
+        "five fold-owned cortical PCA bases",
+        "The immediate task is the full resumable fresh-AR benchmark",
+    )
+    for claim in stale_claims:
+        assert claim not in project

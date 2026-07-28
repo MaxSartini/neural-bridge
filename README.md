@@ -26,7 +26,7 @@ unseen client video
 
 V-JEPA 2.1 and TRIBE v2 are not two competing Neural Bridge models or two independent production inputs. V-JEPA 2.1 is the video encoder used inside the TRIBE v2 pipeline; TRIBE v2 maps that encoded video information into predicted average-subject cortical activity. For VEATIC 2.1, the expensive V-JEPA 2.1 pass was run once on H100 hardware and cached, then TRIBE v2 was run over those cached encoder outputs locally. That avoided paying to re-encode the same 124 videos while preserving the intended upstream stack.
 
-The active Neural Bridge input is the dense `tribe_cortical` output produced after TRIBE v2 runs over the cached V-JEPA 2.1 encoder outputs. This cortical output is the sole representation used for VEATIC 2.1 PCA, learned-head training, and winner selection.
+The active VEATIC Neural Bridge input is the complete collection of 124 per-video TRIBE payloads under `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/veatic 2.1 raw cortical predictions/per_video`. Each payload contributes its `cortical_prediction` array on the exact 2 Hz row grid; there is no single pooled or privileged prediction file. Matching row identity, label, and interpolation provenance comes from the per-video `rows.csv` files under `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/veatic 2.1 v jepa 2.1 stuff`. V-JEPA hidden-state NPZ files are upstream-only and are not Neural Bridge inputs.
 
 Neural Bridge begins after this frozen upstream stack. Raw TRIBE output is rich but is not expected to solve the product task by itself. AGAIN demonstrated the central point: raw predicted cortical features could lose to a strong response-history baseline, while the learned Neural Bridge temporal and residual machinery exposed useful forward-looking signal.
 
@@ -70,30 +70,28 @@ The engineering objective is maximum accuracy, performance, robustness, and doma
 
 VEATIC 2.1 is not a new dataset and is not the Original VEATIC model renamed. It is a fresh Neural Bridge rebuild over the same 124 VEATIC videos using the denser, stronger 2 Hz V-JEPA 2.1/TRIBE v2 substrate and the scientific lessons earned from Original VEATIC and AGAIN.
 
-The current position is deliberately before learned-model discovery:
+The current position is a genuinely fresh Phase 00 boundary:
 
-- the 124-video dense substrate and black/end-screen quality exclusions are verified;
-- train-only calibration retained all 90 arousal-spike target hypotheses for full fresh-AR discovery;
-- five fold-owned cortical PCA bases are cached through 512 dimensions and expose only the VEATIC candidate widths `64`, `128`, `256`, and `512`;
-- no PCA width has been benchmarked or selected;
-- the learned bounded causal-residual executor has passed one real non-promotable validation cell, including fresh fold-owned AR, causal temporal construction, MLX training, checkpoint selection, artifact sealing, and verified resume;
-- the full fresh-AR target benchmark and learned discovery matrix have not run; and
-- no VEATIC 2.1 target, representation, PCA width, learned model, training recipe, checkpoint, or final winner has been selected.
+- no VEATIC 2.1 phase is implemented or executed;
+- no target, split, AR family, representation, projection width, temporal context, head, optimizer, seed, checkpoint, control result, or winner is selected;
+- the only authorized action is a complete input audit over all 124 per-video cortical payloads and all 20,657 matching exact 2 Hz rows;
+- quality flags remain attached metadata and do not silently delete rows; and
+- no target construction, AR, PCA, learned model, or later phase begins until Phase 00 independently passes and its transition is committed and pushed on `main`.
 
-The immediate task is the full resumable fresh-AR benchmark over every one of the 90 targets, five folds, and three fixed comparison seeds. That evidence establishes VEATIC-specific target support and baseline difficulty before any width or learned-head result can steer the search. After it completes, the same child-plan path is replaced in place with a `spike_discovery` plan cryptographically bound to the AR summary. Learned experiments then compare the registered PCA widths and both bounded causal-residual families on identical folds and seeds while preserving the sealed tail.
+After Phase 00, every phase and subphase must preregister a broad VEATIC-specific candidate registry, complete matched controls, staged training and pruning rules, convergence/undertraining checks, fresh-seed expansion, a full ledger of successful and failed runs, and a search-sufficiency gate. A convenient baseline, one projection, one head, one optimizer, one budget, or one seed cannot establish either a win or a failure.
 
 The scientific order from there is fixed:
 
-1. complete full arousal-spike target discovery and fresh VEATIC AR benchmarking;
-2. benchmark VEATIC-specific PCA widths and learned representation candidates;
-3. compare model families and training methods on matched folds and seeds;
-4. confirm stability across the fixed fold and seed panels;
-5. run matched controls, leakage checks, and the no-harm gate against fresh frozen AR;
-6. select and freeze one spike winner from inner-validation evidence;
-7. open the sealed tail once for spike confirmation;
-8. repeat the earned method for continuous arousal;
-9. crack valence as its own target family; and
-10. only then develop the VEATIC 2.1 zero-label-at-inference form and integrate the confirmed VEATIC and AGAIN abilities into the broader production generalist.
+1. audit and seal the complete 124-video, 20,657-row 2 Hz substrate in fresh Phase 00;
+2. derive the arousal-spike target family from VEATIC labels without reading cortical results;
+3. establish the strongest defensible fresh VEATIC AR floor through a comprehensive search;
+4. benchmark raw cortical signal and controls over every eligible per-video row;
+5. comprehensively search fold-owned projections, widths, temporal representations, and controls;
+6. comprehensively search learned head, residual/fusion, optimizer, budget, and checkpoint families;
+7. confirm and stabilize a controlled spike winner before opening continuous arousal;
+8. repeat the full specialized method for continuous arousal;
+9. crack valence through its own VEATIC-specific target and experiment programme; and
+10. only after all supervised abilities are established, develop the genuine video-only, zero-label-at-inference lane and integrate confirmed VEATIC and AGAIN abilities into the broader production generalist.
 
 The active command, exact artifact paths, and next executable gate live in [`internal/handoff/CURRENT_STATE.md`](internal/handoff/CURRENT_STATE.md). That handoff records current execution state; this README records the stable product and programme model.
 

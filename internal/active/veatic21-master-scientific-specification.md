@@ -1,7 +1,7 @@
 # VEATIC 2.1 AGAIN-Method Master Scientific Specification
 
-Specification version: 1.0
-Sealed from the comprehensive handoff: 2026-07-23
+Specification version: 2.0
+Fresh Phase 00 authority seal: 2026-07-28
 
 ## Purpose and change control
 
@@ -63,9 +63,12 @@ numeric choice to its VEATIC evidence, derivation rule, owned rows, code digest,
 digest. A phase cannot advance when that ledger or the AGAIN-path rejection audit is absent.
 
 Method constants explicitly declared by this master specification—native 2 Hz rows,
-training-fold q90 event thresholding, separate grouped and blocked 70/30 reporting, and the
-declared PCA candidate set—are current VEATIC rules. They do not authorize reuse of AGAIN row
-membership, arrays, fitted values, or selected results.
+training-fold q90 event thresholding, and separately reported grouped-video and
+blocked-temporal protocols—are current VEATIC rules. Split proportions, target windows, AR
+families, projection families and widths, temporal contexts, heads, optimizers, budgets,
+seeds, checkpoint rules, and numeric promotion gates must be derived and evaluated afresh on
+VEATIC 2.1 under the experiment-sufficiency contract below. No declaration authorizes reuse
+of AGAIN row membership, arrays, fitted values, configurations, or selected results.
 
 ## Repository and execution invariants
 
@@ -100,15 +103,15 @@ history.
 
 ## Canonical VEATIC input roots
 
-### Final TRIBE v2 predicted-cortical cache
+### Complete per-video TRIBE v2 raw cortical predictions
 
-Root:
+Per-video root:
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/compact-20260716`
+`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/veatic 2.1 raw cortical predictions/per_video`
 
 Per-video folder:
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/compact-20260716/per_video/<video_id>`
+`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/veatic 2.1 raw cortical predictions/per_video/<video_id>`
 
 Per-video files:
 
@@ -118,15 +121,23 @@ Per-video files:
 
 Run status:
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/compact-20260716/per_video/run_status.json`
+`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/veatic 2.1 raw cortical predictions/per_video/run_status.json`
 
-The real Neural Bridge representation is exactly:
+There is no single pooled or privileged "final NPZ." The complete real Neural Bridge input is
+the collection of all 124 per-video payloads, and every payload contributes all of its exact
+2 Hz rows. Within each payload, the real predicted-cortical representation array is:
 
 `tribe_v2_cortical_predictions.npz:cortical_prediction`
 
+"Use the cortical prediction" always means use or explicitly account for this array from
+every video `0..123` under identical row-ownership rules. A run that reads one video, one
+convenient subset of videos, or one unregistered subset of rows does not evaluate the VEATIC
+cortical substrate. Any exclusion must be preregistered, justified independently of outcome,
+and reported as a sensitivity analysis; the canonical primary table retains every source row.
+
 Verified TRIBE tree identity:
 
-- SHA-256 tree: `0d4adc27dd9d226de87d0cfc4df92de14cb7450de6671857e0665418ad26f6dd`
+- SHA-256 tree: `851d55ccaac7c587495f65cdfbfbcf6bfe22a66a7ab3da2a048d0422e4087a60`
 - files: `373`
 - symlinks: `0`
 - size: `866,111,964` bytes
@@ -135,11 +146,11 @@ Verified TRIBE tree identity:
 
 Root:
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/compact-20260716`
+`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/veatic 2.1 v jepa 2.1 stuff`
 
 Per-video folder:
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/compact-20260716/<video_id>`
+`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/veatic 2.1 v jepa 2.1 stuff/<video_id>`
 
 Allowed files:
 
@@ -177,12 +188,13 @@ Do not:
 - use its `features` or any hidden-state tensor;
 - rerun V-JEPA or TRIBE.
 
-The hidden-state cache was the upstream input used to produce the final TRIBE cortical cache.
+The hidden-state cache was the upstream input used to produce the per-video TRIBE cortical
+predictions.
 Neural Bridge starts after that process.
 
-## Exact role of every relevant final-TRIBE array
+## Exact role of every relevant per-video TRIBE array
 
-The final TRIBE NPZ has one uniform key set across all 124 videos:
+Each of the 124 per-video TRIBE NPZ files has one uniform key set:
 
 - `time_seconds`
 - `sample_frame_indices`
@@ -214,7 +226,7 @@ Role classification:
 
 | Array or family | Role |
 | --- | --- |
-| `cortical_prediction` | Sole real Neural Bridge representation |
+| `cortical_prediction` | Real representation array in every one of the 124 per-video payloads |
 | `time_seconds` | Row-identity cross-check |
 | copied arousal/valence and source-label arrays | Equality audit only; not label authority |
 | luma, motion, quality arrays | Audit or explicitly named nuisance-control lanes only |
@@ -222,12 +234,14 @@ Role classification:
 | `tribe_grouped_video_feature` | Excluded from Neural Bridge representation search |
 | frame/sample indices and times | Provenance/audit only |
 
-The authoritative labels and label interpolation provenance are the matching V-JEPA
-`rows.csv`, not the duplicated arrays inside the final TRIBE NPZ.
+The authoritative labels and label interpolation provenance are the matching per-video
+V-JEPA `rows.csv`, not the duplicated arrays inside a TRIBE payload.
 
 ## Verified substrate facts
 
-The research audit established all of the following without opening a hidden-state NPZ:
+The 2026-07-28 read-only authority audit of the two canonical roots established all of the
+following without opening or hashing a hidden-state NPZ. Fresh Phase 00 must independently
+reproduce these facts and seal its own manifests before any later phase is authorized:
 
 - TRIBE numeric video folders: exactly `0..123`.
 - V-JEPA numeric video folders: exactly `0..123`.
@@ -248,14 +262,15 @@ The research audit established all of the following without opening a hidden-sta
 - Every cortical array is `[rows, 20,484]`, float16, and finite.
 - Every grouped upstream feature is `[rows, 2, 1,408]`; it is not a Neural Bridge input.
 - Every copied temporal diagnostic array is `[rows, 53]`, float32, and finite.
-- All 124 final-TRIBE NPZ files have one identical key schema.
+- All 124 per-video TRIBE NPZ files have one identical key schema.
 - TRIBE and V-JEPA manifest/status pairs agree per video.
 - All allowed V-JEPA JSON/CSV byte counts and recorded SHA-256 values agree.
 - Every V-JEPA upload marker agrees with its payload-manifest hash.
-- Final-TRIBE copied time equals `rows.csv` time exactly.
-- Final-TRIBE copied arousal/valence and source labels agree with `rows.csv` to float32
+- Per-video TRIBE copied time equals `rows.csv` time exactly.
+- Per-video TRIBE copied arousal/valence and source labels agree with `rows.csv` to float32
   precision; maximum absolute difference is below `3e-8`.
-- Final-TRIBE source frame positions and interpolation alphas agree with `rows.csv` exactly.
+- Per-video TRIBE source frame positions and interpolation alphas agree with `rows.csv`
+  exactly.
 - Arousal observed range: `[-0.6425546437, 0.8886752389]`.
 - Valence observed range: `[-0.8771958318, 0.8212311904]`.
 
@@ -765,6 +780,64 @@ raw prevalence.
 No real-only pilot can authorize target selection, stability, confirmation, or later control
 backfill.
 
+## Comprehensive VEATIC experiment-sufficiency contract
+
+Every phase and subphase must establish the best defensible VEATIC 2.1 result for its stated
+question. A convenient runnable baseline, one representation, one head, one optimizer, one
+training budget, or one seed is never sufficient evidence that an ability or family succeeds
+or fails. AGAIN supplies the methodology and the kinds of questions to ask; it supplies no
+VEATIC candidate, setting, fitted object, or stopping decision.
+
+Before opening claim-bearing outer results, each phase writes a VEATIC-specific experiment
+registration that freezes:
+
+1. the scientific question and exact target/row ownership;
+2. candidate-generation evidence from legal VEATIC development data;
+3. every candidate family, hyperparameter dimension, temporal context, and ablation to be
+   evaluated, including bounds and the reason each bound is adequate;
+4. staged search budgets, convergence and early-stopping rules, checkpoint cadence, seed
+   expansion, invalid-run handling, and the rule for escalating a promising family;
+5. identical real/control comparisons, inner selection metrics, uncertainty, promotion
+   gates, and confirmatory holdout boundaries;
+6. a search-sufficiency gate that must pass before a negative result or selected winner can
+   close the phase.
+
+The candidate registry must be broad enough to test the live uncertainty, not merely repeat
+the easiest implementation. At minimum, when applicable, it covers:
+
+- **targets and washouts:** multiple VEATIC-derived candidate windows that survive frozen
+  label-only coverage/support rules, while preserving the initial no-washout reference;
+- **AR floors:** VEATIC-derived causal history spans, level/difference/slope/rolling-summary
+  feature forms, regularization and capacity families, training budgets, and calibration;
+- **representations:** all 124 per-video cortical payloads and all eligible 2 Hz rows, with
+  VEATIC-derived scaling, projection/reduction families and widths, causal temporal depths,
+  aggregation operators, and current-row ablations;
+- **learned heads:** linear and meaningfully different nonlinear, depth, width, gated,
+  temporal, and residual/fusion families whose bounds are justified by VEATIC sample size and
+  learning curves, together with optimizer, learning-rate, regularization, batch, budget,
+  and checkpoint-policy searches;
+- **stability:** multiple fresh seeds for search finalists, fold/video consistency, and fixed
+  checkpoint groups only after a recipe is selected.
+
+Search may be staged to control compute, but successive-halving or pruning decisions use
+training/inner-validation evidence only and preserve every matched control required for that
+stage. Outer test and confirmation outcomes never change the candidate registry, rescue a
+failed candidate, choose a head, or terminate search early.
+
+Every attempted configuration—including failed, pruned, divergent, undertrained, excluded,
+and null runs—must appear in an append-only experiment ledger with configuration, code/data
+digests, owned rows, runtime, checkpoints, learning curves, selection score, controls, and
+disposition. Summary reports include the full candidate/result table, not only winners.
+
+The search-sufficiency gate requires all registered families to be completed or excluded by a
+pre-outcome rule; finalists to show adequate optimization rather than unresolved
+undertraining; performance to be stable enough across fresh seeds and owned folds to support
+selection; complete controls to be present; and the remaining uncertainty to be explicitly
+bounded. If that gate fails, the scientific conclusion is **incomplete**, not negative. A
+phase advances only after both its scientific promotion gate and its search-sufficiency gate
+pass, or after a fully documented exhaustive negative result closes that ability without
+authorizing later abilities.
+
 ## Metric contract
 
 ### Spike/event ranking
@@ -812,17 +885,19 @@ and an error-metric improvement does not override an unmet ranking gate.
 
 ## PCA strategy and accuracy safeguards
 
-The default VEATIC search uses one maximum rank-512 PCA per outer-training partition and
-nested prefixes `64/128/256/512`.
+No PCA width, maximum rank, solver budget, or temporal family is fixed by inheritance. Phase
+04 derives a broad but computationally bounded candidate set from VEATIC 2.1 training-owned
+sample size, spectrum, reconstruction behavior, effective rank, downstream inner-validation
+curves, and available memory. The registration must include low-, medium-, and high-capacity
+regions and explain why its upper boundary is sufficient; one convenient width is not a
+representation search.
 
-Reason:
-
-- PCA directions are ordered and nested when solved accurately;
-- lower-width models receive only their prefix, so components beyond their width cannot affect
-  them;
-- one basis makes width the variable rather than width plus randomized-fit variation;
-- redundant fits needlessly rediscover the same leading components;
-- the 512 model remains only a candidate and is not selected unless it generalizes best.
+When one accurately solved maximum basis can supply registered nested prefixes, using it is
+allowed because PCA directions are ordered and the lower prefixes are not affected by later
+components. That implementation economy does not preselect the maximum rank or excuse a
+narrow width grid. Width remains an inner-only experimental variable, and non-PCA reduction
+or aggregation families required by the registered representation question remain separate
+candidates.
 
 Accuracy requirements:
 
@@ -836,33 +911,33 @@ Accuracy requirements:
 - component orthogonality audit;
 - monotonic cumulative explained variance;
 - reconstruction-residual audit;
-- independent-seed subspace stability for the leading 64/128/256 components;
+- independent-seed subspace stability for every registered selection-relevant prefix;
 - prefix score checksums;
 - recorded train/transform row digests.
 
-If a rank-512 solve does not recover stable leading prefixes, separately fit the affected
-widths. Do not prefer computational convenience over representation accuracy.
+If a maximum-basis solve does not recover stable selection-relevant prefixes, separately fit
+the affected widths. Do not prefer computational convenience over representation accuracy.
 
-Using all 512 downstream components can overfit. Width selection is therefore inner-only and
-the chosen width must survive outer control-complete confirmation. Available memory does not
-make higher components informative.
+High-dimensional prefixes can overfit. Width selection is therefore inner-only and the chosen
+width must survive the complete control matrix, fresh seeds, and untouched confirmation.
+Available memory does not make higher components informative.
 
 ## Phase 00 implementation contract
 
-### Initial lifecycle boundary at specification version 1.0
+### Fresh lifecycle boundary at specification version 2.0
 
-At the version 1.0 seal, Phase 00 was not implemented or run and nothing later was authorized.
-Consult `internal/handoff/CURRENT_STATE.md` for the live boundary.
+At the version 2.0 seal, Phase 00 is unimplemented and unexecuted and nothing later is
+authorized. Consult `internal/handoff/CURRENT_STATE.md` for the live boundary.
 
 ### New external lifecycle root
 
 Use a new lifecycle root:
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723`
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728`
 
 Phase 00 output:
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-00-dense-foundation`
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-00-dense-foundation`
 
 Do not resume from an artifact outside this lifecycle root.
 
@@ -881,10 +956,10 @@ must be structurally unable to obtain label values through its feature access pa
 
 ### Phase 00 allowed reads
 
-From final TRIBE:
+From the complete per-video TRIBE prediction collection:
 
 - per-video `manifest.json` and `status.json`;
-- `per_video/run_status.json`;
+- root `run_status.json`;
 - exact `tribe_v2_cortical_predictions.npz` payloads;
 - `cortical_prediction` for shape/dtype/finiteness;
 - `time_seconds` and provenance/quality fields needed for identity/audit;
@@ -902,7 +977,8 @@ From matching V-JEPA directories:
 1. Exact numeric video IDs `0..123` in both roots.
 2. Exact matching ID set across roots.
 3. `run_status.json`: 124 expected, 124 complete, empty failures.
-4. Exactly one final TRIBE payload, manifest, and status per video.
+4. Exactly one TRIBE prediction payload, manifest, and status in every video directory, with
+   all 124 video directories present and considered.
 5. Matching V-JEPA allowed metadata files per video.
 6. TRIBE manifest/status equality and complete status.
 7. V-JEPA manifest/status equality and complete status.
@@ -916,11 +992,11 @@ From matching V-JEPA directories:
 15. Required `rows.csv` columns and encode policy.
 16. Final cortical shape `[row_count, 20,484]` and float16 dtype.
 17. All cortical values finite.
-18. Uniform final-TRIBE key set across videos.
+18. Uniform per-video TRIBE key set across all 124 videos.
 19. Copied TRIBE time exactly matches `rows.csv` time.
 20. Quality flags have correct dtype/shape and union semantics.
 21. Quality counts `76/871/24/923`, with all `20,657` source rows retained.
-22. Final TRIBE tree digest matches the registered digest above.
+22. The complete per-video TRIBE tree digest matches the registered digest above.
 23. Allowed V-JEPA metadata-only digest matches the registered digest above.
 24. Provenance report explicitly records `vjepa_hidden_states_loaded=false` and
     `vjepa_hidden_states_hashed=false`.
@@ -998,7 +1074,7 @@ Required work:
 9. Record explicitly that AGAIN row offsets and seconds are not candidates by inheritance.
 10. Store continuous future movement values and validity masks.
 11. Do not create one global q90 binary label column.
-12. Do not create an outer 70/30 split during alignment.
+12. Do not create an outer evaluation split during alignment.
 13. Write alignment, target-source, mask, row-ownership, and derivation-ledger digests.
 14. Produce compact evidence and authorize Phase 02 only after all alignment controls pass.
 
@@ -1006,27 +1082,35 @@ Required work:
 
 1. Phase 00 dense foundation.
 2. Phase 01 label alignment and VEATIC target substrate.
-3. Phase 02 fresh target-specific AR under grouped and blocked protocols.
-4. Freeze exact AR predictions/checksums for matched lanes.
-5. Phase 03 raw cortical benchmark with complete controls.
-6. Phase 04 fold-owned PCA and temporal representation search with complete controls.
-7. Freeze one VEATIC-selected representation.
-8. Phase 05 VEATIC-specific frozen-AR residual model discovery with no-harm and complete
-   controls from the first cell.
-9. If controlled decomposition activates the washout branch, derive its gaps/windows from
+3. Register and execute a comprehensive fresh target-specific AR search under grouped and
+   blocked protocols; freeze exact AR predictions/checksums only after the AR
+   search-sufficiency gate passes.
+4. Register and execute the Phase 03 raw cortical benchmark over all 124 per-video payloads
+   with complete controls, adequate optimization, and fresh-seed finalists.
+5. Register and execute Phase 04 fold-owned projection/reduction, width, scaling, and causal
+   temporal representation searches with complete controls.
+6. Freeze one VEATIC-selected representation only after the representation
+   search-sufficiency gate passes.
+7. Register and execute comprehensive Phase 05 VEATIC-specific head, capacity, temporal,
+   optimizer, budget, and residual/fusion discovery with no-harm and complete controls from
+   the first cell.
+8. If controlled decomposition activates the washout branch, derive its gaps/windows from
    VEATIC label dynamics, select only on development-owned evidence, register the redesign,
    and refit every ownership-dependent artifact before fresh confirmation. If the starting
    task clears its gates, retain the no-washout target.
-10. Confirm one event target/head/recipe across fresh seeds and both protocols.
-11. Phase 06 fixed checkpoint-group stabilization.
-12. Phase 07 separately specialized continuous arousal.
-13. VEATIC-specific valence programme.
-14. Zero-label-at-inference development and prospective locked confirmation.
-15. Only confirmed abilities enter production software.
+9. Confirm one event target/head/recipe across fresh seeds and both protocols only after every
+   registered experiment family and control has a recorded disposition.
+10. Phase 06 fixed checkpoint-group stabilization.
+11. Phase 07 separately specialized continuous arousal, with a new comprehensive experiment
+    registration rather than inherited event settings.
+12. VEATIC-specific valence programme, with its own comprehensive experiment registration.
+13. Zero-label-at-inference development and prospective locked confirmation, only after the
+    supervised abilities are established.
+14. Only confirmed abilities enter production software.
 
-## Initial bootstrapping action at specification version 1.0
+## Initial bootstrapping action at specification version 2.0
 
-The version 1.0 bootstrapping action was to implement Phase 00 from the contract above. Do not
+The version 2.0 bootstrapping action is to implement Phase 00 from the contract above. Do not
 begin PCA, AR, target benchmarking, model training, or a later phase. Do not read or hash a
 V-JEPA hidden-state NPZ. Do not select a target horizon, width, head, or recipe in Phase 00.
 
