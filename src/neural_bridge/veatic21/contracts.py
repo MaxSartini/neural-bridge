@@ -12,6 +12,7 @@ LIFECYCLE_ROOT = ARTIFACT_ROOT / "runs/veatic-2.1/again-method-restart-20260723"
 PHASE00_ROOT = LIFECYCLE_ROOT / "phase-00-dense-foundation"
 PHASE01_ROOT = LIFECYCLE_ROOT / "phase-01-label-alignment"
 PHASE02_ROOT = LIFECYCLE_ROOT / "phase-02-ar-baseline"
+PHASE03_ROOT = LIFECYCLE_ROOT / "phase-03-raw-cortical"
 
 MASTER_SPECIFICATION = REPOSITORY_ROOT / (
     "internal/active/veatic21-master-scientific-specification.md"

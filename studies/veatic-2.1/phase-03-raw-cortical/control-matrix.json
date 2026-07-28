@@ -1,0 +1,21 @@
+{
+  "declared_width": 20484,
+  "matching": "same target, Phase 02 row ownership, fold, seed, frozen AR, classifier, calibration rule, and metric rows; only declared input factor changes",
+  "roles": {
+    "ar_plus_real_cortical": "direct raw fusion baseline",
+    "diagnostics_only": "temporal_diagnostics53 only",
+    "frozen_ar": "matched target-specific persistence floor",
+    "label_permutation_cortical": "nonzero seeded circular permutation within each outer-training video; held-out labels remain true",
+    "no_video_architecture_ablation": {
+      "applicable": false,
+      "reason": "Phase 03 has no video embedding or architecture branch"
+    },
+    "quality_motion_luma_only": "luma, motion, black/duplicate fractions, and quality flags only",
+    "real_cortical_only": "sole real cortical lane, cortical-only lane, and current-row/no-temporal-context ablation",
+    "shape_matched_random": "seeded full-width float16 Rademacher matrix per partition",
+    "shuffled_cortical": "nonzero seeded circular row permutation within each video and outer partition; no row crosses split or video ownership",
+    "time_video_time_only": "elapsed video time plus video identity only",
+    "train_only_video_mean": "outer-training video mean; unseen grouped test video receives global outer-training mean; blocked test receives its video's outer-training mean"
+  },
+  "schema": "veatic21_phase03_control_matrix_v1"
+}

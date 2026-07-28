@@ -9,8 +9,9 @@ checklist is `internal/active/veatic21-rebuild-protocol.md`, and live state is
 Controls are part of every applicable phase from its first registered cell. No phase advances
 until its control gate passes.
 
-The clean Phase 00 dense-foundation audit and Phase 01 label-alignment/target-substrate gate
-passed on 2026-07-28. Their compact defensible records are under
-`phase-00-dense-foundation/` and `phase-01-label-alignment/`; heavy evidence remains in the
-canonical external lifecycle root. Phase 02 fresh target-specific AR is the only newly
-authorized action. Consult `internal/handoff/CURRENT_STATE.md` for the exact live boundary.
+Phases 00 through 03 concluded on 2026-07-28. Their compact defensible records are under the
+corresponding `phase-00-dense-foundation/`, `phase-01-label-alignment/`,
+`phase-02-ar-baseline/`, and `phase-03-raw-cortical/` directories; heavy evidence remains in
+the canonical external lifecycle root. Phase 03's direct raw-fusion claim failed and was not
+promoted. Phase 04 fold-owned PCA is the sole newly authorized action. Consult
+`internal/handoff/CURRENT_STATE.md` for the exact live boundary.
