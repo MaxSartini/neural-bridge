@@ -45,13 +45,13 @@ def test_phase00_compact_record_is_self_consistent_and_control_complete() -> Non
         assert _sha256(RECORD / filename) == hashes[filename]
 
 
-def test_live_handoff_records_phase00_hashes_and_only_authorizes_phase01() -> None:
+def test_live_handoff_retains_concluded_phase00_hashes_after_progression() -> None:
     current = CURRENT.read_text(encoding="utf-8")
     provenance = _load_json(RECORD / "provenance.json")
     external_hashes = provenance["external_hashes"]
     assert isinstance(external_hashes, dict)
 
     assert all(value in current for value in external_hashes.values())
-    assert "Authorized phase: Phase 01 label alignment" in current
-    assert "Phase 02, PCA, AR benchmarking" in current
+    assert "## Concluded Phase 00 evidence" in current
+    assert "Current Phase 00 execution: PASS" in current
     assert "## Exact next action" in current

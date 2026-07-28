@@ -1,0 +1,113 @@
+{
+  "again_numeric_choices_inherited": false,
+  "again_paths_used": false,
+  "code_sha256": "c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639",
+  "digests": {
+    "alignment_sha256": "349eceb1635fd50863ab9c6bb627fa6471dd3914a4035abea2392eee45bf57b7",
+    "mask_sha256": "2fe43426a67e2e4d39382b09ed5a812fbe966f0ce5ddb61adf7e901a053b2f43",
+    "row_ownership_sha256": "69676e189414a85433ebfd87966684f2353fa69a2ac6a1cd801015a424cf13cd",
+    "substrate_arrays_sha256": "ce4acca4b2b72320bf224ac057342be34f27c4ea713f2a7f5eed97d3f0125088",
+    "target_source_sha256": "ad8b167dff44ae6a0c1c78ef3e501cc622e6320be9a912d879c3d9fc99863a4f"
+  },
+  "fitted_choices": [],
+  "numeric_choices": [
+    {
+      "artifact_sha256": "349eceb1635fd50863ab9c6bb627fa6471dd3914a4035abea2392eee45bf57b7",
+      "authority": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
+      "choice": "target_coverage_floor",
+      "code_sha256": "c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639",
+      "derivation_rule": "complete-table retention safeguard",
+      "owned_rows": "all 20,657 aligned VEATIC rows; no outer split",
+      "value": 0.9
+    },
+    {
+      "artifact_sha256": "349eceb1635fd50863ab9c6bb627fa6471dd3914a4035abea2392eee45bf57b7",
+      "authority": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
+      "choice": "target_acf_decay_ceiling",
+      "code_sha256": "c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639",
+      "derivation_rule": "require at least 10% median within-video level-correlation decay",
+      "owned_rows": "all 20,657 aligned VEATIC rows; no outer split",
+      "value": 0.9
+    },
+    {
+      "artifact_sha256": "349eceb1635fd50863ab9c6bb627fa6471dd3914a4035abea2392eee45bf57b7",
+      "authority": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
+      "choice": "target_support_video_fraction_floor",
+      "code_sha256": "c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639",
+      "derivation_rule": "prevent descriptive top-decile support concentrating in a minority of videos",
+      "owned_rows": "all 20,657 aligned VEATIC rows; no outer split",
+      "value": 0.8
+    },
+    {
+      "artifact_sha256": "349eceb1635fd50863ab9c6bb627fa6471dd3914a4035abea2392eee45bf57b7",
+      "authority": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
+      "choice": "target_support_min_events_per_video",
+      "code_sha256": "c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639",
+      "derivation_rule": "require repeated descriptive support rather than one isolated row",
+      "owned_rows": "all 20,657 aligned VEATIC rows; no outer split",
+      "value": 2
+    },
+    {
+      "artifact_sha256": "349eceb1635fd50863ab9c6bb627fa6471dd3914a4035abea2392eee45bf57b7",
+      "authority": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
+      "choice": "pacf_decay_abs_ceiling",
+      "code_sha256": "c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639",
+      "derivation_rule": "small residual lag-specific dependence landmark",
+      "owned_rows": "all 20,657 aligned VEATIC rows; no outer split",
+      "value": 0.1
+    },
+    {
+      "artifact_sha256": "349eceb1635fd50863ab9c6bb627fa6471dd3914a4035abea2392eee45bf57b7",
+      "authority": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
+      "choice": "pacf_decay_consecutive_lags",
+      "code_sha256": "c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639",
+      "derivation_rule": "stability requirement for the PACF landmark",
+      "owned_rows": "all 20,657 aligned VEATIC rows; no outer split",
+      "value": 2
+    },
+    {
+      "artifact_sha256": "349eceb1635fd50863ab9c6bb627fa6471dd3914a4035abea2392eee45bf57b7",
+      "authority": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
+      "choice": "histogram_bin_bounds",
+      "code_sha256": "c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639",
+      "derivation_rule": "bounded Freedman-Diaconis descriptive resolution",
+      "owned_rows": "all 20,657 aligned VEATIC rows; no outer split",
+      "value": [
+        16,
+        128
+      ]
+    },
+    {
+      "artifact_sha256": "ad8b167dff44ae6a0c1c78ef3e501cc622e6320be9a912d879c3d9fc99863a4f",
+      "authority": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
+      "choice": "selected_initial_target_rows",
+      "code_sha256": "c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639",
+      "derivation_rule": "first frozen-rule candidate satisfying coverage, ACF decay, and support",
+      "owned_rows": "all 20,657 aligned VEATIC rows; no outer split",
+      "value": [
+        1,
+        6
+      ]
+    },
+    {
+      "artifact_sha256": "ad8b167dff44ae6a0c1c78ef3e501cc622e6320be9a912d879c3d9fc99863a4f",
+      "authority": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
+      "choice": "prospective_washout_candidate_rows",
+      "code_sha256": "c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639",
+      "derivation_rule": "VEATIC PACF, positive-rise, and selected-event-duration landmarks",
+      "owned_rows": "all 20,657 aligned VEATIC rows; no outer split",
+      "value": [
+        [
+          5,
+          10
+        ],
+        [
+          6,
+          11
+        ]
+      ]
+    }
+  ],
+  "phase": "phase-01-label-alignment",
+  "schema": "veatic21_derivation_ledger_v1"
+}

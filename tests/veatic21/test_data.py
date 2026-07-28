@@ -11,6 +11,7 @@ from neural_bridge.veatic21.contracts import ROWS_CSV_COLUMNS
 from neural_bridge.veatic21.data import (
     allowlisted_tree_identity,
     read_row_identity,
+    read_supervised_rows,
     validate_cortical_array,
     validate_quality_arrays,
     validate_row_count_identity,
@@ -104,6 +105,32 @@ def test_label_values_do_not_enter_phase00_row_identity(tmp_path: Path) -> None:
     assert np.array_equal(first_identity.row_index, second_identity.row_index)
     assert np.array_equal(first_identity.time_seconds, second_identity.time_seconds)
     assert first_identity.source_match_quality == second_identity.source_match_quality
+
+
+def test_supervised_rows_open_finite_authoritative_labels_and_provenance(tmp_path: Path) -> None:
+    path = tmp_path / "rows.csv"
+    _write_rows(
+        path,
+        [
+            _row(0, arousal="0.1", valence="-0.2"),
+            _row(1, arousal="0.3", valence="0.3"),
+        ],
+    )
+
+    rows = read_supervised_rows(path, "0")
+
+    assert rows.row_count == 2
+    assert rows.arousal.tolist() == [0.1, 0.3]
+    assert rows.valence.tolist() == [-0.2, 0.3]
+    assert rows.source_match_quality == ("native_exact", "linear_native_frames")
+
+
+def test_supervised_rows_reject_nonfinite_labels(tmp_path: Path) -> None:
+    path = tmp_path / "rows.csv"
+    _write_rows(path, [_row(0, arousal="nan", valence="0.0")])
+
+    with pytest.raises(ValueError, match=r"nonfinite (source_)?arousal"):
+        read_supervised_rows(path, "0")
 
 
 def test_row_count_mismatch_is_rejected() -> None:

@@ -1,0 +1,30 @@
+{
+  "schema": "veatic21_phase01_compact_provenance_v1",
+  "completed_at": "2026-07-28T17:16:30.125090+00:00",
+  "external_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-01-label-alignment",
+  "external_hashes": {
+    "artifact_manifest_sha256": "df86ff4f83b6f55397e4532db5121059bc8b4d40a14adc324a7e9117c091f099",
+    "checksums_sha256": "dcc551a583c042a167c902afeac07c3be73b59d44e04313c8aedd13c50c801de",
+    "result_sha256": "31e6933c4d7a2b6ed077d9ae57b4e667c7957286aa0c4c97ff07c56801fb5539",
+    "substrate_file_sha256": "50dfa45bb3a063e88e9334c8cc9e57a9b2353a809d00298ce4d137cc3d8159af"
+  },
+  "code_sha256": "c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639",
+  "digests": {
+    "alignment_sha256": "349eceb1635fd50863ab9c6bb627fa6471dd3914a4035abea2392eee45bf57b7",
+    "mask_sha256": "2fe43426a67e2e4d39382b09ed5a812fbe966f0ce5ddb61adf7e901a053b2f43",
+    "row_ownership_sha256": "69676e189414a85433ebfd87966684f2353fa69a2ac6a1cd801015a424cf13cd",
+    "substrate_arrays_sha256": "ce4acca4b2b72320bf224ac057342be34f27c4ea713f2a7f5eed97d3f0125088",
+    "target_source_sha256": "ad8b167dff44ae6a0c1c78ef3e501cc622e6320be9a912d879c3d9fc99863a4f"
+  },
+  "entrypoint": "uv run python -m neural_bridge.veatic21 phase01",
+  "sole_label_source": "matching V-JEPA rows.csv",
+  "vjepa_hidden_states_loaded": false,
+  "vjepa_hidden_states_hashed": false,
+  "cortical_values_loaded": false,
+  "again_runtime_dependency": false,
+  "focused_tests": {
+    "command": "uv run pytest tests/veatic21 -q",
+    "passed": 45,
+    "failed": 0
+  }
+}

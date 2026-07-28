@@ -10,6 +10,7 @@ TRIBE_ROOT = ARTIFACT_ROOT / "features/veatic-2.1/tribe-v2/compact-20260716"
 VJEPA_ROOT = ARTIFACT_ROOT / "features/veatic-2.1/vjepa-2.1/compact-20260716"
 LIFECYCLE_ROOT = ARTIFACT_ROOT / "runs/veatic-2.1/again-method-restart-20260723"
 PHASE00_ROOT = LIFECYCLE_ROOT / "phase-00-dense-foundation"
+PHASE01_ROOT = LIFECYCLE_ROOT / "phase-01-label-alignment"
 
 MASTER_SPECIFICATION = REPOSITORY_ROOT / (
     "internal/active/veatic21-master-scientific-specification.md"
@@ -38,6 +39,20 @@ EXPECTED_SOURCE_MATCH_COUNTS = {
 }
 BLACK_FRACTION_THRESHOLD = 0.50
 DUPLICATE_FRACTION_THRESHOLD = 0.95
+
+# Phase 01 label-only selection safeguards. These are VEATIC design rules, not inherited
+# horizons or performance gates. Every constant is registered in the Phase 01 derivation
+# ledger with its rationale and owned rows.
+TARGET_COVERAGE_FLOOR = 0.90
+TARGET_ACF_DECAY_CEILING = 0.90
+TARGET_SUPPORT_VIDEO_FRACTION_FLOOR = 0.80
+TARGET_SUPPORT_MIN_EVENTS_PER_VIDEO = 2
+PACF_DECAY_ABS_CEILING = 0.10
+PACF_DECAY_CONSECUTIVE_LAGS = 2
+WASHOUT_SUPPORT_VIDEO_FRACTION_FLOOR = 0.80
+WASHOUT_SUPPORT_MIN_EVENTS_PER_VIDEO = 1
+HISTOGRAM_MIN_BINS = 16
+HISTOGRAM_MAX_BINS = 128
 
 TRIBE_TREE_SHA256 = "0d4adc27dd9d226de87d0cfc4df92de14cb7450de6671857e0665418ad26f6dd"
 TRIBE_TREE_FILES = 373

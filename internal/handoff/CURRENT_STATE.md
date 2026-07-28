@@ -40,13 +40,15 @@ method. This file cannot silently override the master specification.
 - Master scientific specification: version 1.0.
 - Repository: `/Users/maxsartini/Neural Bridge`.
 - Branch: `main` only; do not create a branch.
-- Lifecycle boundary: Phase 00 concluded and sealed; pre-Phase-01.
+- Lifecycle boundary: Phases 00 and 01 concluded and sealed; pre-Phase-02.
 - Current Phase 00 implementation: complete.
 - Current Phase 00 execution: PASS, 27/27 mandatory controls.
+- Current Phase 01 implementation: complete.
+- Current Phase 01 execution: PASS, 20/20 mandatory controls.
 - Current promotable VEATIC result: none.
-- Authorized phase: Phase 01 label alignment and VEATIC target substrate only.
-- Phase 02, PCA, AR benchmarking, cortical target benchmarking, and all model work remain
-  unauthorized until the Phase 01 gate passes.
+- Authorized phase: Phase 02 fresh target-specific AR baseline only.
+- Phase 03 cortical benchmarking, PCA, learned bridge work, and all later phases remain
+  unauthorized until the Phase 02 gate passes.
 
 ## Canonical live inputs
 
@@ -97,41 +99,72 @@ External root:
 - Focused VEATIC tests: 34 passed, 0 failed.
 - Compact record: `studies/veatic-2.1/phase-00-dense-foundation`.
 
+## Concluded Phase 01 evidence
+
+External root:
+
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-01-label-alignment`
+
+- Result SHA-256: `31e6933c4d7a2b6ed077d9ae57b4e667c7957286aa0c4c97ff07c56801fb5539`.
+- Artifact-manifest SHA-256:
+  `df86ff4f83b6f55397e4532db5121059bc8b4d40a14adc324a7e9117c091f099`.
+- Checksums-file SHA-256:
+  `dcc551a583c042a167c902afeac07c3be73b59d44e04313c8aedd13c50c801de`.
+- Target-substrate file SHA-256:
+  `50dfa45bb3a063e88e9334c8cc9e57a9b2353a809d00298ce4d137cc3d8159af`.
+- VEATIC code SHA-256: `c0a6c781bb3ab0cdf530708d4fd114d6dba4a93884d03c0833069791f018d639`.
+- Alignment SHA-256: `349eceb1635fd50863ab9c6bb627fa6471dd3914a4035abea2392eee45bf57b7`.
+- Target-source SHA-256:
+  `ad8b167dff44ae6a0c1c78ef3e501cc622e6320be9a912d879c3d9fc99863a4f`.
+- Mask SHA-256: `2fe43426a67e2e4d39382b09ed5a812fbe966f0ce5ddb61adf7e901a053b2f43`.
+- Row-ownership SHA-256:
+  `69676e189414a85433ebfd87966684f2353fa69a2ac6a1cd801015a424cf13cd`.
+- Substrate-arrays SHA-256:
+  `ce4acca4b2b72320bf224ac057342be34f27c4ea713f2a7f5eed97d3f0125088`.
+- Selected initial target: future maximum increase over `t+1..t+6` (0.5–3.0 seconds),
+  19,913 valid rows, 96.3983% complete-table coverage.
+- Prospective washout candidates: `t+5..t+10` and `t+6..t+11`; inactive and unselected.
+- Global binary label stored: false. Outer split created: false.
+- Hidden state loaded/hashed: false/false. Cortical values loaded: false.
+- Focused VEATIC tests: 45 passed, 0 failed.
+- Compact record: `studies/veatic-2.1/phase-01-label-alignment`.
+
 ## Active execution contract
 
-Implement Phase 01 exactly from:
+Implement Phase 02 exactly from:
 
-- `veatic21-master-scientific-specification.md` → **Phase 01 exact next-stage contract**;
-- `veatic21-rebuild-protocol.md` → **Phase 01 — exact label alignment and target substrate**.
+- `veatic21-master-scientific-specification.md` → **Phase 02 through zero-label execution
+  sequence**, the Phase 02 method-transfer evidence, ownership rules, and metric contract;
+- `veatic21-rebuild-protocol.md` → **Phase 02 — target-specific fresh AR floor**.
 
-Use `rows.csv` as the sole label authority. Reconstruct and reconfirm all 20,657 aligned rows,
-preserve quality flags without filtering, validate finite arousal/valence and native
-interpolation provenance, and calculate the VEATIC-specific label dynamics required by the
-master. Freeze the bounded initial no-washout target-window selection rule and prospective
-washout candidate procedure before any cortical target result is read.
+Use the sealed Phase 01 continuous target `t+1..t+6` and validity mask. Build fresh
+target-specific AR baselines under separate grouped-video and blocked-temporal 70/30 outer
+protocols. Fit event q90 only from each outer-training partition's continuous target values.
+Select every AR lag/regularization choice by inner validation owned by the corresponding
+outer-training partition; no held-out row may influence a fitted choice.
 
-Store continuous future-movement values and masks, not one global q90 binary label. Do not
-create an outer 70/30 split in Phase 01. Do not fit PCA, AR, or a learned model. AGAIN row
-offsets, seconds, targets, splits, fitted artifacts, numeric choices, and results remain
-forbidden by inheritance. Emit the Phase 01 derivation ledger and complete alignment,
-target-source, mask, and row-ownership digests before considering Phase 02.
+Report grouped and blocked protocols separately using the spike metric contract. Freeze exact
+target/protocol/fold/seed AR predictions and checksums for later matched lanes. Do not read or
+load cortical values, fit PCA, benchmark a cortical representation, activate a washout, or
+begin learned bridge work. AGAIN AR lags, regularization, splits, seeds, predictions, fitted
+objects, numeric results, and code remain forbidden by inheritance.
 
-Heavy Phase 01 artifacts remain under the same external lifecycle root. CPU is appropriate
-for label parsing and deterministic Phase 01 analysis. Later PCA/model training uses MLX with
-exactly one GPU worker and no artificial memory cap.
+All AR training is learned training and therefore uses MLX with exactly one GPU worker and no
+artificial memory cap. CPU remains limited to parsing, deterministic audits, orchestration,
+metrics, hashing, and report generation.
 
 ## Progression and handoff rule
 
-When Phase 01 completes:
+When Phase 02 completes:
 
-1. inspect every compact and external Phase 01 output;
+1. inspect every compact and external Phase 02 output;
 2. run all focused VEATIC and authority-contract tests;
 3. create the compact defensible study record under
-   `studies/veatic-2.1/phase-01-label-alignment`;
+   `studies/veatic-2.1/phase-02-ar-baseline`;
 4. replace this file with the new live state while retaining **Mandatory authority anchors**;
 5. record exact code/input/output hashes and the single newly authorized action;
 6. commit and push the coherent transition directly to `origin/main`;
-7. begin Phase 02 only after the Phase 01 gate passes and the transition is on remote
+7. begin Phase 03 only after the Phase 02 gate passes and the transition is on remote
    `main`.
 
 Do not rewrite the master specification merely because progress changed. Amend it only for an
@@ -139,6 +172,6 @@ explicitly authorized durable method change.
 
 ## Exact next action
 
-Implement, test, execute, and review Phase 01 label alignment and VEATIC target-substrate
-construction. Do not begin Phase 02, create an outer split, fit AR or PCA, inspect cortical
-target performance, or perform learned-model work until the Phase 01 gate passes.
+Implement, test, execute, and review the Phase 02 fresh target-specific AR floor under
+separate grouped-video and blocked-temporal protocols. Do not load cortical values, fit PCA,
+activate a washout, or begin Phase 03 or learned bridge work until the Phase 02 gate passes.

@@ -45,6 +45,27 @@ class RowIdentity:
 
 
 @dataclass(frozen=True)
+class SupervisedRows:
+    video_id: str
+    row_index: np.ndarray
+    time_seconds: np.ndarray
+    native_label_frame_count: np.ndarray
+    source_frame_position: np.ndarray
+    source_floor_frame_index: np.ndarray
+    source_ceil_frame_index: np.ndarray
+    source_interp_alpha: np.ndarray
+    source_match_quality: tuple[str, ...]
+    source_arousal: np.ndarray
+    source_valence: np.ndarray
+    arousal: np.ndarray
+    valence: np.ndarray
+
+    @property
+    def row_count(self) -> int:
+        return len(self.row_index)
+
+
+@dataclass(frozen=True)
 class TreeIdentity:
     path: str
     sha256_tree: str
@@ -271,6 +292,142 @@ def read_row_identity(path: Path, expected_video_id: str) -> RowIdentity:
         row_index=np.asarray(row_indices, dtype=np.int64),
         time_seconds=np.asarray(times, dtype=np.float64),
         source_match_quality=tuple(match_quality),
+    )
+
+
+def read_supervised_rows(path: Path, expected_video_id: str) -> SupervisedRows:
+    """Open authoritative labels only from rows.csv and validate native provenance."""
+
+    path = reject_forbidden_runtime_path(path)
+    row_indices: list[int] = []
+    times: list[float] = []
+    frame_counts: list[int] = []
+    source_positions: list[float] = []
+    source_floors: list[int] = []
+    source_ceils: list[int] = []
+    source_alphas: list[float] = []
+    match_quality: list[str] = []
+    source_arousal: list[float] = []
+    source_valence: list[float] = []
+    arousal: list[float] = []
+    valence: list[float] = []
+    with path.open(newline="", encoding="utf-8") as handle:
+        reader = csv.DictReader(handle)
+        if tuple(reader.fieldnames or ()) != ROWS_CSV_COLUMNS:
+            raise ValueError(f"rows.csv schema mismatch: {path}")
+        for row_number, row in enumerate(reader, start=2):
+            if row["video_id"] != expected_video_id:
+                raise ValueError(f"{path}:{row_number}: video_id mismatch")
+            row_index = _parse_int(
+                row["row_index"], field="row_index", path=path, row_number=row_number
+            )
+            if row_index != len(row_indices):
+                raise ValueError(f"{path}:{row_number}: nonsequential row_index")
+            time_seconds = _parse_float(
+                row["time_seconds"], field="time_seconds", path=path, row_number=row_number
+            )
+            row_hz = _parse_float(row["row_hz"], field="row_hz", path=path, row_number=row_number)
+            native_fps = _parse_float(
+                row["native_label_fps"],
+                field="native_label_fps",
+                path=path,
+                row_number=row_number,
+            )
+            frame_count = _parse_int(
+                row["native_label_frame_count"],
+                field="native_label_frame_count",
+                path=path,
+                row_number=row_number,
+            )
+            position = _parse_float(
+                row["source_frame_position"],
+                field="source_frame_position",
+                path=path,
+                row_number=row_number,
+            )
+            floor = _parse_int(
+                row["source_floor_frame_index"],
+                field="source_floor_frame_index",
+                path=path,
+                row_number=row_number,
+            )
+            ceil = _parse_int(
+                row["source_ceil_frame_index"],
+                field="source_ceil_frame_index",
+                path=path,
+                row_number=row_number,
+            )
+            alpha = _parse_float(
+                row["source_interp_alpha"],
+                field="source_interp_alpha",
+                path=path,
+                row_number=row_number,
+            )
+            source_arousal_value = _parse_float(
+                row["source_arousal"],
+                field="source_arousal",
+                path=path,
+                row_number=row_number,
+            )
+            source_valence_value = _parse_float(
+                row["source_valence"],
+                field="source_valence",
+                path=path,
+                row_number=row_number,
+            )
+            arousal_value = _parse_float(
+                row["arousal"], field="arousal", path=path, row_number=row_number
+            )
+            valence_value = _parse_float(
+                row["valence"], field="valence", path=path, row_number=row_number
+            )
+            if time_seconds != row_index * EXPECTED_TIME_STEP_SECONDS:
+                raise ValueError(f"{path}:{row_number}: time-grid mismatch")
+            if row_hz != EXPECTED_ROW_HZ or native_fps != EXPECTED_NATIVE_LABEL_FPS:
+                raise ValueError(f"{path}:{row_number}: row/native rate mismatch")
+            if position != time_seconds * native_fps:
+                raise ValueError(f"{path}:{row_number}: source-frame position mismatch")
+            if floor != math.floor(position) or ceil != math.ceil(position):
+                raise ValueError(f"{path}:{row_number}: source-frame bounds mismatch")
+            if alpha != position - floor or not 0.0 <= alpha < 1.0:
+                raise ValueError(f"{path}:{row_number}: interpolation alpha mismatch")
+            if floor < 0 or ceil >= frame_count:
+                raise ValueError(f"{path}:{row_number}: source frame outside native labels")
+            expected_quality = "native_exact" if alpha == 0.0 else "linear_native_frames"
+            if row["source_match_quality"] != expected_quality:
+                raise ValueError(f"{path}:{row_number}: source match quality mismatch")
+            if row["encode_policy"] != ENCODE_POLICY:
+                raise ValueError(f"{path}:{row_number}: encode policy mismatch")
+            if source_arousal_value != arousal_value or source_valence_value != valence_value:
+                raise ValueError(f"{path}:{row_number}: authoritative/source label mismatch")
+            row_indices.append(row_index)
+            times.append(time_seconds)
+            frame_counts.append(frame_count)
+            source_positions.append(position)
+            source_floors.append(floor)
+            source_ceils.append(ceil)
+            source_alphas.append(alpha)
+            match_quality.append(expected_quality)
+            source_arousal.append(source_arousal_value)
+            source_valence.append(source_valence_value)
+            arousal.append(arousal_value)
+            valence.append(valence_value)
+    if not row_indices:
+        raise ValueError(f"rows.csv contains no data rows: {path}")
+    return SupervisedRows(
+        video_id=expected_video_id,
+        row_index=np.asarray(row_indices, dtype=np.int32),
+        time_seconds=np.asarray(times, dtype=np.float64),
+        native_label_frame_count=np.asarray(frame_counts, dtype=np.int32),
+        source_frame_position=np.asarray(source_positions, dtype=np.float64),
+        source_floor_frame_index=np.asarray(source_floors, dtype=np.int32),
+        source_ceil_frame_index=np.asarray(source_ceils, dtype=np.int32),
+        source_interp_alpha=np.asarray(source_alphas, dtype=np.float64),
+        source_match_quality=tuple(match_quality),
+        source_arousal=np.asarray(source_arousal, dtype=np.float64),
+        source_valence=np.asarray(source_valence, dtype=np.float64),
+        arousal=np.asarray(arousal, dtype=np.float64),
+        valence=np.asarray(valence, dtype=np.float64),
     )
 
 
