@@ -1,0 +1,60 @@
+{
+  "schema": "veatic21_phase04_compact_provenance_v1",
+  "completed_at": "2026-07-28T19:06:48.815344+00:00",
+  "external_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-04-pca-bridge",
+  "external_hashes": {
+    "artifact_manifest_sha256": "e9000630e2971536babc4bd7dab123507b570c78a68a1ae3ae3ec8fc20ff56a8",
+    "checksums_sha256": "bc195a879ddc2be9c37005c285b2560f69c2d4e7831b3182d6a95739f7631924",
+    "request_sha256": "dd6bc73ef170e7e7b69c17d0cc03d546c2738b7d7d74ced4f0da117434fe0fa9",
+    "result_sha256": "922f181ded0b9125de43242558bd6e66113bcebf24316ca38d7767b1965f8da4",
+    "pca_accuracy_audit_sha256": "d55ae7ebd9a4c0ea15e7307edbc6e643283aa4d1be3813e1fab8d1ddf5a28a37",
+    "projection_cache_manifest_sha256": "03cefe1a72d72021bc08ca2fcb2731d32a2deebc9fced5706407a3afb0f9ec4d",
+    "prediction_manifest_sha256": "ee3c73f873fe11fcab88fba840ceb7b6f63b5369933c877adf20668a99969623",
+    "final_model_manifest_sha256": "1286894f22cf1b12feb373d7d05357cf6b6f9912e8137505c1cb632b3aee2afb",
+    "selected_representation_sha256": "e906ff541c01113998e8a4d0081a71fe92417e82137b81c0286fc2414c38adb0",
+    "summary_sha256": "70347ca38b29f40acef6660cfc75d4983253f4150feebad0352fc89f384990c0",
+    "primary_deltas_sha256": "93ff652c9e0186842fa433a301b2b97cb306ba117d126d4b47e59840e9bc6e5e",
+    "fold_metrics_sha256": "0910c1f81cf22c7378fa81e4e4f79a3102f4456334d820a206948c6383aaad13",
+    "per_video_metrics_sha256": "ae1b7e3ef3c20ccc37dac43b28bcf15ddb757a5131d103d008ce6649b660af08",
+    "inner_family_search_sha256": "110504d45deac45add946fd4aeaf885fcbe61e34073250bed06f8a6b9cba77af",
+    "inner_candidate_search_sha256": "6a3f935315a6fd09ce10169b8dff613b38b0a873942455745e8ed4a9545be540"
+  },
+  "code_sha256": "4d1092d6bbd134c9bd633a69292667e7d10fa2b881917191b9b5c74648955b66",
+  "prerequisite_hashes": {
+    "phase00_result_sha256": "e2792c8c75f80239b6687680dacba77ecc9710d4806cc9dc3351cb3611655056",
+    "phase01_substrate_file_sha256": "50dfa45bb3a063e88e9334c8cc9e57a9b2353a809d00298ce4d137cc3d8159af",
+    "phase02_result_sha256": "bf7bb7dd24432af1a6baa4f846a2f84dfcfb89c822bddfefe4ba70f30d9f6ed0",
+    "phase02_prediction_manifest_sha256": "89c7c3c6444fc93e1a30e5274f93ee4d79eddbdee92802fc561b073ef47048dc",
+    "phase02_model_manifest_sha256": "6be0059028ff1d910cbd2c7f3f3067087b7615f71aae96fd750089d11d84e32d",
+    "phase02_split_manifest_sha256": "ade612dd40457918561fbbfdfa6786993df2198576d77612b05ca03b39ffeb8c",
+    "phase03_result_sha256": "8c0839d8eb8ba5c20e4c13ae83367b0fe4e0e383b7e0c3b074b80f7a5cf38c16",
+    "phase03_prediction_manifest_sha256": "186acd0eb6017c7764fa1fc5215567e34ef5c55cfbee0b5bc94a0da6fc8b9d91",
+    "phase03_control_matrix_sha256": "809208be17960eb98171409669ae8cf95c9432b855d48e7a5950d3a64706ca59"
+  },
+  "entrypoint": "uv run python -m neural_bridge.veatic21 phase04",
+  "runtime": {
+    "training_framework": "MLX",
+    "device": "gpu:0",
+    "worker_processes": 1,
+    "artificial_memory_cap": false
+  },
+  "matrix": {
+    "cells": 6,
+    "lanes_per_cell": 17,
+    "maximum_rank": 512,
+    "candidate_widths": [64, 128, 256, 512],
+    "candidate_temporal_depth_rows": [0, 4, 6],
+    "selected_width": 64,
+    "selected_temporal_depth_rows": 0,
+    "separate_width_fallbacks": 0
+  },
+  "vjepa_hidden_states_loaded": false,
+  "vjepa_hidden_states_hashed": false,
+  "grouped_upstream_feature_loaded": false,
+  "again_runtime_dependency": false,
+  "focused_tests": {
+    "command": "uv run pytest tests/veatic21 -q",
+    "passed": 73,
+    "failed": 0
+  }
+}

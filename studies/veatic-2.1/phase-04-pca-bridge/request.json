@@ -1,0 +1,79 @@
+{
+  "authority": {
+    "current_state": "/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md",
+    "master": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
+    "protocol": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-rebuild-protocol.md"
+  },
+  "code_sha256": "4d1092d6bbd134c9bd633a69292667e7d10fa2b881917191b9b5c74648955b66",
+  "frozen_design": {
+    "again_width_temporal_seed_or_pca_inherited": false,
+    "control_families": [
+      "real_cortical",
+      "shuffled_cortical",
+      "shape_matched_random",
+      "train_only_video_mean",
+      "diagnostics_only",
+      "time_video_time_only",
+      "quality_motion_luma_only",
+      "label_permutation_cortical"
+    ],
+    "jacobi_tolerance": 1e-05,
+    "maximum_rank": 512,
+    "nested_prefix_widths": [
+      64,
+      128,
+      256,
+      512
+    ],
+    "no_video_architecture_ablation": {
+      "applicable": false,
+      "reason": "Phase 04 classifier has no video embedding or architecture branch"
+    },
+    "orthogonality_tolerance": 0.005,
+    "outer_test_used_for_selection": false,
+    "oversampling": 128,
+    "oversampling_rule": "one quarter of requested rank",
+    "power_iterations": 6,
+    "primary_seed": "SHA-256 derived per cell from sealed Phase 03 prediction digest",
+    "representation_selection": "global maximum median inner-validation fusion margin versus inner AR and strongest matched fusion control; tie by higher real fusion PR-AUC, then smaller width and shorter temporal depth",
+    "scaling": "outer-training-only float32 feature mean and population scale",
+    "secondary_seed": "independent SHA-256 label per cell",
+    "secondary_stability_rank": 256,
+    "solver": "MLX GPU randomized subspace iteration with twice-reorthogonalized block Gram-Schmidt plus MLX GPU Jacobi eigensolver",
+    "subspace_stability_floor": 0.9,
+    "temporal_depth_rows": [
+      0,
+      4,
+      6
+    ],
+    "temporal_derivation": "current row, Phase 01 PACF-decay landmark 4, and selected target width 6",
+    "temporal_operator": "causal trailing mean of PCA scores, inclusive current row"
+  },
+  "input_hashes": {
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-00-dense-foundation/allowed-input-manifest.json": "b52b882c629f67e4f46f2dfb64a19814629df545c802402446c4ca67dee98c64",
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-00-dense-foundation/result.json": "e2792c8c75f80239b6687680dacba77ecc9710d4806cc9dc3351cb3611655056",
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-01-label-alignment/aligned-target-substrate.npz": "50dfa45bb3a063e88e9334c8cc9e57a9b2353a809d00298ce4d137cc3d8159af",
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-02-ar-baseline/model-manifest.json": "6be0059028ff1d910cbd2c7f3f3067087b7615f71aae96fd750089d11d84e32d",
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-02-ar-baseline/prediction-manifest.json": "89c7c3c6444fc93e1a30e5274f93ee4d79eddbdee92802fc561b073ef47048dc",
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-02-ar-baseline/result.json": "bf7bb7dd24432af1a6baa4f846a2f84dfcfb89c822bddfefe4ba70f30d9f6ed0",
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-02-ar-baseline/split-manifest.json": "ade612dd40457918561fbbfdfa6786993df2198576d77612b05ca03b39ffeb8c",
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-02-ar-baseline/split-ownership.csv": "6a93ff560a6494f535ca6458ad747ce0f8a3a5e5d464e6a3860c0c5bd11d9fed",
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-03-raw-cortical/control-matrix.json": "809208be17960eb98171409669ae8cf95c9432b855d48e7a5950d3a64706ca59",
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-03-raw-cortical/prediction-manifest.json": "186acd0eb6017c7764fa1fc5215567e34ef5c55cfbee0b5bc94a0da6fc8b9d91",
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-03-raw-cortical/result.json": "8c0839d8eb8ba5c20e4c13ae83367b0fe4e0e383b7e0c3b074b80f7a5cf38c16"
+  },
+  "operations": {
+    "again_runtime_dependency": false,
+    "artificial_memory_cap": false,
+    "cortical_values_loaded": true,
+    "learned_bridge": false,
+    "mlx_device": "gpu:0",
+    "pca": true,
+    "washout_activated": false,
+    "width_selection": true,
+    "worker_processes": 1
+  },
+  "phase": "phase-04-pca-bridge",
+  "schema": "veatic21_phase04_request_v1",
+  "started_at": "2026-07-28T18:59:32.425307+00:00"
+}

@@ -40,7 +40,7 @@ method. This file cannot silently override the master specification.
 - Master scientific specification: version 1.0.
 - Repository: `/Users/maxsartini/Neural Bridge`.
 - Branch: `main` only; do not create a branch.
-- Lifecycle boundary: Phases 00 through 03 concluded and sealed; pre-Phase-04.
+- Lifecycle boundary: Phases 00 through 04 concluded and sealed; pre-Phase-05.
 - Current Phase 00 implementation: complete.
 - Current Phase 00 execution: PASS, 27/27 mandatory controls.
 - Current Phase 01 implementation: complete.
@@ -49,10 +49,12 @@ method. This file cannot silently override the master specification.
 - Current Phase 02 execution: PASS, 24/24 mandatory controls.
 - Current Phase 03 implementation: complete.
 - Current Phase 03 execution: PASS, 29/29 mandatory controls; direct raw-fusion claim FAIL.
+- Current Phase 04 implementation: complete.
+- Current Phase 04 execution: PASS, 36/36 mandatory controls; linear PCA-fusion claim FAIL.
 - Current promotable VEATIC result: none.
-- Authorized phase: Phase 04 fold-owned PCA bridge only.
-- Phase 05 learned bridge work, washout activation, and all later phases remain unauthorized
-  until the Phase 04 gate passes.
+- Authorized phase: Phase 05 learned frozen-AR bridge only.
+- Phase 06 and all later phases remain unauthorized. Washout activation remains unauthorized;
+  Phase 05 must first execute the sealed no-washout residual task with complete controls.
 
 ## Canonical live inputs
 
@@ -228,33 +230,95 @@ External root:
 - Focused VEATIC tests: 64 passed, 0 failed.
 - Compact record: `studies/veatic-2.1/phase-03-raw-cortical`.
 
+## Concluded Phase 04 evidence
+
+External root:
+
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/again-method-restart-20260723/phase-04-pca-bridge`
+
+- Result SHA-256: `922f181ded0b9125de43242558bd6e66113bcebf24316ca38d7767b1965f8da4`.
+- Artifact-manifest SHA-256:
+  `e9000630e2971536babc4bd7dab123507b570c78a68a1ae3ae3ec8fc20ff56a8`.
+- Checksums-file SHA-256:
+  `bc195a879ddc2be9c37005c285b2560f69c2d4e7831b3182d6a95739f7631924`.
+- Request SHA-256: `dd6bc73ef170e7e7b69c17d0cc03d546c2738b7d7d74ced4f0da117434fe0fa9`.
+- PCA-accuracy-audit SHA-256:
+  `d55ae7ebd9a4c0ea15e7307edbc6e643283aa4d1be3813e1fab8d1ddf5a28a37`.
+- Projection-cache-manifest SHA-256:
+  `03cefe1a72d72021bc08ca2fcb2731d32a2deebc9fced5706407a3afb0f9ec4d`.
+- Prediction-manifest SHA-256:
+  `ee3c73f873fe11fcab88fba840ceb7b6f63b5369933c877adf20668a99969623`.
+- Final-model-manifest SHA-256:
+  `1286894f22cf1b12feb373d7d05357cf6b6f9912e8137505c1cb632b3aee2afb`.
+- Selected-representation SHA-256:
+  `e906ff541c01113998e8a4d0081a71fe92417e82137b81c0286fc2414c38adb0`.
+- Summary SHA-256: `70347ca38b29f40acef6660cfc75d4983253f4150feebad0352fc89f384990c0`.
+- Primary-deltas SHA-256:
+  `93ff652c9e0186842fa433a301b2b97cb306ba117d126d4b47e59840e9bc6e5e`.
+- Fold-metrics SHA-256:
+  `0910c1f81cf22c7378fa81e4e4f79a3102f4456334d820a206948c6383aaad13`.
+- Per-video-metrics SHA-256:
+  `ae1b7e3ef3c20ccc37dac43b28bcf15ddb757a5131d103d008ce6649b660af08`.
+- Inner-family-search SHA-256:
+  `110504d45deac45add946fd4aeaf885fcbe61e34073250bed06f8a6b9cba77af`.
+- Inner-candidate-search SHA-256:
+  `6a3f935315a6fd09ce10169b8dff613b38b0a873942455745e8ed4a9545be540`.
+- VEATIC code SHA-256: `4d1092d6bbd134c9bd633a69292667e7d10fa2b881917191b9b5c74648955b66`.
+- Per outer-training cell, one maximum rank-512 basis used every owned eligible row after
+  outer-training-only scaling. Nested `64/128/256/512` prefixes and causal temporal depths
+  `0/4/6` were evaluated under the complete control matrix.
+- Accuracy audit: six primary and six independent-seed bases passed; no width required a
+  separate fallback fit. Minimum leading-subspace overlap was `0.999983`; maximum component
+  orthogonality error was `0.003089`; primary reconstruction residual fractions ranged
+  `0.000121–0.000365`.
+- Global inner-only selection froze width `64` and temporal depth `0` rows. Its median inner
+  fusion selection margin versus frozen AR and the strongest matched control was `-0.045159`.
+- Matrix: 17 matched outer lanes in each of five grouped-video cells and one blocked-temporal
+  cell, with 102 exact metric rows, six prediction bundles, and six final-model bundles.
+- Grouped median PR-AUC: frozen AR `0.315086`; selected real PCA-only `0.128426`; selected
+  AR-plus-real PCA `0.309344`.
+- Blocked PR-AUC: frozen AR `0.276250`; selected real PCA-only `0.115511`; selected
+  AR-plus-real PCA `0.259457`.
+- Linear PCA-fusion claim: FAIL. Fusion did not consistently beat frozen AR and matched
+  controls. Linear PCA fusion is not promoted, but the selected representation is frozen for
+  the ordered learned residual question.
+- The complete external checksum inventory independently verifies. Exact Phase 02 ownership
+  and frozen AR predictions were reused; no held-out row selected the representation.
+- Training runtime: MLX on `gpu:0`, exactly one worker, no artificial memory cap.
+- Hidden state loaded/hashed: false/false. Grouped upstream feature loaded: false.
+- Washout/learned bridge/AGAIN runtime dependency: none/none/none.
+- Focused VEATIC tests: 73 passed, 0 failed; full repository tests: 93 passed, 0 failed.
+- Compact record: `studies/veatic-2.1/phase-04-pca-bridge`.
+
 ## Active execution contract
 
-Implement Phase 04 exactly from:
+Implement Phase 05 exactly from:
 
-- `veatic21-master-scientific-specification.md` → **AGAIN Phase 04 — fold-safe PCA bridge**,
-  **Control matrix required from the first applicable cell**, **Metric contract**, **PCA
-  strategy and accuracy safeguards**, and **Phase 02 through zero-label execution sequence**;
-- `veatic21-rebuild-protocol.md` → **Phase 04 — fold-owned PCA bridge**.
+- `veatic21-master-scientific-specification.md` → **AGAIN Phase 05/5.5 — learned frozen-AR
+  bridge and event head**, **Control matrix required from the first applicable cell**,
+  **Metric contract**, **VEATIC-specific washout procedure**, and **Phase 02 through
+  zero-label execution sequence**;
+- `veatic21-rebuild-protocol.md` → **Phase 05 — VEATIC learned frozen-AR bridge**.
 
 Use the exact sealed Phase 02 target/protocol/fold/seed ownership and frozen AR predictions.
-For each outer-training partition, fit one maximum rank-512 PCA on every owned eligible final
-TRIBE `cortical_prediction` row after outer-training-only scaling. Evaluate the nested
-`64/128/256/512` prefixes; select width by inner-only control-complete held-out behavior, not
-explained variance, convenience, or Phase 03 outer-test results.
+Use only the sealed Phase 04 width-64 current-row PCA representation. Make the exact matching
+AR output an immutable residual floor shared by real and every matched control. Train cortical
+signal only as a residual correction, include a training-owned no-harm suppression/fallback
+to frozen AR, and keep representation/capacity/head/model selection inside training and inner
+validation ownership.
 
-Run the complete real/control matrix from the first PCA cell under identical target, row,
-split, fold, seed, AR, scaling, PCA, temporal context, capacity, selection, and metric
-ownership. Audit finite values, component orthogonality, monotonic cumulative explained
-variance, reconstruction residual, independent-seed leading-subspace stability, and exact
-train/transform/prefix checksums. If the rank-512 solve does not recover stable leading
-prefixes, fit affected widths separately rather than weakening the accuracy requirement.
+Run the complete residual real/control matrix from the first applicable cell under identical
+target, row, split, fold, seed, frozen AR, sealed PCA, temporal context, capacity, selection,
+and metric ownership. Interpret label permutation against the retained AR floor and preserve
+train-only video means. Restore and score selected checkpoints in eval mode; freeze exact
+prediction, model, checkpoint, and row-ownership identities.
 
 Report grouped and blocked protocols separately with the complete spike metric stack, frozen
 AR and strongest-control deltas, fold/video consistency, and paired whole-video uncertainty.
-Do not activate a washout, begin learned bridge work, or execute Phase 05. AGAIN code,
-runners, data, widths, PCA objects, numeric selections, fitted artifacts, and predictions
-remain forbidden by inheritance.
+The no-washout task is the only active scientific task. Do not activate a washout or execute
+Phase 06. AGAIN code, runners, data, widths, temporal choices, heads, checkpoints, fitted
+artifacts, predictions, and numeric selections remain forbidden by inheritance; AGAIN
+contributes method and rigor patterns only.
 
 All learned training uses MLX with exactly one GPU worker and no artificial memory cap. CPU
 remains limited to parsing, deterministic audits, orchestration, metrics, hashing, and report
@@ -262,16 +326,16 @@ generation.
 
 ## Progression and handoff rule
 
-When Phase 04 completes:
+When Phase 05 completes:
 
-1. inspect every compact and external Phase 04 output;
+1. inspect every compact and external Phase 05 output;
 2. run all focused VEATIC and authority-contract tests;
 3. create the compact defensible study record under
-   `studies/veatic-2.1/phase-04-pca-bridge`;
+   `studies/veatic-2.1/phase-05-learned-bridge`;
 4. replace this file with the new live state while retaining **Mandatory authority anchors**;
 5. record exact code/input/output hashes and the single newly authorized action;
 6. commit and push the coherent transition directly to `origin/main`;
-7. begin Phase 05 only after the Phase 04 gate passes and the transition is on remote
+7. begin Phase 06 only after the Phase 05 gate passes and the transition is on remote
    `main`.
 
 Do not rewrite the master specification merely because progress changed. Amend it only for an
@@ -279,7 +343,8 @@ explicitly authorized durable method change.
 
 ## Exact next action
 
-Implement, test, execute, and review the Phase 04 fold-owned maximum rank-512 PCA bridge with
-nested `64/128/256/512` prefixes, complete controls, accuracy audits, and inner-only width
-selection on the exact sealed Phase 02 ownership and frozen AR predictions. Do not activate a
-washout or begin Phase 05 learned bridge work until the Phase 04 gate passes.
+Implement, test, execute, and review the Phase 05 VEATIC learned frozen-AR residual bridge on
+the sealed width-64 current-row Phase 04 representation, exact Phase 02 ownership, and exact
+frozen AR floor. Start with the complete residual control matrix, training-owned no-harm
+fallback, inner-only selection, and eval-mode checkpoint scoring. Do not activate a washout or
+begin Phase 06.
