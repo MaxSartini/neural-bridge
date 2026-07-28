@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Fresh Phase 00
+# Current State — VEATIC 2.1 After Fresh Phase 00
 
 Updated: 2026-07-28
 
@@ -40,15 +40,17 @@ method. This file cannot silently override the master specification.
 - Master scientific specification: version 2.0.
 - Repository: `/Users/maxsartini/Neural Bridge`.
 - Branch: `main` only; do not create a branch.
-- Lifecycle boundary: fresh Phase 00, before implementation and execution.
-- Implemented phases: none.
-- Executed phases: none.
-- Registered VEATIC results, fitted artifacts, selected targets, AR models, representations,
-  heads, checkpoints, controls, or promotion outcomes: none.
+- Lifecycle boundary: fresh Phase 00 concluded; before Phase 01 implementation and execution.
+- Phase 00 implementation: complete.
+- Phase 00 execution: PASS, 27/27 mandatory controls.
+- Executed modeling phases: none.
+- Registered VEATIC targets, splits, AR models, projections, representations, heads,
+  checkpoints, model controls, or promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized phase: Phase 00 dense-foundation audit only.
-- Phase 01 and every modeling, target-selection, PCA, AR, head-search, washout, continuous,
-  valence, and zero-label action remain unauthorized.
+- Authorized phase: Phase 01 exact label alignment and VEATIC target-substrate construction
+  only.
+- Phase 02 and every AR fit, cortical benchmark, PCA, head search, washout cortical score,
+  continuous, valence, and zero-label action remain unauthorized.
 
 ## Canonical live inputs
 
@@ -74,13 +76,12 @@ Authoritative row/label/provenance file for each matching video:
 `<video_id>/rows.csv`
 
 The row identity is `(video_id, row_index, time_seconds)` on the native 2 Hz grid: exact
-`0.5s` steps beginning at `0.0s`. Phase 00 preserves every row and uses label columns only in
-an isolated equality audit, never to select an outcome. Supervised labels open scientifically
-only after Phase 00 authorizes Phase 01.
+`0.5s` steps beginning at `0.0s`. All 20,657 rows remain present. Quality flags are metadata,
+not a silent exclusion.
 
 Allowed V-JEPA companion inputs are `rows.csv`, `manifest.json`, `preprocessing.json`,
 `status.json`, `_PAYLOAD_SHA256.json`, and `_UPLOAD_COMPLETE.json` in every video directory.
-Every `vjepa21_hidden_states.npz` is absolutely forbidden: do not open, inspect, load,
+Every `vjepa21_hidden_states.npz` remains absolutely forbidden: do not open, inspect, load,
 memory-map, copy, or hash it. V-JEPA and TRIBE are completed upstream substrate and are not
 rerun.
 
@@ -88,75 +89,85 @@ AGAIN is methodology-only. Do not import, execute, copy, adapt, or reuse AGAIN c
 data, splits, targets, numeric choices, PCA, AR objects, heads, checkpoints, predictions,
 controls, or fitted artifacts. Every VEATIC choice and fitted object is fresh.
 
-## Canonical-root preflight facts
+## Concluded Phase 00 evidence
 
-A read-only authority-change audit of the exact roots above established the input expectation
-that fresh Phase 00 must independently reproduce and seal:
+External root:
 
-- videos: `124`, exact IDs `0..123` in both roots;
-- prediction payloads: `124`, one in every video directory;
-- aligned rows: `20,657`, all retained;
-- row rate and step: `2 Hz`, exact `0.5s`;
-- cortical layout: `[per_video_rows, 20,484]`, float16, finite;
-- per-video key schema: uniform across all 124 payloads;
-- row counts: minimum `22`, maximum `358`;
-- quality flags: 76 black, 871 duplicate/static, 24 both, 923 union;
-- TRIBE per-video allowlisted tree: 373 files, 866,111,964 bytes, SHA-256
-  `851d55ccaac7c587495f65cdfbfbcf6bfe22a66a7ab3da2a048d0422e4087a60`;
-- V-JEPA metadata-only allowlisted tree: 744 files, 7,103,590 bytes, SHA-256
-  `cee65f87ff1e118353acd0c6f86c7f8c925e4e612b47884caea0544f6250e1cd`;
-- V-JEPA hidden-state files opened or hashed: false.
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-00-dense-foundation`
 
-These are input expectations, not a Phase 00 PASS. Phase 00 must fail closed if independent
-recomputation differs.
+- Status: PASS, 27/27 mandatory controls.
+- Result SHA-256: `76667bc439af70b4ed212fe114922f0453415280fb64acf2910955d688333ffb`.
+- Artifact-manifest SHA-256:
+  `7a5e8dab2d442536eadd8b0d23491333c43a45355e74b361402c86abb7cc7e0e`.
+- Checksums-file SHA-256:
+  `fea767403cf56919697aa228eb9053587d268cbe8a3f56143b7f08dac359ea8c`.
+- VEATIC code SHA-256:
+  `190425435530febac3723268b858a48f6325b9fcad5095e5e6d50b42aa36a879`.
+- Input-identity SHA-256:
+  `da59601575403b5d5becdf98c4d348adaa324c5f99c92eabefdcc49b31d569b4`.
+- TRIBE per-video tree SHA-256:
+  `851d55ccaac7c587495f65cdfbfbcf6bfe22a66a7ab3da2a048d0422e4087a60`.
+- V-JEPA metadata-only tree SHA-256:
+  `cee65f87ff1e118353acd0c6f86c7f8c925e4e612b47884caea0544f6250e1cd`.
+- Audited coverage: all 124 prediction payloads and all 20,657 exact 2 Hz rows.
+- Cortical layout: `[per_video_rows, 20,484]`, float16, finite in every video.
+- Quality counts: 76 black, 871 duplicate/static, 24 both, 923 union, 19,734 unflagged;
+  all 20,657 rows retained.
+- V-JEPA hidden state loaded/hashed/copied/inspected: false/false/false/false.
+- AGAIN runtime import, execution, data, or artifact use: none.
+- Target/split/PCA/AR/model/head/washout operations: none.
+- Compact record: `studies/veatic-2.1/phase-00-dense-foundation`.
 
 ## Active execution contract
 
 Read these rebuild-protocol sections for the one authorized action:
 
 - **Canonical input boundary**;
-- **Phase 00 — dense foundation**;
+- **Phase 01 — exact label alignment and target substrate**;
+- **Comprehensive experiment and search-sufficiency checklist**;
 - **Execution and artifact rules**.
 
-Implement Phase 00 from scratch under the VEATIC namespace. Do not copy or adapt any existing
-phase runner. Keep feature access, row/metadata access, and later supervised-label access
-structurally separate. The feature path must be unable to request label arrays as model
-features, and every hidden-state path must be rejected before open, load, inspection, copy,
-or hash.
+Implement Phase 01 from the fresh Phase 00 identity. Open supervised arousal and valence only
+from all 124 matching V-JEPA `rows.csv` files. Reconstruct the complete 20,657-row table and
+reconfirm exact `(video_id, row_index, time_seconds)` identity against Phase 00. Validate
+finite label values and native interpolation provenance without shifting, smoothing,
+extrapolating, or repairing labels.
 
-Phase 00 audits all 124 TRIBE prediction payloads and all 124 matching V-JEPA row/metadata
-directories. It validates exact file inventory, manifests/status, recorded payload hashes,
-video IDs, complete 2 Hz row identity, row-count agreement, cortical shape/dtype/finiteness,
-uniform schemas, time equality, quality flags, allowlisted tree digests, and the AGAIN runtime
-firewall. It must explicitly prove that every video prediction and every canonical row was
-considered.
+Phase 01 must perform comprehensive VEATIC-specific label-only analysis before any cortical
+performance is read. It calculates movement distributions, per-video autocorrelation and
+partial-autocorrelation decay, causal trailing-history and slope predictiveness, rise time,
+event duration, video-duration compatibility, target-window coverage, eligible rows/videos,
+per-video positive support, and fold-owned threshold-stability expectations.
 
-Phase 00 performs no target construction or selection, split, PCA, AR fit, learned model,
-head search, washout design, or scientific comparison.
+Freeze a bounded, justified registry of initial no-washout future-maximum-increase candidate
+windows and a separate bounded VEATIC-only procedure for possible washout starts/window ends.
+Candidate bounds and rejection rules come only from VEATIC label dynamics, duration,
+coverage, and support. AGAIN row offsets, seconds, thresholds, targets, and fitted values are
+not candidates by inheritance.
 
-New external lifecycle root:
+Store continuous future movement values and validity masks for every registered candidate.
+Do not create one global binary label column: q90 event thresholds belong to later training
+partitions. Do not create an outer evaluation split. Do not read cortical values to choose a
+target, and do not fit AR, PCA, a learned model, or any control lane.
 
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728`
+Phase 01 output root:
 
-Phase 00 output root:
-
-`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-00-dense-foundation`
-
-Do not resume from or write into any other VEATIC run lifecycle.
+`/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-01-label-alignment`
 
 ## Progression and handoff rule
 
-When and only when fresh Phase 00 passes every mandatory control:
+When and only when Phase 01 passes every alignment, provenance, candidate-registry,
+coverage/support, leakage, and no-cortical-selection control:
 
 1. inspect every compact and external output;
 2. run all focused VEATIC tests, authority-contract tests, and the full repository test suite;
 3. create the compact defensible record under
-   `studies/veatic-2.1/phase-00-dense-foundation`;
+   `studies/veatic-2.1/phase-01-label-alignment`;
 4. replace this file while retaining **Mandatory authority anchors**;
 5. record exact code, input, result, artifact-manifest, and checksum hashes plus the single
    newly authorized action;
 6. commit and push the coherent transition directly to `origin/main`;
-7. begin Phase 01 only after the Phase 00 transition is present on remote `main`.
+7. begin Phase 02 only after the Phase 01 transition is present on remote `main`.
 
 No later phase may claim success or failure without the master specification's comprehensive
 VEATIC experiment registration, full result ledger, complete controls, and
@@ -164,6 +175,7 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Implement, test, execute, and review a genuinely fresh Phase 00 dense-foundation audit over
-all 124 per-video cortical prediction payloads and their matching exact 2 Hz V-JEPA row and
-metadata inputs. Produce only Phase 00 evidence. Do not begin Phase 01 or any modeling action.
+Implement, test, execute, and review fresh Phase 01 exact label alignment and comprehensive
+VEATIC target-substrate construction over all 20,657 exact 2 Hz rows. Produce continuous
+candidate values/masks and label-only derivation evidence; do not create a global binary
+target, outer split, AR/PCA/model, or cortical performance result.

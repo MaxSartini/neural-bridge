@@ -1,0 +1,41 @@
+{
+  "files": [
+    {
+      "bytes": 1385,
+      "path": "request.json",
+      "sha256": "07b40b630ef9a73ae97d9f237a3b8452c5496c3de29cbe06f386de461634133a"
+    },
+    {
+      "bytes": 186570,
+      "path": "allowed-input-manifest.json",
+      "sha256": "d843bfc2490272de82d28d131aee0ab8ecfd5464a02e7241abb5c17434b13015"
+    },
+    {
+      "bytes": 15002,
+      "path": "row-inventory.csv",
+      "sha256": "a5eb8017d3fa844fb6422b4c9e7704d82603addae4966e15a4847f3e3ccde19c"
+    },
+    {
+      "bytes": 297,
+      "path": "quality-summary.json",
+      "sha256": "d84379107fb669a7d2c56ef7b19a8cf2b34a2c75e07978dd161e21b4df375c48"
+    },
+    {
+      "bytes": 3145,
+      "path": "veatic-derivation-ledger.json",
+      "sha256": "f9e8d2e4688c72dd528ab000f2fdef61c30c04b303e04e70c012cd23f8ee4311"
+    },
+    {
+      "bytes": 3403,
+      "path": "result.json",
+      "sha256": "76667bc439af70b4ed212fe114922f0453415280fb64acf2910955d688333ffb"
+    },
+    {
+      "bytes": 1984,
+      "path": "report.md",
+      "sha256": "23c95fa54b5cce2190618c08b72988ce244abdef5e1ce3b6b043c011d165b862"
+    }
+  ],
+  "root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-00-dense-foundation",
+  "schema_version": "veatic21_fresh_phase00_artifact_manifest_v2"
+}

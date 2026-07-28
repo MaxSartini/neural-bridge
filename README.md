@@ -70,13 +70,14 @@ The engineering objective is maximum accuracy, performance, robustness, and doma
 
 VEATIC 2.1 is not a new dataset and is not the Original VEATIC model renamed. It is a fresh Neural Bridge rebuild over the same 124 VEATIC videos using the denser, stronger 2 Hz V-JEPA 2.1/TRIBE v2 substrate and the scientific lessons earned from Original VEATIC and AGAIN.
 
-The current position is a genuinely fresh Phase 00 boundary:
+The current position is immediately after the genuinely fresh Phase 00 foundation:
 
-- no VEATIC 2.1 phase is implemented or executed;
+- Phase 00 independently passed all 27 mandatory controls over all 124 per-video payloads and
+  all 20,657 exact 2 Hz rows;
 - no target, split, AR family, representation, projection width, temporal context, head, optimizer, seed, checkpoint, control result, or winner is selected;
-- the only authorized action is a complete input audit over all 124 per-video cortical payloads and all 20,657 matching exact 2 Hz rows;
+- the only authorized action is Phase 01 exact label alignment and VEATIC target-substrate construction;
 - quality flags remain attached metadata and do not silently delete rows; and
-- no target construction, AR, PCA, learned model, or later phase begins until Phase 00 independently passes and its transition is committed and pushed on `main`.
+- no AR, PCA, cortical benchmark, learned model, or later phase begins until Phase 01 independently derives and seals the VEATIC label dynamics, candidate-generation rules, continuous targets, masks, and ownership digests.
 
 After Phase 00, every phase and subphase must preregister a broad VEATIC-specific candidate registry, complete matched controls, staged training and pruning rules, convergence/undertraining checks, fresh-seed expansion, a full ledger of successful and failed runs, and a search-sufficiency gate. A convenient baseline, one projection, one head, one optimizer, one budget, or one seed cannot establish either a win or a failure.
 

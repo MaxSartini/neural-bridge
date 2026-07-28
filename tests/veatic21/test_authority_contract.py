@@ -155,17 +155,18 @@ def test_every_claim_bearing_phase_requires_fresh_comprehensive_search() -> None
     assert "Do not import an AGAIN head" in checklist
 
 
-def test_live_state_is_fresh_phase00_only() -> None:
+def test_live_state_authorizes_only_phase01_after_fresh_phase00() -> None:
     current = _read(CURRENT)
 
-    assert "fresh Phase 00, before implementation and execution" in current
-    assert "Implemented phases: none" in current
-    assert "Executed phases: none" in current
-    assert "Authorized phase: Phase 00 dense-foundation audit only" in current
-    assert "Implement, test, execute, and review a genuinely fresh Phase 00" in current
-    assert "Concluded Phase" not in current
-    assert not PACKAGE.exists(), "fresh Phase 00 must not retain a VEATIC implementation"
-    assert not any(STUDY.glob("phase-*")), "fresh study root must not retain phase records"
+    assert "fresh Phase 00 concluded; before Phase 01 implementation and execution" in current
+    assert "Phase 00 implementation: complete" in current
+    assert "Phase 00 execution: PASS, 27/27 mandatory controls" in current
+    assert "Authorized phase: Phase 01 exact label alignment" in current
+    assert "Implement, test, execute, and review fresh Phase 01" in current
+    assert "Concluded Phase 00 evidence" in current
+    assert PACKAGE.is_dir(), "concluded Phase 00 must retain its fresh implementation"
+    phase_directories = {path.name for path in STUDY.glob("phase-*") if path.is_dir()}
+    assert phase_directories == {"phase-00-dense-foundation"}
 
 
 def test_surrounding_veatic_documentation_matches_fresh_authority() -> None:
@@ -175,11 +176,11 @@ def test_surrounding_veatic_documentation_matches_fresh_authority() -> None:
 
     assert TRIBE_PER_VIDEO_ROOT in project
     assert VJEPA_ROOT in project
-    assert "no VEATIC 2.1 phase is implemented or executed" in project
+    assert "Phase 00 independently passed all 27 mandatory controls" in project
     assert "one projection, one head, one optimizer, one budget, or one seed" in project
     assert "complete collection of 124 per-video predicted-cortical payloads" in methods
     assert "None of those counts or settings transfers to VEATIC 2.1" in methods
-    assert "No VEATIC phase has concluded" in study
+    assert "Fresh Phase 00 is the only concluded VEATIC 2.1 phase" in study
 
     stale_claims = (
         "90 arousal-spike target hypotheses",
