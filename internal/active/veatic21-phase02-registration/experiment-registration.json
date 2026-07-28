@@ -9,7 +9,7 @@
       3
     ]
   },
-  "code_sha256": "521b52de699476ff09de652a268eb529ae3d9d9227e9bf2dbc62c86ad61ae111",
+  "code_sha256": "721a47a32a40d402da6e006f061cc74071ec7c18a08a3cd1f53889fcd20f000c",
   "frozen_before_outer_model_scoring": true,
   "grouped_protocol": {
     "assignment": "hash-seeded, row-balanced by video; no target outcomes used",
@@ -76,6 +76,8 @@
       "temperature",
       "platt"
     ],
+    "calibration_ownership": "fit on inner-validation predictions only with the registered convex accelerated solver; outer labels never calibrate",
+    "decision_threshold": "maximize inner-validation F1; ties choose higher precision, then the higher threshold; used only for precision/recall/F1, never ranking",
     "feature_forms": [
       "current_only",
       "raw_levels_with_availability_mask",
@@ -139,6 +141,14 @@
     ],
     "history_padding": "causal missing lags are filled from the earliest available/current level with an explicit availability mask; target-valid rows are never silently discarded",
     "label_permutation_control": "same selected family/configuration with training and inner labels deterministically permuted; held-out labels remain true",
+    "linear_solvers": {
+      "continuous_ridge": "MLX float32 primal normal-equation solve with unpenalized intercept; training-owned target-valid rows only",
+      "convergence_tolerance": "1/sqrt(training_target_valid_rows)",
+      "event_elastic_net": "MLX float32 proximal accelerated gradient with the same Lipschitz rule",
+      "event_logistic_l2": "MLX float32 full-batch accelerated gradient with a training-covariance Lipschitz step; no stochastic seed",
+      "intercept_penalty": false,
+      "metric_precision": "float64 after predictions are transferred for scoring"
+    },
     "model_families": [
       "continuous_ridge",
       "event_logistic_l2",
@@ -164,6 +174,12 @@
         2,
         3
       ],
+      "optimizer_constants": {
+        "adamw_beta1": "1 - 1/tail_bins",
+        "adamw_beta2": "1 - 1/minimum_evaluation_rows",
+        "adamw_epsilon": "numpy.float32 machine epsilon",
+        "sgd_nesterov_momentum": "1 - 1/tail_bins"
+      },
       "optimizers": [
         "adamw",
         "sgd_nesterov"
@@ -230,6 +246,12 @@
       "global_binary_target_stored": false,
       "ownership": "refit inside every applicable training partition",
       "quantile": 0.9
+    },
+    "uncertainty": {
+      "bootstrap_replicates_rule": "next_power_of_two(minimum_evaluation_rows), yielding 1024",
+      "cluster_unit": "whole video",
+      "confidence_interval": "two-sided percentile 95%",
+      "seed_rule": "SHA-256 of registration identity, protocol, target, and comparison"
     },
     "update_budget_rule": {
       "base": "next_power_of_two(sqrt(inner_train_rows))",

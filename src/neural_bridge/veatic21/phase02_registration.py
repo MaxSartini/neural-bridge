@@ -310,6 +310,22 @@ def _search_registration(
             "event_mlp",
             "event_gru",
         ],
+        "linear_solvers": {
+            "continuous_ridge": (
+                "MLX float32 primal normal-equation solve with unpenalized intercept; "
+                "training-owned target-valid rows only"
+            ),
+            "event_logistic_l2": (
+                "MLX float32 full-batch accelerated gradient with a training-covariance "
+                "Lipschitz step; no stochastic seed"
+            ),
+            "event_elastic_net": (
+                "MLX float32 proximal accelerated gradient with the same Lipschitz rule"
+            ),
+            "convergence_tolerance": "1/sqrt(training_target_valid_rows)",
+            "intercept_penalty": False,
+            "metric_precision": "float64 after predictions are transferred for scoring",
+        },
         "regularization": {
             "linear_scale": "training trace(X'X)/(n_features*n_rows)",
             "linear_multipliers": [
@@ -337,6 +353,12 @@ def _search_registration(
             "dropout_rule": "0, 1/sqrt(input_dim), 2/sqrt(input_dim), each capped at 0.5",
             "gru_layers": [1, 2],
             "optimizers": ["adamw", "sgd_nesterov"],
+            "optimizer_constants": {
+                "adamw_beta1": "1 - 1/tail_bins",
+                "adamw_beta2": "1 - 1/minimum_evaluation_rows",
+                "adamw_epsilon": "numpy.float32 machine epsilon",
+                "sgd_nesterov_momentum": "1 - 1/tail_bins",
+            },
             "learning_rate_rule": "{0.25,1,4,16}/sqrt(inner_train_rows)",
             "batch_rule": (
                 "half, one, and two times the largest power of two not exceeding "
@@ -386,6 +408,22 @@ def _search_registration(
             ),
         },
         "calibration_candidates": ["native_probability", "temperature", "platt"],
+        "calibration_ownership": (
+            "fit on inner-validation predictions only with the registered convex accelerated "
+            "solver; outer labels never calibrate"
+        ),
+        "decision_threshold": (
+            "maximize inner-validation F1; ties choose higher precision, then the higher "
+            "threshold; used only for precision/recall/F1, never ranking"
+        ),
+        "uncertainty": {
+            "cluster_unit": "whole video",
+            "bootstrap_replicates_rule": (
+                "next_power_of_two(minimum_evaluation_rows), yielding 1024"
+            ),
+            "confidence_interval": "two-sided percentile 95%",
+            "seed_rule": "SHA-256 of registration identity, protocol, target, and comparison",
+        },
         "selection": (
             "mean inner raw PR-AUC; one-standard-error set resolved by Brier, then smaller "
             "history/capacity; outer scores never select"

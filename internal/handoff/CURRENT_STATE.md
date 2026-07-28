@@ -178,14 +178,14 @@ External root:
 
 - Status: PASS; independent registration verification PASS.
 - Registration SHA-256:
-  `af1d35027c9b38758ead506efeefb6c0d313eb6af17a2837307076f360b24adf`.
-- Result SHA-256: `a9950066e87501fc444b2d46c01f52fde10a47149d83bdb04fc43140f9f23c1b`.
+  `ab21c9b971fc0cf8aa18f4d77f585b8236db08bf810b1f83c79a476dfde44815`.
+- Result SHA-256: `0f3064d7ed7207879b195d8ed8ddb57fd440ed62f3922ee793159faee58a016e`.
 - Artifact-manifest SHA-256:
-  `b4778af27016692bb670ac7ddd7e8a468e5baa59114de4641fc92f469c622945`.
+  `39d5e587f4d1c1529039f8aae59137d3e07f6e265dda484bbf5797ccc6942a7c`.
 - Checksums-file SHA-256:
-  `eae2c245e3fce49a18916312e3b6e88425eee3c9c5c70df3114324c3cfa5a9aa`.
+  `286db04959d3f8b1bd68b361115ed43772be1f3d6ae2e8a79f384a220d71754b`.
 - VEATIC code SHA-256:
-  `521b52de699476ff09de652a268eb529ae3d9d9227e9bf2dbc62c86ad61ae111`.
+  `721a47a32a40d402da6e006f061cc74071ec7c18a08a3cd1f53889fcd20f000c`.
 - Input-identity SHA-256:
   `2c565a07ced8946b47b6642bd1db9266fe0ae67ff4ae4252aa89e9dd1976dd19`.
 - Target coverage: all 21 active no-washout candidates; 210 prospective washout candidates
@@ -202,6 +202,9 @@ External root:
   activations, dropout, AdamW/SGD-Nesterov, learning rates, batches, staged update budgets,
   three calibration methods, boundary expansion, undertraining recovery, and five fresh
   VEATIC-hash-derived finalist seeds.
+- Solver/metric closure: MLX ridge and accelerated convex logistic/elastic solvers,
+  convergence tolerance, nonlinear optimizer constants, inner-owned calibration and F1
+  decision rule, and 1,024 whole-video bootstrap replicates are explicit in the freeze.
 - Threshold ownership: q90 refit inside every applicable training partition; no global binary
   target stored.
 - Outer model scores/test labels/cortical values opened: false/false/false.
