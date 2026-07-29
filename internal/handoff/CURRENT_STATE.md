@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Stage A Full Convergence Rescue Authorized
+# Current State — VEATIC 2.1 Stage A Convergence Rescue Verified
 
 Updated: 2026-07-29
 
@@ -47,7 +47,8 @@ method. This file cannot silently override the master specification.
   the exact undertrained-cell registry is independently verified and frozen; the sparse
   rescue solver/executor and representative systems-backtest matrix are implemented,
   validated, and prospectively frozen; the registered hardware backtest and independent
-  verification passed; the selected executor and exact complete-rescue request are frozen.
+  verification passed; the selected executor and exact complete-rescue request are frozen;
+  the full rescue and exhaustive verification passed.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -63,11 +64,14 @@ method. This file cannot silently override the master specification.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: after the selected-executor transition is present on remote `main`,
-  execute or safely resume the exact frozen hardware-saturated sparse 16×-budget rescue for
-  all `14,465` registered units/`113,392` cells in the comprehensive target-specific AR
-  benchmark, then exhaustively verify its unit artifacts, immutable links, ledgers,
-  convergence dispositions, resource evidence, and access firewall.
+- Authorized action: implement, verify, and prospectively freeze the inner-only Stage A
+  aggregation/disposition layer and exact Stage B stratified-family-expansion registry for
+  the comprehensive target-specific AR benchmark. It must combine immutable
+  already-converged Stage A records with linked converged rescue records, exclude all
+  invalid/unresolved cells, apply only the frozen one-standard-error and
+  stratified-retention rules, begin the registered development-owned AR-dominance/overlap
+  decomposition, and remain unable to open outer-test or cortical values. Stage B execution
+  is unauthorized until that registry is committed and pushed.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -474,9 +478,31 @@ cortical values remained unopened.
   `54d9f376cdbddef97ce28f6faba25f9d1394d652fd5e37cc3b962e90f8319711`.
   The exact prospective main request SHA-256 is
   `22f1dd5547b405fba1d62430ef5a1102a934895fe16c0f416a61416c998c1253`.
-- Only exact complete convergence-rescue execution and verification are now authorized.
-  Outer-test scoring, cortical data, aggregation/pruning, Stage B, and every later phase
-  remain unauthorized.
+- The exact complete rescue passed at
+  `<convergence-rescue root>/main-hardware-saturated`: `14,465/14,465` units,
+  `113,392/113,392` unique cells, `14,465` canonical ledger rows, and exact prospective
+  request identity. It ran for `8,099.447357541` seconds at
+  `13.999967527960564` rescue cells/second with `99.97926235212248%` mean GPU utilization,
+  `19,585,050,869` bytes minimum estimated memory headroom, no swap, and no thermal or
+  performance warning. Exact SHA-256: request
+  `22f1dd5547b405fba1d62430ef5a1102a934895fe16c0f416a61416c998c1253`;
+  work registry `6b04e0bc8dc1dae5115cacd06aff0c5ce9cc53f4700de447203033864c0ad2bf`;
+  canonical ledger `c4eb95b038a0db6d17abf8dc0cf36152592b69fd3104030cbe65855ed3beda47`;
+  run state `ed4ca5cad28412abda4f624d07c8cd44d55346ef6f022fe758b496ce7f1db7d5`;
+  resource summary `49c93318007b5704a9857f71869b0ee8c49a3b30e7a05360b69ad56a880b088f`;
+  resource samples `9aa9783bd26120cd2eecc58931e287008c555996cbe380646b7dd01f9cf7f825`.
+- Exhaustive verification passed all `14,465` rescue artifacts, all `113,392` unique cell
+  identities, all shard/canonical ledgers, `281,811,804` rescue artifact bytes, and
+  `2,957,331,486` bytes of immutable linked Stage A sources. It independently found `82,566`
+  `eligible_for_inner_aggregation` cells and `30,826`
+  `invalid_nonconverged_after_registered_maximum_budget` cells. The invalid cells remain
+  incomplete evidence and cannot count as negative evidence or enter selection. Verification
+  SHA-256: `5a86e7e9ed2dd8f2be7a0d754482ba79fc74c695cd9d0c461440978d98fcec9b`.
+- Only inner-only Stage A aggregation/disposition implementation, the registered
+  development-owned AR-dominance/overlap decomposition, and prospective Stage B registry
+  construction/verification are now authorized. Stage B execution, outer-test scoring,
+  cortical data, Stage C/D, aggregation beyond the registered Stage A rule, and every later
+  phase remain unauthorized.
 
 ## Active execution contract
 
@@ -543,15 +569,20 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Commit and push the independently verified selected rescue executor and exact complete-run
-identity. Then execute or safely resume
-`phase02-stage-a-rescue-saturated` under `caffeinate` at
-`<convergence-rescue root>/main-hardware-saturated`. It must execute exactly frozen rescue
-sequences `0..14464` with the frozen six-process/two-stream configuration and exact request
-SHA-256 above. Monitor all six shard states plus CPU/GPU/memory/thermal evidence. After
-completion, exhaustively verify all `14,465` unit artifacts, `113,392` unique rescue cells,
-immutable Stage A links, shard and canonical ledgers, dispositions, solver/executor/request
-identities, safe resume, and access firewalls before any aggregation or pruning.
+Commit and push this completed rescue transition. Then implement and independently verify a
+fresh Stage A aggregation/disposition runner that reads only the immutable verified Stage A
+and rescue ledgers/artifacts. It must admit every already-converged Stage A cell exactly once,
+replace no converged Stage A cell, admit each converged rescue cell only through its frozen
+original-unit/configuration link, and exclude all `30,826` invalid-nonconverged cells. Apply
+the registered mean-inner-raw-PR-AUC one-standard-error set with Brier then smaller
+history/capacity tie resolution and construct the exact Stage B scope of
+`ceil(sqrt(number_of_feature_sets))` inner finalists per target/protocol/outer fold while
+retaining at least one candidate per feature form and low/mid/high history region. In the same
+development-owned layer, begin the registered AR-dominance/overlap decomposition: history
+rows consumed, target rows, intervening gap, simple causal-history baselines,
+AR-versus-chance uplift, and fold/video consistency. Freeze and push the exact Stage B
+registry, all exclusions, boundary-expansion dispositions, hashes, and independent
+verification before executing any Stage B cell.
 
 Do not resume or merge the sealed sequential attempt. Do not score outer outcomes or cortical values.
 Do not fit PCA or a learned head, aggregate/prune Stage A, advance to Stage B, or open any
