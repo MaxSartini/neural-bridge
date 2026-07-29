@@ -13,6 +13,10 @@ from neural_bridge.veatic21.phase02_registration import (
 )
 from neural_bridge.veatic21.phase02_stage_a import run_phase02_stage_a
 from neural_bridge.veatic21.phase02_stage_a_backtest import run_phase02_executor_backtest
+from neural_bridge.veatic21.phase02_stage_a_rescue_registration import (
+    run_phase02_stage_a_rescue_registration,
+    verify_phase02_stage_a_rescue_registration,
+)
 from neural_bridge.veatic21.phase02_stage_a_saturated import run_phase02_stage_a_saturated
 from neural_bridge.veatic21.phase02_stage_a_saturated_verify import (
     verify_phase02_stage_a_saturated_output,
@@ -42,6 +46,14 @@ def main() -> None:
         "verify-phase02-stage-a-saturated",
         help="exhaustively verify every saturated Stage A output and ledger entry",
     )
+    subparsers.add_parser(
+        "register-phase02-stage-a-rescue",
+        help="freeze the exact Stage A undertrained-cell rescue registry",
+    )
+    subparsers.add_parser(
+        "verify-phase02-stage-a-rescue-registration",
+        help="independently re-derive and verify the Stage A rescue registry",
+    )
     arguments = parser.parse_args()
 
     if arguments.command == "phase00":
@@ -62,6 +74,10 @@ def main() -> None:
         result = run_phase02_stage_a_saturated()
     elif arguments.command == "verify-phase02-stage-a-saturated":
         result = verify_phase02_stage_a_saturated_output()
+    elif arguments.command == "register-phase02-stage-a-rescue":
+        result = run_phase02_stage_a_rescue_registration()
+    elif arguments.command == "verify-phase02-stage-a-rescue-registration":
+        result = verify_phase02_stage_a_rescue_registration()
     else:
         result = verify_phase00_output()
     print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
