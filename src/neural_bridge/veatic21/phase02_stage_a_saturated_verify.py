@@ -403,6 +403,8 @@ def verify_phase02_stage_a_saturated_output(
     statuses: Counter[str] = Counter()
     dispositions: Counter[str] = Counter()
     model_units: Counter[str] = Counter()
+    model_statuses: dict[str, Counter[str]] = {}
+    model_dispositions: dict[str, Counter[str]] = {}
     unit_bytes = 0
     record_count = 0
     converged_records = 0
@@ -415,7 +417,13 @@ def verify_phase02_stage_a_saturated_output(
             solver_converged_cells += cast(int, summary["solver_converged_cells"])
             _merge_counts(statuses, summary["statuses"])
             _merge_counts(dispositions, summary["dispositions"])
-            model_units.update([cast(str, summary["model_family"])])
+            model_family = cast(str, summary["model_family"])
+            model_units.update([model_family])
+            _merge_counts(model_statuses.setdefault(model_family, Counter()), summary["statuses"])
+            _merge_counts(
+                model_dispositions.setdefault(model_family, Counter()),
+                summary["dispositions"],
+            )
     _require(record_count == EXPECTED_CONFIGURATION_EVALUATIONS, "verified record count changed")
     _require(
         model_units == {"continuous_ridge": 20_412, "event_logistic_l2": 20_412},
@@ -494,6 +502,12 @@ def verify_phase02_stage_a_saturated_output(
         "model_family_units": dict(model_units),
         "record_statuses": dict(statuses),
         "record_dispositions": dict(dispositions),
+        "record_statuses_by_model_family": {
+            family: dict(counts) for family, counts in sorted(model_statuses.items())
+        },
+        "record_dispositions_by_model_family": {
+            family: dict(counts) for family, counts in sorted(model_dispositions.items())
+        },
         "converged_records": converged_records,
         "solver_converged_cells": solver_converged_cells,
         "elapsed_seconds": run_state["elapsed_seconds"],
