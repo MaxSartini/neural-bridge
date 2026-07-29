@@ -26,16 +26,14 @@ def test_backtest_freeze_reaches_cpu_and_gpu_concurrency_ceiling() -> None:
         cast(int, item["mlx_lanes"]) * cast(int, item["gpu_streams_per_lane"])
         for item in configurations
     }
-    single_queue_metric_workers = {
-        cast(int, item["metric_workers_per_lane"])
-        for item in configurations
-        if item["id"] != "reference_1p1s_1m"
-        and item["mlx_lanes"] == 1
-        and item["gpu_streams_per_lane"] == 1
-    }
+    process_counts = {cast(int, item["mlx_lanes"]) for item in configurations}
+    stream_counts = {cast(int, item["gpu_streams_per_lane"]) for item in configurations}
 
     assert {1, 2, 3, 4, 6, 8, 12} <= total_gpu_concurrency
-    assert single_queue_metric_workers == {1, 4, 8, 12}
+    assert process_counts == {1, 2, 3, 4, 6, 8, 12}
+    assert stream_counts == {1, 2, 4}
+    assert all(item["compiled_ridge_update_blocks"] is False for item in configurations)
+    assert all(item["compiled_logistic_update_blocks"] is False for item in configurations)
     for value in configurations:
         _configuration_from_dict(value).validate()
     assert sha256_file(PHASE02_EXECUTOR_BACKTEST_REGISTRATION) in CURRENT_STATE.read_text()

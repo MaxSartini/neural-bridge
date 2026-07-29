@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Phase 02 Executor Backtest
+# Current State — VEATIC 2.1 Phase 02 Uncompiled Executor Supplement
 
 Updated: 2026-07-29
 
@@ -42,7 +42,8 @@ method. This file cannot silently override the master specification.
 - Branch: `main` only; do not create a branch.
 - Lifecycle boundary: fresh Phases 00 and 01 concluded; Phase 02 scientific experiment
   registration frozen and verified; the underpowered sequential Stage A attempt is sealed;
-  before the replacement Stage A executor backtest and main execution.
+  the initial executor matrix is complete; before its required all-uncompiled topology
+  supplement and main execution.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -58,9 +59,9 @@ method. This file cannot silently override the master specification.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: implement and backtest a hardware-saturating executor for the frozen
-  Phase 02 comprehensive target-specific AR benchmark, then freeze the fastest numerically
-  equivalent configuration before starting a new main Stage A identity.
+- Authorized action: complete the safe all-uncompiled hardware-topology supplement for the
+  frozen Phase 02 comprehensive target-specific AR executor, then freeze the fastest
+  numerically equivalent configuration before starting a new main Stage A identity.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -270,9 +271,9 @@ cortical values remained unopened.
 - Repository freeze:
   `internal/active/veatic21-phase02-registration/executor-backtest-registration.json`.
 - Backtest-registration SHA-256:
-  `45134d3d5c1653d17a68540fb2e5a3610ae022ddccd56ff33c71687501a977d9`.
+  `9b9025d889149e4dda8b8b61d2c75193f62fa238951b08fb70d53965e6fe8943`.
 - Active canonical external backtest root:
-  `<Phase 02 benchmark root>/executor-backtest-20260729-v2`.
+  `<Phase 02 benchmark root>/executor-backtest-20260729-v3-uncompiled`.
 - Host: Apple M2 Max Mac Studio, 12 CPU cores (8 performance, 4 efficiency), 32 GiB unified
   memory.
 - Backtest uses preserved inner-only reference units; it may not open outer-test outcomes or
@@ -280,19 +281,30 @@ cortical values remained unopened.
 - Numerical-equivalence coverage: both complete blocked Stage A inner cells plus one complete
   grouped Stage A inner cell, spanning all six feature forms, all 21 history depths, and both
   Stage A model families.
-- Throughput candidates: the sequential reference plus compiled/cached 1/4/8/12-metric-worker
-  cases and 1/2/3/4/6/8/12 total-GPU-queue cases. GPU concurrency includes both shared-runtime
-  thread-local Metal streams and isolated MLX processes, so neither a four-process cap nor an
-  untested assumption that twelve processes is optimal can determine the result. Every
-  candidate uses deterministic sharding, atomic publication, shard ledgers, and verified
-  canonical merge.
+- The completed initial 19-candidate matrix at
+  `<Phase 02 benchmark root>/executor-backtest-20260729-v2` returned `PASS` and provisionally
+  selected `optimized_uncompiled_4p1s_2m`: median `10.911889600455535` work units/second,
+  mean GPU utilization `98.6969696969697%`, executor SHA-256
+  `80874c11358e33bbe4182edb23bacefd38a6f6acad8ab8df3ff2be0359aa1fc1`. It passed every
+  equivalence, determinism, resume, ledger, access, memory, thermal, and saturation gate.
+- Initial-matrix immutable hashes: request
+  `a3562d1e0abcb68d9f1dfeb94a4221ad8c15531c9161704783b333b22dd33427`;
+  candidate summaries
+  `ae1fbd383c1ff6d8c1a36dd4e2f349813bce64c8141ae9a792d70b02a91377f7`;
+  result `c7d5c702d6c5b10c4b46173731ace0c3acb7abc8c0c39a6f0b9bf25705770a88`.
+- Every candidate using compiled ridge updates failed the comprehensive real-VEATIC numerical
+  equivalence gate: `52,327` mismatches, maximum metric difference `0.007819989`, and maximum
+  solver-diagnostic difference `0.026921`. Full ridge-plus-logistic compilation failed more
+  broadly with `175,999` mismatches. Compilation is disqualified; synthetic checks cannot
+  override this evidence.
+- The provisional four-process choice is not frozen because the initial matrix measured the
+  1/2/3/6/8/12-queue topologies only with the now-disqualified compilation path. The active
+  supplement independently measures uncompiled 1/2/3/4/6/8/12-process cases plus one/two/four
+  Metal-stream cases. All candidates retain cached preparation, exact fast metrics,
+  deterministic sharding, atomic publication, shard ledgers, and verified canonical merge.
 - GPU work already batches the complete registered `10 regularizers × 21 targets = 210`
-  solver cells per unit. Eligible optimized candidates compile eight-update ridge blocks while
-  retaining the reference logistic update path; separately named full-compilation candidates
-  test compiled logistic blocks under the same strict equivalence gate. Uncompiled optimized
-  component-ablation candidates prevent compilation from being assumed necessary. Unit-level
-  queue concurrency, CPU metric parallelism, and ridge/logistic preparation caching are
-  measured independently around that full mathematical batch.
+  solver cells per unit. Unit-level queue concurrency, CPU metric parallelism, and
+  ridge/logistic preparation caching are measured around that full mathematical batch.
 - A real warm-up barrier excludes MLX graph compilation and worker-start skew from timed
   throughput. Timed evidence samples GPU utilization, aggregate worker CPU, operating-system
   memory headroom, summed per-process MLX peaks, swap/power/thermal state, and all failures.
@@ -312,7 +324,7 @@ Read these rebuild-protocol sections for the one authorized action:
 - **Metrics and uncertainty**;
 - **Execution and artifact rules**.
 
-Implement and backtest only the execution machinery for Phase 02 from the sealed Phase 01
+Backtest only the execution machinery for Phase 02 from the sealed Phase 01
 substrate and exact frozen scientific registration. The backtest may reproduce only preserved
 training/inner-validation units from the terminated attempt. It must not open a new outer
 outcome, cortical value, or prospective washout candidate.
@@ -368,13 +380,14 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Implement and test the coordinated hardware-saturating Stage A executor. Backtest it against
-the sealed reference units using
+Run the complete frozen all-uncompiled executor supplement against the sealed reference units
+using
 `internal/active/veatic21-phase02-registration/executor-backtest-registration.json`. Run the
-complete frozen CPU-worker and 1/2/3/4/6/8/12-total-GPU-queue matrix and three timed
-repetitions; do not select from one convenient pilot. Freeze the fastest configuration only
-after every equivalence, determinism, convergence, ownership, resume, ledger, access,
-utilization, thermal, and memory gate passes.
+1/2/3/4/6/8/12-process and one/two/four-Metal-stream topology matrix with three timed
+repetitions; do not freeze the provisional four-process result merely because it won the
+initial incomplete safe matrix. Freeze the fastest configuration only after every
+equivalence, determinism, convergence, ownership, resume, ledger, access, utilization,
+thermal, and memory gate passes.
 
 Then replace this file with the selected executor digest and exact run identity, run the
 focused and full tests, commit and push the coherent transition to `main`, and only then start
