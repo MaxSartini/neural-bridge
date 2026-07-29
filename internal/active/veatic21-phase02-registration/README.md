@@ -18,5 +18,14 @@ with data-scaled regularization, capacity, optimizer, learning-rate, batch, upda
 calibration, boundary-expansion, undertraining-recovery, and five fresh-seed rules.
 
 No AR model, outer label/score, cortical value, PCA, learned bridge/head, or prospective
-washout candidate was opened while producing this freeze. The exact next action is execution
-of this registration, without changing its candidate families or using outer results to tune.
+washout candidate was opened while producing the original registration freeze. Subsequent
+inner-only Stage A execution, rescue, aggregation, and exact Stage B registration are tracked
+by the additional immutable files in this directory and the live handoff; this paragraph is
+not a claim that the original registration remains the current execution boundary.
+
+`stage-b-execution-registration.json` is the prospective execution-identity and real-data
+systems-backtest freeze for the verified `40,824`-work-unit, `2,351,229`-cell Stage B
+registry. It fixes the previously underspecified seed, GRU ordering, optimizer regularization,
+checkpoint, plateau, recovery, artifact, topology, and hardware-gate semantics before any
+Stage B fit. The Stage B main run remains unauthorized until the complete backtest,
+independent verification, and selected-executor record are committed and pushed.

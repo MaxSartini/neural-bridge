@@ -43,6 +43,14 @@ from neural_bridge.veatic21.phase02_stage_a_saturated import run_phase02_stage_a
 from neural_bridge.veatic21.phase02_stage_a_saturated_verify import (
     verify_phase02_stage_a_saturated_output,
 )
+from neural_bridge.veatic21.phase02_stage_b_executor import (
+    run_stage_b_executor_backtest,
+    run_stage_b_main,
+)
+from neural_bridge.veatic21.phase02_stage_b_verify import (
+    verify_stage_b_executor_backtest,
+    verify_stage_b_main,
+)
 
 
 def main() -> None:
@@ -116,6 +124,22 @@ def main() -> None:
         "verify-phase02-stage-a-aggregation",
         help="independently verify Stage A dispositions and the Stage B registry",
     )
+    subparsers.add_parser(
+        "phase02-stage-b-executor-backtest",
+        help="run/resume the registered real-data Stage B hardware backtest",
+    )
+    subparsers.add_parser(
+        "verify-phase02-stage-b-executor-backtest",
+        help="independently verify Stage B backtest artifacts and topology selection",
+    )
+    subparsers.add_parser(
+        "phase02-stage-b",
+        help="run/resume exact Stage B only after the verified executor is frozen",
+    )
+    subparsers.add_parser(
+        "verify-phase02-stage-b",
+        help="exhaustively verify the complete Stage B main output",
+    )
     arguments = parser.parse_args()
 
     if arguments.command == "phase00":
@@ -160,6 +184,14 @@ def main() -> None:
         result = run_phase02_stage_a_aggregation()
     elif arguments.command == "verify-phase02-stage-a-aggregation":
         result = verify_phase02_stage_a_aggregation()
+    elif arguments.command == "phase02-stage-b-executor-backtest":
+        result = run_stage_b_executor_backtest()
+    elif arguments.command == "verify-phase02-stage-b-executor-backtest":
+        result = verify_stage_b_executor_backtest()
+    elif arguments.command == "phase02-stage-b":
+        result = run_stage_b_main()
+    elif arguments.command == "verify-phase02-stage-b":
+        result = verify_stage_b_main()
     else:
         result = verify_phase00_output()
     print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))

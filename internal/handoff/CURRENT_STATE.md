@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Verified Stage B Registry Frozen
+# Current State — VEATIC 2.1 Stage B Systems Backtest Frozen
 
 Updated: 2026-07-29
 
@@ -37,7 +37,7 @@ method. This file cannot silently override the master specification.
 ## Live scientific state
 
 - Programme: VEATIC 2.1 AGAIN-method rebuild.
-- Master scientific specification: version 2.3.
+- Master scientific specification: version 2.4.
 - Repository: `/Users/maxsartini/Neural Bridge`.
 - Branch: `main` only; do not create a branch.
 - Lifecycle boundary: fresh Phases 00 and 01 concluded; Phase 02 scientific experiment
@@ -58,7 +58,13 @@ method. This file cannot silently override the master specification.
   strict JSON object-versus-list parser mismatch and wrote no verification result; the
   correction was committed and pushed before retry. The retry independently rederived every
   admission, exclusion, aggregate, selection, boundary, work-unit, and decomposition identity
-  and passed. The exact prospective Stage B registry is now frozen.
+  and passed. The exact prospective Stage B registry is frozen. A pre-fit audit then found
+  that seed derivation, GRU ordering, optimizer weight decay, and checkpoint/plateau semantics
+  were not explicit enough to execute without assumption. Master specification version 2.4,
+  the derived protocol, and a compact prospective Stage B execution registration now freeze
+  those details. The fresh executor, real-data topology harness, resume/ledger machinery, and
+  independent backtest/main verifiers are implemented and test-validated. No registered
+  Stage B backtest or main cell has executed.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -75,12 +81,12 @@ method. This file cannot silently override the master specification.
   outer scores, selected models/checkpoints, projections, representations, heads, and
   promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: freeze a prospective Stage B systems-backtest registration and implement
-  the fresh VEATIC Stage B executor, benchmark harness, append-only/resume machinery, and
-  independent verifiers against the immutable exact registry. Commit and push that
-  implementation and registration before executing any backtest cell. The Stage B main run
-  remains unauthorized until a representative real-data CPU/MLX topology backtest, its
-  independent verification, and the selected-executor record are committed and pushed.
+- Authorized action: execute and independently verify the complete frozen Stage B systems
+  backtest only. Run all `25` registered CPU-preparation-worker by MLX-stream topologies for
+  three fresh-process repetitions over the exact `34` representative real-data cells. Select
+  only by the frozen equivalence/resource/median-throughput rule. The Stage B main run remains
+  unauthorized until the backtest, independent verification, and selected-executor record
+  are inspected, committed, and pushed.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -602,6 +608,42 @@ cortical values remained unopened.
   not better than previous-delta in `1,018`, and `202` are below analytic chance. AR
   per-video consistency remains pending until Stage B produces immutable finalist
   predictions. No outer result has been read and no Phase 02 winner exists.
+- Durable pre-fit method repair: master specification version `2.4` now fixes the Stage B
+  seed, chronological GRU input, Glorot/zero initialization, PCG64 minibatch order,
+  training-derived kernel weight decay, exact elastic-net proximal solver, checkpoint order,
+  `B/4` plateau, `B -> 2B` recovery, immutable validation predictions, and systems gates.
+  This repair was made before any Stage B fit; it does not alter the immutable finalist/work
+  registry or any previously fitted Stage A record.
+- Prospective Stage B execution registration:
+  `internal/active/veatic21-phase02-registration/stage-b-execution-registration.json`;
+  SHA-256 `ffaf5b86254099865768e60825db048a763140277c54050005fa640e86cca010`.
+  It pins the verified `40,824` work units/`2,351,229` cells and `34` score-blind systems
+  cells spanning both protocols, all six feature forms, all history regions, observed
+  train-row and feature-count extremes, all five model families, both linear boundary
+  directions, the full elastic L1 axis, and every nonlinear width/layer/activation/dropout/
+  optimizer/learning-rate/batch axis. The maximum registered GRU sequence depth (`19`) is
+  explicitly included.
+- The measured topology matrix is the full Cartesian product of CPU preparation workers
+  `{1,2,4,8,12}` and MLX stream lanes `{1,2,4,8,12}`, with three fresh-process repetitions
+  per topology after explicit family warmup: `25` topologies and `75` measured executions.
+  Timing includes a fresh substrate/history load, row/split/feature derivation, real fitting,
+  full validation metrics, checkpoint/prediction serialization, atomic publication, and
+  hash-verified resume. The selection rule is fastest safe median cells/second, except the
+  fewest MLX lanes then CPU workers within three percent of the fastest wins.
+- Actual host identity is Mac Studio `Mac14,13`, Apple M2 Max with `8` performance plus `4`
+  efficiency CPU cores, `30` GPU cores, and `32 GiB` unified memory. MLX `0.32.0` uses the
+  GPU, compiled functional updates, explicit per-thread streams, the device's maximum
+  recommended working-set limit, and a one-eighth-memory cache. CPU feature preparation is
+  pipelined independently. Default foreground scheduling is retained: the local
+  `taskpolicy(8)` manual confirms `-b` is Darwin background priority, not a performance mode.
+- Stage B runner/executor code SHA-256:
+  `99e288f45c2f54e514ccd98a39703406fc0adb2aada3489eae3510fb9f94b7d7`.
+  Independent verifier SHA-256:
+  `255bf34330fb0e002b7436db1243f91097c656337f1e23b913ff8a4bc01c92a5`.
+  Focused solver tests cover all five families, deterministic repeatability, two-stream exact
+  evidence, prospective coverage, atomic publication, and hash-checked resume. Targeted
+  Ruff and `ty` pass; the full repository suite passes `128/128`. These hashes must be
+  recomputed if any implementation file changes before commit.
 
 ## Active execution contract
 
@@ -614,10 +656,10 @@ Read these rebuild-protocol sections for the one authorized action:
 - **Metrics and uncertainty**;
 - **Execution and artifact rules**.
 
-The corrected end-to-end aggregation executor backtest, main aggregation, and independent
-verification are complete. The exact Stage B work registry is immutable input to the next
-action. Do not recalculate winners, refit a converged Stage A cell, change a candidate, or
-modify any registry artifact.
+The corrected aggregation executor backtest, main aggregation, and independent verification
+are complete. The exact Stage B work registry and version-2.4 execution registration are
+immutable inputs to the next action. Do not recalculate winners, refit a converged Stage A
+cell, change a candidate, or modify either registration artifact.
 
 Do not add, remove, or tune a target, split, history family, feature form, model family,
 regularization range, optimizer, budget, calibration method, seed count, control, metric, or
@@ -625,23 +667,30 @@ support gate based on any outer result. The prospective aggregation policy is fi
 reading aggregate winners and may not be revised in response to them.
 All outer outcomes or cortical values remain sealed throughout this action.
 
-Implement Stage B from the exact `40,824` work-unit/`2,351,229` cell registry. The executor
-must cover family-specific linear edge cells, the complete elastic-net grids, deduplicated
-OFAT MLP screens, and raw-sequence-only GRU screens; implement the registered `B` start and
-single `2B` undertraining recovery without changing a hyperparameter or applicability
-disposition. Each attempt needs deterministic ownership, exact row/split/config/code hashes,
-learning curves, checkpoints, validation metrics, convergence/disposition, atomic output,
-shard-local append-only ledgers, resumability, and an independently verifiable merge.
+Execute only the exact prospective Stage B systems backtest at
+`<Phase 02 benchmark root>/stage-b-executor-backtest`. The request must pin execution
+registration SHA-256
+`ffaf5b86254099865768e60825db048a763140277c54050005fa640e86cca010`,
+runner SHA-256 `99e288f45c2f54e514ccd98a39703406fc0adb2aada3489eae3510fb9f94b7d7`,
+work-registry SHA-256
+`045e86dcf756d070aa285c2a6a4d0351914b4328441fd57eecdcc5a12ca567c4`,
+and aggregation-verification SHA-256
+`1c1a9a40c202ee3573cc34121c447c5836fb0938b94706bfefcd73092ffeac22`.
+Refuse an identity mismatch rather than repairing a request after launch.
 
-Before any main execution, prospectively freeze representative real training/inner-validation
-backtest cells that exercise vector and raw-sequence forms, low/mid/high history, small and
-large feature counts, boundary linear, elastic-net, MLP, and GRU workloads. Measure actual
-end-to-end feature preparation, fitting, validation, serialization, and resume behavior over
-safe CPU-worker, MLX execution-lane, and compatible GPU-batch topologies on this Mac Studio.
-Require numerical identity/equivalence, determinism, convergence, ledger integrity, sustained
-utilization, thermal safety, zero harmful swap, and memory headroom. Freeze the fastest safe
-median topology under the registered within-three-percent fewer-resource tie. Synthetic
-kernels or setup-only timing cannot select the executor.
+Run all `25 * 3 = 75` registered fresh-process topology repetitions. Each must warm all five
+families before timing and then execute every one of the `34` representative cells. Require
+exact normalized evidence across repeats/topologies; exact seed, checkpoint, convergence,
+plateau, and disposition; float tolerances only where registered; verified row/prediction/
+checkpoint artifacts; successful resume; AC power; Low Power Mode off; sustained nonzero GPU
+utilization; at least `6 GiB` measured memory headroom; zero swap; and no thermal/performance
+warning. A failed topology is ineligible, not silently dropped.
+
+After the matrix completes, run the independent verifier over all `75 * 34 = 2,550` cell
+artifacts and rederive all row, scaler, threshold, candidate, seed, prediction, metric,
+checkpoint, resource, median, plateau, and selected-topology identities. Inspect the complete
+matrix, create the selected-executor record only from a verifier PASS, update this handoff,
+run focused/authority/full tests, and commit and push before any Stage B main cell.
 
 Backtest cells are systems evidence only and cannot enter the scientific ledger or influence
 candidate selection. The 210 prospective washout candidates, all outer-test outcomes, and all
@@ -672,12 +721,13 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Freeze the exact Stage B systems-backtest registration from the immutable verified work
-registry. Implement the fresh VEATIC Stage B executor, representative real-data backtest,
-independent backtest verifier, main-run verifier, resume/ledger machinery, and focused tests.
-Audit the implementation against every registered Stage B family and disposition; run
-focused VEATIC, authority-contract, and full repository tests; then commit and push the
-coherent implementation/registration transition before executing any backtest cell.
+Commit and push the version-2.4 method repair, exact Stage B execution registration,
+runner/backtest/main/verifier implementation, and passing tests. Then launch the complete
+registered Stage B systems backtest under `caffeinate -dimsu`; do not alter or reduce the
+matrix based on interim timing. Independently verify every output, inspect the complete
+topology matrix, freeze the selected executor only if every required gate passes, update this
+handoff with exact counts and SHA-256 values, run focused/authority/full tests, and commit and
+push that transition before any Stage B main cell executes.
 
 Do not execute the Stage B main run, score outer outcomes or cortical values, fit PCA or a
 learned cortical head, or open any prospective washout candidate. Do not select a topology

@@ -1,10 +1,11 @@
 # VEATIC 2.1 AGAIN-Method Master Scientific Specification
 
-Specification version: 2.3
+Specification version: 2.4
 Fresh Phase 00 authority seal: 2026-07-28
 Hardware-saturation execution amendment: 2026-07-29
 Phase 02 Stage A convergence-rescue amendment: 2026-07-29
 Phase 02 Stage A aggregation and Stage B registry amendment: 2026-07-29
+Phase 02 Stage B execution-identity amendment: 2026-07-29
 
 ## Purpose and change control
 
@@ -1206,6 +1207,80 @@ per-video consistency for the simple baselines. Because Stage A did not store pr
 AR per-video consistency remains explicitly pending until immutable finalist predictions
 exist; it must not be fabricated by refitting a converged Stage A cell. Outer-test outcomes,
 cortical values, and all 210 prospective washout candidates remain unopened.
+
+## Phase 02 Stage B execution-identity and checkpoint contract
+
+The independently verified Stage B work registry is immutable. Before any Stage B fit,
+write and push a compact execution registration that pins its hash, the Stage A aggregation
+request/summary/manifest/verification hashes, every solver and model semantic below, the
+representative systems-backtest cells, the topology matrix, equivalence tolerances, resource
+gates, and the deterministic topology-selection rule. A systems-backtest cell is disposable
+execution evidence and never enters the scientific experiment ledger or candidate selection.
+
+Re-derive each work unit's rows, q90 threshold, training-owned scaler, feature matrix,
+regularization scale, and split digest from the Phase 00/01 substrate and frozen Phase 02
+split registry. Refuse any disagreement with the immutable work unit. For vector models, use
+the registered standardized feature vector. For GRU, interpret the registered
+`raw_sequence_with_availability_mask` feature without adding information: pair each lag's
+training-standardized level with its training-standardized availability flag, assign the
+constant current-row availability channel its standardized zero, and present lags in
+chronological oldest-to-current order. The final GRU state is the head input. No row is
+dropped for cold-start padding.
+
+Derive one unsigned 32-bit Stage B seed from SHA-256 of the Phase 02 registration identity,
+work-unit ID, exact candidate-cell ID, and literal `stage_b_model_seed_v1`. Use NumPy PCG64
+only to create deterministic epoch permutations. An update consumes exactly the registered
+mini-batch size, wrapping into the next deterministically permuted epoch when required.
+Model initialization uses independent SHA-256-derived subkeys, Glorot-uniform kernels, and
+zero biases. These single Stage B seeds are search seeds, not the five fresh Stage D seeds.
+
+An MLP has the registered number of equal-width hidden layers, the registered activation and
+dropout after every hidden layer, and one scalar-logit output. A stacked GRU uses native
+sigmoid/tanh gates at every registered recurrent layer, applies the registered dropout
+between recurrent layers and before its scalar-logit output, and consumes only the raw
+sequence form. Binary cross-entropy is unweighted. AdamW uses beta1 `1 - 1/10`, beta2
+`1 - 1/1000`, float32 machine epsilon, no bias correction, and training-derived weight decay
+`1/sqrt(training-target-valid rows)` on kernels only. SGD uses Nesterov momentum `1 - 1/10`
+and the same kernel-only weight decay so optimizer comparisons do not silently change the
+regularization convention.
+
+Event elastic-net uses float32 full-batch proximal accelerated gradient with the registered
+training-covariance Lipschitz rule, an unpenalized intercept, and objective
+`mean logistic loss + lambda*((1-l1_ratio)/2*||w||2^2 + l1_ratio*||w||1)` on non-intercept
+weights. Its convergence diagnostic is the proximal-gradient-mapping norm divided by
+`1 + ||w||`, with tolerance `1/sqrt(training-target-valid rows)`. Registered boundary ridge
+and logistic-L2 cells retain their Phase 02 linear solver, unpenalized intercept, eight-update
+convergence cadence, and at-most-`16B` contract.
+
+For every nonlinear candidate, record full training loss and the full inner-validation raw
+PR-AUC, ROC-AUC, and Brier at update cadence `max(1, B/16)`. Select a checkpoint by higher
+raw PR-AUC, then lower finite Brier, then the earlier update. `B/4` consecutive registered
+updates without a strictly better checkpoint means plateaued. A curve whose last improvement
+is more recent at `B` receives exactly one continuation to `2B`; a curve still unplateaued at
+`2B` is valid development evidence but explicitly protected from a negative/final-family
+claim. Elastic-net cells not converged at `2B`, and boundary linear cells not converged at
+`16B`, are invalid/incomplete rather than negative. No outer result can alter these rules.
+
+Every attempted cell writes its exact configuration and logical cross-inner-fold identity,
+seed, code/data/row/split hashes, runtime, learning curve, convergence/plateau disposition,
+selected update, metrics, checkpoint hash, and immutable validation prediction payload.
+Publication is atomic and shard-local. Resume accepts an item only after hash and schema
+verification; the canonical ledger merge proves exact registry coverage with no duplicate or
+missing cell. The main runner must fail closed unless the independently verified systems
+backtest and selected executor record are already committed and their hashes match.
+
+The systems backtest times actual end-to-end row derivation, feature preparation, fitting,
+validation, checkpoint/prediction serialization, atomic publication, and resume. It covers
+both protocols, all feature forms and history regions, smallest and largest registered
+feature shapes, boundary ridge/logistic, elastic-net extremes/interior, and MLP/GRU capacity,
+activation, dropout, optimizer, learning-rate, and batch axes. Benchmark safe CPU preparation
+worker counts and MLX stream-lane/concurrent-cell configurations separately and together on
+the actual host with at least three measured repetitions after explicit warmup. Require
+deterministic evidence identity, registered float equivalence, convergence/disposition
+identity, zero harmful swap, at least 6 GiB memory headroom, AC power, Low Power Mode off,
+and no thermal/performance warning. Select the absolute fastest safe median, except that the
+fewest-resource configuration within three percent of it wins. Source/setup-only timing,
+synthetic kernels, background QoS, and unverified utilization claims are ineligible.
 
 ## Phase 02 through zero-label execution sequence
 

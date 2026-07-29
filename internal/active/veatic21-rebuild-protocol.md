@@ -190,6 +190,22 @@ outer fold with all six feature forms and the `1..7`, `8..14`, `15..21` history 
 represented. Register family-specific edge expansions plus the exact elastic-net and
 deduplicated OFAT MLP/sequence-only-GRU cells before any Stage B execution.
 
+Before Stage B fitting, freeze and push the execution identity that the master specification
+requires. Re-derive and hash every owned row, q90 label, scaler, feature, split, and candidate
+identity. GRU sees only the registered raw sequence, ordered oldest-to-current with paired
+standardized level/availability channels. Use the registered SHA-256-derived search seed,
+PCG64 minibatch order, Glorot/zero initialization, exact elastic-net proximal solver,
+kernel-only training-derived weight decay, checkpoint ordering, `B/4` plateau rule, and
+`B -> 2B` recovery. Preserve invalid/undertrained evidence rather than turning it into a
+negative.
+
+Backtest real representative Stage B cells end to end across safe CPU preparation workers,
+MLX stream lanes, and concurrent-cell configurations. Include compilation warmup, fitting,
+validation, prediction/checkpoint serialization, atomic ledgers, resume, sustained
+utilization, thermals, swap, and memory. Require independently verified identity and use the
+frozen within-three-percent fewer-resource rule. Do not select from a synthetic kernel,
+source/setup timing, or a background-priority launch.
+
 Benchmark the aggregation executor on real immutable Stage A/rescue JSON across safe process
 counts, require normalized identity, and freeze the measured topology before the main
 aggregation. Hashing, JSON parsing, compression, and analytic metrics use the measured

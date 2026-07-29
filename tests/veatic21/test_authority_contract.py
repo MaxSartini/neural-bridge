@@ -59,11 +59,12 @@ def test_durable_master_retains_comprehensive_scientific_contract() -> None:
         "## Phase 01 exact next-stage contract",
         "## Phase 02 Stage A linear convergence and rescue contract",
         "## Phase 02 Stage A aggregation and prospective Stage B registry contract",
+        "## Phase 02 Stage B execution-identity and checkpoint contract",
         "## Phase 02 through zero-label execution sequence",
     )
     missing = [section for section in required_sections if section not in master]
     assert not missing, f"master scientific specification lost required sections: {missing}"
-    assert "Specification version: 2.3" in master
+    assert "Specification version: 2.4" in master
     assert "Worker count is a measured execution parameter" in master
     assert "deterministic disjoint work assignment" in master
     assert len(master.splitlines()) >= 1_000, "master specification was unexpectedly shortened"
@@ -169,7 +170,9 @@ def test_live_state_authorizes_only_phase02_after_fresh_phase01() -> None:
     assert "Phase 00 implementation: complete" in current
     assert "Phase 00 execution: PASS, 27/27 mandatory controls" in current
     assert "Phase 01 execution and independent verification: PASS, 28/28" in current
-    assert "Authorized action: freeze a prospective Stage B systems-backtest" in current
+    assert (
+        "Authorized action: execute and independently verify the complete frozen Stage B" in current
+    )
     assert "executor-backtest-registration.json" in current
     assert "The inner-only Stage A aggregation/disposition" in current
     assert "selected-rescue-executor.json" in current
