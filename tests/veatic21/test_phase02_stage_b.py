@@ -7,6 +7,7 @@ from typing import Any
 
 import numpy as np
 
+from neural_bridge.veatic21.data import sha256_file
 from neural_bridge.veatic21.phase02_stage_b import (
     EXPECTED_AGGREGATION_VERIFICATION_SHA256,
     EXPECTED_WORK_REGISTRY_SHA256,
@@ -35,6 +36,9 @@ from neural_bridge.veatic21.phase02_stage_b_verify import _coverage
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRATION_PATH = ROOT / (
     "internal/active/veatic21-phase02-registration/stage-b-execution-registration.json"
+)
+SELECTED_EXECUTOR_PATH = ROOT / (
+    "internal/active/veatic21-phase02-registration/selected-stage-b-executor.json"
 )
 CURRENT = ROOT / "internal/handoff/CURRENT_STATE.md"
 
@@ -163,6 +167,39 @@ def test_registered_backtest_cells_exist_and_cover_every_family_and_shape_axis()
     assert len(coverage["feature_forms"]) == 6
     assert len(coverage["families"]) == 5
     assert coverage["maximum_gru_depth"] == 19
+
+
+def test_selected_stage_b_executor_pins_verified_complete_backtest() -> None:
+    selected = json.loads(SELECTED_EXECUTOR_PATH.read_text(encoding="utf-8"))
+    assert selected["eligible_for_main"] is True
+    assert selected["execution_registration_sha256"] == (
+        "ffaf5b86254099865768e60825db048a763140277c54050005fa640e86cca010"
+    )
+    assert selected["stage_b_code_sha256"] == (
+        "99e288f45c2f54e514ccd98a39703406fc0adb2aada3489eae3510fb9f94b7d7"
+    )
+    assert selected["backtest_request_sha256"] == (
+        "d7f6af27d80b59d8e3401d404130762af9c06d58dbba54fa2f40ba0705ad08da"
+    )
+    assert selected["backtest_result_sha256"] == (
+        "d8c74788f4ab3cd13bf8970a5f54c212bb0f3d8b6ba74f646bb0a19d1b52410f"
+    )
+    assert selected["backtest_verification_sha256"] == (
+        "80a587c78f234ba52ac621599ab766b4271a6946cde72dd02bd0460c8295b8ad"
+    )
+    assert selected["topology"] == {
+        "cpu_preparation_workers": 1,
+        "mlx_stream_lanes": 4,
+    }
+    assert selected["coverage"]["verified_cell_artifacts"] == 2_550
+    assert selected["resource_gates"]["all_topologies_eligible"] is True
+    assert selected["outer_test_scores_opened"] is False
+    assert selected["cortical_values_opened"] is False
+    current = CURRENT.read_text(encoding="utf-8")
+    assert sha256_file(SELECTED_EXECUTOR_PATH) == (
+        "52192d5336db1b18ec7bd6703174d42c8d9feef5cca1c7fd07fdf87aecd125e8"
+    )
+    assert "52192d5336db1b18ec7bd6703174d42c8d9feef5cca1c7fd07fdf87aecd125e8" in current
 
 
 def test_candidate_ids_and_model_seeds_are_stable() -> None:

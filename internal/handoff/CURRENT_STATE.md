@@ -1,6 +1,6 @@
-# Current State — VEATIC 2.1 Stage B Systems Backtest Frozen
+# Current State — VEATIC 2.1 Stage B Executor Selected
 
-Updated: 2026-07-29
+Updated: 2026-07-30
 
 ## Mandatory authority anchors
 
@@ -63,8 +63,9 @@ method. This file cannot silently override the master specification.
   were not explicit enough to execute without assumption. Master specification version 2.4,
   the derived protocol, and a compact prospective Stage B execution registration now freeze
   those details. The fresh executor, real-data topology harness, resume/ledger machinery, and
-  independent backtest/main verifiers are implemented and test-validated. No registered
-  Stage B backtest or main cell has executed.
+  independent backtest/main verifiers are implemented and test-validated. The complete
+  registered Stage B systems backtest and exhaustive independent verification passed, and
+  the selected executor is frozen. No Stage B main cell has executed.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -81,12 +82,11 @@ method. This file cannot silently override the master specification.
   outer scores, selected models/checkpoints, projections, representations, heads, and
   promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: execute and independently verify the complete frozen Stage B systems
-  backtest only. Run all `25` registered CPU-preparation-worker by MLX-stream topologies for
-  three fresh-process repetitions over the exact `34` representative real-data cells. Select
-  only by the frozen equivalence/resource/median-throughput rule. The Stage B main run remains
-  unauthorized until the backtest, independent verification, and selected-executor record
-  are inspected, committed, and pushed.
+- Authorized action: commit and push the verified Stage B systems-backtest transition and
+  frozen selected-executor record, then execute the complete Stage B main registry only at
+  the canonical `stage-b-family-expansion` root with one CPU preparation worker and four MLX
+  stream lanes. Independently verify all `40,824` work units and `2,351,229` candidate-cell
+  artifacts before any Stage B aggregation or outer scoring.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -642,8 +642,39 @@ cortical values remained unopened.
   `255bf34330fb0e002b7436db1243f91097c656337f1e23b913ff8a4bc01c92a5`.
   Focused solver tests cover all five families, deterministic repeatability, two-stream exact
   evidence, prospective coverage, atomic publication, and hash-checked resume. Targeted
-  Ruff and `ty` pass; the full repository suite passes `128/128`. These hashes must be
+  Ruff and `ty` pass; the full repository suite passes `129/129`. These hashes must be
   recomputed if any implementation file changes before commit.
+- The complete registered Stage B systems backtest ran from `2026-07-29T23:59:30+0200` to
+  `2026-07-30T00:57:15+0200` at `<Phase 02 benchmark root>/stage-b-executor-backtest`.
+  All `25` CPU-preparation-worker by MLX-stream topologies completed three fresh-process
+  repetitions, all `75 * 34 = 2,550` real-cell artifacts were published, and every topology
+  passed equivalence, determinism, resume, ledger, AC-power, Low-Power-Mode, GPU-utilization,
+  memory, zero-swap, thermal, performance, and access gates. Minimum observed estimated
+  memory headroom was `18,554,258,718` bytes; maximum worker RSS was `963,919,872` bytes;
+  maximum observed GPU utilization was `86%`.
+- The absolute fastest safe median was `3.0356330643490637` cells/second at two CPU
+  preparation workers and eight MLX lanes. The prospective within-three-percent rule selected
+  one CPU preparation worker and four MLX lanes at `2.956797846198578` median cells/second
+  (`97.40300568351498%` of fastest), because it uses fewer MLX lanes and then fewer CPU
+  workers. Its three measurements were `2.9493308429978327`, `2.956797846198578`, and
+  `2.966736017764261` cells/second. This is `17.308139067160976%` faster than the stabilized
+  one-worker/one-lane median; twelve workers and twelve lanes were slower and more variable.
+- Independent verification passed all `2,550` cell artifacts, all `75` repetitions, both
+  protocols, all five families, all six feature forms, all three history regions, observed
+  train-row/feature-count extremes, every registered nonlinear axis, and maximum GRU depth
+  `19`. Exact SHA-256: request
+  `d7f6af27d80b59d8e3401d404130762af9c06d58dbba54fa2f40ba0705ad08da`;
+  result `d8c74788f4ab3cd13bf8970a5f54c212bb0f3d8b6ba74f646bb0a19d1b52410f`;
+  verification `80a587c78f234ba52ac621599ab766b4271a6946cde72dd02bd0460c8295b8ad`;
+  normalized evidence
+  `eb6e442be521445cc23eda43e657f7dad341f6f7f3c76c744a4d0ae3e0d2bcff`.
+  Outer-test scores, cortical values, and prospective washout candidates remained unopened.
+- Frozen selected Stage B executor:
+  `internal/active/veatic21-phase02-registration/selected-stage-b-executor.json`; SHA-256
+  `52192d5336db1b18ec7bd6703174d42c8d9feef5cca1c7fd07fdf87aecd125e8`.
+  It authorizes only the exact complete Stage B main registry with one CPU preparation worker
+  and four MLX lanes at `<Phase 02 benchmark root>/stage-b-family-expansion`. Backtest cells
+  remain disposable systems evidence and cannot enter the scientific ledger.
 
 ## Active execution contract
 
@@ -656,10 +687,11 @@ Read these rebuild-protocol sections for the one authorized action:
 - **Metrics and uncertainty**;
 - **Execution and artifact rules**.
 
-The corrected aggregation executor backtest, main aggregation, and independent verification
-are complete. The exact Stage B work registry and version-2.4 execution registration are
-immutable inputs to the next action. Do not recalculate winners, refit a converged Stage A
-cell, change a candidate, or modify either registration artifact.
+The corrected aggregation executor backtest, main aggregation, independent verification,
+complete Stage B systems backtest, and independent systems verification are complete. The
+exact Stage B work registry, version-2.4 execution registration, and selected Stage B
+executor are immutable inputs to the next action. Do not recalculate winners, refit a
+converged Stage A cell, change a candidate, or modify any registration artifact.
 
 Do not add, remove, or tune a target, split, history family, feature form, model family,
 regularization range, optimizer, budget, calibration method, seed count, control, metric, or
@@ -667,34 +699,28 @@ support gate based on any outer result. The prospective aggregation policy is fi
 reading aggregate winners and may not be revised in response to them.
 All outer outcomes or cortical values remain sealed throughout this action.
 
-Execute only the exact prospective Stage B systems backtest at
-`<Phase 02 benchmark root>/stage-b-executor-backtest`. The request must pin execution
-registration SHA-256
-`ffaf5b86254099865768e60825db048a763140277c54050005fa640e86cca010`,
-runner SHA-256 `99e288f45c2f54e514ccd98a39703406fc0adb2aada3489eae3510fb9f94b7d7`,
-work-registry SHA-256
-`045e86dcf756d070aa285c2a6a4d0351914b4328441fd57eecdcc5a12ca567c4`,
-and aggregation-verification SHA-256
-`1c1a9a40c202ee3573cc34121c447c5836fb0938b94706bfefcd73092ffeac22`.
-Refuse an identity mismatch rather than repairing a request after launch.
+First commit and push this verified backtest/selected-executor transition. Then execute only
+the complete Stage B main registry at `<Phase 02 benchmark root>/stage-b-family-expansion`
+under `caffeinate -dimsu`. The request must pin runner SHA-256
+`99e288f45c2f54e514ccd98a39703406fc0adb2aada3489eae3510fb9f94b7d7`, execution-registration
+SHA-256 `ffaf5b86254099865768e60825db048a763140277c54050005fa640e86cca010`,
+selected-executor SHA-256
+`52192d5336db1b18ec7bd6703174d42c8d9feef5cca1c7fd07fdf87aecd125e8`, and work-registry
+SHA-256 `045e86dcf756d070aa285c2a6a4d0351914b4328441fd57eecdcc5a12ca567c4`.
+Refuse any mismatch rather than repairing a request after launch.
 
-Run all `25 * 3 = 75` registered fresh-process topology repetitions. Each must warm all five
-families before timing and then execute every one of the `34` representative cells. Require
-exact normalized evidence across repeats/topologies; exact seed, checkpoint, convergence,
-plateau, and disposition; float tolerances only where registered; verified row/prediction/
-checkpoint artifacts; successful resume; AC power; Low Power Mode off; sustained nonzero GPU
-utilization; at least `6 GiB` measured memory headroom; zero swap; and no thermal/performance
-warning. A failed topology is ineligible, not silently dropped.
+Use exactly one CPU preparation worker and four MLX stream lanes. Execute or hash-verified
+resume all `40,824` work units and all `2,351,229` registered candidate cells. Preserve each
+candidate's exact seed, checkpoint, learning curve, convergence/plateau disposition,
+validation prediction, global validation-row indices, records hash, artifacts hash, and
+shard-ledger identity. Merge only after exact no-gap/no-duplicate work-unit coverage.
 
-After the matrix completes, run the independent verifier over all `75 * 34 = 2,550` cell
-artifacts and rederive all row, scaler, threshold, candidate, seed, prediction, metric,
-checkpoint, resource, median, plateau, and selected-topology identities. Inspect the complete
-matrix, create the selected-executor record only from a verifier PASS, update this handoff,
-run focused/authority/full tests, and commit and push before any Stage B main cell.
-
-Backtest cells are systems evidence only and cannot enter the scientific ledger or influence
-candidate selection. The 210 prospective washout candidates, all outer-test outcomes, and all
-cortical values remain unopened.
+After completion, independently verify every main artifact and rederive all input, row,
+split, scaler, threshold, feature, candidate, seed, metric, checkpoint, prediction, manifest,
+and ledger identities. Backtest cells cannot enter the scientific ledger. Stage B main is
+inner/development evidence only: do not aggregate/select a Phase 02 winner or open outer-test
+scores during this action. The 210 prospective washout candidates and all cortical values
+remain unopened.
 
 Phase 02 output root:
 
@@ -721,14 +747,15 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Commit and push the version-2.4 method repair, exact Stage B execution registration,
-runner/backtest/main/verifier implementation, and passing tests. Then launch the complete
-registered Stage B systems backtest under `caffeinate -dimsu`; do not alter or reduce the
-matrix based on interim timing. Independently verify every output, inspect the complete
-topology matrix, freeze the selected executor only if every required gate passes, update this
-handoff with exact counts and SHA-256 values, run focused/authority/full tests, and commit and
-push that transition before any Stage B main cell executes.
+Run focused/authority/full tests, commit and push the verified Stage B systems backtest and
+selected-executor transition, and confirm remote `main` contains it. Then launch the complete
+Stage B main registry under `caffeinate -dimsu` at
+`<Phase 02 benchmark root>/stage-b-family-expansion` with exactly one CPU preparation worker
+and four MLX stream lanes. Do not alter the complete registry based on runtime or interim
+inner results. On completion, independently verify all `40,824` work units and `2,351,229`
+candidate-cell artifacts, inspect the full disposition ledger, update this handoff with exact
+counts and SHA-256 values, run focused/authority/full tests, and commit and push before any
+Stage B aggregation or outer scoring.
 
-Do not execute the Stage B main run, score outer outcomes or cortical values, fit PCA or a
-learned cortical head, or open any prospective washout candidate. Do not select a topology
-from source/setup timing or an unverified benchmark.
+Do not aggregate/select the Phase 02 winner, score outer outcomes or cortical values, fit PCA
+or a learned cortical head, or open any prospective washout candidate.

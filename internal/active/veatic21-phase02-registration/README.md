@@ -27,5 +27,9 @@ not a claim that the original registration remains the current execution boundar
 systems-backtest freeze for the verified `40,824`-work-unit, `2,351,229`-cell Stage B
 registry. It fixes the previously underspecified seed, GRU ordering, optimizer regularization,
 checkpoint, plateau, recovery, artifact, topology, and hardware-gate semantics before any
-Stage B fit. The Stage B main run remains unauthorized until the complete backtest,
-independent verification, and selected-executor record are committed and pushed.
+Stage B fit. The complete registered backtest and independent verification passed over all
+`25` topologies, `75` fresh-process repetitions, and `2,550` representative real-data cell
+artifacts. `selected-stage-b-executor.json` freezes one CPU preparation worker and four MLX
+stream lanes by the prospective within-three-percent fewer-resource rule. Its committed hash
+is the only authority for the complete Stage B main executor; backtest cells remain disposable
+systems evidence and never enter the scientific ledger.
