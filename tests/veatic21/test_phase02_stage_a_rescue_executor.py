@@ -31,6 +31,12 @@ from neural_bridge.veatic21.phase02_stage_a_rescue_saturated import (
     RESCUE_MAIN_ROOT,
     verify_selected_rescue_executor,
 )
+from neural_bridge.veatic21.phase02_stage_a_rescue_saturated_verify import (
+    EXPECTED_RESCUE_CELLS,
+    EXPECTED_RESCUE_UNITS,
+    _expected_static_record,
+    _verify_record,
+)
 
 
 def _synthetic_prepared() -> StageAPrepared:
@@ -223,3 +229,49 @@ def test_selected_rescue_executor_freezes_complete_main_identity() -> None:
         "22f1dd5547b405fba1d62430ef5a1102a934895fe16c0f416a61416c998c1253"
     )
     assert str(RESCUE_MAIN_ROOT).endswith("stage-a-convergence-rescue/main-hardware-saturated")
+
+
+def test_exhaustive_rescue_verifier_enforces_invalid_maximum_budget() -> None:
+    cell = load_rescue_registry()[0].cells[0]
+    diagnostic_name = (
+        "relative_residual" if cell.model_family == "continuous_ridge" else "relative_gradient"
+    )
+    updates = sorted(
+        {
+            cell.original_maximum_budget,
+            2 * cell.original_base_budget,
+            4 * cell.original_base_budget,
+            8 * cell.original_base_budget,
+            12 * cell.original_base_budget,
+            cell.rescue_maximum_budget,
+        }
+    )
+    record = {
+        **_expected_static_record(cell),
+        "schema_version": "veatic21_phase02_stage_a_rescue_cell_result_v1",
+        "status": "invalid",
+        "disposition": "invalid_nonconverged_after_registered_maximum_budget",
+        "converged": False,
+        "iterations": cell.rescue_maximum_budget,
+        "diagnostic_name": diagnostic_name,
+        "final_diagnostic": cell.convergence_tolerance + 1,
+        "learning_curve": [
+            {"update": update, diagnostic_name: cell.convergence_tolerance + 1}
+            for update in updates
+        ],
+        "rows": cell.validation_rows,
+        "positives": 1,
+        "negatives": cell.validation_rows - 1,
+        "prevalence": 1 / cell.validation_rows,
+        "raw_pr_auc": 0.5,
+        "roc_auc": 0.5,
+        "brier": None if cell.model_family == "continuous_ridge" else 0.25,
+    }
+    assert _verify_record(record, cell, RESCUE_MAIN_ROOT / "synthetic.json") == (
+        "invalid_nonconverged_after_registered_maximum_budget"
+    )
+    assert EXPECTED_RESCUE_UNITS == 14_465
+    assert EXPECTED_RESCUE_CELLS == 113_392
+    record["iterations"] = cell.rescue_maximum_budget - 8
+    with pytest.raises(ValueError, match="stopped before"):
+        _verify_record(record, cell, RESCUE_MAIN_ROOT / "synthetic.json")
