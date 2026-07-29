@@ -44,7 +44,8 @@ method. This file cannot silently override the master specification.
   registration frozen and verified; the underpowered sequential Stage A attempt is sealed;
   the initial and all-uncompiled executor matrices are complete; the winning executor is
   frozen; the replacement main Stage A execution and exhaustive verification are complete;
-  before the mandatory undertrained-cell convergence rescue.
+  the exact undertrained-cell registry is independently verified and frozen; before the
+  mandatory convergence-rescue executor backtest.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -60,10 +61,9 @@ method. This file cannot silently override the master specification.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: freeze the exact Stage A undertrained-cell rescue registry, implement and
-  backtest a hardware-saturated sparse 16×-budget rescue executor for the frozen Phase 02
-  comprehensive target-specific AR benchmark, and freeze the fastest numerically equivalent
-  rescue configuration before executing any rescue cell.
+- Authorized action: implement and backtest a hardware-saturated sparse 16×-budget rescue
+  executor for the frozen Phase 02 comprehensive target-specific AR benchmark, then freeze
+  the fastest numerically equivalent rescue configuration before executing any rescue cell.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -384,6 +384,26 @@ cortical values remained unopened.
   protected records. By family: ridge `4,173,766` completed and `112,754` undertrained;
   logistic-L2 `4,285,882` completed and `638` undertrained. Aggregation/pruning is forbidden
   until the exact undertrained set receives the frozen rescue disposition.
+- Rescue registry external root:
+  `<Phase 02 benchmark root>/stage-a-convergence-rescue/registration`. Independent
+  re-derivation returned `PASS`: `113,392` unique configuration IDs and rescue-cell identities
+  across `14,465` affected units. The registry contains ridge `112,754`, logistic-L2 `638`,
+  grouped `111,827`, and blocked `1,565` cells; no completed Stage A cell is present.
+- External rescue-registration hashes: request
+  `37857dd1a9c5bc5b145c1c99e18b9f7acb2e9691ca1e38f591915135b05f5346`;
+  undertrained-cell registry
+  `0d3b1e276082263d325d0cc523f4a80619f5ce6a5794016fd31bbc180ab2c791`;
+  affected-unit registry
+  `46bf2efd5e622423195a722bd4c7cf14fe8e58d29a474c283b0e9349e0ef107d`;
+  summary `ef8176121527d56e6f479d2b5be355e87e14e6a3c9c3644fce1bb0cafa867dac`;
+  verification `b668b58e455f9486850ac51ea08c9c186531f708f49fd799315e5c8c4f2f5a6d`.
+- Compact frozen rescue registration:
+  `internal/active/veatic21-phase02-registration/convergence-rescue-registration.json`;
+  SHA-256 `003c6f4e72e9ab2cc8198d0d4ce56b669f4b36148a6efd4b6a066f38c054efb6`.
+- The compact registration freezes zero initialization, exact unchanged cell ownership and
+  numerical identities, total `16B` maximum budget, converged/invalid dispositions, separate
+  linked ledgers, immutable Stage A artifacts, and the full hardware-backtest gates. It does
+  not authorize rescue execution.
 - Only convergence-rescue registration, executor implementation, and inner-only hardware
   backtesting are now authorized. Rescue execution remains unauthorized until its registry,
   selected executor, and main identity are frozen and pushed. Outer-test scoring, cortical
@@ -454,13 +474,7 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Implement a deterministic registry builder that reads only the verified Stage A result tree,
-captures all `113,392` undertrained configuration IDs with original unit/result hashes and
-model-family counts, and writes the heavy registry under the canonical Phase 02 external
-rescue root. Independently verify its exact coverage and freeze a compact repository
-registration with all hashes.
-
-Then implement and backtest a sparse-cell rescue executor across safe CPU-worker, MLX-lane,
+Implement and backtest a sparse-cell rescue executor across safe CPU-worker, MLX-lane,
 Metal-stream, and cell-batch configurations on representative inner-only rescue cells. Require
 exact mathematical equivalence to a simple reference, deterministic artifacts, safe resume,
 unique linked ledgers, access-firewall evidence, GPU utilization, thermal safety, and at least

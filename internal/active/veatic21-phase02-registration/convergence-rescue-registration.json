@@ -1,0 +1,106 @@
+{
+  "schema_version": "veatic21_phase02_stage_a_convergence_rescue_registration_v1",
+  "authorized_at_utc": "2026-07-29T03:59:46Z",
+  "master_specification_version": "2.2",
+  "purpose": "complete_the_frozen_stage_a_linear_screen_without_pruning_or_aggregating_undertrained_cells",
+  "source_code_commit": "1b4176a",
+  "registration_builder_sha256": "11762be12d8b3c9bc1530c40d2535017c2fbcda10507c0acb9ff3a3be8ffb7b6",
+  "source_stage_a": {
+    "root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/stage-a-linear-screen-hardware-saturated",
+    "request_sha256": "7e5e06aa29654d8b0b58bcb3f6156d9a9d94cda7d13e46849ce2ab7fa4e82eff",
+    "work_unit_registry_sha256": "080485ed8794547eae087332dad99bc119a305843cb687837b2e96f143185849",
+    "run_state_sha256": "c42fa75ef13cced9177e907157d1fa2414351d5bf1d79f4118380268f059e505",
+    "canonical_ledger_sha256": "95bf4d4c18b38372ca81af0ee8210a9b18da942db12f6162c8c678a0a1b9d342",
+    "verification_sha256": "32467b1cbe223a7297cb90b4546e71ac56478c834a720ec5af90775cfc01afb4",
+    "verification_status": "PASS",
+    "outer_test_scores_opened": false,
+    "cortical_values_opened": false
+  },
+  "external_registration": {
+    "root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/stage-a-convergence-rescue/registration",
+    "request_sha256": "37857dd1a9c5bc5b145c1c99e18b9f7acb2e9691ca1e38f591915135b05f5346",
+    "undertrained_cell_registry_sha256": "0d3b1e276082263d325d0cc523f4a80619f5ce6a5794016fd31bbc180ab2c791",
+    "affected_unit_registry_sha256": "46bf2efd5e622423195a722bd4c7cf14fe8e58d29a474c283b0e9349e0ef107d",
+    "summary_sha256": "ef8176121527d56e6f479d2b5be355e87e14e6a3c9c3644fce1bb0cafa867dac",
+    "verification_sha256": "b668b58e455f9486850ac51ea08c9c186531f708f49fd799315e5c8c4f2f5a6d",
+    "verification_status": "PASS"
+  },
+  "coverage": {
+    "undertrained_cells": 113392,
+    "affected_units": 14465,
+    "unique_original_configuration_ids": 113392,
+    "unique_rescue_cell_identities": 113392,
+    "by_model_family": {
+      "continuous_ridge": 112754,
+      "event_logistic_l2": 638
+    },
+    "by_protocol": {
+      "blocked": 1565,
+      "grouped": 111827
+    },
+    "by_feature_form": {
+      "causal_rolling_summary": 16370,
+      "combined_levels_differences_summaries": 16547,
+      "current_only": 4872,
+      "level_and_first_difference": 441,
+      "raw_levels_with_availability_mask": 37581,
+      "raw_sequence_with_availability_mask": 37581
+    },
+    "by_regularization_index": {
+      "0": 28046,
+      "1": 27402,
+      "2": 22988,
+      "3": 13591,
+      "4": 11117,
+      "5": 6913,
+      "6": 2697,
+      "9": 638
+    }
+  },
+  "rescue_contract": {
+    "registry_source": "only_verified_stage_a_records_with_status_undertrained_and_disposition_protected_from_pruning_requires_16x_budget",
+    "converged_stage_a_cells_allowed": false,
+    "initialization": "restart_from_zero",
+    "maximum_budget": "total_16_times_the_original_data_derived_base_budget",
+    "unchanged_fields": [
+      "training_rows",
+      "inner_validation_rows",
+      "target_threshold",
+      "feature_matrix",
+      "scaler",
+      "regularization_multiplier",
+      "regularization_scale",
+      "regularization_value",
+      "solver_family",
+      "precision",
+      "step_rule",
+      "convergence_tolerance"
+    ],
+    "converged_disposition": "eligible_for_inner_aggregation",
+    "unresolved_disposition": "invalid_nonconverged_after_registered_maximum_budget",
+    "original_stage_a_artifacts_mutable": false,
+    "rescue_ledger": "separate_append_only_linked_to_original_configuration_and_unit_hash",
+    "outer_test_scores_allowed": false,
+    "cortical_values_allowed": false
+  },
+  "execution_contract": {
+    "main_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/stage-a-convergence-rescue/main",
+    "benchmark_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/stage-a-convergence-rescue/executor-backtest",
+    "hardware_backtest_required_before_main": true,
+    "selection_uses_scientific_scores": false,
+    "numerical_equivalence_required": true,
+    "determinism_required": true,
+    "safe_resume_required": true,
+    "atomic_publication_required": true,
+    "shard_local_ledgers_required": true,
+    "verified_canonical_merge_required": true,
+    "gpu_saturation_or_safe_plateau_required": true,
+    "minimum_memory_headroom_bytes": 6442450944,
+    "thermal_warning_allowed": false,
+    "background_taskpolicy_allowed": false
+  },
+  "outer_test_scores_opened": false,
+  "cortical_values_opened": false,
+  "aggregation_or_pruning_allowed": false,
+  "rescue_execution_authorized": false
+}
