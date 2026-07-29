@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Stage A Aggregation Pending Verification
+# Current State — VEATIC 2.1 Verified Stage B Registry Frozen
 
 Updated: 2026-07-29
 
@@ -54,8 +54,11 @@ method. This file cannot silently override the master specification.
   executor benchmark omitted its claimed analytic workload, so its selection is revoked and
   the first main attempt is sealed. The corrected end-to-end rebenchmark and independent
   verification passed; separate source and analytic worker counts are frozen. The corrected
-  main aggregation completed, but its first verifier invocation stopped before source audit
-  on a strict JSON object-versus-list parser mismatch and wrote no verification result.
+  main aggregation completed. Its first verifier invocation stopped before source audit on a
+  strict JSON object-versus-list parser mismatch and wrote no verification result; the
+  correction was committed and pushed before retry. The retry independently rederived every
+  admission, exclusion, aggregate, selection, boundary, work-unit, and decomposition identity
+  and passed. The exact prospective Stage B registry is now frozen.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -68,13 +71,16 @@ method. This file cannot silently override the master specification.
 - Registered target substrate: 231 continuous future-maximum-increase candidates; all 21
   no-washout candidates active for Phase 02, 210 washout candidates prospective only, no
   target selected.
-- Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
-  projections, representations, heads, checkpoints, and promotion outcomes: none.
+- Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR outer predictions,
+  outer scores, selected models/checkpoints, projections, representations, heads, and
+  promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: commit and push the strict-list verifier correction, then independently
-  verify the completed inner-only Stage A aggregation/disposition and exact Stage B registry.
-  The main artifacts remain immutable. Stage B execution is unauthorized until the verified
-  registry is committed and pushed.
+- Authorized action: freeze a prospective Stage B systems-backtest registration and implement
+  the fresh VEATIC Stage B executor, benchmark harness, append-only/resume machinery, and
+  independent verifiers against the immutable exact registry. Commit and push that
+  implementation and registration before executing any backtest cell. The Stage B main run
+  remains unauthorized until a representative real-data CPU/MLX topology backtest, its
+  independent verification, and the selected-executor record are committed and pushed.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -548,11 +554,11 @@ cortical values remained unopened.
   result SHA-256: `7d6bb9a2a5846e66193bf9000ebb4891a9ef5f7c5b8e2bed8a2508cb4501ab18`;
   independent verification SHA-256:
   `cbd12688d326cb3edbcc3f7dc1a713a0ce1e0a6e6499de00738117c7f63a4572`.
-- Only the inner-only Stage A aggregation/disposition, the registered
-  development-owned AR-dominance/overlap decomposition, and prospective Stage B registry
-  construction/verification are now authorized. Stage B execution, outer-test scoring,
-  cortical data, Stage C/D, aggregation beyond the registered Stage A rule, and every later
-  phase remain unauthorized.
+- The inner-only Stage A aggregation/disposition, registered development-owned
+  AR-dominance/overlap decomposition, and prospective Stage B registry are complete and
+  independently verified. Stage B main execution, outer-test scoring, cortical data, Stage
+  C/D, aggregation beyond the registered Stage A rule, and every later phase remain
+  unauthorized.
 - Corrected main aggregation completed in `105.9209516668925` seconds with eight source and
   eight analytic processes: `8,542,214` admitted cells, `30,826` invalid/incomplete
   exclusions, `2,222,640` aggregate configurations, `111,132` feature-set dispositions,
@@ -563,11 +569,39 @@ cortical values remained unopened.
   summary SHA-256: `c381674de2bdc74e581db927210baf80bd529e9e7e999f3fa14c973f24fdf2eb`;
   artifact-manifest SHA-256:
   `454fe42e87cf29916a73ee7ab0cd3d8049ab2fd8488b98bef9c59364d2955b8b`.
-  These counts remain provisional until independent verification passes.
 - The first verifier invocation stopped before reading a source unit because
   `scope-summaries.json` is a JSON list and the generic repository `load_json` helper
   correctly accepts objects only. No verification file was written; main artifacts were
   unchanged. The verifier now has a strict finite object-list reader with focused coverage.
+- The retry passed and independently rederived all source admissions/exclusions and all
+  selections. Verification SHA-256:
+  `1c1a9a40c202ee3573cc34121c447c5836fb0938b94706bfefcd73092ffeac22`;
+  verifier-code SHA-256:
+  `05f6d278a41dbcc1d0b5a5b18fc48cef2a1cd051f70404a734ff402472764d67`.
+  It confirmed `8,542,214` admissions, `30,826` invalid exclusions, `2,222,640`
+  aggregates, `111,132` feature dispositions, `10,584` finalists, `40,824` work units,
+  `2,351,229` registered cells, `21,168` boundary dispositions, `27,942` baseline rows,
+  and `10,584` dominance rows. It also confirmed that Stage B, outer-test outcomes,
+  cortical values, and prospective washout candidates remained unopened.
+- Completeness inspection found `2,212,880` aggregates eligible for selection and `9,760`
+  excluded as incomplete/invalid-not-negative; all `111,132` feature sets retained at least
+  one eligible representative. Exactly `12` finalists exist for each of the `21 * 42 = 882`
+  target/scope identities. Of the `10,584` finalists, `7,972` lie inside their global
+  one-standard-error set and `2,612` are deterministic coverage/fill selections.
+- Finalist coverage is not nominal-only: counts by feature form are `882` current-only,
+  `891` level-plus-first-difference, `907` raw-level-with-availability, `897` raw-sequence,
+  `2,759` causal rolling summary, and `4,248` combined levels/differences/summaries. History
+  coverage is `5,295` low (`1..7`), `3,818` mid (`8..14`), and `1,471` high (`15..21`),
+  including `99` depth-21 finalists. Representatives comprise `10,422` logistic-L2 and
+  `162` continuous-ridge cells. The `21,168` family-specific boundary decisions contain
+  `9,285` registered edge expansions and `11,883` interior winners.
+- These are development-owned selection diagnostics, not a promotion claim. Pooled retained
+  finalist median inner raw PR-AUC/uplift-over-chance is `0.23948/0.15382` for blocked and
+  `0.27221/0.17158` for grouped. Against means of the five registered simple causal
+  baselines, AR is strictly better than all five in `9,566/10,584` finalist records; it is
+  not better than previous-delta in `1,018`, and `202` are below analytic chance. AR
+  per-video consistency remains pending until Stage B produces immutable finalist
+  predictions. No outer result has been read and no Phase 02 winner exists.
 
 ## Active execution contract
 
@@ -580,10 +614,10 @@ Read these rebuild-protocol sections for the one authorized action:
 - **Metrics and uncertainty**;
 - **Execution and artifact rules**.
 
-The corrected end-to-end aggregation executor backtest and independent verification are
-complete. The replacement main run must use exactly eight source-pipeline processes and
-eight analytic-pipeline processes and refuse any mismatch in code, policy, request, result,
-or selected-executor identity. Independent verification remains a separately hashed gate.
+The corrected end-to-end aggregation executor backtest, main aggregation, and independent
+verification are complete. The exact Stage B work registry is immutable input to the next
+action. Do not recalculate winners, refit a converged Stage A cell, change a candidate, or
+modify any registry artifact.
 
 Do not add, remove, or tune a target, split, history family, feature form, model family,
 regularization range, optimizer, budget, calibration method, seed count, control, metric, or
@@ -591,25 +625,27 @@ support gate based on any outer result. The prospective aggregation policy is fi
 reading aggregate winners and may not be revised in response to them.
 All outer outcomes or cortical values remain sealed throughout this action.
 
-The main aggregation must admit all `8,459,648` already-converged Stage A cells only through
-their original records, admit the `82,566` converged rescue cells only through their frozen
-links, and exclude all `30,826` invalid-at-`16B` cells. Every aggregate configuration needs
-all registered inner folds. Apply the version-2.3 master rule and the compact prospective
-aggregation registration exactly; do not tune it after reading winners.
+Implement Stage B from the exact `40,824` work-unit/`2,351,229` cell registry. The executor
+must cover family-specific linear edge cells, the complete elastic-net grids, deduplicated
+OFAT MLP screens, and raw-sequence-only GRU screens; implement the registered `B` start and
+single `2B` undertraining recovery without changing a hyperparameter or applicability
+disposition. Each attempt needs deterministic ownership, exact row/split/config/code hashes,
+learning curves, checkpoints, validation metrics, convergence/disposition, atomic output,
+shard-local append-only ledgers, resumability, and an independently verifiable merge.
 
-Freeze exactly `12` Stage B feature sets for every target/protocol/outer fold with all feature
-forms and low/mid/high history regions represented. Enumerate the exact family-expansion,
-boundary, optimizer, capacity, batch, learning-rate, budget, and applicability records, but
-do not execute a Stage B cell. Independently re-read all immutable source artifacts and
-rederive every admission, exclusion, aggregate, one-standard-error selection, coverage
-obligation, boundary disposition, and Stage B identity.
+Before any main execution, prospectively freeze representative real training/inner-validation
+backtest cells that exercise vector and raw-sequence forms, low/mid/high history, small and
+large feature counts, boundary linear, elastic-net, MLP, and GRU workloads. Measure actual
+end-to-end feature preparation, fitting, validation, serialization, and resume behavior over
+safe CPU-worker, MLX execution-lane, and compatible GPU-batch topologies on this Mac Studio.
+Require numerical identity/equivalence, determinism, convergence, ledger integrity, sustained
+utilization, thermal safety, zero harmful swap, and memory headroom. Freeze the fastest safe
+median topology under the registered within-three-percent fewer-resource tie. Synthetic
+kernels or setup-only timing cannot select the executor.
 
-Begin the development-owned AR-dominance/overlap layer from simple analytic baselines and
-the immutable aggregate metrics. Record history/target/gap offsets, padding availability,
-AR-versus-chance uplift, inner-fold consistency, and defined-only baseline video consistency.
-Keep AR per-video consistency explicitly pending because Stage A stored no predictions and a
-converged Stage A cell cannot be refit. The 210 prospective washout candidates, outer-test
-outcomes, and cortical values must remain unopened.
+Backtest cells are systems evidence only and cannot enter the scientific ledger or influence
+candidate selection. The 210 prospective washout candidates, all outer-test outcomes, and all
+cortical values remain unopened.
 
 Phase 02 output root:
 
@@ -636,15 +672,13 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Commit and push the strict finite object-list parser correction and its focused regression
-test. Then rerun the independent verifier against the immutable completed main artifacts. The
-verifier must audit every source admission/exclusion and every aggregate,
-one-standard-error, stratified-retention, boundary, Stage B work, and decomposition identity.
-If and only if it passes, inspect all compact/external results; update this handoff with exact
-verified counts and SHA-256 values; run focused VEATIC, authority-contract, and full
-repository tests; then commit and push the verified exact Stage B registry before executing
-any Stage B cell.
+Freeze the exact Stage B systems-backtest registration from the immutable verified work
+registry. Implement the fresh VEATIC Stage B executor, representative real-data backtest,
+independent backtest verifier, main-run verifier, resume/ledger machinery, and focused tests.
+Audit the implementation against every registered Stage B family and disposition; run
+focused VEATIC, authority-contract, and full repository tests; then commit and push the
+coherent implementation/registration transition before executing any backtest cell.
 
-Do not resume or merge the sealed sequential attempt. Do not execute Stage B, score outer
-outcomes or cortical values, fit PCA or a learned head, or open any prospective washout
-candidate.
+Do not execute the Stage B main run, score outer outcomes or cortical values, fit PCA or a
+learned cortical head, or open any prospective washout candidate. Do not select a topology
+from source/setup timing or an unverified benchmark.

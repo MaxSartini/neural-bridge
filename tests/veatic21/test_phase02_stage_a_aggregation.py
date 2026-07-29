@@ -26,6 +26,11 @@ BACKTEST = Path(
 SELECTED = ROOT / (
     "internal/active/veatic21-phase02-registration/selected-aggregation-executor.json"
 )
+MAIN = Path(
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/"
+    "fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/"
+    "stage-a-aggregation-stage-b-registration"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -171,3 +176,23 @@ def test_selected_aggregation_executor_matches_verified_end_to_end_backtest() ->
     assert selected["schema_version"].endswith("_v2")
     assert result["outer_test_scores_opened"] is False
     assert result["cortical_values_opened"] is False
+
+
+def test_main_aggregation_registry_is_independently_verified() -> None:
+    summary = json.loads((MAIN / "summary.json").read_text(encoding="utf-8"))
+    verification = json.loads((MAIN / "verification.json").read_text(encoding="utf-8"))
+    assert _sha256(MAIN / "request.json") == verification["request_sha256"]
+    assert _sha256(MAIN / "summary.json") == verification["summary_sha256"]
+    assert _sha256(MAIN / "artifact-manifest.json") == verification["manifest_sha256"]
+    assert _sha256(MAIN / "verification.json") == (
+        "1c1a9a40c202ee3573cc34121c447c5836fb0938b94706bfefcd73092ffeac22"
+    )
+    assert verification["status"] == "PASS"
+    assert verification["all_admissions_exclusions_independently_rederived"] is True
+    assert verification["all_selections_independently_rederived"] is True
+    assert summary["stage_b_finalists"] == verification["finalists"] == 10_584
+    assert summary["stage_b_work_units"] == verification["work_units"] == 40_824
+    assert summary["stage_b_registered_cells"] == verification["registered_cells"] == 2_351_229
+    assert verification["stage_b_executed"] is False
+    assert verification["outer_test_scores_opened"] is False
+    assert verification["cortical_values_opened"] is False
