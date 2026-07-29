@@ -4,6 +4,7 @@ import json
 from copy import deepcopy
 from typing import cast
 
+from neural_bridge.veatic21 import phase02_stage_a_saturated as saturated
 from neural_bridge.veatic21.contracts import (
     CURRENT_STATE,
     PHASE02_EXECUTOR_BACKTEST_REGISTRATION,
@@ -16,6 +17,10 @@ from neural_bridge.veatic21.phase02_stage_a_backtest import (
 from neural_bridge.veatic21.phase02_stage_a_executor import (
     ExecutorRunSelection,
     _configuration_from_dict,
+)
+from neural_bridge.veatic21.phase02_stage_a_saturated import (
+    SELECTED_EXECUTOR,
+    verify_phase02_selected_executor,
 )
 
 
@@ -44,6 +49,47 @@ def test_executor_selection_request_is_json_roundtrip_stable() -> None:
     value = selection.json_value()
 
     assert json.loads(json.dumps(value)) == value
+
+
+def test_selected_executor_freeze_covers_the_complete_stage_a_matrix() -> None:
+    verification = verify_phase02_selected_executor()
+    configuration = cast(dict[str, object], verification["configuration"])
+
+    assert verification["status"] == "PASS"
+    assert verification["main_work_units"] == 40_824
+    assert verification["main_configuration_evaluations"] == 8_573_040
+    assert verification["main_selection"] == {"sequence_ranges_inclusive": [[0, 40_823]]}
+    assert configuration == {
+        "id": "uncompiled_3p1s_2m",
+        "mlx_lanes": 3,
+        "gpu_streams_per_lane": 1,
+        "metric_workers_per_lane": 2,
+        "pair_cache": True,
+        "compiled_ridge_update_blocks": False,
+        "compiled_logistic_update_blocks": False,
+        "fast_metrics": True,
+        "pipeline_depth": 4,
+    }
+    assert sha256_file(SELECTED_EXECUTOR) in CURRENT_STATE.read_text()
+
+
+def test_saturated_main_runner_dispatches_only_the_frozen_matrix(monkeypatch) -> None:
+    captured: dict[str, object] = {}
+
+    def fake_executor(**kwargs: object) -> dict[str, object]:
+        captured.update(kwargs)
+        return {"status": "COMPLETE"}
+
+    monkeypatch.setattr(saturated, "run_hardware_saturated_executor", fake_executor)
+    result = saturated.run_phase02_stage_a_saturated()
+
+    configuration = captured["configuration"]
+    selection = captured["selection"]
+    warmup = captured["warmup_selection"]
+    assert result == {"status": "COMPLETE"}
+    assert configuration.id == "uncompiled_3p1s_2m"
+    assert selection.sequence_ranges_inclusive == ((0, 40_823),)
+    assert warmup.sequence_ranges_inclusive == ((504, 527),)
 
 
 def _unit() -> dict[str, object]:

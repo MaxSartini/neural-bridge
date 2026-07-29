@@ -87,7 +87,7 @@ def test_current_state_authorizes_only_phase02_executor_backtesting() -> None:
     ):
         assert digest in current
     assert "Frozen Phase 02 registration evidence" in current
-    assert "Authorized action: complete the safe all-uncompiled hardware-topology" in current
-    assert "The main replacement run remains unauthorized" in current
+    assert "Authorized action: execute or safely resume the complete hardware-saturated" in current
+    assert "Only the complete Stage A inner screen is now authorized" in current
     assert "Do not add, remove, or tune a target, split, history family" in current
     assert "outer outcomes or cortical values" in current

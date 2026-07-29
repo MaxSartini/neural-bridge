@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Phase 02 Uncompiled Executor Supplement
+# Current State — VEATIC 2.1 Hardware-Saturated Stage A
 
 Updated: 2026-07-29
 
@@ -42,8 +42,8 @@ method. This file cannot silently override the master specification.
 - Branch: `main` only; do not create a branch.
 - Lifecycle boundary: fresh Phases 00 and 01 concluded; Phase 02 scientific experiment
   registration frozen and verified; the underpowered sequential Stage A attempt is sealed;
-  the initial executor matrix is complete; before its required all-uncompiled topology
-  supplement and main execution.
+  the initial and all-uncompiled executor matrices are complete; the winning executor is
+  frozen; before the replacement main Stage A execution.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -59,9 +59,9 @@ method. This file cannot silently override the master specification.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: complete the safe all-uncompiled hardware-topology supplement for the
-  frozen Phase 02 comprehensive target-specific AR executor, then freeze the fastest
-  numerically equivalent configuration before starting a new main Stage A identity.
+- Authorized action: execute or safely resume the complete hardware-saturated Stage A
+  inner-screen for the frozen Phase 02 comprehensive target-specific AR benchmark using only
+  the exact selected executor and the new canonical main run identity.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -259,7 +259,7 @@ External root:
   append-only ledger, and run state must agree; a source or registration mismatch fails.
 - Outer test scores and cortical values remain unopened.
 
-## Replacement executor backtest registration
+## Replacement executor backtest and frozen selection
 
 The first coordinated-backtest attempt at `<Phase 02 benchmark root>/executor-backtest-20260729`
 was terminated without selection after the mandatory resume gate correctly rejected a
@@ -310,8 +310,43 @@ cortical values remained unopened.
   memory headroom, summed per-process MLX peaks, swap/power/thermal state, and all failures.
 - Selection uses three timed repetitions and hardware throughput only. Scientific outcome
   scores cannot select the executor.
-- The main replacement run remains unauthorized until the fastest eligible executor and its
-  exact digest/configuration are frozen here and pushed to `origin/main`.
+- The complete all-uncompiled supplement returned `PASS`: all 10 candidates passed numerical
+  equivalence over 756 real VEATIC units, deterministic three-repetition output identity,
+  safe resume, ledger, access, memory, thermal, and saturation gates. Every candidate recorded
+  zero mismatches; the maximum metric difference was `3.3306690738754696e-16` and maximum
+  solver-diagnostic difference was `0.0`.
+- Supplement immutable hashes: request
+  `a2677c44637287dc115fe3a9d907ea1157c9dd32102986b516f07664a1ae4d32`;
+  candidate summaries
+  `54b015286d9405135aea3d515a34829333471bd639941e78826565d5ce575469`;
+  result `d997aa0489b39de166213de38f9131b9a0bc11e3c0f8324045755e68e1a0bd72`.
+- Uncompiled median work units/second by topology: `1p1s=5.8377393965`,
+  `1p2s=8.7319188012`, `1p4s=10.2728130824`, `2p1s=9.5719485235`,
+  `2p2s=10.8519046600`, `3p1s=10.7663967297`, `4p1s=10.9173248642`,
+  `6p1s=10.8800624550`, `8p1s=10.8696094643`, and `12p1s=10.8668807219`.
+  GPU utilization rose from `79.01%` at one queue to `99.80%` at 12 processes while
+  throughput plateaued after four total queues.
+- Frozen selected executor: `uncompiled_3p1s_2m` — three isolated MLX processes, one
+  thread-local Metal stream per process, two CPU metric workers per process, pair-owned
+  preparation cache, exact fast metrics, no ridge or logistic graph compilation, pipeline
+  depth four. Its median is `10.766396729699405` work units/second, within `1.38%` of the raw
+  four-process peak; the pre-registered within-three-percent rule selected fewer total GPU
+  queues before fewer processes and memory.
+- Selected executor source SHA-256:
+  `be395e0b67ce1eec0bf529051fad3ab9cc979627363dc16ca4ca2a35318c5abf`.
+- Selected-executor repository freeze:
+  `internal/active/veatic21-phase02-registration/selected-executor.json`; SHA-256
+  `ebfca6234e254f21631ef4b4a1e136449c73c7690122c31eb6f91afccc2960f1`.
+- Frozen main launcher source SHA-256:
+  `a60a953f322fcc44aec7ff99c32468771bef58cf25f08890a1867df8d5d18d91`.
+- New canonical main Stage A root:
+  `<Phase 02 benchmark root>/stage-a-linear-screen-hardware-saturated`; it is a fresh identity
+  and must never merge the sealed sequential run. Complete scope is all `40,824` work units
+  and `8,573,040` registered configuration evaluations. The previous measured speed implies
+  approximately 63 minutes of steady-state executor time before filesystem/finalization
+  overhead; this is an estimate, not a completion claim.
+- Only the complete Stage A inner screen is now authorized. Outer-test scoring, cortical data,
+  aggregation/pruning, Stage B, and every later phase remain unauthorized.
 
 ## Active execution contract
 
@@ -324,17 +359,15 @@ Read these rebuild-protocol sections for the one authorized action:
 - **Metrics and uncertainty**;
 - **Execution and artifact rules**.
 
-Backtest only the execution machinery for Phase 02 from the sealed Phase 01
-substrate and exact frozen scientific registration. The backtest may reproduce only preserved
-training/inner-validation units from the terminated attempt. It must not open a new outer
-outcome, cortical value, or prospective washout candidate.
+Execute or safely resume the complete Phase 02 Stage A inner-screen from the sealed Phase 01
+substrate and exact frozen scientific registration. It must not open an outer outcome,
+cortical value, or prospective washout candidate.
 
-The executor must use one coordinator, deterministic disjoint shards, atomic unit
+The frozen executor must use one coordinator, deterministic disjoint shards, atomic unit
 publication, shard-local ledgers, verified canonical merge, cached pair-owned preparation,
-parallel CPU metrics, and measured MLX concurrency. Backtest every registered executor
-candidate, record failures as well as successes, and require numerical equivalence,
-convergence-mask identity, deterministic repeated output, safe resume, no duplicate work,
-memory headroom, and access-firewall evidence.
+parallel CPU metrics, measured MLX concurrency, and exact frozen source/configuration identity.
+Every resume must reject a changed request, work-unit registry, source digest, registration,
+configuration, shard ownership, unit result, or ledger entry.
 
 Do not add, remove, or tune a target, split, history family, feature form, model family,
 regularization range, optimizer, budget, calibration method, seed count, control, metric, or
@@ -380,17 +413,13 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Run the complete frozen all-uncompiled executor supplement against the sealed reference units
-using
-`internal/active/veatic21-phase02-registration/executor-backtest-registration.json`. Run the
-1/2/3/4/6/8/12-process and one/two/four-Metal-stream topology matrix with three timed
-repetitions; do not freeze the provisional four-process result merely because it won the
-initial incomplete safe matrix. Freeze the fastest configuration only after every
-equivalence, determinism, convergence, ownership, resume, ledger, access, utilization,
-thermal, and memory gate passes.
+Verify the frozen selected-executor record and external backtest hashes, run the focused and
+full repository tests, commit and push this coherent selection transition directly to
+`origin/main`, and only then launch the complete `40,824`-unit main Stage A run at the new
+hardware-saturated root. Run it under sleep prevention and monitor progress, utilization,
+memory, thermal state, shard/ledger integrity, and access flags. Safely resume the same identity
+if interrupted.
 
-Then replace this file with the selected executor digest and exact run identity, run the
-focused and full tests, commit and push the coherent transition to `main`, and only then start
-the new main Stage A root. Do not resume or merge the sealed sequential attempt. Do not score
-outer outcomes or cortical values, fit PCA or a learned head, aggregate/prune Stage A, advance
-to Stage B, or open any prospective washout candidate during executor development/backtesting.
+Do not resume or merge the sealed sequential attempt. Do not score outer outcomes or cortical values.
+Do not fit PCA or a learned head, aggregate/prune Stage A, advance to Stage B, or open any
+prospective washout candidate while Stage A execution is active.

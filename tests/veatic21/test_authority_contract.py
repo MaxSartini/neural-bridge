@@ -164,9 +164,9 @@ def test_live_state_authorizes_only_phase02_after_fresh_phase01() -> None:
     assert "Phase 00 implementation: complete" in current
     assert "Phase 00 execution: PASS, 27/27 mandatory controls" in current
     assert "Phase 01 execution and independent verification: PASS, 28/28" in current
-    assert "Authorized action: complete the safe all-uncompiled hardware-topology" in current
+    assert "Authorized action: execute or safely resume the complete hardware-saturated" in current
     assert "executor-backtest-registration.json" in current
-    assert "main replacement run remains unauthorized" in current
+    assert "Only the complete Stage A inner screen is now authorized" in current
     assert "comprehensive target-specific AR" in current
     assert "all 21 active no-washout candidates" in current
     assert "210 prospective washout candidates" in current
