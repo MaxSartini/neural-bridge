@@ -17,9 +17,16 @@ from neural_bridge.veatic21.phase02_stage_a_rescue_backtest import (
     register_rescue_executor_backtest,
     run_rescue_executor_backtest,
 )
+from neural_bridge.veatic21.phase02_stage_a_rescue_backtest_verify import (
+    verify_rescue_executor_backtest,
+)
 from neural_bridge.veatic21.phase02_stage_a_rescue_registration import (
     run_phase02_stage_a_rescue_registration,
     verify_phase02_stage_a_rescue_registration,
+)
+from neural_bridge.veatic21.phase02_stage_a_rescue_saturated import (
+    run_phase02_stage_a_rescue_saturated,
+    verify_selected_rescue_executor,
 )
 from neural_bridge.veatic21.phase02_stage_a_saturated import run_phase02_stage_a_saturated
 from neural_bridge.veatic21.phase02_stage_a_saturated_verify import (
@@ -66,6 +73,18 @@ def main() -> None:
         "phase02-stage-a-rescue-executor-backtest",
         help="run/resume the registered sparse rescue systems backtest",
     )
+    subparsers.add_parser(
+        "verify-phase02-stage-a-rescue-executor-backtest",
+        help="independently verify the sparse rescue systems backtest",
+    )
+    subparsers.add_parser(
+        "verify-phase02-selected-rescue-executor",
+        help="verify the selected rescue executor and exact main request",
+    )
+    subparsers.add_parser(
+        "phase02-stage-a-rescue-saturated",
+        help="run/resume the complete frozen sparse rescue registry",
+    )
     arguments = parser.parse_args()
 
     if arguments.command == "phase00":
@@ -94,6 +113,12 @@ def main() -> None:
         result = register_rescue_executor_backtest()
     elif arguments.command == "phase02-stage-a-rescue-executor-backtest":
         result = run_rescue_executor_backtest()
+    elif arguments.command == "verify-phase02-stage-a-rescue-executor-backtest":
+        result = verify_rescue_executor_backtest()
+    elif arguments.command == "verify-phase02-selected-rescue-executor":
+        result = verify_selected_rescue_executor()
+    elif arguments.command == "phase02-stage-a-rescue-saturated":
+        result = run_phase02_stage_a_rescue_saturated()
     else:
         result = verify_phase00_output()
     print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))

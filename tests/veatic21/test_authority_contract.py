@@ -169,9 +169,12 @@ def test_live_state_authorizes_only_phase02_after_fresh_phase01() -> None:
     assert "Phase 00 implementation: complete" in current
     assert "Phase 00 execution: PASS, 27/27 mandatory controls" in current
     assert "Phase 01 execution and independent verification: PASS, 28/28" in current
-    assert "Authorized action: execute the prospectively registered hardware-saturated" in current
+    assert "Authorized action: after the selected-executor transition" in current
     assert "executor-backtest-registration.json" in current
-    assert "Only convergence-rescue registration, executor implementation" in current
+    assert "Only exact complete convergence-rescue execution and verification" in current
+    assert "selected-rescue-executor.json" in current
+    assert "14,465" in current
+    assert "113,392" in current
     assert "comprehensive target-specific AR" in current
     assert "all 21 active no-washout candidates" in current
     assert "210 prospective washout candidates" in current

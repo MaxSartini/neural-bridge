@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Stage A Rescue Executor Backtest Registered
+# Current State — VEATIC 2.1 Stage A Full Convergence Rescue Authorized
 
 Updated: 2026-07-29
 
@@ -46,7 +46,8 @@ method. This file cannot silently override the master specification.
   frozen; the replacement main Stage A execution and exhaustive verification are complete;
   the exact undertrained-cell registry is independently verified and frozen; the sparse
   rescue solver/executor and representative systems-backtest matrix are implemented,
-  validated, and prospectively frozen; before the registered hardware backtest.
+  validated, and prospectively frozen; the registered hardware backtest and independent
+  verification passed; the selected executor and exact complete-rescue request are frozen.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -62,10 +63,11 @@ method. This file cannot silently override the master specification.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: execute the prospectively registered hardware-saturated sparse
-  16×-budget rescue backtest for the frozen Phase 02 comprehensive target-specific AR
-  benchmark, then freeze and push the fastest numerically equivalent rescue configuration
-  and exact main-run identity before executing any rescue cell.
+- Authorized action: after the selected-executor transition is present on remote `main`,
+  execute or safely resume the exact frozen hardware-saturated sparse 16×-budget rescue for
+  all `14,465` registered units/`113,392` cells in the comprehensive target-specific AR
+  benchmark, then exhaustively verify its unit artifacts, immutable links, ledgers,
+  convergence dispositions, resource evidence, and access firewall.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -444,10 +446,37 @@ cortical values remained unopened.
   The corrected registered proxy produces timed-set three-lane work weights
   `517,382,339,995`, `517,372,656,770`, and `517,336,475,770`, a maximum imbalance below
   `0.009%`. No scientific, outer, or cortical score was opened.
-- Only convergence-rescue registration, executor implementation, and inner-only hardware
-  backtesting are now authorized. Rescue execution remains unauthorized until its registry,
-  selected executor, and main identity are frozen and pushed. Outer-test scoring, cortical
-  data, aggregation/pruning, Stage B, and every later phase remain unauthorized.
+- The corrected registered backtest completed `79` staged candidates: six cell-batch trials,
+  19 process/stream topologies, 16 metric-worker trials, 30 paired compilation trials, and
+  eight finalists with three sustained repetitions each. Batch sizes `4..64` were faster but
+  failed the registered numerical-equivalence gate; every compiled finalist was faster but
+  likewise failed equivalence. Those shortcuts are ineligible. Batch one, uncompiled updates
+  were retained because their normalized artifacts were bitwise repeatable and exactly
+  equivalent to the reference.
+- The independently verified selected configuration is six MLX processes × two concurrent
+  Metal streams per process, two metric workers per process, batch one, uncompiled update
+  blocks, and pipeline depth four. It sustained a finalist median of
+  `14.246428709924777` rescue cells/second at `98.32180576733269%` mean GPU utilization. The
+  absolute fastest valid finalist reached `14.445059860746513` cells/second; its `1.39%`
+  advantage falls inside the prospectively registered three-percent safe plateau, so the
+  frozen tie rule selected the six-process topology with lower MLX process/memory cost.
+- Canonical backtest root: `<convergence-rescue root>/executor-backtest`. Exact SHA-256:
+  request `cc1056a89bbf082fa208dacc83a9efcf6ace42e2fa61a0cea9e7824705783008`;
+  stage summaries `971aa1e63aed99ad4970dd8f35ff296a6e1445a8d72e46ce2dca8ceac4a61bc3`;
+  result `cd8f62e3c52ba6cdf558ce6da24b58fb198d5d01a2717999ca3ac3918958807a`;
+  independent verification
+  `4ae8e577bd0f2324cebb7fe2668fcae710a89f602a4011ccfe4e9446f14408fe`.
+- Frozen selected executor:
+  `internal/active/veatic21-phase02-registration/selected-rescue-executor.json`; SHA-256
+  `d13a60ba8d902717ed763a3d6ab37eba2c97ae67f2f58c350634091a8c992ea7`.
+  Launcher SHA-256 `584f937c258a162c9b138baa365f6bd8e4aa0a5da71e52730b96b21ceecbbd3b`.
+  Complete sequences `0..14464` have selection digest
+  `54d9f376cdbddef97ce28f6faba25f9d1394d652fd5e37cc3b962e90f8319711`.
+  The exact prospective main request SHA-256 is
+  `22f1dd5547b405fba1d62430ef5a1102a934895fe16c0f416a61416c998c1253`.
+- Only exact complete convergence-rescue execution and verification are now authorized.
+  Outer-test scoring, cortical data, aggregation/pruning, Stage B, and every later phase
+  remain unauthorized.
 
 ## Active execution contract
 
@@ -514,13 +543,15 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Commit and push the corrected prospective sparse-rescue executor/backtest registration, then
-execute it under `caffeinate` at a fresh canonical external backtest root. Freeze only the fastest candidate
-that passes exact structure/disposition/iteration and registered float equivalence, repeated
-determinism, safe resume, unique linked ledgers, access firewall, memory, thermal, and GPU
-saturation-or-safe-plateau gates. Commit and push the selected executor and exact new main
-rescue identity before executing the full registry. Do not execute rescue cells outside the
-registered backtest selections, and do not aggregate or prune Stage A yet.
+Commit and push the independently verified selected rescue executor and exact complete-run
+identity. Then execute or safely resume
+`phase02-stage-a-rescue-saturated` under `caffeinate` at
+`<convergence-rescue root>/main-hardware-saturated`. It must execute exactly frozen rescue
+sequences `0..14464` with the frozen six-process/two-stream configuration and exact request
+SHA-256 above. Monitor all six shard states plus CPU/GPU/memory/thermal evidence. After
+completion, exhaustively verify all `14,465` unit artifacts, `113,392` unique rescue cells,
+immutable Stage A links, shard and canonical ledgers, dispositions, solver/executor/request
+identities, safe resume, and access firewalls before any aggregation or pruning.
 
 Do not resume or merge the sealed sequential attempt. Do not score outer outcomes or cortical values.
 Do not fit PCA or a learned head, aggregate/prune Stage A, advance to Stage B, or open any

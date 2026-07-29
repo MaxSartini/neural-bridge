@@ -1,0 +1,55 @@
+{
+  "aggregation_or_pruning_performed": false,
+  "configuration": {
+    "cell_batch_size": 1,
+    "compiled_update_blocks": false,
+    "fast_metrics": true,
+    "gpu_streams_per_lane": 2,
+    "id": "final_6p2s_2m_b1_uncompiled",
+    "metric_workers_per_lane": 2,
+    "mlx_lanes": 6,
+    "pipeline_depth": 4
+  },
+  "cortical_values_opened": false,
+  "executor_backtest_registration_sha256": "51e6b6be50149a378d6d52e0267435be40609f7bade2d2227a221fcd7d97dfb7",
+  "executor_backtest_request_sha256": "cc1056a89bbf082fa208dacc83a9efcf6ace42e2fa61a0cea9e7824705783008",
+  "executor_backtest_result_sha256": "cd8f62e3c52ba6cdf558ce6da24b58fb198d5d01a2717999ca3ac3918958807a",
+  "executor_backtest_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/stage-a-convergence-rescue/executor-backtest",
+  "executor_backtest_stage_summaries_sha256": "971aa1e63aed99ad4970dd8f35ff296a6e1445a8d72e46ce2dca8ceac4a61bc3",
+  "executor_backtest_verification_sha256": "4ae8e577bd0f2324cebb7fe2668fcae710a89f602a4011ccfe4e9446f14408fe",
+  "fastest_observed_rescue_cells_per_second": 14.445059860746513,
+  "launcher_source_sha256": "584f937c258a162c9b138baa365f6bd8e4aa0a5da71e52730b96b21ceecbbd3b",
+  "main_output_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/stage-a-convergence-rescue/main-hardware-saturated",
+  "main_request_sha256": "22f1dd5547b405fba1d62430ef5a1102a934895fe16c0f416a61416c998c1253",
+  "main_rescue_cells": 113392,
+  "main_selection": {
+    "count": 14465,
+    "sequence_sha256": "54d9f376cdbddef97ce28f6faba25f9d1394d652fd5e37cc3b962e90f8319711",
+    "start_inclusive": 0,
+    "stop_exclusive": 14465
+  },
+  "outer_test_scores_opened": false,
+  "rescue_executor_sha256": "4cacb6df49d401f31bcdf89744ef597eb1587dfec4db58f81875ac185913e0d1",
+  "rescue_solver_sha256": "58289ef933b42b2588d92c8b549a4b7f8a9a6083651f5f837c8f0397756abf32",
+  "schema_version": "veatic21_phase02_selected_rescue_executor_v1",
+  "selected_mean_gpu_utilization_percent": 98.32180576733269,
+  "selected_median_rescue_cells_per_second": 14.246428709924777,
+  "selection_rule": "fastest_median_within_three_percent_then_fewer_total_metal_streams_then_fewer_mlx_processes_then_lower_peak_summed_mlx_memory_then_larger_cell_batch",
+  "warmup_selection": {
+    "rescue_unit_sequences": [
+      11,
+      20,
+      39,
+      80,
+      4075,
+      6543,
+      6615,
+      11092,
+      12313,
+      13500,
+      13629,
+      14012
+    ],
+    "sequence_sha256": "303221637dd8f81b6e9c6c0b0e28ad02ca8a23c558792d94447e48280030c444"
+  }
+}

@@ -18,10 +18,18 @@ from neural_bridge.veatic21.phase02_stage_a_rescue_backtest import (
     _representative_selection,
     _selection_coverage,
 )
+from neural_bridge.veatic21.phase02_stage_a_rescue_backtest_verify import (
+    EXPECTED_STAGE_COUNTS,
+    verify_rescue_executor_backtest,
+)
 from neural_bridge.veatic21.phase02_stage_a_rescue_executor import (
     RescueExecutorConfiguration,
     deterministic_weighted_shards,
     rescue_unit_work_weight,
+)
+from neural_bridge.veatic21.phase02_stage_a_rescue_saturated import (
+    RESCUE_MAIN_ROOT,
+    verify_selected_rescue_executor,
 )
 
 
@@ -189,3 +197,29 @@ def test_representative_selection_covers_every_registered_workload_axis() -> Non
     assert coverage["candidate_ids"] == [f"s01_e{index:02d}" for index in range(1, 22)]
     assert coverage["regularization_indices"] == [0, 1, 2, 3, 4, 5, 6, 9]
     assert cast(int, coverage["logistic_units"]) >= 32
+
+
+def test_completed_rescue_executor_backtest_passes_independent_verification() -> None:
+    verification = verify_rescue_executor_backtest(write_verification=False)
+    assert verification["status"] == "PASS"
+    assert verification["candidate_count"] == sum(EXPECTED_STAGE_COUNTS.values()) == 79
+    assert verification["outer_test_scores_opened"] is False
+    assert verification["cortical_values_opened"] is False
+    assert verification["aggregation_or_pruning_performed"] is False
+
+
+def test_selected_rescue_executor_freezes_complete_main_identity() -> None:
+    selected = verify_selected_rescue_executor()
+    assert selected["status"] == "PASS"
+    assert selected["main_rescue_units"] == 14_465
+    assert selected["main_rescue_cells"] == 113_392
+    assert selected["main_selection"] == {
+        "start_inclusive": 0,
+        "stop_exclusive": 14_465,
+        "count": 14_465,
+        "sequence_sha256": "54d9f376cdbddef97ce28f6faba25f9d1394d652fd5e37cc3b962e90f8319711",
+    }
+    assert selected["main_request_sha256"] == (
+        "22f1dd5547b405fba1d62430ef5a1102a934895fe16c0f416a61416c998c1253"
+    )
+    assert str(RESCUE_MAIN_ROOT).endswith("stage-a-convergence-rescue/main-hardware-saturated")
