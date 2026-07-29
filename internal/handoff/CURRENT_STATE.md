@@ -356,6 +356,11 @@ cortical values remained unopened.
   from commit `69f77eb` stopped before unit hashing because it incorrectly required the
   unit-level `cortical_values_opened` field to be duplicated in the ledger-entry schema. No
   verification result was written or accepted; the immutable run artifacts were not changed.
+- The second invocation from commit `86d89be` passed ledger reconciliation and entered the
+  eight-process unit audit, then stopped because the verifier assumed the ridge
+  `relative_residual_by_cell` diagnostic key also named the registered logistic
+  `relative_gradient_by_cell` diagnostic. No verification result was written or accepted;
+  both frozen model-family schemas and all run artifacts remain unchanged.
 - Only the complete Stage A inner screen is now authorized. Outer-test scoring, cortical data,
   aggregation/pruning, Stage B, and every later phase remain unauthorized.
 

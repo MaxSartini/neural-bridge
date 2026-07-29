@@ -203,12 +203,17 @@ def _verify_unit_job(job: tuple[object, ...]) -> dict[str, object]:
     _require(solver["total_cells"] == 210, f"solver cell count changed: {path}")
     _require(solver["compiled_update_blocks"] is False, f"compiled solver in main run: {path}")
     converged_mask = _matrix_shape(solver["converged_mask"], 10, 21, "convergence mask")
-    residuals = _matrix_shape(solver["relative_residual_by_cell"], 10, 21, "relative residual")
+    diagnostic_key = (
+        "relative_residual_by_cell"
+        if model_family == "continuous_ridge"
+        else "relative_gradient_by_cell"
+    )
+    diagnostics = _matrix_shape(solver[diagnostic_key], 10, 21, diagnostic_key)
     converged_cells = sum(bool(value) for row in converged_mask for value in row)
     _require(solver["converged_cells"] == converged_cells, f"convergence count changed: {path}")
-    for value in (value for row in residuals for value in row):
+    for value in (value for row in diagnostics for value in row):
         number = float(cast(float, value))
-        _require(math.isfinite(number) and number >= 0.0, f"invalid solver residual: {path}")
+        _require(math.isfinite(number) and number >= 0.0, f"invalid solver diagnostic: {path}")
 
     return {
         "bytes": len(payload),
