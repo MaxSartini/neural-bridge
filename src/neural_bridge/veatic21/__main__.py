@@ -14,6 +14,9 @@ from neural_bridge.veatic21.phase02_registration import (
 from neural_bridge.veatic21.phase02_stage_a import run_phase02_stage_a
 from neural_bridge.veatic21.phase02_stage_a_backtest import run_phase02_executor_backtest
 from neural_bridge.veatic21.phase02_stage_a_saturated import run_phase02_stage_a_saturated
+from neural_bridge.veatic21.phase02_stage_a_saturated_verify import (
+    verify_phase02_stage_a_saturated_output,
+)
 
 
 def main() -> None:
@@ -35,6 +38,10 @@ def main() -> None:
         "phase02-stage-a-saturated",
         help="run/resume the full Stage A matrix with the frozen selected executor",
     )
+    subparsers.add_parser(
+        "verify-phase02-stage-a-saturated",
+        help="exhaustively verify every saturated Stage A output and ledger entry",
+    )
     arguments = parser.parse_args()
 
     if arguments.command == "phase00":
@@ -53,6 +60,8 @@ def main() -> None:
         result = run_phase02_executor_backtest()
     elif arguments.command == "phase02-stage-a-saturated":
         result = run_phase02_stage_a_saturated()
+    elif arguments.command == "verify-phase02-stage-a-saturated":
+        result = verify_phase02_stage_a_saturated_output()
     else:
         result = verify_phase00_output()
     print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
