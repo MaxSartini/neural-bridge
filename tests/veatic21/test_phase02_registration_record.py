@@ -87,7 +87,8 @@ def test_current_state_authorizes_only_phase02_executor_backtesting() -> None:
     ):
         assert digest in current
     assert "Frozen Phase 02 registration evidence" in current
-    assert "Authorized action: implement and backtest a hardware-saturated sparse" in current
+    assert "Authorized action: execute the prospectively registered hardware-saturated" in current
+    assert "rescue-executor-backtest-registration.json" in current
     assert "Only convergence-rescue registration, executor implementation" in current
     assert "Do not add, remove, or tune a target, split, history family" in current
     assert "outer outcomes or cortical values" in current

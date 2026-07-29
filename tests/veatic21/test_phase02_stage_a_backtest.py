@@ -15,6 +15,7 @@ from neural_bridge.veatic21.phase02_stage_a_backtest import (
     _select_candidate,
 )
 from neural_bridge.veatic21.phase02_stage_a_executor import (
+    ExecutorConfiguration,
     ExecutorRunSelection,
     _configuration_from_dict,
 )
@@ -83,9 +84,9 @@ def test_saturated_main_runner_dispatches_only_the_frozen_matrix(monkeypatch) ->
     monkeypatch.setattr(saturated, "run_hardware_saturated_executor", fake_executor)
     result = saturated.run_phase02_stage_a_saturated()
 
-    configuration = captured["configuration"]
-    selection = captured["selection"]
-    warmup = captured["warmup_selection"]
+    configuration = cast(ExecutorConfiguration, captured["configuration"])
+    selection = cast(ExecutorRunSelection, captured["selection"])
+    warmup = cast(ExecutorRunSelection, captured["warmup_selection"])
     assert result == {"status": "COMPLETE"}
     assert configuration.id == "uncompiled_3p1s_2m"
     assert selection.sequence_ranges_inclusive == ((0, 40_823),)

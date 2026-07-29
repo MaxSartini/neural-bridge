@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Stage A Convergence Rescue Registration
+# Current State — VEATIC 2.1 Stage A Rescue Executor Backtest Registered
 
 Updated: 2026-07-29
 
@@ -44,8 +44,9 @@ method. This file cannot silently override the master specification.
   registration frozen and verified; the underpowered sequential Stage A attempt is sealed;
   the initial and all-uncompiled executor matrices are complete; the winning executor is
   frozen; the replacement main Stage A execution and exhaustive verification are complete;
-  the exact undertrained-cell registry is independently verified and frozen; before the
-  mandatory convergence-rescue executor backtest.
+  the exact undertrained-cell registry is independently verified and frozen; the sparse
+  rescue solver/executor and representative systems-backtest matrix are implemented,
+  validated, and prospectively frozen; before the registered hardware backtest.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -61,9 +62,10 @@ method. This file cannot silently override the master specification.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: implement and backtest a hardware-saturated sparse 16×-budget rescue
-  executor for the frozen Phase 02 comprehensive target-specific AR benchmark, then freeze
-  the fastest numerically equivalent rescue configuration before executing any rescue cell.
+- Authorized action: execute the prospectively registered hardware-saturated sparse
+  16×-budget rescue backtest for the frozen Phase 02 comprehensive target-specific AR
+  benchmark, then freeze and push the fastest numerically equivalent rescue configuration
+  and exact main-run identity before executing any rescue cell.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -404,6 +406,32 @@ cortical values remained unopened.
   numerical identities, total `16B` maximum budget, converged/invalid dispositions, separate
   linked ledgers, immutable Stage A artifacts, and the full hardware-backtest gates. It does
   not authorize rescue execution.
+- Sparse rescue solver and executor implementation is complete. It loads only the exact
+  registered undertrained cells, reconstructs and verifies the immutable Stage A rows,
+  features, scaler, threshold, regularizer, tolerance, and unit hashes, restarts each cell
+  from zero, checks convergence every eight updates through at most `16B`, freezes cells
+  individually when converged, and publishes only linked rescue records through atomic unit
+  artifacts, shard-local append-only ledgers, and an exact canonical merge. It cannot admit a
+  converged Stage A cell or perform aggregation/pruning.
+- A real-data four-unit executor smoke test completed and then resumed without changing any
+  unit or ledger hash. It covered `19` registered cells with two concurrent Metal streams,
+  passed exact unit/cell ledger coverage and the outer/cortical/aggregation access firewall.
+- Prospectively frozen sparse-rescue executor backtest registration:
+  `internal/active/veatic21-phase02-registration/rescue-executor-backtest-registration.json`;
+  SHA-256 `7c812c677abf92b3a2a0c7a66f4a9b3f992260ec2ddf85c0459d45425f58dedd`.
+  Frozen solver identity:
+  `58289ef933b42b2588d92c8b549a4b7f8a9a6083651f5f837c8f0397756abf32`;
+  executor identity:
+  `7674b09d893bb61a5178e4741f267ca44a0671b7498d3016a38661c1e7e3891b`.
+- The registered systems search uses `24` equivalence units/`175` cells and `192` timed
+  units/`1,614` cells, covering both model families, both protocols, all six feature forms,
+  all 21 history depths in the timed set, all five sparse-cell-count bands, all 21 targets,
+  and every affected regularization index. It stages all cell batches `1,4,8,16,32,64`, 19
+  safe process/stream topologies through the 12-stream host ceiling, metric workers
+  `1,2,4,8`, compiled and uncompiled update blocks, and three repeated finalist timings.
+  Exact dispositions/iterations and structure plus `1e-5` float equivalence, bitwise repeated
+  normalized artifacts, resume, ledger, access, six-GiB headroom, thermal, and saturation
+  gates are mandatory. Scientific scores do not enter executor selection.
 - Only convergence-rescue registration, executor implementation, and inner-only hardware
   backtesting are now authorized. Rescue execution remains unauthorized until its registry,
   selected executor, and main identity are frozen and pushed. Outer-test scoring, cortical
@@ -474,12 +502,13 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Implement and backtest a sparse-cell rescue executor across safe CPU-worker, MLX-lane,
-Metal-stream, and cell-batch configurations on representative inner-only rescue cells. Require
-exact mathematical equivalence to a simple reference, deterministic artifacts, safe resume,
-unique linked ledgers, access-firewall evidence, GPU utilization, thermal safety, and at least
-six GiB memory headroom. Commit and push the selected executor and exact new main rescue
-identity before executing the full registry. Do not aggregate or prune Stage A yet.
+Commit and push the prospective sparse-rescue executor/backtest registration, then execute it
+under `caffeinate` at the canonical external backtest root. Freeze only the fastest candidate
+that passes exact structure/disposition/iteration and registered float equivalence, repeated
+determinism, safe resume, unique linked ledgers, access firewall, memory, thermal, and GPU
+saturation-or-safe-plateau gates. Commit and push the selected executor and exact new main
+rescue identity before executing the full registry. Do not execute rescue cells outside the
+registered backtest selections, and do not aggregate or prune Stage A yet.
 
 Do not resume or merge the sealed sequential attempt. Do not score outer outcomes or cortical values.
 Do not fit PCA or a learned head, aggregate/prune Stage A, advance to Stage B, or open any

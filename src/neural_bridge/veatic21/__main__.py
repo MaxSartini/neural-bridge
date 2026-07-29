@@ -13,6 +13,10 @@ from neural_bridge.veatic21.phase02_registration import (
 )
 from neural_bridge.veatic21.phase02_stage_a import run_phase02_stage_a
 from neural_bridge.veatic21.phase02_stage_a_backtest import run_phase02_executor_backtest
+from neural_bridge.veatic21.phase02_stage_a_rescue_backtest import (
+    register_rescue_executor_backtest,
+    run_rescue_executor_backtest,
+)
 from neural_bridge.veatic21.phase02_stage_a_rescue_registration import (
     run_phase02_stage_a_rescue_registration,
     verify_phase02_stage_a_rescue_registration,
@@ -54,6 +58,14 @@ def main() -> None:
         "verify-phase02-stage-a-rescue-registration",
         help="independently re-derive and verify the Stage A rescue registry",
     )
+    subparsers.add_parser(
+        "register-phase02-stage-a-rescue-executor-backtest",
+        help="freeze the sparse rescue systems-backtest matrix",
+    )
+    subparsers.add_parser(
+        "phase02-stage-a-rescue-executor-backtest",
+        help="run/resume the registered sparse rescue systems backtest",
+    )
     arguments = parser.parse_args()
 
     if arguments.command == "phase00":
@@ -78,6 +90,10 @@ def main() -> None:
         result = run_phase02_stage_a_rescue_registration()
     elif arguments.command == "verify-phase02-stage-a-rescue-registration":
         result = verify_phase02_stage_a_rescue_registration()
+    elif arguments.command == "register-phase02-stage-a-rescue-executor-backtest":
+        result = register_rescue_executor_backtest()
+    elif arguments.command == "phase02-stage-a-rescue-executor-backtest":
+        result = run_rescue_executor_backtest()
     else:
         result = verify_phase00_output()
     print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))
