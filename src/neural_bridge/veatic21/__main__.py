@@ -12,6 +12,13 @@ from neural_bridge.veatic21.phase02_registration import (
     verify_phase02_registration,
 )
 from neural_bridge.veatic21.phase02_stage_a import run_phase02_stage_a
+from neural_bridge.veatic21.phase02_stage_a_aggregation import (
+    run_phase02_stage_a_aggregation,
+    run_phase02_stage_a_aggregation_executor_backtest,
+)
+from neural_bridge.veatic21.phase02_stage_a_aggregation_verify import (
+    verify_phase02_stage_a_aggregation,
+)
 from neural_bridge.veatic21.phase02_stage_a_backtest import run_phase02_executor_backtest
 from neural_bridge.veatic21.phase02_stage_a_rescue_backtest import (
     register_rescue_executor_backtest,
@@ -92,6 +99,18 @@ def main() -> None:
         "verify-phase02-stage-a-rescue-saturated",
         help="exhaustively verify the complete sparse rescue output",
     )
+    subparsers.add_parser(
+        "phase02-stage-a-aggregation-executor-backtest",
+        help="benchmark process counts for immutable Stage A aggregation",
+    )
+    subparsers.add_parser(
+        "phase02-stage-a-aggregate-register-stage-b",
+        help="aggregate Stage A and freeze the exact inner-only Stage B registry",
+    )
+    subparsers.add_parser(
+        "verify-phase02-stage-a-aggregation",
+        help="independently verify Stage A dispositions and the Stage B registry",
+    )
     arguments = parser.parse_args()
 
     if arguments.command == "phase00":
@@ -128,6 +147,12 @@ def main() -> None:
         result = run_phase02_stage_a_rescue_saturated()
     elif arguments.command == "verify-phase02-stage-a-rescue-saturated":
         result = verify_phase02_stage_a_rescue_saturated_output()
+    elif arguments.command == "phase02-stage-a-aggregation-executor-backtest":
+        result = run_phase02_stage_a_aggregation_executor_backtest()
+    elif arguments.command == "phase02-stage-a-aggregate-register-stage-b":
+        result = run_phase02_stage_a_aggregation()
+    elif arguments.command == "verify-phase02-stage-a-aggregation":
+        result = verify_phase02_stage_a_aggregation()
     else:
         result = verify_phase00_output()
     print(json.dumps(result, indent=2, sort_keys=True, allow_nan=False))

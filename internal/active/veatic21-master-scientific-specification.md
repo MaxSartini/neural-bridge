@@ -1,9 +1,10 @@
 # VEATIC 2.1 AGAIN-Method Master Scientific Specification
 
-Specification version: 2.2
+Specification version: 2.3
 Fresh Phase 00 authority seal: 2026-07-28
 Hardware-saturation execution amendment: 2026-07-29
 Phase 02 Stage A convergence-rescue amendment: 2026-07-29
+Phase 02 Stage A aggregation and Stage B registry amendment: 2026-07-29
 
 ## Purpose and change control
 
@@ -1146,6 +1147,65 @@ MLX-lane, Metal-stream, and compatible cell-batch configurations on representati
 training/inner-validation rescue cells under the full equivalence, determinism, resume,
 ledger, utilization, thermal, and memory gates. Freeze and push the selected rescue executor
 before execution.
+
+## Phase 02 Stage A aggregation and prospective Stage B registry contract
+
+After the complete rescue passes exhaustive verification, aggregate only the immutable
+Stage A and linked rescue records. A candidate configuration is complete only when every
+registered inner fold is eligible: admit an already-converged Stage A cell through its
+original record, admit a rescued cell only through its immutable original-unit and
+configuration link, and exclude every
+`invalid_nonconverged_after_registered_maximum_budget` cell as incomplete evidence rather
+than a negative result. Never refit or replace a converged Stage A cell to fill a missing
+prediction or metric.
+
+For a complete configuration, compute the unweighted mean inner raw PR-AUC and its sample
+standard error across the registered inner folds; the single blocked inner fold has standard
+error zero. The one-standard-error threshold is the best mean inner raw PR-AUC minus that
+best configuration's standard error. Resolve members of the resulting set by finite mean
+Brier ascending, undefined Brier after finite Brier, smaller history depth, smaller feature
+count, linear-family capacity, stronger regularization, and stable identity. Ridge Brier
+remains undefined and must not be invented by interpreting an uncalibrated ranking score as
+a probability.
+
+A Stage A feature set is the pair of one registered feature form and one registered history
+depth, giving `6 * 21 = 126` feature sets. Select its representative from the 20 complete
+Stage A linear family/regularizer configurations by the rule above. Stage B receives exactly
+`ceil(sqrt(126)) = 12` feature sets per target, protocol, and outer fold. Rank the global
+one-standard-error members first by the registered resolution, then the remaining complete
+representatives by descending mean inner raw PR-AUC and the same deterministic ties. Retain
+the best-ranked member for every feature form and for each consecutive history third
+`1..7`, `8..14`, and `15..21`; union those marginal obligations and fill by global rank to
+exactly 12. Fail closed rather than weakening a coverage obligation.
+
+For every retained feature set, independently apply the inner one-standard-error rule within
+each Stage A linear family. An index-0 family winner registers multiplier `1e-7`; an index-9
+winner registers `1e4`; an interior winner records no boundary expansion. Stage B also
+registers the complete elastic-net multiplier-by-L1-ratio grid and deduplicated
+one-factor-at-a-time neural screens around a prospectively fixed simplest central base:
+data-derived central width, one layer, ReLU for MLP/native gates for GRU, zero dropout,
+AdamW, `1/sqrt(inner_train_rows)` learning rate, and the largest power-of-two batch not
+exceeding `sqrt(inner_train_rows)`. GRU applies only to the registered raw-sequence feature
+form; other forms receive an explicit not-applicable disposition. Stage B begins at `B` and
+may receive one frozen recovery to `2B` only for an unplateaued/undertrained curve; Stage C
+and D retain their previously registered `4B` and `16B` roles. Boundary linear cells retain
+the linear convergence contract through at most `16B`.
+
+Before the aggregation main run, benchmark real immutable Stage A/rescue JSON hashing,
+parsing, aggregation, compression, and analytic scoring across safe process counts on the
+actual host. Require exact normalized evidence identity and freeze the fastest safe median
+topology, using the registered within-three-percent fewer-process plateau tie. These are CPU
+and storage operations; do not claim GPU acceleration without a numerically equivalent
+measured implementation.
+
+Begin the no-washout development-owned dominance/overlap record at this layer. Record the
+exact feature-form-dependent causal offsets actually consumed, future target offsets, empty
+intervening gap, padding availability, simple prevalence/current/delta/trailing-mean/slope
+baselines, AR-versus-chance uplift, and inner-fold consistency. Compute defined-only
+per-video consistency for the simple baselines. Because Stage A did not store predictions,
+AR per-video consistency remains explicitly pending until immutable finalist predictions
+exist; it must not be fabricated by refitting a converged Stage A cell. Outer-test outcomes,
+cortical values, and all 210 prospective washout candidates remain unopened.
 
 ## Phase 02 through zero-label execution sequence
 

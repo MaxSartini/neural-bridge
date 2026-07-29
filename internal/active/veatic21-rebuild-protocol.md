@@ -180,6 +180,21 @@ and compatible cell-batch configurations. Freeze the fastest numerically equival
 only after determinism, resume, ledger, utilization, thermal, memory, and access gates pass.
 Outer-test and cortical values remain unopened.
 
+After verified rescue, aggregate a configuration only when every registered inner fold is
+complete. Keep converged Stage A records original, use converged rescues only through their
+frozen links, and exclude invalid-at-`16B` cells as incomplete rather than negative. Apply
+the master specification's exact mean-inner raw-PR-AUC one-standard-error rule, including
+finite-before-undefined Brier and smaller history/capacity resolution. From the `126`
+form-by-history feature sets, retain exactly `12` Stage B feature sets per target/protocol/
+outer fold with all six feature forms and the `1..7`, `8..14`, `15..21` history regions
+represented. Register family-specific edge expansions plus the exact elastic-net and
+deduplicated OFAT MLP/sequence-only-GRU cells before any Stage B execution.
+
+Benchmark the aggregation executor on real immutable Stage A/rescue JSON across safe process
+counts, require normalized identity, and freeze the measured topology before the main
+aggregation. Hashing, JSON parsing, compression, and analytic metrics use the measured
+parallel CPU path unless a numerically equivalent GPU path is actually demonstrated.
+
 For the starting no-washout target, Phase 02 also begins an AR-dominance and overlap
 decomposition on development-owned data: history rows actually consumed by AR, target rows,
 the intervening gap, simple causal-history baselines, AR-versus-chance uplift, and fold/video

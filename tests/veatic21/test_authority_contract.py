@@ -25,8 +25,7 @@ VJEPA_ROOT = (
     "veatic 2.1 v jepa 2.1 stuff"
 )
 FRESH_LIFECYCLE_ROOT = (
-    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/"
-    "fresh-method-rebuild-20260728"
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728"
 )
 DISALLOWED_ACTIVE_TEXT = (
     "tribe-v2/compact-",
@@ -59,11 +58,12 @@ def test_durable_master_retains_comprehensive_scientific_contract() -> None:
         "## Phase 00 implementation contract",
         "## Phase 01 exact next-stage contract",
         "## Phase 02 Stage A linear convergence and rescue contract",
+        "## Phase 02 Stage A aggregation and prospective Stage B registry contract",
         "## Phase 02 through zero-label execution sequence",
     )
     missing = [section for section in required_sections if section not in master]
     assert not missing, f"master scientific specification lost required sections: {missing}"
-    assert "Specification version: 2.2" in master
+    assert "Specification version: 2.3" in master
     assert "Worker count is a measured execution parameter" in master
     assert "deterministic disjoint work assignment" in master
     assert len(master.splitlines()) >= 1_000, "master specification was unexpectedly shortened"
@@ -169,9 +169,9 @@ def test_live_state_authorizes_only_phase02_after_fresh_phase01() -> None:
     assert "Phase 00 implementation: complete" in current
     assert "Phase 00 execution: PASS, 27/27 mandatory controls" in current
     assert "Phase 01 execution and independent verification: PASS, 28/28" in current
-    assert "Authorized action: implement, verify, and prospectively freeze" in current
+    assert "Authorized action: benchmark the frozen Stage A aggregation" in current
     assert "executor-backtest-registration.json" in current
-    assert "Only inner-only Stage A aggregation/disposition implementation" in current
+    assert "Only the registered real-data aggregation executor backtest" in current
     assert "selected-rescue-executor.json" in current
     assert "14,465" in current
     assert "113,392" in current

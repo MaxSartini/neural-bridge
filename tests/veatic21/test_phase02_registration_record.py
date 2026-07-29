@@ -13,13 +13,9 @@ EXTERNAL = Path(
 COMPACT = ROOT / "internal" / "active" / "veatic21-phase02-registration"
 CURRENT = ROOT / "internal" / "handoff" / "CURRENT_STATE.md"
 
-REGISTRATION_SHA256 = (
-    "ab21c9b971fc0cf8aa18f4d77f585b8236db08bf810b1f83c79a476dfde44815"
-)
+REGISTRATION_SHA256 = "ab21c9b971fc0cf8aa18f4d77f585b8236db08bf810b1f83c79a476dfde44815"
 RESULT_SHA256 = "0f3064d7ed7207879b195d8ed8ddb57fd440ed62f3922ee793159faee58a016e"
-ARTIFACT_MANIFEST_SHA256 = (
-    "39d5e587f4d1c1529039f8aae59137d3e07f6e265dda484bbf5797ccc6942a7c"
-)
+ARTIFACT_MANIFEST_SHA256 = "39d5e587f4d1c1529039f8aae59137d3e07f6e265dda484bbf5797ccc6942a7c"
 CHECKSUMS_SHA256 = "286db04959d3f8b1bd68b361115ed43772be1f3d6ae2e8a79f384a220d71754b"
 
 
@@ -62,8 +58,7 @@ def test_phase02_registration_split_and_support_coverage() -> None:
     assert min(row["outer_test_rows"] for row in support["blocked"]) == 2672
     assert min(row["inner_validation_rows"] for row in support["blocked"]) == 2630
     assert all(
-        not row["outer_test_labels_opened"]
-        for row in [*support["grouped"], *support["blocked"]]
+        not row["outer_test_labels_opened"] for row in [*support["grouped"], *support["blocked"]]
     )
 
 
@@ -87,9 +82,9 @@ def test_current_state_authorizes_only_complete_phase02_rescue() -> None:
     ):
         assert digest in current
     assert "Frozen Phase 02 registration evidence" in current
-    assert "Authorized action: implement, verify, and prospectively freeze" in current
+    assert "Authorized action: benchmark the frozen Stage A aggregation" in current
     assert "rescue-executor-backtest-registration.json" in current
     assert "selected-rescue-executor.json" in current
-    assert "Only inner-only Stage A aggregation/disposition implementation" in current
+    assert "Only the registered real-data aggregation executor backtest" in current
     assert "Do not add, remove, or tune a target, split, history family" in current
     assert "outer outcomes or cortical values" in current

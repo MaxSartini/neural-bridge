@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Stage A Convergence Rescue Verified
+# Current State — VEATIC 2.1 Stage A Aggregation Method Frozen
 
 Updated: 2026-07-29
 
@@ -37,7 +37,7 @@ method. This file cannot silently override the master specification.
 ## Live scientific state
 
 - Programme: VEATIC 2.1 AGAIN-method rebuild.
-- Master scientific specification: version 2.2.
+- Master scientific specification: version 2.3.
 - Repository: `/Users/maxsartini/Neural Bridge`.
 - Branch: `main` only; do not create a branch.
 - Lifecycle boundary: fresh Phases 00 and 01 concluded; Phase 02 scientific experiment
@@ -49,6 +49,9 @@ method. This file cannot silently override the master specification.
   validated, and prospectively frozen; the registered hardware backtest and independent
   verification passed; the selected executor and exact complete-rescue request are frozen;
   the full rescue and exhaustive verification passed.
+  The prospective Stage A aggregation/Stage B registry method and its fail-closed
+  implementation plus independent verifier are now frozen; their real-data CPU executor
+  backtest has not yet run.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -64,14 +67,16 @@ method. This file cannot silently override the master specification.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: implement, verify, and prospectively freeze the inner-only Stage A
-  aggregation/disposition layer and exact Stage B stratified-family-expansion registry for
-  the comprehensive target-specific AR benchmark. It must combine immutable
-  already-converged Stage A records with linked converged rescue records, exclude all
-  invalid/unresolved cells, apply only the frozen one-standard-error and
-  stratified-retention rules, begin the registered development-owned AR-dominance/overlap
-  decomposition, and remain unable to open outer-test or cortical values. Stage B execution
-  is unauthorized until that registry is committed and pushed.
+- Authorized action: benchmark the frozen Stage A aggregation implementation over its
+  registered `1/2/4/8/12` real-data process matrix, freeze and push the selected executor,
+  then execute and independently verify the inner-only aggregation/disposition and exact
+  Stage B registry for the comprehensive target-specific AR benchmark. It must combine
+  immutable already-converged Stage A records with linked
+  converged rescue records, exclude all invalid/unresolved cells, apply only the frozen
+  one-standard-error and stratified-retention rules, begin the registered development-owned
+  AR-dominance/overlap decomposition, and remain unable to open outer-test or cortical
+  values. Stage B execution is unauthorized until the verified registry is committed and
+  pushed.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -498,7 +503,22 @@ cortical values remained unopened.
   `invalid_nonconverged_after_registered_maximum_budget` cells. The invalid cells remain
   incomplete evidence and cannot count as negative evidence or enter selection. Verification
   SHA-256: `5a86e7e9ed2dd8f2be7a0d754482ba79fc74c695cd9d0c461440978d98fcec9b`.
-- Only inner-only Stage A aggregation/disposition implementation, the registered
+- Prospective aggregation policy:
+  `internal/active/veatic21-phase02-registration/stage-a-aggregation-registration.json`;
+  SHA-256 `e10a4b2867592842717b64d8b1fcc4859020ba7ddc85aa06a5a2d313455a7b59`.
+  It freezes complete-inner-fold admissibility, finite-before-undefined Brier handling,
+  `126` feature-set identities, exact `12`-finalist stratified retention, three equal history
+  regions, family-specific edge expansion, exact elastic-net/OFA generation, and
+  sequence-only GRU applicability before aggregate winners or any Stage B result are read.
+- Aggregation/registry runner SHA-256:
+  `ad5b6f6b51b9aa27c2945fba33eaddb9e5c88417de8cb4c990446d3191b81efc`.
+  Independent verifier SHA-256:
+  `5d312d431b1efa6a63a57d15e9c426c443ad1b61f08c4bedc0735d8cc3153291`.
+  The runner uses process-isolated hashing/parsing/aggregation/compression and shared-memory
+  threaded NumPy analytic metrics, but refuses a main run until the real-data aggregation
+  executor backtest is complete and its selected process count is committed.
+- Only the registered real-data aggregation executor backtest, selected-executor freeze,
+  inner-only Stage A aggregation/disposition, the registered
   development-owned AR-dominance/overlap decomposition, and prospective Stage B registry
   construction/verification are now authorized. Stage B execution, outer-test scoring,
   cortical data, Stage C/D, aggregation beyond the registered Stage A rule, and every later
@@ -515,34 +535,37 @@ Read these rebuild-protocol sections for the one authorized action:
 - **Metrics and uncertainty**;
 - **Execution and artifact rules**.
 
-Derive the convergence-rescue registry only from the verified Stage A units with disposition
-`protected_from_pruning_requires_16x_budget`. It must not open an outer outcome, cortical
-value, or prospective washout candidate.
-
-The rescue must restart only the exact undertrained cells from zero at a total `16B` maximum,
-preserve every original row/feature/threshold/scaler/regularizer/solver/tolerance identity,
-and write linked immutable rescue records without modifying Stage A. Cells still unresolved
-at `16B` receive the frozen invalid-nonconverged disposition and cannot count as negative
-evidence. Converged Stage A cells cannot be rerun.
+First run the registered aggregation executor backtest on the immutable Stage A and rescue
+artifacts across `1/2/4/8/12` processes. It covers both complete blocked scopes and one
+complete four-inner-fold grouped scope, requires identical normalized evidence for every
+topology, and uses three timings plus the frozen within-three-percent fewer-process rule.
+Freeze and push the selected executor before the main aggregation.
 
 Do not add, remove, or tune a target, split, history family, feature form, model family,
 regularization range, optimizer, budget, calibration method, seed count, control, metric, or
-support gate based on any outer result. Apply the frozen staged pruning and boundary-expansion
-rules using training/inner-validation evidence only. Fit q90 event thresholds, feature
-normalization, AR regularization, calibration, and decision thresholds inside each applicable
-training partition. Test rows never select a threshold, feature, model, budget, or candidate.
+support gate based on any outer result. The prospective aggregation policy is fixed before
+reading aggregate winners and may not be revised in response to them.
+All outer outcomes or cortical values remain sealed throughout this action.
 
-The replacement Phase 02 main run must maintain a full append-only experiment ledger for
-every attempted configuration, including failures, convergence and learning-curve evidence,
-pruning reasons, seeds, fold ownership, and exact artifacts. One estimator, history depth,
-regularizer, optimizer, budget, or seed cannot establish the AR floor. A search-sufficiency
-gate must show that plausible candidate families received a fair test and that the selected
-configurations are not merely undertrained or boundary optima.
+The main aggregation must admit all `8,459,648` already-converged Stage A cells only through
+their original records, admit the `82,566` converged rescue cells only through their frozen
+links, and exclude all `30,826` invalid-at-`16B` cells. Every aggregate configuration needs
+all registered inner folds. Apply the version-2.3 master rule and the compact prospective
+aggregation registration exactly; do not tune it after reading winners.
 
-Begin the AR-dominance/overlap decomposition on development-owned data for each active target:
-history rows consumed, target rows, intervening gap, simple causal-history baselines,
-AR-versus-chance uplift, and fold/video consistency. The 210 prospective washout candidates
-must not be scored or activated in Phase 02.
+Freeze exactly `12` Stage B feature sets for every target/protocol/outer fold with all feature
+forms and low/mid/high history regions represented. Enumerate the exact family-expansion,
+boundary, optimizer, capacity, batch, learning-rate, budget, and applicability records, but
+do not execute a Stage B cell. Independently re-read all immutable source artifacts and
+rederive every admission, exclusion, aggregate, one-standard-error selection, coverage
+obligation, boundary disposition, and Stage B identity.
+
+Begin the development-owned AR-dominance/overlap layer from simple analytic baselines and
+the immutable aggregate metrics. Record history/target/gap offsets, padding availability,
+AR-versus-chance uplift, inner-fold consistency, and defined-only baseline video consistency.
+Keep AR per-video consistency explicitly pending because Stage A stored no predictions and a
+converged Stage A cell cannot be refit. The 210 prospective washout candidates, outer-test
+outcomes, and cortical values must remain unopened.
 
 Phase 02 output root:
 
@@ -569,21 +592,20 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Commit and push this completed rescue transition. Then implement and independently verify a
-fresh Stage A aggregation/disposition runner that reads only the immutable verified Stage A
-and rescue ledgers/artifacts. It must admit every already-converged Stage A cell exactly once,
-replace no converged Stage A cell, admit each converged rescue cell only through its frozen
-original-unit/configuration link, and exclude all `30,826` invalid-nonconverged cells. Apply
-the registered mean-inner-raw-PR-AUC one-standard-error set with Brier then smaller
-history/capacity tie resolution and construct the exact Stage B scope of
-`ceil(sqrt(number_of_feature_sets))` inner finalists per target/protocol/outer fold while
-retaining at least one candidate per feature form and low/mid/high history region. In the same
-development-owned layer, begin the registered AR-dominance/overlap decomposition: history
-rows consumed, target rows, intervening gap, simple causal-history baselines,
-AR-versus-chance uplift, and fold/video consistency. Freeze and push the exact Stage B
-registry, all exclusions, boundary-expansion dispositions, hashes, and independent
-verification before executing any Stage B cell.
+Commit and push the version-2.3 aggregation method, compact prospective policy, runner,
+independent verifier, CLI, and tests before reading aggregate winners. Then run the registered
+real-data aggregation executor backtest at its canonical external root. Freeze the selected
+process count and exact backtest hashes in
+`internal/active/veatic21-phase02-registration/selected-aggregation-executor.json`; verify,
+commit, and push that systems transition before the main aggregation.
 
-Do not resume or merge the sealed sequential attempt. Do not score outer outcomes or cortical values.
-Do not fit PCA or a learned head, aggregate/prune Stage A, advance to Stage B, or open any
-prospective washout candidate while convergence rescue is pending or active.
+Run the canonical main aggregation with only the frozen executor. Independently verify every
+source admission/exclusion and every aggregate, one-standard-error, stratified-retention,
+boundary, Stage B work, and decomposition identity. Inspect all compact/external results;
+update this handoff with exact counts and SHA-256 values; run focused VEATIC,
+authority-contract, and full repository tests; then commit and push the verified exact Stage B
+registry before executing any Stage B cell.
+
+Do not resume or merge the sealed sequential attempt. Do not execute Stage B, score outer
+outcomes or cortical values, fit PCA or a learned head, or open any prospective washout
+candidate.
