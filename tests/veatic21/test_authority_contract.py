@@ -169,7 +169,7 @@ def test_live_state_authorizes_only_phase02_after_fresh_phase01() -> None:
     assert "Phase 00 implementation: complete" in current
     assert "Phase 00 execution: PASS, 27/27 mandatory controls" in current
     assert "Phase 01 execution and independent verification: PASS, 28/28" in current
-    assert "Authorized action: execute and independently verify" in current
+    assert "Authorized action: commit and push the strict-list verifier correction" in current
     assert "executor-backtest-registration.json" in current
     assert "Only the inner-only Stage A aggregation/disposition" in current
     assert "selected-rescue-executor.json" in current
@@ -177,7 +177,7 @@ def test_live_state_authorizes_only_phase02_after_fresh_phase01() -> None:
     assert "113,392" in current
     assert "82,566" in current
     assert "30,826" in current
-    assert "comprehensive target-specific AR" in current
+    assert "Phase 02 — target-specific fresh AR floor" in current
     assert "all 21 active no-washout candidates" in current
     assert "210 prospective washout candidates" in current
     assert "Concluded Phase 00 evidence" in current

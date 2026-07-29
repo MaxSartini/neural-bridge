@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Corrected Aggregation Executor Frozen
+# Current State — VEATIC 2.1 Stage A Aggregation Pending Verification
 
 Updated: 2026-07-29
 
@@ -53,7 +53,9 @@ method. This file cannot silently override the master specification.
   implementation plus independent verifier were audited after launch; the first aggregation
   executor benchmark omitted its claimed analytic workload, so its selection is revoked and
   the first main attempt is sealed. The corrected end-to-end rebenchmark and independent
-  verification passed; separate source and analytic worker counts are frozen.
+  verification passed; separate source and analytic worker counts are frozen. The corrected
+  main aggregation completed, but its first verifier invocation stopped before source audit
+  on a strict JSON object-versus-list parser mismatch and wrote no verification result.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -69,14 +71,10 @@ method. This file cannot silently override the master specification.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: execute and independently verify the inner-only Stage A
-  aggregation/disposition and exact Stage B registry for the comprehensive target-specific AR
-  benchmark. It must combine immutable already-converged Stage A records with linked
-  converged rescue records, exclude all invalid/unresolved cells, apply only the frozen
-  one-standard-error and stratified-retention rules, begin the registered development-owned
-  AR-dominance/overlap decomposition, and remain unable to open outer-test or cortical
-  values. Stage B execution is unauthorized until the verified registry is committed and
-  pushed.
+- Authorized action: commit and push the strict-list verifier correction, then independently
+  verify the completed inner-only Stage A aggregation/disposition and exact Stage B registry.
+  The main artifacts remain immutable. Stage B execution is unauthorized until the verified
+  registry is committed and pushed.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -513,7 +511,7 @@ cortical values remained unopened.
 - Aggregation/registry runner SHA-256:
   `ad9735faf1d239141d28ae7ef73ff95a7ba718198c9f200911b602b625543a0d`.
   Independent verifier SHA-256:
-  `e68709c789e61931937fa56d0bbd7ee828b8c94183c1c80de27d692adcf22d81`.
+  `05f6d278a41dbcc1d0b5a5b18fc48cef2a1cd051f70404a734ff402472764d67`.
   The corrected runner uses process-isolated workers for both source processing and analytic
   baselines and refuses a main run unless the exact corrected backtest and selected executor
   hashes agree.
@@ -555,6 +553,21 @@ cortical values remained unopened.
   construction/verification are now authorized. Stage B execution, outer-test scoring,
   cortical data, Stage C/D, aggregation beyond the registered Stage A rule, and every later
   phase remain unauthorized.
+- Corrected main aggregation completed in `105.9209516668925` seconds with eight source and
+  eight analytic processes: `8,542,214` admitted cells, `30,826` invalid/incomplete
+  exclusions, `2,222,640` aggregate configurations, `111,132` feature-set dispositions,
+  `10,584` Stage B finalists, `40,824` Stage B work units, `2,351,229` registered Stage B
+  cells, `27,942` simple-baseline rows, and `10,584` dominance/overlap rows. Stage B was not
+  executed. Request SHA-256:
+  `7a77a582727b124aebc6e8d681d4534d978ee07ddbbeb6037bd5bbb50e486e0f`;
+  summary SHA-256: `c381674de2bdc74e581db927210baf80bd529e9e7e999f3fa14c973f24fdf2eb`;
+  artifact-manifest SHA-256:
+  `454fe42e87cf29916a73ee7ab0cd3d8049ab2fd8488b98bef9c59364d2955b8b`.
+  These counts remain provisional until independent verification passes.
+- The first verifier invocation stopped before reading a source unit because
+  `scope-summaries.json` is a JSON list and the generic repository `load_json` helper
+  correctly accepts objects only. No verification file was written; main artifacts were
+  unchanged. The verifier now has a strict finite object-list reader with focused coverage.
 
 ## Active execution contract
 
@@ -623,14 +636,14 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Commit and push the independently verified corrected executor selection and exact backtest
-hashes. Then run the canonical main aggregation only with the frozen `8 + 8` process
-configuration. Independently verify every
-source admission/exclusion and every aggregate, one-standard-error, stratified-retention,
-boundary, Stage B work, and decomposition identity. Inspect all compact/external results;
-update this handoff with exact counts and SHA-256 values; run focused VEATIC,
-authority-contract, and full repository tests; then commit and push the verified exact Stage B
-registry before executing any Stage B cell.
+Commit and push the strict finite object-list parser correction and its focused regression
+test. Then rerun the independent verifier against the immutable completed main artifacts. The
+verifier must audit every source admission/exclusion and every aggregate,
+one-standard-error, stratified-retention, boundary, Stage B work, and decomposition identity.
+If and only if it passes, inspect all compact/external results; update this handoff with exact
+verified counts and SHA-256 values; run focused VEATIC, authority-contract, and full
+repository tests; then commit and push the verified exact Stage B registry before executing
+any Stage B cell.
 
 Do not resume or merge the sealed sequential attempt. Do not execute Stage B, score outer
 outcomes or cortical values, fit PCA or a learned head, or open any prospective washout

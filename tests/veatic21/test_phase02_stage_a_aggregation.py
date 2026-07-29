@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from neural_bridge.veatic21.phase02_stage_a_aggregation import (
     FEATURE_FORMS,
     HISTORY_DEPTHS,
@@ -13,6 +15,7 @@ from neural_bridge.veatic21.phase02_stage_a_aggregation import (
     select_one_standard_error,
     select_stratified_finalists,
 )
+from neural_bridge.veatic21.phase02_stage_a_aggregation_verify import _strict_list
 
 ROOT = Path(__file__).resolve().parents[2]
 BACKTEST = Path(
@@ -27,6 +30,15 @@ SELECTED = ROOT / (
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def test_verifier_reads_only_strict_object_lists(tmp_path: Path) -> None:
+    path = tmp_path / "rows.json"
+    path.write_text('[{"value": 1}]', encoding="utf-8")
+    assert _strict_list(path) == [{"value": 1}]
+    path.write_text('{"value": 1}', encoding="utf-8")
+    with pytest.raises(ValueError, match="expected JSON list"):
+        _strict_list(path)
 
 
 def _configuration(

@@ -85,6 +85,16 @@ def _strict(payload: bytes, path: Path) -> dict[str, Any]:
     return cast(dict[str, Any], value)
 
 
+def _strict_list(path: Path) -> list[dict[str, Any]]:
+    def reject(value: str) -> None:
+        raise ValueError(f"non-finite JSON value {value}: {path}")
+
+    value = json.loads(path.read_bytes(), parse_constant=reject)
+    _require(isinstance(value, list), f"expected JSON list: {path}")
+    _require(all(isinstance(row, dict) for row in value), f"invalid JSON-list row: {path}")
+    return cast(list[dict[str, Any]], value)
+
+
 def _jsonl(path: Path) -> Iterator[dict[str, Any]]:
     with path.open(encoding="utf-8") as handle:
         for line in handle:
@@ -987,7 +997,7 @@ def verify_phase02_stage_a_aggregation(*, output_root: Path = OUTPUT_ROOT) -> di
     _require(request["stage_b_execution_authorized"] is False, "Stage B authorization changed")
     for name, digest in cast(dict[str, str], manifest["files"]).items():
         _require(sha256_file(output_root / name) == digest, f"manifest hash changed: {name}")
-    scope_summaries = cast(list[dict[str, Any]], load_json(output_root / "scope-summaries.json"))
+    scope_summaries = _strict_list(output_root / "scope-summaries.json")
     _require(len(scope_summaries) == 42, "scope summary count changed")
     for row in scope_summaries:
         for path_key, hash_key in (

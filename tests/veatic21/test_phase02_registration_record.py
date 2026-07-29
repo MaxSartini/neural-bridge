@@ -82,7 +82,7 @@ def test_current_state_authorizes_only_complete_phase02_rescue() -> None:
     ):
         assert digest in current
     assert "Frozen Phase 02 registration evidence" in current
-    assert "Authorized action: execute and independently verify" in current
+    assert "Authorized action: commit and push the strict-list verifier correction" in current
     assert "rescue-executor-backtest-registration.json" in current
     assert "selected-rescue-executor.json" in current
     assert "Only the inner-only Stage A aggregation/disposition" in current
