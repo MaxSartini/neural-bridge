@@ -12,6 +12,7 @@ from collections.abc import Iterator
 from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
+from statistics import median
 from typing import Any, cast
 
 import numpy as np
@@ -23,6 +24,9 @@ from neural_bridge.veatic21.data import load_json, sha256_file
 from neural_bridge.veatic21.phase00 import _write_json, canonical_json_bytes
 
 OUTPUT_ROOT = PHASE02_STAGE_A_SATURATED_ROOT.parent / ("stage-a-aggregation-stage-b-registration")
+BACKTEST_ROOT = PHASE02_STAGE_A_SATURATED_ROOT.parent / (
+    "stage-a-aggregation-executor-backtest-v2-end-to-end"
+)
 RESCUE_ROOT = PHASE02_STAGE_A_SATURATED_ROOT.parent / (
     "stage-a-convergence-rescue/main-hardware-saturated"
 )
@@ -116,6 +120,168 @@ def _line_digest(values: list[str] | Iterator[str]) -> str:
         digest.update(value.encode())
         digest.update(b"\n")
     return digest.hexdigest()
+
+
+def _select_backtest_workers(
+    summaries: list[dict[str, Any]], throughput_key: str
+) -> tuple[int, float]:
+    fastest = max(float(row[throughput_key]) for row in summaries)
+    plateau = [row for row in summaries if float(row[throughput_key]) >= 0.97 * fastest]
+    return min(int(row["workers"]) for row in plateau), fastest
+
+
+def verify_phase02_stage_a_aggregation_executor_backtest(
+    *, output_root: Path = BACKTEST_ROOT
+) -> dict[str, Any]:
+    """Independently audit both real-data worker matrices and their selection."""
+
+    _require(output_root == BACKTEST_ROOT, "aggregation backtest verifier root changed")
+    request_path = output_root / "request.json"
+    result_path = output_root / "result.json"
+    request = load_json(request_path)
+    result = load_json(result_path)
+    candidates = cast(list[int], request["candidate_workers"])
+    _require(candidates == [1, 2, 4, 8, 12], "backtest worker candidates changed")
+    _require(request["timed_repetitions"] == 3, "backtest repetition count changed")
+    _require(result["request_sha256"] == sha256_file(request_path), "request hash changed")
+    source_repetitions = cast(list[dict[str, Any]], result["source_repetitions"])
+    analytic_repetitions = cast(list[dict[str, Any]], result["analytic_repetitions"])
+    expected_pairs = {(repetition, workers) for repetition in range(3) for workers in candidates}
+    _require(
+        {(int(row["repetition"]), int(row["workers"])) for row in source_repetitions}
+        == expected_pairs,
+        "source backtest matrix coverage changed",
+    )
+    _require(
+        {(int(row["repetition"]), int(row["workers"])) for row in analytic_repetitions}
+        == expected_pairs,
+        "analytic backtest matrix coverage changed",
+    )
+    _require(
+        len({row["normalized_digest"] for row in source_repetitions}) == 1,
+        "source normalized identity changed across workers",
+    )
+    _require(
+        len({row["normalized_digest"] for row in analytic_repetitions}) == 1,
+        "analytic normalized identity changed across workers",
+    )
+
+    canonical_source_digest: str | None = None
+    canonical_analytic_digest: str | None = None
+    source_rows_audited = 0
+    analytic_rows_audited = 0
+    for row in source_repetitions:
+        repetition = int(row["repetition"])
+        workers = int(row["workers"])
+        root = output_root / "source-pipeline" / f"repetition-{repetition}" / f"workers-{workers}"
+        paths = sorted(root.glob("shard-*.jsonl.gz"))
+        _require(len(paths) == workers, "source shard count changed")
+        normalized: list[tuple[str, bytes]] = []
+        for path in paths:
+            for value in _gzip_jsonl(path):
+                identifier = cast(str, value["configuration_id"])
+                normalized.append((identifier, canonical_json_bytes(value)))
+        _require(len(normalized) == 317_520, "source materialized row count changed")
+        _require(
+            len({identifier for identifier, _ in normalized}) == 317_520,
+            "source materialized identity duplicated",
+        )
+        digest = hashlib.sha256()
+        for identifier, payload in sorted(normalized, key=lambda item: item[0]):
+            digest.update(identifier.encode())
+            digest.update(b"\0")
+            digest.update(payload)
+            digest.update(b"\n")
+        candidate_digest = digest.hexdigest()
+        if canonical_source_digest is None:
+            canonical_source_digest = candidate_digest
+        _require(candidate_digest == canonical_source_digest, "source output changed by workers")
+        source_rows_audited += len(normalized)
+
+    for row in analytic_repetitions:
+        repetition = int(row["repetition"])
+        workers = int(row["workers"])
+        root = output_root / "analytic-pipeline" / f"repetition-{repetition}" / f"workers-{workers}"
+        paths = sorted(root.glob("scope-*.jsonl.gz"))
+        _require(len(paths) == 42, "analytic scope shard count changed")
+        scope_hashes: list[str] = []
+        row_count = 0
+        for scope_index, path in enumerate(paths):
+            scope_hashes.append(f"{scope_index:02d}:{sha256_file(path)}")
+            for value in _gzip_jsonl(path):
+                _require(value["outer_test_scores_opened"] is False, "outer analytic access")
+                _require(value["cortical_values_opened"] is False, "cortical analytic access")
+                row_count += 1
+        _require(row_count == 18_522, "analytic materialized row count changed")
+        candidate_digest = _line_digest(scope_hashes)
+        _require(
+            candidate_digest == row["normalized_digest"],
+            "analytic normalized digest changed",
+        )
+        if canonical_analytic_digest is None:
+            canonical_analytic_digest = candidate_digest
+        _require(
+            candidate_digest == canonical_analytic_digest,
+            "analytic output changed by workers",
+        )
+        analytic_rows_audited += row_count
+
+    source_summaries = cast(list[dict[str, Any]], result["source_candidate_summaries"])
+    analytic_summaries = cast(list[dict[str, Any]], result["analytic_candidate_summaries"])
+    for workers in candidates:
+        source_rows = [row for row in source_repetitions if row["workers"] == workers]
+        analytic_rows = [row for row in analytic_repetitions if row["workers"] == workers]
+        source_summary = next(row for row in source_summaries if row["workers"] == workers)
+        analytic_summary = next(row for row in analytic_summaries if row["workers"] == workers)
+        _require(
+            source_summary["median_units_per_second"]
+            == median(float(row["units_per_second"]) for row in source_rows),
+            "source median changed",
+        )
+        _require(
+            analytic_summary["median_baseline_rows_per_second"]
+            == median(float(row["baseline_rows_per_second"]) for row in analytic_rows),
+            "analytic median changed",
+        )
+    selected_source, fastest_source = _select_backtest_workers(
+        source_summaries, "median_units_per_second"
+    )
+    selected_analytic, fastest_analytic = _select_backtest_workers(
+        analytic_summaries, "median_baseline_rows_per_second"
+    )
+    _require(
+        result["selected_aggregation_workers"] == selected_source,
+        "source worker selection changed",
+    )
+    _require(
+        result["selected_baseline_workers"] == selected_analytic,
+        "analytic worker selection changed",
+    )
+    for boundary in ("pressure_before", "pressure_after"):
+        pressure = cast(dict[str, Any], result[boundary])
+        _require("used = 0.00M" in pressure["swap"], "backtest used swap")
+        _require("lowpowermode         0" in pressure["power"], "low-power mode enabled")
+        _require("No thermal warning" in pressure["thermal"], "thermal warning detected")
+        _require("No performance warning" in pressure["thermal"], "performance warning")
+    verification = {
+        "schema_version": "veatic21_phase02_stage_a_aggregation_backtest_verification_v1",
+        "status": "PASS",
+        "request_sha256": sha256_file(request_path),
+        "result_sha256": sha256_file(result_path),
+        "verifier_code_sha256": sha256_file(Path(__file__)),
+        "source_rows_audited": source_rows_audited,
+        "analytic_rows_audited": analytic_rows_audited,
+        "source_output_sha256": canonical_source_digest,
+        "analytic_output_sha256": canonical_analytic_digest,
+        "selected_aggregation_workers": selected_source,
+        "selected_baseline_workers": selected_analytic,
+        "fastest_source_median_units_per_second": fastest_source,
+        "fastest_analytic_median_rows_per_second": fastest_analytic,
+        "outer_test_scores_opened": False,
+        "cortical_values_opened": False,
+    }
+    _write_json(output_root / "verification.json", verification)
+    return verification
 
 
 def _unit_meta(unit_id: str) -> dict[str, Any]:

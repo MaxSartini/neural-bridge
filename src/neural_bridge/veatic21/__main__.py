@@ -18,6 +18,7 @@ from neural_bridge.veatic21.phase02_stage_a_aggregation import (
 )
 from neural_bridge.veatic21.phase02_stage_a_aggregation_verify import (
     verify_phase02_stage_a_aggregation,
+    verify_phase02_stage_a_aggregation_executor_backtest,
 )
 from neural_bridge.veatic21.phase02_stage_a_backtest import run_phase02_executor_backtest
 from neural_bridge.veatic21.phase02_stage_a_rescue_backtest import (
@@ -104,6 +105,10 @@ def main() -> None:
         help="benchmark process counts for immutable Stage A aggregation",
     )
     subparsers.add_parser(
+        "verify-phase02-stage-a-aggregation-executor-backtest",
+        help="independently verify both aggregation executor worker matrices",
+    )
+    subparsers.add_parser(
         "phase02-stage-a-aggregate-register-stage-b",
         help="aggregate Stage A and freeze the exact inner-only Stage B registry",
     )
@@ -149,6 +154,8 @@ def main() -> None:
         result = verify_phase02_stage_a_rescue_saturated_output()
     elif arguments.command == "phase02-stage-a-aggregation-executor-backtest":
         result = run_phase02_stage_a_aggregation_executor_backtest()
+    elif arguments.command == "verify-phase02-stage-a-aggregation-executor-backtest":
+        result = verify_phase02_stage_a_aggregation_executor_backtest()
     elif arguments.command == "phase02-stage-a-aggregate-register-stage-b":
         result = run_phase02_stage_a_aggregation()
     elif arguments.command == "verify-phase02-stage-a-aggregation":

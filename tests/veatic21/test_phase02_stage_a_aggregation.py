@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[2]
 BACKTEST = Path(
     "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/"
     "fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/"
-    "stage-a-aggregation-executor-backtest"
+    "stage-a-aggregation-executor-backtest-v2-end-to-end"
 )
 SELECTED = ROOT / (
     "internal/active/veatic21-phase02-registration/selected-aggregation-executor.json"
@@ -142,17 +142,20 @@ def test_stage_b_ofat_is_deduplicated_and_gru_is_sequence_only() -> None:
     assert len({str(row) for row in sequence_candidates}) == len(sequence_candidates)
 
 
-def test_first_aggregation_executor_is_revoked_after_incomplete_backtest_audit() -> None:
+def test_selected_aggregation_executor_matches_verified_end_to_end_backtest() -> None:
     selected = json.loads(SELECTED.read_text(encoding="utf-8"))
     result = json.loads((BACKTEST / "result.json").read_text(encoding="utf-8"))
     assert _sha256(BACKTEST / "request.json") == selected["backtest_request_sha256"]
     assert _sha256(BACKTEST / "result.json") == selected["backtest_result_sha256"]
     assert result["status"] == "PASS"
-    assert result["numerical_identity_gate"] == "PASS"
-    assert result["selected_workers"] == selected["selected_workers"] == 8
-    assert result["selected_median_units_per_second"] == 1116.0385113523018
-    assert selected["eligible_for_main"] is False
-    assert selected["schema_version"].endswith("terminated_v1")
-    assert "omitted the claimed analytic-scoring workload" in selected["post_selection_audit"]
+    verification = json.loads((BACKTEST / "verification.json").read_text(encoding="utf-8"))
+    assert _sha256(BACKTEST / "verification.json") == selected["backtest_verification_sha256"]
+    assert verification["status"] == "PASS"
+    assert result["source_identity_gate"] == "PASS"
+    assert result["analytic_identity_gate"] == "PASS"
+    assert result["selected_aggregation_workers"] == selected["selected_aggregation_workers"] == 8
+    assert result["selected_baseline_workers"] == selected["selected_baseline_workers"] == 8
+    assert selected["eligible_for_main"] is True
+    assert selected["schema_version"].endswith("_v2")
     assert result["outer_test_scores_opened"] is False
     assert result["cortical_values_opened"] is False

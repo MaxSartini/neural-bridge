@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Aggregation Executor Rebenchmark Required
+# Current State — VEATIC 2.1 Corrected Aggregation Executor Frozen
 
 Updated: 2026-07-29
 
@@ -52,8 +52,8 @@ method. This file cannot silently override the master specification.
   The prospective Stage A aggregation/Stage B registry method and its fail-closed
   implementation plus independent verifier were audited after launch; the first aggregation
   executor benchmark omitted its claimed analytic workload, so its selection is revoked and
-  the first main attempt is sealed. The corrected end-to-end rebenchmark is implemented but
-  has not run.
+  the first main attempt is sealed. The corrected end-to-end rebenchmark and independent
+  verification passed; separate source and analytic worker counts are frozen.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -69,11 +69,9 @@ method. This file cannot silently override the master specification.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: run and verify the corrected end-to-end aggregation executor backtest,
-  freeze and push separate measured source-pipeline and analytic-pipeline worker counts, then
-  execute and independently verify the inner-only Stage A aggregation/disposition and exact
-  Stage B registry for the comprehensive target-specific AR benchmark. It must combine
-  immutable already-converged Stage A records with linked
+- Authorized action: execute and independently verify the inner-only Stage A
+  aggregation/disposition and exact Stage B registry for the comprehensive target-specific AR
+  benchmark. It must combine immutable already-converged Stage A records with linked
   converged rescue records, exclude all invalid/unresolved cells, apply only the frozen
   one-standard-error and stratified-retention rules, begin the registered development-owned
   AR-dominance/overlap decomposition, and remain unable to open outer-test or cortical
@@ -515,12 +513,12 @@ cortical values remained unopened.
 - Aggregation/registry runner SHA-256:
   `ad9735faf1d239141d28ae7ef73ff95a7ba718198c9f200911b602b625543a0d`.
   Independent verifier SHA-256:
-  `a09ed34ddee3eb59e90a1b534085f34b01048d54d7e96b66a4a730e894c69110`.
+  `e68709c789e61931937fa56d0bbd7ee828b8c94183c1c80de27d692adcf22d81`.
   The corrected runner uses process-isolated workers for both source processing and analytic
   baselines and refuses a main run unless the exact corrected backtest and selected executor
   hashes agree.
-- The first aggregation executor backtest passed numerical identity on `1,512` real immutable units/`317,520` Stage A
-  cells across `1/2/4/8/12` processes with three timings each and identical normalized
+- The first aggregation executor backtest passed numerical identity on `1,512` real immutable
+  units/`317,520` Stage A cells across `1/2/4/8/12` processes with three timings each and identical normalized
   evidence SHA-256
   `2c19a2a119e9d826d5981a521db7b2d3de4453324aee78d5f2a4409179573e68`.
   Median units/second were `620.3283`, `837.9296`, `1030.6474`, `1116.0385`, and
@@ -532,8 +530,8 @@ cortical values remained unopened.
   result SHA-256: `03a395a8d4eef3319bdb9b22b62923086ed5841ca8952ce300924e46452a4e7d`.
 - Selected aggregation executor:
   `internal/active/veatic21-phase02-registration/selected-aggregation-executor.json`;
-  revoked-record SHA-256
-  `7b56395f4df9074b004e4358bd4078b6ca80935acd088b1cce12c918b4275a08`.
+  corrected selected-record SHA-256
+  `a3bdab8a4e436049752869725ab4c579a78f4eb0933e118f1f009c2cf8fe76a0`.
 - The first main aggregation was terminated during analytic baselines after all 42 source
   scopes had been written because live utilization sustained only about two CPU cores. No
   result/summary/manifest/verification was produced or accepted; Stage B, outer outcomes,
@@ -541,8 +539,18 @@ cortical values remained unopened.
   `<Phase 02 benchmark root>/stage-a-aggregation-stage-b-registration-terminated-underutilized-thread-baselines`;
   termination-manifest SHA-256:
   `cbd6452dfd0a5bd6351913200377a5666ac255347c02d09837385c24560641cd`.
-- Only the corrected end-to-end aggregation executor backtest, selected-executor freeze,
-  inner-only Stage A aggregation/disposition, the registered
+- Corrected end-to-end backtest v2 covered `1,512` source units per topology plus `18,522`
+  real analytic rows per topology over all 42 outer scopes, 21 targets, and 21 histories.
+  All 15 source and 15 analytic executions matched their respective normalized identities.
+  Source medians for `1/2/4/8/12` workers were `306.5480`, `485.2693`, `706.1109`,
+  `871.3261`, and `714.7553` units/second, selecting eight. Analytic medians were `172.3845`,
+  `306.1271`, `537.6826`, `767.7741`, and `772.5564` rows/second; eight was within `0.62%`
+  of twelve and won the frozen three-percent fewer-process rule. Request SHA-256:
+  `cc87d5be600a54a856f6bea7b986d5dbf61b385f740d06815a028b71ca704892`;
+  result SHA-256: `7d6bb9a2a5846e66193bf9000ebb4891a9ef5f7c5b8e2bed8a2508cb4501ab18`;
+  independent verification SHA-256:
+  `cbd12688d326cb3edbcc3f7dc1a713a0ce1e0a6e6499de00738117c7f63a4572`.
+- Only the inner-only Stage A aggregation/disposition, the registered
   development-owned AR-dominance/overlap decomposition, and prospective Stage B registry
   construction/verification are now authorized. Stage B execution, outer-test scoring,
   cortical data, Stage C/D, aggregation beyond the registered Stage A rule, and every later
@@ -559,13 +567,10 @@ Read these rebuild-protocol sections for the one authorized action:
 - **Metrics and uncertainty**;
 - **Execution and artifact rules**.
 
-Run the corrected end-to-end aggregation executor backtest across `1/2/4/8/12` processes.
-Its source pipeline must time immutable hashing, strict parsing, rescue-link resolution,
-metric/disposition materialization, and gzip compression. Its separate analytic pipeline
-must time per-process VEATIC loading, split masks, q90 labels, five aggregate baselines,
-defined-only per-video metrics, and gzip compression over all 42 outer scopes, 21 targets,
-and 21 histories. Require exact normalized identity and freeze each workload's worker count
-independently before any replacement main run.
+The corrected end-to-end aggregation executor backtest and independent verification are
+complete. The replacement main run must use exactly eight source-pipeline processes and
+eight analytic-pipeline processes and refuse any mismatch in code, policy, request, result,
+or selected-executor identity. Independent verification remains a separately hashed gate.
 
 Do not add, remove, or tune a target, split, history family, feature form, model family,
 regularization range, optimizer, budget, calibration method, seed count, control, metric, or
@@ -618,14 +623,9 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Commit and push the corrected process-isolated analytic implementation, truthful end-to-end
-backtest, revoked first selection, and sealed first-attempt provenance. Run the corrected
-backtest at
-`<Phase 02 benchmark root>/stage-a-aggregation-executor-backtest-v2-end-to-end`, inspect every
-candidate/repetition, freeze separate source/analytic worker counts and exact hashes, then
-commit and push that selection before a replacement main run.
-
-Run the canonical main aggregation only after that second freeze. Independently verify every
+Commit and push the independently verified corrected executor selection and exact backtest
+hashes. Then run the canonical main aggregation only with the frozen `8 + 8` process
+configuration. Independently verify every
 source admission/exclusion and every aggregate, one-standard-error, stratified-retention,
 boundary, Stage B work, and decomposition identity. Inspect all compact/external results;
 update this handoff with exact counts and SHA-256 values; run focused VEATIC,
