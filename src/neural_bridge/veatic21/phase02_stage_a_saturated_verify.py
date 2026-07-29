@@ -336,7 +336,6 @@ def verify_phase02_stage_a_saturated_output(
         _require(unit_id not in canonical_by_id, "canonical ledger contains a duplicate")
         _require(entry["configuration_count"] == 210, "ledger configuration count changed")
         _require(entry["outer_test_scores_opened"] is False, "ledger opened outer-test data")
-        _require(entry["cortical_values_opened"] is False, "ledger opened cortical data")
         expected_path = output_root / "units" / f"{unit_id}.json"
         _require(entry["unit_result_path"] == str(expected_path), "ledger unit path changed")
         configuration_ids = cast(list[str], entry["configuration_ids"])

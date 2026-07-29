@@ -352,6 +352,10 @@ cortical values remained unopened.
   `080485ed8794547eae087332dad99bc119a305843cb687837b2e96f143185849`.
   First recorded live checkpoint: `436/40,824`, status `RUNNING`, exact selected executor
   identity present, outer-test scores unopened, and cortical values unopened.
+- Stage A execution completed before verification. The first exhaustive-verifier invocation
+  from commit `69f77eb` stopped before unit hashing because it incorrectly required the
+  unit-level `cortical_values_opened` field to be duplicated in the ledger-entry schema. No
+  verification result was written or accepted; the immutable run artifacts were not changed.
 - Only the complete Stage A inner screen is now authorized. Outer-test scoring, cortical data,
   aggregation/pruning, Stage B, and every later phase remain unauthorized.
 
