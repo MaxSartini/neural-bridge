@@ -412,17 +412,19 @@ cortical values remained unopened.
   from zero, checks convergence every eight updates through at most `16B`, freezes cells
   individually when converged, and publishes only linked rescue records through atomic unit
   artifacts, shard-local append-only ledgers, and an exact canonical merge. It cannot admit a
-  converged Stage A cell or perform aggregation/pruning.
+  converged Stage A cell or perform aggregation/pruning. Deterministic LPT sharding balances
+  a registered compute proxy of training rows × feature width × maximum cell updates plus
+  feature-preparation cost, rather than unit count alone.
 - A real-data four-unit executor smoke test completed and then resumed without changing any
   unit or ledger hash. It covered `19` registered cells with two concurrent Metal streams,
   passed exact unit/cell ledger coverage and the outer/cortical/aggregation access firewall.
 - Prospectively frozen sparse-rescue executor backtest registration:
   `internal/active/veatic21-phase02-registration/rescue-executor-backtest-registration.json`;
-  SHA-256 `7c812c677abf92b3a2a0c7a66f4a9b3f992260ec2ddf85c0459d45425f58dedd`.
+  SHA-256 `51e6b6be50149a378d6d52e0267435be40609f7bade2d2227a221fcd7d97dfb7`.
   Frozen solver identity:
   `58289ef933b42b2588d92c8b549a4b7f8a9a6083651f5f837c8f0397756abf32`;
   executor identity:
-  `7674b09d893bb61a5178e4741f267ca44a0671b7498d3016a38661c1e7e3891b`.
+  `4cacb6df49d401f31bcdf89744ef597eb1587dfec4db58f81875ac185913e0d1`.
 - The registered systems search uses `24` equivalence units/`175` cells and `192` timed
   units/`1,614` cells, covering both model families, both protocols, all six feature forms,
   all 21 history depths in the timed set, all five sparse-cell-count bands, all 21 targets,
@@ -432,6 +434,16 @@ cortical values remained unopened.
   Exact dispositions/iterations and structure plus `1e-5` float equivalence, bitwise repeated
   normalized artifacts, resume, ledger, access, six-GiB headroom, thermal, and saturation
   gates are mandatory. Scientific scores do not enter executor selection.
+- The first registered systems attempt under commit `ce1d3aa` was terminated before any
+  candidate selection when its three batch-one timing shards exposed a material `54/64`,
+  `39/64`, `59/64` progress imbalance. Its work proxy had omitted feature width. It is sealed
+  and ineligible at external root
+  `<convergence-rescue root>/executor-backtest-terminated-pre-feature-width-balance`;
+  termination SHA-256
+  `3c56126407ddd7165f8726e05c63396f2a646e942711adc6e5ffc22fbf7e3e85`.
+  The corrected registered proxy produces timed-set three-lane work weights
+  `517,382,339,995`, `517,372,656,770`, and `517,336,475,770`, a maximum imbalance below
+  `0.009%`. No scientific, outer, or cortical score was opened.
 - Only convergence-rescue registration, executor implementation, and inner-only hardware
   backtesting are now authorized. Rescue execution remains unauthorized until its registry,
   selected executor, and main identity are frozen and pushed. Outer-test scoring, cortical
@@ -502,8 +514,8 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Commit and push the prospective sparse-rescue executor/backtest registration, then execute it
-under `caffeinate` at the canonical external backtest root. Freeze only the fastest candidate
+Commit and push the corrected prospective sparse-rescue executor/backtest registration, then
+execute it under `caffeinate` at a fresh canonical external backtest root. Freeze only the fastest candidate
 that passes exact structure/disposition/iteration and registered float equivalence, repeated
 determinism, safe resume, unique linked ledgers, access firewall, memory, thermal, and GPU
 saturation-or-safe-plateau gates. Commit and push the selected executor and exact new main

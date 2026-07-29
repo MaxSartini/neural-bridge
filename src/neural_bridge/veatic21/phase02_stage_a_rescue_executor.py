@@ -18,6 +18,7 @@ from typing import Protocol, cast
 from neural_bridge.veatic21.contracts import REPOSITORY_ROOT
 from neural_bridge.veatic21.data import load_json, reject_forbidden_runtime_path, sha256_file
 from neural_bridge.veatic21.phase00 import _write_json, _write_text
+from neural_bridge.veatic21.phase02_features import feature_names
 from neural_bridge.veatic21.phase02_stage_a_executor import (
     NUMERICAL_THREAD_ENVIRONMENT,
     _host_pressure_snapshot,
@@ -163,13 +164,12 @@ def deterministic_weighted_shards(
     shards: list[list[RescueUnit]] = [[] for _ in range(lanes)]
     loads = [0] * lanes
 
-    def weight(unit: RescueUnit) -> int:
-        return sum(cell.rescue_maximum_budget for cell in unit.cells)
-
-    for unit in sorted(units, key=lambda item: (-weight(item), item.rescue_unit_sequence)):
+    for unit in sorted(
+        units, key=lambda item: (-rescue_unit_work_weight(item), item.rescue_unit_sequence)
+    ):
         lane = min(range(lanes), key=lambda index: (loads[index], index))
         shards[lane].append(unit)
-        loads[lane] += weight(unit)
+        loads[lane] += rescue_unit_work_weight(unit)
     for shard in shards:
         shard.sort(key=lambda item: item.rescue_unit_sequence)
     actual = [unit.rescue_unit_sequence for shard in shards for unit in shard]
@@ -177,6 +177,19 @@ def deterministic_weighted_shards(
     if len(actual) != len(set(actual)) or set(actual) != set(expected):
         raise ValueError("weighted rescue sharding lost or duplicated a unit")
     return tuple(tuple(shard) for shard in shards)
+
+
+def rescue_unit_work_weight(unit: RescueUnit) -> int:
+    """Proxy MLX work as rows × feature width × registered maximum cell updates."""
+
+    cell = unit.cells[0]
+    feature_count_with_intercept = len(feature_names(cell.feature_form, cell.history_depth)) + 1
+    solve_work = sum(
+        item.train_rows * item.rescue_maximum_budget * feature_count_with_intercept
+        for item in unit.cells
+    )
+    preparation_work = 20_657 * feature_count_with_intercept
+    return solve_work + preparation_work
 
 
 def _unit_path(root: Path, unit: RescueUnit) -> Path:

@@ -32,7 +32,7 @@
   },
   "input_identity": {
     "rescue_cell_registry_sha256": "0d3b1e276082263d325d0cc523f4a80619f5ce6a5794016fd31bbc180ab2c791",
-    "rescue_executor_code_sha256": "7674b09d893bb61a5178e4741f267ca44a0671b7498d3016a38661c1e7e3891b",
+    "rescue_executor_code_sha256": "4cacb6df49d401f31bcdf89744ef597eb1587dfec4db58f81875ac185913e0d1",
     "rescue_registration_verification_sha256": "b668b58e455f9486850ac51ea08c9c186531f708f49fd799315e5c8c4f2f5a6d",
     "rescue_solver_code_sha256": "58289ef933b42b2588d92c8b549a4b7f8a9a6083651f5f837c8f0397756abf32",
     "rescue_unit_registry_sha256": "46bf2efd5e622423195a722bd4c7cf14fe8e58d29a474c283b0e9349e0ef107d"
@@ -49,7 +49,7 @@
     "mlx_lanes": 1,
     "pipeline_depth": 2
   },
-  "registered_at_utc": "2026-07-29T04:20:51.719762+00:00",
+  "registered_at_utc": "2026-07-29T04:30:02.578547+00:00",
   "representative_units": {
     "equivalence_coverage": {
       "candidate_ids": [

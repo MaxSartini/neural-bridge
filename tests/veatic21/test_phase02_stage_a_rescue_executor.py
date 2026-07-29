@@ -21,6 +21,7 @@ from neural_bridge.veatic21.phase02_stage_a_rescue_backtest import (
 from neural_bridge.veatic21.phase02_stage_a_rescue_executor import (
     RescueExecutorConfiguration,
     deterministic_weighted_shards,
+    rescue_unit_work_weight,
 )
 
 
@@ -157,13 +158,8 @@ def test_weighted_shards_are_disjoint_complete_and_balanced() -> None:
     flattened = [unit.rescue_unit_sequence for shard in shards for unit in shard]
     assert set(flattened) == {unit.rescue_unit_sequence for unit in units}
     assert len(flattened) == len(set(flattened))
-    loads = [
-        sum(cell.rescue_maximum_budget for unit in shard for cell in unit.cells)
-        for shard in shards
-    ]
-    largest = max(
-        sum(cell.rescue_maximum_budget for cell in unit.cells) for unit in units
-    )
+    loads = [sum(rescue_unit_work_weight(unit) for unit in shard) for shard in shards]
+    largest = max(rescue_unit_work_weight(unit) for unit in units)
     assert max(loads) - min(loads) <= largest
 
 
