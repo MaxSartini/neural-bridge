@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from copy import deepcopy
 from typing import cast
 
@@ -12,7 +13,10 @@ from neural_bridge.veatic21.phase02_stage_a_backtest import (
     _compare_stage_a_unit,
     _select_candidate,
 )
-from neural_bridge.veatic21.phase02_stage_a_executor import _configuration_from_dict
+from neural_bridge.veatic21.phase02_stage_a_executor import (
+    ExecutorRunSelection,
+    _configuration_from_dict,
+)
 
 
 def test_backtest_freeze_reaches_cpu_and_gpu_concurrency_ceiling() -> None:
@@ -35,6 +39,13 @@ def test_backtest_freeze_reaches_cpu_and_gpu_concurrency_ceiling() -> None:
     for value in configurations:
         _configuration_from_dict(value).validate()
     assert sha256_file(PHASE02_EXECUTOR_BACKTEST_REGISTRATION) in CURRENT_STATE.read_text()
+
+
+def test_executor_selection_request_is_json_roundtrip_stable() -> None:
+    selection = ExecutorRunSelection(((0, 503), (504, 755)))
+    value = selection.json_value()
+
+    assert json.loads(json.dumps(value)) == value
 
 
 def _unit() -> dict[str, object]:

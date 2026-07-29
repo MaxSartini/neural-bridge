@@ -96,6 +96,13 @@ class ExecutorRunSelection:
     def contains(self, sequence: int) -> bool:
         return any(start <= sequence <= end for start, end in self.sequence_ranges_inclusive)
 
+    def json_value(self) -> dict[str, object]:
+        return {
+            "sequence_ranges_inclusive": [
+                [start, end] for start, end in self.sequence_ranges_inclusive
+            ]
+        }
+
 
 class _Barrier(Protocol):
     def wait(self) -> object: ...
@@ -649,8 +656,10 @@ def run_hardware_saturated_executor(
         "stage_a_solver_code_sha256": _stage_a_code_identity(),
         "executor_sha256": executor_sha256,
         "configuration": asdict(configuration),
-        "selection": asdict(selection),
-        "warmup_selection": (asdict(warmup_selection) if warmup_selection is not None else None),
+        "selection": selection.json_value(),
+        "warmup_selection": (
+            warmup_selection.json_value() if warmup_selection is not None else None
+        ),
         "warmup_work_units": len(warmup_selected),
         "work_units": len(selected),
         "configuration_evaluations": len(selected) * len(REGULARIZATION_MULTIPLIERS) * 21,

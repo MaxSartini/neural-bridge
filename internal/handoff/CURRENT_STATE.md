@@ -260,10 +260,19 @@ External root:
 
 ## Replacement executor backtest registration
 
+The first coordinated-backtest attempt at `<Phase 02 benchmark root>/executor-backtest-20260729`
+was terminated without selection after the mandatory resume gate correctly rejected a
+tuple-versus-JSON-list request-identity mismatch. It contains 985 partial unit files and is
+failure provenance only: never resume or merge it. Its termination-manifest SHA-256 is
+`7364e0f08f4c7f59904f2df7902d6ac945dc3a0b6fb6f62379a60123be904e0e`; outer-test scores and
+cortical values remained unopened.
+
 - Repository freeze:
   `internal/active/veatic21-phase02-registration/executor-backtest-registration.json`.
 - Backtest-registration SHA-256:
-  `de77372559fda0f8eed1d887d350a448a11020b9840101845ff2d9775c67e544`.
+  `45134d3d5c1653d17a68540fb2e5a3610ae022ddccd56ff33c71687501a977d9`.
+- Active canonical external backtest root:
+  `<Phase 02 benchmark root>/executor-backtest-20260729-v2`.
 - Host: Apple M2 Max Mac Studio, 12 CPU cores (8 performance, 4 efficiency), 32 GiB unified
   memory.
 - Backtest uses preserved inner-only reference units; it may not open outer-test outcomes or

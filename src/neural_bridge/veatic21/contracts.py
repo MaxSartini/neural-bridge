@@ -23,7 +23,7 @@ PHASE02_STAGE_A_ROOT = PHASE02_BENCHMARK_ROOT / "stage-a-linear-screen"
 PHASE02_EXECUTOR_BACKTEST_REGISTRATION = REPOSITORY_ROOT / (
     "internal/active/veatic21-phase02-registration/executor-backtest-registration.json"
 )
-PHASE02_EXECUTOR_BACKTEST_ROOT = PHASE02_BENCHMARK_ROOT / "executor-backtest-20260729"
+PHASE02_EXECUTOR_BACKTEST_ROOT = PHASE02_BENCHMARK_ROOT / "executor-backtest-20260729-v2"
 PHASE02_STAGE_A_SATURATED_ROOT = PHASE02_BENCHMARK_ROOT / (
     "stage-a-linear-screen-hardware-saturated"
 )

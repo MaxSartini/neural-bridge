@@ -532,9 +532,9 @@ def run_phase02_executor_backtest(
         "scientific_registration_sha256": PHASE02_REGISTRATION_SHA256,
         "executor_sha256": executor_code_identity(),
         "configurations": [asdict(configuration) for configuration in configurations],
-        "equivalence_selection": asdict(equivalence_selection),
-        "timed_selection": asdict(timed_selection),
-        "warmup_selection": asdict(warmup_selection),
+        "equivalence_selection": equivalence_selection.json_value(),
+        "timed_selection": timed_selection.json_value(),
+        "warmup_selection": warmup_selection.json_value(),
         "timed_repetitions": repetitions,
         "outer_test_scores_opened": False,
         "cortical_values_opened": False,
@@ -607,7 +607,7 @@ def run_phase02_executor_backtest(
                 timed_roots=timed_roots,
                 timed_selection=timed_selection,
             )
-        except BaseException as error:
+        except Exception as error:
             summary = cast(
                 dict[str, object],
                 {

@@ -38,7 +38,15 @@
     "completed_configurations": 1279110,
     "append_only_ledger_sha256": "eb2b4ccbbaf5ab50e48230bb39649cb20857307cc385b222b81817c0c5d7b6d1"
   },
-  "backtest_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/executor-backtest-20260729",
+  "failed_backtest_attempt": {
+    "root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/executor-backtest-20260729",
+    "status": "TERMINATED_EXECUTOR_REQUEST_CANONICALIZATION_FIX_REQUIRED",
+    "termination_manifest_sha256": "7364e0f08f4c7f59904f2df7902d6ac945dc3a0b6fb6f62379a60123be904e0e",
+    "eligible_candidate_selected": false,
+    "outer_test_scores_opened": false,
+    "cortical_values_opened": false
+  },
+  "backtest_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/executor-backtest-20260729-v2",
   "representative_units": {
     "numerical_equivalence_sequence_ranges_inclusive": [[0, 503], [504, 755]],
     "coverage": "both_complete_blocked_inner_cells_plus_one_complete_grouped_inner_cell_across_all_six_forms_twenty_one_depths_and_two_stage_a_families",
