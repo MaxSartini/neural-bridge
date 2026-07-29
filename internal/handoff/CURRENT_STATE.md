@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Stage B Executor Selected
+# Current State — VEATIC 2.1 Stage B Main Running
 
 Updated: 2026-07-30
 
@@ -65,7 +65,8 @@ method. This file cannot silently override the master specification.
   those details. The fresh executor, real-data topology harness, resume/ledger machinery, and
   independent backtest/main verifiers are implemented and test-validated. The complete
   registered Stage B systems backtest and exhaustive independent verification passed, and
-  the selected executor is frozen. No Stage B main cell has executed.
+  the selected executor is frozen. The complete Stage B main run is active under its exact
+  committed identities; no Stage B main aggregation or outer scoring has occurred.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -82,11 +83,10 @@ method. This file cannot silently override the master specification.
   outer scores, selected models/checkpoints, projections, representations, heads, and
   promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: commit and push the verified Stage B systems-backtest transition and
-  frozen selected-executor record, then execute the complete Stage B main registry only at
-  the canonical `stage-b-family-expansion` root with one CPU preparation worker and four MLX
-  stream lanes. Independently verify all `40,824` work units and `2,351,229` candidate-cell
-  artifacts before any Stage B aggregation or outer scoring.
+- Authorized action: continue or hash-verified resume the active complete Stage B main
+  registry only at the canonical `stage-b-family-expansion` root with one CPU preparation
+  worker and four MLX stream lanes. Independently verify all `40,824` work units and
+  `2,351,229` candidate-cell artifacts before any Stage B aggregation or outer scoring.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -675,6 +675,15 @@ cortical values remained unopened.
   It authorizes only the exact complete Stage B main registry with one CPU preparation worker
   and four MLX lanes at `<Phase 02 benchmark root>/stage-b-family-expansion`. Backtest cells
   remain disposable systems evidence and cannot enter the scientific ledger.
+- The complete Stage B main run was launched under `caffeinate -dimsu` only after selected
+  executor commit `719f004299ff5ba9292f22a79fd09244d66c50d6` reached `origin/main`.
+  Canonical request SHA-256:
+  `2269fe691f40c468b9bb7af9db85cb5beeac8eaaac40d50be5734b92fb8d6015`.
+  The request pins the exact runner, execution registration, selected executor, work registry,
+  topology, `40,824` work units, and `2,351,229` candidate cells. The run is active and
+  resumable; any progress count in terminal telemetry is nonterminal and must not be mistaken
+  for a concluded result. Initial live telemetry confirmed artifact/ledger publication, up to
+  `88%` GPU device utilization, `59%` system memory free, and zero swap.
 
 ## Active execution contract
 
@@ -699,9 +708,9 @@ support gate based on any outer result. The prospective aggregation policy is fi
 reading aggregate winners and may not be revised in response to them.
 All outer outcomes or cortical values remain sealed throughout this action.
 
-First commit and push this verified backtest/selected-executor transition. Then execute only
-the complete Stage B main registry at `<Phase 02 benchmark root>/stage-b-family-expansion`
-under `caffeinate -dimsu`. The request must pin runner SHA-256
+Continue or hash-verified resume only the complete Stage B main registry at
+`<Phase 02 benchmark root>/stage-b-family-expansion` under `caffeinate -dimsu`. The request
+must retain runner SHA-256
 `99e288f45c2f54e514ccd98a39703406fc0adb2aada3489eae3510fb9f94b7d7`, execution-registration
 SHA-256 `ffaf5b86254099865768e60825db048a763140277c54050005fa640e86cca010`,
 selected-executor SHA-256
@@ -747,11 +756,10 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Run focused/authority/full tests, commit and push the verified Stage B systems backtest and
-selected-executor transition, and confirm remote `main` contains it. Then launch the complete
-Stage B main registry under `caffeinate -dimsu` at
+Continue monitoring the active complete Stage B main registry under `caffeinate -dimsu` at
 `<Phase 02 benchmark root>/stage-b-family-expansion` with exactly one CPU preparation worker
-and four MLX stream lanes. Do not alter the complete registry based on runtime or interim
+and four MLX stream lanes. If interrupted, invoke only the same command and accept only its
+hash-verified resume path. Do not alter the complete registry based on runtime or interim
 inner results. On completion, independently verify all `40,824` work units and `2,351,229`
 candidate-cell artifacts, inspect the full disposition ledger, update this handoff with exact
 counts and SHA-256 values, run focused/authority/full tests, and commit and push before any
