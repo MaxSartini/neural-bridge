@@ -14,7 +14,7 @@ import tempfile
 import time
 from collections import defaultdict
 from collections.abc import Iterable, Iterator
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+from concurrent.futures import ProcessPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
 from statistics import median
@@ -43,7 +43,7 @@ AGGREGATION_REGISTRATION = REPOSITORY_ROOT / (
 )
 AGGREGATION_ROOT = PHASE02_BENCHMARK_ROOT / ("stage-a-aggregation-stage-b-registration")
 AGGREGATION_EXECUTOR_BACKTEST_ROOT = PHASE02_BENCHMARK_ROOT / (
-    "stage-a-aggregation-executor-backtest"
+    "stage-a-aggregation-executor-backtest-v2-end-to-end"
 )
 SELECTED_AGGREGATION_EXECUTOR = REPOSITORY_ROOT / (
     "internal/active/veatic21-phase02-registration/selected-aggregation-executor.json"
@@ -118,6 +118,10 @@ class ScopeTask:
 class BenchmarkChunk:
     index: int
     sources: tuple[UnitSource, ...]
+    output_path: str
+
+
+_BASELINE_WORKER_ARRAYS: dict[str, Any] | None = None
 
 
 def _require(condition: bool, message: str) -> None:
@@ -1081,19 +1085,14 @@ def _per_video_summary(
     }
 
 
-def _baseline_task(task: tuple[dict[str, Any], dict[str, Any]]) -> dict[str, Any]:
-    descriptor, arrays = task
-    protocol = cast(str, descriptor["protocol"])
-    repeat = cast(int | None, descriptor["repeat"])
-    outer_fold = int(descriptor["outer_fold"])
-    inner_fold = int(descriptor["inner_fold"])
+def _baseline_record(
+    descriptor: dict[str, Any],
+    arrays: dict[str, Any],
+    train_masks: np.ndarray,
+    validation_masks: np.ndarray,
+) -> dict[str, Any]:
     target_index = int(descriptor["target_index"])
     depth = int(descriptor["history_depth_rows"])
-    development_masks = cast(
-        dict[tuple[str, int | None, int, int], tuple[np.ndarray, np.ndarray]],
-        arrays["development_masks"],
-    )
-    train_masks, validation_masks = development_masks[(protocol, repeat, outer_fold, inner_fold)]
     train = train_masks[:, target_index]
     validation = validation_masks[:, target_index]
     values = cast(np.ndarray, arrays["values"])[target_index]
@@ -1134,6 +1133,42 @@ def _baseline_task(task: tuple[dict[str, Any], dict[str, Any]]) -> dict[str, Any
     }
 
 
+def _initialize_baseline_worker() -> None:
+    global _BASELINE_WORKER_ARRAYS
+    _BASELINE_WORKER_ARRAYS = _load_development_arrays()
+
+
+def _baseline_scope_task(descriptors: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    arrays = _BASELINE_WORKER_ARRAYS
+    _require(arrays is not None, "baseline process was not initialized")
+    _require(bool(descriptors), "baseline process received an empty scope")
+    first = descriptors[0]
+    ownership = (
+        cast(str, first["protocol"]),
+        cast(int | None, first["repeat"]),
+        int(first["outer_fold"]),
+        int(first["inner_fold"]),
+    )
+    _require(
+        all(
+            (
+                descriptor["protocol"],
+                descriptor["repeat"],
+                descriptor["outer_fold"],
+                descriptor["inner_fold"],
+            )
+            == ownership
+            for descriptor in descriptors
+        ),
+        "baseline process scope mixed split ownership",
+    )
+    train_masks, validation_masks = _development_masks(arrays, *ownership)
+    return [
+        _baseline_record(descriptor, arrays, train_masks, validation_masks)
+        for descriptor in descriptors
+    ]
+
+
 def _baseline_rows(finalist_path: Path, workers: int) -> list[dict[str, Any]]:
     descriptors: dict[tuple[Any, ...], dict[str, Any]] = {}
     for finalist in _read_gzip_jsonl(finalist_path):
@@ -1155,23 +1190,22 @@ def _baseline_rows(finalist_path: Path, workers: int) -> list[dict[str, Any]]:
                 "target_index": TARGETS.index(cast(str, finalist["candidate_id"])),
                 "history_depth_rows": finalist["history_depth_rows"],
             }
-    arrays = _load_development_arrays()
     ordered = [descriptors[key] for key in sorted(descriptors)]
-    mask_keys = sorted(
-        {
-            (
-                cast(str, descriptor["protocol"]),
-                cast(int | None, descriptor["repeat"]),
-                int(descriptor["outer_fold"]),
-                int(descriptor["inner_fold"]),
-            )
-            for descriptor in ordered
-        }
-    )
-    arrays["development_masks"] = {key: _development_masks(arrays, *key) for key in mask_keys}
-    # NumPy sorting releases the GIL; threads share the small immutable VEATIC label arrays.
-    with ThreadPoolExecutor(max_workers=workers) as executor:
-        return list(executor.map(_baseline_task, ((item, arrays) for item in ordered)))
+    grouped: dict[tuple[str, int | None, int, int], list[dict[str, Any]]] = defaultdict(list)
+    for descriptor in ordered:
+        ownership = (
+            cast(str, descriptor["protocol"]),
+            cast(int | None, descriptor["repeat"]),
+            int(descriptor["outer_fold"]),
+            int(descriptor["inner_fold"]),
+        )
+        grouped[ownership].append(descriptor)
+    scope_descriptors = [grouped[key] for key in sorted(grouped)]
+    with ProcessPoolExecutor(
+        max_workers=workers, initializer=_initialize_baseline_worker
+    ) as executor:
+        chunks = list(executor.map(_baseline_scope_task, scope_descriptors))
+    return [row for chunk in chunks for row in chunk]
 
 
 def _history_offsets(form: str, depth: int) -> list[int]:
@@ -1331,7 +1365,8 @@ def _pressure_snapshot() -> dict[str, Any]:
 
 
 def _benchmark_chunk(chunk: BenchmarkChunk) -> dict[str, Any]:
-    rows: list[tuple[str, str]] = []
+    unit_digests: list[tuple[str, str]] = []
+    materialized_rows: list[dict[str, Any]] = []
     source_bytes = 0
     cells = 0
     for source in chunk.sources:
@@ -1342,8 +1377,7 @@ def _benchmark_chunk(chunk: BenchmarkChunk) -> dict[str, Any]:
         result = _strict_json_bytes(payload, path)
         records = cast(list[dict[str, Any]], result["records"])
         _require(len(records) == 210, "benchmark Stage A cell count changed")
-        rescue_count = 0
-        rescue_sha = None
+        rescues: dict[str, dict[str, Any]] = {}
         if source.rescue_path is not None:
             rescue_path = Path(source.rescue_path)
             rescue_payload = rescue_path.read_bytes()
@@ -1354,10 +1388,35 @@ def _benchmark_chunk(chunk: BenchmarkChunk) -> dict[str, Any]:
                 "benchmark rescue source changed",
             )
             rescue = _strict_json_bytes(rescue_payload, rescue_path)
-            rescue_count = len(cast(list[dict[str, Any]], rescue["records"]))
-            rescue_sha = source.rescue_sha256
+            for rescue_record in cast(list[dict[str, Any]], rescue["records"]):
+                identifier = cast(str, rescue_record["original_configuration_id"])
+                _require(identifier not in rescues, "duplicate benchmark rescue cell")
+                rescues[identifier] = rescue_record
         cells += len(records)
-        rows.append(
+        normalized: list[dict[str, Any]] = []
+        used: set[str] = set()
+        for record in records:
+            selected, source_kind = _validated_cell(
+                record,
+                rescues,
+                original_unit_id=source.unit_id,
+                original_unit_sha256=source.sha256,
+            )
+            if source_kind == "linked_rescue":
+                used.add(cast(str, record["configuration_id"]))
+            normalized.append(
+                {
+                    "configuration_id": record["configuration_id"],
+                    "source_kind": source_kind,
+                    "disposition": selected["disposition"],
+                    "raw_pr_auc": selected["raw_pr_auc"],
+                    "brier": selected["brier"],
+                    "prevalence": selected["prevalence"],
+                }
+            )
+        _require(used == set(rescues), "benchmark rescue coverage changed")
+        materialized_rows.extend(normalized)
+        unit_digests.append(
             (
                 source.unit_id,
                 hashlib.sha256(
@@ -1365,27 +1424,35 @@ def _benchmark_chunk(chunk: BenchmarkChunk) -> dict[str, Any]:
                         {
                             "unit_id": source.unit_id,
                             "stage_a_sha256": source.sha256,
-                            "stage_a_cells": len(records),
-                            "rescue_sha256": rescue_sha,
-                            "rescue_cells": rescue_count,
-                            "outer_test_scores_opened": result["outer_test_scores_opened"],
-                            "cortical_values_opened": result["cortical_values_opened"],
+                            "records": normalized,
                         }
                     )
                 ).hexdigest(),
             )
         )
+    output_path = Path(chunk.output_path)
+    _atomic_gzip_jsonl(output_path, materialized_rows)
     return {
         "chunk_index": chunk.index,
         "source_bytes": source_bytes,
         "cells": cells,
-        "unit_digests": rows,
+        "unit_digests": unit_digests,
+        "compressed_output_bytes": output_path.stat().st_size,
+        "compressed_output_sha256": sha256_file(output_path),
     }
 
 
-def _benchmark_once(sources: tuple[UnitSource, ...], workers: int) -> dict[str, Any]:
+def _benchmark_once(
+    sources: tuple[UnitSource, ...], workers: int, output_root: Path
+) -> dict[str, Any]:
+    output_root.mkdir(parents=True, exist_ok=False)
     chunks = tuple(
-        BenchmarkChunk(index, tuple(sources[index::workers])) for index in range(workers)
+        BenchmarkChunk(
+            index,
+            tuple(sources[index::workers]),
+            str(output_root / f"shard-{index:02d}.jsonl.gz"),
+        )
+        for index in range(workers)
     )
     started = time.monotonic()
     with ProcessPoolExecutor(max_workers=workers) as executor:
@@ -1402,6 +1469,14 @@ def _benchmark_once(sources: tuple[UnitSource, ...], workers: int) -> dict[str, 
         "source_mib_per_second": (
             sum(int(result["source_bytes"]) for result in results) / (1024 * 1024) / elapsed
         ),
+        "compressed_output_mib_per_second": (
+            sum(int(result["compressed_output_bytes"]) for result in results)
+            / (1024 * 1024)
+            / elapsed
+        ),
+        "compressed_output_bytes": sum(
+            int(result["compressed_output_bytes"]) for result in results
+        ),
         "units": len(unit_digests),
         "cells": sum(int(result["cells"]) for result in results),
         "normalized_digest": _sha256_lines(
@@ -1410,10 +1485,90 @@ def _benchmark_once(sources: tuple[UnitSource, ...], workers: int) -> dict[str, 
     }
 
 
+def _registered_baseline_benchmark_groups(
+    tasks: tuple[ScopeTask, ...],
+) -> list[list[dict[str, Any]]]:
+    groups: list[list[dict[str, Any]]] = []
+    for task in tasks:
+        descriptors: list[dict[str, Any]] = []
+        for target_index, target in enumerate(TARGETS):
+            for depth in HISTORY_DEPTHS:
+                descriptors.append(
+                    {
+                        "scope_id": _scope_id(task.protocol, task.repeat, task.outer_fold),
+                        "protocol": task.protocol,
+                        "repeat": task.repeat,
+                        "outer_fold": task.outer_fold,
+                        "inner_fold": 0,
+                        "candidate_id": target,
+                        "target_index": target_index,
+                        "history_depth_rows": depth,
+                    }
+                )
+        groups.append(descriptors)
+    _require(len(groups) == 42, "baseline benchmark scope count changed")
+    _require(
+        sum(len(group) for group in groups) == 18_522,
+        "baseline benchmark row count changed",
+    )
+    return groups
+
+
+def _benchmark_baseline_scope(task: tuple[int, list[dict[str, Any]], str]) -> dict[str, Any]:
+    index, descriptors, output_path_value = task
+    rows = _baseline_scope_task(descriptors)
+    output_path = Path(output_path_value)
+    _atomic_gzip_jsonl(output_path, rows)
+    return {
+        "scope_index": index,
+        "rows": len(rows),
+        "output_bytes": output_path.stat().st_size,
+        "output_sha256": sha256_file(output_path),
+    }
+
+
+def _benchmark_baselines_once(
+    groups: list[list[dict[str, Any]]], workers: int, output_root: Path
+) -> dict[str, Any]:
+    output_root.mkdir(parents=True, exist_ok=False)
+    tasks = [
+        (index, descriptors, str(output_root / f"scope-{index:02d}.jsonl.gz"))
+        for index, descriptors in enumerate(groups)
+    ]
+    started = time.monotonic()
+    with ProcessPoolExecutor(
+        max_workers=workers, initializer=_initialize_baseline_worker
+    ) as executor:
+        results = list(executor.map(_benchmark_baseline_scope, tasks))
+    elapsed = time.monotonic() - started
+    results.sort(key=lambda row: int(row["scope_index"]))
+    rows = sum(int(row["rows"]) for row in results)
+    output_bytes = sum(int(row["output_bytes"]) for row in results)
+    return {
+        "workers": workers,
+        "elapsed_seconds": elapsed,
+        "baseline_rows": rows,
+        "baseline_rows_per_second": rows / elapsed,
+        "compressed_output_bytes": output_bytes,
+        "compressed_output_mib_per_second": output_bytes / (1024 * 1024) / elapsed,
+        "normalized_digest": _sha256_lines(
+            f"{int(row['scope_index']):02d}:{row['output_sha256']}" for row in results
+        ),
+    }
+
+
+def _select_worker_summary(
+    summaries: list[dict[str, Any]], throughput_key: str
+) -> tuple[dict[str, Any], float]:
+    fastest = max(float(row[throughput_key]) for row in summaries)
+    plateau = [row for row in summaries if float(row[throughput_key]) >= 0.97 * fastest]
+    return min(plateau, key=lambda row: int(row["workers"])), fastest
+
+
 def run_phase02_stage_a_aggregation_executor_backtest(
     *, output_root: Path = AGGREGATION_EXECUTOR_BACKTEST_ROOT
 ) -> dict[str, Any]:
-    """Measure safe process counts on immutable real VEATIC Stage A JSON artifacts."""
+    """Measure both CPU/I-O workload shapes on immutable real VEATIC data."""
 
     output_root = reject_forbidden_runtime_path(output_root)
     _require(
@@ -1424,69 +1579,158 @@ def run_phase02_stage_a_aggregation_executor_backtest(
         raise FileExistsError(f"refusing to reuse aggregation backtest root: {output_root}")
     output_root.mkdir(parents=True, exist_ok=False)
     tasks = _source_tasks(output_root)
-    # Both complete blocked scopes plus one complete grouped scope cover both inner shapes,
-    # every form/depth/family, every target, and real linked rescue I/O.
     sources = tuple(source for task in tasks[:3] for source in task.units)
     _require(len(sources) == 1_512, "aggregation benchmark coverage changed")
+    baseline_groups = _registered_baseline_benchmark_groups(tasks)
+    candidates = [1, 2, 4, 8, 12]
     request = {
-        "schema_version": "veatic21_phase02_stage_a_aggregation_backtest_request_v1",
+        "schema_version": "veatic21_phase02_stage_a_aggregation_backtest_request_v2",
         "aggregation_code_sha256": _aggregation_code_sha256(),
         "aggregation_registration_sha256": sha256_file(AGGREGATION_REGISTRATION),
         "stage_a_ledger_sha256": STAGE_A_LEDGER_SHA256,
         "rescue_ledger_sha256": RESCUE_LEDGER_SHA256,
-        "candidate_workers": [1, 2, 4, 8, 12],
+        "candidate_workers": candidates,
         "timed_repetitions": 3,
-        "representative_units": len(sources),
-        "coverage": (
-            "both blocked outer scopes plus one four-inner-fold grouped outer scope; all six "
-            "feature forms, 21 histories, two linear families, 21 targets, and linked rescues"
+        "source_pipeline": {
+            "representative_units": len(sources),
+            "operations": (
+                "immutable hashing, strict JSON parsing, exact rescue-link resolution, "
+                "metric/disposition row materialization, and deterministic gzip compression"
+            ),
+            "coverage": (
+                "both blocked scopes plus one complete four-inner-fold grouped scope; all "
+                "forms, histories, linear families, targets, and linked rescues"
+            ),
+        },
+        "analytic_pipeline": {
+            "representative_rows": sum(len(group) for group in baseline_groups),
+            "operations": (
+                "fresh per-process VEATIC history loading, split masks, q90 labels, five "
+                "aggregate baselines, defined-only per-video metrics, and gzip compression"
+            ),
+            "coverage": (
+                "all 42 outer scopes at inner fold zero, all targets, all histories, and both "
+                "protocols"
+            ),
+        },
+        "selection": (
+            "select source-pipeline and analytic-pipeline workers independently by fastest "
+            "median throughput; within three percent choose fewer processes"
         ),
-        "selection": ("fastest median units/second; within three percent choose fewer processes"),
         "outer_test_scores_opened": False,
         "cortical_values_opened": False,
     }
     _write_json(output_root / "request.json", request)
-    repetitions: list[dict[str, Any]] = []
     orders = (
         (12, 8, 4, 2, 1),
         (1, 2, 4, 8, 12),
         (4, 12, 2, 8, 1),
     )
+    source_repetitions: list[dict[str, Any]] = []
+    analytic_repetitions: list[dict[str, Any]] = []
     pressure_before = _pressure_snapshot()
     for repetition, order in enumerate(orders):
         for workers in order:
-            repetitions.append({"repetition": repetition, **_benchmark_once(sources, workers)})
+            source_repetitions.append(
+                {
+                    "repetition": repetition,
+                    **_benchmark_once(
+                        sources,
+                        workers,
+                        output_root
+                        / "source-pipeline"
+                        / f"repetition-{repetition}"
+                        / f"workers-{workers}",
+                    ),
+                }
+            )
+        for workers in order:
+            analytic_repetitions.append(
+                {
+                    "repetition": repetition,
+                    **_benchmark_baselines_once(
+                        baseline_groups,
+                        workers,
+                        output_root
+                        / "analytic-pipeline"
+                        / f"repetition-{repetition}"
+                        / f"workers-{workers}",
+                    ),
+                }
+            )
     pressure_after = _pressure_snapshot()
-    digests = {row["normalized_digest"] for row in repetitions}
-    _require(len(digests) == 1, "worker topology changed normalized benchmark evidence")
-    summaries: list[dict[str, Any]] = []
-    for workers in request["candidate_workers"]:
-        rows = [row for row in repetitions if row["workers"] == workers]
-        summaries.append(
+    _require(
+        len({row["normalized_digest"] for row in source_repetitions}) == 1,
+        "worker topology changed normalized source evidence",
+    )
+    _require(
+        len({row["normalized_digest"] for row in analytic_repetitions}) == 1,
+        "worker topology changed normalized analytic evidence",
+    )
+    source_summaries: list[dict[str, Any]] = []
+    analytic_summaries: list[dict[str, Any]] = []
+    for workers in candidates:
+        source_rows = [row for row in source_repetitions if row["workers"] == workers]
+        analytic_rows = [row for row in analytic_repetitions if row["workers"] == workers]
+        source_summaries.append(
             {
                 "workers": workers,
-                "median_units_per_second": median([float(row["units_per_second"]) for row in rows]),
-                "median_source_mib_per_second": median(
-                    [float(row["source_mib_per_second"]) for row in rows]
+                "median_units_per_second": median(
+                    [float(row["units_per_second"]) for row in source_rows]
                 ),
-                "elapsed_seconds": [row["elapsed_seconds"] for row in rows],
-                "normalized_digest": rows[0]["normalized_digest"],
+                "median_source_mib_per_second": median(
+                    [float(row["source_mib_per_second"]) for row in source_rows]
+                ),
+                "median_compressed_output_mib_per_second": median(
+                    [float(row["compressed_output_mib_per_second"]) for row in source_rows]
+                ),
+                "elapsed_seconds": [row["elapsed_seconds"] for row in source_rows],
+                "normalized_digest": source_rows[0]["normalized_digest"],
             }
         )
-    fastest = max(float(row["median_units_per_second"]) for row in summaries)
-    plateau = [row for row in summaries if float(row["median_units_per_second"]) >= 0.97 * fastest]
-    selected = min(plateau, key=lambda row: int(row["workers"]))
+        analytic_summaries.append(
+            {
+                "workers": workers,
+                "median_baseline_rows_per_second": median(
+                    [float(row["baseline_rows_per_second"]) for row in analytic_rows]
+                ),
+                "median_compressed_output_mib_per_second": median(
+                    [float(row["compressed_output_mib_per_second"]) for row in analytic_rows]
+                ),
+                "elapsed_seconds": [row["elapsed_seconds"] for row in analytic_rows],
+                "normalized_digest": analytic_rows[0]["normalized_digest"],
+            }
+        )
+    selected_source, fastest_source = _select_worker_summary(
+        source_summaries, "median_units_per_second"
+    )
+    selected_analytic, fastest_analytic = _select_worker_summary(
+        analytic_summaries, "median_baseline_rows_per_second"
+    )
     result = {
-        "schema_version": "veatic21_phase02_stage_a_aggregation_backtest_result_v1",
+        "schema_version": "veatic21_phase02_stage_a_aggregation_backtest_result_v2",
         "status": "PASS",
         "request_sha256": sha256_file(output_root / "request.json"),
-        "repetitions": repetitions,
-        "candidate_summaries": summaries,
-        "fastest_median_units_per_second": fastest,
-        "selected_workers": selected["workers"],
-        "selected_median_units_per_second": selected["median_units_per_second"],
-        "selected_within_fastest_fraction": (float(selected["median_units_per_second"]) / fastest),
-        "numerical_identity_gate": "PASS",
+        "source_repetitions": source_repetitions,
+        "analytic_repetitions": analytic_repetitions,
+        "source_candidate_summaries": source_summaries,
+        "analytic_candidate_summaries": analytic_summaries,
+        "fastest_source_median_units_per_second": fastest_source,
+        "fastest_analytic_median_rows_per_second": fastest_analytic,
+        "selected_aggregation_workers": selected_source["workers"],
+        "selected_baseline_workers": selected_analytic["workers"],
+        "selected_source_median_units_per_second": selected_source["median_units_per_second"],
+        "selected_analytic_median_rows_per_second": selected_analytic[
+            "median_baseline_rows_per_second"
+        ],
+        "selected_source_within_fastest_fraction": (
+            float(selected_source["median_units_per_second"]) / fastest_source
+        ),
+        "selected_analytic_within_fastest_fraction": (
+            float(selected_analytic["median_baseline_rows_per_second"]) / fastest_analytic
+        ),
+        "source_identity_gate": "PASS",
+        "analytic_identity_gate": "PASS",
         "pressure_before": pressure_before,
         "pressure_after": pressure_after,
         "outer_test_scores_opened": False,
@@ -1497,7 +1741,10 @@ def run_phase02_stage_a_aggregation_executor_backtest(
 
 
 def run_phase02_stage_a_aggregation(
-    *, output_root: Path = AGGREGATION_ROOT, workers: int | None = None
+    *,
+    output_root: Path = AGGREGATION_ROOT,
+    aggregation_workers: int | None = None,
+    baseline_workers: int | None = None,
 ) -> dict[str, Any]:
     """Aggregate immutable Stage A evidence and freeze Stage B without executing it."""
 
@@ -1521,13 +1768,26 @@ def run_phase02_stage_a_aggregation(
         frozen_executor.get("backtest_result_sha256") == sha256_file(backtest_result_path),
         "aggregation executor backtest result changed",
     )
-    frozen_workers = int(frozen_executor["selected_workers"])
+    frozen_aggregation_workers = int(frozen_executor["selected_aggregation_workers"])
+    frozen_baseline_workers = int(frozen_executor["selected_baseline_workers"])
     _require(
-        workers is None or workers == frozen_workers,
-        "main aggregation worker override differs from frozen executor",
+        aggregation_workers is None or aggregation_workers == frozen_aggregation_workers,
+        "main source-pipeline worker override differs from frozen executor",
     )
-    selected_workers = frozen_workers
-    _require(1 <= selected_workers <= (os.cpu_count() or 1), "invalid aggregation worker count")
+    _require(
+        baseline_workers is None or baseline_workers == frozen_baseline_workers,
+        "main analytic-pipeline worker override differs from frozen executor",
+    )
+    selected_aggregation_workers = frozen_aggregation_workers
+    selected_baseline_workers = frozen_baseline_workers
+    _require(
+        1 <= selected_aggregation_workers <= (os.cpu_count() or 1),
+        "invalid aggregation worker count",
+    )
+    _require(
+        1 <= selected_baseline_workers <= (os.cpu_count() or 1),
+        "invalid baseline worker count",
+    )
     _require(
         sha256_file(PHASE02_REGISTRATION_ROOT / "experiment-registration.json")
         == PHASE02_REGISTRATION_SHA256,
@@ -1564,10 +1824,9 @@ def run_phase02_stage_a_aggregation(
         "stage_a_ledger_sha256": STAGE_A_LEDGER_SHA256,
         "rescue_verification_sha256": RESCUE_VERIFICATION_SHA256,
         "rescue_ledger_sha256": RESCUE_LEDGER_SHA256,
-        "cpu_workers": selected_workers,
-        "worker_selection": (
-            "all available host cores capped at registered host logical core count 12"
-        ),
+        "aggregation_workers": selected_aggregation_workers,
+        "baseline_workers": selected_baseline_workers,
+        "worker_selection": "independently measured real-data source and analytic pipelines",
         "gpu_used": False,
         "gpu_disposition": (
             "JSON hashing, aggregation, sorting, and analytic metrics are CPU/I-O workloads "
@@ -1582,7 +1841,7 @@ def run_phase02_stage_a_aggregation(
     }
     _write_json(output_root / "request.json", request)
     tasks = _source_tasks(output_root)
-    with ProcessPoolExecutor(max_workers=selected_workers) as executor:
+    with ProcessPoolExecutor(max_workers=selected_aggregation_workers) as executor:
         scope_summaries = list(executor.map(_aggregate_scope, tasks))
     scope_summaries.sort(key=lambda row: int(row["scope_index"]))
     _write_json(output_root / "scope-summaries.json", scope_summaries)
@@ -1606,7 +1865,7 @@ def run_phase02_stage_a_aggregation(
         stage_b_cells += int(work_row["candidate_count"])
     _require(work_row_count == 40_824, "Stage B work-unit count changed")
 
-    baseline_rows = _baseline_rows(finalist_path, selected_workers)
+    baseline_rows = _baseline_rows(finalist_path, selected_baseline_workers)
     baseline_path = output_root / "development-simple-baselines.jsonl.gz"
     _atomic_gzip_jsonl(baseline_path, baseline_rows)
     candidate_registry = load_json(PHASE01_ROOT / "candidate-registry.json")
@@ -1660,7 +1919,8 @@ def run_phase02_stage_a_aggregation(
         "boundary_dispositions": sum(int(row["boundary_rows"]) for row in scope_summaries),
         "development_baseline_rows": len(baseline_rows),
         "dominance_overlap_rows": dominance_count,
-        "cpu_workers": selected_workers,
+        "aggregation_workers": selected_aggregation_workers,
+        "baseline_workers": selected_baseline_workers,
         "elapsed_seconds": time.monotonic() - started,
         "stage_b_executed": False,
         "outer_test_scores_opened": False,

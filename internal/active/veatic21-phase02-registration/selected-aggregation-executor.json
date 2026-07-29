@@ -11,17 +11,20 @@
     "12": 792.5243774945877
   },
   "cortical_values_opened": false,
+  "eligible_for_main": false,
   "fastest_median_units_per_second": 1116.0385113523018,
   "memory_free_percent_after": 69,
   "normalized_evidence_sha256": "2c19a2a119e9d826d5981a521db7b2d3de4453324aee78d5f2a4409179573e68",
   "numerical_identity_gate": "PASS",
+  "post_selection_audit": "FAIL: benchmark timed source hashing/parsing but omitted the claimed analytic-scoring workload; live analytic phase sustained only approximately two CPU cores",
   "outer_test_scores_opened": false,
   "remote_main_source_commit": "94c62f4",
-  "schema_version": "veatic21_phase02_selected_aggregation_executor_v1",
+  "schema_version": "veatic21_phase02_selected_aggregation_executor_terminated_v1",
   "selected_median_source_mib_per_second": 229.1550876919621,
   "selected_median_units_per_second": 1116.0385113523018,
   "selected_workers": 8,
   "selection_rule": "fastest median units/second; within three percent choose fewer processes",
   "swap_used_bytes": 0,
+  "terminated_main_manifest_sha256": "cbd6452dfd0a5bd6351913200377a5666ac255347c02d09837385c24560641cd",
   "thermal_gate": "PASS"
 }

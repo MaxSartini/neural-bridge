@@ -142,7 +142,7 @@ def test_stage_b_ofat_is_deduplicated_and_gru_is_sequence_only() -> None:
     assert len({str(row) for row in sequence_candidates}) == len(sequence_candidates)
 
 
-def test_selected_aggregation_executor_matches_real_data_backtest() -> None:
+def test_first_aggregation_executor_is_revoked_after_incomplete_backtest_audit() -> None:
     selected = json.loads(SELECTED.read_text(encoding="utf-8"))
     result = json.loads((BACKTEST / "result.json").read_text(encoding="utf-8"))
     assert _sha256(BACKTEST / "request.json") == selected["backtest_request_sha256"]
@@ -151,5 +151,8 @@ def test_selected_aggregation_executor_matches_real_data_backtest() -> None:
     assert result["numerical_identity_gate"] == "PASS"
     assert result["selected_workers"] == selected["selected_workers"] == 8
     assert result["selected_median_units_per_second"] == 1116.0385113523018
+    assert selected["eligible_for_main"] is False
+    assert selected["schema_version"].endswith("terminated_v1")
+    assert "omitted the claimed analytic-scoring workload" in selected["post_selection_audit"]
     assert result["outer_test_scores_opened"] is False
     assert result["cortical_values_opened"] is False

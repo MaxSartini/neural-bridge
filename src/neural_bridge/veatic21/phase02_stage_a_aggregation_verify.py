@@ -836,7 +836,7 @@ def verify_phase02_stage_a_aggregation(*, output_root: Path = OUTPUT_ROOT) -> di
                 f"scope shard hash changed: {path_key}",
             )
     scopes = _scopes()
-    workers = int(request["cpu_workers"])
+    workers = int(request["aggregation_workers"])
     with ProcessPoolExecutor(max_workers=workers) as executor:
         source = list(executor.map(_verify_source_scope, scopes))
     source.sort(key=lambda row: int(row["scope_index"]))
