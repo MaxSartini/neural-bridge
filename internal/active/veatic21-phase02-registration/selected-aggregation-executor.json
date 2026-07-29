@@ -1,0 +1,27 @@
+{
+  "aggregation_code_sha256": "ad5b6f6b51b9aa27c2945fba33eaddb9e5c88417de8cb4c990446d3191b81efc",
+  "aggregation_registration_sha256": "e10a4b2867592842717b64d8b1fcc4859020ba7ddc85aa06a5a2d313455a7b59",
+  "backtest_request_sha256": "9fa1dfa0eb4af71fc136b7e54168e6f6c03a36acab49cb8f36e3bc29dcf13603",
+  "backtest_result_sha256": "03a395a8d4eef3319bdb9b22b62923086ed5841ca8952ce300924e46452a4e7d",
+  "candidate_median_units_per_second": {
+    "1": 620.3282744829039,
+    "2": 837.9295960970375,
+    "4": 1030.6474182046304,
+    "8": 1116.0385113523018,
+    "12": 792.5243774945877
+  },
+  "cortical_values_opened": false,
+  "fastest_median_units_per_second": 1116.0385113523018,
+  "memory_free_percent_after": 69,
+  "normalized_evidence_sha256": "2c19a2a119e9d826d5981a521db7b2d3de4453324aee78d5f2a4409179573e68",
+  "numerical_identity_gate": "PASS",
+  "outer_test_scores_opened": false,
+  "remote_main_source_commit": "94c62f4",
+  "schema_version": "veatic21_phase02_selected_aggregation_executor_v1",
+  "selected_median_source_mib_per_second": 229.1550876919621,
+  "selected_median_units_per_second": 1116.0385113523018,
+  "selected_workers": 8,
+  "selection_rule": "fastest median units/second; within three percent choose fewer processes",
+  "swap_used_bytes": 0,
+  "thermal_gate": "PASS"
+}

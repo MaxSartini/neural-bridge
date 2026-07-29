@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import hashlib
+import json
+from pathlib import Path
 from typing import Any
 
 from neural_bridge.veatic21.phase02_stage_a_aggregation import (
@@ -10,6 +13,20 @@ from neural_bridge.veatic21.phase02_stage_a_aggregation import (
     select_one_standard_error,
     select_stratified_finalists,
 )
+
+ROOT = Path(__file__).resolve().parents[2]
+BACKTEST = Path(
+    "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/"
+    "fresh-method-rebuild-20260728/phase-02-target-specific-ar/benchmark/"
+    "stage-a-aggregation-executor-backtest"
+)
+SELECTED = ROOT / (
+    "internal/active/veatic21-phase02-registration/selected-aggregation-executor.json"
+)
+
+
+def _sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _configuration(
@@ -123,3 +140,16 @@ def test_stage_b_ofat_is_deduplicated_and_gru_is_sequence_only() -> None:
     )
     assert any(row["family"] == "event_gru" for row in sequence_candidates)
     assert len({str(row) for row in sequence_candidates}) == len(sequence_candidates)
+
+
+def test_selected_aggregation_executor_matches_real_data_backtest() -> None:
+    selected = json.loads(SELECTED.read_text(encoding="utf-8"))
+    result = json.loads((BACKTEST / "result.json").read_text(encoding="utf-8"))
+    assert _sha256(BACKTEST / "request.json") == selected["backtest_request_sha256"]
+    assert _sha256(BACKTEST / "result.json") == selected["backtest_result_sha256"]
+    assert result["status"] == "PASS"
+    assert result["numerical_identity_gate"] == "PASS"
+    assert result["selected_workers"] == selected["selected_workers"] == 8
+    assert result["selected_median_units_per_second"] == 1116.0385113523018
+    assert result["outer_test_scores_opened"] is False
+    assert result["cortical_values_opened"] is False

@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Stage A Aggregation Method Frozen
+# Current State — VEATIC 2.1 Stage A Aggregation Executor Frozen
 
 Updated: 2026-07-29
 
@@ -50,8 +50,8 @@ method. This file cannot silently override the master specification.
   verification passed; the selected executor and exact complete-rescue request are frozen;
   the full rescue and exhaustive verification passed.
   The prospective Stage A aggregation/Stage B registry method and its fail-closed
-  implementation plus independent verifier are now frozen; their real-data CPU executor
-  backtest has not yet run.
+  implementation plus independent verifier are frozen; the real-data CPU executor backtest
+  passed and its eight-process winner is frozen.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -67,10 +67,9 @@ method. This file cannot silently override the master specification.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: benchmark the frozen Stage A aggregation implementation over its
-  registered `1/2/4/8/12` real-data process matrix, freeze and push the selected executor,
-  then execute and independently verify the inner-only aggregation/disposition and exact
-  Stage B registry for the comprehensive target-specific AR benchmark. It must combine
+- Authorized action: execute and independently verify the frozen inner-only Stage A
+  aggregation/disposition and exact Stage B registry for the comprehensive target-specific AR
+  benchmark with the selected eight-process executor. It must combine
   immutable already-converged Stage A records with linked
   converged rescue records, exclude all invalid/unresolved cells, apply only the frozen
   one-standard-error and stratified-retention rules, begin the registered development-owned
@@ -515,10 +514,21 @@ cortical values remained unopened.
   Independent verifier SHA-256:
   `5d312d431b1efa6a63a57d15e9c426c443ad1b61f08c4bedc0735d8cc3153291`.
   The runner uses process-isolated hashing/parsing/aggregation/compression and shared-memory
-  threaded NumPy analytic metrics, but refuses a main run until the real-data aggregation
-  executor backtest is complete and its selected process count is committed.
-- Only the registered real-data aggregation executor backtest, selected-executor freeze,
-  inner-only Stage A aggregation/disposition, the registered
+  threaded NumPy analytic metrics, and refuses a main run unless the exact frozen executor
+  and backtest hashes agree.
+- Aggregation executor backtest passed on `1,512` real immutable units/`317,520` Stage A
+  cells across `1/2/4/8/12` processes with three timings each and identical normalized
+  evidence SHA-256
+  `2c19a2a119e9d826d5981a521db7b2d3de4453324aee78d5f2a4409179573e68`.
+  Median units/second were `620.3283`, `837.9296`, `1030.6474`, `1116.0385`, and
+  `792.5244`; eight processes was the absolute fastest. Memory remained 69% free, swap was
+  zero, and thermal/performance gates passed. External request SHA-256:
+  `9fa1dfa0eb4af71fc136b7e54168e6f6c03a36acab49cb8f36e3bc29dcf13603`;
+  result SHA-256: `03a395a8d4eef3319bdb9b22b62923086ed5841ca8952ce300924e46452a4e7d`.
+- Selected aggregation executor:
+  `internal/active/veatic21-phase02-registration/selected-aggregation-executor.json`;
+  SHA-256 `357932430c4e14eb08acceda69043e01f269133d1ea86271098204e91daae82a`.
+- Only the inner-only Stage A aggregation/disposition, the registered
   development-owned AR-dominance/overlap decomposition, and prospective Stage B registry
   construction/verification are now authorized. Stage B execution, outer-test scoring,
   cortical data, Stage C/D, aggregation beyond the registered Stage A rule, and every later
@@ -535,11 +545,9 @@ Read these rebuild-protocol sections for the one authorized action:
 - **Metrics and uncertainty**;
 - **Execution and artifact rules**.
 
-First run the registered aggregation executor backtest on the immutable Stage A and rescue
-artifacts across `1/2/4/8/12` processes. It covers both complete blocked scopes and one
-complete four-inner-fold grouped scope, requires identical normalized evidence for every
-topology, and uses three timings plus the frozen within-three-percent fewer-process rule.
-Freeze and push the selected executor before the main aggregation.
+The registered aggregation executor backtest is complete. The main aggregation must use the
+frozen eight-process executor and refuse any mismatch in code, policy, backtest request,
+backtest result, or selected-executor identity.
 
 Do not add, remove, or tune a target, split, history family, feature form, model family,
 regularization range, optimizer, budget, calibration method, seed count, control, metric, or
@@ -592,14 +600,8 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Commit and push the version-2.3 aggregation method, compact prospective policy, runner,
-independent verifier, CLI, and tests before reading aggregate winners. Then run the registered
-real-data aggregation executor backtest at its canonical external root. Freeze the selected
-process count and exact backtest hashes in
-`internal/active/veatic21-phase02-registration/selected-aggregation-executor.json`; verify,
-commit, and push that systems transition before the main aggregation.
-
-Run the canonical main aggregation with only the frozen executor. Independently verify every
+Commit and push the selected eight-process aggregation executor and exact backtest hashes.
+Then run the canonical main aggregation with only that frozen executor. Independently verify every
 source admission/exclusion and every aggregate, one-standard-error, stratified-retention,
 boundary, Stage B work, and decomposition identity. Inspect all compact/external results;
 update this handoff with exact counts and SHA-256 values; run focused VEATIC,

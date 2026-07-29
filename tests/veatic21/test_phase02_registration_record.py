@@ -82,9 +82,9 @@ def test_current_state_authorizes_only_complete_phase02_rescue() -> None:
     ):
         assert digest in current
     assert "Frozen Phase 02 registration evidence" in current
-    assert "Authorized action: benchmark the frozen Stage A aggregation" in current
+    assert "Authorized action: execute and independently verify" in current
     assert "rescue-executor-backtest-registration.json" in current
     assert "selected-rescue-executor.json" in current
-    assert "Only the registered real-data aggregation executor backtest" in current
+    assert "Only the inner-only Stage A aggregation/disposition" in current
     assert "Do not add, remove, or tune a target, split, history family" in current
     assert "outer outcomes or cortical values" in current
