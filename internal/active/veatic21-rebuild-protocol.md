@@ -162,6 +162,24 @@ inside the applicable outer-training partition. Test rows never select them.
 
 Freeze the exact AR predictions and checksums for every later matched real/control cell.
 
+Stage A linear convergence follows the master specification's frozen rescue contract. Use
+`B = next_power_of_two(sqrt(minimum training-target-valid row count))` and tolerance
+`1 / sqrt(training-target-valid row count)`. The complete screen gives ridge `B` updates and
+logistic-L2 from `B` through at most `4B`; unresolved cells remain `undertrained`, excluded
+from aggregation, and protected from pruning. After exhaustive Stage A artifact verification,
+freeze the exact undertrained configuration IDs and original unit hashes in a separate rescue
+registry. Restart only those cells from zero with unchanged rows, features, thresholds,
+scaling, regularization, solver, precision, step rule, and tolerance at a total maximum `16B`
+budget. Link every result through a separate append-only rescue ledger; never mutate the
+original Stage A unit or ledger. A cell still unresolved at `16B` is
+`invalid_nonconverged_after_registered_maximum_budget`, excluded from aggregation/selection,
+and never treated as negative evidence. Do not rerun a converged Stage A cell.
+
+Backtest the sparse rescue workload independently across safe CPU, MLX-lane, Metal-stream,
+and compatible cell-batch configurations. Freeze the fastest numerically equivalent executor
+only after determinism, resume, ledger, utilization, thermal, memory, and access gates pass.
+Outer-test and cortical values remain unopened.
+
 For the starting no-washout target, Phase 02 also begins an AR-dominance and overlap
 decomposition on development-owned data: history rows actually consumed by AR, target rows,
 the intervening gap, simple causal-history baselines, AR-versus-chance uplift, and fold/video

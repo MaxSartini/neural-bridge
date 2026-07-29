@@ -58,11 +58,12 @@ def test_durable_master_retains_comprehensive_scientific_contract() -> None:
         "## PCA strategy and accuracy safeguards",
         "## Phase 00 implementation contract",
         "## Phase 01 exact next-stage contract",
+        "## Phase 02 Stage A linear convergence and rescue contract",
         "## Phase 02 through zero-label execution sequence",
     )
     missing = [section for section in required_sections if section not in master]
     assert not missing, f"master scientific specification lost required sections: {missing}"
-    assert "Specification version: 2.1" in master
+    assert "Specification version: 2.2" in master
     assert "Worker count is a measured execution parameter" in master
     assert "deterministic disjoint work assignment" in master
     assert len(master.splitlines()) >= 1_000, "master specification was unexpectedly shortened"
@@ -155,6 +156,10 @@ def test_every_claim_bearing_phase_requires_fresh_comprehensive_search() -> None
     assert "one convenient implementation" in checklist
     assert "derive and justify the split proportions" in checklist
     assert "Do not import an AGAIN head" in checklist
+    for document in (master, checklist):
+        assert "protected from pruning" in document
+        assert "invalid_nonconverged_after_registered_maximum_budget" in document
+        assert "16B" in document
 
 
 def test_live_state_authorizes_only_phase02_after_fresh_phase01() -> None:
@@ -164,9 +169,9 @@ def test_live_state_authorizes_only_phase02_after_fresh_phase01() -> None:
     assert "Phase 00 implementation: complete" in current
     assert "Phase 00 execution: PASS, 27/27 mandatory controls" in current
     assert "Phase 01 execution and independent verification: PASS, 28/28" in current
-    assert "Authorized action: execute or safely resume the complete hardware-saturated" in current
+    assert "Authorized action: freeze the exact Stage A undertrained-cell" in current
     assert "executor-backtest-registration.json" in current
-    assert "Only the complete Stage A inner screen is now authorized" in current
+    assert "Only convergence-rescue registration, executor implementation" in current
     assert "comprehensive target-specific AR" in current
     assert "all 21 active no-washout candidates" in current
     assert "210 prospective washout candidates" in current

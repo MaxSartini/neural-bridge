@@ -97,5 +97,5 @@ def test_current_state_records_phase01_and_authorizes_only_phase02() -> None:
     assert ARTIFACT_MANIFEST_SHA256 in current
     assert CHECKSUMS_SHA256 in current
     assert "Phase 01 execution and independent verification: PASS, 28/28" in current
-    assert "Authorized action: execute or safely resume the complete hardware-saturated" in current
+    assert "Authorized action: freeze the exact Stage A undertrained-cell" in current
     assert "outer outcomes or cortical values" in current

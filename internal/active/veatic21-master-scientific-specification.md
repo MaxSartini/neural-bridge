@@ -1,8 +1,9 @@
 # VEATIC 2.1 AGAIN-Method Master Scientific Specification
 
-Specification version: 2.1
+Specification version: 2.2
 Fresh Phase 00 authority seal: 2026-07-28
 Hardware-saturation execution amendment: 2026-07-29
+Phase 02 Stage A convergence-rescue amendment: 2026-07-29
 
 ## Purpose and change control
 
@@ -1109,6 +1110,42 @@ Required work:
 12. Do not create an outer evaluation split during alignment.
 13. Write alignment, target-source, mask, row-ownership, and derivation-ledger digests.
 14. Produce compact evidence and authorize Phase 02 only after all alignment controls pass.
+
+## Phase 02 Stage A linear convergence and rescue contract
+
+The complete Phase 02 Stage A linear screen fits every registered target/regularizer cell
+before any feature set, history region, target, or model family can be pruned. Its deterministic
+per-unit data-derived base update budget is
+`B = next_power_of_two(sqrt(minimum training-target-valid row count))`; convergence is checked
+every eight updates against the frozen per-target tolerance
+`1 / sqrt(training-target-valid row count)`. Continuous ridge receives `B` conjugate-gradient
+updates in the complete screen. Event logistic-L2 receives at least `B` accelerated-gradient
+updates and, when any cell remains unresolved, escalates the same fresh fit to at most `4B`.
+
+A cell that has not met its tolerance at the end of that complete screen is `undertrained`,
+cannot enter aggregation, and is protected from pruning or any winner/negative declaration.
+After the complete screen passes artifact verification, derive and freeze an exact rescue
+registry from those undertrained configuration IDs and their immutable unit hashes. Rescue
+only those cells, restart each fit from the same zero initialization, and keep its training
+rows, inner-validation rows, threshold, scaler, feature matrix, regularization value, solver,
+precision, step rule, and tolerance unchanged. The rescue maximum is a total `16B` updates;
+it is not an additional target, regularizer, feature, or outcome-selected budget.
+
+The original Stage A unit and append-only ledger remain immutable. Rescue writes a separate
+append-only ledger that links each rescue record to its original configuration and unit hash.
+A rescued cell that meets tolerance becomes eligible for inner aggregation through that
+linked record. A cell still unresolved at `16B` is recorded as
+`invalid_nonconverged_after_registered_maximum_budget`, excluded from aggregation and winner
+selection, and retained as incomplete/invalid evidence rather than counted as a negative.
+Converged Stage A cells are never refit or replaced by the rescue. No outer-test, cortical, or
+confirmation value may define the rescue registry or influence its execution/disposition.
+
+Because sparse cell rescue has a different execution shape from the complete 210-cell batch,
+it is a separate computationally material workload. Before its main run, benchmark safe CPU,
+MLX-lane, Metal-stream, and compatible cell-batch configurations on representative
+training/inner-validation rescue cells under the full equivalence, determinism, resume,
+ledger, utilization, thermal, and memory gates. Freeze and push the selected rescue executor
+before execution.
 
 ## Phase 02 through zero-label execution sequence
 

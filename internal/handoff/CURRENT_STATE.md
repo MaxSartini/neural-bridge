@@ -1,4 +1,4 @@
-# Current State — VEATIC 2.1 Hardware-Saturated Stage A
+# Current State — VEATIC 2.1 Stage A Convergence Rescue Registration
 
 Updated: 2026-07-29
 
@@ -37,13 +37,14 @@ method. This file cannot silently override the master specification.
 ## Live scientific state
 
 - Programme: VEATIC 2.1 AGAIN-method rebuild.
-- Master scientific specification: version 2.1.
+- Master scientific specification: version 2.2.
 - Repository: `/Users/maxsartini/Neural Bridge`.
 - Branch: `main` only; do not create a branch.
 - Lifecycle boundary: fresh Phases 00 and 01 concluded; Phase 02 scientific experiment
   registration frozen and verified; the underpowered sequential Stage A attempt is sealed;
   the initial and all-uncompiled executor matrices are complete; the winning executor is
-  frozen; the replacement main Stage A execution is active.
+  frozen; the replacement main Stage A execution and exhaustive verification are complete;
+  before the mandatory undertrained-cell convergence rescue.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -59,9 +60,10 @@ method. This file cannot silently override the master specification.
 - Registered VEATIC Phase 02 splits/search/control/metric rules: frozen. AR models,
   projections, representations, heads, checkpoints, and promotion outcomes: none.
 - Current promotable VEATIC result: none.
-- Authorized action: execute or safely resume the complete hardware-saturated Stage A
-  inner-screen for the frozen Phase 02 comprehensive target-specific AR benchmark using only
-  the exact selected executor and the new canonical main run identity.
+- Authorized action: freeze the exact Stage A undertrained-cell rescue registry, implement and
+  backtest a hardware-saturated sparse 16×-budget rescue executor for the frozen Phase 02
+  comprehensive target-specific AR benchmark, and freeze the fastest numerically equivalent
+  rescue configuration before executing any rescue cell.
 - Cortical benchmark, PCA, head search, washout cortical score, continuous, valence, and
   zero-label actions remain unauthorized.
 
@@ -361,8 +363,31 @@ cortical values remained unopened.
   `relative_residual_by_cell` diagnostic key also named the registered logistic
   `relative_gradient_by_cell` diagnostic. No verification result was written or accepted;
   both frozen model-family schemas and all run artifacts remain unchanged.
-- Only the complete Stage A inner screen is now authorized. Outer-test scoring, cortical data,
-  aggregation/pruning, Stage B, and every later phase remain unauthorized.
+- The final Stage A state is `COMPLETE`: `40,824/40,824` unique units, `8,573,040`
+  configuration evaluations, `3,790.368498459` seconds, and
+  `10.77045675548361` work units/second. Canonical ledger: `40,824` unique lines, SHA-256
+  `95bf4d4c18b38372ca81af0ee8210a9b18da942db12f6162c8c678a0a1b9d342`.
+- Immutable final hashes: run state
+  `c42fa75ef13cced9177e907157d1fa2414351d5bf1d79f4118380268f059e505`;
+  resource summary `1a17beb6c5920ba72290b5d9bb929743b708e8844b393d69c981cd64a076b067`;
+  resource samples `a0389ea09b36a45d3505dfa9b390462f943e02590e661766cfb0cd0da13547bd`.
+- Hardware evidence: mean GPU utilization `97.43604813881892%`, minimum measured memory
+  headroom `20,272,245,637` bytes, zero swap, AC power, low-power mode disabled, system sleep
+  disabled, and no thermal or performance warning.
+- Exhaustive eight-process verification returned `PASS` after re-reading and hashing all
+  `8,508,249,816` unit-result bytes and reconciling every registry, unit schema, provenance,
+  configuration ID, shard ledger, canonical ledger, and resource sample. Verification
+  SHA-256: `32467b1cbe223a7297cb90b4546e71ac56478c834a720ec5af90775cfc01afb4`;
+  verifier source SHA-256:
+  `e0e87ce48c032b40c7eccda404aa1207c65c2ae70b9540f2a6ec6c8ecc2bf3c9`.
+- Convergence disposition: `8,459,648` completed/eligible records and `113,392` undertrained,
+  protected records. By family: ridge `4,173,766` completed and `112,754` undertrained;
+  logistic-L2 `4,285,882` completed and `638` undertrained. Aggregation/pruning is forbidden
+  until the exact undertrained set receives the frozen rescue disposition.
+- Only convergence-rescue registration, executor implementation, and inner-only hardware
+  backtesting are now authorized. Rescue execution remains unauthorized until its registry,
+  selected executor, and main identity are frozen and pushed. Outer-test scoring, cortical
+  data, aggregation/pruning, Stage B, and every later phase remain unauthorized.
 
 ## Active execution contract
 
@@ -375,15 +400,15 @@ Read these rebuild-protocol sections for the one authorized action:
 - **Metrics and uncertainty**;
 - **Execution and artifact rules**.
 
-Execute or safely resume the complete Phase 02 Stage A inner-screen from the sealed Phase 01
-substrate and exact frozen scientific registration. It must not open an outer outcome,
-cortical value, or prospective washout candidate.
+Derive the convergence-rescue registry only from the verified Stage A units with disposition
+`protected_from_pruning_requires_16x_budget`. It must not open an outer outcome, cortical
+value, or prospective washout candidate.
 
-The frozen executor must use one coordinator, deterministic disjoint shards, atomic unit
-publication, shard-local ledgers, verified canonical merge, cached pair-owned preparation,
-parallel CPU metrics, measured MLX concurrency, and exact frozen source/configuration identity.
-Every resume must reject a changed request, work-unit registry, source digest, registration,
-configuration, shard ownership, unit result, or ledger entry.
+The rescue must restart only the exact undertrained cells from zero at a total `16B` maximum,
+preserve every original row/feature/threshold/scaler/regularizer/solver/tolerance identity,
+and write linked immutable rescue records without modifying Stage A. Cells still unresolved
+at `16B` receive the frozen invalid-nonconverged disposition and cannot count as negative
+evidence. Converged Stage A cells cannot be rerun.
 
 Do not add, remove, or tune a target, split, history family, feature form, model family,
 regularization range, optimizer, budget, calibration method, seed count, control, metric, or
@@ -429,12 +454,19 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Monitor the active complete `40,824`-unit main Stage A run at the new hardware-saturated root
-under sleep prevention. Check progress, realized throughput, utilization, memory, thermal
-state, shard/ledger integrity, request/registry identity, and access flags. Safely resume only
-this exact identity if interrupted. When it completes, inspect and verify every unit, shard,
-ledger, resource record, and final state before authorizing aggregation or any later action.
+Implement a deterministic registry builder that reads only the verified Stage A result tree,
+captures all `113,392` undertrained configuration IDs with original unit/result hashes and
+model-family counts, and writes the heavy registry under the canonical Phase 02 external
+rescue root. Independently verify its exact coverage and freeze a compact repository
+registration with all hashes.
+
+Then implement and backtest a sparse-cell rescue executor across safe CPU-worker, MLX-lane,
+Metal-stream, and cell-batch configurations on representative inner-only rescue cells. Require
+exact mathematical equivalence to a simple reference, deterministic artifacts, safe resume,
+unique linked ledgers, access-firewall evidence, GPU utilization, thermal safety, and at least
+six GiB memory headroom. Commit and push the selected executor and exact new main rescue
+identity before executing the full registry. Do not aggregate or prune Stage A yet.
 
 Do not resume or merge the sealed sequential attempt. Do not score outer outcomes or cortical values.
 Do not fit PCA or a learned head, aggregate/prune Stage A, advance to Stage B, or open any
-prospective washout candidate while Stage A execution is active.
+prospective washout candidate while convergence rescue is pending or active.
