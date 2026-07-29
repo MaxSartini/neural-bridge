@@ -43,7 +43,7 @@ method. This file cannot silently override the master specification.
 - Lifecycle boundary: fresh Phases 00 and 01 concluded; Phase 02 scientific experiment
   registration frozen and verified; the underpowered sequential Stage A attempt is sealed;
   the initial and all-uncompiled executor matrices are complete; the winning executor is
-  frozen; before the replacement main Stage A execution.
+  frozen; the replacement main Stage A execution is active.
 - Phase 00 implementation: complete.
 - Phase 00 execution: PASS, 27/27 mandatory controls.
 - Phase 01 implementation: complete.
@@ -345,6 +345,13 @@ cortical values remained unopened.
   and `8,573,040` registered configuration evaluations. The previous measured speed implies
   approximately 63 minutes of steady-state executor time before filesystem/finalization
   overhead; this is an estimate, not a completion claim.
+- Main Stage A launched from remote-synchronized `main` commit `3ac4c94` at
+  `2026-07-29T02:36:08Z` under `caffeinate -dimsu`. Immutable request SHA-256:
+  `7e5e06aa29654d8b0b58bcb3f6156d9a9d94cda7d13e46849ce2ab7fa4e82eff`.
+  Immutable full work-unit-registry SHA-256:
+  `080485ed8794547eae087332dad99bc119a305843cb687837b2e96f143185849`.
+  First recorded live checkpoint: `436/40,824`, status `RUNNING`, exact selected executor
+  identity present, outer-test scores unopened, and cortical values unopened.
 - Only the complete Stage A inner screen is now authorized. Outer-test scoring, cortical data,
   aggregation/pruning, Stage B, and every later phase remain unauthorized.
 
@@ -413,12 +420,11 @@ search-sufficiency gate.
 
 ## Exact next action
 
-Verify the frozen selected-executor record and external backtest hashes, run the focused and
-full repository tests, commit and push this coherent selection transition directly to
-`origin/main`, and only then launch the complete `40,824`-unit main Stage A run at the new
-hardware-saturated root. Run it under sleep prevention and monitor progress, utilization,
-memory, thermal state, shard/ledger integrity, and access flags. Safely resume the same identity
-if interrupted.
+Monitor the active complete `40,824`-unit main Stage A run at the new hardware-saturated root
+under sleep prevention. Check progress, realized throughput, utilization, memory, thermal
+state, shard/ledger integrity, request/registry identity, and access flags. Safely resume only
+this exact identity if interrupted. When it completes, inspect and verify every unit, shard,
+ledger, resource record, and final state before authorizing aggregation or any later action.
 
 Do not resume or merge the sealed sequential attempt. Do not score outer outcomes or cortical values.
 Do not fit PCA or a learned head, aggregate/prune Stage A, advance to Stage B, or open any
