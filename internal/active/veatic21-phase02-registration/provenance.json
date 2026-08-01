@@ -1,9 +1,0 @@
-{
-  "artifact_manifest_sha256": "39d5e587f4d1c1529039f8aae59137d3e07f6e265dda484bbf5797ccc6942a7c",
-  "checksums_sha256": "286db04959d3f8b1bd68b361115ed43772be1f3d6ae2e8a79f384a220d71754b",
-  "code_sha256": "721a47a32a40d402da6e006f061cc74071ec7c18a08a3cd1f53889fcd20f000c",
-  "external_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/fresh-method-rebuild-20260728/phase-02-target-specific-ar/registration",
-  "input_identity_sha256": "2c565a07ced8946b47b6642bd1db9266fe0ae67ff4ae4252aa89e9dd1976dd19",
-  "registration_sha256": "ab21c9b971fc0cf8aa18f4d77f585b8236db08bf810b1f83c79a476dfde44815",
-  "result_sha256": "0f3064d7ed7207879b195d8ed8ddb57fd440ed62f3922ee793159faee58a016e"
-}

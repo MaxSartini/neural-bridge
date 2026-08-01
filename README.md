@@ -26,7 +26,11 @@ unseen client video
 
 V-JEPA 2.1 and TRIBE v2 are not two competing Neural Bridge models or two independent production inputs. V-JEPA 2.1 is the video encoder used inside the TRIBE v2 pipeline; TRIBE v2 maps that encoded video information into predicted average-subject cortical activity. For VEATIC 2.1, the expensive V-JEPA 2.1 pass was run once on H100 hardware and cached, then TRIBE v2 was run over those cached encoder outputs locally. That avoided paying to re-encode the same 124 videos while preserving the intended upstream stack.
 
-The active VEATIC Neural Bridge input is the complete collection of 124 per-video TRIBE payloads under `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/veatic 2.1 raw cortical predictions/per_video`. Each payload contributes its `cortical_prediction` array on the exact 2 Hz row grid; there is no single pooled or privileged prediction file. Matching row identity, label, and interpolation provenance comes from the per-video `rows.csv` files under `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/veatic 2.1 v jepa 2.1 stuff`. V-JEPA hidden-state NPZ files are upstream-only and are not Neural Bridge inputs.
+The two protected staging roots are consolidated once into
+`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/neural-bridge-input/`.
+Its 124 per-video folders co-locate each final TRIBE `cortical_prediction` payload with its
+matching authoritative `rows.csv` and small alignment metadata. That sealed folder is the
+only Phase 00+ downstream input. V-JEPA hidden-state NPZ files are never copied or opened.
 
 Neural Bridge begins after this frozen upstream stack. Raw TRIBE output is rich but is not expected to solve the product task by itself. AGAIN demonstrated the central point: raw predicted cortical features could lose to a strong response-history baseline, while the learned Neural Bridge temporal and residual machinery exposed useful forward-looking signal.
 
@@ -70,30 +74,23 @@ The engineering objective is maximum accuracy, performance, robustness, and doma
 
 VEATIC 2.1 is not a new dataset and is not the Original VEATIC model renamed. It is a fresh Neural Bridge rebuild over the same 124 VEATIC videos using the denser, stronger 2 Hz V-JEPA 2.1/TRIBE v2 substrate and the scientific lessons earned from Original VEATIC and AGAIN.
 
-The current position is immediately after the genuinely fresh Phase 01 target substrate:
+The current position is a clean Phase 00. No VEATIC 2.1 modelling result, target, split,
+projection, or head is selected. The completed upstream inputs are protected: all 124
+per-video TRIBE cortical payloads are the modelling source, and the matching V-JEPA
+`rows.csv` files provide row/label/alignment identity. Hidden-state NPZ files are forbidden;
+V-JEPA and TRIBE are not rerun.
 
-- Phase 00 independently passed all 27 mandatory controls over all 124 per-video payloads and
-  all 20,657 exact 2 Hz rows;
-- Phase 01 independently passed all 28 mandatory controls, preserving exact label,
-  interpolation, TRIBE row-time, and quality metadata for every row;
-- Phase 01 registered all 231 VEATIC-supported future-window hypotheses: all 21 no-washout
-  candidates are active for Phase 02 and all 210 washout candidates remain prospective only;
-- Phase 02's complete AR experiment is frozen before outer scoring: four independent 10-fold
-  grouped-video partitions, two blocked-forward folds, all 21 history depths, six feature
-  forms, five model families, staged optimization/boundary checks, and five fresh seeds;
-- no target, split, AR family, representation, projection width, temporal context, head, optimizer, seed, checkpoint, control result, or winner is selected;
-- the only authorized action is the comprehensive fresh Phase 02 target-specific AR benchmark
-  execution over all 21 active no-washout candidates under that exact registration;
-- quality flags remain attached metadata and do not silently delete rows; and
-- no cortical benchmark, PCA, learned model, or later phase begins until Phase 02 exhaustively
-  establishes and seals the VEATIC AR floor under separate grouped-video and blocked-forward
-  protocols.
+The first action is to implement and execute a fresh, complete input audit. Only after all
+124 `(video_id,row_index)` mappings, schemas, values, and hashes pass will VEATIC-specific
+label dynamics, target windows, washout gaps, threshold candidates, and split ownership be
+derived. No prior VEATIC 2.1 result or numeric registration survives as an experimental
+answer.
 
 After Phase 00, every phase and subphase must preregister a broad VEATIC-specific candidate registry, complete matched controls, staged training and pruning rules, convergence/undertraining checks, fresh-seed expansion, a full ledger of successful and failed runs, and a search-sufficiency gate. A convenient baseline, one projection, one head, one optimizer, one budget, or one seed cannot establish either a win or a failure.
 
 The scientific order from there is fixed:
 
-1. audit and seal the complete 124-video, 20,657-row 2 Hz substrate in fresh Phase 00;
+1. audit and seal the complete 124-video 2 Hz substrate in fresh Phase 00;
 2. derive the arousal-spike target family from VEATIC labels without reading cortical results;
 3. establish the strongest defensible fresh VEATIC AR floor through a comprehensive search;
 4. benchmark raw cortical signal and controls over every eligible per-video row;

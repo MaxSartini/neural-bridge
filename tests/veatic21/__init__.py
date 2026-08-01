@@ -1,1 +1,1 @@
-"""VEATIC 2.1 test package."""
+"""Focused tests for the fresh VEATIC 2.1 implementation."""
