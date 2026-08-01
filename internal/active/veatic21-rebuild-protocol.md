@@ -5,213 +5,180 @@ This checklist is derived from
 if any wording differs. Read only the sections named by `CURRENT_STATE.md` for the currently
 authorized action.
 
-Active transition: Phase 00 passed for 124 videos and 20,657 rows; Phase 01 prospective
-registration and implementation are current. Phase 02+ remain unauthorized.
+Active transition: Phase 00 passed. Phase 01 VEATIC target/geometry/ownership derivation is the
+only executable scientific work. Phase 02 is fully specified but remains blocked until the
+Phase 01 transition reaches `origin/main`.
 
 ## Authority and protected-root check
 
-- [ ] Read `AGENTS.md`, the complete master specification, and `CURRENT_STATE.md` in order.
-- [ ] Confirm branch is `main` and the worktree has no unrelated overlapping edits.
-- [ ] Confirm the exact authorized phase/action.
-- [ ] Confirm these protected roots exist and are outside every write/delete boundary:
+- [ ] Read `AGENTS.md`, the complete master specification, the supervised combination
+      specification, and `CURRENT_STATE.md` in order.
+- [ ] Confirm branch is `main` and preserve unrelated changes.
+- [ ] Confirm the exact authorized action.
+- [ ] Confirm these protected roots are present and outside every write/delete boundary:
   - `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/`
   - `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/`
   - `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/neural-bridge-input/`
   - `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/again/`
-- [ ] Reject any request or computed path that would modify a protected root.
-- [ ] Reject every AGAIN runtime/code/artifact path from VEATIC execution inputs.
+- [ ] Reject every computed path that would modify a protected root.
+- [ ] Reject every non-VEATIC runtime, code, fitted artifact, row, or prediction as a VEATIC
+      execution input.
 
 ## Canonical input boundary
 
-- [ ] Discover all 124 numeric video IDs independently in the TRIBE and V-JEPA roots.
-- [ ] Join video `v` only to video `v`.
+- [ ] Use only
+      `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/neural-bridge-input/`
+      for downstream VEATIC reads.
+- [ ] Require numeric video IDs `0..123` and join video `v` only to video `v`.
 - [ ] Join `rows.csv` row index `i` only to TRIBE payload position `i`.
 - [ ] Treat `rows.csv` as label and interpolation authority.
-- [ ] Treat TRIBE `cortical_prediction` as the primary real representation.
-- [ ] Treat `temporal_diagnostics53` as an explicit video-derived diagnostic/control/fusion
-      block, never an implicit part of the real cortical lane.
-- [ ] Treat luma/motion/quality as audit/nuisance fields and retain primary rows.
+- [ ] Treat `cortical_prediction` as the primary real representation.
+- [ ] Treat `temporal_diagnostics53` as an explicit diagnostic/control/fusion block.
+- [ ] Treat luma/motion/quality as audit and nuisance fields.
 - [ ] Exclude `tribe_grouped_video_feature` from feature discovery.
 - [ ] Never open, map, hash, copy, or inspect `vjepa21_hidden_states.npz`.
 - [ ] Never rerun V-JEPA or TRIBE.
-- [ ] Assemble the allowlisted TRIBE payload, `rows.csv`, and small alignment metadata into
-      `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/neural-bridge-input/`.
-- [ ] Verify source/destination hashes and atomically seal the bundle.
-- [ ] After sealing, require all Phase 00+ downstream reads to use only the consolidated root.
-- [ ] Refuse to overwrite or mutate an existing consolidated root.
 
 ## Phase 00 — protected-input foundation
 
-- [ ] Implement the auditor from scratch under a fresh VEATIC namespace.
-- [ ] Add literal protected-root deletion guards and forbidden-hidden-state read guards.
-- [ ] Verify video-ID equality and exact `0..123` coverage.
-- [ ] Verify per-video status and required files.
-- [ ] Verify row-count equality and contiguous `(video_id,row_index)` identity.
-- [ ] Verify timestamps, 2 Hz cadence, source-frame/interpolation values, arousal, and valence.
-- [ ] Verify every cortical matrix shape, dtype, and finiteness.
-- [ ] Inventory every TRIBE array and freeze its role.
-- [ ] Produce allowlisted input digests without touching hidden states.
-- [ ] Copy only allowlisted files into one per-video consolidated schema and prove byte
-      identity with the protected sources.
-- [ ] Emit a per-video manifest, schema report, mismatch ledger, protected-root audit,
-      forbidden-input audit, derivation ledger, and artifact manifest.
-- [ ] Run focused tests, authority-contract tests, formatting/type checks, and the full suite.
-- [ ] Inspect all outputs, update the handoff with exact hashes, commit, and push.
-- [ ] Do not fit a model, PCA, target threshold, or projection.
+- [x] Verify all 124 videos, 20,657 rows, row identity, cadence, alignment, labels, cortical
+      shape/dtype/finiteness, schema roles, source/destination hashes, forbidden-input guards,
+      and read-only sealing.
+- [x] Create no predictive target, projection, model, or accuracy claim.
 
-## Phase 01 — alignment, dynamics, targets, and splits
+## Phase 01 — VEATIC targets, geometry, and ownership
 
-- [ ] Build the immutable supervised table from Phase 00 identity.
-- [ ] Preserve arousal, valence, masks, interpolation, quality, and history availability.
-- [ ] Measure VEATIC autocorrelation, movement, duration, event support, threshold stability,
-      and between-video heterogeneity before cortical scoring.
-- [ ] Derive candidate history depths, forecast windows, washout gaps, and quantiles from
-      VEATIC; keep AGAIN-like values only as declared comparability anchors.
-- [ ] Register max-change, absolute-change, onset/surprise, signed-change, and residualized
-      candidates where supported.
-- [ ] Freeze target-overlap ledgers and reject history/future overlap.
-- [ ] Freeze grouped-video, blocked-forward, nested-inner, fresh-seed, and zero-label locked
-      ownership.
-- [ ] Treat blocked fractions as earlier/later eligible rows within every sufficiently
-      supported video, never as a percentage of videos. Audit VEATIC fractions before
-      selecting one; retain AGAIN `70/30` outer plus `80/20` inner only as an anchor.
-- [ ] Share only the intact future-trajectory primitive and genuinely identical ownership
-      work; confirm event and continuous specialists separately before a combined challenger.
-- [ ] Do not read cortical outcome scores.
+- [ ] Read every authoritative VEATIC label row and only the non-cortical audit allowlist.
+- [ ] Measure arousal and valence autocorrelation, partial correlation, movement, duration,
+      interpolation, threshold stability, and between-video heterogeneity.
+- [ ] Extend ACF/PACF with explicit tapering video and pair support.
+- [ ] Compute each same-video future-trajectory primitive once per label and geometry.
+- [ ] Derive washout, horizon, response-history, event-threshold, and duration-panel candidate
+      values from VEATIC support.
+- [ ] Register continuous movement and event views with exact target-overlap ledgers.
+- [ ] Freeze strict-forward blocked/inner memberships and whole-video grouped folds with exact
+      row/video hashes.
+- [ ] Use every supported video in blocked evidence and every video across the grouped fold
+      set.
+- [ ] Emit the numeric inputs required by
+      `internal/active/veatic21-supervised-spike-continuous-combination.md`.
+- [ ] Read no cortical or temporal-diagnostic value and fit no predictive model.
 
-## Phase 02 — strong target-specific AR
+## Phase 02 — supervised spike + continuous combination
 
-- [ ] Iteration 1: simple current/previous/mean/slope baselines and support audit.
-- [ ] Iteration 2: regularized linear/ranking AR across VEATIC-derived histories.
-- [ ] Iteration 3: convergence and active-boundary expansion.
-- [ ] Iteration 4: compact nonlinear AR challenger where justified.
-- [ ] Iteration 5: fresh-seed/fold confirmation and immutable prediction seal.
-- [ ] Use response history only; no cortical or diagnostic video features.
-- [ ] Use hierarchical screens and successive promotion, not a blind millions-cell product.
-- [ ] Freeze exact fold/seed AR scores for every later real/control comparison.
+Implement only
+`internal/active/veatic21-supervised-spike-continuous-combination.md`.
 
-## Phase 03 — raw cortical benchmark
+### Required dependency build
 
-- [ ] Benchmark raw/full and deterministic label-free raw summaries on actual hardware.
-- [ ] Score frozen AR, raw-only, AR+raw, explicit diagnostic fusion, diagnostics-only,
-      shuffled, random, time, and quality/motion/luma lanes.
-- [ ] Keep blocked and grouped results separate.
-- [ ] Preserve a negative raw result; do not tune a projection from outer outcomes.
+- [ ] Materialize target tensors, target masks, thresholds, and exact ownership.
+- [ ] Fit the train-owned continuous-target residualizer where selected.
+- [ ] Train and seal a strong event response-history opponent.
+- [ ] Train and seal a separate strong continuous response-history opponent.
+- [ ] Reuse each opponent prediction byte-identically under its real and control lanes.
+- [ ] Build causal cortical temporal aggregates from `cortical_prediction`.
+- [ ] Fit scaler and projection separately for every distinct target mask and outer ownership.
+- [ ] Construct causal projected sequences with same-video reset and explicit start padding.
+- [ ] Add `temporal_diagnostics53` only as an explicit current-row block.
+- [ ] Train the dual-correction event residual specialist.
+- [ ] Train the separately optimized continuous residual specialist.
+- [ ] Run every matched control with identical ownership, budget, checkpointing, and metrics.
+- [ ] Freeze fresh independent checkpoint membership before outer scoring.
+- [ ] Compare equal-weight ensembles with all members, opponent ensembles, and control
+      ensembles.
+- [ ] Publish one paired package returning confirmed `spike_score` and
+      `continuous_score`.
 
-## Phase 04 — fold-owned representation discovery
+### VEATIC-owned selection
 
-- [ ] Fit PCA/projections only on owned training rows.
-- [ ] Derive widths from VEATIC rank/variance/memory and test active boundaries.
-- [ ] Compare current, difference, causal mean/std/slope, PCA-then-temporal, and
-      temporal-then-PCA families.
-- [ ] Compare PCA-only, AR+PCA, frozen-AR residual, and explicit diagnostics fusion.
-- [ ] Run every matched control with equivalent budget.
-- [ ] Freeze the representation before learned-head discovery.
+- [ ] Derive compact local candidates for geometry, history, projection width, causal context,
+      hidden capacity, optimizer, loss balance, scale/gate limits, checkpoint budget, seed
+      count, and ensemble size.
+- [ ] Use unit/integrity tests first, then all eligible rows from all 124 videos.
+- [ ] Expand only an active numeric boundary or an undertrained configuration.
+- [ ] Do not create candidates from outer results.
+- [ ] Give every registered cell a terminal disposition.
 
-## Phase 05 — learned bridge and event head
+### Confirmation
 
-- [ ] Restore selected checkpoints and use deterministic evaluation mode from the first cell.
-- [ ] Reuse one byte-identical frozen AR score under real and all residual controls.
-- [ ] Compare direct fusion with inner-owned no-harm residual correction.
-- [ ] If blocked improvement fails, run AR-dominance decomposition before changing models.
-- [ ] Activate only preregistered VEATIC washout/target-redesign branches.
-- [ ] Fairly screen current MLP, delta MLP, short causal convolution, gated/low-confidence
-      temporal residual, and one justified recurrent/attention challenger.
-- [ ] Search capacity/optimizer/loss/budget through staged screens and boundary expansion.
-- [ ] Freeze one event recipe and confirm it with fresh blocked and grouped evidence.
+- [ ] Freeze the complete event and continuous recipes before fresh confirmation.
+- [ ] Keep blocked and grouped claims separate.
+- [ ] Require each specialist to beat its exact opponent and strongest matched control.
+- [ ] Require positive fold/checkpoint-group consistency and no single-group domination.
+- [ ] Require restored checkpoints, deterministic evaluation mode, and complete row,
+      projection, prediction, and checksum audits.
+- [ ] Keep the two specialists as the paired output unless a preregistered shared-head
+      challenger matches or beats both locked endpoints.
 
-## Phase 06 — event stabilization
+## Phase 03 — valence
 
-- [ ] Test a predeclared equal-weight independent-checkpoint reference ensemble first.
-- [ ] Derive checkpoint count from VEATIC; never inherit AGAIN's count.
-- [ ] Compare ensemble against members, frozen AR, and matched controls.
-- [ ] Prohibit member selection or weight tuning on confirmation outcomes.
-- [ ] Run blocked confirmation before separately locked grouped confirmation.
+- [ ] Begin only after the supervised arousal pair passes.
+- [ ] Derive VEATIC valence level, signed-direction, magnitude, and transition targets.
+- [ ] Build valence-specific opponents, projections, heads, controls, ensembles, metrics, and
+      claims.
+- [ ] Do not assume any arousal numeric setting transfers.
 
-## Phase 07 — continuous arousal
+## Phase 04 — zero-label at inference
 
-- [ ] Derive continuous targets and ranking-aware AR independently.
-- [ ] Re-search loss, context, head, optimizer, checkpointing, and controls.
-- [ ] Use Spearman and top-tail true-movement lift as primary endpoints.
-- [ ] Treat exact-value metrics as a separate claim family.
-- [ ] Run independent blocked and grouped confirmations and stabilization.
+- [ ] Begin only after supervised arousal and valence pass.
+- [ ] Register development and locked whole-video confirmation ownership at Phase 04 entry.
+- [ ] Permit labels during training but no label, response history, teacher score, or labelled
+      warm start during held-out inference.
+- [ ] Prioritize direct supervised causal temporal video-only learning.
+- [ ] Compare current-row, diagnostics-only, no-video, sequence-shuffled, and
+      label-permutation controls.
+- [ ] Seal predictions before opening confirmation labels.
 
-## Phase 08 — valence
+## Phase 05 — paper and product
 
-- [ ] Audit valence reliability/dynamics and derive level, signed-change, magnitude, and
-      transition targets.
-- [ ] Rebuild strong valence AR, raw controls, projection, learned bridge, confirmation, and
-      stabilization from VEATIC evidence.
-- [ ] Do not inherit the arousal representation/head without a challenger test.
+- [ ] Report complete results, uncertainty, negative findings, and exact provenance.
+- [ ] Keep deployment refits distinct from evidence models.
+- [ ] Benchmark cold-start and steady-state inference, batch scaling, CPU/GPU utilization,
+      unified memory, deterministic equivalence, raw-video integration, no-harm behaviour,
+      and external client-style validation.
 
-## Phase 09 — zero-label at inference
+## Controls
 
-- [ ] Begin only after supervised arousal event, continuous arousal, and valence closure.
-- [ ] Stage 0 freezes development/locked ownership, inference allowlist, row-0 behavior,
-      feature transforms, predictions-before-label seal, controls, metrics, seeds, and gates.
-- [ ] Stage A prioritizes direct supervised causal temporal video-only learning.
-- [ ] Compare current-row, diagnostics-only, no-video, sequence-shuffled, and label-permuted
-      controls.
-- [ ] Keep response-history teacher systems as report-only ceilings.
-- [ ] Stage B writes/checksums locked predictions before opening labels and scores once.
-- [ ] Report full-video, cold-start, video-block uncertainty, and panel consistency.
-
-## Comprehensive search-sufficiency checklist
-
-- [ ] Every scientifically distinct family has at least one converged fair-budget cell.
-- [ ] Active hyperparameter boundaries are expanded or explicitly unresolved.
-- [ ] Undertrained/nonconverged cells are incomplete, not negative.
-- [ ] Every attempted cell has a terminal disposition.
-- [ ] Promotion and ties were frozen before scores were opened.
-- [ ] Fresh confirmation uses a completely frozen recipe.
-- [ ] No known AGAIN implementation mistake was reenacted.
-- [ ] Any reopened AGAIN-failed branch has a VEATIC-specific preregistered rationale.
-- [ ] Full candidate arithmetic, successes, failures, and invalid cells are reproducible.
-
-## Controls from the first applicable cell
-
-- [ ] simple response-history baselines;
-- [ ] strongest selected AR;
-- [ ] raw/real representation;
-- [ ] shuffled representation;
-- [ ] matched random representation;
-- [ ] diagnostics-only;
-- [ ] time/mask-only;
-- [ ] luma/motion/quality nuisance;
-- [ ] train-only video mean/base rate;
-- [ ] current-row temporal ablation;
-- [ ] training-owned label permutation;
-- [ ] no-video zero-label control;
-- [ ] frozen-AR checksum identity and residual no-harm.
+- [ ] prevalence/constant and simple response-history baselines;
+- [ ] strongest target-specific response-history opponent;
+- [ ] real cortical residual;
+- [ ] shuffled projected cortical residual;
+- [ ] matched random projected residual;
+- [ ] diagnostics-only residual;
+- [ ] train-only video-mean residual;
+- [ ] time/mask residual;
+- [ ] luma/motion/quality residual;
+- [ ] current-row cortical ablation;
+- [ ] training-owned label-permutation residual;
+- [ ] frozen-opponent checksum identity and residual no-harm.
 
 ## Metrics and uncertainty
 
-- [ ] Event primary: PR-AUC, uplift over prevalence, delta vs AR, delta vs best control.
-- [ ] Continuous primary: Spearman and preregistered top-tail true-movement lift.
-- [ ] Valence separates level, signed direction, and movement magnitude.
-- [ ] Exact-value metrics cannot silently become ranking claims or vice versa.
+- [ ] Event primary: PR-AUC, uplift over prevalence, delta versus the exact opponent, and delta
+      versus the strongest matched control.
+- [ ] Continuous primary: Spearman and registered top-tail true-movement lift.
+- [ ] Record event PR-AUC and top-k recall derived from the continuous score as identified
+      joint evidence.
+- [ ] Treat exact-value metrics as a separate claim.
+- [ ] Use video/fold blocks for uncertainty; never treat 2 Hz rows as IID.
 - [ ] Report fold/video/seed/checkpoint-group consistency and maximum group contribution.
-- [ ] Use video-block uncertainty; never treat 2 Hz rows as IID replicates.
-- [ ] Retain valid negatives from zero-event videos; leave undefined per-video PR-AUC undefined.
 
 ## Hardware and execution
 
-- [ ] Benchmark representative real end-to-end cells before every material main run.
-- [ ] Compare safe CPU process, MLX concurrency, GPU batch, and pipeline configurations.
-- [ ] Require numerical/convergence/artifact equivalence.
+- [ ] Benchmark representative real end-to-end cells before each material run.
+- [ ] Compare safe CPU process counts, MLX concurrency, GPU batches, and CPU/GPU pipelines.
+- [ ] Require numerical, convergence, split, metric, and artifact equivalence.
 - [ ] Measure repeated throughput, utilization, memory, swap, and thermal state.
-- [ ] Freeze the fastest safe topology before main execution.
-- [ ] Use one coordinator, deterministic work assignment, atomic outputs, shard ledgers, and a
-      verified merge.
-- [ ] Treat any executor/topology change after launch as a new run identity.
-- [ ] Benchmark inference as seriously as training.
+- [ ] Freeze the fastest safe topology before the main run.
+- [ ] Use one coordinator, deterministic work assignment, atomic outputs, append-only shard
+      ledgers, and a verified no-gap/no-duplicate merge.
+- [ ] Treat any topology change after launch as a new run identity.
 
 ## Phase transition
 
 - [ ] Inspect every compact and external output.
-- [ ] Independently verify registry coverage and artifact hashes.
+- [ ] Verify registry coverage and artifact hashes independently.
 - [ ] Run focused, authority-contract, formatting/type, and full tests.
-- [ ] Create the compact concluded phase record.
 - [ ] Replace `CURRENT_STATE.md` while retaining mandatory authority anchors.
 - [ ] Record exact code/input/result/manifest/checksum hashes and one next action.
 - [ ] Commit and push the coherent transition directly to `origin/main`.

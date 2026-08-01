@@ -26,7 +26,7 @@ def test_phase01_registration_pins_current_authority_and_code() -> None:
     value = json.loads(REGISTRATION.read_text())
     authority = value["authority"]
     implementation = value["implementation"]
-    for key in ("master", "protocol", "current_state"):
+    for key in ("agents", "master", "combination", "protocol", "current_state"):
         assert _sha256(Path(authority[f"{key}_path"])) == authority[f"{key}_sha256"]
     expected = {
         "phase01_py_sha256": ROOT / "src/neural_bridge/veatic21/phase01.py",
@@ -42,7 +42,21 @@ def test_blocked_split_means_rows_within_all_supported_videos() -> None:
     split = value["split_derivation"]
     assert "within each video" in split["blocked_semantics"]
     assert split["blocked_outer_train_fraction_audit"] != [0.7]
-    assert "not privileged" in split["again_anchor"]
+    assert "at least 30% outer test" in split["selection_rule"]
+    assert "at least 20 whole test videos" in split["selection_rule"]
+
+
+def test_phase01_binds_supported_event_targets_to_geometry() -> None:
+    value = json.loads(REGISTRATION.read_text())
+    target = value["target_derivation"]
+    output = value["supervised_combination_output"]
+    assert (
+        "nonzero-washout maximum-positive-arousal geometry"
+        in target["event_quantile_selection_rule"]
+    )
+    assert "at least 50% of videos" in target["event_quantile_selection_rule"]
+    assert "nonzero washout" in output["event_target_binding"]
+    assert "simple-history residualization" in output["continuous_target_binding"]
 
 
 def test_data_contract_forbids_cortical_values() -> None:

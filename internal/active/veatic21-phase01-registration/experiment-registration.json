@@ -1,19 +1,23 @@
 {
-  "schema_version": "veatic21_phase01_prospective_registration_v1",
+  "schema_version": "veatic21_phase01_targets_geometry_ownership_v1",
   "status": "registered_not_executed",
-  "registered_at": "2026-08-01T21:30:00+02:00",
-  "phase": "01_alignment_dynamics_targets_splits",
+  "registered_at": "2026-08-01T22:10:00+02:00",
+  "phase": "01_targets_geometry_ownership",
   "scientific_claim": "label_and_non_cortical_audit_only_no_predictive_claim",
   "authority": {
+    "agents_path": "/Users/maxsartini/Neural Bridge/AGENTS.md",
+    "agents_sha256": "5bc9e44b6c00aae9b47a6190df72bdcb94bed3fc1e7f0e57fa7fe251807adf64",
     "master_path": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
-    "master_sha256": "feac816efeae8d848ffa2cb993e1ea21733e402b2a4624cc20f0697fef0fe5cc",
+    "master_sha256": "b567d96ba194fe3133505b5adc08140eb1e83c349434a51b97c7a5d3654bd068",
+    "combination_path": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-supervised-spike-continuous-combination.md",
+    "combination_sha256": "17c50190a4ff8662ac018e957acdf2c91b156d7f23e22149c963eea1bb16d3be",
     "protocol_path": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-rebuild-protocol.md",
-    "protocol_sha256": "7b1defcdbf42dba56b25d45f29d84999bd3db6341e49d8677f4d6638d8c6a0a3",
+    "protocol_sha256": "ac7afb9a47483d5a3305045240b79cbd7d238d41dccf5aa403d794058ee99d2d",
     "current_state_path": "/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md",
-    "current_state_sha256": "497fe8a23e6e6134db104c43303fceb4bed3e4dda0aa90cf3eac7021e084b710"
+    "current_state_sha256": "9dff6c4efb5f0c7d8c6c57ecc579a7419d0ecfa1fed39b5fc64e4fc4e8f84571"
   },
   "implementation": {
-    "phase01_py_sha256": "f785bbcbd93335af2880da112337e96a96d5b868622511b8c2c3fa58ee4b1e21",
+    "phase01_py_sha256": "dadd091d0dc48b9f8ddcd97932eb0d9bd2d038277689c8f74e53b59464c53420",
     "main_py_sha256": "76fadb6854fd01d9312b3297316ec6ea62555eaf2361062137ceadbc2bfb24bf",
     "bundle_py_sha256": "55ce6a4732c087c1609df992db740ffa47bb09656b003c5b6b6ef1e2ba023b4a"
   },
@@ -42,8 +46,8 @@
       "luma and motion nuisance",
       "black, duplicate, and quality flags"
     ],
-    "acf_max_lag_rule": "minimum of 120 rows and shortest-video rows minus 4",
-    "pacf_max_lag_rule": "minimum of 32 rows and the registered ACF maximum",
+    "acf_max_lag_rule": "minimum of 240 rows/120 seconds and longest-video rows minus 4; every lag records tapering eligible-video and pair support",
+    "pacf_max_lag_rule": "minimum of 64 rows/32 seconds and the registered ACF maximum, with tapering support",
     "no_cortical_outcome_read": true
   },
   "target_derivation": {
@@ -56,24 +60,21 @@
       "total variation",
       "onset/surprise"
     ],
-    "event_view": "training-owned threshold applied to an eligible continuous view",
+    "event_view": "training-owned quantile threshold applied to nonzero-washout maximum positive arousal movement",
     "quantile_audit_grid_inclusive": {
       "start": 0.5,
       "stop": 0.99,
       "step": 0.01
     },
+    "event_quantile_selection_rule": "audit q0.50..q0.99; for each nonzero-washout maximum-positive-arousal geometry, require at least 20 event rows and events in at least 50% of videos in every grouped test fold, reject thresholds above that geometry's median training-fold relative threshold range, then retain up to six evenly spaced supported q0.80..q0.99 thresholds",
     "geometry_rule": "derive short/medium/long horizons and washouts from VEATIC ACF crossings, then require duration-panel support",
-    "again_comparability_anchor": {
-      "washout_rows": 4,
-      "horizon_rows": 7,
-      "meaning": "historical rows +4 through +10 only",
-      "selected_for_veatic": false
-    },
+    "minimum_geometry_support": "at least 90% of videos with at least 10 eligible rows per video; shorter unsupported videos remain explicit",
     "required_threshold_checks": [
       "eligible rows",
       "eligible videos",
       "event rows",
       "event videos",
+      "event-video fraction per grouped test fold",
       "zero-event videos",
       "training-fold threshold stability"
     ]
@@ -106,29 +107,33 @@
       8
     ],
     "grouped_semantics": "whole-video-only deterministic row-balanced folds",
-    "zero_label_confirmation_fraction_audit": [
-      0.1,
-      0.15,
-      0.2,
-      0.25,
-      0.3
-    ],
-    "again_anchor": "outer 70/30 plus inner 80/20 is compared but not privileged",
-    "final_selection_inputs": [
+    "selection_rule": "maximize outer then inner training ownership subject to at least 30% outer test, at least 14% total inner validation, strict forward ownership for every geometry, and at least 20 whole test videos per grouped fold",
+    "split_selection_inputs": [
       "row support",
       "video support",
-      "event support and zero-event negatives",
       "short/medium/long duration panels",
-      "threshold stability",
       "uncertainty resolution",
       "strict ownership and leakage checks"
+    ],
+    "event_target_selection_inputs": [
+      "event rows and event-video coverage in each grouped fold",
+      "zero-event negatives",
+      "training-fold threshold stability"
     ]
   },
   "shared_computation": {
     "allowed": "lossless trajectory primitive, identity, causal indices, identical split masks, and later transforms with identical training ownership",
     "separate_specialists": "event and continuous targets retain separate thresholds, AR, loss, head, checkpoint, metrics, and confirmation",
-    "combined_challenger": "not eligible until both specialists pass independently; must beat each specialist on its own locked endpoint",
-    "zero_label": "not eligible until supervised event, continuous, combined, and valence programmes are resolved"
+    "combined_challenger": "not eligible until both specialists pass independently; must beat each specialist on its own locked endpoint"
+  },
+  "supervised_combination_output": {
+    "artifact": "supervised-combination-inputs.json",
+    "required_video_ids": "0..123",
+    "event_target_binding": "each candidate binds nonzero washout, horizon, maximum-positive-arousal metric, and training-owned quantile",
+    "continuous_target_binding": "each candidate binds nonzero washout, horizon, maximum-positive-arousal metric, and train-owned simple-history residualization",
+    "primary_cortical_array_for_phase02": "cortical_prediction",
+    "diagnostic_array_role_for_phase02": "explicit_separate_block",
+    "combination_specification": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-supervised-spike-continuous-combination.md"
   },
   "executor_backtest": {
     "workload": "all 124 real videos; allowlisted NPZ/CSV load, all label/audit distributions, and arousal ACF through 64 rows",
@@ -175,12 +180,13 @@
     "equivalent_result_sha256": "16f892a6d85628c85135caf21835332413e94041742ee863b593deb9ca7b3e84"
   },
   "outputs": {
-    "phase01_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/phase-01-alignment-dynamics-targets-splits",
+    "phase01_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/phase-01-targets-geometry-ownership",
     "overwrite_policy": "refuse_existing",
     "publication": "temporary sibling then atomic rename then read-only seal"
   },
   "execution": {
     "precondition": "this registration and implementation commit is present on origin/main",
+    "preflight": "unit/integrity tests must pass; then load all 124 videos and execute one comprehensive run using every eligible row for every supported geometry in the full registered derivation set",
     "command": "uv run python -m neural_bridge.veatic21 run-phase01 --workers 6 --registration-path '/Users/maxsartini/Neural Bridge/internal/active/veatic21-phase01-registration/experiment-registration.json'",
     "verification_command": "uv run python -m neural_bridge.veatic21 verify-phase01",
     "phase02_or_cortical_scoring_authorized": false

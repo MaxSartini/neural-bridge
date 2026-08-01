@@ -9,9 +9,12 @@ from neural_bridge.veatic21.phase01 import (
     ALLOWED_AUDIT_ARRAY_KEYS,
     FORBIDDEN_ARRAY_KEYS,
     Phase01Video,
+    autocorrelation_profile,
     blocked_membership,
     derive_trajectory_family,
+    freeze_split_ownership,
     load_phase01_video,
+    select_event_target_candidates,
     shared_computation_contract,
 )
 
@@ -102,10 +105,109 @@ def test_loader_reads_allowlist_and_checks_label_equality(tmp_path: Path) -> Non
     assert "cortical_prediction" not in video.audit_arrays
 
 
-def test_combined_and_zero_label_are_gated_after_specialists() -> None:
+def test_combined_challenger_is_gated_after_specialists() -> None:
     contract = shared_computation_contract()
     assert "independently confirmed" in contract["combined_challenger_gate"]
-    assert "combined challenger" in contract["zero_label_gate"]
+
+
+def test_event_target_candidates_remain_bound_to_supported_geometry() -> None:
+    folds = [
+        {"fold": fold, "test_videos": 20, "event_rows": 25, "event_videos": 10}
+        for fold in range(1, 7)
+    ]
+    candidates = select_event_target_candidates(
+        [
+            {
+                "label": "arousal",
+                "metric": "max_positive_delta",
+                "washout_rows": 4,
+                "horizon_rows": 6,
+                "quantile": 0.9,
+                "folds": folds,
+                "threshold_relative_range": 0.2,
+                "minimum_fold_event_rows": 25,
+                "minimum_fold_event_videos": 10,
+            },
+            {
+                "label": "arousal",
+                "metric": "max_positive_delta",
+                "washout_rows": 0,
+                "horizon_rows": 6,
+                "quantile": 0.9,
+                "folds": folds,
+                "threshold_relative_range": 0.1,
+                "minimum_fold_event_rows": 25,
+                "minimum_fold_event_videos": 10,
+            },
+        ]
+    )
+    assert candidates == [
+        {
+            "label": "arousal",
+            "metric": "max_positive_delta",
+            "washout_rows": 4,
+            "horizon_rows": 6,
+            "quantile": 0.9,
+            "minimum_fold_event_rows": 25,
+            "minimum_fold_event_videos": 10,
+            "threshold_relative_range": 0.2,
+            "geometry_stability_cutoff": 0.2,
+        }
+    ]
+
+
+def test_shortest_video_does_not_cap_supported_acf_lags() -> None:
+    short = _synthetic_video(length=22)
+    long_values = np.sin(np.arange(100, dtype=np.float64) / 5)
+    long = Phase01Video(
+        video_id="1",
+        row_index=np.arange(100, dtype=np.int64),
+        time_seconds=np.arange(100, dtype=np.float64) / 2,
+        arousal=long_values,
+        valence=long_values,
+        audit_arrays={},
+    )
+    profile = autocorrelation_profile([short, long], label="arousal", max_lag_rows=30)
+    assert len(profile) == 30
+    assert profile[-1]["lag_rows"] == 30
+    assert profile[-1]["eligible_videos"] == 1
+
+
+def test_exact_split_ownership_freezes_rows_and_folds() -> None:
+    videos = []
+    for video_id in range(30):
+        length = 50 + video_id
+        values = np.sin(np.arange(length, dtype=np.float64) / 7)
+        videos.append(
+            Phase01Video(
+                video_id=str(video_id),
+                row_index=np.arange(length, dtype=np.int64),
+                time_seconds=np.arange(length, dtype=np.float64) / 2,
+                arousal=values,
+                valence=-values,
+                audit_arrays={},
+            )
+        )
+    ownership = freeze_split_ownership(
+        videos,
+        geometries=[(4, 7)],
+        split_design={
+            "blocked_outer_train_fraction": 0.70,
+            "blocked_inner_train_fraction": 0.80,
+            "grouped_fold_count": 6,
+            "rule": "synthetic test fixture",
+        },
+    )
+    assert ownership["blocked_forward"]["outer_train_fraction"] == 0.70
+    assert ownership["grouped_video"]["fold_count"] == 6
+    records = ownership["blocked_forward"]["by_geometry"]["washout4_horizon7"]["videos"]
+    assert all(record["status"] == "eligible" for record in records)
+    assert all(
+        record["inner_train"]["last_row"]
+        < record["inner_validation"]["first_row"]
+        < record["outer_test"]["first_row"]
+        for record in records
+    )
 
 
 def test_synthetic_video_fixture_is_well_formed() -> None:

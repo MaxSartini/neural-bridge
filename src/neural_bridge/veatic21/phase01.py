@@ -34,7 +34,7 @@ from neural_bridge.veatic21.bundle import (
 
 DEFAULT_PHASE01_ROOT = Path(
     "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/"
-    "phase-01-alignment-dynamics-targets-splits"
+    "phase-01-targets-geometry-ownership"
 )
 ROW_HZ = 2.0
 ROW_SECONDS = 1.0 / ROW_HZ
@@ -43,7 +43,13 @@ ACF_CROSSING_LEVELS = (0.95, 0.90, 0.75, 0.50, 0.25, 0.10, 0.0)
 GROUPED_FOLD_COUNT_AUDIT = tuple(range(3, 9))
 BLOCKED_TRAIN_FRACTION_AUDIT = tuple(round(value / 100, 2) for value in range(50, 90, 5))
 INNER_TRAIN_FRACTION_AUDIT = (0.70, 0.75, 0.80, 0.85)
-CONFIRMATION_FRACTION_AUDIT = tuple(round(value / 100, 2) for value in range(10, 31, 5))
+MIN_GEOMETRY_VIDEO_FRACTION = 0.90
+MIN_ELIGIBLE_ROWS_PER_VIDEO = 10
+MIN_BLOCKED_OUTER_TEST_FRACTION = 0.30
+MIN_BLOCKED_INNER_VALIDATION_TOTAL_FRACTION = 0.14
+MIN_GROUPED_TEST_VIDEOS = 20
+MIN_EVENT_ROWS_PER_GROUPED_FOLD = 20
+MIN_EVENT_VIDEO_FRACTION_PER_GROUPED_FOLD = 0.50
 
 FORBIDDEN_ARRAY_KEYS = frozenset(
     {"cortical_prediction", "temporal_diagnostics53", "tribe_grouped_video_feature"}
@@ -389,9 +395,8 @@ def _acf_crossings(profile: Sequence[dict[str, Any]]) -> dict[str, int | None]:
 def derive_geometry_registry(
     videos: Sequence[Phase01Video], acf: dict[str, list[dict[str, Any]]]
 ) -> list[dict[str, Any]]:
-    """Derive a compact VEATIC-only geometry range plus named comparison anchors."""
+    """Derive a compact geometry range from VEATIC label dynamics and support."""
 
-    minimum_rows = min(video.row_count for video in videos)
     candidates: set[tuple[int, int, str]] = set()
     for label in ("arousal", "valence"):
         crossings = _acf_crossings(acf[label])
@@ -402,9 +407,10 @@ def derive_geometry_registry(
                 if key in {"0.9", "0.75", "0.5", "0.25"} and value is not None
             }
         )
-        # The strongest short, medium, and long label-decay scales become audit anchors.
+        # Short through long decay scales remain candidates when at least 90% of videos
+        # can supply one target row. Short videos are reported, not allowed to truncate ACF.
         for horizon in history[:4]:
-            if horizon < minimum_rows:
+            if _geometry_video_support(videos, 0, horizon) >= _minimum_geometry_videos(videos):
                 candidates.add((0, max(1, horizon), f"{label}_acf_decay"))
         for washout_level in ("0.95", "0.9"):
             washout = crossings[washout_level]
@@ -413,7 +419,9 @@ def derive_geometry_registry(
                 if washout is None or endpoint is None:
                     continue
                 horizon = max(1, endpoint - washout)
-                if washout + horizon < minimum_rows:
+                if _geometry_video_support(videos, washout, horizon) >= _minimum_geometry_videos(
+                    videos
+                ):
                     candidates.add((washout, horizon, f"{label}_acf_washout"))
     registry = [
         {
@@ -422,21 +430,23 @@ def derive_geometry_registry(
             "horizon_rows": horizon,
             "horizon_seconds": horizon * ROW_SECONDS,
             "derivation": derivation,
-            "veatic_selected": True,
+            "candidate_status": "veatic_derived_candidate",
+            "eligible_videos": _geometry_video_support(videos, washout, horizon),
         }
         for washout, horizon, derivation in sorted(candidates)
     ]
-    registry.append(
-        {
-            "washout_rows": 4,
-            "washout_seconds": 2.0,
-            "horizon_rows": 7,
-            "horizon_seconds": 3.5,
-            "derivation": "AGAIN rows +4 through +10 comparability anchor only",
-            "veatic_selected": False,
-        }
-    )
     return registry
+
+
+def _minimum_geometry_videos(videos: Sequence[Phase01Video]) -> int:
+    return int(np.ceil(len(videos) * MIN_GEOMETRY_VIDEO_FRACTION))
+
+
+def _geometry_video_support(
+    videos: Sequence[Phase01Video], washout_rows: int, horizon_rows: int
+) -> int:
+    required = washout_rows + horizon_rows + MIN_ELIGIBLE_ROWS_PER_VIDEO
+    return sum(video.row_count >= required for video in videos)
 
 
 def trajectory_support_table(
@@ -534,6 +544,8 @@ def audit_split_candidates(
                 participating = np.zeros(4, dtype=np.int64)
                 strict = True
                 for mask in masks:
+                    if np.sum(mask) < MIN_ELIGIBLE_ROWS_PER_VIDEO:
+                        continue
                     membership = blocked_membership(
                         mask,
                         outer_train_fraction=outer,
@@ -563,8 +575,16 @@ def audit_split_candidates(
                         "inner_train_videos": int(participating[1]),
                         "inner_validation_videos": int(participating[2]),
                         "outer_test_videos": int(participating[3]),
+                        "eligible_videos": int(
+                            sum(np.sum(mask) >= MIN_ELIGIBLE_ROWS_PER_VIDEO for mask in masks)
+                        ),
                         "all_eligible_videos_participate": bool(
-                            np.all(participating[1:] == len(videos))
+                            np.all(
+                                participating[1:]
+                                == sum(
+                                    np.sum(mask) >= MIN_ELIGIBLE_ROWS_PER_VIDEO for mask in masks
+                                )
+                            )
                         ),
                         "strict_forward_time_zero_overlap": bool(strict),
                     }
@@ -585,24 +605,52 @@ def audit_split_candidates(
                 "whole_video_only": True,
             }
         )
-    confirmation = [
-        {
-            "fraction": fraction,
-            "video_count": int(round(len(videos) * fraction)),
-            "remaining_development_videos": len(videos) - int(round(len(videos) * fraction)),
-            "whole_video_only": True,
-        }
-        for fraction in CONFIRMATION_FRACTION_AUDIT
-    ]
     return {
         "blocked_forward": blocked,
         "grouped_video": grouped,
-        "zero_label_confirmation": confirmation,
-        "historical_comparability_anchor": {
-            "name": "AGAIN blocked_temporal_70_30 plus inner 80/20",
-            "transfers_as_selection": False,
-            "meaning": "all eligible videos; earlier/later rows within each video",
-        },
+    }
+
+
+def select_split_design(
+    audit: dict[str, Any], *, geometry_count: int
+) -> dict[str, float | int | str]:
+    """Select the most training-rich split satisfying registered evidence support."""
+
+    support_by_pair: dict[tuple[float, float], int] = {}
+    for row in audit["blocked_forward"]:
+        outer = float(row["outer_train_fraction"])
+        inner = float(row["inner_train_fraction_within_outer_train"])
+        supported = (
+            bool(row["all_eligible_videos_participate"])
+            and bool(row["strict_forward_time_zero_overlap"])
+            and 1.0 - outer >= MIN_BLOCKED_OUTER_TEST_FRACTION - 1e-12
+            and outer * (1.0 - inner) >= MIN_BLOCKED_INNER_VALIDATION_TOTAL_FRACTION - 1e-12
+        )
+        if supported:
+            key = (outer, inner)
+            support_by_pair[key] = support_by_pair.get(key, 0) + 1
+    eligible_pairs = [pair for pair, count in support_by_pair.items() if count == geometry_count]
+    if not eligible_pairs:
+        raise BundleError("no blocked split satisfies every registered geometry")
+    outer, inner = max(eligible_pairs)
+
+    grouped = [
+        row
+        for row in audit["grouped_video"]
+        if int(row["minimum_test_videos"]) >= MIN_GROUPED_TEST_VIDEOS
+    ]
+    if not grouped:
+        raise BundleError("no grouped fold count satisfies minimum test-video support")
+    grouped_row = max(grouped, key=lambda row: int(row["fold_count"]))
+    return {
+        "blocked_outer_train_fraction": outer,
+        "blocked_inner_train_fraction": inner,
+        "grouped_fold_count": int(grouped_row["fold_count"]),
+        "rule": (
+            "maximize outer then inner training ownership subject to at least 30% outer "
+            "test, at least 14% total inner validation, strict forward ownership for every "
+            "geometry, and at least 20 whole test videos per grouped fold"
+        ),
     }
 
 
@@ -621,8 +669,274 @@ def _balanced_fold_assignments(videos: Sequence[Phase01Video], *, folds: int) ->
     return assignments
 
 
-def build_overlap_ledger(registry: Sequence[dict[str, Any]]) -> list[dict[str, Any]]:
-    histories = (1, 2, 4, 8, 16, 32, 64)
+def _metric_values(
+    video: Phase01Video,
+    *,
+    label: str,
+    washout_rows: int,
+    horizon_rows: int,
+    metric: str,
+) -> NDArray[np.float64]:
+    family = derive_trajectory_family(
+        getattr(video, label), washout_rows=washout_rows, horizon_rows=horizon_rows
+    )
+    values = {
+        "endpoint_delta": family.endpoint_delta,
+        "max_positive_delta": family.max_positive_delta,
+        "max_negative_magnitude": -family.max_negative_delta,
+        "max_absolute_delta": family.max_absolute_delta,
+        "total_variation": family.total_variation,
+        "onset_surprise": family.onset_surprise,
+    }
+    if metric not in values:
+        raise ValueError(f"unsupported target metric: {metric}")
+    return values[metric]
+
+
+def threshold_stability_audit(
+    videos: Sequence[Phase01Video],
+    *,
+    geometries: Sequence[tuple[int, int]],
+    folds: int,
+    quantiles: Sequence[float] = QUANTILE_AUDIT_GRID,
+) -> list[dict[str, Any]]:
+    """Fit thresholds on grouped-train ownership and measure test support."""
+
+    assignments = _balanced_fold_assignments(videos, folds=folds)
+    records: list[dict[str, Any]] = []
+    metrics = (
+        "endpoint_delta",
+        "max_positive_delta",
+        "max_negative_magnitude",
+        "max_absolute_delta",
+        "total_variation",
+        "onset_surprise",
+    )
+    for label in ("arousal", "valence"):
+        for washout, horizon in geometries:
+            for metric in metrics:
+                values = [
+                    _metric_values(
+                        video,
+                        label=label,
+                        washout_rows=washout,
+                        horizon_rows=horizon,
+                        metric=metric,
+                    )
+                    for video in videos
+                ]
+                for quantile in quantiles:
+                    fold_records = []
+                    thresholds = []
+                    for fold in range(folds):
+                        train = np.concatenate(
+                            [
+                                value[np.isfinite(value)]
+                                for index, value in enumerate(values)
+                                if assignments[index] != fold and np.any(np.isfinite(value))
+                            ]
+                        )
+                        threshold = float(np.quantile(train, quantile))
+                        thresholds.append(threshold)
+                        test_counts = [
+                            int(np.sum(value[np.isfinite(value)] >= threshold))
+                            for index, value in enumerate(values)
+                            if assignments[index] == fold
+                        ]
+                        fold_records.append(
+                            {
+                                "fold": fold + 1,
+                                "threshold": threshold,
+                                "event_rows": int(sum(test_counts)),
+                                "event_videos": int(sum(count > 0 for count in test_counts)),
+                                "test_videos": len(test_counts),
+                            }
+                        )
+                    centre = float(np.median(thresholds))
+                    scale = max(abs(centre), float(np.ptp(thresholds)), np.finfo(float).eps)
+                    records.append(
+                        {
+                            "label": label,
+                            "washout_rows": washout,
+                            "horizon_rows": horizon,
+                            "metric": metric,
+                            "quantile": quantile,
+                            "folds": fold_records,
+                            "threshold_median": centre,
+                            "threshold_range": float(np.ptp(thresholds)),
+                            "threshold_relative_range": float(np.ptp(thresholds) / scale),
+                            "minimum_fold_event_rows": min(
+                                record["event_rows"] for record in fold_records
+                            ),
+                            "minimum_fold_event_videos": min(
+                                record["event_videos"] for record in fold_records
+                            ),
+                        }
+                    )
+    return records
+
+
+def select_event_target_candidates(
+    stability: Sequence[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Bind supported spike thresholds to their exact VEATIC arousal geometry."""
+
+    by_geometry: dict[tuple[int, int], list[dict[str, Any]]] = {}
+    for row in stability:
+        if row["label"] != "arousal" or row["metric"] != "max_positive_delta":
+            continue
+        quantile = float(row["quantile"])
+        if not 0.80 <= quantile <= 0.99 or int(row["washout_rows"]) <= 0:
+            continue
+        minimum_test_videos = min(int(fold["test_videos"]) for fold in row["folds"])
+        required_event_videos = max(
+            1,
+            int(np.ceil(minimum_test_videos * MIN_EVENT_VIDEO_FRACTION_PER_GROUPED_FOLD)),
+        )
+        if (
+            int(row["minimum_fold_event_rows"]) < MIN_EVENT_ROWS_PER_GROUPED_FOLD
+            or int(row["minimum_fold_event_videos"]) < required_event_videos
+        ):
+            continue
+        geometry = (int(row["washout_rows"]), int(row["horizon_rows"]))
+        by_geometry.setdefault(geometry, []).append(row)
+
+    selected: list[dict[str, Any]] = []
+    for geometry, rows in sorted(by_geometry.items()):
+        stability_cutoff = float(
+            np.median([float(row["threshold_relative_range"]) for row in rows])
+        )
+        rows = [row for row in rows if float(row["threshold_relative_range"]) <= stability_cutoff]
+        rows = sorted(rows, key=lambda row: float(row["quantile"]))
+        if len(rows) > 6:
+            positions = np.linspace(0, len(rows) - 1, num=6, dtype=np.int64)
+            rows = [rows[int(position)] for position in positions]
+        for row in rows:
+            selected.append(
+                {
+                    "label": "arousal",
+                    "metric": "max_positive_delta",
+                    "washout_rows": geometry[0],
+                    "horizon_rows": geometry[1],
+                    "quantile": float(row["quantile"]),
+                    "minimum_fold_event_rows": int(row["minimum_fold_event_rows"]),
+                    "minimum_fold_event_videos": int(row["minimum_fold_event_videos"]),
+                    "threshold_relative_range": float(row["threshold_relative_range"]),
+                    "geometry_stability_cutoff": stability_cutoff,
+                }
+            )
+    if not selected:
+        raise BundleError("no nonzero-washout arousal event target has broad grouped-fold support")
+    return selected
+
+
+def freeze_split_ownership(
+    videos: Sequence[Phase01Video],
+    *,
+    geometries: Sequence[tuple[int, int]],
+    split_design: dict[str, float | int | str],
+) -> dict[str, Any]:
+    """Materialize exact model-blind memberships and immutable digests."""
+
+    grouped_folds = int(split_design["grouped_fold_count"])
+    outer_fraction = float(split_design["blocked_outer_train_fraction"])
+    inner_fraction = float(split_design["blocked_inner_train_fraction"])
+    grouped = _balanced_fold_assignments(videos, folds=grouped_folds)
+    grouped_membership = {
+        video.video_id: int(grouped[index]) + 1 for index, video in enumerate(videos)
+    }
+    blocked: dict[str, Any] = {}
+    for washout, horizon in geometries:
+        membership_records = []
+        digest = hashlib.sha256()
+        for video in videos:
+            eligible = derive_trajectory_family(
+                video.arousal, washout_rows=washout, horizon_rows=horizon
+            ).eligible
+            if np.sum(eligible) < MIN_ELIGIBLE_ROWS_PER_VIDEO:
+                membership_records.append(
+                    {"video_id": video.video_id, "status": "insufficient_geometry_support"}
+                )
+                continue
+            membership = blocked_membership(
+                eligible,
+                outer_train_fraction=outer_fraction,
+                inner_train_fraction=inner_fraction,
+            )
+            record: dict[str, Any] = {"video_id": video.video_id, "status": "eligible"}
+            for part, name in (
+                (1, "inner_train"),
+                (2, "inner_validation"),
+                (3, "outer_test"),
+            ):
+                indices = np.flatnonzero(membership == part)
+                record[name] = {
+                    "first_row": int(indices[0]),
+                    "last_row": int(indices[-1]),
+                    "row_count": len(indices),
+                }
+            digest.update(video.video_id.encode())
+            digest.update(membership.tobytes())
+            membership_records.append(record)
+        blocked[f"washout{washout}_horizon{horizon}"] = {
+            "membership_sha256": digest.hexdigest(),
+            "videos": membership_records,
+        }
+    grouped_payload = json.dumps(grouped_membership, sort_keys=True).encode()
+    return {
+        "selection_rationale": {
+            "rule": split_design["rule"],
+        },
+        "blocked_forward": {
+            "outer_train_fraction": outer_fraction,
+            "outer_test_fraction": 1 - outer_fraction,
+            "inner_train_fraction_within_outer_train": inner_fraction,
+            "inner_validation_fraction_within_outer_train": 1 - inner_fraction,
+            "semantics": "earlier/later eligible rows within every supported video",
+            "by_geometry": blocked,
+        },
+        "grouped_video": {
+            "fold_count": grouped_folds,
+            "video_to_fold": grouped_membership,
+            "membership_sha256": hashlib.sha256(grouped_payload).hexdigest(),
+        },
+    }
+
+
+def derive_history_candidates(
+    videos: Sequence[Phase01Video],
+    acf: dict[str, list[dict[str, Any]]],
+    pacf: dict[str, list[dict[str, Any]]],
+) -> list[int]:
+    """Derive a compact arousal-history set from supported decay and partial correlation."""
+
+    minimum_videos = _minimum_geometry_videos(videos)
+    candidates = {1}
+    crossings = _acf_crossings(acf["arousal"])
+    candidates.update(
+        int(value)
+        for key, value in crossings.items()
+        if key in {"0.9", "0.75", "0.5", "0.25"} and value is not None
+    )
+    supported_pacf = [
+        int(row["lag_rows"])
+        for row in pacf["arousal"]
+        if int(row["eligible_videos"]) >= minimum_videos
+        and row["pair_weighted_partial_correlation"] is not None
+        and abs(float(row["pair_weighted_partial_correlation"])) >= 0.05
+    ]
+    if supported_pacf:
+        candidates.add(max(supported_pacf))
+    ordered = sorted(value for value in candidates if value > 0)
+    if len(ordered) <= 8:
+        return ordered
+    positions = np.linspace(0, len(ordered) - 1, num=8, dtype=np.int64)
+    return sorted({ordered[int(position)] for position in positions})
+
+
+def build_overlap_ledger(
+    registry: Sequence[dict[str, Any]], histories: Sequence[int]
+) -> list[dict[str, Any]]:
     return [
         {
             "history_rows": history,
@@ -657,31 +971,45 @@ def shared_computation_contract() -> dict[str, Any]:
             "allowed only after independently confirmed event and continuous specialists; "
             "must beat each specialist on its own locked endpoint"
         ),
-        "zero_label_gate": (
-            "allowed only after supervised specialists and combined challenger are resolved"
-        ),
     }
 
 
 def analyze_phase01(videos: Sequence[Phase01Video]) -> dict[str, Any]:
-    max_lag = min(120, min(video.row_count for video in videos) - 4)
+    max_lag = min(240, max(video.row_count for video in videos) - 4)
     descriptions = describe_labels_and_audits(videos)
     acf = {
         label: autocorrelation_profile(videos, label=label, max_lag_rows=max_lag)
         for label in ("arousal", "valence")
     }
     pacf = {
-        label: partial_autocorrelation_profile(videos, label=label, max_lag_rows=min(32, max_lag))
+        label: partial_autocorrelation_profile(videos, label=label, max_lag_rows=min(64, max_lag))
         for label in ("arousal", "valence")
     }
     registry = derive_geometry_registry(videos, acf)
-    geometries = sorted(
-        {(int(item["washout_rows"]), int(item["horizon_rows"])) for item in registry}
+    arousal_registry = [item for item in registry if str(item["derivation"]).startswith("arousal_")]
+    arousal_geometries = sorted(
+        {(int(item["washout_rows"]), int(item["horizon_rows"])) for item in arousal_registry}
+    )
+    if not arousal_geometries:
+        raise BundleError("VEATIC arousal dynamics produced no supported target geometry")
+    split_audit = audit_split_candidates(videos, arousal_geometries)
+    split_design = select_split_design(split_audit, geometry_count=len(arousal_geometries))
+    history_candidates = derive_history_candidates(videos, acf, pacf)
+    threshold_stability = threshold_stability_audit(
+        videos,
+        geometries=arousal_geometries,
+        folds=int(split_design["grouped_fold_count"]),
+    )
+    event_target_candidates = select_event_target_candidates(threshold_stability)
+    split_ownership = freeze_split_ownership(
+        videos,
+        geometries=arousal_geometries,
+        split_design=split_design,
     )
     return {
         "summary": {
-            "schema_version": "veatic21_phase01_result_v1",
-            "status": "descriptive_complete_no_cortical_values_read",
+            "schema_version": "veatic21_phase01_targets_geometry_ownership_result_v1",
+            "status": "complete_no_cortical_values_read",
             "created_at": datetime.now(UTC).isoformat(),
             "video_count": len(videos),
             "total_rows": sum(video.row_count for video in videos),
@@ -692,10 +1020,35 @@ def analyze_phase01(videos: Sequence[Phase01Video]) -> dict[str, Any]:
         "autocorrelation": acf,
         "partial_autocorrelation": pacf,
         "geometry_registry": registry,
-        "threshold_support": trajectory_support_table(videos, geometries=geometries),
-        "split_candidate_audit": audit_split_candidates(videos, geometries),
-        "target_overlap_ledger": build_overlap_ledger(registry),
+        "threshold_support": trajectory_support_table(videos, geometries=arousal_geometries),
+        "threshold_stability": threshold_stability,
+        "split_candidate_audit": split_audit,
+        "split_ownership": split_ownership,
+        "target_overlap_ledger": build_overlap_ledger(arousal_registry, history_candidates),
         "shared_computation_contract": shared_computation_contract(),
+        "supervised_combination_inputs": {
+            "canonical_root": str(DEFAULT_BUNDLE_ROOT),
+            "required_video_ids": list(EXPECTED_VIDEO_IDS),
+            "required_video_count": len(EXPECTED_VIDEO_IDS),
+            "arousal_geometry_candidates": arousal_registry,
+            "arousal_history_candidates_rows": history_candidates,
+            "event_target_candidates": event_target_candidates,
+            "continuous_target_candidates": [
+                {
+                    "label": "arousal",
+                    "metric": "max_positive_delta",
+                    "washout_rows": int(item["washout_rows"]),
+                    "horizon_rows": int(item["horizon_rows"]),
+                    "residualize_against_train_owned_simple_history": True,
+                }
+                for item in arousal_registry
+                if int(item["washout_rows"]) > 0
+            ],
+            "split_design": split_design,
+            "separate_event_and_continuous_specialists": True,
+            "primary_cortical_array_for_phase02": "cortical_prediction",
+            "diagnostic_array_role_for_phase02": "explicit_separate_block",
+        },
     }
 
 
@@ -704,7 +1057,10 @@ def _artifact_manifest(root: Path, names: Iterable[str]) -> dict[str, Any]:
         {"path": name, "bytes": (root / name).stat().st_size, "sha256": _sha256(root / name)}
         for name in names
     ]
-    return {"schema_version": "veatic21_phase01_artifact_manifest_v1", "files": files}
+    return {
+        "schema_version": "veatic21_phase01_targets_geometry_ownership_manifest_v1",
+        "files": files,
+    }
 
 
 def run_phase01(
@@ -712,15 +1068,17 @@ def run_phase01(
     bundle_root: Path = DEFAULT_BUNDLE_ROOT,
     output_root: Path = DEFAULT_PHASE01_ROOT,
     registration_path: Path,
-    workers: int = 12,
+    workers: int = 6,
 ) -> dict[str, Any]:
-    """Run and atomically publish the registered label-only Phase 01 analysis."""
+    """Run and atomically publish the registered Phase 01 derivation."""
 
     output_root = output_root.resolve()
     if output_root.exists():
         raise BundleError(f"refusing to overwrite existing Phase 01 root: {output_root}")
     assert_safe_delete_target(output_root)
     videos = load_phase01_videos(bundle_root=bundle_root, workers=workers)
+    if [video.video_id for video in videos] != list(EXPECTED_VIDEO_IDS):
+        raise BundleError("Phase 01 execution requires every VEATIC video 0..123")
     analysis = analyze_phase01(videos)
     output_root.parent.mkdir(parents=True, exist_ok=True)
     temporary = Path(
@@ -762,7 +1120,7 @@ def verify_phase01(*, output_root: Path = DEFAULT_PHASE01_ROOT) -> dict[str, Any
         path = root / record["path"]
         if path.stat().st_size != record["bytes"] or _sha256(path) != record["sha256"]:
             raise BundleError(f"Phase 01 artifact mismatch: {path}")
-    if summary["status"] != "descriptive_complete_no_cortical_values_read":
+    if summary["status"] != "complete_no_cortical_values_read":
         raise BundleError("Phase 01 summary is not a clean descriptive result")
     return {
         "status": "pass",
