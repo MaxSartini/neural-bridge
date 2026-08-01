@@ -26,11 +26,12 @@ unseen client video
 
 V-JEPA 2.1 and TRIBE v2 are not two competing Neural Bridge models or two independent production inputs. V-JEPA 2.1 is the video encoder used inside the TRIBE v2 pipeline; TRIBE v2 maps that encoded video information into predicted average-subject cortical activity. For VEATIC 2.1, the expensive V-JEPA 2.1 pass was run once on H100 hardware and cached, then TRIBE v2 was run over those cached encoder outputs locally. That avoided paying to re-encode the same 124 videos while preserving the intended upstream stack.
 
-The two protected staging roots are consolidated once into
-`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/neural-bridge-input/`.
+The protected VEATIC 2.1 dataset is
+`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/veatic-2.1/`.
 Its 124 per-video folders co-locate each final TRIBE `cortical_prediction` payload with its
-matching authoritative `rows.csv` and small alignment metadata. That sealed folder is the
-only Phase 00+ downstream input. V-JEPA hidden-state NPZ files are never copied or opened.
+matching authoritative `rows.csv` and small alignment metadata. It is the mandatory and
+exclusive source of VEATIC 2.1 cortical predictions. The retired staging roots are preserved
+but not consulted.
 
 Neural Bridge begins after this frozen upstream stack. Raw TRIBE output is rich but is not expected to solve the product task by itself. AGAIN demonstrated the central point: raw predicted cortical features could lose to a strong response-history baseline, while the learned Neural Bridge temporal and residual machinery exposed useful forward-looking signal.
 
@@ -44,7 +45,10 @@ The datasets are complementary training and proving environments for the eventua
 | **VEATIC 2.1** | the same `124` VEATIC film, television, documentary, and contextual-affect videos rebuilt on the stronger dense 2 Hz V-JEPA 2.1/TRIBE v2 substrate; includes both arousal and valence | adds edited and narrative video structure, perceived contextual affect, valence, and domain coverage that AGAIN cannot provide |
 | **Future datasets** | new content types, populations, labels, and response conditions | extend coverage and reduce dependence on the quirks of any one benchmark before production claims are made |
 
-Each dataset must first earn its own scientifically valid capabilities. VEATIC 2.1 therefore does **not** inherit AGAIN-fitted PCA, heads, thresholds, checkpoints, gates, or numerical choices. It inherits the lessons that worked—dense alignment, strong fresh baselines, fold ownership, learned temporal residuals, matched controls, stability testing, no-harm, and prospective confirmation—then calculates its own targets, widths, models, and training settings from VEATIC evidence.
+Each dataset must first earn its own scientifically valid capabilities. VEATIC 2.1 does
+**not** inherit AGAIN-fitted PCA, heads, thresholds, checkpoints, gates, code, or numerical
+choices. No transfer decision is current; the exhaustive AGAIN evidence audit must come
+first.
 
 After dataset-specific abilities are discovered and confirmed, they become inputs to the eventual combined production model. The exact consolidation architecture is itself an empirical question, but the product contract is fixed: one system should retain the useful abilities learned across gameplay, film, television, contextual video, advertisements, and future domains rather than selecting a different research model manually for every client.
 
@@ -70,36 +74,12 @@ Exact human-response values are neither realistic nor necessary. People and audi
 
 The engineering objective is maximum accuracy, performance, robustness, and domain coverage in the most efficient defensible implementation. Efficiency is not permission to discard useful signal, reduce model capability, or skip necessary integration work.
 
-## What we are doing now: the VEATIC 2.1 rebuild
+## Current VEATIC 2.1 status
 
-VEATIC 2.1 is not a new dataset and is not the Original VEATIC model renamed. It is a fresh Neural Bridge rebuild over the same 124 VEATIC videos using the denser, stronger 2 Hz V-JEPA 2.1/TRIBE v2 substrate and the scientific lessons earned from Original VEATIC and AGAIN.
-
-Phase 00 passed all 124 videos and 20,657 rows. Phase 01 label/dynamics/split implementation
-is current; no VEATIC 2.1 predictive result, target, split, projection, or head is selected.
-The completed upstream inputs and sealed per-video consolidated bundle are protected.
-Hidden-state NPZ files are forbidden; V-JEPA and TRIBE are not rerun.
-
-Only after Phase 01 derives and freezes VEATIC-specific label dynamics, targets, histories,
-windows, washouts, and evaluation ownership without reading cortical outcomes may Phase 02
-build the AR opponents. No prior VEATIC 2.1 result or numeric registration survives as an
-experimental answer.
-
-After Phase 00, every phase and subphase must preregister a broad VEATIC-specific candidate registry, complete matched controls, staged training and pruning rules, convergence/undertraining checks, fresh-seed expansion, a full ledger of successful and failed runs, and a search-sufficiency gate. A convenient baseline, one projection, one head, one optimizer, one budget, or one seed cannot establish either a win or a failure.
-
-The scientific order from there is fixed:
-
-1. audit and seal the complete 124-video 2 Hz substrate in fresh Phase 00;
-2. derive the arousal-spike target family from VEATIC labels without reading cortical results;
-3. establish the strongest defensible fresh VEATIC AR floor through a comprehensive search;
-4. benchmark raw cortical signal and controls over every eligible per-video row;
-5. comprehensively search fold-owned projections, widths, temporal representations, and controls;
-6. comprehensively search learned head, residual/fusion, optimizer, budget, and checkpoint families;
-7. confirm and stabilize a controlled spike winner before opening continuous arousal;
-8. repeat the full specialized method for continuous arousal;
-9. crack valence through its own VEATIC-specific target and experiment programme; and
-10. only after all supervised abilities are established, develop the genuine video-only, zero-label-at-inference lane and integrate confirmed VEATIC and AGAIN abilities into the broader production generalist.
-
-The active command, exact artifact paths, and next executable gate live in [`internal/handoff/CURRENT_STATE.md`](internal/handoff/CURRENT_STATE.md). That handoff records current execution state; this README records the stable product and programme model.
+The downstream rebuild has been reset. No VEATIC 2.1 target, split, PCA, AR opponent,
+learned head, control, checkpoint, inference result, or accuracy claim is current. The only
+live status and authorization are in [`AGENTS.md`](AGENTS.md) and
+[`internal/handoff/CURRENT_STATE.md`](internal/handoff/CURRENT_STATE.md).
 
 ### Two peer-reviewed proving grounds
 
@@ -379,8 +359,8 @@ For a manuscript, the clean next statistical additions are video-clustered inter
 | --- | --- | --- |
 | [AGAIN](https://doi.org/10.1109/TAFFC.2022.3188851) | primary large-scale benchmark; first-person continuous arousal annotations from gameplay | Neural Bridge uses the cleaned 995-video subset; grouped folds hold out video IDs, not necessarily participants |
 | [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html) | historical 124-video event-ranking foundation | ratings concern the selected character's perceived affect; this is related evidence, not the same label construct as AGAIN |
-| [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) | video encoder inside the upstream TRIBE v2 cache-generation stack; its expensive dense 2 Hz VEATIC pass was cached before TRIBE ran over it | not a separate Neural Bridge input, candidate representation, or production branch |
-| [TRIBE v2](https://arxiv.org/abs/2605.04326) | consumes the cached encoder outputs and produces predicted average-subject cortical activity; the resulting cortical cache is the Neural Bridge input | outputs are in-silico predictions on a cortical surface, not measurements from AGAIN or VEATIC participants |
+| [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) | video encoder inside the upstream TRIBE v2 cache-generation stack; its expensive dense 2 Hz VEATIC pass was cached before TRIBE ran over it | not a separate downstream dataset, candidate representation, or production branch |
+| [TRIBE v2](https://arxiv.org/abs/2605.04326) | consumes the cached encoder outputs and produces predicted average-subject cortical activity | outputs are in-silico predictions on a cortical surface, not measurements from AGAIN or VEATIC participants |
 
 ## Product translation
 

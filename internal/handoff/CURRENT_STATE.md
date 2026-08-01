@@ -1,96 +1,157 @@
-# VEATIC 2.1 Current State
+# Neural Bridge Current State
 
 Updated: 2026-08-01
-Lifecycle: Phase 00 passed; Phase 01 registration and implementation are the only active work
+State: complete VEATIC 2.1 downstream reset; autonomous evidence-led rebuild authorized
 
-## Mandatory authority anchors
+## Live authority
 
 - Repository contract: `/Users/maxsartini/Neural Bridge/AGENTS.md`
-- Master scientific specification:
-  `/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md`
-- Supervised spike + continuous combination:
-  `/Users/maxsartini/Neural Bridge/internal/active/veatic21-supervised-spike-continuous-combination.md`
-- Operational rebuild protocol:
-  `/Users/maxsartini/Neural Bridge/internal/active/veatic21-rebuild-protocol.md`
-- Live handoff: `/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md`
+- This live state: `/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md`
 
-Read the contract, complete master specification, complete supervised-combination
-specification, and this file in that order. Then read these rebuild-protocol sections:
+These are the only live authority files. Read both completely. There is no active VEATIC
+scientific specification, rebuild protocol, model plan, Phase 01 registration, or downstream
+implementation.
 
-- `Authority and protected-root check`
-- `Canonical input boundary`
-- `Phase 01 — VEATIC targets, geometry, and ownership`
-- `Metrics and uncertainty`
-- `Hardware and execution`
-- `Phase transition`
+## Reset boundary
 
-The master specification controls scientific method. This file controls only live status and
-the next action.
+No VEATIC 2.1 target, split, PCA, AR opponent, learned head, scientific control, checkpoint,
+ensemble, inference result, or accuracy claim is trusted or active. All VEATIC 2.1
+downstream code, registrations, plans, reports, tests, and generated run records have been
+deleted.
 
-## Current route
+This reset does not prohibit new work. Fresh design, implementation, training, inference,
+benchmarking, controls, and computation are authorized after the evidence foundation below
+has been reconstructed. Continue autonomously; no further user authorization is required.
 
-1. Sealed 124-video VEATIC input.
-2. VEATIC-owned target, temporal-geometry, and ownership derivation.
-3. One consolidated supervised arousal build containing independently optimized spike and
-   continuous specialists in one paired package.
-4. VEATIC valence.
-5. Genuine video-only, zero-label-at-inference learning.
-6. Paper, deployment refit, and product integration.
+The mandatory and exclusive source of VEATIC 2.1 cortical predictions is the existing
+VEATIC 2.1 dataset:
 
-## Passed evidence
+`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/veatic-2.1/`
 
-- Phase 00 passed for every video ID `0..123` and all 20,657 rows without making a predictive
-  claim.
-- The sealed bundle contains 995 files and 874,861,789 bytes, with zero writable paths, zero
-  hidden-state payloads, and zero copied hidden-state transport receipts.
-- Bundle-manifest SHA-256:
-  `43dca9a25422bcdf08ac440520c0d5db81d850e166d649b85b8a4b43ae419c36`.
-- Phase 00 result SHA-256:
-  `ad271c721c822041749add2937b920c9d69c82c9941a7bf2db8f7371a72758e3`.
-- Phase 00 artifact-manifest SHA-256:
-  `32e5983d8d871a7b5ba1face8c23cbd59474a819971c3d161ec83366484c52e0`.
-- Phase 00 execution commit `600837d78cf70b123e6f7864cb0789b70c0911b1` is on
-  `origin/main`.
+It must not be deleted, rebuilt, reassembled, edited in place, or replaced. Downstream work
+must use all matching `per_video/0` through `per_video/123` directories from this folder.
+For video `v`, use only that same directory's `rows.csv` and
+`tribe_v2_cortical_predictions.npz:cortical_prediction`; never use a pooled payload, one
+video, a partial subset, filesystem ordering, or a cross-video join.
 
-No predictive target, ownership split, response-history opponent, projection, cortical
-score, fitted head, checkpoint recipe, or promotion claim has yet been produced.
+This cortical-prediction rule is not a general read restriction. Required VEATIC labels,
+annotations, repository code and documentation, scientific references, and non-retired
+evidence may be read and used. The two retired upstream roots remain the only feature roots
+that must not be consulted.
 
-## Sole input and protected roots
-
-The only downstream VEATIC input is:
-
-`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/neural-bridge-input/`
-
-It contains the explicit matching directories `per_video/0` through `per_video/123`. Every
-later cortical build must read each directory's
-`tribe_v2_cortical_predictions.npz:cortical_prediction` and join it only to that directory's
-`rows.csv` by row index.
-
-These roots are immutable and outside every delete/write boundary:
+These roots are immutable and outside every write/delete boundary:
 
 - `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/`
 - `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/`
-- `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/neural-bridge-input/`
+- `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/veatic-2.1/`
 - `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/again/`
 
-V-JEPA and TRIBE are complete and must not be rerun. No
-`vjepa21_hidden_states.npz` may be opened, mapped, hashed, copied, or inspected.
+The `tribe-v2` and `vjepa-2.1` roots are retired. They are preserved only and must not be
+invoked, enumerated, read, hashed, copied from, or used for reconstruction. The VEATIC 2.1
+dataset is the only permitted source of cortical predictions.
 
-## Current authorization
+## Exact authorized action A — VEATIC 2.1 dataset inventory
 
-Phase 01 may read all authoritative `rows.csv` values and only the registered non-cortical
-audit arrays. It must use all 124 videos. It derives long-lag ACF/PACF with tapering support,
-future-target geometries, causal response-history supports, event-threshold support, exact
-strict-forward blocked/inner ownership, whole-video grouped folds, overlap ledgers, and the
-numeric VEATIC inputs required by the supervised combination specification.
+Inventory the existing VEATIC 2.1 dataset read-only. Require exactly the numeric directory set
+`per_video/0` through `per_video/123`. Within each directory, verify the local `rows.csv`, the
+local `tribe_v2_cortical_predictions.npz`, the `cortical_prediction` array role, row identity,
+2 Hz ordering, and the local manifest/status material. Account for every video and row.
 
-Phase 01 may not read `cortical_prediction`, `temporal_diagnostics53`, or
-`tribe_grouped_video_feature` values; fit a projection; train a predictive model; score a
-cortical outcome; modify a protected root; or begin Phase 02.
+This is verification of the VEATIC 2.1 dataset only. Do not invoke or read the retired TRIBE
+or V-JEPA roots, and do not reconstruct the dataset.
 
-## Exact next action
+## Exact authorized action B — AGAIN methodology audit
 
-Finish the Phase 01 prospective registration, implementation, and tests. Inspect the entire
-active authority set and every changed file. Commit and push that coherent transition
-directly to `origin/main`. Do not execute Phase 01 before the registration and implementation
-commit is present on remote `main`.
+Perform an exhaustive, read-only reconstruction of the AGAIN methodology from both roots:
+
+- `/Users/maxsartini/Neural Bridge/studies/again/`
+- `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/again/`
+
+Do not start from repository `src/` and do not stop at phase READMEs or final reports. Inspect
+every phase, subphase, run, plan, preregistration, report, manifest, configuration, metric,
+audit, replay record, checkpoint schema, prediction manifest, and decisive failed result in
+those two roots. Reconcile compact study records with the actual run artifacts.
+
+The audit must reconstruct the complete dependency lineage of the strongest supervised
+event/spike result and the strongest supervised continuous result. It must exclude the
+zero-label result as the target recipe while still recording why zero-label followed.
+
+For every target, AR model, residualizer, PCA/projection, feature family, head, control, and
+ensemble that contributed to either final supervised result, record:
+
+1. the exact originating phase/subphase/run and all parent artifacts;
+2. the mathematical target, legal rows, history rows, washout rows, future rows, threshold,
+   masks, cadence, and split ownership;
+3. how the object was calculated or trained, including input tensor layout, preprocessing,
+   scaling, projection ownership, architecture, layer shapes, gates, residual equations,
+   initialization, loss terms, optimizer, learning rate, regularization, batches, epochs,
+   patience, seeds, and checkpoint rule;
+4. every candidate or alternative tried at that decision point and the exact delta from the
+   preceding attempt;
+5. every matched control, how it was constructed, whether its frozen AR floor was
+   byte-identical, its budget, its result, and its disposition;
+6. blocked-forward and grouped-video results separately, including failures;
+7. exact checkpoint and ensemble membership, weighting, member-selection policy, and fresh
+   confirmation evidence;
+8. artifact paths, hashes/checksums, row counts, fold counts, seed counts, and verification
+   status;
+9. which dependencies genuinely carried into the winners and which moves were dead ends;
+10. any inconsistency between study documentation and run artifacts.
+
+The audit must explicitly cover:
+
+- Phase 00 dense foundation and Phase 01 alignment;
+- all five Phase 02 AR iterations and what changed between them;
+- Phase 03 raw cortical lanes and controls;
+- every Phase 04 PCA family, width, fold fit, and promotion decision;
+- every Phase 5.0 through 5.5 transition, including evaluation correction, frozen-AR
+  residualization, blocked failures, AR decomposition, target redesign, fold-safe PCA,
+  architecture comparison, controls, and dual-protocol confirmation;
+- every Phase 06 stabilization branch, including rejected Optuna/blend/checkpoint strategies;
+- Phase 07 diagnostic, blocked, and grouped continuous branches, including all member and
+  ensemble cells;
+- the exact supervised event and continuous dependency graphs back to raw inputs.
+
+## Ordered autonomous continuation
+
+Produce two evidence-indexed audits that a second agent can reconstruct independently from
+the listed paths: the VEATIC 2.1 dataset inventory and the AGAIN dependency audit. In the AGAIN
+audit, separate:
+
+- transferable methodology;
+- AGAIN-specific numerical choices;
+- AGAIN code/runners/fitted artifacts that must never be reused;
+- VEATIC quantities that will later require fresh calculation.
+
+The audits are the evidence foundation, not a stopping point. After completing them, continue
+autonomously through a fresh VEATIC 2.1-specific programme:
+
+1. derive the VEATIC targets, histories, windows, washouts, thresholds, splits, ownership,
+   metrics, controls, and candidate space from VEATIC evidence;
+2. implement and unit-test the fresh VEATIC pipeline;
+3. benchmark representative real workloads and use the fastest correct CPU, GPU, or hybrid
+   topology on the available Mac Studio;
+4. run comprehensive VEATIC-specific AR, PCA/projection, raw-cortical, learned-head,
+   temporal, residual, control, seed, checkpoint, and ensemble experiments for event/spike
+   and continuous arousal;
+5. combine the independently strongest controlled spike and continuous abilities and confirm
+   them under both blocked-temporal and held-out-video evaluation;
+6. repeat the evidence-led programme for valence; and
+7. after the supervised abilities are established, build and test the genuine video-only,
+   zero-label-at-inference lane.
+
+Training, inference, benchmarking, controls, and compute-intensive search are authorized.
+Do not stop after a unit test, a miniature run, one candidate, or one seed. Commit and push
+coherent transitions directly on `main`; continue without waiting for another permission
+checkpoint.
+
+## Hard data and integrity boundaries
+
+- editing the VEATIC 2.1 dataset or either retired upstream feature root;
+- invoking or reading either retired upstream feature root;
+- rerunning V-JEPA or TRIBE;
+- reading V-JEPA hidden-state NPZ files;
+- copying or adapting AGAIN code, runners, fitted artifacts, predictions, or numeric settings
+  into VEATIC; and
+- claiming predictive performance without the registered controls and confirmation evidence
+  needed to support it.

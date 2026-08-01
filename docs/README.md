@@ -1,24 +1,22 @@
 # Methods and Reproducibility
 
-The stable product architecture, the single V-JEPA 2.1/TRIBE v2 upstream stack, the multi-dataset generalist goal, and the current VEATIC 2.1 rebuild position are defined in the root [`README.md`](../README.md). This page owns evaluation and reproducibility details rather than a second product description.
+The stable product architecture and multi-dataset goal are defined in the root
+[`README.md`](../README.md). Live VEATIC 2.1 status and authorization exist only in
+[`AGENTS.md`](../AGENTS.md) and [`CURRENT_STATE.md`](../internal/handoff/CURRENT_STATE.md).
 
 ## What the inputs are
 
-The VEATIC Neural Bridge input is one sealed consolidated folder:
-`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/neural-bridge-input/`.
+The mandatory VEATIC 2.1 cortical-prediction dataset is:
+`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/veatic-2.1/`.
 Its 124 per-video directories contain the final TRIBE `cortical_prediction` payload and the
 matching authoritative `rows.csv` plus only small allowlisted alignment metadata. The
-assembler verifies every source/destination hash and row mapping. V-JEPA hidden-state arrays
-are never copied or opened and are not a second candidate input. The cortical values are
+retired staging roots are preserved but not consulted. V-JEPA hidden-state arrays are not a
+second candidate input. The cortical values are
 predictions generated from video, not measurements from the viewers represented by VEATIC or
 AGAIN.
 
-VEATIC 2.1 Phase 00 passed exact 124-video per-folder row identity, input completeness,
-schema, finiteness, byte identity, and the hidden-state firewall for 20,657 rows. Phase 01
-label/dynamics/split implementation is current. Target windows, washout gaps, threshold
-quantiles, history depths, and grouped/blocked partitions are derived from VEATIC evidence;
-projection widths, model families, and seed counts remain later-phase decisions. None is
-inherited from AGAIN or from an earlier VEATIC 2.1 attempt.
+No VEATIC 2.1 target, split, projection, AR opponent, head, control, or predictive result is
+current. The fresh work and its ordering are authorized by the two live authority files.
 
 The AGAIN feature foundation uses the frozen [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) ViT-G target encoder and [TRIBE v2](https://arxiv.org/abs/2605.04326). The primary affect sources are the [AGAIN dataset](https://doi.org/10.1109/TAFFC.2022.3188851) and [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html). AGAIN provides first-person continuous arousal annotations; VEATIC provides continuous ratings of a selected character's perceived affect. Results are therefore reported as a cross-dataset evidence ladder, not as a single transferred model or identical label construct.
 
@@ -28,7 +26,8 @@ For the concluded AGAIN Phase 7 study, at its 2 Hz row rate, the future-movement
 
 ![y sub t equals the maximum, for k from 4 through 10, of a sub t plus k minus a sub t; the sampling frequency is 2 hertz](assets/equations/future-movement-target-light.svg)
 
-so its forecast window was 2–5 seconds ahead. These row offsets and seconds are not VEATIC 2.1 candidates by inheritance. Fresh VEATIC target windows must be derived from VEATIC label dynamics before cortical scoring. AGAIN Phase 7 predicts
+so its forecast window was 2–5 seconds ahead. These row offsets and seconds are not VEATIC
+2.1 candidates by inheritance. AGAIN Phase 7 predicts
 
 ![Residual target y tilde sub t equals y sub t minus the frozen autoregressive prediction of x sub t](assets/equations/ar-residual-target-light.svg)
 
@@ -45,9 +44,6 @@ so test labels never choose their own threshold.
 ## Evaluation rules
 
 - Use every eligible dense 2 Hz row and retain valid negatives from zero-event videos.
-- For fresh VEATIC, retain every Phase-00-verified canonical row in the primary substrate.
-  Black/static quality flags are metadata and nuisance controls; any filtered analysis is a
-  separately registered sensitivity with matched lanes.
 - Fit PCA, scalers, thresholds, AR models, and heads inside their allowed training folds only.
 - Train `AR-only` separately. Reuse the exact fold/seed frozen AR unchanged in real and matched-control residual lanes.
 - Pool event PR-AUC over valid rows; never invent per-video zero scores.
@@ -91,10 +87,8 @@ Historical member checkpoints can also be replayed through `python -m neural_bri
 ## Hardware support
 
 The concluded shared learned-head implementation supports PyTorch on CPU or CUDA and MLX on
-Apple silicon. Fresh VEATIC implementation is rebuilt separately and benchmarks safe CPU,
-MLX-concurrency, GPU-batch, and CPU/GPU pipeline configurations on the actual Mac Studio
-before every material main run. Evidence verification and historical MLX checkpoint replay
-do not require MLX hardware. Project commands use standard `uv`, Python, and pytest.
+Apple silicon. Evidence verification and historical MLX checkpoint replay do not require MLX
+hardware. Project commands use standard `uv`, Python, and pytest.
 
 ## Heavy artifacts
 
