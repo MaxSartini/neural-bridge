@@ -4,9 +4,9 @@ Neural Bridge advanced through ten connected research stages. Each stage had a d
 
 Current shared code lives in [`src/neural_bridge/`](../src/neural_bridge/). Historical phase scripts are provenance, not the active API. Each linked closure preserves compact evidence and identifies any heavy externally registered artifacts.
 
-The fresh [VEATIC 2.1 rebuild](veatic-2.1/README.md) is at Phase 00. No VEATIC 2.1 scientific
-result or numeric model choice exists. Its next step is a complete protected-input and 2 Hz
-row-identity audit across all 124 per-video TRIBE payloads and matching `rows.csv` tables.
+The fresh [VEATIC 2.1 rebuild](veatic-2.1/README.md) has concluded its model-free Phase 00
+input foundation for all 124 videos and 20,657 rows. Phase 01 label/dynamics/split
+implementation is next; no predictive result or numeric model choice exists yet.
 
 | Stage | Question | Decisive result | Scientific consequence |
 | --- | --- | --- | --- |

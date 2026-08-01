@@ -74,17 +74,15 @@ The engineering objective is maximum accuracy, performance, robustness, and doma
 
 VEATIC 2.1 is not a new dataset and is not the Original VEATIC model renamed. It is a fresh Neural Bridge rebuild over the same 124 VEATIC videos using the denser, stronger 2 Hz V-JEPA 2.1/TRIBE v2 substrate and the scientific lessons earned from Original VEATIC and AGAIN.
 
-The current position is a clean Phase 00. No VEATIC 2.1 modelling result, target, split,
-projection, or head is selected. The completed upstream inputs are protected: all 124
-per-video TRIBE cortical payloads are the modelling source, and the matching V-JEPA
-`rows.csv` files provide row/label/alignment identity. Hidden-state NPZ files are forbidden;
-V-JEPA and TRIBE are not rerun.
+Phase 00 passed all 124 videos and 20,657 rows. Phase 01 label/dynamics/split implementation
+is current; no VEATIC 2.1 predictive result, target, split, projection, or head is selected.
+The completed upstream inputs and sealed per-video consolidated bundle are protected.
+Hidden-state NPZ files are forbidden; V-JEPA and TRIBE are not rerun.
 
-The first action is to implement and execute a fresh, complete input audit. Only after all
-124 `(video_id,row_index)` mappings, schemas, values, and hashes pass will VEATIC-specific
-label dynamics, target windows, washout gaps, threshold candidates, and split ownership be
-derived. No prior VEATIC 2.1 result or numeric registration survives as an experimental
-answer.
+Only after Phase 01 derives and freezes VEATIC-specific label dynamics, targets, histories,
+windows, washouts, and evaluation ownership without reading cortical outcomes may Phase 02
+build the AR opponents. No prior VEATIC 2.1 result or numeric registration survives as an
+experimental answer.
 
 After Phase 00, every phase and subphase must preregister a broad VEATIC-specific candidate registry, complete matched controls, staged training and pruning rules, convergence/undertraining checks, fresh-seed expansion, a full ledger of successful and failed runs, and a search-sufficiency gate. A convenient baseline, one projection, one head, one optimizer, one budget, or one seed cannot establish either a win or a failure.
 

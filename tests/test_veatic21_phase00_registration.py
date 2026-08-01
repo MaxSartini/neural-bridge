@@ -2,14 +2,23 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRATION = ROOT / "internal/active/veatic21-phase00-registration/experiment-registration.json"
+PROVENANCE = ROOT / "studies/veatic-2.1/phase-00-protected-input-foundation/provenance.json"
 
 
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+def _historical_sha256(commit: str, path: Path) -> str:
+    relative = path.relative_to(ROOT)
+    value = subprocess.run(
+        ["git", "show", f"{commit}:{relative}"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    return hashlib.sha256(value).hexdigest()
 
 
 def test_phase00_registration_is_prospective_complete_and_model_free() -> None:
@@ -25,10 +34,11 @@ def test_phase00_registration_is_prospective_complete_and_model_free() -> None:
 
 def test_phase00_registration_pins_authority_and_implementation_hashes() -> None:
     value = json.loads(REGISTRATION.read_text())
+    commit = json.loads(PROVENANCE.read_text())["executed_commit"]
     authority = value["authority"]
     for key in ("master", "protocol", "current_state"):
         path = Path(authority[f"{key}_path"])
-        assert _sha256(path) == authority[f"{key}_sha256"]
+        assert _historical_sha256(commit, path) == authority[f"{key}_sha256"]
     implementation = value["implementation"]
     expected = {
         "benchmark_py_sha256": ROOT / "src/neural_bridge/veatic21/benchmark.py",
@@ -37,7 +47,7 @@ def test_phase00_registration_pins_authority_and_implementation_hashes() -> None
         "main_py_sha256": ROOT / "src/neural_bridge/veatic21/__main__.py",
     }
     for key, path in expected.items():
-        assert _sha256(path) == implementation[key]
+        assert _historical_sha256(commit, path) == implementation[key]
 
 
 def test_selected_executor_is_the_fastest_recorded_repeated_median() -> None:

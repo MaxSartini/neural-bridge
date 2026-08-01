@@ -1,8 +1,8 @@
 # VEATIC 2.1 Neural Bridge Master Scientific Specification
 
-Specification version: 1.0
+Specification version: 1.1
 Authority reset: 2026-08-01
-Status: fresh Phase 00; no VEATIC 2.1 modelling result exists
+Status: Phase 00 passed; Phase 01 label/dynamics/split implementation authorized
 
 ## Purpose
 
@@ -724,9 +724,12 @@ A phase advances only when:
 - `CURRENT_STATE.md` names one next action;
 - the transition is committed and pushed to `origin/main`.
 
-## Initial authorization at version 1.0
+## Current authorization at version 1.1
 
-The only scientific phase authorized by this specification is fresh Phase 00. It may read
-the protected TRIBE payloads and allowlisted V-JEPA row/alignment metadata. It may not open a
-hidden-state NPZ, fit PCA, derive a predictive target, train AR, score cortical outcomes, or
-begin a later phase.
+Phase 00 passed for all 124 videos and 20,657 rows with bundle-manifest SHA-256
+`43dca9a25422bcdf08ac440520c0d5db81d850e166d649b85b8a4b43ae419c36`.
+The only new scientific phase authorized is Phase 01 registration and implementation. Phase
+01 may read authoritative `rows.csv` values and the non-cortical identity, interpolation,
+sampling, luma, motion, and quality audit arrays required by its contract. It may not open a
+hidden-state NPZ, read `cortical_prediction` or `temporal_diagnostics53` values for target or
+split decisions, fit PCA, train AR, score a cortical outcome, or begin Phase 02+.

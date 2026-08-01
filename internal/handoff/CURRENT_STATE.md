@@ -1,7 +1,7 @@
 # VEATIC 2.1 Current State
 
 Updated: 2026-08-01
-Lifecycle state: fresh Phase 00 only
+Lifecycle state: Phase 00 passed; Phase 01 implementation only
 
 ## Mandatory authority anchors
 
@@ -18,7 +18,9 @@ For the current action, read only these rebuild-protocol sections:
 
 - `Authority and protected-root check`
 - `Canonical input boundary`
-- `Phase 00 — protected-input foundation`
+- `Phase 01 — alignment, dynamics, targets, and splits`
+- `Comprehensive search-sufficiency checklist`
+- `Metrics and uncertainty`
 - `Hardware and execution`
 - `Phase transition`
 
@@ -26,74 +28,71 @@ The master specification wins over the checklist and this handoff.
 
 ## Current scientific status
 
-- No VEATIC 2.1 phase result, target, split, AR model, projection, PCA width, representation,
-  learned head, seed set, checkpoint recipe, control result, or promotion claim exists.
-- No VEATIC 2.1 external run lifecycle exists yet. Phase 00 creates the new lifecycle only
-  after its implementation and prospective request are committed to `origin/main`.
-- The completed upstream feature trees are immutable inputs and must not be regenerated.
-- The AGAIN study/run histories were reviewed jointly as methodology and execution evidence.
-  Their techniques informed the new phase order, but no AGAIN runner, fitted artifact, row,
-  split, or numerical setting is authorized for VEATIC.
-- Phase 02 will use a hierarchical strong-AR programme rather than a blind learned-head
-  Cartesian product. Cortical data begins in Phase 03 so its incremental value is measurable.
-- The mature downstream path is raw cortical controls -> fold-owned representation discovery
-  -> frozen-AR learned residual/event head -> fresh confirmation -> checkpoint stabilization
-  -> separately specialized continuous arousal -> valence -> zero-label inference.
+- Phase 00 passed without a predictive claim for every video ID `0..123` and all 20,657 rows.
+- The canonical bundle is sealed read-only: 995 files, 874,861,789 bytes, zero writable paths,
+  zero hidden-state payloads, and zero copied hidden-state transport receipts.
+- Bundle manifest SHA-256:
+  `43dca9a25422bcdf08ac440520c0d5db81d850e166d649b85b8a4b43ae419c36`.
+- Phase 00 result SHA-256:
+  `ad271c721c822041749add2937b920c9d69c82c9941a7bf2db8f7371a72758e3`.
+- Phase 00 artifact-manifest SHA-256:
+  `32e5983d8d871a7b5ba1face8c23cbd59474a819971c3d161ec83366484c52e0`.
+- The executed prospective code/registration commit is
+  `600837d78cf70b123e6f7864cb0789b70c0911b1`, present on `origin/main`.
+- No predictive target, split, AR model, cortical score, projection, PCA width, learned head,
+  checkpoint recipe, control result, or promotion claim exists yet.
+- AGAIN contributes methodology only. No AGAIN code, row, artifact, or number is a VEATIC
+  input or selected setting.
 
 ## Protected roots
 
-The two staging sources and AGAIN history were verified present after the reset. The reserved
-consolidated destination becomes protected as soon as it is atomically published. All four
-paths are outside every deletion boundary:
+The two staging sources, sealed consolidated bundle, and AGAIN history are verified present.
+All four paths are immutable and outside every deletion boundary:
 
 - `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/tribe-v2/`
 - `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/vjepa-2.1/`
 - `/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/neural-bridge-input/`
 - `/Volumes/onn. Drive/Neural Bridge Artifacts/runs/again/`
 
-The consolidated `neural-bridge-input` root does not exist yet; the current authorized action
-creates and seals it. It will co-locate the 124 per-video TRIBE cortical payloads with their
-matching `rows.csv` and small allowlisted alignment metadata. After sealing, it becomes the
-sole Phase 00+ downstream input. V-JEPA hidden-state NPZ files are absolutely forbidden and
-V-JEPA/TRIBE must not be rerun.
+The consolidated root is now the sole Phase 01+ downstream input. It contains 124 explicit
+per-video directories, never a pooled substitute. V-JEPA hidden-state NPZ files remain
+absolutely forbidden and V-JEPA/TRIBE must not be rerun.
 
 ## Blockers
 
-None for Phase 00 implementation. Predictive modelling remains blocked until Phase 00 passes
-and its transition is committed and pushed.
+None for Phase 01 registration and implementation. Phase 01 execution is blocked until its
+prospective request and implementation are committed and pushed. Phase 02+ remain blocked.
 
 ## Active execution contract
 
-Implement Phase 00 from scratch under a fresh VEATIC namespace. The implementation may:
+Implement and prospectively register Phase 01 from scratch. The implementation may:
 
-- read every per-video TRIBE manifest/status/prediction payload;
-- read allowlisted V-JEPA row/alignment metadata including every `rows.csv`;
-- copy those allowlisted sources into the new consolidated downstream bundle and verify
-  source/destination byte identity;
-- verify all 124 `(video_id,row_index)` mappings, schemas, values, and digests;
-- benchmark and select the fastest equivalent audit/IO topology on this Mac Studio;
-- write new Phase 00 outputs only under the new VEATIC run lifecycle root after the request is
-  committed.
+- read all authoritative `rows.csv` values from the sealed consolidated bundle;
+- read only non-cortical identity, interpolation, sampling, luma, motion, and quality audit
+  arrays required by the Phase 01 contract;
+- measure VEATIC label autocorrelation, movement, duration, event support, threshold
+  stability, interpolation, and between-video heterogeneity;
+- derive VEATIC-specific candidate target families, causal histories, forecast windows,
+  washout gaps, quantile candidates, and grouped/blocked/inner/confirmation ownership;
+- benchmark equivalent label/audit analysis topologies without opening cortical outcomes.
 
 It may not:
 
+- read `cortical_prediction`, `temporal_diagnostics53`, or
+  `tribe_grouped_video_feature` values;
 - open, map, hash, copy, or inspect any `vjepa21_hidden_states.npz`;
 - modify either protected feature root or the AGAIN run root;
 - rerun V-JEPA or TRIBE;
-- fit PCA, derive/select a predictive target, train AR, score cortical outcomes, or begin
-  Phase 01+;
+- fit PCA, train AR, score cortical outcomes, or begin Phase 02+;
 - copy or adapt an AGAIN implementation.
 
 ## Exact next action
 
-Create the fresh Phase 00 package, protected-input guards, consolidated-bundle assembler and
-verifier, prospective run request, and focused authority/input tests. Benchmark equivalent
-Phase 00 audit topologies without changing scientific semantics. Run formatting, type,
-focused, authority-contract, and full tests; inspect the prospective request; commit and push
-it directly to `origin/main`.
-
-Only after that commit is present on remote `main`, build and seal the complete 124-video
-canonical input bundle, then execute the Phase 00 audit into a new external lifecycle root.
-Independently verify every output and hash, create
-the compact Phase 00 record, update this handoff with exact results, and commit/push the Phase
-00 transition before Phase 01 begins.
+Create the Phase 01 label/audit data contract, descriptive auditor, target-family derivation
+ledger, split-ownership derivation and verification, prospective execution request, and
+focused tests. Before freezing candidates, inspect every relevant VEATIC label and
+non-cortical audit distribution across all 124 videos; derive numeric ranges from VEATIC and
+mark any AGAIN-like value only as a comparability anchor. Benchmark the full real label/audit
+workload, run formatting/type/focused/authority/full tests, inspect the prospective request,
+then commit and push it directly to `origin/main`. Do not execute the registered Phase 01
+analysis or inspect any cortical outcome before that remote commit.

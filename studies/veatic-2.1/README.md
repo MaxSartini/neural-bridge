@@ -1,6 +1,6 @@
 # VEATIC 2.1 Study
 
-Status: fresh Phase 00; no concluded VEATIC 2.1 result exists.
+Status: Phase 00 concluded; Phase 01 implementation is the only authorized next work.
 
 VEATIC 2.1 is the original 124-video VEATIC dataset represented by the completed V-JEPA
 2.1 -> TRIBE v2 upstream stack. A sealed canonical bundle co-locates each per-video TRIBE
@@ -23,8 +23,10 @@ and selection afresh on VEATIC:
 9. independent valence programme; and
 10. genuine zero-label-at-inference development and locked confirmation.
 
-This directory receives a phase subdirectory only after that phase has concluded and passed
-its verification gate. Live authority and the exact next action remain in
+The model-free [Phase 00 protected-input foundation](phase-00-protected-input-foundation/README.md)
+passed for all 124 videos and 20,657 rows. It created no target, split, fitted model, cortical
+outcome score, or predictive claim. Later phase subdirectories appear only after their
+verification gates pass. Live authority and the exact next action remain in
 [`internal/handoff/CURRENT_STATE.md`](../../internal/handoff/CURRENT_STATE.md); the durable
 scientific method is
 [`internal/active/veatic21-master-scientific-specification.md`](../../internal/active/veatic21-master-scientific-specification.md).

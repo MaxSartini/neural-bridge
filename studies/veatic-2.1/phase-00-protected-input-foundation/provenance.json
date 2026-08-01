@@ -1,0 +1,15 @@
+{
+  "schema_version": "veatic21_phase00_compact_provenance_v1",
+  "executed_commit": "600837d78cf70b123e6f7864cb0789b70c0911b1",
+  "executed_commit_present_on_origin_main": true,
+  "registration_path": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-phase00-registration/experiment-registration.json",
+  "registration_sha256": "1b5cd1c276c8ffa42de2953d8a26af1b139da2c5a02d09f982ec8b4fe28277af",
+  "bundle_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/neural-bridge-input",
+  "external_phase00_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/phase-00-protected-input-foundation",
+  "bundle_manifest_sha256": "43dca9a25422bcdf08ac440520c0d5db81d850e166d649b85b8a4b43ae419c36",
+  "vjepa_or_tribe_rerun": false,
+  "again_runtime_or_artifact_used": false,
+  "pca_fit": false,
+  "predictive_model_fit": false,
+  "target_derived": false
+}

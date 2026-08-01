@@ -13,11 +13,12 @@ are never copied or opened and are not a second candidate input. The cortical va
 predictions generated from video, not measurements from the viewers represented by VEATIC or
 AGAIN.
 
-VEATIC 2.1 is at fresh Phase 00. The current work first proves exact 124-video per-folder row
-identity, input completeness, schema, finiteness, and the hidden-state firewall. Target
-windows, washout gaps, threshold quantiles, history depths, grouped/blocked partitions,
-projection widths, model families, and seed counts are then derived from VEATIC evidence in
-later phases. None is inherited from AGAIN or from an earlier VEATIC 2.1 attempt.
+VEATIC 2.1 Phase 00 passed exact 124-video per-folder row identity, input completeness,
+schema, finiteness, byte identity, and the hidden-state firewall for 20,657 rows. Phase 01
+label/dynamics/split implementation is current. Target windows, washout gaps, threshold
+quantiles, history depths, and grouped/blocked partitions are derived from VEATIC evidence;
+projection widths, model families, and seed counts remain later-phase decisions. None is
+inherited from AGAIN or from an earlier VEATIC 2.1 attempt.
 
 The AGAIN feature foundation uses the frozen [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) ViT-G target encoder and [TRIBE v2](https://arxiv.org/abs/2605.04326). The primary affect sources are the [AGAIN dataset](https://doi.org/10.1109/TAFFC.2022.3188851) and [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html). AGAIN provides first-person continuous arousal annotations; VEATIC provides continuous ratings of a selected character's perceived affect. Results are therefore reported as a cross-dataset evidence ladder, not as a single transferred model or identical label construct.
 

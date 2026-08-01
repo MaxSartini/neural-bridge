@@ -5,6 +5,9 @@ This checklist is derived from
 if any wording differs. Read only the sections named by `CURRENT_STATE.md` for the currently
 authorized action.
 
+Active transition: Phase 00 passed for 124 videos and 20,657 rows; Phase 01 prospective
+registration and implementation are current. Phase 02+ remain unauthorized.
+
 ## Authority and protected-root check
 
 - [ ] Read `AGENTS.md`, the complete master specification, and `CURRENT_STATE.md` in order.

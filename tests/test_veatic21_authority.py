@@ -29,11 +29,12 @@ def test_current_state_retains_mandatory_authority_anchors() -> None:
     assert str(STATE) in text
 
 
-def test_phase00_is_the_only_authorized_scientific_phase() -> None:
+def test_phase01_is_the_only_new_authorized_scientific_phase() -> None:
     master = MASTER.read_text()
     state = STATE.read_text()
-    assert "The only scientific phase authorized" in master
-    assert "fresh Phase 00" in state
+    assert "The only new scientific phase authorized is Phase 01" in master
+    assert "Phase 00 passed" in state
+    assert "Phase 01 implementation only" in state
     assert "fit PCA" in state
     assert "may not" in state
 
