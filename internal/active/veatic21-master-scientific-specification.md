@@ -207,6 +207,13 @@ outcome-selected ensemble membership, and shared-but-nonidentical AR floors are 
 No later ability may borrow an unconfirmed earlier recipe as a fixed answer. It may use the
 earlier winner as a registered starting candidate and control.
 
+Event and continuous targets may share one lossless future-trajectory primitive, row
+identity, and identical ownership-dependent transforms. They may not share target-specific
+thresholds, AR opponents, losses, heads, checkpoint selection, or confirmation claims. First
+confirm the event and continuous specialists separately. Only then may a prospectively
+registered combined challenger attempt to preserve both abilities, and it must beat each
+specialist on that specialist's locked endpoint before it can replace either one.
+
 ## Universal split and leakage contract
 
 ### Ownership layers
@@ -229,6 +236,13 @@ Grouped-video and blocked-forward protocols answer different questions and remai
 A pass in one cannot overwrite a failure in the other. Selection must be inner-owned within
 the corresponding outer protocol. A phase must store immutable outer predictions so results
 can be audited without refitting.
+
+A blocked fraction owns eligible time rows inside every sufficiently supported video; it is
+not a fraction of videos. Each such video contributes an earlier outer-training segment and
+a later untouched outer-test segment. Inner train/validation ownership is another strict
+forward-time split inside the outer-training segment. Phase 01 must select VEATIC fractions
+rather than inherit AGAIN's historical `70/30` outer and `80/20` inner values. Whole-video
+withholding belongs to grouped and locked-confirmation protocols.
 
 ### Training ownership
 
@@ -666,6 +680,12 @@ The product stage separately benchmarks:
 
 Precomputed VEATIC inputs are sufficient for the paper experiments; they do not by themselves
 establish end-to-end client-video runtime.
+
+After scientific selection and untouched-test scoring are complete, a separately identified
+deployment refit may train the frozen recipe on 100% of the available labelled VEATIC videos.
+That refit is for production only: it cannot estimate or restate held-out accuracy, and its
+parameters and provenance remain distinct from every evidence model. Client inference stays
+label-free even though supervised labels trained the frozen deployment recipe.
 
 ## Hardware-saturation and executor contract
 

@@ -43,6 +43,12 @@ The master specification wins over the checklist and this handoff.
   checkpoint recipe, control result, or promotion claim exists yet.
 - AGAIN contributes methodology only. No AGAIN code, row, artifact, or number is a VEATIC
   input or selected setting.
+- Historical verification confirms that AGAIN `blocked_temporal_70_30` used earlier/later
+  eligible rows within participating videos, with an `80/20` forward split inside outer
+  training for learned-head validation. These are comparison anchors, not VEATIC selections.
+- Scientific evidence models retain untouched blocked and grouped tests. Only after recipe
+  confirmation may a separately identified production refit use all labelled videos; it
+  cannot supply a held-out accuracy claim.
 
 ## Protected roots
 
@@ -96,3 +102,7 @@ mark any AGAIN-like value only as a comparability anchor. Benchmark the full rea
 workload, run formatting/type/focused/authority/full tests, inspect the prospective request,
 then commit and push it directly to `origin/main`. Do not execute the registered Phase 01
 analysis or inspect any cortical outcome before that remote commit.
+
+The registered implementation must compute each intact future trajectory once per
+label/geometry, keep event and continuous specialists scientifically separate, and permit a
+combined challenger only after both specialists independently pass.

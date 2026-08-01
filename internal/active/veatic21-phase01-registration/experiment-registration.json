@@ -1,0 +1,188 @@
+{
+  "schema_version": "veatic21_phase01_prospective_registration_v1",
+  "status": "registered_not_executed",
+  "registered_at": "2026-08-01T21:30:00+02:00",
+  "phase": "01_alignment_dynamics_targets_splits",
+  "scientific_claim": "label_and_non_cortical_audit_only_no_predictive_claim",
+  "authority": {
+    "master_path": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-master-scientific-specification.md",
+    "master_sha256": "feac816efeae8d848ffa2cb993e1ea21733e402b2a4624cc20f0697fef0fe5cc",
+    "protocol_path": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-rebuild-protocol.md",
+    "protocol_sha256": "7b1defcdbf42dba56b25d45f29d84999bd3db6341e49d8677f4d6638d8c6a0a3",
+    "current_state_path": "/Users/maxsartini/Neural Bridge/internal/handoff/CURRENT_STATE.md",
+    "current_state_sha256": "497fe8a23e6e6134db104c43303fceb4bed3e4dda0aa90cf3eac7021e084b710"
+  },
+  "implementation": {
+    "phase01_py_sha256": "f785bbcbd93335af2880da112337e96a96d5b868622511b8c2c3fa58ee4b1e21",
+    "main_py_sha256": "76fadb6854fd01d9312b3297316ec6ea62555eaf2361062137ceadbc2bfb24bf",
+    "bundle_py_sha256": "55ce6a4732c087c1609df992db740ffa47bb09656b003c5b6b6ef1e2ba023b4a"
+  },
+  "inputs": {
+    "bundle_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/neural-bridge-input",
+    "bundle_manifest_sha256": "43dca9a25422bcdf08ac440520c0d5db81d850e166d649b85b8a4b43ae419c36",
+    "video_id_start_inclusive": 0,
+    "video_id_end_inclusive": 123,
+    "video_count": 124,
+    "total_rows": 20657,
+    "row_hz": 2.0,
+    "data_contract": "/Users/maxsartini/Neural Bridge/internal/active/veatic21-phase01-registration/phase01-data-contract.json"
+  },
+  "descriptive_audit": {
+    "labels": [
+      "arousal",
+      "valence"
+    ],
+    "required_distributions": [
+      "level",
+      "signed step change",
+      "absolute step change",
+      "per-video mean and standard deviation",
+      "duration",
+      "interpolation provenance",
+      "luma and motion nuisance",
+      "black, duplicate, and quality flags"
+    ],
+    "acf_max_lag_rule": "minimum of 120 rows and shortest-video rows minus 4",
+    "pacf_max_lag_rule": "minimum of 32 rows and the registered ACF maximum",
+    "no_cortical_outcome_read": true
+  },
+  "target_derivation": {
+    "primitive": "one intact same-video future trajectory for each label/washout/horizon",
+    "derived_continuous_views": [
+      "endpoint signed change",
+      "maximum positive change",
+      "maximum negative change",
+      "maximum absolute movement",
+      "total variation",
+      "onset/surprise"
+    ],
+    "event_view": "training-owned threshold applied to an eligible continuous view",
+    "quantile_audit_grid_inclusive": {
+      "start": 0.5,
+      "stop": 0.99,
+      "step": 0.01
+    },
+    "geometry_rule": "derive short/medium/long horizons and washouts from VEATIC ACF crossings, then require duration-panel support",
+    "again_comparability_anchor": {
+      "washout_rows": 4,
+      "horizon_rows": 7,
+      "meaning": "historical rows +4 through +10 only",
+      "selected_for_veatic": false
+    },
+    "required_threshold_checks": [
+      "eligible rows",
+      "eligible videos",
+      "event rows",
+      "event videos",
+      "zero-event videos",
+      "training-fold threshold stability"
+    ]
+  },
+  "split_derivation": {
+    "blocked_outer_train_fraction_audit": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85
+    ],
+    "blocked_inner_train_fraction_within_outer_train_audit": [
+      0.7,
+      0.75,
+      0.8,
+      0.85
+    ],
+    "blocked_semantics": "all sufficiently supported videos; earlier/later eligible rows within each video",
+    "blocked_required_gate": "nonempty strict-forward inner train, inner validation, and outer test with zero overlap in every participating video",
+    "grouped_fold_count_audit": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "grouped_semantics": "whole-video-only deterministic row-balanced folds",
+    "zero_label_confirmation_fraction_audit": [
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3
+    ],
+    "again_anchor": "outer 70/30 plus inner 80/20 is compared but not privileged",
+    "final_selection_inputs": [
+      "row support",
+      "video support",
+      "event support and zero-event negatives",
+      "short/medium/long duration panels",
+      "threshold stability",
+      "uncertainty resolution",
+      "strict ownership and leakage checks"
+    ]
+  },
+  "shared_computation": {
+    "allowed": "lossless trajectory primitive, identity, causal indices, identical split masks, and later transforms with identical training ownership",
+    "separate_specialists": "event and continuous targets retain separate thresholds, AR, loss, head, checkpoint, metrics, and confirmation",
+    "combined_challenger": "not eligible until both specialists pass independently; must beat each specialist on its own locked endpoint",
+    "zero_label": "not eligible until supervised event, continuous, combined, and valence programmes are resolved"
+  },
+  "executor_backtest": {
+    "workload": "all 124 real videos; allowlisted NPZ/CSV load, all label/audit distributions, and arousal ACF through 64 rows",
+    "gpu_disposition": "not applicable for CSV parsing, ZIP decompression, and small label statistics",
+    "topology_repeat_end_to_end_seconds": {
+      "1": [
+        0.5072296249854844,
+        0.4239230000239331,
+        0.42062295897630975
+      ],
+      "2": [
+        0.4446947079850361,
+        0.4336405000067316,
+        0.4389312499843072
+      ],
+      "4": [
+        0.39230341601069085,
+        0.39318316598655656,
+        0.3974022500042338
+      ],
+      "6": [
+        0.3767132500070147,
+        0.3866102499887347,
+        0.38788516601198353
+      ],
+      "8": [
+        0.3869977919966914,
+        0.39062129199737683,
+        0.3848804999724962
+      ],
+      "10": [
+        0.4072273329948075,
+        0.4076297919964418,
+        0.4028831670002546
+      ],
+      "12": [
+        0.4230458329839166,
+        0.41135208401829004,
+        0.4109842499892693
+      ]
+    },
+    "selected_workers": 6,
+    "selected_median_end_to_end_seconds": 0.3866102499887347,
+    "equivalent_result_sha256": "16f892a6d85628c85135caf21835332413e94041742ee863b593deb9ca7b3e84"
+  },
+  "outputs": {
+    "phase01_root": "/Volumes/onn. Drive/Neural Bridge Artifacts/runs/veatic-2.1/phase-01-alignment-dynamics-targets-splits",
+    "overwrite_policy": "refuse_existing",
+    "publication": "temporary sibling then atomic rename then read-only seal"
+  },
+  "execution": {
+    "precondition": "this registration and implementation commit is present on origin/main",
+    "command": "uv run python -m neural_bridge.veatic21 run-phase01 --workers 6 --registration-path '/Users/maxsartini/Neural Bridge/internal/active/veatic21-phase01-registration/experiment-registration.json'",
+    "verification_command": "uv run python -m neural_bridge.veatic21 verify-phase01",
+    "phase02_or_cortical_scoring_authorized": false
+  }
+}

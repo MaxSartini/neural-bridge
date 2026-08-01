@@ -72,6 +72,11 @@ registration and implementation are current. Phase 02+ remain unauthorized.
 - [ ] Freeze target-overlap ledgers and reject history/future overlap.
 - [ ] Freeze grouped-video, blocked-forward, nested-inner, fresh-seed, and zero-label locked
       ownership.
+- [ ] Treat blocked fractions as earlier/later eligible rows within every sufficiently
+      supported video, never as a percentage of videos. Audit VEATIC fractions before
+      selecting one; retain AGAIN `70/30` outer plus `80/20` inner only as an anchor.
+- [ ] Share only the intact future-trajectory primitive and genuinely identical ownership
+      work; confirm event and continuous specialists separately before a combined challenger.
 - [ ] Do not read cortical outcome scores.
 
 ## Phase 02 — strong target-specific AR
