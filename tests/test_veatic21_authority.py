@@ -18,9 +18,24 @@ PROTECTED_ROOTS = (
 )
 
 
+def _authored(name: str) -> list[Path]:
+    """Every file with this name that the repository itself authors.
+
+    Vendored dependencies are excluded: an npm package is free to ship its own
+    AGENTS.md (recharts does), and that says nothing about this repository's
+    contract. Without the filter the assertion below fails on any machine that
+    has run `npm install`, which trains people to ignore a governance test.
+    """
+    return sorted(
+        path
+        for path in ROOT.rglob(name)
+        if "node_modules" not in path.parts and ".venv" not in path.parts
+    )
+
+
 def test_one_contract_and_one_live_state() -> None:
-    assert list(ROOT.rglob("AGENTS.md")) == [AGENTS]
-    assert list(ROOT.rglob("CURRENT_STATE.md")) == [STATE]
+    assert _authored("AGENTS.md") == [AGENTS]
+    assert _authored("CURRENT_STATE.md") == [STATE]
 
 
 def test_no_active_veatic_plan_code_test_or_study_record() -> None:
