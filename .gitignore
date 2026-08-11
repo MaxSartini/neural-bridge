@@ -7,6 +7,9 @@
 /.cache
 /graphify-out
 
+# Phase A evidence dashboard — local tool, not reviewed/committed yet.
+/dashboard
+
 # Environments, dependencies, and generated builds.
 /.venv
 **/__pycache__
@@ -16,3 +19,6 @@
 
 # Host noise.
 .DS_Store
+
+# Wrangler CLI local state (holds the Cloudflare account id), not source.
+/.wrangler

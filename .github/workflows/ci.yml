@@ -1,0 +1,40 @@
+name: CI
+
+# Work happens directly on main (see AGENTS.md), so there are no pull requests
+# to gate. This runs on every push instead: it is the only automated check
+# between an agent's commit and the programme's evidence.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      # Default dependencies plus the `dev` group only. The `training` extra
+      # (torch, and mlx which is darwin-only) stays out — no test imports either,
+      # and pulling torch would dominate the run time.
+      - name: Install dependencies
+        run: uv sync --dev
+
+      - name: Lint
+        run: uv run ruff check
+
+      # `ty` is pinned at >=0.0.1a1 — an alpha type checker meeting 3,686 lines
+      # for the first time. Non-blocking until the finding count is known and
+      # driven down; then delete this line so it gates like the others.
+      - name: Type check
+        run: uv run ty check
+        continue-on-error: true
+
+      - name: Tests
+        run: uv run pytest -q
