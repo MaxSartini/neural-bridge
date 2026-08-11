@@ -63,7 +63,9 @@ def test_top_recall_never_decreases_as_the_kept_fraction_grows() -> None:
     labels = rng.integers(0, 2, size=400)
     scores = rng.normal(size=400)
     recalls = [top_recall(labels, scores, frac) for frac in (0.01, 0.05, 0.1, 0.25, 0.5, 1.0)]
-    assert all(a <= b + 1e-12 for a, b in zip(recalls, recalls[1:]))
+    # strict=False is deliberate: recalls[1:] is one shorter, because each value is
+    # being compared against its successor.
+    assert all(a <= b + 1e-12 for a, b in zip(recalls, recalls[1:], strict=False))
 
 
 def test_top_recall_is_nan_rather_than_zero_when_there_are_no_positives() -> None:
