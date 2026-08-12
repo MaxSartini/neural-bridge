@@ -1,0 +1,33 @@
+{
+  "name": "@dashboard/studio",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "node ../scripts/verify-boundary.mjs . && vite build && node ../scripts/verify-bundle.mjs dist --profile external",
+    "verify:boundary": "node ../scripts/verify-boundary.mjs .",
+    "preview": "wrangler pages dev dist --port 4322 --ip 127.0.0.1 --compatibility-date=2026-05-03",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name neural-bridge-studio",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@dashboard/ui": "*",
+    "@fontsource/barlow": "^5.3.0",
+    "@fontsource/barlow-condensed": "^5.3.0",
+    "lucide-react": "^1.31.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.1",
+    "recharts": "^3.10.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.86.0"
+  }
+}

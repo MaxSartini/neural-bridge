@@ -1,0 +1,40 @@
+# Cloudflare Pages reads this file from the build output root.
+#
+# The Studio bundle is fully self-contained: no third-party script, no remote
+# font, no remote image, and no network request at runtime. The analysis client
+# it ships is the in-process mock, so `connect-src 'none'` holds — there is
+# nothing for the page to call.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self' blob:; connect-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'; object-src 'none'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  X-Frame-Options: DENY
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  X-Robots-Tag: noindex, nofollow
+
+# The one policy difference from public-scorecard/_headers, and it is
+# deliberate: `media-src 'self' blob:`.
+#
+# The report previews the visitor's own cut by handing a <video> an object URL
+# built from the File they picked. Without `blob:` listed, media falls back to
+# `default-src 'self'` and the browser blocks it, so the frame silently goes
+# blank on the deployed build while working perfectly in dev. It widens media
+# only — script, connect and object stay exactly as locked as the scorecard's.
+#
+# It is also not a way out of the read-only contract. A blob URL can only point
+# at bytes this page already holds; `connect-src 'none'` still means the Studio
+# cannot send that file, or anything else, anywhere.
+
+# Hashed assets are immutable; the HTML entry must not be cached, so a redeploy
+# is visible immediately rather than after a stale-cache window.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Pages serves index.html at "/", so the rule has to match that path too.
+/
+  Cache-Control: no-cache
+
+/index.html
+  Cache-Control: no-cache

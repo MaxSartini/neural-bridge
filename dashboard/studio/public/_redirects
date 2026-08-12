@@ -1,0 +1,10 @@
+# Cloudflare Pages SPA rewrite.
+#
+# The Studio uses real URLs (BrowserRouter), so /results and
+# /analyses/sample/report have to be served the app shell rather than 404ing.
+# Without this, the site works until someone follows a deep link or presses
+# refresh — which is exactly what a person does with a link you send them.
+#
+# 200 (rewrite), not 302 (redirect): the URL in the address bar must stay put so
+# the router can read it.
+/*  /index.html  200

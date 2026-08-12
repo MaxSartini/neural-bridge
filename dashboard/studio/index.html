@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Neural Bridge Studio — turn a video into a forward-looking response map."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Neural Bridge Studio</title>
+    <!-- Blocking, before paint. External (not inline) so the CSP can forbid
+         inline script outright. See public/theme-init.js.
+
+         Absolute path, not "./": every route is served this same document, so
+         a relative src would resolve against the current path and request
+         /results/theme-init.js on a deep link. That 404s silently and a pinned
+         theme stops applying on exactly the pages people are sent links to. -->
+    <script src="/theme-init.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
