@@ -24,7 +24,13 @@ def test_phase_roots_excludes_mlflow_storage(tmp_path: Path) -> None:
 
 
 def test_tracking_uri_uses_absolute_sqlite_path(tmp_path: Path) -> None:
-    assert tracking_uri(tmp_path / "mlflow.db") == f"sqlite:///{tmp_path}/mlflow.db"
+    # Build the expectation the way the implementation does rather than gluing a
+    # literal "/" onto a Path. The old form asserted a POSIX separator, so it
+    # failed on Windows against a correct absolute path — a red suite for anyone
+    # developing there, while CI stayed green on ubuntu.
+    database = tmp_path / "mlflow.db"
+    assert tracking_uri(database) == f"sqlite:///{database.absolute()}"
+    assert Path(tracking_uri(database).removeprefix("sqlite:///")).is_absolute()
 
 
 def test_scientific_metrics_exclude_inventory_and_summarise_results(tmp_path: Path) -> None:
