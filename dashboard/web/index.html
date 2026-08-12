@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neural Bridge — Evidence Dashboard</title>
+    <script>
+      // Stamp a pinned theme before first paint. Without this, a user pinned to
+      // dark on a light-OS machine flashes cream on every reload. No pin means
+      // no attribute, which leaves prefers-color-scheme in charge.
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") {
+          document.documentElement.setAttribute("data-theme", t);
+        }
+      } catch (e) {
+        /* private-mode localStorage throws; fall back to following the OS */
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

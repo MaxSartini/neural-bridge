@@ -1,0 +1,889 @@
+/* ============================================================================
+   Internal evidence dashboard styles.
+
+   The shared foundation — tokens, base type, the blueprint frame, tags,
+   buttons, the nav band, the theme toggle — lives in @dashboard/ui and is
+   imported here. Anything in this file is specific to the internal surface:
+   the markdown viewer, the file browser, the CSV and JSON viewers, the
+   scorecard and the story.
+
+   @import rather than a second entry-point import so the cascade order cannot
+   drift: tokens must be defined before anything reads them.
+   ============================================================================ */
+@import "@dashboard/ui/tokens.css";
+
+/* -------------------------------------------------------- breadcrumbs ----- */
+
+.breadcrumbs {
+  font-size: 11.5px;
+  color: var(--ink-3);
+  margin-bottom: 1rem;
+}
+
+.breadcrumbs a {
+  color: var(--ink-3);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------- markdown ------ */
+
+/* Prose keeps comfortable reading sizes and its own measure — the column is
+   1280px wide for the designed pages, which is far too wide to read against. */
+.markdown-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  max-width: 74ch;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.markdown-body h1 {
+  font-size: 26px;
+}
+
+.markdown-body h2 {
+  font-size: 20px;
+  margin-top: 2rem;
+}
+
+.markdown-body h3 {
+  font-size: 16px;
+}
+
+.markdown-body hr {
+  border: 0;
+  height: 1px;
+  background: var(--line);
+  margin: 2rem 0;
+}
+
+.markdown-body blockquote {
+  margin: 1rem 0;
+  padding: 0.1rem 0 0.1rem 1rem;
+  border-left: 2px solid var(--line-strong);
+  color: var(--ink-3);
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+  display: block;
+  overflow-x: auto;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid var(--line);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+}
+
+.markdown-body th {
+  background: var(--inset);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.markdown-body img {
+  max-width: 100%;
+}
+
+.markdown-body pre {
+  background: var(--inset);
+  box-shadow: var(--shadow-hairline);
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  border-radius: var(--radius-control);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+
+.markdown-body code {
+  background: var(--inset);
+  padding: 0.1rem 0.3rem;
+  border-radius: var(--radius-control);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.markdown-body pre code {
+  background: none;
+  padding: 0;
+}
+
+.raw-fallback {
+  background: var(--inset);
+  box-shadow: var(--shadow-hairline);
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  border-radius: var(--radius-control);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--ink-2);
+}
+
+/* ------------------------------------------------------------ notices ----- */
+
+.oversized-notice {
+  background: var(--inset);
+  box-shadow: var(--shadow-hairline);
+  border-radius: var(--radius-control);
+  padding: 0.65rem 0.9rem;
+  margin-bottom: 1rem;
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+.error {
+  color: var(--viz-critical);
+}
+
+.empty {
+  color: var(--ink-3);
+  font-size: 13px;
+}
+
+/* --------------------------------------------------------- file tree ------ */
+
+.file-tree {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: var(--shadow-hairline);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.file-tree li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 0.9rem;
+  transition:
+    background 0.14s ease,
+    transform 0.1s var(--ease-expo);
+}
+
+.file-tree li + li {
+  border-top: 1px solid var(--line);
+}
+
+.file-tree li:hover {
+  background: var(--hover);
+}
+
+.file-tree li:active {
+  transform: scale(0.994);
+}
+
+.file-tree a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0;
+  font-size: 13px;
+  color: var(--ink-2);
+  text-decoration: none;
+  min-width: 0;
+  word-break: break-all;
+}
+
+.file-tree a:hover {
+  color: var(--ink);
+}
+
+.file-tree .icon {
+  flex-shrink: 0;
+  opacity: 0.55;
+  font-size: 12px;
+}
+
+.file-tree .size {
+  flex-shrink: 0;
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------- csv table ------ */
+
+.csv-table-wrap {
+  width: 100%;
+}
+
+.csv-meta {
+  color: var(--ink-3);
+  font-size: 11.5px;
+  margin-bottom: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.csv-scroll {
+  overflow: auto;
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-hairline);
+  background: var(--surface);
+}
+
+.csv-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  min-width: 100%;
+}
+
+.csv-table th,
+.csv-table td {
+  padding: 0.35rem 0.6rem;
+  white-space: nowrap;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+.csv-table tbody tr:nth-child(even) {
+  background: var(--stripe);
+}
+
+.csv-table tbody tr:hover {
+  background: var(--hover);
+}
+
+.csv-table th {
+  cursor: pointer;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--inset);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  box-shadow: inset 0 -1px 0 0 var(--line);
+}
+
+.csv-table th:hover {
+  color: var(--accent);
+}
+
+.csv-table td {
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+}
+
+.csv-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  font-size: 12px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.csv-pagination button {
+  padding: 0.25rem 0.65rem;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--hover);
+  box-shadow: var(--shadow-hairline);
+  color: var(--ink-2);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background 0.14s ease,
+    transform 0.1s var(--ease-expo);
+}
+
+.csv-pagination button:hover:not(:disabled) {
+  background: var(--hover-2);
+  color: var(--ink);
+}
+
+.csv-pagination button:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.csv-pagination button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* --------------------------------------------------------- json view ------ */
+
+/* Class names here are supplied to react-json-view-lite from JsonView.tsx, so
+   the tree's colors are theme tokens rather than the library's baked-in ones. */
+.json-view {
+  background: var(--inset);
+  box-shadow: var(--shadow-hairline);
+  border-radius: var(--radius-card);
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--ink-2);
+}
+
+.json-view .jv-row {
+  margin-left: 0.9rem;
+}
+
+.json-view .jv-label {
+  color: var(--ink);
+  font-weight: 550;
+  margin-right: 0.35rem;
+}
+
+.json-view .jv-label-clickable {
+  cursor: pointer;
+}
+
+.json-view .jv-label-clickable:hover {
+  color: var(--accent);
+}
+
+.json-view .jv-string {
+  color: var(--viz-good);
+  word-break: break-all;
+}
+
+.json-view .jv-number,
+.json-view .jv-bool {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.json-view .jv-null,
+.json-view .jv-other {
+  color: var(--ink-3);
+  font-style: italic;
+}
+
+.json-view .jv-punct {
+  color: var(--ink-3);
+}
+
+.json-view .jv-icon {
+  display: inline-block;
+  width: 1rem;
+  color: var(--ink-3);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* expandIcon renders while collapsed, collapseIcon while expanded. */
+.json-view .jv-icon-expand::after {
+  content: "▸";
+}
+
+.json-view .jv-icon-collapse::after {
+  content: "▾";
+}
+
+.json-view .jv-icon:hover {
+  color: var(--accent);
+}
+
+.json-view .jv-collapsed {
+  color: var(--ink-3);
+  cursor: pointer;
+}
+
+.json-view .jv-collapsed:hover {
+  color: var(--accent);
+}
+
+.preview-image {
+  max-width: 100%;
+  border-radius: var(--radius-card);
+}
+
+/* ------------------------------------------------------ landmark cards ---- */
+
+.landmark-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.landmark-grid-compact {
+  margin-bottom: 22px;
+}
+
+.landmark-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
+  transition: background 0.16s ease;
+}
+
+.landmark-card:hover {
+  background: var(--hover);
+}
+
+/* The plain gloss — the sentence a newcomer reads first. */
+.landmark-plain {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 15px;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.landmark-value {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+/* The precise line. Mono, quiet, and always present. */
+.landmark-technical {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+/* --------------------------------------------------------- dataset cards -- */
+
+.dataset-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.dataset-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.16s ease;
+}
+
+.dataset-card:hover {
+  background: var(--hover);
+}
+
+.dataset-headline {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.dataset-stat {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 28px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.dataset-title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.dataset-plain {
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+/* Designed at 1280x800. Below ~1080 the 4-up card grids go 2-up; below ~680
+   everything stacks. Bars shrink with their container; the category axes stay.
+   The matching rules for the column and the hero live in @dashboard/ui, since
+   both surfaces share them. */
+@media (max-width: 1080px) {
+  .landmark-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .landmark-grid,
+  .dataset-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -------------------------------------------------------- evidence table -- */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th {
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 400;
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--divider);
+}
+
+.table td {
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.table tbody tr:hover {
+  background: var(--hover);
+}
+
+.evidence-table td a {
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.evidence-table td a:hover {
+  text-decoration: underline;
+}
+
+.text-muted {
+  color: var(--ink-3);
+}
+
+.chart-tooltip {
+  background: var(--surface);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-overlay);
+  padding: 0.5rem 0.65rem;
+  font-size: 12px;
+}
+
+.chart-tooltip .tooltip-title {
+  color: var(--ink-3);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+}
+
+.chart-tooltip .tooltip-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.chart-tooltip .tooltip-swatch {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.chart-tooltip .tooltip-value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.chart-tooltip .tooltip-name {
+  color: var(--ink-3);
+  font-size: 11px;
+}
+
+.chart-table-toggle {
+  margin: 0.25rem 0 0.5rem;
+}
+
+.chart-table-toggle summary {
+  cursor: pointer;
+  color: var(--ink-3);
+  font-size: 11.5px;
+  list-style: none;
+}
+
+.chart-table-toggle summary::-webkit-details-marker {
+  display: none;
+}
+
+.chart-table-toggle summary::before {
+  content: "▸ ";
+  display: inline-block;
+  transition: transform 0.16s var(--ease-expo);
+}
+
+.chart-table-toggle[open] summary::before {
+  content: "▾ ";
+}
+
+.chart-table-toggle summary:hover {
+  color: var(--accent);
+}
+
+.chart-table-toggle table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 0.6rem;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-table-toggle th,
+.chart-table-toggle td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.32rem 0.5rem;
+  text-align: right;
+  color: var(--ink-2);
+}
+
+.chart-table-toggle th {
+  color: var(--ink-3);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 550;
+}
+
+.chart-table-toggle th:first-child,
+.chart-table-toggle td:first-child {
+  text-align: left;
+}
+
+
+
+/* Standalone scorecard bundle only — the local dashboard never renders this. */
+.static-footnote {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: 11.5px;
+  color: var(--ink-3);
+}
+
+/* ----------------------------------------------------------- scrolly ------ */
+
+.story-header {
+  max-width: 68ch;
+  margin: 0 0 3rem;
+}
+
+.story-header h1 {
+  font-size: 30px;
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+  margin: 0.4rem 0 0.6rem;
+}
+
+.story-header .section-num {
+  text-transform: uppercase;
+}
+
+/* Two columns on desktop: the chart pins in the left, prose scrolls in the right. */
+.story-scrolly {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.story-sticky {
+  position: sticky;
+  top: 5rem;
+  padding: 1rem 1.1rem 0.6rem;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.scrolly-benchmark {
+  margin: 0.3rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  color: var(--ink-3);
+  text-align: center;
+}
+
+.story-progress {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  list-style: none;
+  padding: 0;
+  margin: 0.9rem 0 0.2rem;
+}
+
+.story-progress li {
+  width: 16px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--line-strong);
+  transition: background 220ms var(--ease-expo);
+}
+
+.story-progress li.on {
+  background: var(--accent);
+}
+
+/* Each step is tall enough that exactly one sits in the centre band at a time. */
+.story-step {
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 0;
+  opacity: 0.35;
+  transition: opacity 260ms var(--ease-expo);
+}
+
+.story-step.active {
+  opacity: 1;
+}
+
+.story-step h3 {
+  margin: 0 0 0.5rem;
+  font-size: 19px;
+  letter-spacing: -0.012em;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.story-step p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-2);
+  max-width: 46ch;
+}
+
+.story-step.tone-critical h3 {
+  color: var(--viz-critical);
+}
+
+.story-step.tone-payoff h3 {
+  color: var(--accent);
+}
+
+.story-source {
+  margin-top: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  align-self: flex-start;
+}
+
+.story-source:hover {
+  text-decoration: underline;
+}
+
+.story-footer {
+  margin: 3rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--ink-3);
+  max-width: 68ch;
+}
+
+/* Reduced-motion layout: every step's chart stacked with its prose. */
+.story-static-step {
+  margin-bottom: 2.5rem;
+}
+
+.story-static-step h3 {
+  margin: 0 0 0.4rem;
+  font-size: 17px;
+  color: var(--ink);
+}
+
+.story-static-step p {
+  margin: 0 0 1rem;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 68ch;
+}
+
+.story-act-break {
+  border: 0;
+  height: 1px;
+  background: var(--line);
+  margin: 0 0 2.5rem;
+}
+
+/* Mobile: chart pins to the top, prose flows underneath it. */
+@media (max-width: 760px) {
+  .story-scrolly {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .story-sticky {
+    top: 3.6rem;
+    z-index: 5;
+    /* Sits above the scrolling prose, so it needs an opaque backdrop. */
+    background: var(--surface);
+    box-shadow: var(--shadow-raised);
+  }
+
+  .story-step {
+    min-height: 62vh;
+  }
+
+  .story-step p {
+    max-width: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-sticky {
+    position: static;
+  }
+
+  .story-step {
+    opacity: 1;
+    min-height: 0;
+  }
+}
+
+/* The static bundle used to need its own active-item treatment, because the
+   dashboard marked the current route with a measured sliding pill it had no
+   layout to measure. Both are gone: the band carries the current route in
+   every shell now. */

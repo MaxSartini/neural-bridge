@@ -1,0 +1,19 @@
+{
+  "name": "dashboard-server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@dashboard/shared": "*",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.19.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
