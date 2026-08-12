@@ -87,8 +87,30 @@ export interface AnalysisReport {
   isSample: boolean;
 }
 
+/**
+ * The one error every implementation must signal the same way.
+ *
+ * An interface is everything a caller has to know, and this one used to say
+ * nothing about failure — so three screens each invented their own policy and
+ * they disagreed. Worse, the mock's `getReport` never rejected at all, so
+ * `/analyses/anything/report` rendered a complete, plausible report for a run
+ * that never existed.
+ *
+ * Callers distinguish "this id is not a thing" from "something went wrong"
+ * with `instanceof`, matching how the evidence dashboard's `ApiError` already
+ * works — one error idiom across the codebase rather than two.
+ */
+export class AnalysisNotFound extends Error {
+  constructor(id: string) {
+    super(`No analysis "${id}"`);
+    this.name = "AnalysisNotFound";
+  }
+}
+
 export interface AnalysisClient {
   createAnalysis(input: AnalysisInput): Promise<{ id: string }>;
+  /** Rejects with {@link AnalysisNotFound} if the id is unknown. */
   getAnalysis(id: string): Promise<Analysis>;
+  /** Rejects with {@link AnalysisNotFound} if the id is unknown. */
   getReport(id: string): Promise<AnalysisReport>;
 }

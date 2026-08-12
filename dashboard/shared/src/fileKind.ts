@@ -97,7 +97,3 @@ export function mimeTypeForExt(ext: string): string {
   return MIME_BY_EXT[ext.toLowerCase()] ?? "application/octet-stream";
 }
 
-/** True when the extension names something the browser renders as an image. */
-export function isImageExt(ext: string): boolean {
-  return fileKindForExt(ext) === "image";
-}

@@ -1,10 +1,11 @@
-import type {
-  Analysis,
-  AnalysisClient,
-  AnalysisInput,
-  AnalysisReport,
+import {
+  AnalysisNotFound,
+  type Analysis,
+  type AnalysisClient,
+  type AnalysisInput,
+  type AnalysisReport,
 } from "./analysisClient";
-import { stateAt } from "../lib/pipeline";
+import { PIPELINE, stateAt } from "../lib/pipeline";
 import {
   SAMPLE_ANALYSIS_ID,
   SAMPLE_PROJECT_NAME,
@@ -19,9 +20,9 @@ import {
  * 1. **No network.** It issues no `fetch`, so the Studio satisfies the deployed
  *    CSP's `connect-src 'none'` unchanged and needs no new ADR to ship as a
  *    static demo.
- * 2. **The file never leaves the browser.** Only its name and size are kept.
- *    The `File` itself stays with the page that read it, and the report's frame
- *    preview builds an object URL from it and revokes that URL on unmount.
+ * 2. **The file never leaves the browser.** Nothing about it is stored here at
+ *    all; the page that read it keeps it in `lib/localVideo`, and the report's
+ *    frame preview builds an object URL from it and revokes that on unmount.
  *
  * State lives in a module-level Map, so it survives client-side navigation
  * between the upload, processing and report screens but not a page reload.
@@ -29,15 +30,24 @@ import {
  * that was never really happening.
  */
 
-interface Record {
-  id: string;
+interface Run {
   projectName: string;
-  startedAt: number;
-  fileName: string;
-  fileSize: number;
+  /** Milliseconds since the epoch, or `null` for a run that is already done. */
+  startedAt: number | null;
 }
 
-const runs = new Map<string, Record>();
+const TOTAL_MS = PIPELINE.reduce((sum, s) => sum + s.durationMs, 0);
+
+/**
+ * The sample is seeded as an ordinary finished run rather than special-cased in
+ * every method. It used to be a branch in both `getAnalysis` and `getReport`,
+ * expressing "finished" as `stateAt(Number.MAX_SAFE_INTEGER)` — abusing a clamp
+ * to mean completion. As data it needs no branch at all, and `SAMPLE_ANALYSIS_ID`
+ * stops being a value three modules have to agree about.
+ */
+const runs = new Map<string, Run>([
+  [SAMPLE_ANALYSIS_ID, { projectName: SAMPLE_PROJECT_NAME, startedAt: null }],
+]);
 
 let counter = 0;
 function nextId(): string {
@@ -45,39 +55,32 @@ function nextId(): string {
   return `a${Date.now().toString(36)}${counter}`;
 }
 
+/** Milliseconds of pipeline elapsed for a run — a finished run is simply past the end. */
+function elapsedFor(run: Run): number {
+  return run.startedAt === null ? TOTAL_MS : Date.now() - run.startedAt;
+}
+
 export class MockAnalysisClient implements AnalysisClient {
   async createAnalysis(input: AnalysisInput): Promise<{ id: string }> {
     const id = nextId();
     runs.set(id, {
-      id,
       projectName: input.projectName.trim() || "Untitled analysis",
       startedAt: Date.now(),
-      fileName: input.file.name,
-      fileSize: input.file.size,
     });
     return { id };
   }
 
   async getAnalysis(id: string): Promise<Analysis> {
-    // The sample is always finished — it is there to be read, not watched.
-    if (id === SAMPLE_ANALYSIS_ID) {
-      const finished = stateAt(Number.MAX_SAFE_INTEGER);
-      return { id, projectName: SAMPLE_PROJECT_NAME, ...finished };
-    }
-
     const run = runs.get(id);
-    if (!run) throw new Error(`No analysis ${id}`);
-    return { id, projectName: run.projectName, ...stateAt(Date.now() - run.startedAt) };
+    if (!run) throw new AnalysisNotFound(id);
+    return { id, projectName: run.projectName, ...stateAt(elapsedFor(run)) };
   }
 
   async getReport(id: string): Promise<AnalysisReport> {
-    const projectName =
-      id === SAMPLE_ANALYSIS_ID ? SAMPLE_PROJECT_NAME : (runs.get(id)?.projectName ?? "Analysis");
+    const run = runs.get(id);
+    if (!run) throw new AnalysisNotFound(id);
     // Every run returns the same fixture. That is the whole extent of the mock:
     // the shape is real, the numbers are not, and `isSample` says so on screen.
-    return { analysisId: id, projectName, ...holidaySaleReport };
+    return { analysisId: id, projectName: run.projectName, ...holidaySaleReport };
   }
 }
-
-/** The client the Studio screens use. Swap this line for a real implementation. */
-export const analysisClient: AnalysisClient = new MockAnalysisClient();

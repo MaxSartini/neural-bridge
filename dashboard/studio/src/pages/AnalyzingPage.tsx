@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Check } from "lucide-react";
 import { Blueprint, ProgressBar, Skeleton, Tag } from "@dashboard/ui";
-import { analysisClient } from "../api/mockAnalysisClient";
-import type { Analysis, PipelineStep } from "../api/analysisClient";
+import { AnalysisNotFound, analysisClient } from "../api";
+import type { Analysis, PipelineStep } from "../api";
 
 const POLL_MS = 400;
+
+/** Consecutive non-fatal errors tolerated before giving up, with a linear backoff. */
+const MAX_CONSECUTIVE_ERRORS = 4;
 
 function StepGlyph({ step, index }: { step: PipelineStep; index: number }) {
   if (step.state === "done") {
@@ -30,16 +33,18 @@ export default function AnalyzingPage() {
   const { id = "" } = useParams();
   const navigate = useNavigate();
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
-  const [missing, setMissing] = useState(false);
+  const [failure, setFailure] = useState<"missing" | "unreachable" | null>(null);
 
   useEffect(() => {
     let cancelled = false;
     let timer: number | undefined;
+    let consecutiveErrors = 0;
 
     async function poll() {
       try {
         const next = await analysisClient.getAnalysis(id);
         if (cancelled) return;
+        consecutiveErrors = 0;
         setAnalysis(next);
         if (next.status === "complete") {
           // Let the finished state paint before moving on, so the run does not
@@ -50,8 +55,21 @@ export default function AnalyzingPage() {
           return;
         }
         timer = window.setTimeout(poll, POLL_MS);
-      } catch {
-        if (!cancelled) setMissing(true);
+      } catch (err: unknown) {
+        if (cancelled) return;
+        // A missing id will never appear, so stop immediately. Anything else
+        // might be a blip — this used to treat every error as fatal and print
+        // "that analysis isn't here", which is a lie about a dropped request.
+        if (err instanceof AnalysisNotFound) {
+          setFailure("missing");
+          return;
+        }
+        consecutiveErrors += 1;
+        if (consecutiveErrors >= MAX_CONSECUTIVE_ERRORS) {
+          setFailure("unreachable");
+          return;
+        }
+        timer = window.setTimeout(poll, POLL_MS * consecutiveErrors);
       }
     }
 
@@ -62,14 +80,30 @@ export default function AnalyzingPage() {
     };
   }, [id, navigate]);
 
-  if (missing) {
+  if (failure) {
     return (
       <div className="studio-column studio-column-narrow">
-        <h1 className="hero-title">That analysis isn&apos;t here</h1>
-        <p className="hero-technical">
-          Runs in this build live in the page&apos;s memory, so a reload clears them. Start a
-          new analysis to see the pipeline again.
-        </p>
+        <section className="hero">
+          <div className="card-kicker">Analyzing</div>
+          <h1 className="hero-title">
+            {failure === "missing"
+              ? "That analysis isn't here"
+              : "Lost track of that analysis"}
+          </h1>
+          <p className="hero-technical studio-subtitle">
+            {failure === "missing"
+              ? "Runs live in the browser tab that started them, so a reload clears them. Start a new analysis to see the pipeline again."
+              : "It stopped responding after several attempts. Starting a new analysis usually clears it."}
+          </p>
+          <div className="hero-actions">
+            <Link to="/analyze" className="btn btn-secondary">
+              Analyze a video
+            </Link>
+            <Link to="/sample" className="btn btn-ghost">
+              See a sample report
+            </Link>
+          </div>
+        </section>
       </div>
     );
   }

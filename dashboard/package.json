@@ -13,7 +13,7 @@
     "dev:studio": "npm run dev -w @dashboard/studio",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typecheck": "npm run typecheck -w web && npm run typecheck -w @dashboard/studio"
+    "typecheck": "npm run typecheck -w server && npm run typecheck -w web && npm run typecheck -w @dashboard/studio"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",

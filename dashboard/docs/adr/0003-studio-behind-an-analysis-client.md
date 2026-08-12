@@ -28,8 +28,17 @@ Build the screens for real and put the *only* mocked thing behind one seam.
   `getAnalysis`, `getReport` — and the types they exchange.
 - `studio/api/mockAnalysisClient.ts` implements it in-process: a module-level
   `Map`, a pure state-machine reducer in `studio/lib/pipeline.ts`, and one
-  fixture. It issues no `fetch`. Swapping it for an HTTP client is a
-  one-module change that touches no screen.
+  fixture. It issues no `fetch`.
+- `studio/api/index.ts` **is the seam**: it re-exports the types and selects the
+  adapter. Screens import from `../api` and never from an implementation
+  module, so swapping the mock is one line there.
+
+  *Amended.* This ADR originally claimed swapping was "a one-module change that
+  touches no screen" while the singleton was exported from
+  `mockAnalysisClient.ts` and all three screens imported it by that name — so
+  the swap meant either editing every screen or leaving a file called
+  `mockAnalysisClient` serving production. The barrel added in Phase F is what
+  makes the original claim true.
 - **No write endpoint is added to `dashboard/server`.** Nothing in `studio/`
   imports `api/client.ts`.
 - The selected `File` never leaves the browser. It is held in
@@ -41,6 +50,11 @@ Build the screens for real and put the *only* mocked thing behind one seam.
   unmeasurable step gives the view nothing to draw a fake bar from.
   `AnalysisReport.isSample` travels with the report and the page renders a
   notice from it.
+- **The error contract is part of the interface.** `getAnalysis` and `getReport`
+  reject with `AnalysisNotFound` for an unknown id. Leaving failure unspecified
+  meant three screens invented three different policies and the mock's
+  `getReport` never rejected at all — so a report page rendered complete,
+  plausible output for a run that had never existed.
 
 ## Consequences
 

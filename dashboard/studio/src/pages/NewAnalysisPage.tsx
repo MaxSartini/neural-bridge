@@ -2,9 +2,9 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Upload } from "lucide-react";
 import { Blueprint } from "@dashboard/ui";
-import { analysisClient } from "../api/mockAnalysisClient";
+import { analysisClient } from "../api";
 import { rememberVideo } from "../lib/localVideo";
-import type { ContentType, Objective } from "../api/analysisClient";
+import type { ContentType, Objective } from "../api";
 
 const ACCEPTED_TYPES = ["video/mp4", "video/quicktime"];
 const MAX_BYTES = 2 * 1024 * 1024 * 1024; // 2GB

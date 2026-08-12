@@ -9,16 +9,23 @@
  * Nothing is persisted: a reload drops the map, which is correct. The whole
  * point is that the file never leaves the page that read it.
  */
-const files = new Map<string, File>();
+
+/**
+ * At most one video is held at a time.
+ *
+ * This used to be an unbounded Map with a `forgetVideo` export that nothing
+ * ever called, so every upload in a session stayed resident for the life of the
+ * tab. The report revoked its object URL on unmount but the `File` behind it
+ * was never released — so the comment claiming a 2GB pick would not be pinned
+ * was only half true. Evicting on write bounds it to one file and removes the
+ * teardown function nobody was calling.
+ */
+let held: { analysisId: string; file: File } | null = null;
 
 export function rememberVideo(analysisId: string, file: File): void {
-  files.set(analysisId, file);
+  held = { analysisId, file };
 }
 
 export function getVideo(analysisId: string): File | undefined {
-  return files.get(analysisId);
-}
-
-export function forgetVideo(analysisId: string): void {
-  files.delete(analysisId);
+  return held?.analysisId === analysisId ? held.file : undefined;
 }

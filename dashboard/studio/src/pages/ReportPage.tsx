@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Blueprint, Skeleton, Tag } from "@dashboard/ui";
-import { analysisClient } from "../api/mockAnalysisClient";
-import type { AnalysisReport, Moment } from "../api/analysisClient";
+import { AnalysisNotFound, analysisClient } from "../api";
+import type { AnalysisReport, Moment } from "../api";
 import { confidence, reportMethodology } from "../content/claims";
 import { HEAT_STRIP_CELLS, bucketSeries } from "../lib/heatStrip";
 import { getVideo } from "../lib/localVideo";
@@ -80,14 +80,23 @@ export default function ReportPage({ analysisId }: Props = {}) {
     else el.addEventListener("loadedmetadata", seek, { once: true });
   }, [selectedSecond, videoUrl]);
 
+  const [loadError, setLoadError] = useState<"missing" | "failed" | null>(null);
   useEffect(() => {
     let cancelled = false;
-    void analysisClient.getReport(id).then((r) => {
-      if (!cancelled) {
+    setLoadError(null);
+    analysisClient.getReport(id).then(
+      (r) => {
+        if (cancelled) return;
         setReport(r);
         setSelectedSecond(r.peaks[0]?.atSeconds ?? null);
-      }
-    });
+      },
+      (err: unknown) => {
+        // This page had no rejection handler at all. Against a client that
+        // rejects — which the interface now requires for an unknown id — it sat
+        // on a loading skeleton forever with nothing on screen to explain why.
+        if (!cancelled) setLoadError(err instanceof AnalysisNotFound ? "missing" : "failed");
+      },
+    );
     return () => {
       cancelled = true;
     };
@@ -123,6 +132,34 @@ export default function ReportPage({ analysisId }: Props = {}) {
     const step = report.durationSeconds / Math.max(1, report.series.length - 1);
     return report.series.map((value, i) => ({ at: i * step, value }));
   }, [report]);
+
+  if (loadError) {
+    return (
+      <div className="studio-column studio-column-narrow">
+        <section className="hero">
+          <div className="card-kicker">Report</div>
+          <h1 className="hero-title">
+            {loadError === "missing"
+              ? "That report isn't here"
+              : "That report couldn't be loaded"}
+          </h1>
+          <p className="hero-technical studio-subtitle">
+            {loadError === "missing"
+              ? "Runs live in the browser tab that started them, so a reload clears them. The sample report is always available."
+              : "Something went wrong fetching it. Trying again usually works."}
+          </p>
+          <div className="hero-actions">
+            <Link to="/sample" className="btn btn-secondary">
+              See the sample report
+            </Link>
+            <Link to="/analyze" className="btn btn-ghost">
+              Analyze a video
+            </Link>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   if (!report) {
     return (

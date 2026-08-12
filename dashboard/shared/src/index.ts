@@ -5,5 +5,4 @@ export {
   fileKindForPath,
   textKindForExt,
   mimeTypeForExt,
-  isImageExt,
 } from "./fileKind.js";

@@ -66,10 +66,27 @@ function sourceFiles(dir) {
 // `import("y")`, and CSS `@import "y"`.
 const SPECIFIER = /(?:\bfrom\s*|\bimport\s*\(?\s*|@import\s+(?:url\()?)["']([^"']+)["']/g;
 
+/**
+ * Strip comments before scanning.
+ *
+ * Without this the matcher reads prose as code: a doc comment containing the
+ * phrase `from "something went wrong"` was reported as an undeclared
+ * dependency named "something went wrong". Comments are where imports get
+ * *described*, so scanning them is guaranteed to produce false positives — and
+ * a gate that cries wolf is a gate people start bypassing.
+ *
+ * The `//` rule ignores a slash pair preceded by `:` so a `https://` inside a
+ * string survives. A specifier hidden in a string literal is not an import
+ * anyway, so erring toward stripping cannot hide a real one.
+ */
+function stripComments(text) {
+  return text.replace(/\/\*[\s\S]*?\*\//g, " ").replace(/(^|[^:])\/\/[^\n]*/g, "$1");
+}
+
 const violations = [];
 
 for (const file of sourceFiles(join(pkgRoot, "src"))) {
-  const text = readFileSync(file, "utf8");
+  const text = stripComments(readFileSync(file, "utf8"));
   for (const m of text.matchAll(SPECIFIER)) {
     const spec = m[1];
     if (spec.startsWith(".")) {
