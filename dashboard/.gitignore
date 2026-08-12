@@ -1,0 +1,34 @@
+# Dashboard-local ignores.
+#
+# Until Phase E this whole directory was hidden by a single `/dashboard` line in
+# the repository .gitignore. That one line was doing all the work, so removing
+# it to commit exposed three artifact trees that no other rule catches. The
+# rules below are deliberately duplicated with the root file: this directory
+# should stay safe to commit even if the root rules are edited.
+
+# Dependencies.
+node_modules/
+
+# Build output.
+#
+# `dist/` alone is not enough. The root file's `**/dist` matches a path
+# component named exactly `dist`, so `dist-scorecard/` slips straight past it.
+dist/
+dist-scorecard/
+dist-studio/
+
+# Wrangler local state. Never commit.
+#
+# The root file's `/.wrangler` is root-anchored and does not reach the copies
+# nested under web/ and studio/. What they hold is not build junk:
+#
+#   - `cache/cf.json` records the developer's city, region, postal code and
+#     latitude/longitude to five decimal places, plus ISP and ASN.
+#   - `tmp/` retains bundled worker sources and sourcemaps, including the
+#     Basic Auth worker DEPLOY.md describes as removed, and roughly forty
+#     absolute `C:\Users\...` paths.
+.wrangler/
+
+# Vite's dependency-optimiser scratch space.
+.vite/
+.vite-temp/

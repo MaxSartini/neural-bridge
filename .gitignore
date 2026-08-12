@@ -7,9 +7,6 @@
 /.cache
 /graphify-out
 
-# Phase A evidence dashboard — local tool, not reviewed/committed yet.
-/dashboard
-
 # Environments, dependencies, and generated builds.
 /.venv
 **/__pycache__
@@ -20,5 +17,8 @@
 # Host noise.
 .DS_Store
 
-# Wrangler CLI local state (holds the Cloudflare account id), not source.
-/.wrangler
+# Wrangler CLI local state, not source. Never commit: besides the Cloudflare
+# account id, `cache/cf.json` records the developer's city, postal code and
+# latitude/longitude, and `tmp/` retains bundled worker sources with absolute
+# local paths. Unanchored so it catches the copies nested in workspaces.
+**/.wrangler/
