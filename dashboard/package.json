@@ -1,0 +1,22 @@
+{
+  "name": "neural-bridge-dashboard",
+  "private": true,
+  "workspaces": [
+    "shared",
+    "ui",
+    "server",
+    "web",
+    "studio"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n SERVER,WEB -c blue,green \"npm run dev -w server\" \"npm run dev -w web\"",
+    "dev:studio": "npm run dev -w @dashboard/studio",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "npm run typecheck -w web && npm run typecheck -w @dashboard/studio"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "vitest": "^4.1.10"
+  }
+}

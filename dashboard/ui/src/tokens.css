@@ -1,0 +1,698 @@
+/* ============================================================================
+   Neural Bridge — design tokens (Industry design language)
+
+   Brand: forest #123524, paper #f1f0ea, steel #5980a6, on a #f2f2f3 ground.
+
+   Industry is a wireframe language: a light technical ground, Barlow Condensed
+   over Barlow, and cards, figures and primary buttons drawn as blueprint
+   objects — square-cornered, hairline-bordered, carrying "+" registration
+   marks. Cards are line drawings, never elevated surfaces, so the --shadow-*
+   tokens below collapse to hairline rings rather than real elevation, and the
+   --radius-* scale is zero.
+
+   Theme resolution:
+     :root                      color-scheme: light dark — light-dark() reads
+                                the OS preference
+     :root[data-theme="light"]  pinned light, beats a dark OS
+     :root[data-theme="dark"]   pinned dark, beats a light OS
+   No pin = follow the OS; a pin wins in both directions. Those semantics are
+   unchanged from Phase A3. What changed is that light is now the base rather
+   than dark, and each color is stated once via light-dark() instead of being
+   duplicated across a media query and an attribute selector.
+
+   The dark variant is ours — the design handoff is light-only. Its rule: the
+   green band stays #123524 in both themes, reading as *ink* against the light
+   ground and as a *lift* above the dark one, so the band stays recognisably
+   itself. Green survives neither as text nor as a data mark once the ground
+   goes dark, so --accent and the marks lighten to clear their contrast floors.
+
+   Every color is an explicit light-dark() pair. Deriving the dark side with
+   color-mix() over a light-dark() base would nest two color functions inside an
+   SVG presentation attribute — Recharts passes fill="var(--viz-…)" — which
+   stacks a second unverified behaviour on the first. Explicit pairs cost a few
+   lines and remove that risk.
+   ============================================================================ */
+
+/* Webfonts, self-hosted as npm packages — CONVENTIONS.md forbids a runtime CDN
+   call and the deployed CSP would block one. Imported here rather than from
+   each entry point so the two surfaces cannot drift on which faces they ship.
+   Latin subset only, and only the weights the design uses: adding one adds a
+   file to every bundle, so check the design calls for it first. */
+@import "@fontsource/barlow/latin-400.css";
+@import "@fontsource/barlow/latin-500.css";
+@import "@fontsource/barlow/latin-600.css";
+@import "@fontsource/barlow-condensed/latin-600.css";
+
+:root {
+  color-scheme: light dark;
+
+  /* Brand primitives — the values the design handoff fixes. */
+  --nb-green: #123524;
+  --nb-green-700: #1b4a33;
+  --nb-paper: #f1f0ea;
+  --nb-steel: #5980a6;
+
+  /* Ground and ink */
+  --ground: light-dark(#f2f2f3, #0b1a12);
+  --ink: light-dark(#123524, #f1f0ea);
+  --ink-2: light-dark(#345143, #c9cec6);
+  --ink-3: light-dark(#556e62, #acb0a9);
+
+  /* Surfaces. Industry cards are transparent line drawings; these carry only
+     the places that genuinely need a fill — input fills, empty progress
+     tracks, code blocks, and sticky table headers that must occlude. */
+  --page: var(--ground);
+  --canvas: light-dark(#e9e9ea, #14261c);
+  --surface: light-dark(#e9e9ea, #14261c);
+  --inset: light-dark(#e6e6e7, #10231a);
+
+  /* Lines and washes. The divider is the system's one hairline value. */
+  --divider: light-dark(rgba(18, 53, 36, 0.18), rgba(241, 240, 234, 0.18));
+  --line: var(--divider);
+  --line-strong: light-dark(rgba(18, 53, 36, 0.32), rgba(241, 240, 234, 0.3));
+  --hover: light-dark(rgba(18, 53, 36, 0.07), rgba(241, 240, 234, 0.07));
+  --hover-2: light-dark(rgba(18, 53, 36, 0.14), rgba(241, 240, 234, 0.12));
+  --stripe: light-dark(rgba(18, 53, 36, 0.035), rgba(241, 240, 234, 0.035));
+
+  /* The green nav band and type reversed onto it. Identical in both themes:
+     ink against the light ground, a lift above the dark one. */
+  --band: #123524;
+  --band-ink: #f1f0ea;
+
+  /* Accent — links, ghost buttons, focus rings. Forest reads at ~13:1 on the
+     light ground and vanishes on the dark one, so it lightens. */
+  --accent: light-dark(#123524, #86ceac);
+  --accent-ink: light-dark(#f1f0ea, #0b1a12);
+  --accent-soft: light-dark(rgba(18, 53, 36, 0.1), rgba(134, 206, 172, 0.16));
+  --glass: light-dark(rgba(242, 242, 243, 0.72), rgba(11, 26, 18, 0.72));
+
+  /* Primary button — the one solid object on the board. On a dark ground the
+     solid object has to be the light one, so the fill inverts. */
+  --btn-primary-bg: light-dark(#123524, #f1f0ea);
+  --btn-primary-fg: light-dark(#f1f0ea, #123524);
+  --btn-primary-bg-hover: light-dark(#1b4a33, #dcdad2);
+
+  /* Tags */
+  --tag-accent-bg: light-dark(#d3ded7, #1e4634);
+  --tag-accent-fg: light-dark(#123524, #e8efe9);
+
+  /* Data marks. The baseline lane keeps the handoff's deliberate #377557
+     override — a lighter green than the ink — and the control lane is steel,
+     which is chrome only and never a text color on the light ground.
+     These two are declared directly rather than aliased: they are the values
+     Recharts hands to an SVG presentation attribute, so they take the
+     shortest substitution path available. */
+  --viz-series-1: light-dark(#377557, #4f9d75);
+  --viz-series-2: light-dark(#5980a6, #8fb3d4);
+  --mark-primary: var(--viz-series-1);
+  --mark-control: var(--viz-series-2);
+  --mark-solid: light-dark(#123524, #7cc4a1);
+
+  /* Sequential ramp, single hue, monotone: light→dark green on the light
+     ground, dim→bright on the dark one, so rank always reads as increasing
+     visual weight against whatever it sits on.
+
+     Both ends are constrained, not chosen by eye. A ramp step is a filled bar,
+     so every step has to clear the 3:1 non-text floor against its own ground —
+     which caps how faint step 1 may be and, on the light ground, how far the
+     ramp can travel. Measured against --ground: light runs 3.16 → 12.03, dark
+     runs 3.30 → 9.50. A first attempt started light at #cfe3d8 and measured
+     1.20, i.e. the lowest bar was invisible; if these values are retuned,
+     re-measure rather than eyeballing the hexes. */
+  --viz-seq-1: light-dark(#69917c, #40745a);
+  --viz-seq-2: light-dark(#587f6a, #4c8668);
+  --viz-seq-3: light-dark(#466c59, #589876);
+  --viz-seq-4: light-dark(#355a47, #65a985);
+  --viz-seq-5: light-dark(#234736, #71bb93);
+  --viz-seq-6: light-dark(#123524, #7dcda1);
+
+  --viz-good: light-dark(#1f7a4d, #6fcf97);
+  --viz-critical: light-dark(#b23b3b, #e88c8c);
+
+  /* Elevation collapses to hairlines — cards are line drawings. Only the
+     overlay keeps a real shadow, because a floating tooltip has to detach. */
+  --shadow-hairline: 0 0 0 1px var(--line);
+  --shadow-card: 0 0 0 1px var(--line);
+  --shadow-raised: 0 0 0 1px var(--line-strong);
+  --shadow-overlay: 0 0 0 1px var(--line-strong),
+    0 12px 32px light-dark(rgba(18, 53, 36, 0.16), rgba(0, 0, 0, 0.45));
+
+  /* Square by design. The names stay so component CSS keeps reading a token
+     rather than a hard-coded zero. */
+  --radius-card: 0;
+  --radius-control: 0;
+  --radius-button: 0;
+
+  /* Spacing — the Industry scale at 0.85x density. */
+  --space-1: 3.4px;
+  --space-2: 6.8px;
+  --space-3: 10.2px;
+  --space-4: 13.6px;
+  --space-6: 20.4px;
+  --space-8: 27.2px;
+
+  --ease-expo: cubic-bezier(0.23, 1, 0.32, 1);
+
+  --font-heading: "Barlow Condensed", "Barlow", system-ui, sans-serif;
+  --font-heading-weight: 600;
+  --font-body: "Barlow", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-body);
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", Menlo,
+    Consolas, monospace;
+
+  /* Legacy aliases still read by the Recharts axis props. */
+  --viz-text-secondary: var(--ink-2);
+  --viz-muted: var(--ink-3);
+  --viz-gridline: var(--line);
+  --viz-baseline: var(--line-strong);
+}
+
+/* The pin. ThemeToggle.tsx stamps data-theme on <html> and the pre-paint
+   scripts (index.html inline, public-scorecard/theme-init.js external) set it
+   before first paint. Both keep working untouched: they still only write the
+   attribute, and color-scheme now does the switching that two duplicated
+   palette blocks used to do. */
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* ---------------------------------------------------------------- base ---- */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Condensed headings over Barlow body is the pairing the system is built on.
+   Per-component rules below still set their own size and tracking; this only
+   establishes the face and weight so nothing falls back to the body font. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-button);
+}
+
+/* ------------------------------------------------------- blueprint frame -- */
+
+/* The wireframe frame every card, figure and primary button wears: square,
+   hairline-bordered, with "+" registration marks sitting 6px outside each
+   corner. Rendered by components/Blueprint.tsx — the marks are decorative, so
+   the four <i> elements it emits are aria-hidden. */
+.blueprint {
+  position: relative;
+  border: 1px solid var(--divider);
+  border-radius: 0;
+}
+
+.blueprint > .corner {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+.blueprint > .corner::before,
+.blueprint > .corner::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+
+.blueprint > .corner::before {
+  left: 5px;
+  top: 0;
+  width: 1px;
+  height: 100%;
+}
+
+.blueprint > .corner::after {
+  top: 5px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.blueprint > .corner.tl {
+  top: -6px;
+  left: -6px;
+}
+
+.blueprint > .corner.tr {
+  top: -6px;
+  right: -6px;
+}
+
+.blueprint > .corner.bl {
+  bottom: -6px;
+  left: -6px;
+}
+
+.blueprint > .corner.br {
+  bottom: -6px;
+  right: -6px;
+}
+
+/* ---------------------------------------------------------------- tags ---- */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  padding: 3px 10px;
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+.tag-accent {
+  background: var(--tag-accent-bg);
+  color: var(--tag-accent-fg);
+}
+
+.tag-outline {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.tag-neutral {
+  background: var(--hover);
+  color: var(--ink-3);
+}
+
+/* ------------------------------------------------------------ progress ---- */
+
+.progress-track {
+  background: var(--surface);
+  border: 1px solid var(--divider);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--mark-solid);
+  transition: width 320ms var(--ease-expo);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hidden from sight, present for screen readers. Used by form inputs the
+   design replaces with a custom control, and by figure captions. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------- skeleton ------ */
+
+.skeleton {
+  border-radius: var(--radius-control);
+  background: linear-gradient(
+    90deg,
+    var(--hover) 0%,
+    var(--hover-2) 50%,
+    var(--hover) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s linear infinite;
+}
+
+.skeleton-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* -------------------------------------------------------------- shell ----- */
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ---------------------------------------------------------------- buttons -- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 14px;
+  line-height: 1.2;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--divider);
+  border-radius: 0;
+  padding: var(--space-2) calc(var(--space-3) * 1.2);
+}
+
+.btn svg {
+  display: block;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* The one solid object on the board. */
+.btn-primary {
+  background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+}
+
+.btn-primary:hover:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--btn-primary-bg-hover);
+  border-color: var(--btn-primary-bg-hover);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--hover);
+}
+
+.btn-secondary:active:not(:disabled) {
+  background: var(--hover-2);
+}
+
+.btn-ghost {
+  color: var(--accent);
+  border-color: transparent;
+  padding-inline: var(--space-1);
+}
+
+.btn-ghost:hover {
+  background: var(--accent-soft);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ------------------------------------------------------------------- nav -- */
+
+/* Kept sticky, which the design does not specify either way — the band is
+   opaque, so it needs no glass backdrop to stay readable over content. */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  flex-wrap: wrap;
+}
+
+.nav-inverse {
+  background: var(--band);
+  color: var(--band-ink);
+}
+
+.nav-brand {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 18px;
+  margin-right: auto;
+  color: var(--band-ink);
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.nav-inverse .nav-links a {
+  color: color-mix(in srgb, var(--band-ink) 70%, transparent);
+  text-decoration: none;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: color 0.16s ease;
+}
+
+.nav-inverse .nav-links a:hover,
+.nav-inverse .nav-links a.active {
+  color: var(--band-ink);
+}
+
+/* On the band the primary button reverses: paper fill, green type. The band is
+   the same forest in both themes, so this pair is fixed rather than themed. */
+.nav-inverse .btn-primary {
+  background: var(--nb-paper);
+  border-color: var(--nb-paper);
+  color: var(--nb-green);
+}
+
+.nav-inverse .btn-primary:hover {
+  background: color-mix(in srgb, var(--nb-paper) 85%, var(--nb-green));
+  border-color: color-mix(in srgb, var(--nb-paper) 85%, var(--nb-green));
+}
+
+.nav-cta {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Registration marks lighten on the green field so they read as drawn-on
+   rather than disappearing into it. */
+.nav-inverse .blueprint > .corner {
+  color: color-mix(in srgb, var(--nb-paper) 65%, transparent);
+}
+
+/* A green focus ring is invisible against the green band. */
+.nav-inverse :focus-visible {
+  outline-color: var(--nb-paper);
+}
+
+.nav-inverse .theme-toggle {
+  background: color-mix(in srgb, var(--nb-paper) 12%, transparent);
+  color: color-mix(in srgb, var(--nb-paper) 80%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--nb-paper) 25%, transparent);
+}
+
+.nav-inverse .theme-toggle:hover {
+  background: color-mix(in srgb, var(--nb-paper) 20%, transparent);
+  color: var(--nb-paper);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--hover);
+  box-shadow: var(--shadow-hairline);
+  color: var(--ink-2);
+  cursor: pointer;
+  transition:
+    background 0.16s ease,
+    color 0.16s ease,
+    transform 0.12s var(--ease-expo);
+}
+
+.theme-toggle:hover {
+  background: var(--hover-2);
+  color: var(--ink);
+}
+
+.theme-toggle:active {
+  transform: scale(0.94);
+}
+
+/* 1280px is the width the design was drawn at, with 32px side padding. Prose
+   does not want that measure, so .markdown-body sets its own below — the
+   designed pages get the full column, reading pages stay readable. */
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 36px 32px 40px;
+  /* `clip`, not `hidden`: hidden would turn main into its own scroll container
+     and steal page scrolling. It also contains the blueprint registration
+     marks, which sit 6px outside their card and would otherwise add horizontal
+     page scroll where a card meets the column edge. */
+  overflow-x: clip;
+}
+
+
+/* ==== shared layout chrome: hero, kickers, section heads ==== */
+/* --------------------------------------------------------- scorecard ------ */
+
+/* The periwinkle bloom behind the old hero is gone with the accent that made
+   it. Industry draws with lines on a flat ground; a soft radial glow is the
+   one gesture the language has no room for. */
+.hero {
+  margin-bottom: 28px;
+}
+
+.card-kicker {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.hero-title {
+  font-size: 42px;
+  margin: 8px 0 10px;
+  max-width: 26ch;
+  color: var(--ink);
+}
+
+/* The precise sentence, under the plain one. */
+.hero-technical {
+  max-width: 66ch;
+  font-size: 15px;
+  color: var(--ink-2);
+  margin: 0 0 20px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.overview-section {
+  margin-bottom: 28px;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.section-head h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--ink);
+}
+
+/* Pushes a chart card's badge to the right edge of the header row. */
+.section-head .tag {
+  margin-left: auto;
+}
+
+/* --------------------------------------------------------- chart card ----- */
+
+/* A line drawing, not a surface: transparent fill, hairline border, and the
+   registration marks Blueprint supplies. */
+.chart-card {
+  padding: 20px;
+  margin-bottom: 20px;
+  background: transparent;
+}
+
+.chart-card .chart-subtitle {
+  color: var(--ink-3);
+  font-size: 12.5px;
+  line-height: 1.55;
+  margin: 0 0 20px;
+  max-width: 74ch;
+}
+
+/* Recharts injects a focus outline on the SVG wrapper; suppress it so clicking
+   a bar doesn't leave a ring around the whole chart. */
+.recharts-wrapper:focus,
+.recharts-surface:focus {
+  outline: none;
+}
+/* ------------------------------------------------------------- motion ----- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+}
+
+/* Shared responsive rules. Both surfaces use this column and this hero, so the
+   breakpoints belong here rather than in either stylesheet. */
+@media (max-width: 1080px) {
+  .hero-title {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 680px) {
+  .app-main {
+    padding: 24px 20px 32px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+  }
+}
