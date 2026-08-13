@@ -1,45 +1,62 @@
 # What's next
 
-Written at the end of Phase E so tomorrow starts from a decision, not a blank page.
-
 ## Where things stand
 
 - **The Studio is live and public** at https://neural-bridge-studio.pages.dev, with no login.
-- **The evidence dashboard is shelved.** Local-only, Cloudflare project deleted. There is
-  enough internal documentation; effort goes to the customer surface now.
-- **Everything is committed.** First time — Phases A–C existed only as untracked files on one
-  disk until Phase E.
-- 124 tests pass, both build gates pass, both typechecks clean.
+- **The evidence dashboard is shelved.** Local-only, Cloudflare project deleted.
+- **Everything is committed and pushed** at `7891fc7`.
+- 133 frontend tests and 38 Python tests pass; both build gates pass; typechecks clean.
 
-## The goal: take the Studio to pudding.cool standard
+## The goal: structural soundness, not polish
 
-Bold visual storytelling, scrollytelling, playful interactive graphics, editorial confidence.
-The product has a genuinely interesting thing to show — where attention moves across a cut —
-and it is currently shown as a restrained wireframe.
+**Aesthetics are not the focus.** The priority is that the logic and structure are sound, have
+no known defects, and can be built upon — a house on rock, not on sand.
 
-### The decision waiting at the top of it
+> This supersedes an earlier direction recorded here, which was to take the Studio to
+> pudding.cool standard and write an ADR-0007 superseding the Industry design language. That
+> is deferred, not cancelled. The root `AGENTS.md` is authoritative on direction; reconcile
+> against it.
 
-**ADR-0004 and The Pudding cannot both govern this surface.**
+### The problem, measured
 
-ADR-0004 fixed the Industry design language: square corners, hairline borders, transparent
-cards, *no decorative colour, no elevation, one accent*. The Pudding is close to the opposite
-— maximalist, colourful, animated, generous with imagery.
+**41 `.tsx` files have zero tests, and the harness cannot test them.**
+`dashboard/vitest.config.ts` sets `environment: "node"` on every project with
+`include: ["src/**/*.test.ts"]` — `.tsx` is not collected and jsdom is deliberately absent.
 
-This is a real architectural decision, not a styling preference, and drifting into it would
-leave the codebase governed by an ADR nobody is following. Take it deliberately:
+Worse than the count is the shape: **every module extracted *for* testability is tested, and
+every place those modules are *called* is not.** `stateAt` has twelve tests and cannot
+plausibly be wrong; the polling loop calling it in `pages/AnalyzingPage.tsx` — timers, the
+cancellation guard, the 600 ms redirect, the `AnalysisNotFound`-versus-transient
+classification, the retry backoff — has none, and sits on the live public surface. The same
+inversion holds for `bucketSeries` versus the heat-cell rounding, and for `resolveSafePath`
+versus the `readdir` loop that calls it.
 
-- **Write ADR-0007 superseding ADR-0004 for the external surface only.** The internal code is
-  shelved and can keep the wireframe language it was designed in.
-- The split already supports this. `@dashboard/ui` holds the shared tokens and primitives;
-  `studio/src/styles/studio.css` is already the Studio's own stylesheet. The question is how
-  much of `ui/` the Studio keeps sharing versus forking.
+### The scoping filter
 
-Worth being honest about the tension in the other direction too: the wireframe language is
-what makes the product *look* like measurement rather than marketing, and the honesty framing
-("Calibrated, not overpromised") is load-bearing with investors. Going maximalist should not
-quietly cost that.
+For each candidate ask: **when a real inference backend replaces `MockAnalysisClient`, does
+this break or need rework?** Yes → foundation, do it now. No → finish, it waits.
 
-### Already in place for it
+This rules most of the parked list out, because it lives in the shelved `web/`.
+
+### Order
+
+1. **Make the frontend testable.** A jsdom vitest project collecting `.tsx`, for `studio` only
+   — `web/` is shelved and should not grow dependencies. Update the comment in
+   `vitest.config.ts` rather than quietly contradicting it.
+2. **Extract and test the run lifecycle** out of `AnalyzingPage`. Prefer a module taking an
+   `AnalysisClient` and a clock, testable in the existing `node` environment with a fake
+   clock, over a render test of the same behaviour.
+3. **Make `AnalysisInput` honest.** It collects `contentType`, `objective` and `notes`;
+   the mock discards all three, and `Objective`'s doc comment claims it "shapes the report's
+   emphasis". Wire them or remove them.
+4. **Record what a real backend must honour** in an ADR — reject `AnalysisNotFound` for an
+   unknown id, omit `progress` where a step cannot measure itself, omit `etaSeconds` where
+   there is no honest estimate — plus the fact that a real backend means relaxing
+   `connect-src 'none'` on a public, unauthenticated surface.
+5. **Python**, per [`../../docs/backend-handoff.md`](../../docs/backend-handoff.md): test
+   `resolve_backend()`, resolve `cuda`, make the all-skipped backend suite visible.
+
+### Deferred visual work, already in place
 
 - **Imagery slots.** `ImageSlot` applies the blueprint frame and duotone treatment and falls
   back to generated artwork. Drop a file into `studio/public/media/` and pass its path — no
@@ -60,17 +77,26 @@ heat strip animates only `transform` because its opacity *is* the value.
 
 ## Parked work
 
-From the architecture review, unaddressed and still valid:
+Closed in Phase F (`d6b5a3c`) — do not re-open:
 
-| | Where |
-|---|---|
-| `AnalysisClient` seam is nominal — screens import the adapter, not the interface; `getReport` never rejects | `studio/src/api/` |
-| Six copies of the cancellable-load pattern, four incompatible error models | both surfaces' pages |
-| The polling loop is untested while `stateAt` has 12 tests — the risk is in the caller | `studio/src/pages/AnalyzingPage.tsx` |
-| `LandmarkCard`'s interface sits at the wrong altitude | `web/src/components/` (shelved) |
-| The theme-pin contract is known in seven places | across both surfaces |
-| `forgetVideo` and `isImageExt` are exported and never called | `studio/src/lib/localVideo.ts`, `shared/src/fileKind.ts` |
-| Root `typecheck` skips `server/` | `dashboard/package.json` |
+- The `AnalysisClient` seam. `api/index.ts` is now the seam, screens import from `../api`,
+  `AnalysisNotFound` is in the interface, and `getReport` rejects on an unknown id. Nine tests.
+  ADR-0003's inaccurate claim is amended in place.
+- `forgetVideo` and `isImageExt`, both dead. `localVideo` now holds one file and evicts on
+  write, which also closed a real leak — every upload was resident for the tab's lifetime.
+- Root `typecheck` now covers `server/`.
+- `verify-boundary.mjs` scanned comments and reported prose as an undeclared dependency; it
+  strips comments now.
+
+Still open:
+
+| | Where | Note |
+|---|---|---|
+| **The polling loop is untested** while `stateAt` has 12 tests | `studio/src/pages/AnalyzingPage.tsx` | **Highest priority.** Live public surface, and Phase F added retry logic to it |
+| Four copies of the cancellable-load pattern with incompatible error models | `web/src/pages/` | Shelved surface — payoff dropped. Two of the original six are typed now |
+| `LandmarkCard`'s interface sits at the wrong altitude | `web/src/components/` | Shelved |
+| The theme-pin contract is known in six places | both surfaces | One of the original seven went with the scorecard deployment |
+| `Tag` fails the deletion test | `ui/src/Tag.tsx` | Buys the `TagVariant` vocabulary and little else |
 
 The grilling session on the first of these was interrupted mid-round-one and never resumed.
 
