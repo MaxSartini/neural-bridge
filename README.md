@@ -22,7 +22,7 @@ unseen client video
     → future spike, continuous movement, valence, peak/weak-moment, and heat-map outputs
 ```
 
-Neural Bridge begins after this frozen upstream stack. the central point: raw predicted cortical features massively lose to a strong response-history baseline, while the learned Neural Bridge temporal and residual machinery exposed hightly valuable forward-looking signal above AR.
+Neural Bridge begins after this frozen upstream stack. the central point: raw predicted cortical features massively lose to a strong response-history baseline, while the learned Neural Bridge temporal and residual machinery exposed highly valuable forward-looking signal above AR.
 
 ### Why multiple datasets exist
 
