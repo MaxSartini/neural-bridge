@@ -6,7 +6,7 @@
 
 Neural Bridge answers **yes** across a programme that began with an event/spike breakthrough on [VEATIC](https://openaccess.thecvf.com/content/WACV2024/html/Ren_VEATIC_Video-Based_Emotion_and_Affect_Tracking_in_Context_Dataset_WACV_2024_paper.html) and matured on [AGAIN](https://doi.org/10.1109/TAFFC.2022.3188851). It first found rare future response events, then rebuilt and confirmed the event system under stronger controls, extended the bridge to continuous movement ranking, and finally retained substantial signal with no response labels or history at inference.
 
-The bridge converts frozen [V-JEPA 2.1](https://arxiv.org/abs/2603.14482) / [TRIBE v2](https://arxiv.org/abs/2605.04326) predictions into causally constrained temporal representations. The upstream values are model-predicted average-subject cortical responses—not neural recordings from the people represented by the affect labels.
+The upstream values are model-predicted average-subject cortical responses—not neural recordings from the people represented by the affect labels.
 
 ## The end goal: one cumulative production generalist
 
@@ -16,22 +16,11 @@ The intended production path is:
 
 ```text
 unseen client video
-    → V-JEPA 2.1 inside the TRIBE v2 encoding stack
+    → encoding stack
     → dense predicted cortical-response sequence
     → the combined Neural Bridge temporal model
     → future spike, continuous movement, valence, peak/weak-moment, and heat-map outputs
 ```
-
-### V-JEPA 2.1 and TRIBE v2 are one upstream stack
-
-V-JEPA 2.1 and TRIBE v2 are not two competing Neural Bridge models or two independent production inputs. V-JEPA 2.1 is the video encoder used inside the TRIBE v2 pipeline; TRIBE v2 maps that encoded video information into predicted average-subject cortical activity. For VEATIC 2.1, the expensive V-JEPA 2.1 pass was run once on H100 hardware and cached, then TRIBE v2 was run over those cached encoder outputs locally. That avoided paying to re-encode the same 124 videos while preserving the intended upstream stack.
-
-The protected VEATIC 2.1 dataset is
-`/Volumes/onn. Drive/Neural Bridge Artifacts/features/veatic-2.1/veatic-2.1/`.
-Its 124 per-video folders co-locate each final TRIBE `cortical_prediction` payload with its
-matching authoritative `rows.csv` and small alignment metadata. It is the mandatory and
-exclusive source of VEATIC 2.1 cortical predictions. The retired staging roots are preserved
-but not consulted.
 
 Neural Bridge begins after this frozen upstream stack. Raw TRIBE output is rich but is not expected to solve the product task by itself. AGAIN demonstrated the central point: raw predicted cortical features could lose to a strong response-history baseline, while the learned Neural Bridge temporal and residual machinery exposed useful forward-looking signal.
 
@@ -74,12 +63,6 @@ Exact human-response values are neither realistic nor necessary. People and audi
 
 The engineering objective is maximum accuracy, performance, robustness, and domain coverage in the most efficient defensible implementation. Efficiency is not permission to discard useful signal, reduce model capability, or skip necessary integration work.
 
-## Current VEATIC 2.1 status
-
-The downstream rebuild has been reset. No VEATIC 2.1 target, split, PCA, AR opponent,
-learned head, control, checkpoint, inference result, or accuracy claim is current. The only
-live status and authorization are in [`AGENTS.md`](AGENTS.md) and
-[`internal/handoff/CURRENT_STATE.md`](internal/handoff/CURRENT_STATE.md).
 
 ### Two peer-reviewed proving grounds
 
