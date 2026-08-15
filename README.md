@@ -22,7 +22,7 @@ unseen client video
     → future spike, continuous movement, valence, peak/weak-moment, and heat-map outputs
 ```
 
-Neural Bridge begins after this frozen upstream stack. Raw TRIBE output is rich but is not expected to solve the product task by itself. AGAIN demonstrated the central point: raw predicted cortical features could lose to a strong response-history baseline, while the learned Neural Bridge temporal and residual machinery exposed useful forward-looking signal.
+Neural Bridge begins after this frozen upstream stack. the central point: raw predicted cortical features massively lose to a strong response-history baseline, while the learned Neural Bridge temporal and residual machinery exposed hightly valuable forward-looking signal above AR.
 
 ### Why multiple datasets exist
 
