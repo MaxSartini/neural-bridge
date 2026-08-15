@@ -34,10 +34,6 @@ The datasets are complementary training and proving environments for the eventua
 | **VEATIC 2.1** | the same `124` VEATIC film, television, documentary, and contextual-affect videos rebuilt on the stronger dense 2 Hz V-JEPA 2.1/TRIBE v2 substrate; includes both arousal and valence | adds edited and narrative video structure, perceived contextual affect, valence, and domain coverage that AGAIN cannot provide |
 | **Future datasets** | new content types, populations, labels, and response conditions | extend coverage and reduce dependence on the quirks of any one benchmark before production claims are made |
 
-Each dataset must first earn its own scientifically valid capabilities. VEATIC 2.1 does
-**not** inherit AGAIN-fitted PCA, heads, thresholds, checkpoints, gates, code, or numerical
-choices. No transfer decision is current; the exhaustive AGAIN evidence audit must come
-first.
 
 After dataset-specific abilities are discovered and confirmed, they become inputs to the eventual combined production model. The exact consolidation architecture is itself an empirical question, but the product contract is fixed: one system should retain the useful abilities learned across gameplay, film, television, contextual video, advertisements, and future domains rather than selecting a different research model manually for every client.
 
